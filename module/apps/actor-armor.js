@@ -8,8 +8,8 @@ export default class ActorArmorConfig extends DocumentSheet {
     static get defaultOptions() {
         return foundry.utils.mergeObject(super.defaultOptions, {
             id: "actor-armor-config",
-            classes: ["dnd5e", "actor-armor-config"],
-            template: "systems/dnd5e/templates/apps/actor-armor.html",
+            classes: ["me5e", "actor-armor-config"],
+            template: "systems/me5e/templates/apps/actor-armor.html",
             width: 320,
             height: "auto"
         });
@@ -19,7 +19,7 @@ export default class ActorArmorConfig extends DocumentSheet {
 
     /** @inheritdoc */
     get title() {
-        return `${game.i18n.localize("DND5E.ArmorConfig")}: ${this.document.name}`;
+        return `${game.i18n.localize("ME5E.ArmorConfig")}: ${this.document.name}`;
     }
 
     /* -------------------------------------------- */
@@ -32,16 +32,16 @@ export default class ActorArmorConfig extends DocumentSheet {
         const ac = foundry.utils.getProperty(actorData, "attributes.ac");
 
         // Get configuration data for the calculation mode
-        let cfg = CONFIG.DND5E.armorClasses[ac.calc];
+        let cfg = CONFIG.ME5E.armorClasses[ac.calc];
         if(!cfg) {
             ac.calc = "flat";
-            cfg = CONFIG.DND5E.armorClasses.flat;
+            cfg = CONFIG.ME5E.armorClasses.flat;
         }
 
         // Return context data
         return {
             ac: ac,
-            calculations: CONFIG.DND5E.armorClasses,
+            calculations: CONFIG.ME5E.armorClasses,
             value: this.object._computeArmorClass(actorData).value,
             valueDisabled: !["flat", "natural"].includes(ac.calc),
             formula: ac.calc === "custom" ? ac.formula : cfg.formula,
@@ -72,7 +72,7 @@ export default class ActorArmorConfig extends DocumentSheet {
 
         // Reference form data
         const calc = this.form["ac.calc"].value;
-        const cfg = CONFIG.DND5E.armorClasses[calc];
+        const cfg = CONFIG.ME5E.armorClasses[calc];
         const enableFlat = ["flat", "natural"].includes(calc);
 
         // Handle changes to the calculation mode specifically

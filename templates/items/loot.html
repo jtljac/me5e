@@ -6,7 +6,7 @@
 
         <div class="header-details flexrow">
             <h1 class="charname">
-                <input name="name" type="text" value="{{item.name}}" placeholder="{{ localize 'DND5E.ItemName' }}"/>
+                <input name="name" type="text" value="{{item.name}}" placeholder="{{ localize 'ME5E.ItemName' }}"/>
             </h1>
 
             <div class="item-subtitle">
@@ -22,7 +22,7 @@
                 </li>
                 <li>
                     <input type="text" name="data.source" value="{{data.source}}"
-                           placeholder="{{ localize 'DND5E.Source' }}"/>
+                           placeholder="{{ localize 'ME5E.Source' }}"/>
                 </li>
             </ul>
         </div>
@@ -30,6 +30,6 @@
 
     {{!-- Item Sheet Body --}}
     <section class="sheet-body">
-        {{> "systems/dnd5e/templates/items/parts/item-description.html"}}
+        {{> "systems/me5e/templates/items/parts/item-description.html"}}
     </section>
 </form>

@@ -1,4 +1,4 @@
-import {DND5E} from "../config.js";
+import {ME5E} from "../config.js";
 
 /**
  * A helper class for building MeasuredTemplates for 5e spells and abilities
@@ -13,7 +13,7 @@ export default class AbilityTemplate extends MeasuredTemplate {
      */
     static fromItem(item) {
         const target = getProperty(item.data, "data.target") || {};
-        const templateShape = DND5E.areaTargetTypes[target.type];
+        const templateShape = ME5E.areaTargetTypes[target.type];
         if(!templateShape) return null;
 
         // Prepare template data

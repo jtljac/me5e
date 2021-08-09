@@ -11,7 +11,7 @@ export default class ActorSheet5eNPC extends ActorSheet5e {
     /** @override */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ["dnd5e", "sheet", "actor", "npc"],
+            classes: ["me5e", "sheet", "actor", "npc"],
             width: 600,
             height: 680
         });
@@ -32,10 +32,10 @@ export default class ActorSheet5eNPC extends ActorSheet5e {
 
         // Categorize Items as Features and Spells
         const features = {
-            weapons: {label: game.i18n.localize("DND5E.AttackPl"), items: [], hasActions: true, dataset: {type: "weapon", "weapon-type": "natural"}},
-            actions: {label: game.i18n.localize("DND5E.ActionPl"), items: [], hasActions: true, dataset: {type: "feat", "activation.type": "action"}},
-            passive: {label: game.i18n.localize("DND5E.Features"), items: [], dataset: {type: "feat"}},
-            equipment: {label: game.i18n.localize("DND5E.Inventory"), items: [], dataset: {type: "loot"}}
+            weapons: {label: game.i18n.localize("ME5E.AttackPl"), items: [], hasActions: true, dataset: {type: "weapon", "weapon-type": "natural"}},
+            actions: {label: game.i18n.localize("ME5E.ActionPl"), items: [], hasActions: true, dataset: {type: "feat", "activation.type": "action"}},
+            passive: {label: game.i18n.localize("ME5E.Features"), items: [], dataset: {type: "feat"}},
+            equipment: {label: game.i18n.localize("ME5E.Inventory"), items: [], dataset: {type: "loot"}}
         };
 
         // Start by classifying items into groups for rendering
@@ -101,8 +101,8 @@ export default class ActorSheet5eNPC extends ActorSheet5e {
     getArmorLabel() {
         const ac = this.actor.data.data.attributes.ac;
         const label = [];
-        if(ac.calc === "default") label.push(this.actor.armor?.name || game.i18n.localize("DND5E.ArmorClassUnarmored"));
-        else label.push(game.i18n.localize(CONFIG.DND5E.armorClasses[ac.calc].label));
+        if(ac.calc === "default") label.push(this.actor.armor?.name || game.i18n.localize("ME5E.ArmorClassUnarmored"));
+        else label.push(game.i18n.localize(CONFIG.ME5E.armorClasses[ac.calc].label));
         if(this.actor.shield) label.push(this.actor.shield.name);
         return label.filterJoin(", ");
     }

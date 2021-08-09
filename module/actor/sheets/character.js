@@ -14,7 +14,7 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
      */
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
-            classes: ["dnd5e", "sheet", "actor", "character"],
+            classes: ["me5e", "sheet", "actor", "character"],
             width: 720,
             height: 680
         });
@@ -37,23 +37,23 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
         sheetData["resources"] = ["primary", "secondary", "tertiary"].reduce((arr, r) => {
             const res = sheetData.data.resources[r] || {};
             res.name = r;
-            res.placeholder = game.i18n.localize("DND5E.Resource" + r.titleCase());
+            res.placeholder = game.i18n.localize("ME5E.Resource" + r.titleCase());
             if(res && res.value === 0) delete res.value;
             if(res && res.max === 0) delete res.max;
             return arr.concat([res]);
         }, []);
 
         // Experience Tracking
-        sheetData["disableExperience"] = game.settings.get("dnd5e", "disableExperienceTracking");
+        sheetData["disableExperience"] = game.settings.get("me5e", "disableExperienceTracking");
         sheetData["classLabels"] = this.actor.itemTypes.class.map(c => c.name).join(", ");
         sheetData["multiclassLabels"] = this.actor.itemTypes.class.map(c => {
             return [c.data.data.subclass, c.name, c.data.data.levels].filterJoin(' ');
         }).join(', ');
 
         // Weight unit
-        sheetData["weightUnit"] = game.settings.get("dnd5e", "metricWeightUnits")
-            ? game.i18n.localize("DND5E.AbbreviationKgs")
-            : game.i18n.localize("DND5E.AbbreviationLbs");
+        sheetData["weightUnit"] = game.settings.get("me5e", "metricWeightUnits")
+            ? game.i18n.localize("ME5E.AbbreviationKgs")
+            : game.i18n.localize("ME5E.AbbreviationLbs");
 
         // Return data for rendering
         return sheetData;
@@ -69,12 +69,12 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
 
         // Categorize items as inventory, spellbook, features, and classes
         const inventory = {
-            weapon: {label: "DND5E.ItemTypeWeaponPl", items: [], dataset: {type: "weapon"}},
-            equipment: {label: "DND5E.ItemTypeEquipmentPl", items: [], dataset: {type: "equipment"}},
-            consumable: {label: "DND5E.ItemTypeConsumablePl", items: [], dataset: {type: "consumable"}},
-            tool: {label: "DND5E.ItemTypeToolPl", items: [], dataset: {type: "tool"}},
-            backpack: {label: "DND5E.ItemTypeContainerPl", items: [], dataset: {type: "backpack"}},
-            loot: {label: "DND5E.ItemTypeLootPl", items: [], dataset: {type: "loot"}}
+            weapon: {label: "ME5E.ItemTypeWeaponPl", items: [], dataset: {type: "weapon"}},
+            equipment: {label: "ME5E.ItemTypeEquipmentPl", items: [], dataset: {type: "equipment"}},
+            consumable: {label: "ME5E.ItemTypeConsumablePl", items: [], dataset: {type: "consumable"}},
+            tool: {label: "ME5E.ItemTypeToolPl", items: [], dataset: {type: "tool"}},
+            backpack: {label: "ME5E.ItemTypeContainerPl", items: [], dataset: {type: "backpack"}},
+            loot: {label: "ME5E.ItemTypeLootPl", items: [], dataset: {type: "loot"}}
         };
 
         // Partition items by category
@@ -84,15 +84,15 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
             item.img = item.img || CONST.DEFAULT_TOKEN;
             item.isStack = Number.isNumeric(item.data.quantity) && (item.data.quantity !== 1);
             item.attunement = {
-                [CONFIG.DND5E.attunementTypes.REQUIRED]: {
+                [CONFIG.ME5E.attunementTypes.REQUIRED]: {
                     icon: "fa-sun",
                     cls: "not-attuned",
-                    title: "DND5E.AttunementRequired"
+                    title: "ME5E.AttunementRequired"
                 },
-                [CONFIG.DND5E.attunementTypes.ATTUNED]: {
+                [CONFIG.ME5E.attunementTypes.ATTUNED]: {
                     icon: "fa-sun",
                     cls: "attuned",
-                    title: "DND5E.AttunementAttuned"
+                    title: "ME5E.AttunementAttuned"
                 }
             }[item.data.attunement];
 
@@ -137,9 +137,9 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
 
         // Organize Features
         const features = {
-            classes: {label: "DND5E.ItemTypeClassPl", items: [], hasActions: false, dataset: {type: "class"}, isClass: true},
-            active: {label: "DND5E.FeatureActive", items: [], hasActions: true, dataset: {type: "feat", "activation.type": "action"}},
-            passive: {label: "DND5E.FeaturePassive", items: [], hasActions: false, dataset: {type: "feat"}}
+            classes: {label: "ME5E.ItemTypeClassPl", items: [], hasActions: false, dataset: {type: "class"}, isClass: true},
+            active: {label: "ME5E.FeatureActive", items: [], hasActions: true, dataset: {type: "feat", "activation.type": "action"}},
+            passive: {label: "ME5E.FeaturePassive", items: [], hasActions: false, dataset: {type: "feat"}}
         };
         for(let f of feats) {
             if(f.data.activation.type) features.active.items.push(f);
@@ -168,13 +168,13 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
             const isPrepared = getProperty(item.data, "preparation.prepared");
             item.toggleClass = isPrepared ? "active" : "";
             if(isAlways) item.toggleClass = "fixed";
-            if(isAlways) item.toggleTitle = CONFIG.DND5E.spellPreparationModes.always;
-            else if(isPrepared) item.toggleTitle = CONFIG.DND5E.spellPreparationModes.prepared;
-            else item.toggleTitle = game.i18n.localize("DND5E.SpellUnprepared");
+            if(isAlways) item.toggleTitle = CONFIG.ME5E.spellPreparationModes.always;
+            else if(isPrepared) item.toggleTitle = CONFIG.ME5E.spellPreparationModes.prepared;
+            else item.toggleTitle = game.i18n.localize("ME5E.SpellUnprepared");
         } else {
             const isActive = getProperty(item.data, "equipped");
             item.toggleClass = isActive ? "active" : "";
-            item.toggleTitle = game.i18n.localize(isActive ? "DND5E.Equipped" : "DND5E.Unequipped");
+            item.toggleTitle = game.i18n.localize(isActive ? "ME5E.Equipped" : "ME5E.Unequipped");
         }
     }
 
@@ -215,8 +215,8 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
         switch(button.dataset.action) {
             case "convertCurrency":
                 return Dialog.confirm({
-                    title: `${game.i18n.localize("DND5E.CurrencyConvert")}`,
-                    content: `<p>${game.i18n.localize("DND5E.CurrencyConvertHint")}</p>`,
+                    title: `${game.i18n.localize("ME5E.CurrencyConvert")}`,
+                    content: `<p>${game.i18n.localize("ME5E.CurrencyConvertHint")}</p>`,
                     yes: () => this.actor.convertCurrency()
                 });
             case "rollDeathSave":

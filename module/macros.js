@@ -16,7 +16,7 @@ export async function create5eMacro(data, slot) {
     const item = data.data;
 
     // Create the macro command
-    const command = `game.dnd5e.rollItemMacro("${item.name}");`;
+    const command = `game.me5e.rollItemMacro("${item.name}");`;
     let macro = game.macros.entities.find(m => (m.name === item.name) && (m.command === command));
     if(!macro) {
         macro = await Macro.create({
@@ -24,7 +24,7 @@ export async function create5eMacro(data, slot) {
             type: "script",
             img: item.img,
             command: command,
-            flags: {"dnd5e.itemMacro": true}
+            flags: {"me5e.itemMacro": true}
         });
     }
     game.user.assignHotbarMacro(macro, slot);

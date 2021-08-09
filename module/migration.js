@@ -3,7 +3,7 @@
  * @return {Promise}      A Promise which resolves once the migration is completed
  */
 export const migrateWorld = async function() {
-    ui.notifications.info(`Applying DnD5E System Migration for version ${game.system.data.version}. Please be patient and do not close your game or shut down your server.`, {permanent: true});
+    ui.notifications.info(`Applying ME5E System Migration for version ${game.system.data.version}. Please be patient and do not close your game or shut down your server.`, {permanent: true});
 
     // Migrate World Actors
     for(let a of game.actors.contents) {
@@ -14,7 +14,7 @@ export const migrateWorld = async function() {
                 await a.update(updateData, {enforceTypes: false});
             }
         } catch(err) {
-            err.message = `Failed dnd5e system migration for Actor ${a.name}: ${err.message}`;
+            err.message = `Failed me5e system migration for Actor ${a.name}: ${err.message}`;
             console.error(err);
         }
     }
@@ -28,7 +28,7 @@ export const migrateWorld = async function() {
                 await i.update(updateData, {enforceTypes: false});
             }
         } catch(err) {
-            err.message = `Failed dnd5e system migration for Item ${i.name}: ${err.message}`;
+            err.message = `Failed me5e system migration for Item ${i.name}: ${err.message}`;
             console.error(err);
         }
     }
@@ -45,7 +45,7 @@ export const migrateWorld = async function() {
                 s.tokens.contents.forEach(t => t._actor = null);
             }
         } catch(err) {
-            err.message = `Failed dnd5e system migration for Scene ${s.name}: ${err.message}`;
+            err.message = `Failed me5e system migration for Scene ${s.name}: ${err.message}`;
             console.error(err);
         }
     }
@@ -58,8 +58,8 @@ export const migrateWorld = async function() {
     }
 
     // Set the migration as complete
-    game.settings.set("dnd5e", "systemMigrationVersion", game.system.data.version);
-    ui.notifications.info(`DnD5E System Migration to version ${game.system.data.version} completed!`, {permanent: true});
+    game.settings.set("me5e", "systemMigrationVersion", game.system.data.version);
+    ui.notifications.info(`ME5E System Migration to version ${game.system.data.version} completed!`, {permanent: true});
 };
 
 /* -------------------------------------------- */
@@ -105,7 +105,7 @@ export const migrateCompendium = async function(pack) {
 
             // Handle migration failures
         catch(err) {
-            err.message = `Failed dnd5e system migration for entity ${doc.name} in pack ${pack.collection}: ${err.message}`;
+            err.message = `Failed me5e system migration for entity ${doc.name} in pack ${pack.collection}: ${err.message}`;
             console.error(err);
         }
     }
@@ -128,7 +128,7 @@ export const migrateArmorClass = async function(pack) {
     await pack.configure({locked: false});
     const actors = await pack.getDocuments();
     const updates = [];
-    const armor = new Set(Object.keys(CONFIG.DND5E.armorTypes));
+    const armor = new Set(Object.keys(CONFIG.ME5E.armorTypes));
 
     for(const actor of actors) {
         try {
@@ -221,12 +221,12 @@ function cleanActorData(actorData) {
     actorData.data = filterObject(actorData.data, model);
 
     // Scrub system flags
-    const allowedFlags = CONFIG.DND5E.allowedActorFlags.reduce((obj, f) => {
+    const allowedFlags = CONFIG.ME5E.allowedActorFlags.reduce((obj, f) => {
         obj[f] = null;
         return obj;
     }, {});
-    if(actorData.flags.dnd5e) {
-        actorData.flags.dnd5e = filterObject(actorData.flags.dnd5e, allowedFlags);
+    if(actorData.flags.me5e) {
+        actorData.flags.me5e = filterObject(actorData.flags.me5e, allowedFlags);
     }
 
     // Return the scrubbed data
@@ -339,7 +339,7 @@ function _migrateActorSenses(actor, updateData) {
         const match = s.match(pattern);
         if(!match) continue;
         const type = match[1].toLowerCase();
-        if(type in CONFIG.DND5E.senses) {
+        if(type in CONFIG.ME5E.senses) {
             updateData[`data.attributes.senses.${type}`] = Number(match[2]).toNearest(0.5);
             wasMatched = true;
         }
@@ -381,7 +381,7 @@ function _migrateActorType(actor, updateData) {
 
         // Match a known creature type
         const typeLc = match.groups.type.trim().toLowerCase();
-        const typeMatch = Object.entries(CONFIG.DND5E.creatureTypes).find(([k, v]) => {
+        const typeMatch = Object.entries(CONFIG.ME5E.creatureTypes).find(([k, v]) => {
             return (typeLc === k) ||
                 (typeLc === game.i18n.localize(v).toLowerCase()) ||
                 (typeLc === game.i18n.localize(`${v}Pl`).toLowerCase());
@@ -394,10 +394,10 @@ function _migrateActorType(actor, updateData) {
         data.subtype = match.groups.subtype?.trim().titleCase() || "";
 
         // Match a swarm
-        const isNamedSwarm = actor.name.startsWith(game.i18n.localize("DND5E.CreatureSwarm"));
+        const isNamedSwarm = actor.name.startsWith(game.i18n.localize("ME5E.CreatureSwarm"));
         if(match.groups.size || isNamedSwarm) {
             const sizeLc = match.groups.size ? match.groups.size.trim().toLowerCase() : "tiny";
-            const sizeMatch = Object.entries(CONFIG.DND5E.actorSizes).find(([k, v]) => {
+            const sizeMatch = Object.entries(CONFIG.ME5E.actorSizes).find(([k, v]) => {
                 return (sizeLc === k) || (sizeLc === game.i18n.localize(v).toLowerCase());
             });
             data.swarm = sizeMatch ? sizeMatch[0] : "tiny";
@@ -441,7 +441,7 @@ function _migrateActorAC(actorData, updateData) {
  */
 function _migrateItemAttunement(item, updateData) {
     if(item.data?.attuned === undefined) return updateData;
-    updateData["data.attunement"] = CONFIG.DND5E.attunementTypes.NONE;
+    updateData["data.attunement"] = CONFIG.ME5E.attunementTypes.NONE;
     updateData["data.-=attuned"] = null;
     return updateData;
 }
@@ -458,8 +458,8 @@ function _migrateItemAttunement(item, updateData) {
  */
 function _migrateItemRarity(item, updateData) {
     if(item.data?.rarity === undefined) return updateData;
-    const rarity = Object.keys(CONFIG.DND5E.itemRarity).find(key =>
-        (CONFIG.DND5E.itemRarity[key].toLowerCase() === item.data.rarity.toLowerCase()) || (key === item.data.rarity)
+    const rarity = Object.keys(CONFIG.ME5E.itemRarity).find(key =>
+        (CONFIG.ME5E.itemRarity[key].toLowerCase() === item.data.rarity.toLowerCase()) || (key === item.data.rarity)
     );
     updateData["data.rarity"] = rarity ?? "";
     return updateData;
@@ -494,8 +494,8 @@ function _migrateItemSpellcasting(item, updateData) {
  */
 export async function purgeFlags(pack) {
     const cleanFlags = (flags) => {
-        const flags5e = flags.dnd5e || null;
-        return flags5e ? {dnd5e: flags5e} : {};
+        const flags5e = flags.me5e || null;
+        return flags5e ? {me5e: flags5e} : {};
     };
     await pack.configure({locked: false});
     const content = await pack.getContent();

@@ -1,6 +1,6 @@
 <div class="traits">
     <div class="form-group">
-        <label>{{localize "DND5E.Size"}}</label>
+        <label>{{localize "ME5E.Size"}}</label>
         <select class="actor-size" name="data.traits.size">
             {{#select data.traits.size}}
             {{#each config.actorSizes as |label size|}}
@@ -12,8 +12,8 @@
 
     {{#unless isVehicle}}
     <div class="form-group">
-        <label>{{localize "DND5E.Senses"}}</label>
-        <a class="config-button" data-action="senses" title="{{localize 'DND5E.SensesConfig'}}"><i
+        <label>{{localize "ME5E.Senses"}}</label>
+        <a class="config-button" data-action="senses" title="{{localize 'ME5E.SensesConfig'}}"><i
                 class="fas fa-cog"></i></a>
         <ul class="traits-list">
             {{#each senses as |v k|}}
@@ -23,7 +23,7 @@
     </div>
 
     <div class="form-group {{data.traits.languages.cssClass}}">
-        <label>{{localize "DND5E.Languages"}}</label>
+        <label>{{localize "ME5E.Languages"}}</label>
         <a class="trait-selector" data-options="languages" data-target="data.traits.languages">
             <i class="fas fa-edit"></i>
         </a>
@@ -36,7 +36,7 @@
     {{/unless}}
 
     <div class="form-group {{data.traits.di.cssClass}}">
-        <label>{{localize "DND5E.DamImm"}}</label>
+        <label>{{localize "ME5E.DamImm"}}</label>
         <a class="trait-selector" data-options="damageResistanceTypes" data-target="data.traits.di">
             <i class="fas fa-edit"></i>
         </a>
@@ -48,7 +48,7 @@
     </div>
 
     <div class="form-group {{data.traits.dr.cssClass}}">
-        <label>{{localize "DND5E.DamRes"}}</label>
+        <label>{{localize "ME5E.DamRes"}}</label>
         <a class="trait-selector" data-options="damageResistanceTypes" data-target="data.traits.dr">
             <i class="fas fa-edit"></i>
         </a>
@@ -60,7 +60,7 @@
     </div>
 
     <div class="form-group {{data.traits.dv.cssClass}}">
-        <label>{{localize "DND5E.DamVuln"}}</label>
+        <label>{{localize "ME5E.DamVuln"}}</label>
         <a class="trait-selector" data-options="damageResistanceTypes" data-target="data.traits.dv">
             <i class="fas fa-edit"></i>
         </a>
@@ -72,7 +72,7 @@
     </div>
 
     <div class="form-group {{data.traits.ci.cssClass}}">
-        <label>{{localize "DND5E.ConImm"}}</label>
+        <label>{{localize "ME5E.ConImm"}}</label>
         <a class="trait-selector" data-options="conditionTypes" data-target="data.traits.ci">
             <i class="fas fa-edit"></i>
         </a>
@@ -85,7 +85,7 @@
 
     {{#if isCharacter}}
     <div class="form-group {{data.traits.weaponProf.cssClass}}">
-        <label>{{localize "DND5E.TraitWeaponProf"}}</label>
+        <label>{{localize "ME5E.TraitWeaponProf"}}</label>
         <a class="proficiency-selector" data-type="weapon" data-target="data.traits.weaponProf">
             <i class="fas fa-edit"></i>
         </a>
@@ -97,7 +97,7 @@
     </div>
 
     <div class="form-group {{data.traits.armorProf.cssClass}}">
-        <label>{{localize "DND5E.TraitArmorProf"}}</label>
+        <label>{{localize "ME5E.TraitArmorProf"}}</label>
         <a class="proficiency-selector" data-type="armor" data-target="data.traits.armorProf">
             <i class="fas fa-edit"></i>
         </a>
@@ -109,7 +109,7 @@
     </div>
 
     <div class="form-group {{data.traits.toolProf.cssClass}}">
-        <label>{{localize "DND5E.TraitToolProf"}}</label>
+        <label>{{localize "ME5E.TraitToolProf"}}</label>
         <a class="proficiency-selector" data-type="tool" data-target="data.traits.toolProf">
             <i class="fas fa-edit"></i>
         </a>
@@ -123,8 +123,8 @@
 
     {{#unless isVehicle}}
     <div class="form-group ">
-        <label>{{localize "DND5E.SpecialTraits"}}</label>
-        <a class="config-button" data-action="flags" title="{{localize 'DND5E.SpecialTraits'}}"><i
+        <label>{{localize "ME5E.SpecialTraits"}}</label>
+        <a class="config-button" data-action="flags" title="{{localize 'ME5E.SpecialTraits'}}"><i
                 class="fas fa-cog"></i></a>
     </div>
     {{/unless}}
