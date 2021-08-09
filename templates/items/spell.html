@@ -22,7 +22,8 @@
                     {{labels.school}}
                 </li>
                 <li>
-                    <input type="text" name="data.source" value="{{data.source}}" placeholder="{{ localize 'DND5E.Source' }}"/>
+                    <input type="text" name="data.source" value="{{data.source}}"
+                           placeholder="{{ localize 'DND5E.Source' }}"/>
                 </li>
             </ul>
         </div>
@@ -73,19 +74,24 @@
             <div class="spell-components form-group stacked">
                 <label>{{ localize "DND5E.SpellComponents" }}</label>
                 <label class="checkbox">
-                    <input type="checkbox" name="data.components.vocal" {{checked data.components.vocal}}/> {{ localize "DND5E.ComponentVerbal" }}
+                    <input type="checkbox" name="data.components.vocal" {{checked data.components.vocal}}/> {{ localize
+                    "DND5E.ComponentVerbal" }}
                 </label>
                 <label class="checkbox">
-                    <input type="checkbox" name="data.components.somatic" {{checked data.components.somatic}}/> {{ localize "DND5E.ComponentSomatic" }}
+                    <input type="checkbox" name="data.components.somatic" {{checked data.components.somatic}}/> {{
+                    localize "DND5E.ComponentSomatic" }}
                 </label>
                 <label class="checkbox">
-                    <input type="checkbox" name="data.components.material" {{checked data.components.material}}/> {{ localize "DND5E.ComponentMaterial" }}
+                    <input type="checkbox" name="data.components.material" {{checked data.components.material}}/> {{
+                    localize "DND5E.ComponentMaterial" }}
                 </label>
                 <label class="checkbox">
-                    <input type="checkbox" name="data.components.concentration" {{checked data.components.concentration}}/> {{ localize "DND5E.Concentration" }}
+                    <input type="checkbox" name="data.components.concentration" {{checked
+                           data.components.concentration}}/> {{ localize "DND5E.Concentration" }}
                 </label>
                 <label class="checkbox">
-                    <input type="checkbox" name="data.components.ritual" {{checked data.components.ritual}}/> {{ localize "DND5E.Ritual" }}
+                    <input type="checkbox" name="data.components.ritual" {{checked data.components.ritual}}/> {{
+                    localize "DND5E.Ritual" }}
                 </label>
             </div>
 
@@ -96,9 +102,11 @@
                 {{#if data.materials.value}}
                 <div class="spell-materials flexrow">
                     <label>{{ localize "DND5E.Supply" }}</label>
-                    <input type="text" name="data.materials.supply" value="{{data.materials.supply}}" data-dtype="Number" Placeholder="0"/>
+                    <input type="text" name="data.materials.supply" value="{{data.materials.supply}}"
+                           data-dtype="Number" Placeholder="0"/>
                     <label>{{ localize "DND5E.CostGP" }}</label>
-                    <input type="text" name="data.materials.cost" value="{{data.materials.cost}}" data-dtype="Number" Placeholder="-"/>
+                    <input type="text" name="data.materials.cost" value="{{data.materials.cost}}" data-dtype="Number"
+                           Placeholder="-"/>
                     <label>{{ localize "DND5E.Consumed" }}</label>
                     <input type="checkbox" name="data.materials.consumed" {{checked data.materials.consumed}}/>
                 </div>
@@ -110,7 +118,8 @@
                 <label>{{ localize "DND5E.SpellPreparationMode" }}</label>
                 <div class="form-fields">
                     <label class="checkbox prepared">
-                        {{ localize "DND5E.SpellPrepared" }} <input type="checkbox" name="data.preparation.prepared" {{checked data.preparation.prepared}}/>
+                        {{ localize "DND5E.SpellPrepared" }} <input type="checkbox" name="data.preparation.prepared"
+                                                                    {{checked data.preparation.prepared}}/>
                     </label>
                     <select name="data.preparation.mode">
                         {{ selectOptions config.spellPreparationModes selected=data.preparation.mode }}
@@ -139,7 +148,8 @@
                         {{/each}}
                         {{/select}}
                     </select>
-                    <input type="text" name="data.scaling.formula" value="{{data.scaling.formula}}" placeholder="{{ localize 'DND5E.ScalingFormula' }}"/>
+                    <input type="text" name="data.scaling.formula" value="{{data.scaling.formula}}"
+                           placeholder="{{ localize 'DND5E.ScalingFormula' }}"/>
                 </div>
             </div>
         </div>

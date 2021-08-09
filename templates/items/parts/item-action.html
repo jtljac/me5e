@@ -37,13 +37,14 @@
 
 {{!-- Damage Formula --}}
 <h4 class="damage-header">
-    {{#unless isHealing }}{{ localize "DND5E.Damage" }}{{ else }}{{ localize "DND5E.Healing" }}{{/unless}} {{ localize "DND5E.Formula" }}
+    {{#unless isHealing }}{{ localize "DND5E.Damage" }}{{ else }}{{ localize "DND5E.Healing" }}{{/unless}} {{ localize
+    "DND5E.Formula" }}
     <a class="damage-control add-damage"><i class="fas fa-plus"></i></a>
 </h4>
 <ol class="damage-parts form-group">
     {{#each data.damage.parts as |part i| }}
     <li class="damage-part flexrow" data-damage-part="{{i}}">
-        <input type="text" name="data.damage.parts.{{i}}.0" value="{{lookup this "0"}}"/>
+        <input type="text" name="data.damage.parts.{{i}}.0" value="{{lookup this " 0"}}"/>
         <select name="data.damage.parts.{{i}}.1">
             {{#select (lookup this "1") }}
             <option value="">{{ localize "DND5E.None" }}</option>
@@ -65,7 +66,8 @@
 <div class="form-group">
     <label>{{ localize "DND5E.VersatileDamage" }}</label>
     <div class="form-fields">
-        <input type="text" name="data.damage.versatile" value="{{data.damage.versatile}}" placeholder="{{ localize 'DND5E.Formula' }}"/>
+        <input type="text" name="data.damage.versatile" value="{{data.damage.versatile}}"
+               placeholder="{{ localize 'DND5E.Formula' }}"/>
     </div>
 </div>
 {{/if}}
@@ -91,7 +93,8 @@
             {{/select}}
         </select>
         <span>{{ localize "DND5E.VsDC" }}</span>
-        <input type="text" name="data.save.dc" value="{{#if data.save.dc}}{{data.save.dc}}{{/if}}" data-dtype="Number" placeholder="{{ localize 'DND5E.AbbreviationDC' }}" {{#unless isFlatDC}}disabled{{/unless}}/>
+        <input type="text" name="data.save.dc" value="{{#if data.save.dc}}{{data.save.dc}}{{/if}}" data-dtype="Number"
+               placeholder="{{ localize 'DND5E.AbbreviationDC' }}" {{#unless isFlatDC}}disabled{{/unless}}/>
         <select name="data.save.scaling">
             {{#select data.save.scaling}}
             <option value="spell">{{ localize "DND5E.Spellcasting" }}</option>

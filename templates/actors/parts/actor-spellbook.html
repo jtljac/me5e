@@ -24,12 +24,14 @@
         <li class="filter-item" data-filter="reaction">{{localize "DND5E.Reaction"}}</li>
         <li class="filter-item" data-filter="concentration">{{localize "DND5E.AbbreviationConc"}}</li>
         <li class="filter-item" data-filter="ritual">{{localize "DND5E.Ritual"}}</li>
-        <li class="filter-item" data-filter="prepared">{{localize "DND5E.Prepared"}}{{#if preparedSpells}} ({{preparedSpells}}){{/if}}</li>
+        <li class="filter-item" data-filter="prepared">{{localize "DND5E.Prepared"}}{{#if preparedSpells}}
+            ({{preparedSpells}}){{/if}}
+        </li>
     </ul>
 </div>
 
 <ol class="items-list inventory-list">
-{{#each spellbook as |section|}}
+    {{#each spellbook as |section|}}
     <li class="items-header spellbook-header flexrow">
         <div class="item-name flexrow">
             <h3>{{section.label}}</h3>
@@ -59,15 +61,16 @@
 
         <div class="item-controls flexrow">
             {{#if section.canCreate}}
-            <a class="item-control item-create" title="{{localize 'DND5E.SpellCreate'}}" {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
-                <i class="fas fa-plus"></i> {{localize "DND5E.Add"}}
+            <a class="item-control item-create" title="{{localize 'DND5E.SpellCreate'}}" {{#each section.dataset as |v
+               k|}}data-{{k}}="{{v}}" {{/each}}>
+            <i class="fas fa-plus"></i> {{localize "DND5E.Add"}}
             </a>
             {{/if}}
         </div>
     </li>
 
     <ol class="item-list">
-    {{#each section.spells as |item i|}}
+        {{#each section.spells as |item i|}}
         <li class="item flexrow" data-item-id="{{item._id}}">
             <div class="item-name flexrow rollable">
                 <div class="item-image" style="background-image: url('{{item.img}}')"></div>
@@ -93,16 +96,17 @@
             {{#if ../../owner}}
             <div class="item-controls flexrow">
                 {{#if section.canPrepare}}
-                <a class="item-control item-toggle {{item.toggleClass}}" title="{{item.toggleTitle}}"><i class="fas fa-sun"></i></a>
+                <a class="item-control item-toggle {{item.toggleClass}}" title="{{item.toggleTitle}}"><i
+                        class="fas fa-sun"></i></a>
                 {{/if}}
                 <a class="item-control item-edit" title="{{localize 'DND5E.ItemEdit'}}"><i class="fas fa-edit"></i></a>
                 <a class="item-control item-delete" title="{{localize 'DND5E.ItemDelete'}}"><i class="fas fa-trash"></i></a>
             </div>
             {{/if}}
         </li>
-    {{/each}}
+        {{/each}}
     </ol>
-{{else}}
+    {{else}}
     {{#if owner}}
     {{#if filters.spellbook.size}}
     <li class="item flexrow"><p class="notes">{{localize "DND5E.FilterNoSpells"}}</p></li>
@@ -116,5 +120,5 @@
     <li class="item flexrow"><p class="notes">{{localize "DND5E.NoSpellLevels"}}</p></li>
     {{/if}}
     {{/if}}
-{{/each}}
+    {{/each}}
 </ol>

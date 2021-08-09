@@ -27,7 +27,7 @@ export default class ActorHitDiceConfig extends DocumentSheet {
     getData(options) {
         return {
             classes: this.object.items.reduce((classes, item) => {
-                if (item.data.type === "class") {
+                if(item.data.type === "class") {
                     // Add the appropriate data only if this item is a "class"
                     classes.push({
                         classItemId: item.data._id,
@@ -68,7 +68,7 @@ export default class ActorHitDiceConfig extends DocumentSheet {
         const actorItems = this.object.items;
         const classUpdates = Object.entries(formData).map(([id, hd]) => ({
             _id: id,
-            "data.hitDiceUsed": actorItems.get(id).data.data.levels - hd,
+            "data.hitDiceUsed": actorItems.get(id).data.data.levels - hd
         }));
         return this.object.updateEmbeddedDocuments("Item", classUpdates);
     }

@@ -15,7 +15,7 @@
                 </li>
                 <li>
                     <select name="data.vehicleType">
-                      {{selectOptions config.vehicleTypes selected=data.vehicleType}}
+                        {{selectOptions config.vehicleTypes selected=data.vehicleType}}
                     </select>
                 </li>
                 <li>
@@ -62,7 +62,8 @@
                 <li class="attribute movement">
                     <h4 class="attribute-name box-title">
                         {{ localize "DND5E.Movement" }}
-                        <a class="config-button" data-action="movement" title="{{localize 'DND5E.MovementConfig'}}"><i class="fas fa-cog"></i></a>
+                        <a class="config-button" data-action="movement" title="{{localize 'DND5E.MovementConfig'}}"><i
+                                class="fas fa-cog"></i></a>
                     </h4>
                     <div class="attribute-value">
                         <span>{{movement.primary}}</span>
@@ -85,7 +86,7 @@
     <section class="sheet-body">
         <div class="tab attributes flexrow" data-group="primary" data-tab="attributes">
             <ul class="ability-scores flexrow">
-            {{#each data.abilities as |ability id|}}
+                {{#each data.abilities as |ability id|}}
                 <li class="ability" data-ability="{{id}}">
                     <h4 class="ability-name box-title rollable">{{ability.label}}</h4>
                     <input class="ability-score" name="data.abilities.{{id}}.value" type="text"
@@ -96,7 +97,7 @@
                         </span>
                     </div>
                 </li>
-            {{/each}}
+                {{/each}}
             </ul>
             <section class="center-pane flexcol">
                 <div class="counters">
@@ -164,7 +165,7 @@
         </div>
         <div class="tab biography flexcol" data-group="primary" data-tab="biography">
             {{editor content=data.details.biography.value target='data.details.biography.value'
-                     button=true owner=owner editable=editable rollData=rollData}}
+            button=true owner=owner editable=editable rollData=rollData}}
         </div>
     </section>
 </form>

@@ -2,7 +2,8 @@
 <div class="form-group input-select">
     <label>{{ localize "DND5E.ItemActivationCost" }}</label>
     <div class="form-fields">
-        <input type="text" name="data.activation.cost" value="{{data.activation.cost}}" data-dtype="Number" placeholder="-"/>
+        <input type="text" name="data.activation.cost" value="{{data.activation.cost}}" data-dtype="Number"
+               placeholder="-"/>
         <select name="data.activation.type">
             {{#select data.activation.type}}
             <option value=""></option>
@@ -29,10 +30,10 @@
     <div class="form-fields">
         <select name="data.cover" data-dtype="Number">
             {{#select data.cover}}
-                <option value="">&mdash;</option>
-                {{#each config.cover as |v k|}}
-                    <option value="{{k}}">{{v}}</option>
-                {{/each}}
+            <option value="">&mdash;</option>
+            {{#each config.cover as |v k|}}
+            <option value="{{k}}">{{v}}</option>
+            {{/each}}
             {{/select}}
         </select>
     </div>
@@ -77,9 +78,11 @@
 <div class="form-group input-select">
     <label>{{ localize "DND5E.Range" }}</label>
     <div class="form-fields">
-        <input type="text" name="data.range.value" value="{{data.range.value}}" data-dtype="Number" placeholder="{{ localize 'DND5E.Normal' }}"/>
+        <input type="text" name="data.range.value" value="{{data.range.value}}" data-dtype="Number"
+               placeholder="{{ localize 'DND5E.Normal' }}"/>
         <span class="sep">/</span>
-        <input type="text" name="data.range.long" value="{{data.range.long}}" data-dtype="Number" placeholder="{{ localize 'DND5E.Max' }}"/>
+        <input type="text" name="data.range.long" value="{{data.range.long}}" data-dtype="Number"
+               placeholder="{{ localize 'DND5E.Max' }}"/>
         <select name="data.range.units">
             {{#select data.range.units}}
             <option value=""></option>
@@ -95,7 +98,8 @@
 <div class="form-group input-select">
     <label>{{ localize "DND5E.Duration" }}</label>
     <div class="form-fields">
-        <input type="text" name="data.duration.value" value="{{data.duration.value}}" data-dtype="Number" placeholder="-"/>
+        <input type="text" name="data.duration.value" value="{{data.duration.value}}" data-dtype="Number"
+               placeholder="-"/>
         <select name="data.duration.units">
             {{#select data.duration.units}}
             <option value=""></option>

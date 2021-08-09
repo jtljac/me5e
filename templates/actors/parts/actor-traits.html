@@ -4,7 +4,7 @@
         <select class="actor-size" name="data.traits.size">
             {{#select data.traits.size}}
             {{#each config.actorSizes as |label size|}}
-                <option value="{{size}}">{{label}}</option>
+            <option value="{{size}}">{{label}}</option>
             {{/each}}
             {{/select}}
         </select>
@@ -13,11 +13,12 @@
     {{#unless isVehicle}}
     <div class="form-group">
         <label>{{localize "DND5E.Senses"}}</label>
-        <a class="config-button" data-action="senses" title="{{localize 'DND5E.SensesConfig'}}"><i class="fas fa-cog"></i></a>
+        <a class="config-button" data-action="senses" title="{{localize 'DND5E.SensesConfig'}}"><i
+                class="fas fa-cog"></i></a>
         <ul class="traits-list">
-        {{#each senses as |v k|}}
+            {{#each senses as |v k|}}
             <li class="tag {{k}}">{{v}}</li>
-        {{/each}}
+            {{/each}}
         </ul>
     </div>
 
@@ -27,9 +28,9 @@
             <i class="fas fa-edit"></i>
         </a>
         <ul class="traits-list">
-        {{#each data.traits.languages.selected as |v k|}}
+            {{#each data.traits.languages.selected as |v k|}}
             <li class="tag {{k}}">{{v}}</li>
-        {{/each}}
+            {{/each}}
         </ul>
     </div>
     {{/unless}}
@@ -40,9 +41,9 @@
             <i class="fas fa-edit"></i>
         </a>
         <ul class="traits-list">
-        {{#each data.traits.di.selected as |v k|}}
+            {{#each data.traits.di.selected as |v k|}}
             <li class="tag {{k}}">{{v}}</li>
-        {{/each}}
+            {{/each}}
         </ul>
     </div>
 
@@ -52,9 +53,9 @@
             <i class="fas fa-edit"></i>
         </a>
         <ul class="traits-list">
-        {{#each data.traits.dr.selected as |v k|}}
+            {{#each data.traits.dr.selected as |v k|}}
             <li class="tag {{k}}">{{v}}</li>
-        {{/each}}
+            {{/each}}
         </ul>
     </div>
 
@@ -64,9 +65,9 @@
             <i class="fas fa-edit"></i>
         </a>
         <ul class="traits-list">
-        {{#each data.traits.dv.selected as |v k|}}
+            {{#each data.traits.dv.selected as |v k|}}
             <li class="tag {{k}}">{{v}}</li>
-        {{/each}}
+            {{/each}}
         </ul>
     </div>
 
@@ -76,9 +77,9 @@
             <i class="fas fa-edit"></i>
         </a>
         <ul class="traits-list">
-        {{#each data.traits.ci.selected as |v k|}}
+            {{#each data.traits.ci.selected as |v k|}}
             <li class="tag {{k}}">{{v}}</li>
-        {{/each}}
+            {{/each}}
         </ul>
     </div>
 
@@ -89,9 +90,9 @@
             <i class="fas fa-edit"></i>
         </a>
         <ul class="traits-list">
-        {{#each data.traits.weaponProf.selected as |v k|}}
+            {{#each data.traits.weaponProf.selected as |v k|}}
             <li class="tag {{k}}">{{v}}</li>
-        {{/each}}
+            {{/each}}
         </ul>
     </div>
 
@@ -101,9 +102,9 @@
             <i class="fas fa-edit"></i>
         </a>
         <ul class="traits-list">
-        {{#each data.traits.armorProf.selected as |v k|}}
+            {{#each data.traits.armorProf.selected as |v k|}}
             <li class="tag {{k}}">{{v}}</li>
-        {{/each}}
+            {{/each}}
         </ul>
     </div>
 
@@ -113,9 +114,9 @@
             <i class="fas fa-edit"></i>
         </a>
         <ul class="traits-list">
-        {{#each data.traits.toolProf.selected as |v k|}}
+            {{#each data.traits.toolProf.selected as |v k|}}
             <li class="tag {{k}}">{{v}}</li>
-        {{/each}}
+            {{/each}}
         </ul>
     </div>
     {{/if}}
@@ -123,7 +124,8 @@
     {{#unless isVehicle}}
     <div class="form-group ">
         <label>{{localize "DND5E.SpecialTraits"}}</label>
-        <a class="config-button" data-action="flags" title="{{localize 'DND5E.SpecialTraits'}}"><i class="fas fa-cog"></i></a>
+        <a class="config-button" data-action="flags" title="{{localize 'DND5E.SpecialTraits'}}"><i
+                class="fas fa-cog"></i></a>
     </div>
     {{/unless}}
 </div>

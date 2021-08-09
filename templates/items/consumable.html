@@ -24,7 +24,8 @@
                     </select>
                 </li>
                 <li>
-                    <input type="text" name="data.source" value="{{data.source}}" placeholder="{{ localize 'DND5E.Source' }}"/>
+                    <input type="text" name="data.source" value="{{data.source}}"
+                           placeholder="{{ localize 'DND5E.Source' }}"/>
                 </li>
             </ul>
         </div>
@@ -65,10 +66,12 @@
             <div class="form-group stacked">
                 <label>{{ localize "DND5E.ItemConsumableStatus" }}</label>
                 <label class="checkbox">
-                    <input type="checkbox" name="data.equipped" {{checked data.equipped}}/> {{ localize "DND5E.Equipped" }}
+                    <input type="checkbox" name="data.equipped" {{checked data.equipped}}/> {{ localize "DND5E.Equipped"
+                    }}
                 </label>
                 <label class="checkbox">
-                    <input type="checkbox" name="data.identified" {{checked data.identified}}/> {{ localize "DND5E.Identified" }}
+                    <input type="checkbox" name="data.identified" {{checked data.identified}}/> {{ localize
+                    "DND5E.Identified" }}
                 </label>
             </div>
 
@@ -79,7 +82,8 @@
             {{#if data.activation.type}}
             <div class="form-group">
                 <label class="checkbox">
-                    <input type="checkbox" name="data.uses.autoDestroy" {{checked data.uses.autoDestroy}}/> {{ localize "DND5E.ItemDestroyEmpty" }}
+                    <input type="checkbox" name="data.uses.autoDestroy" {{checked data.uses.autoDestroy}}/> {{ localize
+                    "DND5E.ItemDestroyEmpty" }}
                 </label>
             </div>
             {{/if}}

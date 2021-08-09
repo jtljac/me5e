@@ -24,7 +24,8 @@
                     </select>
                 </li>
                 <li>
-                    <input type="text" name="data.source" value="{{data.source}}" placeholder="{{ localize 'DND5E.Source' }}"/>
+                    <input type="text" name="data.source" value="{{data.source}}"
+                           placeholder="{{ localize 'DND5E.Source' }}"/>
                 </li>
             </ul>
         </div>
@@ -68,13 +69,16 @@
                 <label>{{ localize "DND5E.ItemWeaponStatus" }}</label>
                 <div class="form-fields">
                     <label class="checkbox">
-                        <input type="checkbox" name="data.proficient" {{checked data.proficient}}/> {{ localize "DND5E.Proficient" }}
+                        <input type="checkbox" name="data.proficient" {{checked data.proficient}}/> {{ localize
+                        "DND5E.Proficient" }}
                     </label>
                     <label class="checkbox">
-                        <input type="checkbox" name="data.equipped" {{checked data.equipped}}/> {{ localize "DND5E.Equipped" }}
+                        <input type="checkbox" name="data.equipped" {{checked data.equipped}}/> {{ localize
+                        "DND5E.Equipped" }}
                     </label>
                     <label class="checkbox">
-                        <input type="checkbox" name="data.identified" {{checked data.identified}}/> {{ localize "DND5E.Identified" }}
+                        <input type="checkbox" name="data.identified" {{checked data.identified}}/> {{ localize
+                        "DND5E.Identified" }}
                     </label>
                 </div>
             </div>
@@ -85,7 +89,8 @@
                 <label>{{ localize "DND5E.ItemWeaponProperties" }}</label>
                 {{#each config.weaponProperties as |name prop|}}
                 <label class="checkbox">
-                    <input type="checkbox" name="data.properties.{{prop}}" {{checked (lookup ../data.properties prop)}}/> {{ name }}
+                    <input type="checkbox" name="data.properties.{{prop}}" {{checked (lookup ../data.properties
+                    prop)}}/> {{ name }}
                 </label>
                 {{/each}}
             </div>

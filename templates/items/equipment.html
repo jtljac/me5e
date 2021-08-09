@@ -24,7 +24,8 @@
                     </select>
                 </li>
                 <li>
-                    <input type="text" name="data.source" value="{{data.source}}" placeholder="{{ localize 'DND5E.Source' }}"/>
+                    <input type="text" name="data.source" value="{{data.source}}"
+                           placeholder="{{ localize 'DND5E.Source' }}"/>
                 </li>
             </ul>
         </div>
@@ -67,13 +68,16 @@
             <div class="form-group stacked">
                 <label>{{ localize "DND5E.ItemEquipmentStatus" }}</label>
                 <label class="checkbox">
-                    <input type="checkbox" name="data.proficient" {{checked data.proficient}}/> {{ localize "DND5E.Proficient" }}
+                    <input type="checkbox" name="data.proficient" {{checked data.proficient}}/> {{ localize
+                    "DND5E.Proficient" }}
                 </label>
                 <label class="checkbox">
-                    <input type="checkbox" name="data.equipped" {{checked data.equipped}}/> {{ localize "DND5E.Equipped" }}
+                    <input type="checkbox" name="data.equipped" {{checked data.equipped}}/> {{ localize "DND5E.Equipped"
+                    }}
                 </label>
                 <label class="checkbox">
-                    <input type="checkbox" name="data.identified" {{checked data.identified}}/> {{ localize "DND5E.Identified" }}
+                    <input type="checkbox" name="data.identified" {{checked data.identified}}/> {{ localize
+                    "DND5E.Identified" }}
                 </label>
             </div>
             {{/unless}}
@@ -82,7 +86,7 @@
             <div class="form-group">
                 <label>{{ localize "DND5E.ArmorClass" }}</label>
                 <div class="form-fields">
-                   <input type="text" name="data.armor.value" value="{{data.armor.value}}" data-dtype="Number"/>
+                    <input type="text" name="data.armor.value" value="{{data.armor.value}}" data-dtype="Number"/>
                 </div>
             </div>
 
@@ -91,7 +95,8 @@
             <div class="form-group">
                 <label>{{ localize "DND5E.ItemEquipmentDexMod" }}</label>
                 <div class="form-fields">
-                   <input type="text" name="data.armor.dex" value="{{data.armor.dex}}" data-dtype="Number" placeholder="{{ localize 'DND5E.Unlimited' }}"/>
+                    <input type="text" name="data.armor.dex" value="{{data.armor.dex}}" data-dtype="Number"
+                           placeholder="{{ localize 'DND5E.Unlimited' }}"/>
                 </div>
             </div>
 
@@ -99,7 +104,8 @@
             <div class="form-group">
                 <label>{{ localize "DND5E.ItemRequiredStr" }}</label>
                 <div class="form-fields">
-                   <input type="text" name="data.strength" value="{{data.strength}}" data-dtype="Number" placeholder="{{ localize 'DND5E.None' }}"/>
+                    <input type="text" name="data.strength" value="{{data.strength}}" data-dtype="Number"
+                           placeholder="{{ localize 'DND5E.None' }}"/>
                 </div>
             </div>
 
