@@ -9,6 +9,7 @@
     /* ----------------------------------------- */
 
     .sheet-header {
+        align-items: stretch;
 
         // Portrait Artwork
         img.profile {
@@ -17,97 +18,156 @@
             height: 160px;
         }
 
-        // Character Name
-        h1.charname {
-            flex: 1;
-            height: @actorNameHeight;
-            padding: 0;
+        .header-details {
+            display: flex;
 
-            input {
-                height: @actorNameHeight - 20px;
-                margin: 10px 0;
-            }
-        }
-
-        // Character Level
-        .header-exp {
-            flex: 0 0 150px;
-            margin-right: 3px;
-            height: @actorNameHeight;
-            justify-content: flex-end;
-            text-align: right;
-        }
-
-        // Character Summary
-        .summary {
-            height: 30px;
-            border-bottom: @borderGroove;
-            font-size: 18px;
-
-            input, span {
-                display: block;
-                height: 24px;
-                line-height: 24px;
+            > * {
+                padding: 2px 5px;
             }
 
-            select {
-                position: relative;
-                top: -4px;
-            }
-        }
-
-        // Primary Attributes
-        .attributes {
-            flex: 0 0 100%;
-            margin: 0;
-
-            .attribute {
-                height: 70px;
-                margin: 0;
-                border: none;
+            > :not(:last-child) {
                 border-right: @borderGroove;
-                border-radius: 0;
+            }
 
-                &:last-child {
-                    border-right: none;
+            .charSummary {
+                width: 200px;
+                display: flex;
+                flex-direction: column;
+                flex-shrink: 0;
+
+                // Character Name
+                h1.charname {
+                    flex: unset;
+                    height: unset;
+                    padding: 0;
+
+                    input {
+                        height: 30px;
+                        margin: auto 0;
+                        font-size: 28px;
+                        text-overflow: ellipsis;
+                    }
                 }
 
-                .attribute-name {
-                    position: relative;
+                // Character Level
+                .header-exp {
+                    flex: 0 0 150px;
+                    margin-right: 3px;
+                    justify-content: flex-end;
+                    text-align: right;
                 }
 
-                .attribute-value {
-                    height: 30px;
-                    line-height: 30px;
-                }
+                // Character Summary
+                .summary {
+                    height: unset;
+                    flex: 1;
 
-                // Attribute Configuration
-                .config-button {
-                    position: absolute;
-                    display: none;
-                    right: -6px;
-                    top: -3px;
-                    font-size: 10px;
-                    font-weight: normal;
-                }
+                    input, span, .item {
+                        display: block;
+                        height: 24px;
+                        line-height: 24px;
+                        font-size: 18px;
+                        padding: 1px 3px;
+                        margin: 1px;
+                        border: 1px solid transparent;
+                    }
 
-                &:hover .config-button {
-                    display: block;
-                }
+                    .item {
+                        display: flex;
+                        justify-content: space-between;
+                        align-items: center;
 
-                // Temporary HP
-                input.temphp {
-                    width: 48%;
-                }
+                        .item-name h4 {
+                            margin: auto 0;
+                        }
 
-                // Attribution Tooltip
-                .property-attribution {
-                    min-width: 150px;
-                    top: 50px;
-                    font-family: Signika, sans-serif;
-                    font-size: 14px;
-                    font-weight: normal;
-                    line-height: 1rem;
+                        .item-controls {
+                            justify-content: space-between;
+                            color: #7a7971;
+
+                            a {
+                                font-size: 12px;
+                                text-align: center;
+                            }
+                        }
+                    }
+                }
+            }
+
+            // Primary Attributes
+            .attributesBox {
+                margin: 0;
+                display: grid;
+                grid-auto-columns: 1fr;
+                grid-template-rows: 1fr 1fr;
+                grid-auto-flow: column;
+
+
+                .attribute {
+                    height: auto;
+                    margin: 0;
+                    border: none;
+                    border-right: 1px black solid;
+                    border-radius: 0;
+
+                    &:nth-child(2n) {
+                        border-top: 1px black solid;
+                    }
+
+                    &:last-child, &:nth-last-child(2) {
+                        border-right: none;
+                    }
+
+                    .attribute-name {
+                        position: relative;
+                    }
+
+                    .attribute-value {
+                        height: 30px;
+                        line-height: 30px;
+                    }
+
+                    // Movement Configuration
+                    .armor, .movement, .hit-dice {
+                        h4.attribute-name {
+                            position: relative;
+                        }
+
+                        .config-button {
+                            position: absolute;
+                            display: none;
+                            right: 0;
+                            top: 1px;
+                            font-size: 12px;
+                            font-weight: normal;
+                        }
+
+                        &:hover .config-button {
+                            display: block;
+                        }
+                    }
+
+                    .attribute-footer {
+                        &.shield span {
+                            width: 32px;
+                            display: inline-block;
+                        }
+                    }
+
+                    // Temporary HP
+                    input.temphp {
+                        width: 48%;
+                    }
+
+                    // Attribution Tooltip
+                    .property-attribution {
+                        min-width: 150px;
+                        top: 50px;
+                        font-family: Signika, sans-serif;
+                        font-size: 14px;
+                        font-weight: normal;
+                        line-height: 1rem;
+                    }
                 }
             }
         }
@@ -137,21 +197,19 @@
         overflow: hidden;
     }
 
-    ul.attributes {
-        flex: 0 0 60px;
-        list-style: none;
+    .attributesBox {
         margin: 0;
-        padding: 0;
+        padding: 0 5px 0 0;
 
-        li.attribute {
+        .attribute {
             height: 60px;
             margin: 0 5px 0 0;
             border: @borderGroove;
             border-radius: 4px;
             text-align: center;
 
-            &:last-child {
-                margin: 0;
+            .shield {
+                flex: 0 0 33%;
             }
 
             .attribute-value {
@@ -162,7 +220,7 @@
                 line-height: 28px;
                 .modesto();
 
-                > * {
+                & > * {
                     font-weight: 400;
                     font-size: 24px;
                 }
@@ -179,16 +237,16 @@
                 font-family: "Signika", sans-serif;
                 font-size: 12px;
                 font-weight: 400;
-                white-space: nowrap
+                white-space: nowrap;
             }
         }
-    }
 
-    .attributable {
-        position: relative;
+        .attributable {
+            position: relative;
 
-        &:hover .tooltip {
-            display: block;
+            &:hover .tooltip {
+                display: block;
+            }
         }
     }
 
@@ -197,9 +255,11 @@
     /* ----------------------------------------- */
 
     .ability-scores {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
         flex: 0 0 100px;
-        height: 440px;
-        list-style: none;
         margin: 0;
         padding: 0;
         .modesto();
@@ -207,7 +267,6 @@
         border-radius: 3px;
 
         .ability {
-            height: 70px;
             text-align: center;
             border-bottom: @borderGroove;
 
@@ -272,17 +331,19 @@
     /*  Skills                                   */
     /* ----------------------------------------- */
 
-    ul.skills-list {
+    .skills-list {
+        display: flex;
+        flex-direction: column;
+        justify-content: space-evenly;
+
         flex: 0 0 180px;
-        height: 440px;
-        list-style: none;
         margin: 0 5px 0;
         padding: 3px 0 2px;
         border: @borderGroove;
         border-radius: 3px;
 
-        li.skill {
-            height: 24px;
+        .skill {
+            display: flex;
             padding: 3px 2px;
 
             &:nth-child(even) {
@@ -322,416 +383,539 @@
     /*  Statuses                                 */
     /* ----------------------------------------- */
 
-    .counters {
-        flex: none;
-        padding: 5px 0;
-        margin: 0;
+    .resourceAttributes {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
         border-bottom: @borderGroove;
 
-        .counter {
-            height: 20px;
-            line-height: 20px;
+        .counters {
+            display: flex;
+            flex-direction: column;
+            flex: 2;
+            padding: 5px 0;
+            margin: 0;
 
-            h4 {
-                flex: auto;
-                margin: 0;
-                font-size: 13px;
-                font-weight: bold;
-                color: @colorOlive;
-            }
+            .morals {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
 
-            .counter-value {
-                flex: none;
-                text-align: right;
+                .paragon, .renegade {
+                    display: flex;
 
-                > * {
-                    display: inline;
+                    .textContent {
+                        display: flex;
+                        flex-direction: column;
+                        border-bottom: 1px solid #782e22;
+
+                        h4 {
+                            font-size: 1.5em;
+                        }
+
+                        input {
+                            height: unset;
+                            max-width: unset;
+                            flex: 2;
+                            width: 100%;
+
+                            font-size: 30px;
+                        }
+                    }
+
+                    img {
+                        width: 68px;
+                        height: 68px;
+                        border: none;
+                    }
+
+                    input {
+                        width: 30px;
+                        height: 50px;
+                    }
+                }
+
+                .paragon {
+                    flex-direction: row-reverse;
+
+                    .textContent {
+                        align-items: flex-end;
+                    }
+                }
+
+                .inspiration {
+                    display: flex;
+                    flex-direction: column;
+                    align-items: center;
+
+                    h3 {
+                        font-size: 1.2em;
+                    }
+
+                    input[type="checkbox"] {
+                        display: none;
+
+                        & + label {
+                            display: block;
+                            width: 40px;
+                            height: 40px;
+                            border: 1px #555555 solid;
+                            border-radius: 3px;
+                            background-color: white;
+
+                            cursor: pointer;
+                        }
+
+                        & + label:hover {
+                            border-color: black;
+                        }
+
+                        &:checked + label {
+                            background-image: url("ui/ParagonRenegade.svg");
+                            background-size: cover;
+                        }
+                    }
                 }
             }
 
-            input[type="text"],
-            input[type="number"] {
-                height: 20px;
-                max-width: 20px;
-                margin: 0;
-                padding: 0;
-                text-align: center;
-            }
+            .theRest {
+                flex: 2;
 
-            input[type="checkbox"] {
-                position: relative;
-                width: 16px;
-                height: 16px;
-                margin: 0;
-                top: 4px;
-            }
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: space-evenly;
 
-            span.sep {
-                font-size: 12px;
-            }
-        }
-    }
+                .counter {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: center;
 
-    /* ----------------------------------------- */
-    /*  Traits                                   */
-    /* ----------------------------------------- */
+                    h4 {
+                        font-size: 18px;
+                        border-bottom: @borderGroove;
+                    }
 
-    .center-pane {
-        height: 100%;
-        padding: 0 5px 0 3px;
-        overflow-y: auto;
-        scrollbar-width: thin;
-    }
-
-    .traits {
-        .form-group, .form-group-stacked {
-            margin: 0 0 3px 0;
-            justify-content: space-between;
-        }
-
-        .config-button {
-            flex: 1;
-        }
-
-        label {
-            flex: none;
-            line-height: 20px;
-            font-weight: bold;
-            margin: 0 10px 0 0;
-        }
-
-        select {
-            max-width: 200px;
-        }
-
-        input {
-            text-align: right;
-        }
-
-        i.fas {
-            float: right;
-            margin-right: 3px;
-            text-align: right;
-            color: #999;
-
-            &:hover {
-                color: #111;
-                text-shadow: 0 0 10px red;
-            }
-        }
-
-        .inactive {
-            color: @colorTan;
-        }
-    }
-
-    /* ----------------------------------------- */
-    /*  Inventory Lists                          */
-    /* ----------------------------------------- */
-
-    .tab.features,
-    .tab.inventory,
-    .tab.spellbook {
-        overflow-y: hidden;
-    }
-
-    /* Inventory List Filters */
-
-    .inventory-filters {
-        margin: 0 8px;
-        flex: 0 0 20px;
-        justify-content: flex-end;
-
-        .currency {
-            flex: 0 0 100%;
-            list-style: none;
-            margin: 4px 0 8px;
-            padding: 0;
-            font-size: 12px;
-
-            label {
-                flex: 0;
-                margin-left: 8px;
-                text-align: right;
-                line-height: 20px;
-                color: @colorTan;
-            }
-
-            input[type="text"] {
-                flex: 0 0 48px;
-                text-align: center;
-                margin-left: 8px;
-                border-bottom: @borderGroove;
-            }
-        }
-    }
-
-    // Inventory item lists
-    .inventory-list {
-        padding: 0 5px;
-
-        .item {
-            .item-name {
-                cursor: pointer;
-
-                &.rollable:hover .item-image {
-                    background-image: url("../../icons/svg/d20-grey.svg") !important;
-                }
-
-                &.rollable .item-image:hover {
-                    background-image: url("../../icons/svg/d20-black.svg") !important;
-                }
-
-                i.attuned {
-                    color: @colorTan;
-                }
-
-                i.not-attuned {
-                    color: @colorCrimson;
+                    .counter-value {
+                        text-align: center;
+                    }
                 }
             }
 
-            // Item uses
-            .item-uses input {
-                width: 24px;
-                text-align: center;
-            }
+            .counter {
 
-            // Item Dropdown Properties
-            .item-properties {
-                margin-top: 3px;
-            }
+                h4 {
+                    flex: auto;
+                    margin: 0;
+                    font-size: 13px;
+                    font-weight: bold;
+                    color: @colorOlive;
+                }
 
-            // Charged
-            .item-recharge {
-                flex: 0 0 80px;
-                text-align: right;
-                font-size: 11px;
-                white-space: nowrap;
-            }
-        }
+                .counter-value {
+                    flex: none;
+                    text-align: right;
 
-        // Inventory Header
-        .inventory-header {
-            .item-controls a.item-create {
-                flex: 0 0 100%;
-            }
-        }
+                    > * {
+                        display: inline;
+                    }
+                }
 
-        // Item Detail Sections
-        .item-detail {
-            flex: 0 0 70px;
-            font-size: 12px;
-            text-align: center;
-            border-right: 1px solid @colorFaint;
-            word-break: break-word;
-            white-space: nowrap;
-            overflow: hidden;
+                input[type="text"],
+                input[type="number"] {
+                    height: 20px;
+                    max-width: 20px;
+                    margin: 0;
+                    padding: 0;
+                    text-align: center;
+                }
 
-            &:last-child {
-                border-right: none;
-            }
+                input[type="checkbox"] {
+                    position: relative;
+                    width: 16px;
+                    height: 16px;
+                    margin: 0;
+                    top: 4px;
+                }
 
-            &.item-action {
-                flex: 0 0 100px
-            }
+                span.sep {
+                    font-size: 12px;
+                }
 
-            &.attunement {
-                flex: 0 0 24px
-            }
-        }
-
-        .item-weight {
-            flex: 0 0 60px;
-            border-left: 1px solid @colorFaint;
-            border-right: 1px solid @colorFaint;
-        }
-
-        // Item Control Buttons
-        .item-controls {
-            flex: 0 0 44px;
-        }
-
-        // Item Dropdown Summary
-        .item-summary {
-            flex: 0 0 100%;
-            font-size: 12px;
-            line-height: 16px;
-            padding: 0.25em 0.5em;
-            color: @colorDark;
-            border-top: 1px solid @colorFaint;
-        }
-    }
-
-    /* Encumbrance Bar */
-
-    .encumbrance {
-        flex: 0 0 12px;
-        background: @colorTan;
-        margin: 1px 15px 0 1px;
-        border: 1px solid @colorDark;
-        border-radius: 3px;
-        position: relative;
-
-        .encumbrance-bar {
-            position: absolute;
-            top: 1px;
-            left: 1px;
-            background: #6c8aa5;
-            height: 8px;
-            border: 1px solid #cde4ff;
-            border-radius: 2px;
-        }
-
-        .encumbrance-label {
-            height: 10px;
-            padding: 0 5px;
-            position: absolute;
-            top: 0;
-            right: 0;
-            font-size: 13px;
-            line-height: 12px;
-            text-align: right;
-            color: #EEE;
-            text-shadow: 0 0 5px #000;
-        }
-
-        .encumbrance-breakpoint {
-            display: block;
-            position: absolute;
-
-            &.encumbrance-33 {
-                left: 33%
-            }
-
-            &.encumbrance-66 {
-                left: 66%
-            }
-        }
-
-        .arrow-up {
-            bottom: 0;
-            width: 0;
-            height: 0;
-            border-left: 4px solid transparent;
-            border-right: 4px solid transparent;
-            border-bottom: 4px solid #666;
-        }
-
-        .arrow-down {
-            top: 0;
-            width: 0;
-            height: 0;
-            border-left: 4px solid transparent;
-            border-right: 4px solid transparent;
-            border-top: 4px solid #666;
-        }
-
-        &.encumbered {
-            .arrow-up {
-                border-bottom: 4px solid #000;
-            }
-
-            .arrow-down {
-                border-top: 4px solid #000;
+                &.inspiration {
+                    input[type="checkbox"] {
+                        content: "";
+                    }
+                }
             }
         }
     }
 
-    /* ----------------------------------------- */
-    /*  Spellbook                                */
-    /* ----------------------------------------- */
+/* ----------------------------------------- */
+/*  Traits                                   */
+/* ----------------------------------------- */
 
-    .spellcasting-ability {
-        flex: 0 0 240px;
-        margin: 0;
+.center-pane {
+    height: 100%;
+    padding: 0 5px 0 3px;
+    overflow-y: auto;
+    scrollbar-width: thin;
+}
 
-        label, span {
-            flex: none;
-        }
+.traits {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 16px;
+    grid-row-gap: 8px;
 
-        input {
-            flex: 0 0 28px;
-            text-align: center;
-        }
-
-        select {
-            margin: 0 5px;
-            flex: 0 0 120px;
-        }
+    .form-group, .form-group-stacked {
+        margin: 0 0 3px 0;
     }
 
-    .spell-slots,
-    .spell-comps {
-        flex: none;
-        padding: 0 5px;
-        font-size: 12px;
-        color: @colorTan;
-        border-right: 1px solid @colorFaint;
-    }
-
-    .spell-slots {
-        input {
-            display: inline;
-            max-width: 20px;
-        }
-
-        .sep {
-            font-size: 13px;
-            font-weight: normal;
-        }
-    }
-
-    .spellbook .spell-uses {
-        padding-right: 5px;
-        text-align: right;
-        color: @colorTan;
-    }
-
-    .spell-school, .spell-action, .spell-target {
-        flex: 0 0 100px;
-        font-size: 12px;
-        color: @colorTan;
-        text-align: center;
-        border-right: 1px solid @colorFaint;
-    }
-
-    .spell-component {
-        line-height: 14px;
-
-        &.C, &.R {
-            display: inline-block;
-            text-align: center;
-            padding-top: 1px;
-            width: 16px;
-            color: @colorFaint;
-            background: rgba(0, 0, 0, 0.4);
-            border: 1px solid transparent;
-            border-radius: 8px;
-        }
-    }
-
-    // Empty spellbook controls
-    .spellbook-empty .item-controls {
+    .config-button {
         flex: 1;
     }
 
-    /* ----------------------------------------- */
-    /*  Features Tab                             */
-    /* ----------------------------------------- */
-
-    // Original class icon
-    .features i.original-class {
-        color: #4b4a44
+    label {
+        flex: none;
+        line-height: 20px;
+        font-weight: bold;
+        margin: 0 10px 0 0;
     }
 
-    /* ----------------------------------------- */
-    /*  TinyMCE                                  */
-    /* ----------------------------------------- */
-
-    .editor {
-        padding: 0 8px;
+    select {
+        max-width: 200px;
     }
+
+    input {
+        text-align: right;
+    }
+
+    i.fas {
+        float: right;
+        margin-right: 3px;
+        text-align: right;
+        color: #999;
+
+        &:hover {
+            color: #111;
+            text-shadow: 0 0 10px red;
+        }
+    }
+
+    .inactive {
+        color: @colorTan;
+    }
+}
+
+/* ----------------------------------------- */
+/*  Inventory Lists                          */
+/* ----------------------------------------- */
+
+.tab.features,
+.tab.inventory,
+.tab.spellbook {
+    overflow-y: hidden;
+}
+
+/* Inventory List Filters */
+
+.inventory-filters {
+    margin: 0 8px;
+    flex: 0 0 20px;
+    justify-content: flex-end;
+
+    .currency {
+        flex: 0 0 100%;
+        list-style: none;
+        margin: 4px 0 8px;
+        padding: 0;
+        font-size: 12px;
+
+        label {
+            flex: 0;
+            margin-left: 8px;
+            text-align: right;
+            line-height: 20px;
+            color: @colorTan;
+        }
+
+        input[type="text"] {
+            flex: 0 0 48px;
+            text-align: center;
+            margin-left: 8px;
+            border-bottom: @borderGroove;
+        }
+    }
+}
+
+// Inventory item lists
+.inventory-list {
+    padding: 0 5px;
+
+    .item {
+        .item-name {
+            cursor: pointer;
+
+            &.rollable:hover .item-image {
+                background-image: url("../../icons/svg/d20-grey.svg") !important;
+            }
+
+            &.rollable .item-image:hover {
+                background-image: url("../../icons/svg/d20-black.svg") !important;
+            }
+
+            i.attuned {
+                color: @colorTan;
+            }
+
+            i.not-attuned {
+                color: @colorCrimson;
+            }
+        }
+
+        // Item uses
+        .item-uses input {
+            width: 24px;
+            text-align: center;
+        }
+
+        // Item Dropdown Properties
+        .item-properties {
+            margin-top: 3px;
+        }
+
+        // Charged
+        .item-recharge {
+            flex: 0 0 80px;
+            text-align: right;
+            font-size: 11px;
+            white-space: nowrap;
+        }
+    }
+
+    // Inventory Header
+    .inventory-header {
+        .item-controls a.item-create {
+            flex: 0 0 100%;
+        }
+    }
+
+    // Item Detail Sections
+    .item-detail {
+        flex: 0 0 70px;
+        font-size: 12px;
+        text-align: center;
+        border-right: 1px solid @colorFaint;
+        word-break: break-word;
+        white-space: nowrap;
+        overflow: hidden;
+
+        &:last-child {
+            border-right: none;
+        }
+
+        &.item-action {
+            flex: 0 0 100px
+        }
+
+        &.attunement {
+            flex: 0 0 24px
+        }
+    }
+
+    .item-weight {
+        flex: 0 0 60px;
+        border-left: 1px solid @colorFaint;
+        border-right: 1px solid @colorFaint;
+    }
+
+    // Item Control Buttons
+    .item-controls {
+        flex: 0 0 44px;
+    }
+
+    // Item Dropdown Summary
+    .item-summary {
+        flex: 0 0 100%;
+        font-size: 12px;
+        line-height: 16px;
+        padding: 0.25em 0.5em;
+        color: @colorDark;
+        border-top: 1px solid @colorFaint;
+    }
+}
+
+/* Encumbrance Bar */
+
+.encumbrance {
+    flex: 0 0 12px;
+    background: @colorTan;
+    margin: 1px 15px 0 1px;
+    border: 1px solid @colorDark;
+    border-radius: 3px;
+    position: relative;
+
+    .encumbrance-bar {
+        position: absolute;
+        top: 1px;
+        left: 1px;
+        background: #6c8aa5;
+        height: 8px;
+        border: 1px solid #cde4ff;
+        border-radius: 2px;
+    }
+
+    .encumbrance-label {
+        height: 10px;
+        padding: 0 5px;
+        position: absolute;
+        top: 0;
+        right: 0;
+        font-size: 13px;
+        line-height: 12px;
+        text-align: right;
+        color: #EEE;
+        text-shadow: 0 0 5px #000;
+    }
+
+    .encumbrance-breakpoint {
+        display: block;
+        position: absolute;
+
+        &.encumbrance-33 {
+            left: 33%
+        }
+
+        &.encumbrance-66 {
+            left: 66%
+        }
+    }
+
+    .arrow-up {
+        bottom: 0;
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-bottom: 4px solid #666;
+    }
+
+    .arrow-down {
+        top: 0;
+        width: 0;
+        height: 0;
+        border-left: 4px solid transparent;
+        border-right: 4px solid transparent;
+        border-top: 4px solid #666;
+    }
+
+    &.encumbered {
+        .arrow-up {
+            border-bottom: 4px solid #000;
+        }
+
+        .arrow-down {
+            border-top: 4px solid #000;
+        }
+    }
+}
+
+/* ----------------------------------------- */
+/*  Spellbook                                */
+/* ----------------------------------------- */
+
+.spellcasting-ability {
+    flex: 0 0 240px;
+    margin: 0;
+
+    label, span {
+        flex: none;
+    }
+
+    input {
+        flex: 0 0 28px;
+        text-align: center;
+    }
+
+    select {
+        margin: 0 5px;
+        flex: 0 0 120px;
+    }
+}
+
+.spell-slots,
+.spell-comps {
+    flex: none;
+    padding: 0 5px;
+    font-size: 12px;
+    color: @colorTan;
+    border-right: 1px solid @colorFaint;
+}
+
+.spell-slots {
+    input {
+        display: inline;
+        max-width: 20px;
+    }
+
+    .sep {
+        font-size: 13px;
+        font-weight: normal;
+    }
+}
+
+.spellbook .spell-uses {
+    padding-right: 5px;
+    text-align: right;
+    color: @colorTan;
+}
+
+.spell-school, .spell-action, .spell-target {
+    flex: 0 0 100px;
+    font-size: 12px;
+    color: @colorTan;
+    text-align: center;
+    border-right: 1px solid @colorFaint;
+}
+
+.spell-component {
+    line-height: 14px;
+
+    &.C, &.R {
+        display: inline-block;
+        text-align: center;
+        padding-top: 1px;
+        width: 16px;
+        color: @colorFaint;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid transparent;
+        border-radius: 8px;
+    }
+}
+
+// Empty spellbook controls
+.spellbook-empty .item-controls {
+    flex: 1;
+}
+
+/* ----------------------------------------- */
+/*  Features Tab                             */
+/* ----------------------------------------- */
+
+// Original class icon
+.features i.original-class {
+    color: #4b4a44
+}
+
+/* ----------------------------------------- */
+/*  TinyMCE                                  */
+/* ----------------------------------------- */
+
+.editor {
+    padding: 0 8px;
+}
+
 }
 
 #actor-flags {

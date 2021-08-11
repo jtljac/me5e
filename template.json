@@ -46,6 +46,11 @@
                         "temp": 0,
                         "tempmax": 0
                     },
+                    "shl": {
+                        "value": 0,
+                        "max": 0,
+                        "regen": 0
+                    },
                     "init": {
                         "value": 0,
                         "bonus": 0
@@ -86,11 +91,7 @@
                     }
                 },
                 "currency": {
-                    "pp": 0,
-                    "gp": 0,
-                    "ep": 0,
-                    "sp": 0,
-                    "cp": 0
+                    "cr": 0
                 }
             },
             "creature": {
@@ -98,29 +99,20 @@
                     "senses": {
                         "darkvision": 0,
                         "blindsight": 0,
-                        "tremorsense": 0,
                         "truesight": 0,
-                        "units": "ft",
+                        "infrared": 0,
+                        "units": "m",
                         "special": ""
                     },
                     "spellcasting": "int"
                 },
                 "details": {
-                    "alignment": "",
-                    "race": ""
+                    "alignment": ""
                 },
                 "skills": {
                     "acr": {
                         "value": 0,
                         "ability": "dex"
-                    },
-                    "ani": {
-                        "value": 0,
-                        "ability": "wis"
-                    },
-                    "arc": {
-                        "value": 0,
-                        "ability": "int"
                     },
                     "ath": {
                         "value": 0,
@@ -129,6 +121,14 @@
                     "dec": {
                         "value": 0,
                         "ability": "cha"
+                    },
+                    "ele": {
+                        "value": 0,
+                        "ability": "int"
+                    },
+                    "eng": {
+                        "value": 0,
+                        "ability": "int"
                     },
                     "his": {
                         "value": 0,
@@ -150,10 +150,6 @@
                         "value": 0,
                         "ability": "wis"
                     },
-                    "nat": {
-                        "value": 0,
-                        "ability": "int"
-                    },
                     "prc": {
                         "value": 0,
                         "ability": "wis"
@@ -166,7 +162,7 @@
                         "value": 0,
                         "ability": "cha"
                     },
-                    "rel": {
+                    "sci": {
                         "value": 0,
                         "ability": "int"
                     },
@@ -181,6 +177,10 @@
                     "sur": {
                         "value": 0,
                         "ability": "wis"
+                    },
+                    "veh": {
+                        "value": 0,
+                        "ability": "dex"
                     }
                 },
                 "traits": {
@@ -209,26 +209,6 @@
                     "spell5": {
                         "value": 0,
                         "override": null
-                    },
-                    "spell6": {
-                        "value": 0,
-                        "override": null
-                    },
-                    "spell7": {
-                        "value": 0,
-                        "override": null
-                    },
-                    "spell8": {
-                        "value": 0,
-                        "override": null
-                    },
-                    "spell9": {
-                        "value": 0,
-                        "override": null
-                    },
-                    "pact": {
-                        "value": 0,
-                        "override": null
                     }
                 },
                 "bonuses": {
@@ -240,11 +220,11 @@
                         "attack": "",
                         "damage": ""
                     },
-                    "msak": {
+                    "mpak": {
                         "attack": "",
                         "damage": ""
                     },
-                    "rsak": {
+                    "rpak": {
                         "attack": "",
                         "damage": ""
                     },
@@ -274,7 +254,9 @@
                     "failure": 0
                 },
                 "exhaustion": 0,
-                "inspiration": 0
+                "inspiration": 0,
+                "paragon": 0,
+                "renegade": 0
             },
             "details": {
                 "background": "",
@@ -320,6 +302,10 @@
                     "custom": ""
                 },
                 "toolProf": {
+                    "value": [],
+                    "custom": ""
+                },
+                "shipProf": {
                     "value": [],
                     "custom": ""
                 }
@@ -438,7 +424,12 @@
             "tool",
             "loot",
             "class",
-            "spell",
+            "background",
+            "species",
+            "speciesfeat",
+            "classfeat",
+            "fightingstyle",
+            "power",
             "feat",
             "backpack"
         ],
@@ -509,6 +500,42 @@
                     "scaling": "spell"
                 }
             },
+            "traits": {
+                "traits": {
+                    "armour": {
+                        "mandatory": [],
+                        "choices": [],
+                        "value": [],
+                        "count": 0
+                    },
+                    "weapons": {
+                        "mandatory": [],
+                        "choices": [],
+                        "value": [],
+                        "count": 0
+                    },
+                    "tools": {
+                        "mandatory": [],
+                        "choices": [],
+                        "value": [],
+                        "count": 0
+                    }
+                }
+            },
+            "skills": {
+                "skills": {
+                    "mandatory": [],
+                    "choices": [],
+                    "value": [],
+                    "count": 2
+                }
+            },
+            "recharge": {
+                "recharge": {
+                    "value": null,
+                    "charged": false
+                }
+            },
             "mountable": {
                 "armor": {
                     "value": 10
@@ -537,30 +564,45 @@
                 "weightless": false
             },
             "currency": {
-                "cp": 0,
-                "sp": 0,
-                "ep": 0,
-                "gp": 0,
-                "pp": 0
+                "cr": 0
             }
         },
         "class": {
             "templates": [
-                "itemDescription"
+                "itemDescription",
+                "skills",
+                "traits"
             ],
             "levels": 1,
             "subclass": "",
             "hitDice": "d6",
             "hitDiceUsed": 0,
             "saves": [],
-            "skills": {
-                "number": 2,
-                "choices": [],
-                "value": []
-            },
             "spellcasting": {
                 "progression": "none",
-                "ability": ""
+                "ability": []
+            }
+        },
+        "background": {
+            "templates": [
+                "itemDescription",
+                "skills",
+                "traits"
+            ],
+            "feature": {
+                "options": [
+                    {
+                        "name": "",
+                        "description": ""
+                    }
+                ],
+                "selected": ""
+            },
+            "option": {
+                "name": "",
+                "text": "",
+                "options": [],
+                "selected": ""
             }
         },
         "consumable": {
@@ -600,13 +642,47 @@
             "templates": [
                 "itemDescription",
                 "activatedEffect",
-                "action"
+                "action",
+                "recharge"
             ],
-            "requirements": "",
-            "recharge": {
-                "value": null,
-                "charged": false
+            "requirements": {
+                "species": "",
+                "class": ""
             }
+        },
+        "classfeat": {
+            "templates": [
+                "itemDescription",
+                "activatedEffect",
+                "action",
+                "recharge"
+            ]
+        },
+        "species": {
+            "templates": [
+                "itemDescription",
+                "activatedEffect"
+            ],
+            "asi": {
+                "score": 0
+            },
+            "size": "med",
+            "speed": 10,
+            "feats": []
+        },
+        "speciesfeat": {
+            "templates": [
+                "itemDescription",
+                "activatedEffect",
+                "action",
+                "recharge"
+            ]
+        },
+        "fightingstyle": {
+            "templates": [
+                "itemDescription",
+                "activatedEffect"
+            ]
         },
         "loot": {
             "templates": [
@@ -624,7 +700,7 @@
             "chatFlavor": "",
             "proficient": 0
         },
-        "spell": {
+        "power": {
             "templates": [
                 "itemDescription",
                 "activatedEffect",
@@ -634,21 +710,7 @@
             "school": "",
             "components": {
                 "value": "",
-                "vocal": false,
-                "somatic": false,
-                "material": false,
-                "ritual": false,
                 "concentration": false
-            },
-            "materials": {
-                "value": "",
-                "consumed": false,
-                "cost": 0,
-                "supply": 0
-            },
-            "preparation": {
-                "mode": "prepared",
-                "prepared": false
             },
             "scaling": {
                 "mode": "none",
@@ -663,7 +725,7 @@
                 "action",
                 "mountable"
             ],
-            "weaponType": "simpleM",
+            "weaponType": "ar",
             "properties": {},
             "proficient": true
         }

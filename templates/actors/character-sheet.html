@@ -1,57 +1,57 @@
 <form class="{{cssClass}} flexcol" autocomplete="off">
-
+{{!--    {{> "systems/me5e/templates/actors/parts/actor-warnings.html"}}--}}
     {{!-- Sheet Header --}}
-    <header class="sheet-header flexrow">
+    <header class="sheet-header">
         <img class="profile" src="{{actor.img}}" title="{{actor.name}}" data-edit="img"/>
 
-        <section class="header-details flexrow">
-            {{> "systems/me5e/templates/actors/parts/actor-warnings.html"}}
+        <section class="header-details">
 
-            <h1 class="charname">
-                <input name="name" type="text" value="{{actor.name}}" placeholder="{{ localize 'ME5E.Name' }}"/>
-            </h1>
+            <div class="charSummary">
+                <h1 class="charname">
+                    <input name="name" type="text" value="{{actor.name}}" placeholder="{{ localize 'ME5E.Name' }}"/>
+                </h1>
 
-            <aside class="header-exp flexcol">
-                <div class="charlevel" title="{{multiclassLabels}}">
-                    <label>{{ localize "ME5E.Level" }} {{data.details.level}}</label>
-                    <span class="levels">{{classLabels}}</span>
-                </div>
+                {{!-- Character Summary --}}
+                <div class="summary">
+                    {{#if species}}
+                        <div class="item species">
+                            <div class="item-name rollable">
+                                <div class="item-image" style="background-image: url('{{item.img}}')"></div>
+                                <h4>
+                                    {{species.name}}
+                                </h4>
+                            </div>
+                            <div class="item-controls">
+                                <a class="item-control item-edit" title="{{localize 'ME5E.ItemEdit'}}"><i class="fas fa-edit"></i></a>
+                                <a class="item-control item-delete" title="{{localize 'ME5E.ItemDelete'}}"><i class="fas fa-trash"></i></a>
 
-                {{#unless disableExperience}}
-                <div class="experience flexrow">
-                    <input name="data.details.xp.value" type="text" value="{{data.details.xp.value}}" placeholder="0"
-                           data-dtype="Number"/>
-                    <span class="sep">/</span>
-                    <span class="max">{{data.details.xp.max}}</span>
-                </div>
-                <div class="xpbar">
-                    <span class="bar" style="width: {{data.details.xp.pct}}%"></span>
-                </div>
-                {{/unless}}
-            </aside>
+                            </div>
+                        </div>
+                    {{/if}}
+                    {{#if background}}
+                        <div class="item background">
+                            <div class="item-name rollable">
+                                <div class="item-image" style="background-image: url('{{item.img}}')"></div>
+                                <h4>
+                                    {{background.name}}
+                                </h4>
+                            </div>
+                            <div class="item-controls">
+                                <a class="item-control item-edit" title="{{localize 'ME5E.ItemEdit'}}"><i class="fas fa-edit"></i></a>
+                                <a class="item-control item-delete" title="{{localize 'ME5E.ItemDelete'}}"><i class="fas fa-trash"></i></a>
 
-            {{!-- Character Summary --}}
-            <ul class="summary flexrow">
-                <li>
-                    <input type="text" name="data.details.race" value="{{data.details.race}}"
-                           placeholder="{{ localize 'ME5E.Race' }}"/>
-                </li>
-                <li>
-                    <input type="text" name="data.details.background" value="{{data.details.background}}"
-                           placeholder="{{ localize 'ME5E.Background' }}"/>
-                </li>
-                <li>
+                            </div>
+                        </div>
+                    {{/if}}
                     <input type="text" name="data.details.alignment" value="{{data.details.alignment}}"
                            placeholder="{{ localize 'ME5E.Alignment' }}"/>
-                </li>
-                <li class="proficiency">
-                    <span>{{ localize "ME5E.Proficiency" }} {{numberFormat data.attributes.prof decimals=0 sign=true}}</span>
-                </li>
-            </ul>
+                    <span class="proficiency">{{ localize "ME5E.Proficiency" }} {{numberFormat data.attributes.prof decimals=0 sign=true}}</span>
+                </div>
+            </div>
 
             {{!-- Header Attributes --}}
-            <ul class="attributes flexrow">
-                <li class="attribute health">
+            <div class="attributesBox">
+                <div class="attribute health">
                     <h4 class="attribute-name box-title">{{ localize "ME5E.HitPoints" }}</h4>
                     <div class="attribute-value multiple">
                         <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}"
@@ -68,9 +68,22 @@
                                placeholder="+{{ localize 'ME5E.Max' }}"
                                value="{{data.attributes.hp.tempmax}}" data-dtype="Number"/>
                     </footer>
-                </li>
+                </div>
 
-                <li class="attribute hit-dice">
+                <div class="attribute shield">
+                    <h4 class="attribute-name box-title">{{ localize "ME5E.ShieldPoints" }}</h4>
+                    <div class="attribute-value multiple">
+                        <input name="data.attributes.shl.value" type="text" value="{{data.attributes.shl.value}}" placeholder="0" data-dtype="Number"/>
+                        <span class="sep"> / </span>
+                        <label class="shield">{{data.attributes.shl.max}}</label>
+                    </div>
+                    <footer class="attribute-footer shield">
+                        <span>{{ localize "ME5E.ShieldRegen" }}</span>
+                        <span>{{numberFormat data.attributes.shl.regen decimals=0 sign=true}}</span>
+                    </footer>
+                </div>
+
+                <div class="attribute hit-dice">
                     <h4 class="attribute-name box-title">
                         {{ localize "ME5E.HitDice" }}
                         <a class="config-button" data-action="hit-dice" title="{{localize 'ME5E.HitDiceConfig'}}"><i
@@ -84,23 +97,18 @@
                         <a class="rest short-rest">{{ localize "ME5E.RestS" }}</a>
                         <a class="rest long-rest">{{ localize "ME5E.RestL" }}</a>
                     </footer>
-                </li>
+                </div>
 
-                <li class="attribute armor">
+                <div class="attribute armor">
                     <h4 class="attribute-name box-title">
                         {{ localize "ME5E.ArmorClass" }}
                         <a class="config-button" data-action="armor" title="{{localize 'ME5E.ArmorConfig'}}"><i
                                 class="fas fa-cog"></i></a>
                     </h4>
-                    <div class="attribute-value attributable" data-property="attributes.ac">
-                        <span>{{data.attributes.ac.value}}</span>
-                    </div>
-                    <footer class="attribute-footer">
-                        <span class="spell-dc">{{localize "ME5E.SpellDC"}} {{data.attributes.spelldc}}</span>
-                    </footer>
-                </li>
+                    <div class="attribute-value attributable" data-property="attributes.ac">{{data.attributes.ac.value}}</div>
+                </div>
 
-                <li class="attribute movement">
+                <div class="attribute movement">
                     <h4 class="attribute-name box-title">
                         {{ localize "ME5E.Movement" }}
                         <a class="config-button" data-action="movement" title="{{localize 'ME5E.MovementConfig'}}"><i
@@ -112,11 +120,11 @@
                     <footer class="attribute-footer">
                         <span>{{movement.special}}</span>
                     </footer>
-                </li>
+                </div>
 
-                <li class="attribute initiative">
+                <div class="attribute initiative">
                     <h4 class="attribute-name box-title rollable" data-action="rollInitiative">{{ localize
-                        "ME5E.Initiative" }}</h4>
+                            "ME5E.Initiative" }}</h4>
                     <div class="attribute-value">
                         <span>{{numberFormat data.attributes.init.total decimals=0 sign=true}}</span>
                     </div>
@@ -125,8 +133,9 @@
                         <input name="data.attributes.init.value" type="text" data-dtype="Number" placeholder="0"
                                value="{{numberFormat data.attributes.init.value decimals=0 sign=true}}"/>
                     </footer>
-                </li>
-            </ul>
+                </div>
+            </div>
+
         </section>
     </header>
 
@@ -135,9 +144,12 @@
         <a class="item active" data-tab="attributes">{{ localize "ME5E.Attributes" }}</a>
         <a class="item" data-tab="inventory">{{ localize "ME5E.Inventory" }}</a>
         <a class="item" data-tab="features">{{ localize "ME5E.Features" }}</a>
-        <a class="item" data-tab="spellbook">{{ localize "ME5E.Spellbook" }}</a>
+        <a class="item" data-tab="spellbook">{{ localize "ME5E.Powers" }}</a>
         <a class="item" data-tab="effects">{{ localize "ME5E.Effects" }}</a>
         <a class="item" data-tab="biography">{{ localize "ME5E.Biography" }}</a>
+        {{#unless isVehicle}}
+            <a class="item config-button" data-action="flags" title="{{localize 'ME5E.SpecialTraits'}}"><i class="fas fa-cog"></i></a>
+        {{/unless}}
     </nav>
 
     {{!-- Character Sheet Body --}}
@@ -145,98 +157,88 @@
 
         <div class="tab attributes flexrow" data-group="primary" data-tab="attributes">
 
-            {{!-- Ability Scores --}}
-            <ul class="ability-scores flexrow">
-                {{#each data.abilities as |ability id|}}
-                <li class="ability {{#if ability.proficient}}proficient{{/if}}" data-ability="{{id}}">
-                    <h4 class="ability-name box-title rollable">{{ability.label}}</h4>
-                    <input class="ability-score" name="data.abilities.{{id}}.value" type="number"
-                           value="{{ability.value}}" placeholder="10"/>
-                    <div class="ability-modifiers flexrow">
-                        <span class="ability-mod" title="{{ localize 'ME5E.Modifier' }}">{{numberFormat ability.mod decimals=0 sign=true}}</span>
-                        <input type="hidden" name="data.abilities.{{id}}.proficient" value="{{ability.baseProf}}"
-                               data-dtype="Number"/>
-                        <a class="proficiency-toggle ability-proficiency" title="{{ localize 'ME5E.Proficiency' }}">{{{ability.icon}}}</a>
-                        <span class="ability-save" title="{{ localize 'ME5E.SavingThrow' }}">{{numberFormat ability.save decimals=0 sign=true}}</span>
-                    </div>
-                </li>
-                {{/each}}
-            </ul>
-
-            {{!-- Skills --}}
-            <ul class="skills-list">
-                {{#each config.skills as |label s|}}
-                {{#with (lookup ../data.skills s) as |skill|}}
-                <li class="skill flexrow {{#if skill.value}}proficient{{/if}}" data-skill="{{s}}">
-                    <input type="hidden" name="data.skills.{{s}}.value" value="{{skill.baseValue}}"
-                           data-dtype="Number"/>
-                    <a class="proficiency-toggle skill-proficiency" title="{{skill.hover}}">{{{skill.icon}}}</a>
-                    <h4 class="skill-name rollable">{{label}}</h4>
-                    <span class="skill-ability">{{skill.ability}}</span>
-                    <span class="skill-mod">{{numberFormat skill.total decimals=0 sign=true}}</span>
-                    <span class="skill-passive">({{skill.passive}})</span>
-                </li>
-                {{/with}}
-                {{/each}}
-            </ul>
+            {{!-- Ability Scores & Skills --}}
+            {{> "systems/me5e/templates/actors/parts/actor-skills-scores.html"}}
 
             <section class="center-pane flexcol">
-
-                {{!-- Body Attributes --}}
-                <ul class="attributes flexrow">
-                    {{#each resources as |res|}}
-                    <li class="attribute resource">
-                        <h4 class="attribute-name box-title">
-                            <input name="data.resources.{{res.name}}.label" type="text" value="{{res.label}}"
-                                   placeholder="{{res.placeholder}}"/>
-                        </h4>
-                        <div class="attribute-value">
-                            <label class="recharge checkbox flexcol">
-                                <span>{{ localize "ME5E.AbbreviationSR" }}</span><input
-                                    name="data.resources.{{res.name}}.sr" type="checkbox" {{checked res.sr}}/>
-                            </label>
-
-                            <input name="data.resources.{{res.name}}.value" type="number" value="{{res.value}}"
-                                   placeholder="0"/>
-                            <span class="sep"> / </span>
-                            <input name="data.resources.{{res.name}}.max" type="number" value="{{res.max}}"
-                                   placeholder="0"/>
-
-                            <label class="recharge checkbox flexcol">
-                                <span>{{ localize "ME5E.AbbreviationLR" }}</span><input
-                                    name="data.resources.{{res.name}}.lr" type="checkbox" {{checked res.lr}}/>
-                            </label>
+                <div class="resourceAttributes">
+                    {{!-- Counters --}}
+                    <div class="counters">
+                        <div class="morals">
+                            <div class="counter renegade">
+                                <img src="systems/me5e/ui/Renegade.svg">
+                                <div class="textContent">
+                                    <h4>{{ localize "ME5E.Renegade" }}</h4>
+                                    <input type="number" name="data.attributes.renegade" placeholder="0"
+                                           value="{{data.attributes.renegade}}"/>
+                                </div>
+                            </div>
+                            <div class="counter inspiration">
+                                <h3>{{ localize "ME5E.Inspiration" }}</h3>
+                                <div class="counter-value">
+                                    <input id="inspiration" type="checkbox" name="data.attributes.inspiration" data-dtype="Boolean"
+                                        {{checked data.attributes.inspiration}}/>
+                                    <label for="inspiration"></label>
+                                </div>
+                            </div>
+                            <div class="counter paragon">
+                                <img src="systems/me5e/ui/Paragon.svg">
+                                <div class="textContent">
+                                    <h4>{{ localize "ME5E.Paragon" }}</h4>
+                                    <input type="number" name="data.attributes.paragon" placeholder="0"
+                                           value="{{data.attributes.paragon}}"/>
+                                </div>
+                            </div>
                         </div>
-                    </li>
-                    {{/each}}
-                </ul>
-
-                {{!-- Counters --}}
-                <div class="counters">
-                    <div class="counter flexrow death-saves">
-                        <h4 class="rollable" data-action="rollDeathSave">{{ localize "ME5E.DeathSave" }}</h4>
-                        <div class="counter-value">
-                            <i class="fas fa-check"></i>
-                            <input name="data.attributes.death.success" type="number" placeholder="0"
-                                   value="{{data.attributes.death.success}}"/>
-                            <i class="fas fa-times"></i>
-                            <input name="data.attributes.death.failure" type="number" placeholder="0"
-                                   value="{{data.attributes.death.failure}}"/>
+                        <div class="theRest">
+                            <div class="counter death-saves">
+                                <h4 class="rollable" data-action="rollDeathSave">{{ localize "ME5E.DeathSave" }}</h4>
+                                <div class="counter-value">
+                                    <i class="fas fa-check"></i>
+                                    <input name="data.attributes.death.success" type="number" placeholder="0"
+                                           value="{{data.attributes.death.success}}"/>
+                                    <i class="fas fa-times"></i>
+                                    <input name="data.attributes.death.failure" type="number" placeholder="0"
+                                           value="{{data.attributes.death.failure}}"/>
+                                </div>
+                            </div>
+                            <div class="counter exhaustion">
+                                <h4>{{ localize "ME5E.Exhaustion" }}</h4>
+                                <div class="counter-value">
+                                    <input name="data.attributes.exhaustion" type="number" placeholder="0"
+                                           value="{{data.attributes.exhaustion}}"/>
+                                </div>
+                            </div>
                         </div>
                     </div>
-                    <div class="counter flexrow exhaustion">
-                        <h4>{{ localize "ME5E.Exhaustion" }}</h4>
-                        <div class="counter-value">
-                            <input name="data.attributes.exhaustion" type="number" placeholder="0"
-                                   value="{{data.attributes.exhaustion}}"/>
-                        </div>
-                    </div>
-                    <div class="counter flexrow inspiration">
-                        <h4>{{ localize "ME5E.Inspiration" }}</h4>
-                        <div class="counter-value">
-                            <input type="checkbox" name="data.attributes.inspiration" data-dtype="Boolean"
-                                   {{checked data.attributes.inspiration}}/>
-                        </div>
+
+                    {{!-- Body Attributes --}}
+                    <div class="attributesBox">
+                        {{#each resources as |res|}}
+                            <div class="attribute resource">
+                                <h4 class="attribute-name box-title">
+                                    <input name="data.resources.{{res.name}}.label" type="text" value="{{res.label}}"
+                                           placeholder="{{res.placeholder}}"/>
+                                </h4>
+                                <div class="attribute-value">
+                                    <label class="recharge checkbox flexcol">
+                                        <span>{{ localize "ME5E.AbbreviationSR" }}</span><input
+                                            name="data.resources.{{res.name}}.sr" type="checkbox" {{checked res.sr}}/>
+                                    </label>
+
+                                    <input name="data.resources.{{res.name}}.value" type="number" value="{{res.value}}"
+                                           placeholder="0"/>
+                                    <span class="sep"> / </span>
+                                    <input name="data.resources.{{res.name}}.max" type="number" value="{{res.max}}"
+                                           placeholder="0"/>
+
+                                    <label class="recharge checkbox flexcol">
+                                        <span>{{ localize "ME5E.AbbreviationLR" }}</span><input
+                                            name="data.resources.{{res.name}}.lr" type="checkbox" {{checked res.lr}}/>
+                                    </label>
+                                </div>
+                            </div>
+                        {{/each}}
                     </div>
                 </div>
 

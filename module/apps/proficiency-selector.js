@@ -58,6 +58,13 @@ export default class ProficiencySelector extends TraitSelector {
                 };
                 return obj;
             }, {});
+            data.choices["ship"].children = Object.entries(CONFIG.ME5E.shipTypes).reduce((obj, [key, label]) => {
+                obj[key] = {
+                    label: label,
+                    chosen: attr ? value.includes(key) : false
+                };
+                return obj;
+            }, {});
         }
 
         if(this.options.sortCategories) data.choices = this._sortObject(data.choices);

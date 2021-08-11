@@ -15,7 +15,7 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
     static get defaultOptions() {
         return mergeObject(super.defaultOptions, {
             classes: ["me5e", "sheet", "actor", "character"],
-            width: 720,
+            width: 880,
             height: 680
         });
     }
@@ -78,7 +78,7 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
         };
 
         // Partition items by category
-        let [items, spells, feats, classes] = data.items.reduce((arr, item) => {
+        let [items, powers, feats, classFeats, speciesFeats, fightingStyles, classes] = data.items.reduce((arr, item) => {
 
             // Item details
             item.img = item.img || CONST.DEFAULT_TOKEN;
@@ -105,21 +105,30 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
             // Item toggle state
             this._prepareItemToggleState(item);
 
-            // Primary Class
-            if(item.type === "class") item.isOriginalClass = (item._id === this.actor.data.data.details.originalClass);
-
             // Classify items into types
             if(item.type === "spell") arr[1].push(item);
             else if(item.type === "feat") arr[2].push(item);
-            else if(item.type === "class") arr[3].push(item);
+            else if (item.type === "classFeats") arr[3].push(item);
+            else if (item.type === "speciesFeats") arr[4].push(item);
+            else if (item.type === "fightingStyles") arr[5].push(item);
+            else if (item.type === "class") {
+                // Primary Class
+                item.isOriginalClass = (item._id === this.actor.data.data.details.originalClass)
+                arr[6].push(item);
+            }
+            else if (item.type === "background") data.background = item;
+            else if (item.type === "species") data.species = item;
             else if(Object.keys(inventory).includes(item.type)) arr[0].push(item);
             return arr;
-        }, [[], [], [], []]);
+        }, [[], [], [], [], [], [], []]);
 
         // Apply active item filters
         items = this._filterItems(items, this._filters.inventory);
-        spells = this._filterItems(spells, this._filters.spellbook);
+        powers = this._filterItems(powers, this._filters.spellbook);
         feats = this._filterItems(feats, this._filters.features);
+        classFeats = this._filterItems(classFeats, this._filters.features);
+        speciesFeats = this._filterItems(speciesFeats, this._filters.features);
+        fightingStyles = this._filterItems(fightingStyles, this._filters.features);
 
         // Organize items
         for(let i of items) {
@@ -130,23 +139,21 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
         }
 
         // Organize Spellbook and count the number of prepared spells (excluding always, at will, etc...)
-        const spellbook = this._prepareSpellbook(data, spells);
-        const nPrepared = spells.filter(s => {
+        const spellbook = this._prepareSpellbook(data, powers);
+        const nPrepared = powers.filter(s => {
             return (s.data.level > 0) && (s.data.preparation.mode === "prepared") && s.data.preparation.prepared;
         }).length;
 
-        // Organize Features
-        const features = {
-            classes: {label: "ME5E.ItemTypeClassPl", items: [], hasActions: false, dataset: {type: "class"}, isClass: true},
-            active: {label: "ME5E.FeatureActive", items: [], hasActions: true, dataset: {type: "feat", "activation.type": "action"}},
-            passive: {label: "ME5E.FeaturePassive", items: [], hasActions: false, dataset: {type: "feat"}}
-        };
-        for(let f of feats) {
-            if(f.data.activation.type) features.active.items.push(f);
-            else features.passive.items.push(f);
-        }
         classes.sort((a, b) => b.data.levels - a.data.levels);
-        features.classes.items = classes;
+
+        // Organise Features
+        const features = {
+            classes: {label: "ME5E.ItemTypeClassPl", items: classes, hasActions: false, dataset: {type: "class"}, isClass: true},
+            classFeatures: {label: "ME5E.ItemTypeClassFeatPl", items: classFeats, hasActions: true, dataset: {type: "classFeat"}},
+            speciesFeatures: {label: "ME5E.ItemTypeSpeciesFeatPl", items: speciesFeats, hasActions: true, dataset: {type: "speciesFeat"}},
+            fightingStyle: {label: "ME5E.ItemTypeFightingStylePl", items: fightingStyles, hasActions: false, dataset: {type: "fightingStyle"}},
+            feat: {label: "ME5E.ItemTypeFeatPl", items: feats, hasActions: true, dataset: {type: "feat"}}
+        };
 
         // Assign and return
         data.inventory = Object.values(inventory);
@@ -283,6 +290,12 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
                     return cls.update({"data.levels": next});
                 }
             }
+        } else if (itemData.type === "background") {
+            const background = this.actor.itemTypes.background.find(c => c.name === itemData.name);
+            if (!!background) return ui.notifications.warn("You can only have one background at a time");
+        } else if (itemData.type === "species") {
+            const species = this.actor.itemTypes.species.find(c => c.name === itemData.name);
+            if (!!species) return ui.notifications.warn("You can only have one species at a time");
         }
 
         // Default drop handling if levels were not added

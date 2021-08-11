@@ -147,8 +147,8 @@ export default class Actor5e extends Actor {
         else if(athlete) init.prof = Math.ceil(0.5 * data.attributes.prof);
         else init.prof = 0;
         init.value = init.value ?? 0;
-        init.bonus = init.value + (flags.initiativeAlert ? 5 : 0);
-        init.total = init.mod + init.prof + init.bonus;
+        init.bonus = (flags.initiativeAlert ? 5 : 0);
+        init.total = init.mod + init.prof + init.bonus + init.value;
 
         // Cache labels
         this.labels = {};
@@ -502,7 +502,7 @@ export default class Actor5e extends Actor {
 
         // Look up the number of slots per level from the progression table
         const levels = Math.clamped(progression.slot, 0, 20);
-        const slots = ME5E.SPELL_SLOT_TABLE[levels - 1] || [];
+        const slots = [] // ME5E.SPELL_SLOT_TABLE[levels - 1] || [];
         for(let [n, lvl] of Object.entries(spells)) {
             let i = parseInt(n.slice(-1));
             if(Number.isNaN(i)) continue;
@@ -1786,8 +1786,12 @@ export default class Actor5e extends Actor {
             } else if(itemTypes && itemTypes[key]) {
                 const item = pack.index.get(itemTypes[key]);
                 data.selected[key] = item.name;
-            } else if(type === "tool" && CONFIG.ME5E.vehicleTypes[key]) {
-                data.selected[key] = CONFIG.ME5E.vehicleTypes[key];
+            } else if(type === "tool") {
+                if(CONFIG.ME5E.vehicleTypes[key]) {
+                    data.selected[key] = CONFIG.ME5E.vehicleTypes[key];
+                } else if (CONFIG.ME5E.shipTypes[key]) {
+                    data.selected[key] = CONFIG.ME5E.shipTypes[key];
+                }
             }
         }
 

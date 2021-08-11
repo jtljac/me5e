@@ -145,15 +145,15 @@ Hooks.once("setup", function() {
         "abilities", "abilityAbbreviations", "abilityActivationTypes", "abilityConsumptionTypes", "actorSizes", "alignments",
         "armorClasses", "armorProficiencies", "conditionTypes", "consumableTypes", "cover", "currencies", "damageResistanceTypes",
         "damageTypes", "distanceUnits", "equipmentTypes", "healingTypes", "itemActionTypes", "itemRarity", "languages",
-        "limitedUsePeriods", "movementTypes", "movementUnits", "polymorphSettings", "proficiencyLevels", "senses", "skills",
-        "spellComponents", "spellLevels", "spellPreparationModes", "spellScalingModes", "spellSchools", "targetTypes",
-        "timePeriods", "toolProficiencies", "toolTypes", "vehicleTypes", "weaponProficiencies", "weaponProperties", "weaponTypes"
+        "limitedUsePeriods", "movementTypes", "movementUnits", "polymorphSettings", "proficiencyLevels", "senses", "skills", "shipTypes",
+        "spellPreparationModes", "spellScalingModes", "spellSchools", "targetTypes", "timePeriods", "toolProficiencies", "toolTypes",
+        "vehicleTypes", "weaponProficiencies", "weaponProperties", "weaponTypes"
     ];
 
     // Exclude some from sorting where the default order matters
     const noSort = [
         "abilities", "alignments", "armorClasses", "armorProficiencies", "currencies", "distanceUnits", "movementUnits",
-        "itemActionTypes", "itemRarity", "proficiencyLevels", "limitedUsePeriods", "spellComponents", "spellLevels",
+        "itemActionTypes", "itemRarity", "proficiencyLevels", "limitedUsePeriods",
         "spellPreparationModes", "weaponProficiencies", "weaponTypes"
     ];
 

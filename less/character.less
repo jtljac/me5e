@@ -20,69 +20,67 @@
             height: 160px;
         }
 
-        // Character Level
-        .charlevel {
-            flex: 0 0 20px;
-            height: 20px;
-            font-size: 18px;
-            color: @colorTan;
-            white-space: nowrap;
-        }
+        .header-details {
 
-        // Experience Tracking
-        .experience {
-            flex: 0 0 32px;
-            margin-bottom: -5px;
-            align-items: center;
-            font-size: 18px;
-
-            span.max {
+            // Character Level
+            .charlevel {
+                flex: 0 0 20px;
+                height: 20px;
+                font-size: 18px;
                 color: @colorTan;
-                flex: none;
-                margin-left: 3px;
+                white-space: nowrap;
             }
-        }
 
-        .xpbar {
-            flex: 0 0 8px;
-            width: 100%;
-            margin-bottom: 5px;
-            background: @colorTan;
-            border: 1px solid #000;
-            border-radius: 3px;
+            // Experience Tracking
+            .experience {
+                flex: 0 0 32px;
+                margin-bottom: -5px;
+                align-items: center;
+                font-size: 18px;
 
-            .bar {
-                height: 4px;
-                margin: 1px;
-                display: block;
-                background: #afebff;
+                span.max {
+                    color: @colorTan;
+                    flex: none;
+                    margin-left: 3px;
+                }
+            }
+
+            .xpbar {
+                flex: 0 0 8px;
+                width: 100%;
+                margin-bottom: 5px;
+                background: @colorTan;
                 border: 1px solid #000;
-                border-radius: 2px;
-            }
-        }
+                border-radius: 3px;
 
-        // Header Attributes
-        .attributes {
-            a.rest {
-                border: 1px solid @colorBeige;
-                border-radius: 2px;
-                background: rgba(0, 0, 0, 0.05);
-                padding: 0 3px;
-                margin: 0 3px;
+                .bar {
+                    height: 4px;
+                    margin: 1px;
+                    display: block;
+                    background: #afebff;
+                    border: 1px solid #000;
+                    border-radius: 2px;
+                }
             }
 
-            .hit-dice {
-                font-size: 24px;
-            }
+            // Header Attributes
+            .attributesBox {
+                a.rest {
+                    border: 1px solid @colorBeige;
+                    border-radius: 2px;
+                    background: rgba(0, 0, 0, 0.05);
+                    padding: 0 3px;
+                    margin: 0 3px;
+                }
 
-            .initiative .attribute-footer input {
-                width: 32px;
-            }
-        }
+                .hit-dice {
+                    font-size: 24px;
+                }
 
-        .summary .proficiency {
-            text-align: right;
-            padding-right: 5px;
+                .initiative .attribute-footer input {
+                    width: 32px;
+                }
+            }
         }
     }
 
@@ -91,25 +89,29 @@
     /* ----------------------------------------- */
 
     // Custom Resources
-    .resource .attribute-value {
-        > input {
-            flex: 0 0 25%;
-        }
+    .resource {
+        width: 120px;
 
-        label.recharge {
-            height: 32px;
-            position: relative;
-            font-family: "Signika", sans-serif;
-            font-size: 11px;
-            text-align: center;
-            color: @colorOlive;
-            align-items: center;
+        .attribute-value {
+            > input {
+                flex: 0 0 25%;
+            }
 
-            input[type="checkbox"] {
-                height: 14px;
-                width: 14px;
-                margin: 0;
-                top: -6px;
+            label.recharge {
+                height: 32px;
+                position: relative;
+                font-family: "Signika", sans-serif;
+                font-size: 11px;
+                text-align: center;
+                color: @colorOlive;
+                align-items: center;
+
+                input[type="checkbox"] {
+                    height: 14px;
+                    width: 14px;
+                    margin: 0;
+                    top: -6px;
+                }
             }
         }
     }

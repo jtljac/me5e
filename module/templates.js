@@ -11,6 +11,7 @@ export const preloadHandlebarsTemplates = async function() {
 
         // Actor Sheet Partials
         "systems/me5e/templates/actors/parts/actor-traits.html",
+        "systems/me5e/templates/actors/parts/actor-skills-scores.html",
         "systems/me5e/templates/actors/parts/actor-inventory.html",
         "systems/me5e/templates/actors/parts/actor-features.html",
         "systems/me5e/templates/actors/parts/actor-spellbook.html",

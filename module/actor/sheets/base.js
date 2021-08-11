@@ -313,8 +313,7 @@ export default class ActorSheet5e extends ActorSheet {
             "dr": CONFIG.ME5E.damageResistanceTypes,
             "di": CONFIG.ME5E.damageResistanceTypes,
             "dv": CONFIG.ME5E.damageResistanceTypes,
-            "ci": CONFIG.ME5E.conditionTypes,
-            "languages": CONFIG.ME5E.languages
+            "ci": CONFIG.ME5E.conditionTypes
         };
         for(let [t, choices] of Object.entries(map)) {
             const trait = traits[t];
@@ -389,7 +388,7 @@ export default class ActorSheet5e extends ActorSheet {
         };
 
         // Determine the maximum spell level which has a slot
-        const maxLevel = Array.fromRange(10).reduce((max, i) => {
+        const maxLevel = Array.fromRange(6).reduce((max, i) => {
             if(i === 0) return max;
             const level = levels[`spell${i}`];
             if((level.max || level.override) && (i > max)) max = i;
@@ -767,11 +766,11 @@ export default class ActorSheet5e extends ActorSheet {
             }));
         }
 
-        // Create a Consumable spell scroll on the Inventory tab
-        if((itemData.type === "spell") && (this._tabs[0].active === "inventory")) {
-            const scroll = await Item5e.createScrollFromSpell(itemData);
-            itemData = scroll.data;
-        }
+        // // Create a Consumable spell scroll on the Inventory tab
+        // if ((itemData.type === "spell") && (this._tabs[0].active === "inventory")) {
+        //     const scroll = await Item5e.createScrollFromSpell(itemData);
+        //     itemData = scroll.data;
+        // }
 
         if(itemData.data) {
             // Ignore certain statuses

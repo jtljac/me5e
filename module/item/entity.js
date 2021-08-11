@@ -38,7 +38,7 @@ export default class Item5e extends Item {
                 const wt = itemData.weaponType;
 
                 //Weapons using the spellcasting modifier
-                if(["msak", "rsak"].includes(itemData.actionType)) {
+                if(["mpak", "rpak"].includes(itemData.actionType)) {
                     return actorData.attributes.spellcasting || "int";
                 }
 
@@ -64,7 +64,7 @@ export default class Item5e extends Item {
      * @type {boolean}
      */
     get hasAttack() {
-        return ["mwak", "rwak", "msak", "rsak"].includes(this.data.data.actionType);
+        return ["mwak", "rwak", "mpak", "rpak"].includes(this.data.data.actionType);
     }
 
     /* -------------------------------------------- */
@@ -983,10 +983,7 @@ export default class Item5e extends Item {
         // Scale damage from up-casting spells
         if((this.data.type === "spell")) {
             if((itemData.scaling.mode === "cantrip")) {
-                let level;
-                if(this.actor.type === "character") level = actorData.details.level;
-                else if(itemData.preparation.mode === "innate") level = Math.ceil(actorData.details.cr);
-                else level = actorData.details.spellLevel;
+                const level = this.actor.type === "character" ? actorData.details.level : actorData.details.spellLevel;
                 this._scaleCantripDamage(parts, itemData.scaling.formula, level, rollData);
             } else if(spellLevel && (itemData.scaling.mode === "level") && itemData.scaling.formula) {
                 const scaling = itemData.scaling.formula;
