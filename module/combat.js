@@ -16,8 +16,8 @@ export const _getInitiativeFormula = function() {
   // Construct initiative formula parts
   let nd = 1;
   let mods = "";
-  if (actor.getFlag("dnd5e", "halflingLucky")) mods += "r1=1";
-  if (actor.getFlag("dnd5e", "initiativeAdv")) {
+  if (actor.getFlag("me5e", "halflingLucky")) mods += "r1=1";
+  if (actor.getFlag("me5e", "initiativeAdv")) {
     nd = 2;
     mods += "kh";
   }
@@ -35,7 +35,7 @@ export const _getInitiativeFormula = function() {
   if ( globalCheckBonus ) parts.push(Roll.replaceFormulaData(globalCheckBonus, rollData));
 
   // Optionally apply Dexterity tiebreaker
-  const tiebreaker = game.settings.get("dnd5e", "initiativeDexTiebreaker");
+  const tiebreaker = game.settings.get("me5e", "initiativeDexTiebreaker");
   if ( tiebreaker ) parts.push(actor.data.data.abilities.dex.value / 100);
   return parts.filter(p => p !== null).join(" + ");
 };

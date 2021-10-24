@@ -35,8 +35,8 @@ export default class PropertyAttribution extends Application {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "property-attribution",
-      classes: ["dnd5e", "property-attribution"],
-      template: "systems/dnd5e/templates/apps/property-attribution.html",
+      classes: ["me5e", "property-attribution"],
+      template: "systems/me5e/templates/apps/property-attribution.html",
       width: 320,
       height: "auto"
     });
@@ -93,7 +93,7 @@ export default class PropertyAttribution extends Application {
   getPropertyLabel(property) {
     const parts = property.split(".");
     if ( parts[0] === "abilities" && parts[1] ) {
-      return CONFIG.DND5E.abilities[parts[1]];
+      return CONFIG.ME5E.abilities[parts[1]];
     }
     return property;
   }

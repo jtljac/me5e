@@ -4,7 +4,7 @@ import SelectItemsPrompt from "../apps/select-items-prompt.js";
 import ShortRestDialog from "../apps/short-rest.js";
 import LongRestDialog from "../apps/long-rest.js";
 import ProficiencySelector from "../apps/proficiency-selector.js";
-import {DND5E} from "../config.js";
+import {ME5E} from "../config.js";
 import Item5e from "../item/entity.js";
 
 /**
@@ -44,7 +44,7 @@ export default class Actor5e extends Actor {
    * @type {boolean}
    */
   get isPolymorphed() {
-    return this.getFlag("dnd5e", "isPolymorphed") || false;
+    return this.getFlag("me5e", "isPolymorphed") || false;
   }
 
   /* -------------------------------------------- */
@@ -91,15 +91,15 @@ export default class Actor5e extends Actor {
   prepareDerivedData() {
     const actorData = this.data;
     const data = actorData.data;
-    const flags = actorData.flags.dnd5e || {};
+    const flags = actorData.flags.me5e || {};
     const bonuses = getProperty(data, "bonuses.abilities") || {};
 
     // Retrieve data for polymorphed actors
     let originalSaves = null;
     let originalSkills = null;
     if (this.isPolymorphed) {
-      const transformOptions = this.getFlag("dnd5e", "transformOptions");
-      const original = game.actors?.get(this.getFlag("dnd5e", "originalActor"));
+      const transformOptions = this.getFlag("me5e", "transformOptions");
+      const original = game.actors?.get(this.getFlag("me5e", "originalActor"));
       if (original) {
         if (transformOptions.mergeSaves) {
           originalSaves = original.data.data.abilities;
@@ -175,7 +175,7 @@ export default class Actor5e extends Actor {
    * @returns {number}      The XP required.
    */
   getLevelExp(level) {
-    const levels = CONFIG.DND5E.CHARACTER_EXP_LEVELS;
+    const levels = CONFIG.ME5E.CHARACTER_EXP_LEVELS;
     return levels[Math.min(level, levels.length - 1)];
   }
 
@@ -188,7 +188,7 @@ export default class Actor5e extends Actor {
    */
   getCRExp(cr) {
     if (cr < 1.0) return Math.max(200 * cr, 10);
-    return CONFIG.DND5E.CR_EXP_LEVELS[cr];
+    return CONFIG.ME5E.CR_EXP_LEVELS[cr];
   }
 
   /* -------------------------------------------- */
@@ -222,7 +222,7 @@ export default class Actor5e extends Actor {
     let toCreate = [];
     if (prompt) {
       const itemIdsToAdd = await SelectItemsPrompt.create(items, {
-        hint: game.i18n.localize("DND5E.AddEmbeddedItemPromptHint")
+        hint: game.i18n.localize("ME5E.AddEmbeddedItemPromptHint")
       });
       for (let item of items) {
         if (itemIdsToAdd.includes(item.id)) toCreate.push(item.toObject());
@@ -269,7 +269,7 @@ export default class Actor5e extends Actor {
     subclassName = subclassName.slugify();
 
     // Get the configuration of features which may be added
-    const clsConfig = CONFIG.DND5E.classFeatures[className];
+    const clsConfig = CONFIG.ME5E.classFeatures[className];
     if (!clsConfig) return [];
 
     // Acquire class features
@@ -388,10 +388,10 @@ export default class Actor5e extends Actor {
     if (actorData.type === "vehicle") return;
 
     const data = actorData.data;
-    const flags = actorData.flags.dnd5e || {};
+    const flags = actorData.flags.me5e || {};
 
     // Skill modifiers
-    const feats = DND5E.characterFlags;
+    const feats = ME5E.characterFlags;
     const joat = flags.jackOfAllTrades;
     const observant = flags.observantFeat;
     const skillBonus = this._simplifyBonus(bonuses.skill, bonusData);
@@ -481,7 +481,7 @@ export default class Actor5e extends Actor {
    */
   _computeInitiativeModifier(actorData, globalCheckBonus, bonusData) {
     const data = actorData.data;
-    const flags = actorData.flags.dnd5e || {};
+    const flags = actorData.flags.me5e || {};
     const init = data.attributes.init;
 
     // Initiative modifiers
@@ -559,7 +559,7 @@ export default class Actor5e extends Actor {
 
     // Look up the number of slots per level from the progression table
     const levels = Math.clamped(progression.slot, 0, 20);
-    const slots = DND5E.SPELL_SLOT_TABLE[levels - 1] || [];
+    const slots = ME5E.SPELL_SLOT_TABLE[levels - 1] || [];
     for ( let [n, lvl] of Object.entries(spells) ) {
       let i = parseInt(n.slice(-1));
       if ( Number.isNaN(i) ) continue;
@@ -609,15 +609,15 @@ export default class Actor5e extends Actor {
     // Get AC configuration and apply automatic migrations for older data structures
     const ac = data.attributes.ac;
     ac.warnings = [];
-    let cfg = CONFIG.DND5E.armorClasses[ac.calc];
+    let cfg = CONFIG.ME5E.armorClasses[ac.calc];
     if ( !cfg ) {
       ac.calc = "flat";
       if ( Number.isNumeric(ac.value) ) ac.flat = Number(ac.value);
-      cfg = CONFIG.DND5E.armorClasses.flat;
+      cfg = CONFIG.ME5E.armorClasses.flat;
     }
 
     // Identify Equipped Items
-    const armorTypes = new Set(Object.keys(CONFIG.DND5E.armorTypes));
+    const armorTypes = new Set(Object.keys(CONFIG.ME5E.armorTypes));
     const {armors, shields} = this.itemTypes.equipment.reduce((obj, equip) => {
       const armor = equip.data.data.armor;
       if ( !equip.data.data.equipped || !armorTypes.has(armor?.type) ) return obj;
@@ -642,7 +642,7 @@ export default class Actor5e extends Actor {
       // Equipment-based AC
       case "default":
         if ( armors.length ) {
-          if ( armors.length > 1 ) ac.warnings.push("DND5E.WarnMultipleArmor");
+          if ( armors.length > 1 ) ac.warnings.push("ME5E.WarnMultipleArmor");
           const armorData = armors[0].data.data.armor;
           const isHeavy = armorData.type === "heavy";
           ac.dex = isHeavy ? 0 : Math.min(armorData.dex ?? Infinity, data.abilities.dex.mod);
@@ -662,8 +662,8 @@ export default class Actor5e extends Actor {
           const replaced = Roll.replaceFormulaData(formula, rollData);
           ac.base = Roll.safeEval(replaced);
         } catch(err) {
-          ac.warnings.push("DND5E.WarnBadACFormula");
-          const replaced = Roll.replaceFormulaData(CONFIG.DND5E.armorClasses.default.formula, rollData);
+          ac.warnings.push("ME5E.WarnBadACFormula");
+          const replaced = Roll.replaceFormulaData(CONFIG.ME5E.armorClasses.default.formula, rollData);
           ac.base = Roll.safeEval(replaced);
         }
         break;
@@ -671,7 +671,7 @@ export default class Actor5e extends Actor {
 
     // Equipped Shield
     if ( shields.length ) {
-      if ( shields.length > 1 ) ac.warnings.push("DND5E.WarnMultipleShields");
+      if ( shields.length > 1 ) ac.warnings.push("ME5E.WarnMultipleShields");
       ac.shield = shields[0].data.data.armor.value ?? 0;
       ac.equippedShield = shields[0];
     }
@@ -704,13 +704,13 @@ export default class Actor5e extends Actor {
     }, 0);
 
     // [Optional] add Currency Weight (for non-transformed actors)
-    if ( game.settings.get("dnd5e", "currencyWeight") && actorData.data.currency ) {
+    if ( game.settings.get("me5e", "currencyWeight") && actorData.data.currency ) {
       const currency = actorData.data.currency;
       const numCoins = Object.values(currency).reduce((val, denom) => val += Math.max(denom, 0), 0);
 
-      const currencyPerWeight = game.settings.get("dnd5e", "metricWeightUnits")
-        ? CONFIG.DND5E.encumbrance.currencyPerWeight.metric
-        : CONFIG.DND5E.encumbrance.currencyPerWeight.imperial;
+      const currencyPerWeight = game.settings.get("me5e", "metricWeightUnits")
+        ? CONFIG.ME5E.encumbrance.currencyPerWeight.metric
+        : CONFIG.ME5E.encumbrance.currencyPerWeight.imperial;
 
       weight += numCoins / currencyPerWeight;
     }
@@ -724,14 +724,14 @@ export default class Actor5e extends Actor {
       huge: 4,
       grg: 8
     }[actorData.data.traits.size] || 1;
-    if ( this.getFlag("dnd5e", "powerfulBuild") ) mod = Math.min(mod * 2, 8);
+    if ( this.getFlag("me5e", "powerfulBuild") ) mod = Math.min(mod * 2, 8);
 
     // Compute Encumbrance percentage
     weight = weight.toNearest(0.1);
 
-    const strengthMultiplier = game.settings.get("dnd5e", "metricWeightUnits")
-      ? CONFIG.DND5E.encumbrance.strMultiplier.metric
-      : CONFIG.DND5E.encumbrance.strMultiplier.imperial;
+    const strengthMultiplier = game.settings.get("me5e", "metricWeightUnits")
+      ? CONFIG.ME5E.encumbrance.strMultiplier.metric
+      : CONFIG.ME5E.encumbrance.strMultiplier.imperial;
 
     const max = (actorData.data.abilities.str.value * strengthMultiplier * mod).toNearest(0.1);
     const pct = Math.clamped((weight * 100) / max, 0, 100);
@@ -750,7 +750,7 @@ export default class Actor5e extends Actor {
 
     // Some sensible defaults for convenience
     // Token size category
-    const s = CONFIG.DND5E.tokenSizes[this.data.data.traits.size || "med"];
+    const s = CONFIG.ME5E.tokenSizes[this.data.data.traits.size || "med"];
     this.data.token.update({width: s, height: s});
 
     // Player character configuration
@@ -768,7 +768,7 @@ export default class Actor5e extends Actor {
     // Apply changes in Actor size to Token width/height
     const newSize = foundry.utils.getProperty(changed, "data.traits.size");
     if ( newSize && (newSize !== foundry.utils.getProperty(this.data, "data.traits.size")) ) {
-      let size = CONFIG.DND5E.tokenSizes[newSize];
+      let size = CONFIG.ME5E.tokenSizes[newSize];
       if ( !foundry.utils.hasProperty(changed, "token.width") ) {
         changed.token = changed.token || {};
         changed.token.height = size;
@@ -858,7 +858,7 @@ export default class Actor5e extends Actor {
    * @private
    */
   _isRemarkableAthlete(ability) {
-    return this.getFlag("dnd5e", "remarkableAthlete") && DND5E.characterFlags.remarkableAthlete.abilities.includes(ability);
+    return this.getFlag("me5e", "remarkableAthlete") && ME5E.characterFlags.remarkableAthlete.abilities.includes(ability);
   }
 
   /* -------------------------------------------- */
@@ -920,18 +920,18 @@ export default class Actor5e extends Actor {
     }
 
     // Reliable Talent applies to any skill check we have full or better proficiency in
-    const reliableTalent = (skl.value >= 1 && this.getFlag("dnd5e", "reliableTalent"));
+    const reliableTalent = (skl.value >= 1 && this.getFlag("me5e", "reliableTalent"));
 
     // Roll and return
     const rollData = foundry.utils.mergeObject(options, {
       parts: parts,
       data: data,
-      title: game.i18n.format("DND5E.SkillPromptTitle", {skill: CONFIG.DND5E.skills[skillId]}),
-      halflingLucky: this.getFlag("dnd5e", "halflingLucky"),
+      title: game.i18n.format("ME5E.SkillPromptTitle", {skill: CONFIG.ME5E.skills[skillId]}),
+      halflingLucky: this.getFlag("me5e", "halflingLucky"),
       reliableTalent: reliableTalent,
       messageData: {
         speaker: options.speaker || ChatMessage.getSpeaker({actor: this}),
-        "flags.dnd5e.roll": {type: "skill", skillId }
+        "flags.me5e.roll": {type: "skill", skillId }
       }
     });
     return d20Roll(rollData);
@@ -946,17 +946,17 @@ export default class Actor5e extends Actor {
    * @param {object} options      Options which configure how ability tests or saving throws are rolled
    */
   rollAbility(abilityId, options={}) {
-    const label = CONFIG.DND5E.abilities[abilityId];
+    const label = CONFIG.ME5E.abilities[abilityId];
     new Dialog({
-      title: game.i18n.format("DND5E.AbilityPromptTitle", {ability: label}),
-      content: `<p>${game.i18n.format("DND5E.AbilityPromptText", {ability: label})}</p>`,
+      title: game.i18n.format("ME5E.AbilityPromptTitle", {ability: label}),
+      content: `<p>${game.i18n.format("ME5E.AbilityPromptText", {ability: label})}</p>`,
       buttons: {
         test: {
-          label: game.i18n.localize("DND5E.ActionAbil"),
+          label: game.i18n.localize("ME5E.ActionAbil"),
           callback: () => this.rollAbilityTest(abilityId, options)
         },
         save: {
-          label: game.i18n.localize("DND5E.ActionSave"),
+          label: game.i18n.localize("ME5E.ActionSave"),
           callback: () => this.rollAbilitySave(abilityId, options)
         }
       }
@@ -973,7 +973,7 @@ export default class Actor5e extends Actor {
    * @returns {Promise<Roll>}     A Promise which resolves to the created Roll instance
    */
   rollAbilityTest(abilityId, options={}) {
-    const label = CONFIG.DND5E.abilities[abilityId];
+    const label = CONFIG.ME5E.abilities[abilityId];
     const abl = this.data.data.abilities[abilityId];
 
     const parts = [];
@@ -1012,11 +1012,11 @@ export default class Actor5e extends Actor {
     const rollData = foundry.utils.mergeObject(options, {
       parts: parts,
       data: data,
-      title: game.i18n.format("DND5E.AbilityPromptTitle", {ability: label}),
-      halflingLucky: this.getFlag("dnd5e", "halflingLucky"),
+      title: game.i18n.format("ME5E.AbilityPromptTitle", {ability: label}),
+      halflingLucky: this.getFlag("me5e", "halflingLucky"),
       messageData: {
         speaker: options.speaker || ChatMessage.getSpeaker({actor: this}),
-        "flags.dnd5e.roll": {type: "ability", abilityId }
+        "flags.me5e.roll": {type: "ability", abilityId }
       }
     });
     return d20Roll(rollData);
@@ -1032,7 +1032,7 @@ export default class Actor5e extends Actor {
    * @returns {Promise<Roll>}     A Promise which resolves to the created Roll instance
    */
   rollAbilitySave(abilityId, options={}) {
-    const label = CONFIG.DND5E.abilities[abilityId];
+    const label = CONFIG.ME5E.abilities[abilityId];
     const abl = this.data.data.abilities[abilityId];
 
     const parts = [];
@@ -1071,11 +1071,11 @@ export default class Actor5e extends Actor {
     const rollData = foundry.utils.mergeObject(options, {
       parts: parts,
       data: data,
-      title: game.i18n.format("DND5E.SavePromptTitle", {ability: label}),
-      halflingLucky: this.getFlag("dnd5e", "halflingLucky"),
+      title: game.i18n.format("ME5E.SavePromptTitle", {ability: label}),
+      halflingLucky: this.getFlag("me5e", "halflingLucky"),
       messageData: {
         speaker: options.speaker || ChatMessage.getSpeaker({actor: this}),
-        "flags.dnd5e.roll": {type: "save", abilityId }
+        "flags.me5e.roll": {type: "save", abilityId }
       }
     });
     return d20Roll(rollData);
@@ -1093,7 +1093,7 @@ export default class Actor5e extends Actor {
     // Display a warning if we are not at zero HP or if we already have reached 3
     const death = this.data.data.attributes.death;
     if ( (this.data.data.attributes.hp.value > 0) || (death.failure >= 3) || (death.success >= 3)) {
-      ui.notifications.warn(game.i18n.localize("DND5E.DeathSaveUnnecessary"));
+      ui.notifications.warn(game.i18n.localize("ME5E.DeathSaveUnnecessary"));
       return null;
     }
 
@@ -1103,7 +1103,7 @@ export default class Actor5e extends Actor {
     const speaker = options.speaker || ChatMessage.getSpeaker({actor: this});
 
     // Diamond Soul adds proficiency
-    if ( this.getFlag("dnd5e", "diamondSoul") ) {
+    if ( this.getFlag("me5e", "diamondSoul") ) {
       parts.push("@prof");
       data.prof = new Proficiency(this.data.data.attributes.prof, 1).term;
     }
@@ -1119,12 +1119,12 @@ export default class Actor5e extends Actor {
     const rollData = foundry.utils.mergeObject(options, {
       parts: parts,
       data: data,
-      title: game.i18n.localize("DND5E.DeathSavingThrow"),
-      halflingLucky: this.getFlag("dnd5e", "halflingLucky"),
+      title: game.i18n.localize("ME5E.DeathSavingThrow"),
+      halflingLucky: this.getFlag("me5e", "halflingLucky"),
       targetValue: 10,
       messageData: {
         speaker: speaker,
-        "flags.dnd5e.roll": {type: "death"}
+        "flags.me5e.roll": {type: "death"}
       }
     });
     const roll = await d20Roll(rollData);
@@ -1147,7 +1147,7 @@ export default class Actor5e extends Actor {
           "data.attributes.death.failure": 0,
           "data.attributes.hp.value": 1
         });
-        chatString = "DND5E.DeathSaveCriticalSuccess";
+        chatString = "ME5E.DeathSaveCriticalSuccess";
       }
 
       // 3 Successes = survive and reset checks
@@ -1156,7 +1156,7 @@ export default class Actor5e extends Actor {
           "data.attributes.death.success": 0,
           "data.attributes.death.failure": 0
         });
-        chatString = "DND5E.DeathSaveSuccess";
+        chatString = "ME5E.DeathSaveSuccess";
       }
 
       // Increment successes
@@ -1168,7 +1168,7 @@ export default class Actor5e extends Actor {
       let failures = (death.failure || 0) + (d20 === 1 ? 2 : 1);
       await this.update({"data.attributes.death.failure": Math.clamped(failures, 0, 3)});
       if ( failures >= 3 ) {  // 3 Failures = death
-        chatString = "DND5E.DeathSaveFailure";
+        chatString = "ME5E.DeathSaveFailure";
       }
     }
 
@@ -1212,13 +1212,13 @@ export default class Actor5e extends Actor {
 
     // If no class is available, display an error notification
     if ( !cls ) {
-      ui.notifications.error(game.i18n.format("DND5E.HitDiceWarn", {name: this.name, formula: denomination}));
+      ui.notifications.error(game.i18n.format("ME5E.HitDiceWarn", {name: this.name, formula: denomination}));
       return null;
     }
 
     // Prepare roll data
     const parts = [`1${denomination}`, "@abilities.con.mod"];
-    const title = game.i18n.localize("DND5E.HitDiceRoll");
+    const title = game.i18n.localize("ME5E.HitDiceRoll");
     const rollData = foundry.utils.deepClone(this.data.data);
 
     // Call the roll helper utility
@@ -1232,7 +1232,7 @@ export default class Actor5e extends Actor {
       dialogOptions: {width: 350},
       messageData: {
         speaker: ChatMessage.getSpeaker({actor: this}),
-        "flags.dnd5e.roll": {type: "hitDie"}
+        "flags.me5e.roll": {type: "hitDie"}
       }
     });
     if ( !roll ) return null;
@@ -1397,17 +1397,17 @@ export default class Actor5e extends Actor {
     let message;
 
     // Summarize the rest duration
-    switch (game.settings.get("dnd5e", "restVariant")) {
-      case "normal": restFlavor = (longRest && newDay) ? "DND5E.LongRestOvernight" : `DND5E.${length}RestNormal`; break;
-      case "gritty": restFlavor = (!longRest && newDay) ? "DND5E.ShortRestOvernight" : `DND5E.${length}RestGritty`; break;
-      case "epic": restFlavor = `DND5E.${length}RestEpic`; break;
+    switch (game.settings.get("me5e", "restVariant")) {
+      case "normal": restFlavor = (longRest && newDay) ? "ME5E.LongRestOvernight" : `ME5E.${length}RestNormal`; break;
+      case "gritty": restFlavor = (!longRest && newDay) ? "ME5E.ShortRestOvernight" : `ME5E.${length}RestGritty`; break;
+      case "epic": restFlavor = `ME5E.${length}RestEpic`; break;
     }
 
     // Determine the chat message to display
-    if ( diceRestored && healthRestored ) message = `DND5E.${length}RestResult`;
-    else if ( longRest && !diceRestored && healthRestored ) message = "DND5E.LongRestResultHitPoints";
-    else if ( longRest && diceRestored && !healthRestored ) message = "DND5E.LongRestResultHitDice";
-    else message = `DND5E.${length}RestResultShort`;
+    if ( diceRestored && healthRestored ) message = `ME5E.${length}RestResult`;
+    else if ( longRest && !diceRestored && healthRestored ) message = "ME5E.LongRestResultHitPoints";
+    else if ( longRest && diceRestored && !healthRestored ) message = "ME5E.LongRestResultHitDice";
+    else message = `ME5E.${length}RestResultShort`;
 
     // Create a chat message
     let chatData = {
@@ -1598,7 +1598,7 @@ export default class Actor5e extends Actor {
    */
   convertCurrency() {
     const curr = foundry.utils.deepClone(this.data.data.currency);
-    const conversion = Object.entries(CONFIG.DND5E.currencies);
+    const conversion = Object.entries(CONFIG.ME5E.currencies);
     conversion.reverse();
     for ( let [c, data] of conversion ) {
       const t = data.conversion;
@@ -1637,15 +1637,15 @@ export default class Actor5e extends Actor {
     keepItems=false, keepBio=false, keepVision=false, transformTokens=true}={}) {
 
     // Ensure the player is allowed to polymorph
-    const allowed = game.settings.get("dnd5e", "allowPolymorphing");
+    const allowed = game.settings.get("me5e", "allowPolymorphing");
     if ( !allowed && !game.user.isGM ) {
-      return ui.notifications.warn(game.i18n.localize("DND5E.PolymorphWarn"));
+      return ui.notifications.warn(game.i18n.localize("ME5E.PolymorphWarn"));
     }
 
     // Get the original Actor data and the new source data
     const o = this.toJSON();
-    o.flags.dnd5e = o.flags.dnd5e || {};
-    o.flags.dnd5e.transformOptions = {mergeSkills, mergeSaves};
+    o.flags.me5e = o.flags.me5e || {};
+    o.flags.me5e.transformOptions = {mergeSkills, mergeSaves};
     const source = target.toJSON();
 
     // Prepare new data to merge from the source
@@ -1718,7 +1718,7 @@ export default class Actor5e extends Actor {
     if (!keepClass && d.data.details.cr) {
       d.items.push({
         type: "class",
-        name: game.i18n.localize("DND5E.PolymorphTmpClass"),
+        name: game.i18n.localize("ME5E.PolymorphTmpClass"),
         data: { levels: d.data.details.cr }
       });
     }
@@ -1730,8 +1730,8 @@ export default class Actor5e extends Actor {
     if (keepVision) d.data.traits.senses = o.data.traits.senses;
 
     // Set new data flags
-    if ( !this.isPolymorphed || !d.flags.dnd5e.originalActor ) d.flags.dnd5e.originalActor = this.id;
-    d.flags.dnd5e.isPolymorphed = true;
+    if ( !this.isPolymorphed || !d.flags.me5e.originalActor ) d.flags.me5e.originalActor = this.id;
+    d.flags.me5e.isPolymorphed = true;
 
     // Update unlinked Tokens in place since they can simply be re-dropped from the base actor
     if (this.isToken) {
@@ -1743,7 +1743,7 @@ export default class Actor5e extends Actor {
 
     // Update regular Actors by creating a new Actor with the Polymorphed data
     await this.sheet.close();
-    Hooks.callAll("dnd5e.transformActor", this, target, d, {
+    Hooks.callAll("me5e.transformActor", this, target, d, {
       keepPhysical, keepMental, keepSaves, keepSkills, mergeSaves, mergeSkills,
       keepClass, keepFeats, keepSpells, keepItems, keepBio, keepVision, transformTokens
     });
@@ -1773,7 +1773,7 @@ export default class Actor5e extends Actor {
   async revertOriginalForm() {
     if ( !this.isPolymorphed ) return;
     if ( !this.isOwner ) {
-      return ui.notifications.warn(game.i18n.localize("DND5E.PolymorphRevertWarn"));
+      return ui.notifications.warn(game.i18n.localize("ME5E.PolymorphRevertWarn"));
     }
 
     // If we are reverting an unlinked token, simply replace it with the base actor prototype
@@ -1792,7 +1792,7 @@ export default class Actor5e extends Actor {
     }
 
     // Obtain a reference to the original actor
-    const original = game.actors.get(this.getFlag("dnd5e", "originalActor"));
+    const original = game.actors.get(this.getFlag("me5e", "originalActor"));
     if ( !original ) return;
 
     // Get the Tokens which represent this actor
@@ -1826,14 +1826,14 @@ export default class Actor5e extends Actor {
    */
   static addDirectoryContextOptions(html, entryOptions) {
     entryOptions.push({
-      name: "DND5E.PolymorphRestoreTransformation",
+      name: "ME5E.PolymorphRestoreTransformation",
       icon: '<i class="fas fa-backward"></i>',
       callback: li => {
         const actor = game.actors.get(li.data("entityId"));
         return actor.revertOriginalForm();
       },
       condition: li => {
-        const allowed = game.settings.get("dnd5e", "allowPolymorphing");
+        const allowed = game.settings.get("me5e", "allowPolymorphing");
         if ( !allowed && !game.user.isGM ) return false;
         const actor = game.actors.get(li.data("entityId"));
         return actor && actor.isPolymorphed;
@@ -1854,13 +1854,13 @@ export default class Actor5e extends Actor {
     if ( typeData.value === "custom" ) {
       localizedType = typeData.custom;
     } else {
-      let code = CONFIG.DND5E.creatureTypes[typeData.value];
+      let code = CONFIG.ME5E.creatureTypes[typeData.value];
       localizedType = game.i18n.localize(typeData.swarm ? `${code}Pl` : code);
     }
     let type = localizedType;
     if ( typeData.swarm ) {
-      type = game.i18n.format("DND5E.CreatureSwarmPhrase", {
-        size: game.i18n.localize(CONFIG.DND5E.actorSizes[typeData.swarm]),
+      type = game.i18n.format("ME5E.CreatureSwarmPhrase", {
+        size: game.i18n.localize(CONFIG.ME5E.actorSizes[typeData.swarm]),
         type: localizedType
       });
     }
@@ -1880,8 +1880,8 @@ export default class Actor5e extends Actor {
    * @param {string} type          "armor", "weapon", or "tool"
    */
   static prepareProficiencies(data, type) {
-    const profs = CONFIG.DND5E[`${type}Proficiencies`];
-    const itemTypes = CONFIG.DND5E[`${type}Ids`];
+    const profs = CONFIG.ME5E[`${type}Proficiencies`];
+    const itemTypes = CONFIG.ME5E[`${type}Ids`];
 
     let values = [];
     if ( data.value ) {
@@ -1895,8 +1895,8 @@ export default class Actor5e extends Actor {
       } else if ( itemTypes && itemTypes[key] ) {
         const item = ProficiencySelector.getBaseItem(itemTypes[key], { indexOnly: true });
         if ( item ) data.selected[key] = item.name;
-      } else if ( type === "tool" && CONFIG.DND5E.vehicleTypes[key] ) {
-        data.selected[key] = CONFIG.DND5E.vehicleTypes[key];
+      } else if ( type === "tool" && CONFIG.ME5E.vehicleTypes[key] ) {
+        data.selected[key] = CONFIG.ME5E.vehicleTypes[key];
       }
     }
 
@@ -1934,7 +1934,7 @@ export default class Actor5e extends Actor {
       t.hud.createScrollingText(dhp.signedString(), {
         anchor: CONST.TEXT_ANCHOR_POINTS.TOP,
         fontSize: 16 + (32 * pct), // Range between [16, 48]
-        fill: CONFIG.DND5E.tokenHPColors[dhp < 0 ? "damage" : "healing"],
+        fill: CONFIG.ME5E.tokenHPColors[dhp < 0 ? "damage" : "healing"],
         stroke: 0x000000,
         strokeThickness: 4,
         jitter: 0.25
@@ -1948,9 +1948,9 @@ export default class Actor5e extends Actor {
 
   /**
    * Retrieve the spell save DC for the provided ability.
-   * @param {string} ability  Ability key as defined in `CONFIG.DND5E.abilities`.
+   * @param {string} ability  Ability key as defined in `CONFIG.ME5E.abilities`.
    * @returns {number}        Spell save DC for provided ability.
-   * @deprecated since dnd5e 0.97
+   * @deprecated since me5e 0.97
    */
   getSpellDC(ability) {
     console.warn("The Actor5e#getSpellDC(ability) method has been deprecated in favor of Actor5e#data.data.abilities[ability].dc");
@@ -1964,7 +1964,7 @@ export default class Actor5e extends Actor {
    * @param {Item5e} item   The spell being cast by the actor
    * @param {Event} event   The originating user interaction which triggered the cast
    * @returns {Promise<ChatMessage|object|void>}  Dialog if `configureDialog` is true, else prepared dialog data.
-   * @deprecated since dnd5e 1.2.0
+   * @deprecated since me5e 1.2.0
    */
   async useSpell(item, {configureDialog=true}={}) {
     console.warn("The Actor5e#useSpell method has been deprecated in favor of Item5e#roll");

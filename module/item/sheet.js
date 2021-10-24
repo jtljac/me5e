@@ -24,7 +24,7 @@ export default class ItemSheet5e extends ItemSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       width: 560,
       height: 400,
-      classes: ["dnd5e", "sheet", "item"],
+      classes: ["me5e", "sheet", "item"],
       resizable: true,
       scrollY: [".tab.details"],
       tabs: [{navSelector: ".tabs", contentSelector: ".sheet-body", initial: "description"}]
@@ -35,7 +35,7 @@ export default class ItemSheet5e extends ItemSheet {
 
   /** @inheritdoc */
   get template() {
-    const path = "systems/dnd5e/templates/items/";
+    const path = "systems/me5e/templates/items/";
     return `${path}/${this.item.data.type}.html`;
   }
 
@@ -46,7 +46,7 @@ export default class ItemSheet5e extends ItemSheet {
     const data = super.getData(options);
     const itemData = data.data;
     data.labels = this.item.labels;
-    data.config = CONFIG.DND5E;
+    data.config = CONFIG.ME5E;
 
     // Item Type, Status, and Details
     data.itemType = game.i18n.localize(`ITEM.Type${data.item.type.titleCase()}`);
@@ -97,7 +97,7 @@ export default class ItemSheet5e extends ItemSheet {
    */
   async _getItemBaseTypes(item) {
     const type = item.type === "equipment" ? "armor" : item.type;
-    const ids = CONFIG.DND5E[`${type}Ids`];
+    const ids = CONFIG.ME5E[`${type}Ids`];
     if ( ids === undefined ) return {};
 
     const typeProperty = type === "armor" ? "armor.type" : `${type}Type`;
@@ -167,14 +167,14 @@ export default class ItemSheet5e extends ItemSheet {
         const uses = i.data.data.uses || {};
         if ( uses.per && uses.max ) {
           const label = uses.per === "charges"
-            ? ` (${game.i18n.format("DND5E.AbilityUseChargesLabel", {value: uses.value})})`
-            : ` (${game.i18n.format("DND5E.AbilityUseConsumableLabel", {max: uses.max, per: uses.per})})`;
+            ? ` (${game.i18n.format("ME5E.AbilityUseChargesLabel", {value: uses.value})})`
+            : ` (${game.i18n.format("ME5E.AbilityUseConsumableLabel", {max: uses.max, per: uses.per})})`;
           obj[i.id] = i.name + label;
         }
 
         // Recharging items
         const recharge = i.data.data.recharge || {};
-        if ( recharge.value ) obj[i.id] = `${i.name} (${game.i18n.format("DND5E.Recharge")})`;
+        if ( recharge.value ) obj[i.id] = `${i.name} (${game.i18n.format("ME5E.Recharge")})`;
         return obj;
       }, {});
     }
@@ -191,13 +191,13 @@ export default class ItemSheet5e extends ItemSheet {
    */
   _getItemStatus(item) {
     if ( item.type === "spell" ) {
-      return CONFIG.DND5E.spellPreparationModes[item.data.preparation];
+      return CONFIG.ME5E.spellPreparationModes[item.data.preparation];
     }
     else if ( ["weapon", "equipment"].includes(item.type) ) {
-      return game.i18n.localize(item.data.equipped ? "DND5E.Equipped" : "DND5E.Unequipped");
+      return game.i18n.localize(item.data.equipped ? "ME5E.Equipped" : "ME5E.Unequipped");
     }
     else if ( item.type === "tool" ) {
-      return game.i18n.localize(item.data.proficient ? "DND5E.Proficient" : "DND5E.NotProficient");
+      return game.i18n.localize(item.data.proficient ? "ME5E.Proficient" : "ME5E.NotProficient");
     }
   }
 
@@ -216,20 +216,20 @@ export default class ItemSheet5e extends ItemSheet {
     if ( item.type === "weapon" ) {
       props.push(...Object.entries(item.data.properties)
         .filter(e => e[1] === true)
-        .map(e => CONFIG.DND5E.weaponProperties[e[0]]));
+        .map(e => CONFIG.ME5E.weaponProperties[e[0]]));
     }
 
     else if ( item.type === "spell" ) {
       props.push(
         labels.components,
         labels.materials,
-        item.data.components.concentration ? game.i18n.localize("DND5E.Concentration") : null,
-        item.data.components.ritual ? game.i18n.localize("DND5E.Ritual") : null
+        item.data.components.concentration ? game.i18n.localize("ME5E.Concentration") : null,
+        item.data.components.ritual ? game.i18n.localize("ME5E.Ritual") : null
       );
     }
 
     else if ( item.type === "equipment" ) {
-      props.push(CONFIG.DND5E.equipmentTypes[item.data.armor.type]);
+      props.push(CONFIG.ME5E.equipmentTypes[item.data.armor.type]);
       if ( this.item.isArmor || this._isItemMountable(item) ) props.push(labels.armor);
     }
 
@@ -239,7 +239,7 @@ export default class ItemSheet5e extends ItemSheet {
 
     // Action type
     if ( item.data.actionType ) {
-      props.push(CONFIG.DND5E.itemActionTypes[item.data.actionType]);
+      props.push(CONFIG.ME5E.itemActionTypes[item.data.actionType]);
     }
 
     // Action usage
@@ -302,8 +302,8 @@ export default class ItemSheet5e extends ItemSheet {
       if ( !maxRoll.isDeterministic ) {
         data.data.uses.max = this.object.data._source.data.uses.max;
         this.form.querySelector("input[name='data.uses.max']").value = data.data.uses.max;
-        ui.notifications.error(game.i18n.format("DND5E.FormulaCannotContainDiceWarn", {
-          name: game.i18n.localize("DND5E.LimitedUses")
+        ui.notifications.error(game.i18n.format("ME5E.FormulaCannotContainDiceWarn", {
+          name: game.i18n.localize("ME5E.LimitedUses")
         }));
       }
     }
@@ -374,18 +374,18 @@ export default class ItemSheet5e extends ItemSheet {
     };
     switch (a.dataset.options) {
       case "saves":
-        options.choices = CONFIG.DND5E.abilities;
+        options.choices = CONFIG.ME5E.abilities;
         options.valueKey = null;
         break;
       case "skills.choices":
-        options.choices = CONFIG.DND5E.skills;
+        options.choices = CONFIG.ME5E.skills;
         options.valueKey = null;
         break;
       case "skills":
         const skills = this.item.data.data.skills;
-        const choiceSet = skills.choices?.length ? skills.choices : Object.keys(CONFIG.DND5E.skills);
+        const choiceSet = skills.choices?.length ? skills.choices : Object.keys(CONFIG.ME5E.skills);
         options.choices =
-          Object.fromEntries(Object.entries(CONFIG.DND5E.skills).filter(([skill]) => choiceSet.includes(skill)));
+          Object.fromEntries(Object.entries(CONFIG.ME5E.skills).filter(([skill]) => choiceSet.includes(skill)));
         options.maximum = skills.number;
         break;
     }

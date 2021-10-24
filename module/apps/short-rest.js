@@ -26,8 +26,8 @@ export default class ShortRestDialog extends Dialog {
   /** @override */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      template: "systems/dnd5e/templates/apps/short-rest.html",
-      classes: ["dnd5e", "dialog"]
+      template: "systems/me5e/templates/apps/short-rest.html",
+      classes: ["me5e", "dialog"]
     });
   }
 
@@ -51,7 +51,7 @@ export default class ShortRestDialog extends Dialog {
     data.denomination = this._denom;
 
     // Determine rest type
-    const variant = game.settings.get("dnd5e", "restVariant");
+    const variant = game.settings.get("me5e", "restVariant");
     data.promptNewDay = variant !== "epic";     // It's never a new day when only resting 1 minute
     data.newDay = false;                        // It may be a new day, but not by default
     return data;
@@ -93,14 +93,14 @@ export default class ShortRestDialog extends Dialog {
   static async shortRestDialog({actor}={}) {
     return new Promise((resolve, reject) => {
       const dlg = new this(actor, {
-        title: game.i18n.localize("DND5E.ShortRest"),
+        title: game.i18n.localize("ME5E.ShortRest"),
         buttons: {
           rest: {
             icon: '<i class="fas fa-bed"></i>',
-            label: game.i18n.localize("DND5E.Rest"),
+            label: game.i18n.localize("ME5E.Rest"),
             callback: html => {
               let newDay = false;
-              if (game.settings.get("dnd5e", "restVariant") === "gritty") {
+              if (game.settings.get("me5e", "restVariant") === "gritty") {
                 newDay = html.find('input[name="newDay"]')[0].checked;
               }
               resolve(newDay);

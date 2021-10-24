@@ -1,4 +1,4 @@
-[comment]: <> (# Foundry Virtual Tabletop - DnD5e Game System)
+[comment]: <> (# Foundry Virtual Tabletop - ME5e Game System)
 
 [comment]: <> (This game system for [Foundry Virtual Tabletop]&#40;http://foundryvtt.com&#41; provides character sheet and game system )
 
@@ -22,17 +22,17 @@
 
 [comment]: <> (## Installation Instructions)
 
-[comment]: <> (To install and use the DnD5e system for Foundry Virtual Tabletop, simply paste the following URL into the )
+[comment]: <> (To install and use the ME5e system for Foundry Virtual Tabletop, simply paste the following URL into the )
 
 [comment]: <> (**Install System** dialog on the Setup menu of the application.)
 
-[comment]: <> (https://gitlab.com/foundrynet/dnd5e/raw/master/system.json)
+[comment]: <> (https://gitlab.com/foundrynet/me5e/raw/master/system.json)
 
-[comment]: <> (If you wish to manually install the system, you must clone or extract it into the ``Data/systems/dnd5e`` folder. You)
+[comment]: <> (If you wish to manually install the system, you must clone or extract it into the ``Data/systems/me5e`` folder. You)
 
 [comment]: <> (may do this by cloning the repository or downloading a zip archive from the)
 
-[comment]: <> ([Releases Page]&#40;https://gitlab.com/foundrynet/dnd5e/-/releases&#41;.)
+[comment]: <> ([Releases Page]&#40;https://gitlab.com/foundrynet/me5e/-/releases&#41;.)
 
 [comment]: <> (## Community Contribution)
 

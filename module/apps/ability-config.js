@@ -15,8 +15,8 @@ export default class ActorAbilityConfig extends DocumentSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["dnd5e"],
-      template: "systems/dnd5e/templates/apps/ability-config.html",
+      classes: ["me5e"],
+      template: "systems/me5e/templates/apps/ability-config.html",
       width: 500,
       height: "auto"
     });
@@ -26,7 +26,7 @@ export default class ActorAbilityConfig extends DocumentSheet {
 
   /** @override */
   get title() {
-    return `${game.i18n.format("DND5E.AbilityConfigureTitle", {ability: CONFIG.DND5E.abilities[this._abilityId]})}: ${this.document.name}`;
+    return `${game.i18n.format("ME5E.AbilityConfigureTitle", {ability: CONFIG.ME5E.abilities[this._abilityId]})}: ${this.document.name}`;
   }
 
   /* -------------------------------------------- */
@@ -35,12 +35,12 @@ export default class ActorAbilityConfig extends DocumentSheet {
   getData(options) {
     return {
       ability: foundry.utils.getProperty(this.document.data._source, `data.abilities.${this._abilityId}`) || {},
-      labelSaves: game.i18n.format("DND5E.AbilitySaveConfigure", {ability: CONFIG.DND5E.abilities[this._abilityId]}),
-      labelChecks: game.i18n.format("DND5E.AbilityCheckConfigure", {ability: CONFIG.DND5E.abilities[this._abilityId]}),
+      labelSaves: game.i18n.format("ME5E.AbilitySaveConfigure", {ability: CONFIG.ME5E.abilities[this._abilityId]}),
+      labelChecks: game.i18n.format("ME5E.AbilityCheckConfigure", {ability: CONFIG.ME5E.abilities[this._abilityId]}),
       abilityId: this._abilityId,
       proficiencyLevels: {
-        0: CONFIG.DND5E.proficiencyLevels[0],
-        1: CONFIG.DND5E.proficiencyLevels[1]
+        0: CONFIG.ME5E.proficiencyLevels[0],
+        1: CONFIG.ME5E.proficiencyLevels[1]
       },
       bonusGlobalSave: getProperty(this.object.data._source, "data.bonuses.abilities.save"),
       bonusGlobalCheck: getProperty(this.object.data._source, "data.bonuses.abilities.check")

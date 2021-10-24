@@ -18,7 +18,7 @@ export class TokenDocument5e extends TokenDocument {
   static getTrackedAttributes(data, _path=[]) {
     const attributes = super.getTrackedAttributes(data, _path);
     if ( _path.length ) return attributes;
-    const allowed = CONFIG.DND5E.trackableAttributes;
+    const allowed = CONFIG.ME5E.trackableAttributes;
     attributes.value = attributes.value.filter(attrs => this._isAllowedAttribute(allowed, attrs));
     return attributes;
   }
@@ -30,7 +30,7 @@ export class TokenDocument5e extends TokenDocument {
    */
   static getConsumedAttributes(data) {
     const attributes = super.getTrackedAttributes(data);
-    const allowed = CONFIG.DND5E.consumableResources;
+    const allowed = CONFIG.ME5E.consumableResources;
     attributes.value = attributes.value.filter(attrs => this._isAllowedAttribute(allowed, attrs));
     return attributes;
   }
@@ -98,7 +98,7 @@ export class Token5e extends Token {
     // Determine colors to use
     const blk = 0x000000;
     const hpColor = PIXI.utils.rgb2hex([(1-(colorPct/2)), colorPct, 0]);
-    const c = CONFIG.DND5E.tokenHPColors;
+    const c = CONFIG.ME5E.tokenHPColors;
 
     // Determine the container size (logic borrowed from core)
     const w = this.w;

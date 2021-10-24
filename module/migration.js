@@ -3,7 +3,7 @@
  * @returns {Promise}      A Promise which resolves once the migration is completed
  */
 export const migrateWorld = async function() {
-  ui.notifications.info(`Applying DnD5E System Migration for version ${game.system.data.version}. Please be patient and do not close your game or shut down your server.`, {permanent: true});
+  ui.notifications.info(`Applying ME5E System Migration for version ${game.system.data.version}. Please be patient and do not close your game or shut down your server.`, {permanent: true});
 
   const migrationData = await getMigrationData();
 
@@ -16,7 +16,7 @@ export const migrateWorld = async function() {
         await a.update(updateData, {enforceTypes: false});
       }
     } catch(err) {
-      err.message = `Failed dnd5e system migration for Actor ${a.name}: ${err.message}`;
+      err.message = `Failed me5e system migration for Actor ${a.name}: ${err.message}`;
       console.error(err);
     }
   }
@@ -30,7 +30,7 @@ export const migrateWorld = async function() {
         await i.update(updateData, {enforceTypes: false});
       }
     } catch(err) {
-      err.message = `Failed dnd5e system migration for Item ${i.name}: ${err.message}`;
+      err.message = `Failed me5e system migration for Item ${i.name}: ${err.message}`;
       console.error(err);
     }
   }
@@ -47,7 +47,7 @@ export const migrateWorld = async function() {
         s.tokens.forEach(t => t._actor = null);
       }
     } catch(err) {
-      err.message = `Failed dnd5e system migration for Scene ${s.name}: ${err.message}`;
+      err.message = `Failed me5e system migration for Scene ${s.name}: ${err.message}`;
       console.error(err);
     }
   }
@@ -60,8 +60,8 @@ export const migrateWorld = async function() {
   }
 
   // Set the migration as complete
-  game.settings.set("dnd5e", "systemMigrationVersion", game.system.data.version);
-  ui.notifications.info(`DnD5E System Migration to version ${game.system.data.version} completed!`, {permanent: true});
+  game.settings.set("me5e", "systemMigrationVersion", game.system.data.version);
+  ui.notifications.info(`ME5E System Migration to version ${game.system.data.version} completed!`, {permanent: true});
 };
 
 /* -------------------------------------------- */
@@ -109,7 +109,7 @@ export const migrateCompendium = async function(pack) {
 
     // Handle migration failures
     catch(err) {
-      err.message = `Failed dnd5e system migration for entity ${doc.name} in pack ${pack.collection}: ${err.message}`;
+      err.message = `Failed me5e system migration for entity ${doc.name} in pack ${pack.collection}: ${err.message}`;
       console.error(err);
     }
   }
@@ -132,7 +132,7 @@ export const migrateArmorClass = async function(pack) {
   await pack.configure({locked: false});
   const actors = await pack.getDocuments();
   const updates = [];
-  const armor = new Set(Object.keys(CONFIG.DND5E.armorTypes));
+  const armor = new Set(Object.keys(CONFIG.ME5E.armorTypes));
 
   for ( const actor of actors ) {
     try {
@@ -227,12 +227,12 @@ function cleanActorData(actorData) {
   actorData.data = filterObject(actorData.data, model);
 
   // Scrub system flags
-  const allowedFlags = CONFIG.DND5E.allowedActorFlags.reduce((obj, f) => {
+  const allowedFlags = CONFIG.ME5E.allowedActorFlags.reduce((obj, f) => {
     obj[f] = null;
     return obj;
   }, {});
-  if ( actorData.flags.dnd5e ) {
-    actorData.flags.dnd5e = filterObject(actorData.flags.dnd5e, allowedFlags);
+  if ( actorData.flags.me5e ) {
+    actorData.flags.me5e = filterObject(actorData.flags.me5e, allowedFlags);
   }
 
   // Return the scrubbed data
@@ -312,7 +312,7 @@ export const migrateSceneData = function(scene, migrationData) {
 export const getMigrationData = async function() {
   const data = {};
   try {
-    const res = await fetch("systems/dnd5e/json/icon-migration.json");
+    const res = await fetch("systems/me5e/json/icon-migration.json");
     data.iconMap = await res.json();
   } catch(err) {
     console.warn(`Failed to retrieve icon migration data: ${err.message}`);
@@ -378,7 +378,7 @@ function _migrateActorSenses(actor, updateData) {
     const match = s.match(pattern);
     if ( !match ) continue;
     const type = match[1].toLowerCase();
-    if ( type in CONFIG.DND5E.senses ) {
+    if ( type in CONFIG.ME5E.senses ) {
       updateData[`data.attributes.senses.${type}`] = Number(match[2]).toNearest(0.5);
       wasMatched = true;
     }
@@ -423,7 +423,7 @@ function _migrateActorType(actor, updateData) {
 
     // Match a known creature type
     const typeLc = match.groups.type.trim().toLowerCase();
-    const typeMatch = Object.entries(CONFIG.DND5E.creatureTypes).find(([k, v]) => {
+    const typeMatch = Object.entries(CONFIG.ME5E.creatureTypes).find(([k, v]) => {
       return (typeLc === k)
         || (typeLc === game.i18n.localize(v).toLowerCase())
         || (typeLc === game.i18n.localize(`${v}Pl`).toLowerCase());
@@ -436,10 +436,10 @@ function _migrateActorType(actor, updateData) {
     data.subtype = match.groups.subtype?.trim().titleCase() || "";
 
     // Match a swarm
-    const isNamedSwarm = actor.name.startsWith(game.i18n.localize("DND5E.CreatureSwarm"));
+    const isNamedSwarm = actor.name.startsWith(game.i18n.localize("ME5E.CreatureSwarm"));
     if ( match.groups.size || isNamedSwarm ) {
       const sizeLc = match.groups.size ? match.groups.size.trim().toLowerCase() : "tiny";
-      const sizeMatch = Object.entries(CONFIG.DND5E.actorSizes).find(([k, v]) => {
+      const sizeMatch = Object.entries(CONFIG.ME5E.actorSizes).find(([k, v]) => {
         return (sizeLc === k) || (sizeLc === game.i18n.localize(v).toLowerCase());
       });
       data.swarm = sizeMatch ? sizeMatch[0] : "tiny";
@@ -491,17 +491,17 @@ function _migrateActorAC(actorData, updateData) {
  * @type {object<string, string>}
  */
 const TOKEN_IMAGE_RENAME = {
-  "systems/dnd5e/tokens/beast/OwlWhite.png": "systems/dnd5e/tokens/beast/Owl.webp",
-  "systems/dnd5e/tokens/beast/ScorpionSand.png": "systems/dnd5e/tokens/beast/Scorpion.webp",
-  "systems/dnd5e/tokens/beast/BaboonBlack.png": "systems/dnd5e/tokens/beast/Baboon.webp",
-  "systems/dnd5e/tokens/humanoid/BanditRedM.png": "systems/dnd5e/tokens/humanoid/Bandit.webp",
-  "systems/dnd5e/tokens/humanoid/GuardBlueM.png": "systems/dnd5e/tokens/humanoid/Guard.webp",
-  "systems/dnd5e/tokens/humanoid/NobleSwordM.png": "systems/dnd5e/tokens/humanoid/Noble.webp",
-  "systems/dnd5e/tokens/humanoid/MerfolkBlue.png": "systems/dnd5e/tokens/humanoid/Merfolk.webp",
-  "systems/dnd5e/tokens/humanoid/TribalWarriorM.png": "systems/dnd5e/tokens/humanoid/TribalWarrior.webp",
-  "systems/dnd5e/tokens/devil/Lemure.png": "systems/dnd5e/tokens/fiend/Lemure.webp",
-  "systems/dnd5e/tokens/humanoid/Satyr.png": "systems/dnd5e/tokens/fey/Satyr.webp",
-  "systems/dnd5e/tokens/beast/WinterWolf.png": "systems/dnd5e/tokens/monstrosity/WinterWolf.webp"
+  "systems/me5e/tokens/beast/OwlWhite.png": "systems/me5e/tokens/beast/Owl.webp",
+  "systems/me5e/tokens/beast/ScorpionSand.png": "systems/me5e/tokens/beast/Scorpion.webp",
+  "systems/me5e/tokens/beast/BaboonBlack.png": "systems/me5e/tokens/beast/Baboon.webp",
+  "systems/me5e/tokens/humanoid/BanditRedM.png": "systems/me5e/tokens/humanoid/Bandit.webp",
+  "systems/me5e/tokens/humanoid/GuardBlueM.png": "systems/me5e/tokens/humanoid/Guard.webp",
+  "systems/me5e/tokens/humanoid/NobleSwordM.png": "systems/me5e/tokens/humanoid/Noble.webp",
+  "systems/me5e/tokens/humanoid/MerfolkBlue.png": "systems/me5e/tokens/humanoid/Merfolk.webp",
+  "systems/me5e/tokens/humanoid/TribalWarriorM.png": "systems/me5e/tokens/humanoid/TribalWarrior.webp",
+  "systems/me5e/tokens/devil/Lemure.png": "systems/me5e/tokens/fiend/Lemure.webp",
+  "systems/me5e/tokens/humanoid/Satyr.png": "systems/me5e/tokens/fey/Satyr.webp",
+  "systems/me5e/tokens/beast/WinterWolf.png": "systems/me5e/tokens/monstrosity/WinterWolf.webp"
 };
 
 /**
@@ -509,22 +509,22 @@ const TOKEN_IMAGE_RENAME = {
  * @type {object<string, number>}
  */
 const TOKEN_IMAGE_RESCALE = {
-  "systems/dnd5e/tokens/beast/HunterShark.png": 1.5,
-  "systems/dnd5e/tokens/beast/GiantElk.png": 1.5,
-  "systems/dnd5e/tokens/monstrosity/Bulette.png": 1.5,
-  "systems/dnd5e/tokens/beast/Wolf.png": 1.5,
-  "systems/dnd5e/tokens/beast/Panther.png": 1.5,
-  "systems/dnd5e/tokens/beast/Elk.png": 1.5,
-  "systems/dnd5e/tokens/beast/AxeBeak.png": 1.5,
-  "systems/dnd5e/tokens/beast/GiantVulture.png": 1.5,
-  "systems/dnd5e/tokens/beast/GiantSpider.png": 1.5,
-  "systems/dnd5e/tokens/beast/DireWolf.png": 1.5,
-  "systems/dnd5e/tokens/monstrosity/DeathDog.png": 1.5,
-  "systems/dnd5e/tokens/devil/Lemure.png": 1.5,
-  "systems/dnd5e/tokens/beast/Deer.png": 1.1,
-  "systems/dnd5e/tokens/beast/GiantWeasel.png": 1.5,
-  "systems/dnd5e/tokens/beast/Camel.png": 1.2,
-  "systems/dnd5e/tokens/beast/BloodHawk.png": 1.5
+  "systems/me5e/tokens/beast/HunterShark.png": 1.5,
+  "systems/me5e/tokens/beast/GiantElk.png": 1.5,
+  "systems/me5e/tokens/monstrosity/Bulette.png": 1.5,
+  "systems/me5e/tokens/beast/Wolf.png": 1.5,
+  "systems/me5e/tokens/beast/Panther.png": 1.5,
+  "systems/me5e/tokens/beast/Elk.png": 1.5,
+  "systems/me5e/tokens/beast/AxeBeak.png": 1.5,
+  "systems/me5e/tokens/beast/GiantVulture.png": 1.5,
+  "systems/me5e/tokens/beast/GiantSpider.png": 1.5,
+  "systems/me5e/tokens/beast/DireWolf.png": 1.5,
+  "systems/me5e/tokens/monstrosity/DeathDog.png": 1.5,
+  "systems/me5e/tokens/devil/Lemure.png": 1.5,
+  "systems/me5e/tokens/beast/Deer.png": 1.1,
+  "systems/me5e/tokens/beast/GiantWeasel.png": 1.5,
+  "systems/me5e/tokens/beast/Camel.png": 1.2,
+  "systems/me5e/tokens/beast/BloodHawk.png": 1.5
 };
 
 /**
@@ -537,7 +537,7 @@ const TOKEN_IMAGE_RESCALE = {
 function _migrateTokenImage(actorData, updateData) {
   ["img", "token.img"].forEach(prop => {
     const img = foundry.utils.getProperty(actorData, prop);
-    if ( !img?.startsWith("systems/dnd5e/tokens/") || img?.endsWith(".webp") ) return;
+    if ( !img?.startsWith("systems/me5e/tokens/") || img?.endsWith(".webp") ) return;
     updateData[prop] = TOKEN_IMAGE_RENAME[img] ?? img.replace(/\.png$/, ".webp");
     const scale = `${prop.startsWith("token.") ? "token." : ""}scale`;
     if ( !foundry.utils.hasProperty(actorData, scale) ) return;
@@ -558,7 +558,7 @@ function _migrateTokenImage(actorData, updateData) {
  */
 function _migrateItemAttunement(item, updateData) {
   if ( item.data?.attuned === undefined ) return updateData;
-  updateData["data.attunement"] = CONFIG.DND5E.attunementTypes.NONE;
+  updateData["data.attunement"] = CONFIG.ME5E.attunementTypes.NONE;
   updateData["data.-=attuned"] = null;
   return updateData;
 }
@@ -574,8 +574,8 @@ function _migrateItemAttunement(item, updateData) {
  */
 function _migrateItemRarity(item, updateData) {
   if ( item.data?.rarity === undefined ) return updateData;
-  const rarity = Object.keys(CONFIG.DND5E.itemRarity).find(key =>
-    (CONFIG.DND5E.itemRarity[key].toLowerCase() === item.data.rarity.toLowerCase()) || (key === item.data.rarity)
+  const rarity = Object.keys(CONFIG.ME5E.itemRarity).find(key =>
+    (CONFIG.ME5E.itemRarity[key].toLowerCase() === item.data.rarity.toLowerCase()) || (key === item.data.rarity)
   );
   updateData["data.rarity"] = rarity ?? "";
   return updateData;
@@ -644,7 +644,7 @@ function _migrateItemCriticalData(item, updateData) {
  * @private
  */
 function _migrateItemIcon(item, updateData, {iconMap}={}) {
-  if ( !iconMap || !item.img?.startsWith("systems/dnd5e/icons/") ) return updateData;
+  if ( !iconMap || !item.img?.startsWith("systems/me5e/icons/") ) return updateData;
   const rename = iconMap[item.img];
   if ( rename ) updateData.img = rename;
   return updateData;
@@ -659,8 +659,8 @@ function _migrateItemIcon(item, updateData, {iconMap}={}) {
  */
 export async function purgeFlags(pack) {
   const cleanFlags = flags => {
-    const flags5e = flags.dnd5e || null;
-    return flags5e ? {dnd5e: flags5e} : {};
+    const flags5e = flags.me5e || null;
+    return flags5e ? {me5e: flags5e} : {};
   };
   await pack.configure({locked: false});
   const content = await pack.getContent();

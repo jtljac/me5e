@@ -1,4 +1,4 @@
-[comment]: <> (# Contributing to foundrynet/dnd5e)
+[comment]: <> (# Contributing to foundrynet/me5e)
 
 [comment]: <> (Code and content contributions are accepted. Please feel free to submit issues to the issue tracker or submit merge requests for code/content changes. Approval for such requests involves code and &#40;if necessary&#41; design review by the Maintainers of this repo. Please reach out on the [Foundry Community Discord]&#40;https://discord.gg/foundryvtt&#41; with any questions.)
 
@@ -6,7 +6,7 @@
 
 [comment]: <> (## Developer Tooling)
 
-[comment]: <> (Cloning this repository and either placing it in or symlinking it to your `Data/systems/dnd5e` user data directory is all that is necessary to run this within Foundry VTT. However, if you want to make changes to either the LESS stylesheets or the compendia, there are some developer tools which will make your life easier.)
+[comment]: <> (Cloning this repository and either placing it in or symlinking it to your `Data/systems/me5e` user data directory is all that is necessary to run this within Foundry VTT. However, if you want to make changes to either the LESS stylesheets or the compendia, there are some developer tools which will make your life easier.)
 
 [comment]: <> (This repository leverages [gulp]&#40;https://gulpjs.com/&#41; to run automated build tasks. If your system supports `npm`, you can run the following commands from the root of the project to get set up:)
 
@@ -24,7 +24,7 @@
 
 [comment]: <> (### `npm run build:css` / `gulp css`)
 
-[comment]: <> (Converts the LESS in `./less` to the final `dnd5e.css`.)
+[comment]: <> (Converts the LESS in `./less` to the final `me5e.css`.)
 
 [comment]: <> (### `npm run build:watch` / `gulp`)
 
@@ -124,7 +124,7 @@
 
 [comment]: <> (### Translations)
 
-[comment]: <> (Non-English languages are not contained within the core dnd5e system, but instead they are managed by specialized [localization modules]&#40;https://foundryvtt.com/packages/tag/translation&#41;.)
+[comment]: <> (Non-English languages are not contained within the core me5e system, but instead they are managed by specialized [localization modules]&#40;https://foundryvtt.com/packages/tag/translation&#41;.)
 
 [comment]: <> (Instead of opening an MR with translation files, create one of these modules &#40;or contribute to an existing one!&#41;.)
 
@@ -204,7 +204,7 @@
 
 [comment]: <> (```text)
 
-[comment]: <> (https://gitlab.com/foundrynet/dnd5e/-/releases/release-1.4.3/downloads/dnd5e-release-1.4.3.zip)
+[comment]: <> (https://gitlab.com/foundrynet/me5e/-/releases/release-1.4.3/downloads/me5e-release-1.4.3.zip)
 
 [comment]: <> (                                              └─ Tag Name ──┘               └─ Tag Name ──┘)
 
@@ -218,7 +218,7 @@
 
 [comment]: <> (```text)
 
-[comment]: <> (https://gitlab.com/api/v4/projects/foundrynet%2Fdnd5e/packages/generic/dnd5e/latest/system.json)
+[comment]: <> (https://gitlab.com/api/v4/projects/foundrynet%2Fme5e/packages/generic/me5e/latest/system.json)
 
 [comment]: <> (```)
 
