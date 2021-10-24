@@ -1,32 +1,39 @@
-# Foundry Virtual Tabletop - DnD5e Game System
+[comment]: <> (# Foundry Virtual Tabletop - DnD5e Game System)
 
-This game system for [Foundry Virtual Tabletop](http://foundryvtt.com) provides character sheet and game system 
-support for the Fifth Edition of the world's most popular roleplaying game.
+[comment]: <> (This game system for [Foundry Virtual Tabletop]&#40;http://foundryvtt.com&#41; provides character sheet and game system )
 
-This system is offered and may be used under the terms of the Open Gaming License v1.0a and its accompanying
-[Systems Reference Document 5.1 (SRD5)](http://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf).
+[comment]: <> (support for the Fifth Edition of the world's most popular roleplaying game.)
 
-This system provides character sheet support for Actors and Items, mechanical support for dice and rules necessary to
-play games of 5th Edition, and compendium content for Monsters, Heroes, Items, Spells, Class Features, Monster 
-Features, and more!
+[comment]: <> (This system is offered and may be used under the terms of the Open Gaming License v1.0a and its accompanying)
 
-Data present under the `packs/` directory is taken from the [Systems Reference Document 5.1 (SRD5)](http://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf) and used under the terms of the OGL v1.0a, see OGL.txt.
+[comment]: <> ([Systems Reference Document 5.1 &#40;SRD5&#41;]&#40;http://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf&#41;.)
 
-Images present under the `icons/` directory are distributed under various terms, please see the `icons/LICENSE` file for full details.
+[comment]: <> (This system provides character sheet support for Actors and Items, mechanical support for dice and rules necessary to)
 
-The software component of this system is distributed under the MIT license.
+[comment]: <> (play games of 5th Edition, and compendium content for Monsters, Heroes, Items, Spells, Class Features, Monster )
 
-## Installation Instructions
+[comment]: <> (Features, and more!)
 
-To install and use the DnD5e system for Foundry Virtual Tabletop, simply paste the following URL into the 
-**Install System** dialog on the Setup menu of the application.
+[comment]: <> (Data present under the `packs/` directory is taken from the [Systems Reference Document 5.1 &#40;SRD5&#41;]&#40;http://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf&#41; and used under the terms of the OGL v1.0a, see OGL.txt.)
 
-https://gitlab.com/foundrynet/dnd5e/raw/master/system.json
+[comment]: <> (Images present under the `icons/` directory are distributed under various terms, please see the `icons/LICENSE` file for full details.)
 
-If you wish to manually install the system, you must clone or extract it into the ``Data/systems/dnd5e`` folder. You
-may do this by cloning the repository or downloading a zip archive from the
-[Releases Page](https://gitlab.com/foundrynet/dnd5e/-/releases).
+[comment]: <> (The software component of this system is distributed under the MIT license.)
 
-## Community Contribution
+[comment]: <> (## Installation Instructions)
 
-See the [CONTRIBUTING](/CONTRIBUTING.md) file for information about how you can help this project.
+[comment]: <> (To install and use the DnD5e system for Foundry Virtual Tabletop, simply paste the following URL into the )
+
+[comment]: <> (**Install System** dialog on the Setup menu of the application.)
+
+[comment]: <> (https://gitlab.com/foundrynet/dnd5e/raw/master/system.json)
+
+[comment]: <> (If you wish to manually install the system, you must clone or extract it into the ``Data/systems/dnd5e`` folder. You)
+
+[comment]: <> (may do this by cloning the repository or downloading a zip archive from the)
+
+[comment]: <> ([Releases Page]&#40;https://gitlab.com/foundrynet/dnd5e/-/releases&#41;.)
+
+[comment]: <> (## Community Contribution)
+
+[comment]: <> (See the [CONTRIBUTING]&#40;/CONTRIBUTING.md&#41; file for information about how you can help this project.)

@@ -6,12 +6,8 @@
     "build:db": "gulp compilePacks",
     "build:json": "gulp extractPacks",
     "build:watch": "gulp",
-    "lint": "gulp lint",
-    "lint:fix": "gulp lint --fix"
   },
   "devDependencies": {
-    "@babel/eslint-parser": "^7.15.4",
-    "eslint-plugin-jsdoc": "^32.3.0",
     "fs": "^0.0.1-security",
     "gulp": "^4.0.2",
     "gulp-eslint7": "^0.3.1",
