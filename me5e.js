@@ -150,16 +150,16 @@ Hooks.once("setup", function() {
     "abilities", "abilityAbbreviations", "abilityActivationTypes", "abilityConsumptionTypes", "actorSizes",
     "alignments", "armorClasses.label", "armorProficiencies", "armorTypes", "conditionTypes", "consumableTypes",
     "cover", "currencies.label", "currencies.abbreviation", "damageResistanceTypes", "damageTypes", "distanceUnits",
-    "equipmentTypes", "healingTypes", "itemActionTypes", "itemRarity", "languages", "limitedUsePeriods",
+    "equipmentTypes", "healingTypes", "itemActionTypes", "itemRarity", "limitedUsePeriods",
     "miscEquipmentTypes", "movementTypes", "movementUnits", "polymorphSettings", "proficiencyLevels", "senses",
     "skills", "spellComponents", "spellLevels", "spellPreparationModes", "spellScalingModes", "spellSchools",
     "targetTypes", "timePeriods", "toolProficiencies", "toolTypes", "vehicleTypes", "weaponProficiencies",
-    "weaponProperties", "weaponTypes"
+    "weaponProperties", "weaponTypes", "featTypes", "armorPlacement"
   ];
   const sortKeys = [
     "abilityAbbreviations", "abilityActivationTypes", "abilityConsumptionTypes", "actorSizes", "conditionTypes",
     "consumableTypes", "cover", "damageResistanceTypes", "damageTypes", "equipmentTypes", "healingTypes",
-    "languages", "miscEquipmentTypes", "movementTypes", "polymorphSettings", "senses", "skills", "spellScalingModes",
+    "miscEquipmentTypes", "movementTypes", "polymorphSettings", "senses", "skills", "spellScalingModes",
     "spellSchools", "targetTypes", "toolProficiencies", "toolTypes", "vehicleTypes", "weaponProperties"
   ];
   preLocalizeConfig(CONFIG.ME5E, localizeKeys, sortKeys);

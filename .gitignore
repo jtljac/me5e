@@ -2,6 +2,7 @@
 .idea/
 .nova/
 .vs/
+.vscode/
 
 # Node Modules
 node_modules/

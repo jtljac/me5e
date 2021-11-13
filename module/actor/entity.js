@@ -247,6 +247,7 @@ export default class Actor5e extends Actor {
    * @param {number} [options.level]         New class level if it has been changed.
    * @returns {Promise<Item5e[]>}            Any new items that should be added to the actor.
    */
+  // TODO: Change this
   async getClassFeatures({className, subclassName, level}={}) {
     const existing = new Set(this.items.map(i => i.name));
     const features = await Actor5e.loadClassFeatures({className, subclassName, level});
@@ -264,6 +265,7 @@ export default class Actor5e extends Actor {
    * @param {number} [options.priorLevel]    The previous level of the added class.
    * @returns {Promise<Item5e[]>}            Items that should be added based on the changes made.
    */
+  // TODO: Change this
   static async loadClassFeatures({className="", subclassName="", level=1, priorLevel=0}={}) {
     className = className.toLowerCase();
     subclassName = subclassName.slugify();
@@ -490,6 +492,7 @@ export default class Actor5e extends Actor {
     const dexCheckBonus = this._simplifyBonus(data.abilities.dex.bonuses?.check, bonusData);
 
     // Compute initiative modifier
+    // TODO: This'll need changing
     init.mod = data.abilities.dex.mod;
     init.prof = new Proficiency(data.attributes.prof, (joat || athlete) ? 0.5 : 0, !athlete);
     init.value = init.value ?? 0;

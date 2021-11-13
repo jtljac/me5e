@@ -134,7 +134,7 @@ export const registerSystemSettings = function() {
     scope: "world",
     config: true,
     type: Boolean,
-    default: false
+    default: true
   });
 
   // Critical Damage Modifiers
