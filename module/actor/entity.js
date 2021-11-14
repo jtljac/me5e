@@ -65,6 +65,7 @@ export default class Actor5e extends Actor {
   /** @override */
   prepareBaseData() {
     this._prepareBaseArmorClass(this.data);
+    this.prepareAbilities(this.data);
     switch ( this.data.type ) {
       case "character":
         return this._prepareCharacterData(this.data);
@@ -470,6 +471,16 @@ export default class Actor5e extends Actor {
     ac.shield = ac.bonus = ac.cover = 0;
     this.armor = null;
     this.shield = null;
+  }
+
+
+
+  prepareAbilities(actorData) {
+    const data = actorData.data;
+
+    for (const [name, skill] of Object.entries(data.skills)) {
+      skill.ability = skill.userAbility !== "null" ? skill.userAbility : skill.defaultAbility;
+    }
   }
 
   /* -------------------------------------------- */

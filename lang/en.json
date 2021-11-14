@@ -632,6 +632,7 @@
 "ME5E.SkillPromptTitle": "{skill} Skill Check",
 "ME5E.SkillConfigureTitle": "Configure {skill}",
 "ME5E.SkillConfigure": "Configure Skill",
+"ME5E.SkillAbility": "Ability",
 "ME5E.SkillBonusCheck": "Check Bonus",
 "ME5E.SkillBonusPassive": "Passive Bonus",
 "ME5E.SkillConfigurationHint": "Configure skill proficiency and bonuses.",

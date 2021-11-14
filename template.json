@@ -135,7 +135,7 @@
           "acr": {
             "value": 0,
             "defaultAbility": "dex",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -144,7 +144,7 @@
           "arc": {
             "value": 0,
             "defaultAbility": "int",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -153,7 +153,7 @@
           "ath": {
             "value": 0,
             "defaultAbility": "str",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -162,7 +162,7 @@
           "elc": {
             "value": 0,
             "defaultAbility": "int",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -171,7 +171,7 @@
           "eng": {
             "value": 0,
             "defaultAbility": "int",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -180,7 +180,7 @@
           "dec": {
             "value": 0,
             "defaultAbility": "cha",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -189,7 +189,7 @@
           "his": {
             "value": 0,
             "defaultAbility": "int",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -198,7 +198,7 @@
           "ins": {
             "value": 0,
             "defaultAbility": "wis",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -207,7 +207,7 @@
           "itm": {
             "value": 0,
             "defaultAbility": "cha",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -216,7 +216,7 @@
           "inv": {
             "value": 0,
             "defaultAbility": "int",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -225,7 +225,7 @@
           "med": {
             "value": 0,
             "defaultAbility": "wis",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -234,7 +234,7 @@
           "prc": {
             "value": 0,
             "defaultAbility": "wis",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -243,7 +243,7 @@
           "prf": {
             "value": 0,
             "defaultAbility": "cha",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -252,7 +252,7 @@
           "per": {
             "value": 0,
             "defaultAbility": "cha",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -261,7 +261,7 @@
           "sci": {
             "value": 0,
             "defaultAbility": "int",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -270,7 +270,7 @@
           "slt": {
             "value": 0,
             "defaultAbility": "dex",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -279,7 +279,7 @@
           "ste": {
             "value": 0,
             "defaultAbility": "dex",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -288,7 +288,7 @@
           "sur": {
             "value": 0,
             "defaultAbility": "wis",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -297,7 +297,7 @@
           "veh": {
             "value": 0,
             "defaultAbility": "dex",
-            "userAbility": null,
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
