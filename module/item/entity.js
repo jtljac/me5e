@@ -1687,6 +1687,8 @@ export default class Item5e extends Item {
       return updates;
     }
 
+    if ( data.data?.proficient !== undefined ) return updates;
+
     // Some weapon types are always proficient
     const weaponProf = CONFIG.ME5E.weaponProficienciesMap[this.data.data.weaponType];
     if ( weaponProf === true ) updates["data.proficient"] = true;
