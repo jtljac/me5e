@@ -1,4 +1,4 @@
-import {simplifyRollFormula, d20Roll, damageRoll} from "../dice.js";
+import {d20Roll, damageRoll, simplifyRollFormula} from "../dice.js";
 import AbilityUseDialog from "../apps/ability-use-dialog.js";
 import Proficiency from "../actor/proficiency.js";
 
@@ -181,6 +181,7 @@ export default class Item5e extends Item {
     // Classes
     if ( itemData.type === "class" ) {
       data.levels = Math.clamped(data.levels, 1, 20);
+      data.defaultHp = CONFIG.ME5E.hitDieDefaultHp[this.data.data.hitDice];
     }
 
     // Spell Level,  School, and Components
@@ -1524,14 +1525,33 @@ export default class Item5e extends Item {
 
   /* -------------------------------------------- */
 
+  async _preUpdate(changed, options, user) {
+    // Class actions
+    if (this.type === "class")  {
+      // Calculate Health Array
+      if (changed.data.levels) {
+        const hpArray = this.data.data.hp;
+
+        if (hpArray.length < changed.data.levels - 1) {
+          while (hpArray.length < changed.data.levels - 1) {
+            hpArray.push(this.data.data.defaultHp);
+          }
+        } else if (hpArray.length > changed.data.levels - 1) {
+          hpArray.length = changed.data.levels - 1;
+        }
+
+        changed.data.hp = hpArray;
+      }
+    }
+  }
+
   /** @inheritdoc */
   _onUpdate(changed, options, userId) {
     super._onUpdate(changed, options, userId);
 
     // The below options are only needed for character classes
     if ( userId !== game.user.id ) return;
-    const isCharacterClass = this.parent && (this.parent.type !== "vehicle") && (this.type === "class");
-    if ( !isCharacterClass ) return;
+    if ( !(this.parent && (this.parent.type !== "vehicle") && (this.type === "class")) ) return;
 
     // Prompt to add new class features
     const addFeatures = changed.name || (changed.data && ["subclass", "levels"].some(k => k in changed.data));

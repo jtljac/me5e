@@ -512,6 +512,7 @@ ME5E.damageTypes = {
  * Types of damage to which an actor can possess resistance, immunity, or vulnerability.
  * @enum {string}
  */
+// TODO: See if this expands
 ME5E.damageResistanceTypes = {
   ...ME5E.damageTypes,
   physical: "ME5E.DamagePhysical"
@@ -639,6 +640,16 @@ ME5E.healingTypes = {
  * @type {string[]}
  */
 ME5E.hitDieTypes = ["d6", "d8", "d10", "d12"];
+
+/**
+ * A lookup table for the default health given by each type of hit dice
+ * @enum {int}
+ */
+ME5E.hitDieDefaultHp = ME5E.hitDieTypes.reduce((acc, item) => {
+  const number = parseInt(item.substring(1, item.length));
+  acc[item] = Math.ceil((number + 1) / 2);
+  return acc;
+}, {})
 
 /* -------------------------------------------- */
 
@@ -774,6 +785,7 @@ ME5E.weaponProperties = {
  * Types of components that can be required when casting a spell.
  * @enum {string}
  */
+// TODO: Check if still needed
 ME5E.spellComponents = {
   S: "ME5E.ComponentSomatic"
 };
@@ -889,6 +901,10 @@ ME5E.cover = {
 
 /* -------------------------------------------- */
 
+/**
+ * The available types of feat
+ * @enum {string}
+ */
 ME5E.featTypes = {
   feat: "ME5E.FeatTypeFeat",
   background: "ME5E.FeatTypeBackground",

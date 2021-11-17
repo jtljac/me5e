@@ -5,7 +5,7 @@
     "build:css": "gulp css",
     "build:db": "gulp compilePacks",
     "build:json": "gulp extractPacks",
-    "build:watch": "gulp",
+    "build:watch": "gulp"
   },
   "devDependencies": {
     "fs": "^0.0.1-security",

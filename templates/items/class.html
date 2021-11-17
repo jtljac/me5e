@@ -26,6 +26,8 @@
     <nav class="sheet-navigation tabs" data-group="primary">
         <a class="item active" data-tab="description">{{ localize "ME5E.Description" }}</a>
         <a class="item" data-tab="details">{{ localize "ME5E.Details" }}</a>
+        <a class="item" data-tab="charConfig">{{ localize "ME5E.ClassCharConfig" }}</a>
+        <a class="item" data-tab="config">{{ localize "ME5E.ClassConfig" }}</a>
     </nav>
 
     {{!-- Item Sheet Body --}}
@@ -38,6 +40,7 @@
 
         {{!-- Details Tab --}}
         <div class="tab details" data-group="primary" data-tab="details">
+            <h1>General</h1>
 
             {{!-- Class Levels --}}
             <div class="form-group">
@@ -47,15 +50,103 @@
                 </div>
             </div>
 
-            {{!-- Subclass Name --}}
+            {{!-- Hit Dice --}}
             <div class="form-group">
-                <label>{{ localize "ME5E.SubclassName" }}</label>
+                <label>{{localize "ME5E.HitDiceUsed"}}</label>
                 <div class="form-fields">
-                    <input type="text" name="data.subclass" value="{{data.subclass}}"/>
+                    <input type="text" placeholder="0" name="data.hitDiceUsed" value="{{data.hitDiceUsed}}" data-dtype="Number"/>
+                </div>
+            </div>
+        </div>
+        <div class="tab details" data-group="primary" data-tab="charConfig">
+
+            <h1>{{localize "ME5E.HitPoints"}}</h1>
+            <div class="form-group">
+                <label>
+                    {{localize "ME5E.ClassSkills"}}
+                    {{#if editable}}
+                    <a class="trait-selector class-skills" data-target="data.skills" data-options="skills">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    {{/if}}
+                </label>
+                <div class="form-fields hp-list">
+                    <input type="text" value="{{data.defaultHp}}" data-dtype="Number" disabled/>
+                    {{#each data.hp}}
+                        <input type="text" name="data.hp" value="{{this}}" data-dtype="Number"/>
+                    {{/each}}
                 </div>
             </div>
 
-            {{!-- Class Hit Dice --}}
+            <h1>{{localize "ME5E.Casting"}}</h1>
+            <div class="form-group">
+                <label>{{localize "ME5E.SpellAbility"}}</label>
+                <div class="form-fields">
+                    <select name="data.spellcasting.ability">
+                        {{selectOptions config.abilities selected=data.spellcasting.ability blank=""}}
+                    </select>
+                </div>
+            </div>
+            <h1>{{localize "ME5E.Proficiencies"}}</h1>
+            <h2>{{localize "ME5E.Skills"}}</h2>
+            <div class="form-group">
+                <label>
+                    {{localize "ME5E.ClassSkills"}}
+                    {{#if editable}}
+                    <a class="trait-selector class-skills" data-target="data.skills" data-options="skills">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    {{/if}}
+                </label>
+                <div class="form-fields">
+                    <ul class="traits-list">
+                        {{#each data.skills.value}}
+                            <li class="tag {{this}}">{{lookup ../config.skills this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+
+            <h2>{{localize "ME5E.ItemTypeWeaponPl"}}</h2>
+            <div class="form-group">
+                <label>
+                    {{localize "ME5E.ClassWeapons"}}
+                    {{#if editable }}
+                    <a class="trait-selector class-skills" data-target="data.traits.weapons.value" data-options="weaponProfs">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    {{/if}}
+                </label>
+                <div class="form-fields">
+                    <ul class="traits-list">
+                        {{#each data.traits.weapons.value}}
+                        <li class="tag {{this}}">{{lookup ../config.weaponProficiencies this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+
+            <h2>{{localize "ME5E.ItemTypeToolPl"}}</h2>
+            <div class="form-group">
+                <label>
+                    {{localize "ME5E.ClassTools"}}
+                    {{#if editable }}
+                    <a class="trait-selector class-skills" data-target="data.traits.tools.value" data-options="toolProfs">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    {{/if}}
+                </label>
+                <div class="form-fields">
+                    <ul class="traits-list">
+                        {{#each data.traits.tools.value}}
+                        <li class="tag {{this}}">{{lookup ../config.toolProficiencies this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="tab details" data-group="primary" data-tab="config">
+            <h1>{{localize "ME5E.General"}}</h1>
             <div class="form-group">
                 <label>{{localize "ME5E.HitDice"}}</label>
                 <div class="form-fields">
@@ -69,14 +160,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label>{{localize "ME5E.HitDiceUsed"}}</label>
-                <div class="form-fields">
-                    <input type="text" placeholder="0" name="data.hitDiceUsed" value="{{data.hitDiceUsed}}" data-dtype="Number"/>
-                </div>
-            </div>
-
-            {{!-- Spellcasting --}}
+            <h1>{{localize "ME5E.Casting"}}</h1>
             <div class="form-group">
                 <label>{{localize 'ME5E.SpellProgression'}}</label>
                 <div class="form-fields">
@@ -86,16 +170,7 @@
                 </div>
             </div>
 
-            <div class="form-group">
-                <label>{{localize "ME5E.SpellAbility"}}</label>
-                <div class="form-fields">
-                    <select name="data.spellcasting.ability">
-                        {{selectOptions config.abilities selected=data.spellcasting.ability blank=""}}
-                    </select>
-                </div>
-            </div>
-
-            {{!-- Proficiencies --}}
+            <h1>{{localize "ME5E.Proficiencies"}}</h1>
             <div class="form-group">
                 <label>
                     {{ localize "ME5E.ClassSaves" }}
@@ -108,23 +183,22 @@
                 <div class="form-fields">
                     <ul class="traits-list">
                         {{#each data.saves}}
-                            <li class="tag {{this}}">{{lookup ../config.abilities this}}</li>
+                        <li class="tag {{this}}">{{lookup ../config.abilities this}}</li>
                         {{/each}}
                     </ul>
                 </div>
             </div>
 
-            {{!-- Level 1 skills --}}
+            <h2>{{localize "ME5E.Skills"}}</h2>
             <div class="form-group">
                 <label>{{localize "ME5E.ClassSkillsNumber"}}</label>
                 <div class="form-fields">
                     <input type="text" placeholder="0" name="data.skills.number" value="{{data.skills.number}}" data-dtype="Number"/>
                 </div>
             </div>
-
             <div class="form-group">
                 <label>
-                    {{localize "ME5E.ClassSkillsEligible"}}
+                    {{localize "ME5E.ClassSkillsOptions"}}
                     {{#if editable }}
                     <a class="trait-selector class-skills" data-target="data.skills.choices" data-options="skills.choices">
                         <i class="fas fa-edit"></i>
@@ -140,19 +214,87 @@
                 </div>
             </div>
 
+            <h2>{{localize "ME5E.ItemTypeWeaponPl"}}</h2>
             <div class="form-group">
                 <label>
-                    {{localize "ME5E.ClassSkillsChosen"}}
+                    {{localize "ME5E.ClassWeapons"}}
                     {{#if editable }}
-                    <a class="trait-selector class-skills" data-target="data.skills" data-options="skills">
+                    <a class="trait-selector class-skills" data-target="data.traits.weapons.mandatory" data-options="weaponProfs.choices">
                         <i class="fas fa-edit"></i>
                     </a>
                     {{/if}}
                 </label>
                 <div class="form-fields">
                     <ul class="traits-list">
-                        {{#each data.skills.value}}
-                            <li class="tag {{this}}">{{lookup ../config.skills this}}</li>
+                        {{#each data.traits.weapons.mandatory}}
+                        <li class="tag {{this}}">{{lookup ../config.weaponProficiencies this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>{{localize "ME5E.ClassWeaponsOptionalNumber"}}</label>
+                <div class="form-fields">
+                    <input type="text" placeholder="0" name="data.traits.weapons.count" value="{{data.traits.weapons.count}}" data-dtype="Number"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>
+                    {{localize "ME5E.ClassWeaponsOptions"}}
+                    {{#if editable }}
+                    <a class="trait-selector class-skills" data-target="data.traits.weapons.choices" data-options="weaponProfs.choices">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    {{/if}}
+                </label>
+                <div class="form-fields">
+                    <ul class="traits-list">
+                        {{#each data.traits.weapons.choices}}
+                        <li class="tag {{this}}">{{lookup ../config.weaponProficiencies this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+
+            <h2>{{localize "ME5E.Armour"}}</h2>
+            <div class="form-group">
+                <label>
+                    {{localize "ME5E.ClassArmour"}}
+                    {{#if editable }}
+                    <a class="trait-selector class-skills" data-target="data.traits.armour" data-options="armorProfs.choices">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    {{/if}}
+                </label>
+                <div class="form-fields">
+                    <ul class="traits-list">
+                        {{#each data.traits.armour}}
+                        <li class="tag {{this}}">{{lookup ../config.armorProficiencies this}}</li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+
+            <h2>{{localize "ME5E.ItemTypeToolPl"}}</h2>
+            <div class="form-group">
+                <label>{{localize "ME5E.ClassToolsNumber"}}</label>
+                <div class="form-fields">
+                    <input type="text" placeholder="0" name="data.traits.tools.count" value="{{data.traits.tools.count}}" data-dtype="Number"/>
+                </div>
+            </div>
+            <div class="form-group">
+                <label>
+                    {{localize "ME5E.ClassToolsOptions"}}
+                    {{#if editable }}
+                    <a class="trait-selector class-skills" data-target="data.traits.tools.choices" data-options="toolProfs.choices">
+                        <i class="fas fa-edit"></i>
+                    </a>
+                    {{/if}}
+                </label>
+                <div class="form-fields">
+                    <ul class="traits-list">
+                        {{#each data.traits.tools.choices}}
+                        <li class="tag {{this}}">{{lookup ../config.toolProficiencies this}}</li>
                         {{/each}}
                     </ul>
                 </div>

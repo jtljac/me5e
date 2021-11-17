@@ -285,12 +285,16 @@ export default class ItemSheet5e extends ItemSheet {
 
   /** @inheritdoc */
   _getSubmitData(updateData={}) {
-
     // Create the expanded update data object
     const fd = new FormDataExtended(this.form, {editors: this.editors});
     let data = fd.toObject();
     if ( updateData ) data = mergeObject(data, updateData);
     else data = expandObject(data);
+
+    // Handle Health array
+    data.data?.hp?.forEach((item, index, arr) => {
+      arr[index] = parseInt(item);
+    })
 
     // Handle Damage array
     const damage = data.data?.damage;
@@ -373,6 +377,32 @@ export default class ItemSheet5e extends ItemSheet {
       allowCustom: false
     };
     switch (a.dataset.options) {
+      case "weaponProfs.choices":
+        options.choices = CONFIG.ME5E.weaponProficiencies;
+        options.valueKey = null;
+        break;
+      case "weaponProfs":
+        const weapons = this.item.data.data.traits.weapons;
+        const weaponChoiceSet = weapons.choices?.length ? weapons.choices : Object.keys(CONFIG.ME5E.weaponProficiencies);
+        options.choices =
+            Object.fromEntries(Object.entries(CONFIG.ME5E.weaponProficiencies).filter(([skill]) => weaponChoiceSet.includes(skill)));
+        options.maximum = weapons.count;
+        break;
+      case "armorProfs.choices":
+        options.choices = CONFIG.ME5E.armorProficiencies;
+        options.valueKey = null;
+        break;
+      case "toolProfs.choices":
+        options.choices = CONFIG.ME5E.toolProficiencies;
+        options.valueKey = null;
+        break;
+      case "toolProfs":
+        const tools = this.item.data.data.traits.tools;
+        const toolChoiceSet = tools.choices?.length ? tools.choices : Object.keys(CONFIG.ME5E.toolProficiencies);
+        options.choices =
+            Object.fromEntries(Object.entries(CONFIG.ME5E.toolProficiencies).filter(([skill]) => toolChoiceSet.includes(skill)));
+        options.maximum = tools.count;
+        break;
       case "saves":
         options.choices = CONFIG.ME5E.abilities;
         options.valueKey = null;

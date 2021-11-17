@@ -1364,6 +1364,10 @@
   text-align: center;
   line-height: 24px;
 }
+.me5e.sheet.item .details .form-group .form-fields.hp-list input {
+  flex: 0 0 9%;
+  text-align: center;
+}
 .me5e.sheet.item .details .form-group.input-select select {
   flex: 1.8;
 }

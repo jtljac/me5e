@@ -114,7 +114,7 @@
         <input type="text" name="data.save.dc" value="{{#if data.save.dc}}{{data.save.dc}}{{/if}}" data-dtype="Number" placeholder="{{ localize 'ME5E.AbbreviationDC' }}" {{#unless isFlatDC}}disabled{{/unless}}/>
         <select name="data.save.scaling">
             {{#select data.save.scaling}}
-            <option value="spell">{{ localize "ME5E.Spellcasting" }}</option>
+            <option value="spell">{{ localize "ME5E.Casting" }}</option>
             {{#each config.abilities as |ability a|}}
             <option value="{{a}}">{{ability}}</option>
             {{/each}}
