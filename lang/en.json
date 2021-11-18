@@ -416,6 +416,7 @@
 "ME5E.HitDiceRoll": "Roll Hit Dice",
 "ME5E.HitDiceUsed": "Hit Dice Used",
 "ME5E.HitDiceWarn": "{name} has no available {formula} Hit Dice remaining!",
+"ME5E.HitPointsConfig": "Configure HP",
 "ME5E.Ideals": "Ideals",
 "ME5E.Identified": "Identified",
 "ME5E.Initiative": "Initiative",

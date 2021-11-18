@@ -676,6 +676,8 @@ export default class ActorSheet5e extends ActorSheet {
     const button = event.currentTarget;
     let app;
     switch ( button.dataset.action ) {
+      case "hp":
+        app = new ActorHitPointsConfig(this.object);
       case "armor":
         app = new ActorArmorConfig(this.object);
         break;

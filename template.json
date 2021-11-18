@@ -69,8 +69,7 @@
             "value": 10,
             "min": 0,
             "max": 10,
-            "temp": 0,
-            "tempmax": 0
+            "temp": 0
           },
           "init": {
             "value": 0,

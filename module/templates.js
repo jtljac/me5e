@@ -10,9 +10,11 @@ export const preloadHandlebarsTemplates = async function() {
     "systems/me5e/templates/actors/parts/active-effects.html",
 
     // Actor Sheet Partials
+    "systems/me5e/templates/actors/parts/actor-abilities-skills.html",
     "systems/me5e/templates/actors/parts/actor-traits.html",
     "systems/me5e/templates/actors/parts/actor-inventory.html",
     "systems/me5e/templates/actors/parts/actor-features.html",
+    "systems/me5e/templates/actors/parts/actor-spellbook.html",
     "systems/me5e/templates/actors/parts/actor-spellbook.html",
     "systems/me5e/templates/actors/parts/actor-warnings.html",
 

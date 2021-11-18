@@ -1613,6 +1613,9 @@
   padding: 0 3px;
   margin: 0 3px;
 }
+.me5e.sheet.actor.character .sheet-header .attributes .hp-max {
+  margin-left: 8px;
+}
 .me5e.sheet.actor.character .sheet-header .attributes .hit-dice {
   font-size: 24px;
 }
