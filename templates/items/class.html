@@ -62,18 +62,11 @@
 
             <h1>{{localize "ME5E.HitPoints"}}</h1>
             <div class="form-group">
-                <label>
-                    {{localize "ME5E.ClassSkills"}}
-                    {{#if editable}}
-                    <a class="trait-selector class-skills" data-target="data.skills" data-options="skills">
-                        <i class="fas fa-edit"></i>
-                    </a>
-                    {{/if}}
-                </label>
+                <label>{{localize "ME5E.ClassLevelHP"}}</label>
                 <div class="form-fields hp-list">
-                    <input type="text" value="{{data.defaultHp}}" data-dtype="Number" disabled/>
+                    <input type="text" value="{{data.defaultHp}}" title="{{localize 'ME5E.ClassLevel' level='1'}}" data-dtype="Number" disabled/>
                     {{#each data.hp}}
-                        <input type="text" name="data.hp" value="{{this}}" data-dtype="Number"/>
+                        <input type="text" name="data.hp" value="{{this}}" title="{{localize 'ME5E.ClassLevel' level=(math @index '+' 2)}}" data-dtype="Number"/>
                     {{/each}}
                 </div>
             </div>

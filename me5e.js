@@ -316,3 +316,16 @@ Hooks.on("getActorDirectoryEntryContext", Actor5e.addDirectoryContextOptions);
 Handlebars.registerHelper("getProperty", function(data, property) {
   return getProperty(data, property);
 });
+
+Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
+  lvalue = parseFloat(lvalue);
+  rvalue = parseFloat(rvalue);
+
+  return {
+    "+": lvalue + rvalue,
+    "-": lvalue - rvalue,
+    "*": lvalue * rvalue,
+    "/": lvalue / rvalue,
+    "%": lvalue % rvalue
+  }[operator];
+});

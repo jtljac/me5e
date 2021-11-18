@@ -162,6 +162,8 @@
 "ME5E.ClassArmour": "Armour Proficiencies",
 "ME5E.ClassConfig": "Class Config",
 "ME5E.ClassCharConfig": "Character Config",
+"ME5E.ClassLevelHP": "HP By Level",
+"ME5E.ClassLevel": "Level {level}",
 "ME5E.ClassTools": "Tool Proficiencies",
 "ME5E.ClassToolsOptions": "Tool Proficiency Options",
 "ME5E.ClassToolsNumber": "Number of Tool Proficiencies",
