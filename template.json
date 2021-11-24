@@ -130,6 +130,9 @@
           "alignment": "",
           "race": ""
         },
+        "modifiers": {
+          "user": {}
+        },
         "skills": {
           "acr": {
             "value": 0,

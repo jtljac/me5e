@@ -196,6 +196,61 @@
   margin-right: 2px;
 }
 /* ----------------------------------------- */
+/*  Modifier Config Sheet Specifically       */
+/* ----------------------------------------- */
+.me5e.mod-config {
+  height: auto !important;
+  max-height: 1000px;
+}
+.me5e.mod-config .separator {
+  border-bottom: 1px black solid;
+  margin: 10px 0;
+}
+.me5e.mod-config .separator + .separator {
+  display: none;
+}
+.me5e.mod-config .mod-container {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin: 5px 0;
+}
+.me5e.mod-config .mod-container label,
+.me5e.mod-config .mod-container .item-control.item-create {
+  font-size: 30px;
+  text-align: center;
+  min-width: 52px;
+  padding: 0 10px;
+}
+.me5e.mod-config .mod-container .mod-edit {
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  font-size: 15px;
+}
+.me5e.mod-config .mod-container .mod-edit input[type="text"] {
+  width: 100%;
+}
+.me5e.mod-config .mod-container .mod-edit .mod-info {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  margin-bottom: 2px;
+}
+.me5e.mod-config .mod-container .mod-edit .mod-info input[type="text"] {
+  flex-grow: 1;
+  margin-right: 2px;
+}
+.me5e.mod-config .mod-container .mod-edit .mod-info select {
+  height: 22px;
+}
+.me5e.mod-config .mod-container .mod-edit .mod-info .item-control.item-delete {
+  padding: 0 5px 0 5px;
+}
+/* ----------------------------------------- */
 /*  Entity Sheets Specifically               */
 /* ----------------------------------------- */
 .me5e.sheet {

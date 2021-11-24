@@ -654,6 +654,23 @@ ME5E.hitDieDefaultHp = ME5E.hitDieTypes.reduce((acc, item) => {
 /* -------------------------------------------- */
 
 /**
+ * The set of possible types of modifier
+ * @enum {string}
+ */
+// TODO: This isn't finished
+ME5E.modifierType = {
+  "class": "ITEM.TypeClass",
+  "stat": "ME5E.ModifierStat",
+  "species": "ITEM.TypeSpecies",
+  "background": "ITEM.TypeBackground",
+  "feat": "ITEM.TypeFeat",
+  "custom": "ME5E.Custom",
+  "condition": "ME5E.Condition"
+}
+
+/* -------------------------------------------- */
+
+/**
  * The set of possible sensory perception types which an Actor may have.
  * @enum {string}
  */

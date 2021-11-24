@@ -5,6 +5,7 @@ import PropertyAttribution from "../../apps/property-attribution.js";
 import TraitSelector from "../../apps/trait-selector.js";
 import ActorArmorConfig from "../../apps/actor-armor.js";
 import ActorSheetFlags from "../../apps/actor-flags.js";
+import ActorModifierConfig from "../../apps/modifier-config.js";
 import ActorHitDiceConfig from "../../apps/hit-dice-config.js";
 import ActorMovementConfig from "../../apps/movement-config.js";
 import ActorSensesConfig from "../../apps/senses-config.js";
@@ -677,7 +678,8 @@ export default class ActorSheet5e extends ActorSheet {
     let app;
     switch ( button.dataset.action ) {
       case "hp":
-        app = new ActorHitPointsConfig(this.object);
+        app = new ActorModifierConfig(this.object, "hp");
+        break;
       case "armor":
         app = new ActorArmorConfig(this.object);
         break;

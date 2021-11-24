@@ -154,7 +154,7 @@ Hooks.once("setup", function() {
     "miscEquipmentTypes", "movementTypes", "movementUnits", "polymorphSettings", "proficiencyLevels", "senses",
     "skills", "spellComponents", "spellLevels", "spellPreparationModes", "spellScalingModes", "spellSchools",
     "targetTypes", "timePeriods", "toolProficiencies", "toolTypes", "vehicleTypes", "weaponProficiencies",
-    "weaponProperties", "weaponTypes", "featTypes", "armorPlacement"
+    "weaponProperties", "weaponTypes", "featTypes", "armorPlacement", "modifierType"
   ];
   const sortKeys = [
     "abilityAbbreviations", "abilityActivationTypes", "abilityConsumptionTypes", "actorSizes", "conditionTypes",

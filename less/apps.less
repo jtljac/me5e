@@ -138,6 +138,74 @@
   }
 }
 
+/* ----------------------------------------- */
+/*  Modifier Config Sheet Specifically       */
+/* ----------------------------------------- */
+.me5e.mod-config {
+  height: auto !important;
+  max-height: 1000px;
+
+  .separator {
+    border-bottom: 1px black solid;
+    margin: 10px 0;
+
+    & + .separator {
+      display: none;
+    }
+  }
+
+  .mod-container {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: nowrap;
+    align-items: center;
+
+    margin: 5px 0;
+
+    label, .item-control.item-create {
+      font-size: 30px;
+      text-align: center;
+
+      min-width: 52px;
+      padding: 0 10px;
+    }
+
+    .mod-edit {
+      flex-grow: 1;
+      display: flex;
+      flex-direction: column;
+      flex-wrap: nowrap;
+      font-size: 15px;
+
+      input[type="text"] {
+        width: 100%;
+      }
+
+      .mod-info {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+        align-items: center;
+        margin-bottom: 2px;
+
+
+        input[type="text"] {
+          flex-grow: 1;
+
+          margin-right: 2px;
+        }
+
+        select {
+          height: 22px;
+        }
+
+        .item-control.item-delete {
+          padding: 0 5px 0 5px;
+        }
+      }
+    }
+  }
+}
 
 /* ----------------------------------------- */
 /*  Entity Sheets Specifically               */
