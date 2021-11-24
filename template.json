@@ -569,6 +569,10 @@
           "type": "",
           "target": null,
           "amount": null
+        },
+        "recharge": {
+          "value": null,
+          "charged": false
         }
       },
       "action": {
@@ -630,12 +634,6 @@
         "feats": {
           "base": []
         }
-      },
-      "recharge": {
-        "recharge": {
-          "value": null,
-          "charged": false
-        }
       }
     },
     "htmlFields": ["description.value", "description.chat", "description.unidentified"],
@@ -671,6 +669,7 @@
         "str": 1
       },
       "size": "medium",
+      "reach": 2,
       "speed": {
         "burrow": 0,
         "climb": 0,
@@ -696,7 +695,7 @@
       }
     },
     "equipment": {
-      "templates": ["itemDescription", "physicalItem", "activatedEffect", "action", "mountable", "recharge"],
+      "templates": ["itemDescription", "physicalItem", "activatedEffect", "action", "mountable"],
       "armor": {
         "type": "light",
         "placement": "chest",
@@ -713,7 +712,7 @@
       "proficient": true
     },
     "feat": {
-      "templates": ["itemDescription", "activatedEffect", "action", "recharge"],
+      "templates": ["itemDescription", "activatedEffect", "action"],
       "type": "feat",
       "origin": "",
       "requirements": "",

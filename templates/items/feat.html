@@ -49,22 +49,6 @@
             {{!-- Item Activation Template --}}
             {{> "systems/me5e/templates/items/parts/item-activation.html"}}
 
-            {{!-- Recharge Requirement --}}
-            {{#if data.activation.type}}
-            <div class="form-group recharge">
-                <label>{{ localize "ME5E.FeatureActionRecharge" }}</label>
-                <div class="form-fields">
-                    <span>{{ localize "ME5E.FeatureRechargeOn" }}</span>
-                    <input type="text" name="data.recharge.value" value="{{data.recharge.value}}"
-                           data-dtype="Number" placeholder="{{ localize 'ME5E.FeatureRechargeResult' }}"/>
-                    <label class="checkbox">
-                        {{ localize "ME5E.Charged" }}
-                        <input type="checkbox" name="data.recharge.charged" {{checked data.recharge.charged}}/>
-                    </label>
-                </div>
-            </div>
-            {{/if}}
-
             <h3 class="form-header">{{ localize "ME5E.FeatureAttack" }}</h3>
 
             {{!-- Item Action Template --}}
