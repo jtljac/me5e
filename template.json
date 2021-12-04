@@ -72,8 +72,8 @@
             "temp": 0
           },
           "init": {
-            "value": 0,
-            "bonus": 0
+            "defaultAbility": "int",
+            "userAbility": "null"
           },
           "movement": {
             "burrow": 0,

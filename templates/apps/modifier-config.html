@@ -1,4 +1,5 @@
 <form autocomplete="off">
+    <p class="notes">{{ localize "ME5E.ModifierConfigHint" mod=( localize typeName) }}</p>
     {{# each value }}
         {{# each this }}
             {{> "systems/me5e/templates/apps/parts/modifier.html" this index=@index modType=../../type types=../../types}}

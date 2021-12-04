@@ -7,6 +7,7 @@
  * @returns {string}  Final initiative formula for the actor.
  */
 export const _getInitiativeFormula = function() {
+  // TODO: Setup to be dynamic
   const actor = this.actor;
   if ( !actor ) return "1d20";
   const actorData = actor.data.data;

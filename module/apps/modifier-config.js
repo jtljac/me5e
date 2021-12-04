@@ -11,6 +11,15 @@ export default class ActorModifierConfig extends DocumentSheet {
     super(actor);
     this._type = modType;
     this._maxIndex = 0;
+
+    switch (modType) {
+      case "hp":
+        this._typeName = "ME5E.HP";
+        break;
+      case "init":
+        this._typeName = "ME5E.Initiative";
+        break;
+    }
   }
 
   /** @override */
@@ -27,12 +36,7 @@ export default class ActorModifierConfig extends DocumentSheet {
 
   /** @override */
   get title() {
-    let type;
-    switch (this._type) {
-      case "hp":
-        type = "ME5E.HitPointsConfig"
-    }
-    return `${game.i18n.localize(type)}: ${this.object.name}`;
+    return `${game.i18n.format("ME5E.ModifierConfigure", {"mod": game.i18n.localize(this._typeName)})}: ${this.object.name}`;
   }
 
   /* -------------------------------------------- */
@@ -66,6 +70,7 @@ export default class ActorModifierConfig extends DocumentSheet {
 
     return {
       type: this._type,
+      typeName: this._typeName,
       value: value,
       types: ME5E.modifierType
     };

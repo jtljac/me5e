@@ -13,10 +13,15 @@ export class Modifier {
         this._formula = formula;
         this.user = user;
         this._value = undefined;
+        this._average = undefined;
     }
 
-    evaluate(data) {
+    evaluate(data, averageDice = false) {
         const result = Roll.replaceFormulaData(this.formula, data, {missing: 0, warn: true});
+
+        // TODO: Finish
+        result.replace(/(\d*)d(\d+).*[ +-]/gi)
+
         // TODO: Account for objects before eval
         this._value = Roll.safeEval(result) ?? 0;
 

@@ -659,6 +659,7 @@ ME5E.hitDieDefaultHp = ME5E.hitDieTypes.reduce((acc, item) => {
  */
 // TODO: This isn't finished
 ME5E.modifierType = {
+  "char": "ME5E.ModifierChar",
   "class": "ITEM.TypeClass",
   "stat": "ME5E.ModifierStat",
   "species": "ITEM.TypeSpecies",
@@ -1049,12 +1050,6 @@ ME5E.characterFlags = {
   initiativeAdv: {
     name: "ME5E.FlagsInitiativeAdv",
     hint: "ME5E.FlagsInitiativeAdvHint",
-    section: "ME5E.Feats",
-    type: Boolean
-  },
-  initiativeAlert: {
-    name: "ME5E.FlagsAlert",
-    hint: "ME5E.FlagsAlertHint",
     section: "ME5E.Feats",
     type: Boolean
   },

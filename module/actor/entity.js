@@ -66,7 +66,7 @@ export default class Actor5e extends Actor {
   /** @override */
   prepareBaseData() {
     this._prepareBaseArmorClass(this.data);
-    this.prepareAbilities(this.data);
+    this._prepareAbilities(this.data);
     switch ( this.data.type ) {
       case "character":
         return this._prepareCharacterData(this.data);
@@ -96,7 +96,7 @@ export default class Actor5e extends Actor {
     const flags = actorData.flags.me5e || {};
     const bonuses = getProperty(data, "bonuses.abilities") || {};
 
-    data.modifiers.mods = this._prepareActorAndItemModifiers(actorData.items, actorData);
+    data.modifiers.mods = this._prepareModifiers(actorData.items, actorData);
 
     // Retrieve data for polymorphed actors
     let originalSaves = null;
@@ -352,10 +352,11 @@ export default class Actor5e extends Actor {
     xp.pct = Math.clamped(pct, 0, 100);
   }
 
-  _prepareActorAndItemModifiers(items, actorData) {
+  _prepareModifiers(items, actorData) {
     const data = actorData.data;
     const modifiers = {
-      "hp": new ModList()
+      "hp": new ModList(),
+      "init": new ModList()
     };
 
     // User
@@ -403,6 +404,16 @@ export default class Actor5e extends Actor {
         return acc + hp;
       }, "")), false));
     }
+
+    // Initiative
+    // Selected Mod
+    modifiers["init"].push(new Modifier(ME5E.abilities[data.attributes.init.ability], "stat", `@data.abilities.${data.attributes.init.ability}.mod`, false));
+
+    // Proficiency bonus
+    const flags = actorData.flags.me5e || {};
+    const joat = flags.jackOfAllTrades;
+    const athlete = flags.remarkableAthlete;
+    modifiers["init"].push(new Modifier(game.i18n.localize("ME5E.Proficiency"), "char", new Proficiency(data.attributes.prof, (joat || athlete) ? 0.5 : 0, !athlete).term, false));
 
     return modifiers;
   }
@@ -541,12 +552,17 @@ export default class Actor5e extends Actor {
 
 
 
-  prepareAbilities(actorData) {
+  _prepareAbilities(actorData) {
     const data = actorData.data;
 
+    // Skills
     for (const [name, skill] of Object.entries(data.skills)) {
       skill.ability = skill.userAbility !== "null" ? skill.userAbility : skill.defaultAbility;
     }
+
+    // Initiative
+    const init = data.attributes.init;
+    data.attributes.init.ability = init.userAbility !== "null" ? init.userAbility : init.defaultAbility
   }
 
   /* -------------------------------------------- */

@@ -677,8 +677,8 @@ export default class ActorSheet5e extends ActorSheet {
     const button = event.currentTarget;
     let app;
     switch ( button.dataset.action ) {
-      case "hp":
-        app = new ActorModifierConfig(this.object, "hp");
+      case "mod":
+        app = new ActorModifierConfig(this.object, button.dataset.modtype);
         break;
       case "armor":
         app = new ActorArmorConfig(this.object);
