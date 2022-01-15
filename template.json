@@ -650,6 +650,7 @@
     },
     "class": {
       "templates": ["itemDescription", "traitSelector", "skillSelector", "featSelector"],
+      "identifier": "",
       "levels": 1,
       "subclass": "",
       "subclasses": [],

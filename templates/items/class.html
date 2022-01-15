@@ -140,6 +140,17 @@
         </div>
         <div class="tab details" data-group="primary" data-tab="config">
             <h1>{{localize "ME5E.General"}}</h1>
+            {{!-- Identifier --}}
+            <div class="form-group">
+                <label>{{ localize "ME5E.ClassIdentifier" }}</label>
+                <div class="form-fields">
+                    <input type="text" name="data.identifier" value="{{data.identifier}}">
+                </div>
+                <p class="hint">
+                    {{{localize "ME5E.ClassIdentifierHint" identifier=data.identifier}}}
+                </p>
+            </div>
+
             <div class="form-group">
                 <label>{{localize "ME5E.HitDice"}}</label>
                 <div class="form-fields">
