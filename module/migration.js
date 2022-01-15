@@ -314,10 +314,14 @@ export const getMigrationData = async function() {
   try {
     const res = await fetch("systems/me5e/json/icon-migration.json");
     data.iconMap = await res.json();
+    if ( game.me5e.isV9 ) {
+      res = await fetch("systems/me5e/json/spell-icon-migration.json");
+      const spellIcons = await res.json();
+      data.iconMap = {...data.iconMap, ...spellIcons};
+    }
   } catch(err) {
     console.warn(`Failed to retrieve icon migration data: ${err.message}`);
   }
-
   return data;
 };
 
@@ -644,9 +648,10 @@ function _migrateItemCriticalData(item, updateData) {
  * @private
  */
 function _migrateItemIcon(item, updateData, {iconMap}={}) {
-  if ( !iconMap || !item.img?.startsWith("systems/me5e/icons/") ) return updateData;
-  const rename = iconMap[item.img];
-  if ( rename ) updateData.img = rename;
+  if ( iconMap && item.img?.startsWith("systems/me5e/icons/") ) {
+    const rename = iconMap[item.img];
+    if ( rename ) updateData.img = rename;
+  }
   return updateData;
 }
 

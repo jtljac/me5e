@@ -2,7 +2,7 @@
   "name": "me5e",
   "title": "Mass effect 5e",
   "description": "A system for playing the Mass Effect conversion of D&D5e",
-  "version": "1.5.2",
+  "version": "1.5.6",
   "author": "jtljac",
   "scripts": [],
   "esmodules": ["me5e.js"],
@@ -20,9 +20,9 @@
   "gridUnits": "m",
   "primaryTokenAttribute": "attributes.hp",
   "secondaryTokenAttribute": null,
-  "minimumCoreVersion": "0.8.2",
-  "compatibleCoreVersion": "0.8.9",
+  "minimumCoreVersion": "0.8.9",
+  "compatibleCoreVersion": "9",
   "url": "https://github.com/jtljac/me5e",
-  "manifest": "https://gitlab.com/api/v4/projects/foundrynet%2Fme5e/packages/generic/me5e/latest/system.json",
-  "download": "https://gitlab.com/foundrynet/me5e/-/releases/release-1.5.2/downloads/me5e-release-1.5.2.zip"
+  "manifest": "https://gitlab.com/api/v4/projects/foundrynet%2Fdnd5e/packages/generic/dnd5e/latest/system.json",
+  "download": "https://gitlab.com/foundrynet/dnd5e/-/releases/release-1.5.6/downloads/dnd5e-release-1.5.6.zip"
 }
