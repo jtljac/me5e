@@ -1061,7 +1061,10 @@ export default class Item5e extends Item {
     if ( !this.hasDamage ) throw new Error("You may not make a Damage Roll with this Item.");
     const itemData = this.data.data;
     const actorData = this.actor.data.data;
-    const messageData = {"flags.me5e.roll": {type: "damage", itemId: this.id }};
+    const messageData = {
+      "flags.me5e.roll": {type: "damage", itemId: this.id},
+      speaker: ChatMessage.getSpeaker({actor: this.actor})
+    };
 
     // Get roll data
     const parts = itemData.damage.parts.map(d => d[0]);
@@ -1083,10 +1086,9 @@ export default class Item5e extends Item {
       dialogOptions: {
         width: 400,
         top: event ? event.clientY - 80 : null,
-        left: window.innerWidth - 710,
-        speaker: ChatMessage.getSpeaker({actor: this.actor})
+        left: window.innerWidth - 710
       },
-      messageData: messageData
+      messageData
     };
 
     // Adjust damage from versatile usage
