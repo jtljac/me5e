@@ -1916,7 +1916,7 @@ export default class Actor5e extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Add additional system-specific sidebar directory context menu options for Actor entities
+   * Add additional system-specific sidebar directory context menu options for Actor documents
    * @param {jQuery} html         The sidebar HTML
    * @param {Array} entryOptions  The default array of context menu options
    */
@@ -1925,13 +1925,13 @@ export default class Actor5e extends Actor {
       name: "ME5E.PolymorphRestoreTransformation",
       icon: '<i class="fas fa-backward"></i>',
       callback: li => {
-        const actor = game.actors.get(li.data("entityId"));
+        const actor = game.actors.get(li.data("documentId"));
         return actor.revertOriginalForm();
       },
       condition: li => {
         const allowed = game.settings.get("me5e", "allowPolymorphing");
         if ( !allowed && !game.user.isGM ) return false;
-        const actor = game.actors.get(li.data("entityId"));
+        const actor = game.actors.get(li.data("documentId"));
         return actor && actor.isPolymorphed;
       }
     });
