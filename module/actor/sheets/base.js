@@ -967,6 +967,13 @@ export default class ActorSheet5e extends ActorSheet {
     event.preventDefault();
     const header = event.currentTarget;
     const type = header.dataset.type;
+
+    // Check to make sure the newly created class doesn't take player over level cap
+    if ( type === "class" && (this.actor.data.data.details.level + 1 > CONFIG.ME5E.maxLevel) ) {
+      return ui.notifications.error(game.i18n.format("ME5E.MaxCharacterLevelExceededWarn",
+        {max: CONFIG.ME5E.maxLevel}));
+    }
+
     const itemData = {
       name: game.i18n.format("ME5E.ItemNew", {type: game.i18n.localize(`ME5E.ItemType${type.capitalize()}`)}),
       type: type,

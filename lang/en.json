@@ -517,6 +517,8 @@
 "ME5E.LongRestResultHitPoints": "{name} takes a long rest and recovers {health} Hit Points.",
 "ME5E.LongRestResultShort": "{name} takes a long rest.",
 "ME5E.Max": "Max",
+"ME5E.MaxCharacterLevelExceededWarn": "Character cannot be advanced past level {max}.",
+"ME5E.MaxClassLevelExceededWarn": "Class cannot be advanced past level {max}.",
 "ME5E.Modifier": "Modifier",
 "ME5E.ModifierConfigure": "Configure {mod}",
 "ME5E.ModifierConfigHint": "Add or remove modifiers to {mod}",

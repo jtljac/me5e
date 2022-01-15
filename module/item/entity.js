@@ -192,12 +192,6 @@ export default class Item5e extends Item {
     const C = CONFIG.ME5E;
     const labels = this.labels = {};
 
-    // Classes
-    if ( itemData.type === "class" ) {
-      data.levels = Math.clamped(data.levels, 1, 20);
-      data.defaultHp = CONFIG.ME5E.hitDieDefaultHp[this.data.data.hitDice];
-    }
-
     // Spell Level,  School, and Components
     if ( itemData.type === "spell" ) {
       data.preparation.mode = data.preparation.mode || "prepared";
@@ -1539,25 +1533,40 @@ export default class Item5e extends Item {
 
   /* -------------------------------------------- */
 
+  /** @inheritdoc */
   async _preUpdate(changed, options, user) {
-    // Class actions
-    if (this.type === "class")  {
-      // Calculate Health Array
-      if (changed.data.levels) {
-        const hpArray = this.data.data.hp;
+    await super._preUpdate(changed, options, user);
 
-        if (hpArray.length < changed.data.levels - 1) {
-          while (hpArray.length < changed.data.levels - 1) {
-            hpArray.push(this.data.data.defaultHp);
-          }
-        } else if (hpArray.length > changed.data.levels - 1) {
-          hpArray.length = changed.data.levels - 1;
+    // Check to make sure the updated class level doesn't exceed level cap
+    if ( (this.type === "class") && changed.data?.levels ) {
+      if ( changed.data.levels > CONFIG.ME5E.maxLevel ) {
+        ui.notifications.warn(game.i18n.format("ME5E.MaxClassLevelExceededWarn", {max: CONFIG.ME5E.maxLevel}));
+        changed.data.levels = CONFIG.ME5E.maxLevel;
+      }
+
+      const hpArray = this.data.data.hp;
+
+      if (hpArray.length < changed.data.levels - 1) {
+        while (hpArray.length < changed.data.levels - 1) {
+          hpArray.push(this.data.data.defaultHp);
         }
+      } else if (hpArray.length > changed.data.levels - 1) {
+        hpArray.length = changed.data.levels - 1;
+      }
 
-        changed.data.hp = hpArray;
+      changed.data.hp = hpArray;
+
+      if ( !this.isEmbedded || (this.parent.type !== "character") ) return;
+      const newCharacterLevel = this.actor.data.data.details.level + (changed.data.levels - this.data.data.levels);
+      if ( newCharacterLevel > CONFIG.ME5E.maxLevel ) {
+        ui.notifications.warn(game.i18n.format("DND5E.MaxCharacterLevelExceededWarn",
+          {max: CONFIG.ME5E.maxLevel}));
+        changed.data.levels = changed.data.levels - (newCharacterLevel - CONFIG.ME5E.maxLevel);
       }
     }
   }
+
+  /* -------------------------------------------- */
 
   /** @inheritdoc */
   _onUpdate(changed, options, userId) {

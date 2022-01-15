@@ -991,6 +991,12 @@ ME5E.conditionTypes = {
 };
 
 /**
+ * Maximum allowed character level.
+ * @type {number}
+ */
+ME5E.maxLevel = 20;
+
+/**
  * XP required to achieve each character level.
  * @type {number[]}
  */
