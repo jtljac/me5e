@@ -194,6 +194,7 @@ ME5E.abilityActivationTypes = {
 ME5E.abilityConsumptionTypes = {
   ammo: "ME5E.ConsumeAmmunition",
   attribute: "ME5E.ConsumeAttribute",
+  hitDice: "ME5E.ConsumeHitDice",
   material: "ME5E.ConsumeMaterial",
   charges: "ME5E.ConsumeCharges"
 };

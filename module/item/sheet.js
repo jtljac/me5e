@@ -149,6 +149,15 @@ export default class ItemSheet5e extends ItemSheet {
       }, {});
     }
 
+    // Hit Dice
+    else if ( consume.type === "hitDice" ) {
+      return {
+        smallest: game.i18n.localize("ME5E.ConsumeHitDiceSmallest"),
+        ...CONFIG.ME5E.hitDieTypes.reduce((obj, hd) => { obj[hd] = hd; return obj; }, {}),
+        largest: game.i18n.localize("ME5E.ConsumeHitDiceLargest")
+      };
+    }
+
     // Materials
     else if ( consume.type === "material" ) {
       return actor.items.reduce((obj, i) => {
@@ -178,6 +187,7 @@ export default class ItemSheet5e extends ItemSheet {
         return obj;
       }, {});
     }
+
     else return {};
   }
 
