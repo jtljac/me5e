@@ -36,7 +36,7 @@ export class Advancement {
    * Localization key for the title to be displayed if no user title is specified.
    * @type {string}
    */
-  static defaultTitle = "DND5E.AdvancementTitle";
+  static defaultTitle = "ME5E.AdvancementTitle";
 
   /* -------------------------------------------- */
 

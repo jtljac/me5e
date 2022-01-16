@@ -183,7 +183,7 @@ export default class Item5e extends Item {
       this.data.data.consumableType);
     if ( requireEquipped && (this.data.data.equipped === false) ) return true;
 
-    return this.data.data.attunement === CONFIG.DND5E.attunementTypes.REQUIRED;
+    return this.data.data.attunement === CONFIG.ME5E.attunementTypes.REQUIRED;
   }
 
   /* -------------------------------------------- */
@@ -204,7 +204,7 @@ export default class Item5e extends Item {
 
     // Advancement
     this.advancement = (itemData.data.advancement ?? []).reduce((arr, data) => {
-      const Advancement = game.dnd5e.advancement[`${data.type}Advancement`];
+      const Advancement = game.me5e.advancement[`${data.type}Advancement`];
       if ( Advancement ) arr.push(new Advancement(this, data));
       return arr;
     }, []);

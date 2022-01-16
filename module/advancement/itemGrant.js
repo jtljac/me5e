@@ -18,7 +18,7 @@ export class ItemGrantAdvancement extends Advancement {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  static defaultTitle = "DND5E.AdvancementItemGrantTitle";
+  static defaultTitle = "ME5E.AdvancementItemGrantTitle";
 
   /* -------------------------------------------- */
 

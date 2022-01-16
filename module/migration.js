@@ -109,7 +109,7 @@ export const migrateCompendium = async function(pack) {
 
     // Handle migration failures
     catch(err) {
-      err.message = `Failed dnd5e system migration for document ${doc.name} in pack ${pack.collection}: ${err.message}`;
+      err.message = `Failed me5e system migration for document ${doc.name} in pack ${pack.collection}: ${err.message}`;
       console.error(err);
     }
   }
