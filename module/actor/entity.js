@@ -970,12 +970,12 @@ export default class Actor5e extends Actor {
     const abl = this.data.data.abilities[skl.ability];
     const bonuses = getProperty(this.data.data, "bonuses.abilities") || {};
 
-    const parts = [];
+    const parts = ["@mod", "@abilityCheckBonus"];
     const data = this.getRollData();
 
     // Add ability modifier
-    parts.push("@mod");
     data.mod = skl.mod;
+    data.defaultAbility = skl.ability;
 
     // Include proficiency bonus
     if ( skl.prof.hasProficiency ) {
@@ -990,11 +990,8 @@ export default class Actor5e extends Actor {
     }
 
     // Ability-specific check bonus
-    if ( abl?.bonuses?.check ) {
-      const checkBonusKey = `${skl.ability}CheckBonus`;
-      parts.push(`@${checkBonusKey}`);
-      data[checkBonusKey] = Roll.replaceFormulaData(abl.bonuses.check, data);
-    }
+    if ( abl?.bonuses?.check ) data.abilityCheckBonus = Roll.replaceFormulaData(abl.bonuses.check, data);
+    else data.abilityCheckBonus = 0;
 
     // Skill-specific skill bonus
     if ( skl.bonuses?.check ) {
@@ -1021,7 +1018,8 @@ export default class Actor5e extends Actor {
     const rollData = foundry.utils.mergeObject(options, {
       parts: parts,
       data: data,
-      title: game.i18n.format("ME5E.SkillPromptTitle", {skill: CONFIG.ME5E.skills[skillId]}),
+      title: `${game.i18n.format("ME5E.SkillPromptTitle", {skill: CONFIG.ME5E.skills[skillId]})}: ${this.name}`,
+      chooseModifier: true,
       halflingLucky: this.getFlag("me5e", "halflingLucky"),
       reliableTalent: reliableTalent,
       messageData: {
