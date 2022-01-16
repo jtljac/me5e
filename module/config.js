@@ -843,13 +843,32 @@ preLocalize("weaponProperties", { sort: true });
 
 /**
  * Types of components that can be required when casting a spell.
- * @enum {string}
+ * @enum {object}
  */
 // TODO: Check if still needed
 ME5E.spellComponents = {
-  S: "ME5E.ComponentSomatic"
+  somatic: {
+    label: "ME5E.ComponentSomatic",
+    abbr: "ME5E.ComponentSomaticAbbr"
+  },
 };
-preLocalize("spellComponents");
+preLocalize("spellComponents", {keys: ["label", "abbr"]});
+
+/**
+ * Supplementary rules keywords that inform a spell's use.
+ * @enum {object}
+ */
+ME5E.spellTags = {
+  concentration: {
+    label: "ME5E.Concentration",
+    abbr: "ME5E.ConcentrationAbbr"
+  },
+  ritual: {
+    label: "ME5E.Ritual",
+    abbr: "ME5E.RitualAbbr"
+  }
+};
+preLocalize("spellTags", {keys: ["label", "abbr"]});
 
 /**
  * Schools to which a spell can belong.
