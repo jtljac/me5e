@@ -1,4 +1,5 @@
-import {ClassFeatures} from "./classFeatures.js";
+import { ClassFeatures } from "./classFeatures.js";
+import { preLocalize } from "./utils.js";
 
 // Namespace Configuration Values
 export const ME5E = {};
@@ -26,6 +27,7 @@ ME5E.abilities = {
   wis: "ME5E.AbilityWis",
   cha: "ME5E.AbilityCha"
 };
+preLocalize("abilities");
 
 /**
  * Localized abbreviations for Ability Scores.
@@ -39,6 +41,7 @@ ME5E.abilityAbbreviations = {
   wis: "ME5E.AbilityWisAbbr",
   cha: "ME5E.AbilityChaAbbr"
 };
+preLocalize("abilityAbbreviations");
 
 /* -------------------------------------------- */
 
@@ -57,6 +60,7 @@ ME5E.alignments = {
   ne: "ME5E.AlignmentNE",
   ce: "ME5E.AlignmentCE"
 };
+preLocalize("alignments");
 
 /* -------------------------------------------- */
 
@@ -79,6 +83,7 @@ ME5E.attunements = {
   1: "ME5E.AttunementRequired",
   2: "ME5E.AttunementAttuned"
 };
+preLocalize("attunements");
 
 /* -------------------------------------------- */
 
@@ -94,6 +99,7 @@ ME5E.weaponProficiencies = {
   sr: "ME5E.WeaponSRProficiency",
   melee: "ME5E.WeaponMeleeProficiency",
 };
+preLocalize("weaponProficiencies");
 
 /**
  * A mapping between `ME5E.weaponTypes` and `ME5E.weaponProficiencies` that
@@ -126,6 +132,7 @@ ME5E.toolTypes = {
   game: "ME5E.ToolGamingSet",
   music: "ME5E.ToolMusicalInstrument"
 };
+preLocalize("toolTypes", { sort: true });
 
 /**
  * The categories of tool proficiencies that a character can gain.
@@ -136,6 +143,7 @@ ME5E.toolProficiencies = {
   ...ME5E.toolTypes,
   vehicle: "ME5E.ToolVehicle"
 };
+preLocalize("toolProficiencies", { sort: true });
 
 /**
  * The basic tool types in 5e. This enables specific tool proficiencies or
@@ -164,6 +172,7 @@ ME5E.timePeriods = {
   perm: "ME5E.TimePerm",
   spec: "ME5E.Special"
 };
+preLocalize("timePeriods");
 
 /* -------------------------------------------- */
 
@@ -184,6 +193,7 @@ ME5E.abilityActivationTypes = {
   lair: "ME5E.LairActionLabel",
   crew: "ME5E.VehicleCrewAction"
 };
+preLocalize("abilityActivationTypes", { sort: true });
 
 /* -------------------------------------------- */
 
@@ -198,6 +208,7 @@ ME5E.abilityConsumptionTypes = {
   material: "ME5E.ConsumeMaterial",
   charges: "ME5E.ConsumeCharges"
 };
+preLocalize("abilityConsumptionTypes", { sort: true });
 
 /* -------------------------------------------- */
 
@@ -213,6 +224,7 @@ ME5E.actorSizes = {
   huge: "ME5E.SizeHuge",
   grg: "ME5E.SizeGargantuan"
 };
+preLocalize("actorSizes");
 
 /**
  * Default token image size for the values of `ME5E.actorSizes`.
@@ -243,6 +255,7 @@ ME5E.tokenHPColors = {
 
 /**
  * Default types of creatures.
+ * *Note: Not pre-localized to allow for easy fetching of pluralized forms.*
  * @enum {string}
  */
 ME5E.creatureTypes = {
@@ -270,6 +283,7 @@ ME5E.itemActionTypes = {
   util: "ME5E.ActionUtil",
   other: "ME5E.ActionOther"
 };
+preLocalize("itemActionTypes");
 
 /* -------------------------------------------- */
 
@@ -281,6 +295,7 @@ ME5E.itemCapacityTypes = {
   items: "ME5E.ItemContainerCapacityItems",
   weight: "ME5E.ItemContainerCapacityWeight"
 };
+preLocalize("itemCapacityTypes", { sort: true });
 
 /* -------------------------------------------- */
 
@@ -294,6 +309,7 @@ ME5E.itemRarity = {
   rare: "ME5E.ItemRarityRare",
   spectre: "ME5E.ItemRaritySpectre"
 };
+preLocalize("itemRarity");
 
 /* -------------------------------------------- */
 
@@ -307,6 +323,7 @@ ME5E.limitedUsePeriods = {
   day: "ME5E.Day",
   charges: "ME5E.Charges"
 };
+preLocalize("limitedUsePeriods");
 
 /* -------------------------------------------- */
 
@@ -321,6 +338,7 @@ ME5E.armorTypes = {
   natural: "ME5E.EquipmentNatural",
   shield: "ME5E.EquipmentShield"
 };
+preLocalize("armorTypes");
 
 ME5E.armorPlacement = {
   chest: "ME5E.EquipmentArmourChest",
@@ -329,6 +347,7 @@ ME5E.armorPlacement = {
   head: "ME5E.EquipmentArmourHead",
   body: "ME5E.EquipmentArmourBody"
 }
+preLocalize("armorPlacement");
 
 /* -------------------------------------------- */
 
@@ -342,6 +361,7 @@ ME5E.miscEquipmentTypes = {
   trinket: "ME5E.EquipmentTrinket",
   vehicle: "ME5E.EquipmentVehicle"
 };
+preLocalize("miscEquipmentTypes", { sort: true });
 
 /* -------------------------------------------- */
 
@@ -353,6 +373,7 @@ ME5E.equipmentTypes = {
   ...ME5E.miscEquipmentTypes,
   ...ME5E.armorTypes
 };
+preLocalize("equipmentTypes", { sort: true });
 
 /* -------------------------------------------- */
 
@@ -366,6 +387,7 @@ ME5E.vehicleTypes = {
   water: "ME5E.VehicleTypeWater",
   space: "ME5E.VehicleTypeSpace"
 };
+preLocalize("vehicleTypes", { sort: true });
 
 /* -------------------------------------------- */
 
@@ -379,6 +401,7 @@ ME5E.armorProficiencies = {
   hvy: ME5E.equipmentTypes.heavy,
   shl: "ME5E.EquipmentShieldProficiency"
 };
+preLocalize("armorProficiencies");
 
 /**
  * A mapping between `ME5E.equipmentTypes` and `ME5E.armorProficiencies` that
@@ -450,6 +473,7 @@ ME5E.armorClasses = {
     label: "ME5E.ArmorClassCustom"
   }
 };
+preLocalize("armorClasses", { key: "label" });
 
 /* -------------------------------------------- */
 
@@ -468,6 +492,7 @@ ME5E.consumableTypes = {
   rod: "ME5E.ConsumableRod",
   trinket: "ME5E.ConsumableTrinket"
 };
+preLocalize("consumableTypes", { sort: true });
 
 /* -------------------------------------------- */
 
@@ -486,6 +511,7 @@ ME5E.currencies = {
     abbreviation: "ME5E.CurrencyAbbrCR"
   }
 };
+preLocalize("currencies", { keys: ["label", "abbreviation"] });
 
 /* -------------------------------------------- */
 
@@ -508,6 +534,7 @@ ME5E.damageTypes = {
   slashing: "ME5E.DamageSlashing",
   thunder: "ME5E.DamageThunder"
 };
+preLocalize("damageTypes", { sort: true });
 
 /**
  * Types of damage to which an actor can possess resistance, immunity, or vulnerability.
@@ -518,6 +545,7 @@ ME5E.damageResistanceTypes = {
   ...ME5E.damageTypes,
   physical: "ME5E.DamagePhysical"
 };
+preLocalize("damageResistanceTypes", { sort: true });
 
 /* -------------------------------------------- */
 
@@ -533,6 +561,7 @@ ME5E.movementTypes = {
   swim: "ME5E.MovementSwim",
   walk: "ME5E.MovementWalk",
 };
+preLocalize("movementTypes", { sort: true });
 
 /**
  * The valid units of measure for movement distances in the game system.
@@ -545,6 +574,7 @@ ME5E.movementUnits = {
   m: "ME5E.DistM",
   km: "ME5E.DistKm"
 };
+preLocalize("movementUnits");
 
 /**
  * The valid units of measure for the range of an action or effect.
@@ -559,6 +589,7 @@ ME5E.distanceUnits = {
   any: "ME5E.DistAny",
   ...ME5E.movementUnits
 };
+preLocalize("distanceUnits");
 
 /* -------------------------------------------- */
 
@@ -604,6 +635,7 @@ ME5E.targetTypes = {
   line: "ME5E.TargetLine",
   wall: "ME5E.TargetWall"
 };
+preLocalize("targetTypes", { sort: true });
 
 /* -------------------------------------------- */
 
@@ -633,6 +665,7 @@ ME5E.healingTypes = {
   healing: "ME5E.Healing",
   temphp: "ME5E.HealingTemp"
 };
+preLocalize("healingTypes");
 
 /* -------------------------------------------- */
 
@@ -669,6 +702,7 @@ ME5E.modifierType = {
   "custom": "ME5E.Custom",
   "condition": "ME5E.Condition"
 }
+preLocalize("modifierType")
 
 /* -------------------------------------------- */
 
@@ -682,6 +716,7 @@ ME5E.senses = {
   truesight: "ME5E.SenseTruesight",
   infrared: "ME5E.SenseInfrared"
 };
+preLocalize("senses", { sort: true });
 
 /* -------------------------------------------- */
 
@@ -709,6 +744,7 @@ ME5E.skills = {
   sur: "ME5E.SkillSur",
   veh: "ME5E.SkillVeh"
 };
+preLocalize("skills", { sort: true });
 
 /* -------------------------------------------- */
 
@@ -723,6 +759,7 @@ ME5E.spellPreparationModes = {
   atwill: "ME5E.SpellPrepAtWill",
   innate: "ME5E.SpellPrepInnate"
 };
+preLocalize("spellPreparationModes");
 
 /**
  * Subset of `ME5E.spellPreparationModes` that consume spell slots.
@@ -743,6 +780,7 @@ ME5E.spellProgression = {
   pact: "ME5E.SpellProgPact",
   artificer: "ME5E.SpellProgArt"
 };
+preLocalize("spellProgression");
 
 /* -------------------------------------------- */
 
@@ -755,6 +793,7 @@ ME5E.spellScalingModes = {
   cantrip: "ME5E.SpellCantrip",
   level: "ME5E.SpellLevel"
 };
+preLocalize("spellScalingModes", { sort: true });
 
 /* -------------------------------------------- */
 
@@ -772,6 +811,7 @@ ME5E.weaponTypes = {
   improv: "ME5E.WeaponImprov",
   siege: "ME5E.WeaponSiege"
 };
+preLocalize("weaponTypes");
 
 /* -------------------------------------------- */
 
@@ -799,6 +839,7 @@ ME5E.weaponProperties = {
   ver: "ME5E.WeaponPropertiesVer",
   wgt: "ME5E.WeaponPropertiesWgt"
 };
+preLocalize("weaponProperties", { sort: true });
 
 /**
  * Types of components that can be required when casting a spell.
@@ -808,6 +849,7 @@ ME5E.weaponProperties = {
 ME5E.spellComponents = {
   S: "ME5E.ComponentSomatic"
 };
+preLocalize("spellComponents");
 
 /**
  * Schools to which a spell can belong.
@@ -818,6 +860,7 @@ ME5E.spellSchools = {
   tec: "ME5E.SchoolTec",
   com: "ME5E.SchoolCom",
 };
+preLocalize("spellSchools", { sort: true });
 
 /**
  * Valid spell levels.
@@ -830,6 +873,7 @@ ME5E.spellLevels = {
   3: "ME5E.SpellLevel3",
   4: "ME5E.SpellLevel4"
 };
+preLocalize("spellLevels");
 
 /**
  * Compendium packs used for localized items.
@@ -889,6 +933,7 @@ ME5E.polymorphSettings = {
   keepBio: "ME5E.PolymorphKeepBio",
   keepVision: "ME5E.PolymorphKeepVision"
 };
+preLocalize("polymorphSettings", { sort: true });
 
 /* -------------------------------------------- */
 
@@ -903,6 +948,7 @@ ME5E.proficiencyLevels = {
   1: "ME5E.Proficient",
   2: "ME5E.Expertise"
 };
+preLocalize("proficiencyLevels");
 
 /* -------------------------------------------- */
 
@@ -917,6 +963,7 @@ ME5E.cover = {
   .75: "ME5E.CoverThreeQuarters",
   1: "ME5E.CoverTotal"
 };
+preLocalize("cover");
 
 /* -------------------------------------------- */
 
@@ -931,6 +978,7 @@ ME5E.featTypes = {
   species: "ME5E.FeatTypeSpecies",
   fightingStyle: "ME5E.FeatTypeFightingStyle"
 }
+preLocalize("featTypes")
 
 /* -------------------------------------------- */
 
@@ -990,6 +1038,7 @@ ME5E.conditionTypes = {
   targeting: "ME5E.ConTargeting",
   unconscious: "ME5E.ConUnconscious"
 };
+preLocalize("conditionTypes", { sort: true });
 
 /**
  * Maximum allowed character level.
@@ -1028,6 +1077,7 @@ ME5E.classFeatures = ClassFeatures;
  *   name: string,
  *   hint: string,
  *   [abilities]: string[],
+ *   [choices]: object<string, string>,
  *   [skills]: string[],
  *   section: string,
  *   type: any,
@@ -1114,6 +1164,7 @@ ME5E.characterFlags = {
     placeholder: 0
   }
 };
+preLocalize("characterFlags", { keys: ["name", "hint", "section"] });
 
 /**
  * Flags allowed on actors. Any flags not in the list may be deleted during a migration.

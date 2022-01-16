@@ -836,7 +836,7 @@ export default class Item5e extends Item {
     // Equipment properties
     if ( data.hasOwnProperty("equipped") && !["loot", "tool"].includes(this.data.type) ) {
       if ( data.attunement === CONFIG.ME5E.attunementTypes.REQUIRED ) {
-        props.push(game.i18n.localize(CONFIG.ME5E.attunements[CONFIG.ME5E.attunementTypes.REQUIRED]));
+        props.push(CONFIG.ME5E.attunements[CONFIG.ME5E.attunementTypes.REQUIRED]);
       }
       props.push(
         game.i18n.localize(data.equipped ? "ME5E.Equipped" : "ME5E.Unequipped"),
