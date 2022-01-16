@@ -28,6 +28,7 @@
         <a class="item" data-tab="details">{{ localize "ME5E.Details" }}</a>
         <a class="item" data-tab="charConfig">{{ localize "ME5E.ClassCharConfig" }}</a>
         <a class="item" data-tab="config">{{ localize "ME5E.ClassConfig" }}</a>
+        <a class="item" data-tab="advancement">{{ localize "ME5E.AdvancementTitle" }}</a>
     </nav>
 
     {{!-- Item Sheet Body --}}
@@ -304,5 +305,9 @@
                 </div>
             </div>
         </div>
+
+        {{!-- Advancement Tab --}}
+        {{> "systems/dnd5e/templates/items/parts/item-advancement.html"}}
+
     </section>
 </form>

@@ -48,6 +48,7 @@ import * as macros from "./module/macros.js";
 import * as migrations from "./module/migration.js";
 import * as utils from "./module/utils.js";
 import ActiveEffect5e from "./module/active-effect.js";
+import * as advancement from "./module/advancement.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */
@@ -58,6 +59,7 @@ Hooks.once("init", function() {
 
   // Create a namespace within the game global
   game.me5e = {
+    advancement,
     applications: {
       AbilityUseDialog,
       ActorAbilityConfig,

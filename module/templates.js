@@ -15,7 +15,6 @@ export const preloadHandlebarsTemplates = async function() {
     "systems/me5e/templates/actors/parts/actor-inventory.html",
     "systems/me5e/templates/actors/parts/actor-features.html",
     "systems/me5e/templates/actors/parts/actor-spellbook.html",
-    "systems/me5e/templates/actors/parts/actor-spellbook.html",
     "systems/me5e/templates/actors/parts/actor-warnings.html",
 
     // Item Sheet Partials
@@ -23,6 +22,7 @@ export const preloadHandlebarsTemplates = async function() {
     "systems/me5e/templates/items/parts/item-activation.html",
     "systems/me5e/templates/items/parts/item-description.html",
     "systems/me5e/templates/items/parts/item-mountable.html",
+    "systems/me5e/templates/items/parts/item-advancement.html",
 
     // App Partials
     "systems/me5e/templates/apps/parts/modifier.html"

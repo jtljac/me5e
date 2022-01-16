@@ -657,6 +657,7 @@
       "hp": [],
       "hitDice": "d6",
       "hitDiceUsed": 0,
+      "advancement": [],
       "saves": [],
       "spellcasting": {
         "progression": "none",
