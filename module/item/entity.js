@@ -209,8 +209,14 @@ export default class Item5e extends Item {
       return arr;
     }, []);
 
+    // Classes
+    if ( itemData.type === "class" ) {
+      data.levels = Math.clamped(data.levels, 1, CONFIG.ME5E.maxLevel);
+      data.defaultHp = CONFIG.ME5E.hitDieDefaultHp[this.data.data.hitDice];
+    }
+
     // Spell Level,  School, and Components
-    if ( itemData.type === "spell" ) {
+    else if ( itemData.type === "spell" ) {
       const attributes = {
         ...C.spellComponents,
         ...Object.fromEntries(Object.entries(C.spellTags).map(([k, v]) => {
