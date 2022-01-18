@@ -1129,6 +1129,12 @@ ME5E.characterFlags = {
     section: "ME5E.Feats",
     type: Boolean
   },
+  initiativeDisadv: {
+    name: "ME5E.FlagsInitiativeDisadv",
+    hint: "ME5E.FlagsInitiativeAdvHint",
+    section: "ME5E.Feats",
+    type: Boolean
+  },
   jackOfAllTrades: {
     name: "ME5E.FlagsJOAT",
     hint: "ME5E.FlagsJOATHint",

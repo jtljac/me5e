@@ -69,11 +69,17 @@
             "value": 10,
             "min": 0,
             "max": 10,
-            "temp": 0
+            "temp": 0,
+            "modifiers": {
+              "user": []
+            }
           },
           "init": {
-            "defaultAbility": "int",
-            "userAbility": "null"
+            "defaultAbility": "dex",
+            "userAbility": "null",
+            "modifiers": {
+              "user": []
+            }
           },
           "movement": {
             "burrow": 0,
@@ -132,9 +138,6 @@
         "details": {
           "alignment": "",
           "race": ""
-        },
-        "modifiers": {
-          "user": {}
         },
         "skills": {
           "acr": {

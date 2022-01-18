@@ -106,16 +106,11 @@
                 <li class="attribute initiative">
                     <h4 class="attribute-name box-title rollable" data-action="rollInitiative">
                         {{ localize "ME5E.Initiative" }}
-                        <a class="config-button" data-action="mod" data-modtype="init" title="{{localize 'ME5E.HitPointsConfig'}}"><i class="fas fa-cog"></i></a>
+                        <a class="config-button" data-action="mod" data-modtype="attributes.init" title="{{localize 'ME5E.HitPointsConfig'}}"><i class="fas fa-cog"></i></a>
                     </h4>
-                    <div class="attribute-value">
-                        <span>{{numberFormat data.attributes.init.total decimals=0 sign=true}}</span>
+                    <div class="attribute-value attributable" data-property="attributes.init">
+                        <span>{{numberFormat data.attributes.init.value decimals=0 sign=true}}</span>
                     </div>
-                    <footer class="attribute-footer">
-                        <span>{{ localize "ME5E.Modifier" }}</span>
-                        <input name="data.attributes.init.value" type="text" data-dtype="Number" placeholder="0"
-                               value="{{numberFormat data.attributes.init.value decimals=0 sign=true}}"/>
-                    </footer>
                 </li>
             </ul>
         </section>

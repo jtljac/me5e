@@ -18,15 +18,18 @@ export const _getInitiativeFormula = function() {
   let nd = 1;
   let mods = "";
   if (actor.getFlag("me5e", "halflingLucky")) mods += "r1=1";
-  if (actor.getFlag("me5e", "initiativeAdv")) {
+  if (actor.getFlag("me5e", "initiativeAdv") ^ actor.getFlag("me5e", "initiativeDisadv")) {
     nd = 2;
-    mods += "kh";
+    if (actor.getFlag("me5e", "initiativeAdv")) mods += "kh";
+    else if (actor.getFlag("me5e", "initiativeDisadv")) mods += "kl";
   }
   const parts = [
     `${nd}d20${mods}`,
-    init.mod,
     (init.prof.term !== "0") ? init.prof.term : null,
-    (init.bonus !== 0) ? init.bonus : null
+    ...init.modifiers.mods.reduce((acc, mod) => {
+      if (mod.name !== game.i18n.localize("ME5E.Proficiency")) acc.push(mod.value);
+      return acc;
+    }, [])
   ];
 
   // Ability Check Bonuses

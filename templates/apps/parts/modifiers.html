@@ -1,0 +1,24 @@
+{{# each value }}
+    {{# each this }}
+        {{> "systems/me5e/templates/apps/parts/modifier.html" this index=@index modType=../../type types=../../types}}
+    {{/ each }}
+
+    <div class="separator {{#if @last}}insert-before{{/if}}" ></div>
+{{/ each }}
+<div class="new-mod">
+    <div class="mod-container">
+        <div class="mod-edit">
+            <div class="mod-info">
+                <input type="text" title="{{ localize 'ME5E.ModifierName' }}" placeholder="{{ localize 'ME5E.ModifierName' }}" name="newName"/>
+
+                <select title="{{ localize 'ME5E.ModifierType' }}" name="newType">
+                    {{selectOptions types}}
+                </select>
+            </div>
+            <input type="text" title="{{ localize 'ME5E.Formula' }}" placeholder="{{ localize 'ME5E.Formula' }}" name="newFormula"/>
+        </div>
+        <a class="item-control item-create" title='{{localize "ME5E.ModifierAdd"}}'>
+            <i class="fas fa-plus"></i>
+        </a>
+    </div>
+</div>

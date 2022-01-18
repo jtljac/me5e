@@ -1,8 +1,14 @@
-export class ModList extends Array{
+export class ModList extends Array {
     evaluateAll(data) {
         for (const mod of Object.keys(this)) {
             this[mod].evaluate(data);
         }
+    }
+
+    get total() {
+        return this.reduce((acc, mod) => {
+            return acc + mod.value;
+        }, 0);
     }
 }
 
@@ -16,11 +22,8 @@ export class Modifier {
         this._average = undefined;
     }
 
-    evaluate(data, averageDice = false) {
+    evaluate(data) {
         const result = Roll.replaceFormulaData(this.formula, data, {missing: 0, warn: true});
-
-        // TODO: Finish
-        result.replace(/(\d*)d(\d+).*[ +-]/gi)
 
         // TODO: Account for objects before eval
         this._value = Roll.safeEval(result) ?? 0;

@@ -25,6 +25,7 @@ export const preloadHandlebarsTemplates = async function() {
     "systems/me5e/templates/items/parts/item-advancement.html",
 
     // App Partials
-    "systems/me5e/templates/apps/parts/modifier.html"
+    "systems/me5e/templates/apps/parts/modifier.html",
+    "systems/me5e/templates/apps/parts/modifiers.html"
   ]);
 };

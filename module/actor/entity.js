@@ -14,6 +14,11 @@ import {Modifier, ModList} from "./modifier.js";
  */
 export default class Actor5e extends Actor {
 
+  static modifiers = [
+      "attributes.hp",
+      "attributes.init"
+  ];
+
   /**
    * The data source for Actor5e.classes allowing it to be lazily computed.
    * @type {object<string, Item5e>}
@@ -96,7 +101,7 @@ export default class Actor5e extends Actor {
     const flags = actorData.flags.me5e || {};
     const bonuses = getProperty(data, "bonuses.abilities") || {};
 
-    data.modifiers.mods = this._prepareModifiers(actorData.items, actorData);
+    this._prepareModifiers(actorData.items, actorData);
 
     // Retrieve data for polymorphed actors
     let originalSaves = null;
@@ -172,8 +177,8 @@ export default class Actor5e extends Actor {
 
     if (actorData.type === "character") {
       // Determine max hit points
-      data.modifiers.mods.hp.evaluateAll(actorData);
-      data.attributes.hp.max = data.modifiers.mods.hp.reduce((acc, mod) => {
+      data.attributes.hp.modifiers.mods.evaluateAll(actorData);
+      data.attributes.hp.max = data.attributes.hp.modifiers.mods.reduce((acc, mod) => {
         return acc + mod.value;
       }, 0);
     }
@@ -353,18 +358,13 @@ export default class Actor5e extends Actor {
 
   _prepareModifiers(items, actorData) {
     const data = actorData.data;
-    const modifiers = {
-      "hp": new ModList(),
-      "init": new ModList()
-    };
 
-    // User
-    for (const modType of Object.keys(data.modifiers.user)) {
-      if (!modifiers.hasOwnProperty(modType)) {
-        modifiers[modType] = new ModList();
-      }
-      for (const mod of data.modifiers.user[modType]) {
-        modifiers[modType].push(new Modifier(mod.name, mod.type, mod.formula));
+    for (const modVar of Actor5e.modifiers) {
+      const modObject = foundry.utils.getProperty(data, modVar);
+      modObject.modifiers.mods = new ModList();
+      // User Mods
+      for (const mod of modObject.modifiers?.user) {
+        modObject.modifiers.mods.push(new Modifier(mod.name, mod.type, mod.formula))
       }
     }
 
@@ -383,38 +383,44 @@ export default class Actor5e extends Actor {
 
       const itemMods = item.data.data?.modifiers;
       if (itemMods) {
-        for (const mod of Object.keys(itemMods)) {
-          if (!modifiers.hasOwnProperty(mod)) {
-            modifiers[mod] = {};
-          }
-          modifiers[mod].push(new Modifier(item.data.name, item.data.type, itemMods[mod], false));
+        for (const modVar of Object.keys(itemMods)) {
+          const modObject = foundry.utils.getProperty(data, modVar);
+
+          modObject.modifiers.mods.push(new Modifier(item.data.name, item.data.type, itemMods[modVar], false));
         }
       }
     }
 
     // Max HP
-    // Con Mod per level
-    modifiers["hp"].push(new Modifier(game.i18n.localize("ME5E.AbilityCon"), "stat", "@data.abilities.con.mod * @data.details.level", false));
+    {
+      const mods = data.attributes.hp.modifiers.mods;
 
-    // Add up the hp of each level of each class
-    for (const clazz of classes) {
-      modifiers["hp"].push(new Modifier(clazz.data.name, "class", clazz.data.data.hitDice.slice(1) + " + " + String(clazz.data.data.hp.reduce((acc, hp) => {
-        if (acc) acc += " + "
-        return acc + hp;
-      }, "")), false));
+      // Con Mod per level
+      mods.push(new Modifier(game.i18n.localize("ME5E.AbilityCon"), "stat", "@data.abilities.con.mod * @data.details.level", false));
+
+      // Add up the hp of each level of each class
+      for (const clazz of classes) {
+        mods.push(new Modifier(clazz.data.name, "class", clazz.data.data.hitDice.slice(1) + String(clazz.data.data.hp.reduce((acc, hp) => {
+          return acc + " + " + hp;
+        }, "")), false));
+      }
     }
 
     // Initiative
-    // Selected Mod
-    modifiers["init"].push(new Modifier(ME5E.abilities[data.attributes.init.ability], "stat", `@data.abilities.${data.attributes.init.ability}.mod`, false));
+    {
+      const mods = data.attributes.init.modifiers.mods;
 
-    // Proficiency bonus
-    const flags = actorData.flags.me5e || {};
-    const joat = flags.jackOfAllTrades;
-    const athlete = flags.remarkableAthlete;
-    modifiers["init"].push(new Modifier(game.i18n.localize("ME5E.Proficiency"), "char", new Proficiency(data.attributes.prof, (joat || athlete) ? 0.5 : 0, !athlete).term, false));
+      // Selected Mod
+      mods.push(new Modifier(ME5E.abilities[data.attributes.init.ability], "stat", `@data.abilities.${data.attributes.init.ability}.mod`, false));
 
-    return modifiers;
+      // Proficiency bonus
+      const flags = actorData.flags.me5e || {};
+      const joat = flags.jackOfAllTrades;
+      const athlete = flags.remarkableAthlete;
+      const prof = new Proficiency(data.attributes.prof, (joat || athlete) ? 0.5 : 0, !athlete);
+
+      if (Number.isNumeric(prof.term)) mods.push(new Modifier(game.i18n.localize("ME5E.Proficiency"), "char", prof.term, false));
+    }
   }
 
   /* -------------------------------------------- */
@@ -584,13 +590,11 @@ export default class Actor5e extends Actor {
     const dexCheckBonus = this._simplifyBonus(data.abilities.dex.bonuses?.check, bonusData);
 
     // Compute initiative modifier
-    // TODO: This'll need changing, account for user choice
-    init.mod = data.abilities.dex.mod;
+
+    init.modifiers.mods.evaluateAll(actorData);
+
     init.prof = new Proficiency(data.attributes.prof, (joat || athlete) ? 0.5 : 0, !athlete);
-    init.value = init.value ?? 0;
-    init.bonus = init.value + (flags.initiativeAlert ? 5 : 0);
-    init.total = init.mod + init.bonus + dexCheckBonus + globalCheckBonus;
-    if ( Number.isNumeric(init.prof.term) ) init.total += init.prof.flat;
+    init.value = init.modifiers.mods.total + dexCheckBonus + globalCheckBonus;
   }
 
   /**

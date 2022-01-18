@@ -13,10 +13,10 @@ export default class ActorModifierConfig extends DocumentSheet {
     this._maxIndex = 0;
 
     switch (modType) {
-      case "hp":
+      case "attributes.hp":
         this._typeName = "ME5E.HP";
         break;
-      case "init":
+      case "attributes.init":
         this._typeName = "ME5E.Initiative";
         break;
     }
@@ -55,7 +55,7 @@ export default class ActorModifierConfig extends DocumentSheet {
 
   /** @override */
   getData(options) {
-    const mods = this.object.data.data.modifiers.mods[this._type];
+    const mods = foundry.utils.getProperty(this.object.data.data, this._type).modifiers.mods;
     const value = Object.keys(mods).reduce((acc, key) => {
       const mod = mods[key];
       (mod.user ? acc.user : acc.system).push(mod);
@@ -87,10 +87,13 @@ export default class ActorModifierConfig extends DocumentSheet {
     if (event.target.dataset["type"] === "formula") {
       const formula = event.target.value;
       const mod = new Modifier("temp", "custom", formula);
-      mod.evaluate(this.object.data);
-
       const display = event.target.parentElement.parentElement.querySelector("label");
-      display.innerText = mod.value;
+      try {
+        mod.evaluate(this.object.data);
+        display.innerText = mod.value;
+      } catch (e) {
+        display.innerText = "-"
+      }
     }
     console.log(event);
   }
@@ -129,6 +132,13 @@ export default class ActorModifierConfig extends DocumentSheet {
         return
       }
 
+      if (formula.value.match(/\d*d\d+/gi)) {
+        ui.notifications.error(game.i18n.format("ME5E.FormulaCannotContainDiceError", {
+          name: game.i18n.localize("ME5E.Modifier")
+        }))
+        return
+      }
+
       const value = new Modifier(name.value, type.value, formula.value);
       value.evaluate(this.object.data);
 
@@ -156,8 +166,10 @@ export default class ActorModifierConfig extends DocumentSheet {
       return acc;
     }, [])
 
-    return this.object.update({"data.modifiers.user": {
-      [this._type]: userMods
+    return this.object.update({"data": {
+      [this._type]: {
+        "modifiers.user": userMods
+      }
     }});
   }
 }
