@@ -266,3 +266,7 @@ Handlebars.registerHelper("math", function(lvalue, operator, rvalue, options) {
     "%": lvalue % rvalue
   }[operator];
 });
+
+Handlebars.registerHelper("slice", function(string, start, end, options) {
+  return string.slice(start, end);
+});

@@ -350,10 +350,16 @@ export default class ItemSheet5e extends ItemSheet {
     if ( updateData ) data = mergeObject(data, updateData);
     else data = expandObject(data);
 
-    // Handle Health array
-    data.data?.hp?.forEach((item, index, arr) => {
-      arr[index] = parseInt(item);
-    })
+    // Handle Health
+    if (data.data?.hp) {
+      const hp = data.data?.hp instanceof Array ? data.data.hp : [data.data.hp];
+
+      hp.forEach((item, index, arr) => {
+        arr[index] = parseInt(item);
+      });
+
+      data.data.hp = hp;
+    }
 
     // Handle Damage array
     const damage = data.data?.damage;
