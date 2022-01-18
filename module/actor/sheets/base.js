@@ -339,6 +339,27 @@ export default class ActorSheet5e extends ActorSheet {
     return attribution;
   }
 
+  /**
+   * Produce a list of attribution objects from modifiers in a {@link ModList}.
+   * @param {object} data                 Actor data to determine the attributions from.
+   * @param {string} modifier             The modifier
+   * @returns {AttributionDescription[]}  List of attribution descriptions.
+   * @protected
+   */
+  _prepareModifierAttribution(data, modifier) {
+    const attribution = [];
+
+    for (const mod of foundry.utils.getProperty(data, modifier).modifiers.mods) {
+      attribution.push({
+        label: mod.name,
+        mode: CONST.ACTIVE_EFFECT_MODES.ADD,
+        value: mod.value
+      });
+    }
+
+    return attribution;
+  }
+
   /* -------------------------------------------- */
 
   /**
@@ -1026,11 +1047,17 @@ export default class ActorSheet5e extends ActorSheet {
     if ( existingTooltip || !property ) return;
     const data = this.actor.data.data;
     let attributions;
+    let propVal = "";
     switch ( property ) {
       case "attributes.ac": attributions = this._prepareArmorClassAttribution(data); break;
+      case "attributes.hp":
+        propVal = ".max";
+      case "attributes.init":
+        attributions = this._prepareModifierAttribution(data, property);
+        break;
     }
     if ( !attributions ) return;
-    const html = await new PropertyAttribution(this.actor, attributions, property).renderTooltip();
+    const html = await new PropertyAttribution(this.actor, attributions, property + propVal).renderTooltip();
     event.currentTarget.insertAdjacentElement("beforeend", html[0]);
   }
 

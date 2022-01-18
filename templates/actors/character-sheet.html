@@ -50,9 +50,9 @@
                 <li class="attribute health">
                     <h4 class="attribute-name box-title">
                         {{ localize "ME5E.HitPoints" }}
-                        <a class="config-button" data-action="mod" data-modtype="hp" title="{{localize 'ME5E.HitPointsConfig'}}"><i class="fas fa-cog"></i></a>
+                        <a class="config-button" data-action="mod" data-modtype="attributes.hp" title="{{localize 'ME5E.HitPointsConfig'}}"><i class="fas fa-cog"></i></a>
                     </h4>
-                    <div class="attribute-value multiple">
+                    <div class="attribute-value multiple attributable" data-property="attributes.hp">
                         <input name="data.attributes.hp.value" type="text" value="{{data.attributes.hp.value}}" placeholder="10" data-dtype="Number"/>
                         <span class="sep"> / </span>
                         <label class="hp-max">{{data.attributes.hp.max}}</label>
