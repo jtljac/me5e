@@ -2,7 +2,7 @@
     {{#each data.abilities as |ability id|}}
     <li class="ability {{#if ability.proficient}}proficient{{/if}}" data-ability="{{id}}">
         <h4 class="ability-name box-title rollable">{{ability.label}}</h4>
-        <input class="ability-score" name="data.abilities.{{id}}.value" type="number" value="{{ability.value}}" placeholder="10"/>
+        <input class="ability-score" name="" type="number" value="{{ability.value}}" placeholder="10"/>
         <div class="ability-modifiers flexrow">
             <span class="ability-mod" title="{{ localize 'ME5E.Modifier' }}">{{numberFormat ability.mod decimals=0 sign=true}}</span>
             <input type="hidden" name="data.abilities.{{id}}.proficient" value="{{ability.baseProf}}" data-dtype="Number"/>

@@ -15,8 +15,14 @@ import {Modifier, ModList} from "./modifier.js";
 export default class Actor5e extends Actor {
 
   static modifiers = [
-      "attributes.hp",
-      "attributes.init"
+    "abilities.str",
+    "abilities.dex",
+    "abilities.con",
+    "abilities.int",
+    "abilities.wis",
+    "abilities.cha",
+    "attributes.hp",
+    "attributes.init"
   ];
 
   /**
@@ -70,8 +76,10 @@ export default class Actor5e extends Actor {
 
   /** @override */
   prepareBaseData() {
+    this._prepareBaseModifiers(this.data);
     this._prepareBaseArmorClass(this.data);
-    this._prepareAbilities(this.data);
+    this._prepareAbilitiesAttributes(this.data);
+
     switch ( this.data.type ) {
       case "character":
         return this._prepareCharacterData(this.data);
@@ -101,7 +109,7 @@ export default class Actor5e extends Actor {
     const flags = actorData.flags.me5e || {};
     const bonuses = getProperty(data, "bonuses.abilities") || {};
 
-    this._prepareModifiers(actorData.items, actorData);
+    this._prepareDerivedModifiers(this.data)
 
     // Retrieve data for polymorphed actors
     let originalSaves = null;
@@ -356,8 +364,9 @@ export default class Actor5e extends Actor {
     xp.pct = Math.clamped(pct, 0, 100);
   }
 
-  _prepareModifiers(items, actorData) {
+  _prepareBaseModifiers(actorData) {
     const data = actorData.data;
+    const items = actorData.items;
 
     for (const modVar of Actor5e.modifiers) {
       const modObject = foundry.utils.getProperty(data, modVar);
@@ -369,19 +378,8 @@ export default class Actor5e extends Actor {
     }
 
     // Items
-    const classes = [];
-    let species = null;
     for (const item of items) {
-      switch (item.data.type) {
-        case "class":
-          classes.push(item);
-          break;
-        case "species":
-          species = item;
-          break;
-      }
-
-      const itemMods = item.data.data?.modifiers;
+            const itemMods = item.data.data?.modifiers;
       if (itemMods) {
         for (const modVar of Object.keys(itemMods)) {
           const modObject = foundry.utils.getProperty(data, modVar);
@@ -390,7 +388,11 @@ export default class Actor5e extends Actor {
         }
       }
     }
+  }
 
+  _prepareDerivedModifiers(actorData) {
+    const data = actorData.data;
+    // Special
     // Max HP
     {
       const mods = data.attributes.hp.modifiers.mods;
@@ -399,7 +401,7 @@ export default class Actor5e extends Actor {
       mods.push(new Modifier(game.i18n.localize("ME5E.AbilityCon"), "stat", "@data.abilities.con.mod * @data.details.level", false));
 
       // Add up the hp of each level of each class
-      for (const clazz of classes) {
+      for (const clazz of Object.values(this.classes)) {
         mods.push(new Modifier(clazz.data.name, "class", clazz.data.data.hitDice.slice(1) + String(clazz.data.data.hp.reduce((acc, hp) => {
           return acc + " + " + hp;
         }, "")), false));
@@ -557,7 +559,7 @@ export default class Actor5e extends Actor {
 
 
 
-  _prepareAbilities(actorData) {
+  _prepareAbilitiesAttributes(actorData) {
     const data = actorData.data;
 
     // Skills
@@ -567,7 +569,14 @@ export default class Actor5e extends Actor {
 
     // Initiative
     const init = data.attributes.init;
-    data.attributes.init.ability = init.userAbility !== "null" ? init.userAbility : init.defaultAbility
+    data.attributes.init.ability = init.userAbility !== "null" ? init.userAbility : init.defaultAbility;
+
+
+    // Abilities
+    for (const ability of Object.values(data.abilities)) {
+      ability.modifiers.mods.evaluateAll(actorData);
+      ability.value = ability.baseValue + ability.modifiers.mods.total;
+    }
   }
 
   /* -------------------------------------------- */

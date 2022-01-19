@@ -360,6 +360,25 @@ export default class ActorSheet5e extends ActorSheet {
     return attribution;
   }
 
+  /**
+   * Produce a list of attribution objects from modifiers in a {@link ModList}.
+   * @param {object} data                 Actor data to determine the attributions from.
+   * @param {string} modifier             The modifier
+   * @returns {AttributionDescription[]}  List of attribution descriptions.
+   * @protected
+   */
+  _prepareAbilityModifierAttribution(data, modifier) {
+    const attributions = this._prepareModifierAttribution(data, modifier);
+
+    attributions.unshift({
+      label: "Base",
+      mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
+      value: foundry.utils.getProperty(data, modifier).baseValue
+    });
+
+    return attributions;
+  }
+
   /* -------------------------------------------- */
 
   /**
@@ -629,6 +648,15 @@ export default class ActorSheet5e extends ActorSheet {
 
     // Owner Only Listeners
     if ( this.actor.isOwner ) {
+
+      // Ability Editing
+      html.find(".ability-score").focusin((event) => {
+        event.target.value = this.actor.data.data.abilities[event.target.parentElement.dataset.ability].baseValue;
+        event.target.name = "data.abilities." + event.target.parentElement.dataset.ability + ".baseValue";
+      }).focusout((event) => {
+        event.target.value = this.actor.data.data.abilities[event.target.parentElement.dataset.ability].value;
+        event.target.name = "";
+      });
 
       // Ability Checks
       html.find(".ability-name").click(this._onRollAbilityTest.bind(this));
@@ -1050,8 +1078,19 @@ export default class ActorSheet5e extends ActorSheet {
     let propVal = "";
     switch ( property ) {
       case "attributes.ac": attributions = this._prepareArmorClassAttribution(data); break;
+
+      case "abilities.str":
+      case "abilities.dex":
+      case "abilities.con":
+      case "abilities.int":
+      case "abilities.wis":
+      case "abilities.cha":
+        attributions = this._prepareAbilityModifierAttribution(data, property);
+        break;
       case "attributes.hp":
         propVal = ".max";
+        attributions = this._prepareModifierAttribution(data, property);
+        break;
       case "attributes.init":
         attributions = this._prepareModifierAttribution(data, property);
         break;
