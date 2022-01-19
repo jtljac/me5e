@@ -795,7 +795,7 @@
 .me5e.sheet.actor .sheet-header .attributes .attribute:last-child {
   border-right: none;
 }
-.me5e.sheet.actor .sheet-header .attributes .attribute .attribute-name {
+.me5e.sheet.actor .sheet-header .attributes .attribute .attribute-title {
   position: relative;
 }
 .me5e.sheet.actor .sheet-header .attributes .attribute .attribute-value {
@@ -805,6 +805,8 @@
 .me5e.sheet.actor .sheet-header .attributes .attribute .config-button {
   position: absolute;
   display: none;
+  right: 3px;
+  top: 1px;
 }
 .me5e.sheet.actor .sheet-header .attributes .attribute:hover .config-button {
   display: block;
