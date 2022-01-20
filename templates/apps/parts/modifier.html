@@ -11,6 +11,6 @@
             <a class="item-control item-delete" title='{{localize "ME5E.ItemDelete"}}'><i class="fas fa-trash"></i></a>
               {{/ if }}
         </div>
-        <input type="text" title="{{ localize 'ME5E.Formula' }}" data-type="formula" value="{{ this._formula }}" {{#if this.user}}name="data.modifiers.user.{{modType}}.{{index}}"{{else}}disabled{{/if}}/>
+        <input type="text" title="{{ localize 'ME5E.Formula' }}" data-type="mod-formula" value="{{ this._formula }}" {{#if this.user}}name="data.modifiers.user.{{modType}}.{{index}}"{{else}}disabled{{/if}}/>
     </div>
 </div>

@@ -1,5 +1,5 @@
 /**
- * A simple form to set actor hit dice amounts
+ * A simple form to set actor modifiers
  * @implements {DocumentSheet}
  */
 import {ME5E} from "../config.js";
@@ -84,7 +84,7 @@ export default class ActorModifierConfig extends DocumentSheet {
   async _onChangeInput(event) {
     await super._onChangeInput(event)
 
-    if (event.target.dataset["type"] === "formula") {
+    if (event.target.dataset["type"] === "mod-formula") {
       const formula = event.target.value;
       const mod = new Modifier("temp", "custom", formula);
       const display = event.target.parentElement.parentElement.querySelector("label");
@@ -95,7 +95,6 @@ export default class ActorModifierConfig extends DocumentSheet {
         display.innerText = "-"
       }
     }
-    console.log(event);
   }
 
   /** @override */
@@ -104,7 +103,7 @@ export default class ActorModifierConfig extends DocumentSheet {
     const context = this;
 
     // Setup delete buttons
-    html.find("a.item-control.item-delete").click(event => {
+    html.find(".mod-info > a.item-control.item-delete").click(event => {
       const button = event.currentTarget;
       const container = button.parentElement.parentElement.parentElement;
 
@@ -112,7 +111,7 @@ export default class ActorModifierConfig extends DocumentSheet {
 
     });
 
-    html.find("a.item-control.item-create").click(async event => {
+    html.find(".mod-container > a.item-control.item-create").click(async event => {
       const name = this.form["newName"];
       const formula = this.form["newFormula"];
       const type = this.form["newType"];
@@ -154,9 +153,8 @@ export default class ActorModifierConfig extends DocumentSheet {
 
   /* -------------------------------------------- */
 
-  /** @override */
-  async _updateObject(event, formData) {
-    const userMods = Object.entries(formData).filter(([key, arr]) => !key.startsWith("new")).reduce((acc, [index, arr]) => {
+  getUserMods(formData) {
+    return Object.entries(formData).filter(([key, arr]) => !key.startsWith("new")).reduce((acc, [index, arr]) => {
       acc.push({
         name: arr[0],
         type: arr[1],
@@ -165,6 +163,11 @@ export default class ActorModifierConfig extends DocumentSheet {
 
       return acc;
     }, [])
+  }
+
+  /** @override */
+  async _updateObject(event, formData) {
+    const userMods = this.getUserMods(formData);
 
     return this.object.update({"data": {
       [this._type]: {
