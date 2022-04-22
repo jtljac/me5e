@@ -867,8 +867,7 @@ export default class Actor5e extends Actor {
     const dt = amount > 0 ? Math.min(tmp, amount) : 0;
 
     // Remaining goes to health
-    const tmpMax = parseInt(hp.tempmax) || 0;
-    const dh = Math.clamped(hp.value - (amount - dt), 0, hp.max + tmpMax);
+    const dh = Math.clamped(hp.value - (amount - dt), 0, hp.max);
 
     // Update the Actor
     const updates = {
@@ -1287,7 +1286,7 @@ export default class Actor5e extends Actor {
     // Adjust actor data
     await cls.update({"data.hitDiceUsed": cls.data.data.hitDiceUsed + 1});
     const hp = this.data.data.attributes.hp;
-    const dhp = Math.min(hp.max + (hp.tempmax ?? 0) - hp.value, roll.total);
+    const dhp = Math.min(hp.max - hp.value, roll.total);
     await this.update({"data.attributes.hp.value": hp.value + dhp});
     return roll;
   }
@@ -1515,7 +1514,7 @@ export default class Actor5e extends Actor {
    * @returns {Promise<number>}             Number of hit dice spent.
    */
   async autoSpendHitDice({ threshold=3 }={}) {
-    const max = this.data.data.attributes.hp.max + this.data.data.attributes.hp.tempmax;
+    const max = this.data.data.attributes.hp.max;
 
     let diceRolled = 0;
     while ( (this.data.data.attributes.hp.value + threshold) <= max ) {
@@ -1534,20 +1533,14 @@ export default class Actor5e extends Actor {
    *
    * @param {object} [options]
    * @param {boolean} [options.recoverTemp=true]     Reset temp HP to zero.
-   * @param {boolean} [options.recoverTempMax=true]  Reset temp max HP to zero.
    * @returns {object}                               Updates to the actor and change in hit points.
    * @protected
    */
-  _getRestHitPointRecovery({ recoverTemp=true, recoverTempMax=true }={}) {
+  _getRestHitPointRecovery({ recoverTemp=true }={}) {
     const data = this.data.data;
     let updates = {};
     let max = data.attributes.hp.max;
 
-    if ( recoverTempMax ) {
-      updates["data.attributes.hp.tempmax"] = 0;
-    } else {
-      max += data.attributes.hp.tempmax;
-    }
     updates["data.attributes.hp.value"] = max;
     if ( recoverTemp ) {
       updates["data.attributes.hp.temp"] = 0;

@@ -9,7 +9,6 @@ export class TokenDocument5e extends TokenDocument {
     const data = super.getBarAttribute(...args);
     if ( data && (data.attribute === "attributes.hp") ) {
       data.value += parseInt(getProperty(this.actor.data, "data.attributes.hp.temp") || 0);
-      data.max += parseInt(getProperty(this.actor.data, "data.attributes.hp.tempmax") || 0);
     }
     return data;
   }
@@ -82,18 +81,16 @@ export class Token5e extends Token {
   _drawHPBar(number, bar, data) {
 
     // Extract health data
-    let {value, max, temp, tempmax} = this.document.actor.data.data.attributes.hp;
+    let {value, max, temp} = this.document.actor.data.data.attributes.hp;
     temp = Number(temp || 0);
-    tempmax = Number(tempmax || 0);
 
     // Differentiate between effective maximum and displayed maximum
-    const effectiveMax = Math.max(0, max + tempmax);
-    let displayMax = max + (tempmax > 0 ? tempmax : 0);
+    const effectiveMax = Math.max(0, max);
 
     // Allocate percentages of the total
-    const tempPct = Math.clamped(temp, 0, displayMax) / displayMax;
-    const valuePct = Math.clamped(value, 0, effectiveMax) / displayMax;
-    const colorPct = Math.clamped(value, 0, effectiveMax) / displayMax;
+    const tempPct = Math.clamped(temp, 0, max) / max;
+    const valuePct = Math.clamped(value, 0, effectiveMax) / max;
+    const colorPct = Math.clamped(value, 0, effectiveMax) / max;
 
     // Determine colors to use
     const blk = 0x000000;
@@ -110,18 +107,6 @@ export class Token5e extends Token {
     // Overall bar container
     bar.clear();
     bar.beginFill(blk, 0.5).lineStyle(bs, blk, 1.0).drawRoundedRect(0, 0, w, h, 3);
-
-    // Temporary maximum HP
-    if (tempmax > 0) {
-      const pct = max / effectiveMax;
-      bar.beginFill(c.tempmax, 1.0).lineStyle(1, blk, 1.0).drawRoundedRect(pct*w, 0, (1-pct)*w, h, 2);
-    }
-
-    // Maximum HP penalty
-    else if (tempmax < 0) {
-      const pct = (max + tempmax) / max;
-      bar.beginFill(c.negmax, 1.0).lineStyle(1, blk, 1.0).drawRoundedRect(pct*w, 0, (1-pct)*w, h, 2);
-    }
 
     // Health bar
     bar.beginFill(hpColor, 1.0).lineStyle(bs, blk, 1.0).drawRoundedRect(0, 0, valuePct*w, h, 2);

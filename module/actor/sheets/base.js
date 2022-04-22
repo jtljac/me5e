@@ -117,7 +117,6 @@ export default class ActorSheet5e extends ActorSheet {
     // Temporary HP
     const hp = data.data.attributes.hp;
     if ( hp.temp === 0 ) delete hp.temp;
-    if ( hp.tempmax === 0 ) delete hp.tempmax;
 
     // Proficiency
     if ( game.settings.get("me5e", "proficiencyModifier") === "dice" ) {
