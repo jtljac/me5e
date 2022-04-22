@@ -59,12 +59,16 @@
             "calc": "default",
             "formula": ""
           },
+          "shields": {
+            "value": 0,
+            "max": 0,
+            "bonus": 0
+          },
           "hp": {
             "value": 10,
             "min": 0,
             "max": 10,
-            "temp": 0,
-            "tempmax": 0
+            "temp": 0
           },
           "init": {
             "value": 0,
@@ -75,8 +79,8 @@
             "climb": 0,
             "fly": 0,
             "swim": 0,
-            "walk": 30,
-            "units": "ft",
+            "walk": 12,
+            "units": "m",
             "hover": false
           }
         },
@@ -106,11 +110,7 @@
           }
         },
         "currency": {
-          "pp": 0,
-          "gp": 0,
-          "ep": 0,
-          "sp": 0,
-          "cp": 0
+          "cr": 0
         }
       },
       "creature": {
@@ -121,29 +121,22 @@
           "senses": {
             "darkvision": 0,
             "blindsight": 0,
-            "tremorsense": 0,
             "truesight": 0,
-            "units": "ft",
+            "infrared": 0,
+            "units": "m",
             "special": ""
           },
           "spellcasting": "int"
         },
         "details": {
           "alignment": "",
-          "race": ""
+          "species": ""
         },
         "skills": {
           "acr": {
             "value": 0,
-            "ability": "dex",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "ani": {
-            "value": 0,
-            "ability": "wis",
+            "defaultAbility": "dex",
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -151,7 +144,8 @@
           },
           "arc": {
             "value": 0,
-            "ability": "int",
+            "defaultAbility": "int",
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -159,7 +153,26 @@
           },
           "ath": {
             "value": 0,
-            "ability": "str",
+            "defaultAbility": "str",
+            "userAbility": "null",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "elc": {
+            "value": 0,
+            "defaultAbility": "int",
+            "userAbility": "null",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "eng": {
+            "value": 0,
+            "defaultAbility": "int",
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -167,7 +180,8 @@
           },
           "dec": {
             "value": 0,
-            "ability": "cha",
+            "defaultAbility": "cha",
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -175,7 +189,8 @@
           },
           "his": {
             "value": 0,
-            "ability": "int",
+            "defaultAbility": "int",
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -183,7 +198,8 @@
           },
           "ins": {
             "value": 0,
-            "ability": "wis",
+            "defaultAbility": "wis",
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -191,7 +207,8 @@
           },
           "itm": {
             "value": 0,
-            "ability": "cha",
+            "defaultAbility": "cha",
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -199,7 +216,8 @@
           },
           "inv": {
             "value": 0,
-            "ability": "int",
+            "defaultAbility": "int",
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -207,15 +225,8 @@
           },
           "med": {
             "value": 0,
-            "ability": "wis",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
-          "nat": {
-            "value": 0,
-            "ability": "int",
+            "defaultAbility": "wis",
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -223,7 +234,8 @@
           },
           "prc": {
             "value": 0,
-            "ability": "wis",
+            "defaultAbility": "wis",
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -231,7 +243,8 @@
           },
           "prf": {
             "value": 0,
-            "ability": "cha",
+            "defaultAbility": "cha",
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -239,15 +252,17 @@
           },
           "per": {
             "value": 0,
-            "ability": "cha",
+            "defaultAbility": "cha",
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
             }
           },
-          "rel": {
+          "sci": {
             "value": 0,
-            "ability": "int",
+            "defaultAbility": "int",
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -255,7 +270,8 @@
           },
           "slt": {
             "value": 0,
-            "ability": "dex",
+            "defaultAbility": "dex",
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -263,7 +279,8 @@
           },
           "ste": {
             "value": 0,
-            "ability": "dex",
+            "defaultAbility": "dex",
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -271,17 +288,21 @@
           },
           "sur": {
             "value": 0,
-            "ability": "wis",
+            "defaultAbility": "wis",
+            "userAbility": "null",
             "bonuses": {
               "check": "",
               "passive": ""
             }
-          }
-        },
-        "traits": {
-          "languages": {
-            "value": [],
-            "custom": ""
+          },
+          "veh": {
+            "value": 0,
+            "defaultAbility": "dex",
+            "userAbility": "null",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
           }
         },
         "spells": {
@@ -302,26 +323,6 @@
             "override": null
           },
           "spell5": {
-            "value": 0,
-            "override": null
-          },
-          "spell6": {
-            "value": 0,
-            "override": null
-          },
-          "spell7": {
-            "value": 0,
-            "override": null
-          },
-          "spell8": {
-            "value": 0,
-            "override": null
-          },
-          "spell9": {
-            "value": 0,
-            "override": null
-          },
-          "pact": {
             "value": 0,
             "override": null
           }
@@ -367,7 +368,10 @@
           "failure": 0
         },
         "exhaustion": 0,
-        "inspiration": 0
+        "inspiration": 0,
+        "indoctrination": 0,
+        "paragon": 0,
+        "renegade": 0
       },
       "details": {
         "background": "",
@@ -452,7 +456,7 @@
     },
     "vehicle": {
       "templates": ["common"],
-      "vehicleType": "water",
+      "vehicleType": "space",
       "abilities": {
         "int": {
           "value": 0
@@ -496,8 +500,17 @@
           "value": ["poison", "psychic"]
         },
         "ci": {
-          "value": ["blinded", "charmed", "deafened", "frightened", "paralyzed", "petrified", "poisoned", "stunned",
-            "unconscious"]
+          "value": [
+            "blinded",
+            "charmed",
+            "deafened",
+            "frightened",
+            "paralyzed",
+            "petrified",
+            "poisoned",
+            "stunned",
+            "unconscious"
+          ]
         }
       },
       "cargo": {
@@ -507,7 +520,20 @@
     }
   },
   "Item": {
-    "types": ["weapon", "equipment", "consumable", "tool", "loot", "background", "class", "subclass", "spell", "feat", "backpack"],
+    "types": [
+      "weapon",
+      "equipment",
+      "consumable",
+      "tool",
+      "loot",
+      "background",
+      "class",
+      "subclass",
+      "species",
+      "spell",
+      "feat",
+      "backpack"
+    ],
     "templates": {
       "itemDescription": {
         "description": {
@@ -587,6 +613,12 @@
           "max": 0,
           "dt": null,
           "conditions": ""
+        },
+        "recharge": {
+          "recharge": {
+            "value": null,
+            "charged": false
+          }
         }
       }
     },
@@ -603,11 +635,7 @@
         "weightless": false
       },
       "currency": {
-        "cp": 0,
-        "sp": 0,
-        "ep": 0,
-        "gp": 0,
-        "pp": 0
+        "cr": 0
       }
     },
     "class": {
@@ -636,9 +664,10 @@
       }
     },
     "equipment": {
-      "templates": ["itemDescription", "physicalItem", "activatedEffect", "action", "mountable"],
+      "templates": ["itemDescription", "physicalItem", "activatedEffect", "action", "mountable", "recharge"],
       "armor": {
         "type": "light",
+        "placement": "chest",
         "value": null,
         "dex": null
       },
@@ -652,12 +681,8 @@
       "proficient": true
     },
     "feat": {
-      "templates": ["itemDescription", "activatedEffect", "action"],
-      "requirements": "",
-      "recharge": {
-        "value": null,
-        "charged": false
-      }
+      "templates": ["itemDescription", "activatedEffect", "action", "recharge"],
+      "requirements": ""
     },
     "loot": {
       "templates": ["itemDescription", "physicalItem"]
@@ -671,23 +696,30 @@
       "proficient": 0,
       "bonus": ""
     },
+    "species": {
+      "templates": ["itemDescription", "featSelector"],
+      "asi": {
+        "str": 1
+      },
+      "size": "medium",
+      "speed": {
+        "burrow": 0,
+        "climb": 0,
+        "fly": 0,
+        "swim": 0,
+        "walk": 12
+      }
+    },
     "spell": {
       "templates": ["itemDescription", "activatedEffect", "action"],
       "level": 1,
+      "origin": "",
       "school": "",
       "components": {
         "value": "",
-        "vocal": false,
-        "somatic": false,
-        "material": false,
+        "somatic": true,
         "ritual": false,
         "concentration": false
-      },
-      "materials": {
-        "value": "",
-        "consumed": false,
-        "cost": 0,
-        "supply": 0
       },
       "preparation": {
         "mode": "prepared",
@@ -709,8 +741,8 @@
       }
     },
     "weapon": {
-      "templates": ["itemDescription", "physicalItem" ,"activatedEffect", "action", "mountable"],
-      "weaponType": "simpleM",
+      "templates": ["itemDescription", "physicalItem" ,"activatedEffect", "action", "mountable", "recharge"],
+      "weaponType": "ar",
       "baseItem": "",
       "properties": {},
       "proficient": true

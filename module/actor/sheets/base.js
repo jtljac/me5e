@@ -335,7 +335,7 @@ export default class ActorSheet5e extends ActorSheet {
   /* -------------------------------------------- */
 
   /**
-   * Prepare the data structure for traits data like languages, resistances & vulnerabilities, and proficiencies.
+   * Prepare the data structure for traits data like resistances & vulnerabilities, and proficiencies.
    * @param {object} traits   The raw traits data object from the actor data. *Will be mutated.*
    * @private
    */
@@ -344,8 +344,7 @@ export default class ActorSheet5e extends ActorSheet {
       dr: CONFIG.ME5E.damageResistanceTypes,
       di: CONFIG.ME5E.damageResistanceTypes,
       dv: CONFIG.ME5E.damageResistanceTypes,
-      ci: CONFIG.ME5E.conditionTypes,
-      languages: CONFIG.ME5E.languages
+      ci: CONFIG.ME5E.conditionTypes
     };
     for ( let [t, choices] of Object.entries(map) ) {
       const trait = traits[t];
@@ -421,7 +420,7 @@ export default class ActorSheet5e extends ActorSheet {
     };
 
     // Determine the maximum spell level which has a slot
-    const maxLevel = Array.fromRange(10).reduce((max, i) => {
+    const maxLevel = Array.fromRange(5).reduce((max, i) => {
       if ( i === 0 ) return max;
       const level = levels[`spell${i}`];
       if ( (level.max || level.override ) && ( i > max ) ) max = i;

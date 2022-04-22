@@ -64,9 +64,7 @@ export default class Actor5e extends Actor {
 
   /** @override */
   prepareBaseData() {
-    const updates = {};
-    this._prepareBaseAbilities(this.data, updates);
-    if ( !foundry.utils.isObjectEmpty(updates) ) this.data.update(updates);
+    this._prepareAbilities(this.data);
 
     this._prepareBaseArmorClass(this.data);
     switch ( this.data.type ) {
@@ -328,26 +326,12 @@ export default class Actor5e extends Actor {
    * @param {object} updates       Updates to be applied to the actor. *Will be mutated*.
    * @private
    */
-  _prepareBaseAbilities(actorData, updates) {
-    const abilities = {};
-    const emptyAbility = game.system.template.Actor.templates.common.abilities.cha;
-    for ( const key of Object.keys(CONFIG.ME5E.abilities) ) {
-      abilities[key] = actorData.data.abilities[key];
-      if ( !abilities[key] ) {
-        const newAbility = foundry.utils.deepClone(emptyAbility);
+  _prepareAbilities(actorData) {
+    const data = actorData.data;
 
-        // Honor & Sanity default to Charisma & Wisdom for NPCs and 0 for vehicles
-        if ( actorData.type === "npc" ) {
-          if ( key === "hon" ) newAbility.value = actorData.data.abilities.cha?.value ?? 10;
-          else if ( key === "san" ) newAbility.value = actorData.data.abilities.wis?.value ?? 10;
-        } else if ( (actorData.type === "vehicle") && ["hon", "san"].includes(key) ) {
-          newAbility.value = 0;
-        }
-
-        updates[`data.abilities.${key}`] = newAbility;
-      }
+    for (const [name, skill] of Object.entries(data.skills)) {
+      skill.ability = skill.userAbility !== "null" ? skill.userAbility : skill.defaultAbility;
     }
-    actorData.data.abilities = abilities;
   }
 
   /**
