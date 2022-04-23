@@ -96,9 +96,12 @@
                 {{/if}}
 
                 <div class="item-detail item-uses">
-                    {{#if item.hasUses }}
-                        <input type="text" value="{{item.data.uses.value}}" placeholder="0"/>
-                        / {{item.data.uses.max}}
+                    {{#if item.isOnCooldown}}
+                        <a class="item-recharge rollable">{{item.labels.recharge}}</a>
+                    {{else if item.data.recharge.value}}
+                        {{localize "ME5E.Charged"}}
+                    {{else if item.hasUses}}
+                        <input type="text" value="{{item.data.uses.value}}" placeholder="0"/>/ {{item.data.uses.max}}
                     {{/if}}
                 </div>
 
