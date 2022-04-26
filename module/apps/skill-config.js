@@ -37,10 +37,7 @@ export default class ActorSkillConfig extends DocumentSheet {
       skill: foundry.utils.getProperty(this.document.data._source, `data.skills.${this._skillId}`) || {},
       skillId: this._skillId,
       proficiencyLevels: CONFIG.ME5E.proficiencyLevels,
-      abilities: {
-        "null": "Default (" + CONFIG.ME5E.abilities[foundry.utils.getProperty(this.document.data, `data.skills.${this._skillId}.defaultAbility`)] + ")",
-        ...CONFIG.ME5E.abilities
-      },
+      abilities: CONFIG.ME5E.abilities,
       bonusGlobal: getProperty(this.object.data._source, "data.bonuses.abilities.skill")
     };
   }

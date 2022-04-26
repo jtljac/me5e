@@ -12,6 +12,7 @@ import ActorMovementConfig from "../../apps/movement-config.js";
 import ActorSensesConfig from "../../apps/senses-config.js";
 import ActorSkillConfig from "../../apps/skill-config.js";
 import ActorAbilityConfig from "../../apps/ability-config.js";
+import ActorInitConfig from "../../apps/init-config.js";
 import ActorTypeConfig from "../../apps/actor-type.js";
 import ActiveEffect5e from "../../active-effect.js";
 
@@ -694,6 +695,10 @@ export default class ActorSheet5e extends ActorSheet {
       case "skill": {
         const skill = event.currentTarget.closest("[data-skill]").dataset.skill;
         app = new ActorSkillConfig(this.object, null, skill);
+        break;
+      }
+      case "init": {
+        app = new ActorInitConfig(this.object, null);
         break;
       }
     }

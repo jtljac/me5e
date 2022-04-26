@@ -330,7 +330,13 @@ export default class Actor5e extends Actor {
     const data = actorData.data;
 
     for (const [name, skill] of Object.entries(data.skills)) {
-      skill.ability = skill.userAbility !== "null" ? skill.userAbility : skill.defaultAbility;
+      skill.ability = skill.userAbility || skill.defaultAbility;
+    }
+
+    {
+      const init = data.attributes.init;
+
+      init.ability = init.userAbility || init.defaultAbility;
     }
   }
 
@@ -517,7 +523,7 @@ export default class Actor5e extends Actor {
     const dexCheckBonus = this._simplifyBonus(data.abilities.dex?.bonuses?.check, bonusData);
 
     // Compute initiative modifier
-    init.mod = data.abilities.dex?.mod ?? 0;
+    init.mod = data.abilities[init.ability]?.mod ?? 0;
     init.prof = new Proficiency(data.attributes.prof, (joat || athlete) ? 0.5 : 0, !athlete);
     init.value = init.value ?? 0;
     init.bonus = init.value + (flags.initiativeAlert ? 5 : 0);

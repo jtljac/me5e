@@ -29,9 +29,9 @@ export const _getInitiativeFormula = function() {
   ];
 
   // Ability Check Bonuses
-  const dexCheckBonus = actorData.abilities.dex?.bonuses?.check;
+  const ablCheckBonus = actorData.abilities[init.ability]?.bonuses?.check;
   const globalCheckBonus = actorData.bonuses?.abilities?.check;
-  if ( dexCheckBonus ) parts.push(Roll.replaceFormulaData(dexCheckBonus, rollData));
+  if ( ablCheckBonus ) parts.push(Roll.replaceFormulaData(ablCheckBonus, rollData));
   if ( globalCheckBonus ) parts.push(Roll.replaceFormulaData(globalCheckBonus, rollData));
 
   // Optionally apply Dexterity tiebreaker
