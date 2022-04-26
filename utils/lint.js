@@ -10,7 +10,7 @@ const mergeStream = require("merge-stream");
  * Paths of javascript files that should be linted.
  * @type {string[]}
  */
-const LINTING_PATHS = ["./dnd5e.js", "./module/"];
+const LINTING_PATHS = ["./me5e.js", "./module/"];
 
 
 /**
