@@ -39,7 +39,7 @@ export const highlightCriticalSuccessFailure = function(message, html, data) {
  * @param {object} data          Configuration data passed to the message.
  */
 export const displayChatActionButtons = function(message, html, data) {
-  const chatCard = html.find(".dnd5e.chat-card");
+  const chatCard = html.find(".me5e.chat-card");
   if ( chatCard.length > 0 ) {
     const flavor = html.find(".flavor-text");
     if ( flavor.text() === html.find(".item-name").text() ) flavor.remove();
@@ -76,25 +76,25 @@ export const addChatMessageContextOptions = function(html, options) {
   };
   options.push(
     {
-      name: game.i18n.localize("DND5E.ChatContextDamage"),
+      name: game.i18n.localize("ME5E.ChatContextDamage"),
       icon: '<i class="fas fa-user-minus"></i>',
       condition: canApply,
       callback: li => applyChatCardDamage(li, 1)
     },
     {
-      name: game.i18n.localize("DND5E.ChatContextHealing"),
+      name: game.i18n.localize("ME5E.ChatContextHealing"),
       icon: '<i class="fas fa-user-plus"></i>',
       condition: canApply,
       callback: li => applyChatCardDamage(li, -1)
     },
     {
-      name: game.i18n.localize("DND5E.ChatContextDoubleDamage"),
+      name: game.i18n.localize("ME5E.ChatContextDoubleDamage"),
       icon: '<i class="fas fa-user-injured"></i>',
       condition: canApply,
       callback: li => applyChatCardDamage(li, 2)
     },
     {
-      name: game.i18n.localize("DND5E.ChatContextHalfDamage"),
+      name: game.i18n.localize("ME5E.ChatContextHalfDamage"),
       icon: '<i class="fas fa-user-shield"></i>',
       condition: canApply,
       callback: li => applyChatCardDamage(li, 0.5)

@@ -50,7 +50,7 @@ export default class ActorSheet5e extends ActorSheet {
       ],
       tabs: [{navSelector: ".tabs", contentSelector: ".sheet-body", initial: "description"}],
       width: 720,
-      height: Math.max(680, 237 + (Object.keys(CONFIG.DND5E.abilities).length * 70))
+      height: Math.max(680, 237 + (Object.keys(CONFIG.ME5E.abilities).length * 70))
     });
   }
 
@@ -66,8 +66,8 @@ export default class ActorSheet5e extends ActorSheet {
 
   /** @override */
   get template() {
-    if ( !game.user.isGM && this.actor.limited ) return "systems/dnd5e/templates/actors/limited-sheet.html";
-    return `systems/dnd5e/templates/actors/${this.actor.data.type}-sheet.html`;
+    if ( !game.user.isGM && this.actor.limited ) return "systems/me5e/templates/actors/limited-sheet.html";
+    return `systems/me5e/templates/actors/${this.actor.data.type}-sheet.html`;
   }
 
   /* -------------------------------------------- */
@@ -86,7 +86,7 @@ export default class ActorSheet5e extends ActorSheet {
       isCharacter: this.actor.type === "character",
       isNPC: this.actor.type === "npc",
       isVehicle: this.actor.type === "vehicle",
-      config: CONFIG.DND5E,
+      config: CONFIG.ME5E,
       rollData: this.actor.getRollData.bind(this.actor)
     };
 
@@ -109,7 +109,7 @@ export default class ActorSheet5e extends ActorSheet {
     data.filters = this._filters;
 
     // Currency Labels
-    data.labels.currencies = Object.entries(CONFIG.DND5E.currencies).reduce((obj, [k, c]) => {
+    data.labels.currencies = Object.entries(CONFIG.ME5E.currencies).reduce((obj, [k, c]) => {
       obj[k] = c.label;
       return obj;
     }, {});
@@ -120,7 +120,7 @@ export default class ActorSheet5e extends ActorSheet {
     if ( hp.tempmax === 0 ) delete hp.tempmax;
 
     // Proficiency
-    if ( game.settings.get("dnd5e", "proficiencyModifier") === "dice" ) {
+    if ( game.settings.get("me5e", "proficiencyModifier") === "dice" ) {
       data.labels.proficiency = `d${data.data.attributes.prof * 2}`;
     } else {
       data.labels.proficiency = `+${data.data.attributes.prof}`;
@@ -129,18 +129,18 @@ export default class ActorSheet5e extends ActorSheet {
     // Ability Scores
     for ( let [a, abl] of Object.entries(actorData.data.abilities)) {
       abl.icon = this._getProficiencyIcon(abl.proficient);
-      abl.hover = CONFIG.DND5E.proficiencyLevels[abl.proficient];
-      abl.label = CONFIG.DND5E.abilities[a];
+      abl.hover = CONFIG.ME5E.proficiencyLevels[abl.proficient];
+      abl.label = CONFIG.ME5E.abilities[a];
       abl.baseProf = source.abilities[a]?.proficient ?? 0;
     }
 
     // Skills
     if ( actorData.data.skills ) {
       for (let [s, skl] of Object.entries(actorData.data.skills)) {
-        skl.ability = CONFIG.DND5E.abilityAbbreviations[skl.ability];
+        skl.ability = CONFIG.ME5E.abilityAbbreviations[skl.ability];
         skl.icon = this._getProficiencyIcon(skl.value);
-        skl.hover = CONFIG.DND5E.proficiencyLevels[skl.value];
-        skl.label = CONFIG.DND5E.skills[s];
+        skl.hover = CONFIG.ME5E.proficiencyLevels[skl.value];
+        skl.label = CONFIG.ME5E.skills[s];
         skl.baseValue = source.skills[s].value;
       }
     }
@@ -181,13 +181,13 @@ export default class ActorSheet5e extends ActorSheet {
 
     // Prepare an array of available movement speeds
     let speeds = [
-      [movement.burrow, `${game.i18n.localize("DND5E.MovementBurrow")} ${movement.burrow}`],
-      [movement.climb, `${game.i18n.localize("DND5E.MovementClimb")} ${movement.climb}`],
-      [movement.fly, `${game.i18n.localize("DND5E.MovementFly")} ${movement.fly}${movement.hover ? ` (${game.i18n.localize("DND5E.MovementHover")})` : ""}`],
-      [movement.swim, `${game.i18n.localize("DND5E.MovementSwim")} ${movement.swim}`]
+      [movement.burrow, `${game.i18n.localize("ME5E.MovementBurrow")} ${movement.burrow}`],
+      [movement.climb, `${game.i18n.localize("ME5E.MovementClimb")} ${movement.climb}`],
+      [movement.fly, `${game.i18n.localize("ME5E.MovementFly")} ${movement.fly}${movement.hover ? ` (${game.i18n.localize("ME5E.MovementHover")})` : ""}`],
+      [movement.swim, `${game.i18n.localize("ME5E.MovementSwim")} ${movement.swim}`]
     ];
     if ( largestPrimary ) {
-      speeds.push([movement.walk, `${game.i18n.localize("DND5E.MovementWalk")} ${movement.walk}`]);
+      speeds.push([movement.walk, `${game.i18n.localize("ME5E.MovementWalk")} ${movement.walk}`]);
     }
 
     // Filter and sort speeds on their values
@@ -222,7 +222,7 @@ export default class ActorSheet5e extends ActorSheet {
   _getSenses(actorData) {
     const senses = actorData.data.attributes.senses || {};
     const tags = {};
-    for ( let [k, label] of Object.entries(CONFIG.DND5E.senses) ) {
+    for ( let [k, label] of Object.entries(CONFIG.ME5E.senses) ) {
       const v = senses[k] ?? 0;
       if ( v === 0 ) continue;
       tags[k] = `${game.i18n.localize(label)} ${v} ${senses.units}`;
@@ -265,7 +265,7 @@ export default class ActorSheet5e extends ActorSheet {
    */
   _prepareArmorClassAttribution(data) {
     const ac = data.attributes.ac;
-    const cfg = CONFIG.DND5E.armorClasses[ac.calc];
+    const cfg = CONFIG.ME5E.armorClasses[ac.calc];
     const attribution = [];
 
     // Base AC Attribution
@@ -274,7 +274,7 @@ export default class ActorSheet5e extends ActorSheet {
       // Flat AC
       case "flat":
         return [{
-          label: game.i18n.localize("DND5E.ArmorClassFlat"),
+          label: game.i18n.localize("ME5E.ArmorClassFlat"),
           mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
           value: ac.flat
         }];
@@ -282,7 +282,7 @@ export default class ActorSheet5e extends ActorSheet {
       // Natural armor
       case "natural":
         attribution.push({
-          label: game.i18n.localize("DND5E.ArmorClassNatural"),
+          label: game.i18n.localize("ME5E.ArmorClassNatural"),
           mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
           value: ac.flat
         });
@@ -303,8 +303,8 @@ export default class ActorSheet5e extends ActorSheet {
           });
         }
         const armorInFormula = formula.includes("@attributes.ac.armor");
-        let label = game.i18n.localize("DND5E.PropertyBase");
-        if ( armorInFormula ) label = this.actor.armor?.name ?? game.i18n.localize("DND5E.ArmorClassUnarmored");
+        let label = game.i18n.localize("ME5E.PropertyBase");
+        if ( armorInFormula ) label = this.actor.armor?.name ?? game.i18n.localize("ME5E.ArmorClassUnarmored");
         attribution.unshift({
           label,
           mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
@@ -315,7 +315,7 @@ export default class ActorSheet5e extends ActorSheet {
 
     // Shield
     if ( ac.shield !== 0 ) attribution.push({
-      label: this.actor.shield?.name ?? game.i18n.localize("DND5E.EquipmentShield"),
+      label: this.actor.shield?.name ?? game.i18n.localize("ME5E.EquipmentShield"),
       mode: CONST.ACTIVE_EFFECT_MODES.ADD,
       value: ac.shield
     });
@@ -325,7 +325,7 @@ export default class ActorSheet5e extends ActorSheet {
 
     // Cover
     if ( ac.cover !== 0 ) attribution.push({
-      label: game.i18n.localize("DND5E.Cover"),
+      label: game.i18n.localize("ME5E.Cover"),
       mode: CONST.ACTIVE_EFFECT_MODES.ADD,
       value: ac.cover
     });
@@ -341,11 +341,11 @@ export default class ActorSheet5e extends ActorSheet {
    */
   _prepareTraits(traits) {
     const map = {
-      dr: CONFIG.DND5E.damageResistanceTypes,
-      di: CONFIG.DND5E.damageResistanceTypes,
-      dv: CONFIG.DND5E.damageResistanceTypes,
-      ci: CONFIG.DND5E.conditionTypes,
-      languages: CONFIG.DND5E.languages
+      dr: CONFIG.ME5E.damageResistanceTypes,
+      di: CONFIG.ME5E.damageResistanceTypes,
+      dv: CONFIG.ME5E.damageResistanceTypes,
+      ci: CONFIG.ME5E.conditionTypes,
+      languages: CONFIG.ME5E.languages
     };
     for ( let [t, choices] of Object.entries(map) ) {
       const trait = traits[t];
@@ -430,19 +430,19 @@ export default class ActorSheet5e extends ActorSheet {
 
     // Level-based spellcasters have cantrips and leveled slots
     if ( maxLevel > 0 ) {
-      registerSection("spell0", 0, CONFIG.DND5E.spellLevels[0]);
+      registerSection("spell0", 0, CONFIG.ME5E.spellLevels[0]);
       for (let lvl = 1; lvl <= maxLevel; lvl++) {
         const sl = `spell${lvl}`;
-        registerSection(sl, lvl, CONFIG.DND5E.spellLevels[lvl], levels[sl]);
+        registerSection(sl, lvl, CONFIG.ME5E.spellLevels[lvl], levels[sl]);
       }
     }
 
     // Pact magic users have cantrips and a pact magic section
     if ( levels.pact && levels.pact.max ) {
-      if ( !spellbook["0"] ) registerSection("spell0", 0, CONFIG.DND5E.spellLevels[0]);
+      if ( !spellbook["0"] ) registerSection("spell0", 0, CONFIG.ME5E.spellLevels[0]);
       const l = levels.pact;
-      const config = CONFIG.DND5E.spellPreparationModes.pact;
-      const level = game.i18n.localize(`DND5E.SpellLevel${levels.pact.level}`);
+      const config = CONFIG.ME5E.spellPreparationModes.pact;
+      const level = game.i18n.localize(`ME5E.SpellLevel${levels.pact.level}`);
       const label = `${config} — ${level}`;
       registerSection("pact", sections.pact, label, {
         prepMode: "pact",
@@ -463,7 +463,7 @@ export default class ActorSheet5e extends ActorSheet {
         s = sections[mode];
         if ( !spellbook[s] ) {
           const l = levels[mode] || {};
-          const config = CONFIG.DND5E.spellPreparationModes[mode];
+          const config = CONFIG.ME5E.spellPreparationModes[mode];
           registerSection(mode, s, config, {
             prepMode: mode,
             value: l.value,
@@ -475,7 +475,7 @@ export default class ActorSheet5e extends ActorSheet {
 
       // Sections for higher-level spells which the caster "should not" have, but spell items exist for
       else if ( !spellbook[s] ) {
-        registerSection(sl, s, CONFIG.DND5E.spellLevels[s], {levels: levels[sl]});
+        registerSection(sl, s, CONFIG.ME5E.spellLevels[s], {levels: levels[sl]});
       }
 
       // Add the spell to the relevant heading
@@ -533,7 +533,7 @@ export default class ActorSheet5e extends ActorSheet {
 
   /**
    * Get the font-awesome icon used to display a certain level of skill proficiency.
-   * @param {number} level  A proficiency mode defined in `CONFIG.DND5E.proficiencyLevels`.
+   * @param {number} level  A proficiency mode defined in `CONFIG.ME5E.proficiencyLevels`.
    * @returns {string}      HTML string for the chosen icon.
    * @private
    */
@@ -731,7 +731,7 @@ export default class ActorSheet5e extends ActorSheet {
 
   /** @override */
   async _onDropActor(event, data) {
-    const canPolymorph = game.user.isGM || (this.actor.isOwner && game.settings.get("dnd5e", "allowPolymorphing"));
+    const canPolymorph = game.user.isGM || (this.actor.isOwner && game.settings.get("me5e", "allowPolymorphing"));
     if ( !canPolymorph ) return false;
 
     // Get the target actor
@@ -750,29 +750,29 @@ export default class ActorSheet5e extends ActorSheet {
       html.find("input").each((i, el) => {
         options[el.name] = el.checked;
       });
-      const settings = mergeObject(game.settings.get("dnd5e", "polymorphSettings") || {}, options);
-      game.settings.set("dnd5e", "polymorphSettings", settings);
+      const settings = mergeObject(game.settings.get("me5e", "polymorphSettings") || {}, options);
+      game.settings.set("me5e", "polymorphSettings", settings);
       return settings;
     };
 
     // Create and render the Dialog
     return new Dialog({
-      title: game.i18n.localize("DND5E.PolymorphPromptTitle"),
+      title: game.i18n.localize("ME5E.PolymorphPromptTitle"),
       content: {
-        options: game.settings.get("dnd5e", "polymorphSettings"),
-        i18n: CONFIG.DND5E.polymorphSettings,
+        options: game.settings.get("me5e", "polymorphSettings"),
+        i18n: CONFIG.ME5E.polymorphSettings,
         isToken: this.actor.isToken
       },
       default: "accept",
       buttons: {
         accept: {
           icon: '<i class="fas fa-check"></i>',
-          label: game.i18n.localize("DND5E.PolymorphAcceptSettings"),
+          label: game.i18n.localize("ME5E.PolymorphAcceptSettings"),
           callback: html => this.actor.transformInto(sourceActor, rememberOptions(html))
         },
         wildshape: {
           icon: '<i class="fas fa-paw"></i>',
-          label: game.i18n.localize("DND5E.PolymorphWildShape"),
+          label: game.i18n.localize("ME5E.PolymorphWildShape"),
           callback: html => this.actor.transformInto(sourceActor, {
             keepBio: true,
             keepClass: true,
@@ -784,7 +784,7 @@ export default class ActorSheet5e extends ActorSheet {
         },
         polymorph: {
           icon: '<i class="fas fa-pastafarianism"></i>',
-          label: game.i18n.localize("DND5E.Polymorph"),
+          label: game.i18n.localize("ME5E.Polymorph"),
           callback: html => this.actor.transformInto(sourceActor, {
             transformTokens: rememberOptions(html).transformTokens
           })
@@ -795,9 +795,9 @@ export default class ActorSheet5e extends ActorSheet {
         }
       }
     }, {
-      classes: ["dialog", "dnd5e"],
+      classes: ["dialog", "me5e"],
       width: 600,
-      template: "systems/dnd5e/templates/apps/polymorph-prompt.html"
+      template: "systems/me5e/templates/apps/polymorph-prompt.html"
     }).render(true);
   }
 
@@ -808,7 +808,7 @@ export default class ActorSheet5e extends ActorSheet {
 
     // Check to make sure items of this type are allowed on this actor
     if ( this.constructor.unsupportedItemTypes.has(itemData.type) ) {
-      return ui.notifications.warn(game.i18n.format("DND5E.ActorWarningInvalidItem", {
+      return ui.notifications.warn(game.i18n.format("ME5E.ActorWarningInvalidItem", {
         itemType: game.i18n.localize(CONFIG.Item.typeLabels[itemData.type]),
         actorType: game.i18n.localize(CONFIG.Actor.typeLabels[this.actor.type])
       }));
@@ -828,7 +828,7 @@ export default class ActorSheet5e extends ActorSheet {
     if ( stacked ) return stacked;
 
     // Bypass normal creation flow for any items with advancement
-    if ( itemData.data.advancement?.length && !game.settings.get("dnd5e", "disableAdvancements") ) {
+    if ( itemData.data.advancement?.length && !game.settings.get("me5e", "disableAdvancements") ) {
       const manager = AdvancementManager.forNewItem(this.actor, itemData);
       if ( manager.steps.length ) return manager.render(true);
     }
@@ -850,7 +850,7 @@ export default class ActorSheet5e extends ActorSheet {
     ["equipped", "proficient", "prepared"].forEach(k => delete itemData.data[k]);
 
     // Downgrade ATTUNED to REQUIRED
-    itemData.data.attunement = Math.min(itemData.data.attunement, CONFIG.DND5E.attunementTypes.REQUIRED);
+    itemData.data.attunement = Math.min(itemData.data.attunement, CONFIG.ME5E.attunementTypes.REQUIRED);
   }
 
   /* -------------------------------------------- */
@@ -988,13 +988,13 @@ export default class ActorSheet5e extends ActorSheet {
     const type = header.dataset.type;
 
     // Check to make sure the newly created class doesn't take player over level cap
-    if ( type === "class" && (this.actor.data.data.details.level + 1 > CONFIG.DND5E.maxLevel) ) {
-      return ui.notifications.error(game.i18n.format("DND5E.MaxCharacterLevelExceededWarn",
-        {max: CONFIG.DND5E.maxLevel}));
+    if ( type === "class" && (this.actor.data.data.details.level + 1 > CONFIG.ME5E.maxLevel) ) {
+      return ui.notifications.error(game.i18n.format("ME5E.MaxCharacterLevelExceededWarn",
+        {max: CONFIG.ME5E.maxLevel}));
     }
 
     const itemData = {
-      name: game.i18n.format("DND5E.ItemNew", {type: game.i18n.localize(`DND5E.ItemType${type.capitalize()}`)}),
+      name: game.i18n.format("ME5E.ItemNew", {type: game.i18n.localize(`ME5E.ItemType${type.capitalize()}`)}),
       type: type,
       data: foundry.utils.deepClone(header.dataset)
     };
@@ -1033,7 +1033,7 @@ export default class ActorSheet5e extends ActorSheet {
     if ( !item ) return;
 
     // If item has advancement, handle it separately
-    if ( item.hasAdvancement && !game.settings.get("dnd5e", "disableAdvancements") ) {
+    if ( item.hasAdvancement && !game.settings.get("me5e", "disableAdvancements") ) {
       const manager = AdvancementManager.forDeletedItem(this.actor, item.id);
       if ( manager.steps.length ) {
         if ( ["class", "subclass"].includes(item.type) ) {
@@ -1160,7 +1160,7 @@ export default class ActorSheet5e extends ActorSheet {
     event.preventDefault();
     const a = event.currentTarget;
     const label = a.parentElement.querySelector("label");
-    const choices = CONFIG.DND5E[a.dataset.options];
+    const choices = CONFIG.ME5E[a.dataset.options];
     const options = { name: a.dataset.target, title: `${label.innerText}: ${this.actor.name}`, choices };
     return new TraitSelector(this.actor, options).render(true);
   }
@@ -1172,7 +1172,7 @@ export default class ActorSheet5e extends ActorSheet {
     let buttons = super._getHeaderButtons();
     if ( this.actor.isPolymorphed ) {
       buttons.unshift({
-        label: "DND5E.PolymorphRestoreTransformation",
+        label: "ME5E.PolymorphRestoreTransformation",
         class: "restore-transformation",
         icon: "fas fa-backward",
         onclick: () => this.actor.revertOriginalForm()

@@ -5,7 +5,7 @@
 export default class SelectItemsPrompt extends Dialog {
   constructor(items, dialogData={}, options={}) {
     super(dialogData, options);
-    this.options.classes = ["dnd5e", "dialog", "select-items-prompt", "sheet"];
+    this.options.classes = ["me5e", "dialog", "select-items-prompt", "sheet"];
 
     /**
      * Store a reference to the Item documents being used
@@ -34,15 +34,15 @@ export default class SelectItemsPrompt extends Dialog {
    */
   static async create(items, {hint}) {
     // Render the ability usage template
-    const html = await renderTemplate("systems/dnd5e/templates/apps/select-items-prompt.html", {items, hint});
+    const html = await renderTemplate("systems/me5e/templates/apps/select-items-prompt.html", {items, hint});
     return new Promise(resolve => {
       const dlg = new this(items, {
-        title: game.i18n.localize("DND5E.SelectItemsPromptTitle"),
+        title: game.i18n.localize("ME5E.SelectItemsPromptTitle"),
         content: html,
         buttons: {
           apply: {
             icon: '<i class="fas fa-user-plus"></i>',
-            label: game.i18n.localize("DND5E.Apply"),
+            label: game.i18n.localize("ME5E.Apply"),
             callback: html => {
               const fd = new FormDataExtended(html[0].querySelector("form")).toObject();
               const selectedIds = Object.keys(fd).filter(itemId => fd[itemId]);
@@ -51,7 +51,7 @@ export default class SelectItemsPrompt extends Dialog {
           },
           cancel: {
             icon: '<i class="fas fa-forward"></i>',
-            label: game.i18n.localize("DND5E.Skip"),
+            label: game.i18n.localize("ME5E.Skip"),
             callback: () => resolve([])
           }
         },

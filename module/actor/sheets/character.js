@@ -15,7 +15,7 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
    */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["dnd5e", "sheet", "actor", "character"]
+      classes: ["me5e", "sheet", "actor", "character"]
     });
   }
 
@@ -32,23 +32,23 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
     sheetData.resources = ["primary", "secondary", "tertiary"].reduce((arr, r) => {
       const res = sheetData.data.resources[r] || {};
       res.name = r;
-      res.placeholder = game.i18n.localize(`DND5E.Resource${r.titleCase()}`);
+      res.placeholder = game.i18n.localize(`ME5E.Resource${r.titleCase()}`);
       if (res && res.value === 0) delete res.value;
       if (res && res.max === 0) delete res.max;
       return arr.concat([res]);
     }, []);
 
     // Experience Tracking
-    sheetData.disableExperience = game.settings.get("dnd5e", "disableExperienceTracking");
+    sheetData.disableExperience = game.settings.get("me5e", "disableExperienceTracking");
     sheetData.classLabels = this.actor.itemTypes.class.map(c => c.name).join(", ");
     sheetData.multiclassLabels = this.actor.itemTypes.class.map(c => {
       return [c.data.data.subclass, c.name, c.data.data.levels].filterJoin(" ");
     }).join(", ");
 
     // Weight unit
-    sheetData.weightUnit = game.settings.get("dnd5e", "metricWeightUnits")
-      ? game.i18n.localize("DND5E.AbbreviationKgs")
-      : game.i18n.localize("DND5E.AbbreviationLbs");
+    sheetData.weightUnit = game.settings.get("me5e", "metricWeightUnits")
+      ? game.i18n.localize("ME5E.AbbreviationKgs")
+      : game.i18n.localize("ME5E.AbbreviationLbs");
 
     // Return data for rendering
     return sheetData;
@@ -65,12 +65,12 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
 
     // Categorize items as inventory, spellbook, features, and classes
     const inventory = {
-      weapon: { label: "DND5E.ItemTypeWeaponPl", items: [], dataset: {type: "weapon"} },
-      equipment: { label: "DND5E.ItemTypeEquipmentPl", items: [], dataset: {type: "equipment"} },
-      consumable: { label: "DND5E.ItemTypeConsumablePl", items: [], dataset: {type: "consumable"} },
-      tool: { label: "DND5E.ItemTypeToolPl", items: [], dataset: {type: "tool"} },
-      backpack: { label: "DND5E.ItemTypeContainerPl", items: [], dataset: {type: "backpack"} },
-      loot: { label: "DND5E.ItemTypeLootPl", items: [], dataset: {type: "loot"} }
+      weapon: { label: "ME5E.ItemTypeWeaponPl", items: [], dataset: {type: "weapon"} },
+      equipment: { label: "ME5E.ItemTypeEquipmentPl", items: [], dataset: {type: "equipment"} },
+      consumable: { label: "ME5E.ItemTypeConsumablePl", items: [], dataset: {type: "consumable"} },
+      tool: { label: "ME5E.ItemTypeToolPl", items: [], dataset: {type: "tool"} },
+      backpack: { label: "ME5E.ItemTypeContainerPl", items: [], dataset: {type: "backpack"} },
+      loot: { label: "ME5E.ItemTypeLootPl", items: [], dataset: {type: "loot"} }
     };
 
     // Partition items by category
@@ -80,15 +80,15 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
       item.img = item.img || CONST.DEFAULT_TOKEN;
       item.isStack = Number.isNumeric(item.data.quantity) && (item.data.quantity !== 1);
       item.attunement = {
-        [CONFIG.DND5E.attunementTypes.REQUIRED]: {
+        [CONFIG.ME5E.attunementTypes.REQUIRED]: {
           icon: "fa-sun",
           cls: "not-attuned",
-          title: "DND5E.AttunementRequired"
+          title: "ME5E.AttunementRequired"
         },
-        [CONFIG.DND5E.attunementTypes.ATTUNED]: {
+        [CONFIG.ME5E.attunementTypes.ATTUNED]: {
           icon: "fa-sun",
           cls: "attuned",
-          title: "DND5E.AttunementAttuned"
+          title: "ME5E.AttunementAttuned"
         }
       }[item.data.attunement];
 
@@ -132,9 +132,9 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
 
     // Sort classes and interleave matching subclasses, put unmatched subclasses into features so they don't disappear
     classes.sort((a, b) => b.data.levels - a.data.levels);
-    const maxLevelDelta = CONFIG.DND5E.maxLevel - this.actor.data.data.details.level;
+    const maxLevelDelta = CONFIG.ME5E.maxLevel - this.actor.data.data.details.level;
     classes = classes.reduce((arr, cls) => {
-      cls.availableLevels = Array.fromRange(CONFIG.DND5E.maxLevel + 1).slice(1).map(level => {
+      cls.availableLevels = Array.fromRange(CONFIG.ME5E.maxLevel + 1).slice(1).map(level => {
         const delta = level - cls.data.levels;
         return { level, delta, disabled: delta > maxLevelDelta };
       });
@@ -145,23 +145,23 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
     }, []);
     for ( const subclass of subclasses ) {
       feats.push(subclass);
-      this.actor._preparationWarnings.push(game.i18n.format("DND5E.SubclassMismatchWarn", {
+      this.actor._preparationWarnings.push(game.i18n.format("ME5E.SubclassMismatchWarn", {
         name: subclass.name, class: subclass.data.classIdentifier }));
     }
 
     // Organize Features
     const features = {
       background: {
-        label: "DND5E.ItemTypeBackground", items: backgrounds,
+        label: "ME5E.ItemTypeBackground", items: backgrounds,
         hasActions: false, dataset: {type: "background"} },
       classes: {
-        label: "DND5E.ItemTypeClassPl", items: classes,
+        label: "ME5E.ItemTypeClassPl", items: classes,
         hasActions: false, dataset: {type: "class"}, isClass: true },
       active: {
-        label: "DND5E.FeatureActive", items: [],
+        label: "ME5E.FeatureActive", items: [],
         hasActions: true, dataset: {type: "feat", "activation.type": "action"} },
       passive: {
-        label: "DND5E.FeaturePassive", items: [],
+        label: "ME5E.FeaturePassive", items: [],
         hasActions: false, dataset: {type: "feat"} }
     };
     for ( let f of feats ) {
@@ -192,14 +192,14 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
       const isPrepared = getProperty(item.data, "preparation.prepared");
       item.toggleClass = isPrepared ? "active" : "";
       if ( isAlways ) item.toggleClass = "fixed";
-      if ( isAlways ) item.toggleTitle = CONFIG.DND5E.spellPreparationModes.always;
-      else if ( isPrepared ) item.toggleTitle = CONFIG.DND5E.spellPreparationModes.prepared;
-      else item.toggleTitle = game.i18n.localize("DND5E.SpellUnprepared");
+      if ( isAlways ) item.toggleTitle = CONFIG.ME5E.spellPreparationModes.always;
+      else if ( isPrepared ) item.toggleTitle = CONFIG.ME5E.spellPreparationModes.prepared;
+      else item.toggleTitle = game.i18n.localize("ME5E.SpellUnprepared");
     }
     else {
       const isActive = getProperty(item.data, "equipped");
       item.toggleClass = isActive ? "active" : "";
-      item.toggleTitle = game.i18n.localize(isActive ? "DND5E.Equipped" : "DND5E.Unequipped");
+      item.toggleTitle = game.i18n.localize(isActive ? "ME5E.Equipped" : "ME5E.Unequipped");
     }
   }
 
@@ -243,8 +243,8 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
     switch ( button.dataset.action ) {
       case "convertCurrency":
         return Dialog.confirm({
-          title: `${game.i18n.localize("DND5E.CurrencyConvert")}`,
-          content: `<p>${game.i18n.localize("DND5E.CurrencyConvertHint")}</p>`,
+          title: `${game.i18n.localize("ME5E.CurrencyConvert")}`,
+          content: `<p>${game.i18n.localize("ME5E.CurrencyConvertHint")}</p>`,
           yes: () => this.actor.convertCurrency()
         });
       case "rollDeathSave":
@@ -269,7 +269,7 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
     if ( !delta || !classId ) return;
 
     const classItem = this.actor.items.get(classId);
-    if ( classItem.hasAdvancement && !game.settings.get("dnd5e", "disableAdvancements") ) {
+    if ( classItem.hasAdvancement && !game.settings.get("me5e", "disableAdvancements") ) {
       const manager = AdvancementManager.forLevelChange(this.actor, classId, delta);
       if ( manager.steps.length ) {
         if ( delta > 0 ) return manager.render(true);
@@ -336,15 +336,15 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
     // Increment the number of class levels a character instead of creating a new item
     if ( itemData.type === "class" ) {
       itemData.data.levels = Math.min(itemData.data.levels,
-        CONFIG.DND5E.maxLevel - this.actor.data.data.details.level);
+        CONFIG.ME5E.maxLevel - this.actor.data.data.details.level);
       if ( itemData.data.levels <= 0 ) return ui.notifications.error(
-        game.i18n.format("DND5E.MaxCharacterLevelExceededWarn", {max: CONFIG.DND5E.maxLevel})
+        game.i18n.format("ME5E.MaxCharacterLevelExceededWarn", {max: CONFIG.ME5E.maxLevel})
       );
 
       const cls = this.actor.itemTypes.class.find(c => c.identifier === itemData.data.identifier);
       if ( cls ) {
         const priorLevel = cls.data.data.levels;
-        if ( cls.hasAdvancement && !game.settings.get("dnd5e", "disableAdvancements") ) {
+        if ( cls.hasAdvancement && !game.settings.get("me5e", "disableAdvancements") ) {
           const manager = AdvancementManager.forLevelChange(this.actor, cls.id, itemData.data.levels);
           if ( manager.steps.length ) return manager.render(true);
         }
@@ -356,13 +356,13 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
     else if ( itemData.type === "subclass" ) {
       const other = this.actor.itemTypes.subclass.find(i => i.identifier === itemData.data.identifier);
       if ( other ) {
-        return ui.notifications.error(game.i18n.format("DND5E.SubclassDuplicateError", {
+        return ui.notifications.error(game.i18n.format("ME5E.SubclassDuplicateError", {
           identifier: other.identifier
         }));
       }
       const cls = this.actor.itemTypes.class.find(i => i.identifier === itemData.data.classIdentifier);
       if ( cls && cls.subclass ) {
-        return ui.notifications.error(game.i18n.format("DND5E.SubclassAssignmentError", {
+        return ui.notifications.error(game.i18n.format("ME5E.SubclassAssignmentError", {
           class: cls.name, subclass: cls.subclass.name
         }));
       }

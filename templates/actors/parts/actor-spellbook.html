@@ -1,30 +1,30 @@
 <div class="inventory-filters spellbook-filters flexrow">
     <div class="form-group spellcasting-ability">
         {{#unless isNPC}}
-        <label>{{localize "DND5E.Spellcasting"}}</label>
+        <label>{{localize "ME5E.Spellcasting"}}</label>
         {{else}}
-        <label>{{localize "DND5E.Level"}}</label>
+        <label>{{localize "ME5E.Level"}}</label>
         <input class="spellcasting-level" type="text" name="data.details.spellLevel"
                value="{{data.details.spellLevel}}" data-dtype="Number" placeholder="0"/>
         {{/unless}}
         <select name="data.attributes.spellcasting" data-type="String">
             {{#select data.attributes.spellcasting}}
-            <option value="">{{localize "DND5E.None"}}</option>
+            <option value="">{{localize "ME5E.None"}}</option>
             {{#each data.abilities as |abl a|}}
             <option value="{{a}}">{{abl.label}}</option>
             {{/each}}
             {{/select}}
         </select>
-        <span>{{localize "DND5E.AbbreviationDC"}} {{data.attributes.spelldc}}</span>
+        <span>{{localize "ME5E.AbbreviationDC"}} {{data.attributes.spelldc}}</span>
     </div>
 
     <ul class="filter-list flexrow" data-filter="spellbook">
-        <li class="filter-item" data-filter="action">{{localize "DND5E.Action"}}</li>
-        <li class="filter-item" data-filter="bonus">{{localize "DND5E.BonusAction"}}</li>
-        <li class="filter-item" data-filter="reaction">{{localize "DND5E.Reaction"}}</li>
-        <li class="filter-item" data-filter="concentration">{{localize "DND5E.AbbreviationConc"}}</li>
-        <li class="filter-item" data-filter="ritual">{{localize "DND5E.Ritual"}}</li>
-        <li class="filter-item" data-filter="prepared">{{localize "DND5E.Prepared"}}{{#if preparedSpells}} ({{preparedSpells}}){{/if}}</li>
+        <li class="filter-item" data-filter="action">{{localize "ME5E.Action"}}</li>
+        <li class="filter-item" data-filter="bonus">{{localize "ME5E.BonusAction"}}</li>
+        <li class="filter-item" data-filter="reaction">{{localize "ME5E.Reaction"}}</li>
+        <li class="filter-item" data-filter="concentration">{{localize "ME5E.AbbreviationConc"}}</li>
+        <li class="filter-item" data-filter="ritual">{{localize "ME5E.Ritual"}}</li>
+        <li class="filter-item" data-filter="prepared">{{localize "ME5E.Prepared"}}{{#if preparedSpells}} ({{preparedSpells}}){{/if}}</li>
     </ul>
 </div>
 
@@ -41,7 +41,7 @@
                 <span class="spell-max" data-level="{{section.prop}}" data-slots="{{section.slots}}">
                     {{{section.slots}}}
                     {{#if ../editable}}
-                    <a class="slot-max-override" title="{{localize 'DND5E.SpellProgOverride'}}">
+                    <a class="slot-max-override" title="{{localize 'ME5E.SpellProgOverride'}}">
                         <i class="fas fa-edit"></i>
                     </a>
                     {{/if}}
@@ -53,14 +53,14 @@
                 {{/if}}
             </div>
         </div>
-        <div class="spell-school">{{localize "DND5E.SpellSchool"}}</div>
-        <div class="spell-action">{{localize "DND5E.SpellUsage"}}</div>
-        <div class="spell-target">{{localize "DND5E.SpellTarget"}}</div>
+        <div class="spell-school">{{localize "ME5E.SpellSchool"}}</div>
+        <div class="spell-action">{{localize "ME5E.SpellUsage"}}</div>
+        <div class="spell-target">{{localize "ME5E.SpellTarget"}}</div>
 
         <div class="item-controls flexrow">
             {{#if section.canCreate}}
-            <a class="item-control item-create" title="{{localize 'DND5E.SpellCreate'}}" {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
-                <i class="fas fa-plus"></i> {{localize "DND5E.Add"}}
+            <a class="item-control item-create" title="{{localize 'ME5E.SpellCreate'}}" {{#each section.dataset as |v k|}}data-{{k}}="{{v}}"{{/each}}>
+                <i class="fas fa-plus"></i> {{localize "ME5E.Add"}}
             </a>
             {{/if}}
         </div>
@@ -83,10 +83,10 @@
             </div>
             <div class="spell-school">{{labels.school}}</div>
             <div class="spell-action">{{labels.activation}}</div>
-            <div class="spell-target" title="{{localize 'DND5E.Range'}}: {{labels.range}}">
+            <div class="spell-target" title="{{localize 'ME5E.Range'}}: {{labels.range}}">
                 {{#if labels.target}}
                 {{labels.target}}
-                {{else}}{{localize 'DND5E.None'}}
+                {{else}}{{localize 'ME5E.None'}}
                 {{/if}}
             </div>
 
@@ -95,8 +95,8 @@
                 {{#if section.canPrepare}}
                 <a class="item-control item-toggle {{item.toggleClass}}" title="{{item.toggleTitle}}"><i class="fas fa-sun"></i></a>
                 {{/if}}
-                <a class="item-control item-edit" title="{{localize 'DND5E.ItemEdit'}}"><i class="fas fa-edit"></i></a>
-                <a class="item-control item-delete" title="{{localize 'DND5E.ItemDelete'}}"><i class="fas fa-trash"></i></a>
+                <a class="item-control item-edit" title="{{localize 'ME5E.ItemEdit'}}"><i class="fas fa-edit"></i></a>
+                <a class="item-control item-delete" title="{{localize 'ME5E.ItemDelete'}}"><i class="fas fa-trash"></i></a>
             </div>
             {{/if}}
         </li>
@@ -105,15 +105,15 @@
 {{else}}
     {{#if owner}}
     {{#if filters.spellbook.size}}
-    <li class="item flexrow"><p class="notes">{{localize "DND5E.FilterNoSpells"}}</p></li>
+    <li class="item flexrow"><p class="notes">{{localize "ME5E.FilterNoSpells"}}</p></li>
     {{else}}
     <li class="item flexrow inventory-header spellbook-header spellbook-empty">
         <div class="item-controls flexrow">
-            <a class="item-control item-create" title="{{localize 'DND5E.SpellCreate'}}" data-type="spell"
-               data-level="{{lvl}}"><i class="fas fa-plus"></i> {{localize "DND5E.SpellAdd"}}</a>
+            <a class="item-control item-create" title="{{localize 'ME5E.SpellCreate'}}" data-type="spell"
+               data-level="{{lvl}}"><i class="fas fa-plus"></i> {{localize "ME5E.SpellAdd"}}</a>
         </div>
     </li>
-    <li class="item flexrow"><p class="notes">{{localize "DND5E.NoSpellLevels"}}</p></li>
+    <li class="item flexrow"><p class="notes">{{localize "ME5E.NoSpellLevels"}}</p></li>
     {{/if}}
     {{/if}}
 {{/each}}

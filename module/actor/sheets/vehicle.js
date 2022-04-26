@@ -9,7 +9,7 @@ export default class ActorSheet5eVehicle extends ActorSheet5e {
   /** @inheritdoc */
   static get defaultOptions() {
     return mergeObject(super.defaultOptions, {
-      classes: ["dnd5e", "sheet", "actor", "vehicle"]
+      classes: ["me5e", "sheet", "actor", "vehicle"]
     });
   }
 
@@ -45,16 +45,16 @@ export default class ActorSheet5eVehicle extends ActorSheet5e {
     // Compute currency weight
     const totalCoins = Object.values(actorData.data.currency).reduce((acc, denom) => acc + denom, 0);
 
-    const currencyPerWeight = game.settings.get("dnd5e", "metricWeightUnits")
-      ? CONFIG.DND5E.encumbrance.currencyPerWeight.metric
-      : CONFIG.DND5E.encumbrance.currencyPerWeight.imperial;
+    const currencyPerWeight = game.settings.get("me5e", "metricWeightUnits")
+      ? CONFIG.ME5E.encumbrance.currencyPerWeight.metric
+      : CONFIG.ME5E.encumbrance.currencyPerWeight.imperial;
 
     totalWeight += totalCoins / currencyPerWeight;
 
     // Vehicle weights are an order of magnitude greater.
-    totalWeight /= game.settings.get("dnd5e", "metricWeightUnits")
-      ? CONFIG.DND5E.encumbrance.vehicleWeightMultiplier.metric
-      : CONFIG.DND5E.encumbrance.vehicleWeightMultiplier.imperial;
+    totalWeight /= game.settings.get("me5e", "metricWeightUnits")
+      ? CONFIG.ME5E.encumbrance.vehicleWeightMultiplier.metric
+      : CONFIG.ME5E.encumbrance.vehicleWeightMultiplier.imperial;
 
     // Compute overall encumbrance
     const max = actorData.data.attributes.capacity.cargo;
@@ -82,11 +82,11 @@ export default class ActorSheet5eVehicle extends ActorSheet5e {
     // Determine crewed status
     const isCrewed = item.data.crewed;
     item.toggleClass = isCrewed ? "active" : "";
-    item.toggleTitle = game.i18n.localize(`DND5E.${isCrewed ? "Crewed" : "Uncrewed"}`);
+    item.toggleTitle = game.i18n.localize(`ME5E.${isCrewed ? "Crewed" : "Uncrewed"}`);
 
     // Handle crew actions
     if (item.type === "feat" && item.data.activation.type === "crew") {
-      item.cover = game.i18n.localize(`DND5E.${item.data.cover ? "CoverTotal" : "None"}`);
+      item.cover = game.i18n.localize(`ME5E.${item.data.cover ? "CoverTotal" : "None"}`);
       if (item.data.cover === .5) item.cover = "½";
       else if (item.data.cover === .75) item.cover = "¾";
       else if (item.data.cover === null) item.cover = "—";
@@ -107,64 +107,64 @@ export default class ActorSheet5eVehicle extends ActorSheet5e {
    */
   _prepareItems(data) {
     const cargoColumns = [{
-      label: game.i18n.localize("DND5E.Quantity"),
+      label: game.i18n.localize("ME5E.Quantity"),
       css: "item-qty",
       property: "quantity",
       editable: "Number"
     }];
 
     const equipmentColumns = [{
-      label: game.i18n.localize("DND5E.Quantity"),
+      label: game.i18n.localize("ME5E.Quantity"),
       css: "item-qty",
       property: "data.quantity",
       editable: "Number"
     }, {
-      label: game.i18n.localize("DND5E.AC"),
+      label: game.i18n.localize("ME5E.AC"),
       css: "item-ac",
       property: "data.armor.value"
     }, {
-      label: game.i18n.localize("DND5E.HP"),
+      label: game.i18n.localize("ME5E.HP"),
       css: "item-hp",
       property: "data.hp.value",
       editable: "Number"
     }, {
-      label: game.i18n.localize("DND5E.Threshold"),
+      label: game.i18n.localize("ME5E.Threshold"),
       css: "item-threshold",
       property: "threshold"
     }];
 
     const features = {
       actions: {
-        label: game.i18n.localize("DND5E.ActionPl"),
+        label: game.i18n.localize("ME5E.ActionPl"),
         items: [],
         hasActions: true,
         crewable: true,
         dataset: {type: "feat", "activation.type": "crew"},
         columns: [{
-          label: game.i18n.localize("DND5E.Cover"),
+          label: game.i18n.localize("ME5E.Cover"),
           css: "item-cover",
           property: "cover"
         }]
       },
       equipment: {
-        label: game.i18n.localize("DND5E.ItemTypeEquipment"),
+        label: game.i18n.localize("ME5E.ItemTypeEquipment"),
         items: [],
         crewable: true,
         dataset: {type: "equipment", "armor.type": "vehicle"},
         columns: equipmentColumns
       },
       passive: {
-        label: game.i18n.localize("DND5E.Features"),
+        label: game.i18n.localize("ME5E.Features"),
         items: [],
         dataset: {type: "feat"}
       },
       reactions: {
-        label: game.i18n.localize("DND5E.ReactionPl"),
+        label: game.i18n.localize("ME5E.ReactionPl"),
         items: [],
         dataset: {type: "feat", "activation.type": "reaction"}
       },
       weapons: {
-        label: game.i18n.localize("DND5E.ItemTypeWeaponPl"),
+        label: game.i18n.localize("ME5E.ItemTypeWeaponPl"),
         items: [],
         crewable: true,
         dataset: {type: "weapon", "weapon-type": "siege"},
@@ -180,7 +180,7 @@ export default class ActorSheet5eVehicle extends ActorSheet5e {
 
     const cargo = {
       crew: {
-        label: game.i18n.localize("DND5E.VehicleCrew"),
+        label: game.i18n.localize("ME5E.VehicleCrew"),
         items: data.data.cargo.crew,
         css: "cargo-row crew",
         editableName: true,
@@ -188,7 +188,7 @@ export default class ActorSheet5eVehicle extends ActorSheet5e {
         columns: cargoColumns
       },
       passengers: {
-        label: game.i18n.localize("DND5E.VehiclePassengers"),
+        label: game.i18n.localize("ME5E.VehiclePassengers"),
         items: data.data.cargo.passengers,
         css: "cargo-row passengers",
         editableName: true,
@@ -196,21 +196,21 @@ export default class ActorSheet5eVehicle extends ActorSheet5e {
         columns: cargoColumns
       },
       cargo: {
-        label: game.i18n.localize("DND5E.VehicleCargo"),
+        label: game.i18n.localize("ME5E.VehicleCargo"),
         items: [],
         dataset: {type: "loot"},
         columns: [{
-          label: game.i18n.localize("DND5E.Quantity"),
+          label: game.i18n.localize("ME5E.Quantity"),
           css: "item-qty",
           property: "data.quantity",
           editable: "Number"
         }, {
-          label: game.i18n.localize("DND5E.Price"),
+          label: game.i18n.localize("ME5E.Price"),
           css: "item-price",
           property: "data.price",
           editable: "Number"
         }, {
-          label: game.i18n.localize("DND5E.Weight"),
+          label: game.i18n.localize("ME5E.Weight"),
           css: "item-weight",
           property: "data.weight",
           editable: "Number"
@@ -224,7 +224,7 @@ export default class ActorSheet5eVehicle extends ActorSheet5e {
       this._prepareCrewedItem(item);
 
       // Handle cargo explicitly
-      const isCargo = item.flags.dnd5e?.vehicleCargo === true;
+      const isCargo = item.flags.me5e?.vehicleCargo === true;
       if ( isCargo ) {
         totalWeight += (item.data.weight || 0) * item.data.quantity;
         cargo.cargo.items.push(item);
@@ -386,7 +386,7 @@ export default class ActorSheet5eVehicle extends ActorSheet5e {
   async _onDropItemCreate(itemData) {
     const cargoTypes = ["weapon", "equipment", "consumable", "tool", "loot", "backpack"];
     const isCargo = cargoTypes.includes(itemData.type) && (this._tabs[0].active === "cargo");
-    foundry.utils.setProperty(itemData, "flags.dnd5e.vehicleCargo", isCargo);
+    foundry.utils.setProperty(itemData, "flags.me5e.vehicleCargo", isCargo);
     return super._onDropItemCreate(itemData);
   }
 

@@ -16,9 +16,9 @@ export class HitPointsAdvancement extends Advancement {
   static get metadata() {
     return foundry.utils.mergeObject(super.metadata, {
       order: 10,
-      icon: "systems/dnd5e/icons/svg/hit-points.svg",
-      title: game.i18n.localize("DND5E.AdvancementHitPointsTitle"),
-      hint: game.i18n.localize("DND5E.AdvancementHitPointsHint"),
+      icon: "systems/me5e/icons/svg/hit-points.svg",
+      title: game.i18n.localize("ME5E.AdvancementHitPointsTitle"),
+      hint: game.i18n.localize("ME5E.AdvancementHitPointsHint"),
       multiLevel: true,
       validItemTypes: new Set(["class"]),
       apps: {
@@ -34,7 +34,7 @@ export class HitPointsAdvancement extends Advancement {
 
   /** @inheritdoc */
   get levels() {
-    return Array.fromRange(CONFIG.DND5E.maxLevel + 1).slice(1);
+    return Array.fromRange(CONFIG.ME5E.maxLevel + 1).slice(1);
   }
 
   /* -------------------------------------------- */
@@ -177,7 +177,7 @@ export class HitPointsConfig extends AdvancementConfig {
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      template: "systems/dnd5e/templates/advancement/hit-points-config.html"
+      template: "systems/me5e/templates/advancement/hit-points-config.html"
     });
   }
 
@@ -202,7 +202,7 @@ export class HitPointsFlow extends AdvancementFlow {
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      template: "systems/dnd5e/templates/advancement/hit-points-flow.html"
+      template: "systems/me5e/templates/advancement/hit-points-flow.html"
     });
   }
 
@@ -271,7 +271,7 @@ export class HitPointsFlow extends AdvancementFlow {
 
     this.form.querySelector(".rollResult")?.classList.add("error");
     const errorType = formData.value ? "Invalid" : "Empty";
-    throw new AdvancementError(game.i18n.localize(`DND5E.AdvancementHitPoints${errorType}Error`));
+    throw new AdvancementError(game.i18n.localize(`ME5E.AdvancementHitPoints${errorType}Error`));
   }
 
 }

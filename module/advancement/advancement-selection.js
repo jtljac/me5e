@@ -20,9 +20,9 @@ export class AdvancementSelection extends Dialog {
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["dnd5e", "sheet", "advancement"],
-      template: "systems/dnd5e/templates/advancement/advancement-selection.html",
-      title: "DND5E.AdvancementSelectionTitle",
+      classes: ["me5e", "sheet", "advancement"],
+      template: "systems/me5e/templates/advancement/advancement-selection.html",
+      title: "ME5E.AdvancementSelectionTitle",
       width: 500,
       height: "auto"
     });
@@ -41,7 +41,7 @@ export class AdvancementSelection extends Dialog {
   getData() {
     const data = { types: {} };
 
-    for ( const advancement of Object.values(game.dnd5e.advancement.types) ) {
+    for ( const advancement of Object.values(game.me5e.advancement.types) ) {
       if ( !advancement.metadata.validItemTypes.has(this.item.type) ) continue;
       data.types[advancement.typeName] = {
         label: advancement.metadata.title,
@@ -50,7 +50,7 @@ export class AdvancementSelection extends Dialog {
         disabled: !advancement.availableForItem(this.item)
       };
     }
-    data.types = game.dnd5e.utils.sortObjectEntries(data.types, "label");
+    data.types = game.me5e.utils.sortObjectEntries(data.types, "label");
 
     return data;
   }
@@ -85,7 +85,7 @@ export class AdvancementSelection extends Dialog {
   static async createDialog(item, { rejectClose=false, options={} }={}) {
     return new Promise((resolve, reject) => {
       const dialog = new this(item, {
-        title: `${game.i18n.localize("DND5E.AdvancementSelectionTitle")}: ${item.name}`,
+        title: `${game.i18n.localize("ME5E.AdvancementSelectionTitle")}: ${item.name}`,
         buttons: {
           submit: {
             callback: html => {

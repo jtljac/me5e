@@ -22,9 +22,9 @@ export class ScaleValueAdvancement extends Advancement {
         }
       },
       order: 60,
-      icon: "systems/dnd5e/icons/svg/scale-value.svg",
-      title: game.i18n.localize("DND5E.AdvancementScaleValueTitle"),
-      hint: game.i18n.localize("DND5E.AdvancementScaleValueHint"),
+      icon: "systems/me5e/icons/svg/scale-value.svg",
+      title: game.i18n.localize("ME5E.AdvancementScaleValueTitle"),
+      hint: game.i18n.localize("ME5E.AdvancementScaleValueHint"),
       multiLevel: true,
       validItemTypes: new Set(["class", "subclass"]),
       apps: {
@@ -41,10 +41,10 @@ export class ScaleValueAdvancement extends Advancement {
    * @enum {object}
    */
   static TYPES = {
-    string: "DND5E.AdvancementScaleValueTypeString",
-    number: "DND5E.AdvancementScaleValueTypeNumber",
-    dice: "DND5E.AdvancementScaleValueTypeDice",
-    distance: "DND5E.AdvancementScaleValueTypeDistance"
+    string: "ME5E.AdvancementScaleValueTypeString",
+    number: "ME5E.AdvancementScaleValueTypeNumber",
+    dice: "ME5E.AdvancementScaleValueTypeDice",
+    distance: "ME5E.AdvancementScaleValueTypeDistance"
   };
 
   /* -------------------------------------------- */
@@ -131,7 +131,7 @@ export class ScaleValueAdvancement extends Advancement {
     if ( this.data.configuration.type !== "distance" ) return this.prepareValue(level);
     const value = this.valueForLevel(level);
     if ( value == null ) return null;
-    return `${value.value} ${CONFIG.DND5E.movementUnits[this.data.configuration.distance.units]}`;
+    return `${value.value} ${CONFIG.ME5E.movementUnits[this.data.configuration.distance.units]}`;
   }
 
 }
@@ -147,8 +147,8 @@ export class ScaleValueConfig extends AdvancementConfig {
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["dnd5e", "advancement", "scale-value", "two-column"],
-      template: "systems/dnd5e/templates/advancement/scale-value-config.html",
+      classes: ["me5e", "advancement", "scale-value", "two-column"],
+      template: "systems/me5e/templates/advancement/scale-value-config.html",
       width: 540
     });
   }
@@ -162,14 +162,14 @@ export class ScaleValueConfig extends AdvancementConfig {
     data.classIdentifier = this.item.identifier;
     data.previewIdentifier = config.identifier || this.advancement.data.title?.slugify()
       || this.advancement.constructor.metadata.title.slugify();
-    data.typeHint = game.i18n.localize(`DND5E.AdvancementScaleValueTypeHint${config.type.capitalize()}`);
+    data.typeHint = game.i18n.localize(`ME5E.AdvancementScaleValueTypeHint${config.type.capitalize()}`);
     data.types =
       Object.fromEntries(
         Object.entries(ScaleValueAdvancement.TYPES).map(([key, label]) => [key, game.i18n.localize(label)]));
     data.faces = Object.fromEntries([2, 3, 4, 6, 8, 10, 12, 20].map(die => [die, `d${die}`]));
     data.levels = this._prepareLevelData();
     data.isNumeric = ["number", "distance"].includes(config.type);
-    data.movementUnits = CONFIG.DND5E.movementUnits;
+    data.movementUnits = CONFIG.ME5E.movementUnits;
     return data;
   }
 
@@ -182,7 +182,7 @@ export class ScaleValueConfig extends AdvancementConfig {
    */
   _prepareLevelData() {
     let lastValue = null;
-    return Array.fromRange(CONFIG.DND5E.maxLevel + 1).slice(1).reduce((obj, level) => {
+    return Array.fromRange(CONFIG.ME5E.maxLevel + 1).slice(1).reduce((obj, level) => {
       obj[level] = { placeholder: this._formatPlaceholder(lastValue), value: null };
       const value = this.advancement.data.configuration.scale[level];
       if ( value ) {
@@ -280,7 +280,7 @@ export class ScaleValueConfig extends AdvancementConfig {
       for ( const key in formData ) {
         if ( key.startsWith("data.configuration.scale.") ) delete formData[key];
       }
-      Array.fromRange(CONFIG.DND5E.maxLevel + 1).slice(1).forEach(l =>
+      Array.fromRange(CONFIG.ME5E.maxLevel + 1).slice(1).forEach(l =>
         formData[`data.configuration.scale.${l}`] = null);
     }
     return super._updateObject(event, formData);
@@ -299,7 +299,7 @@ export class ScaleValueFlow extends AdvancementFlow {
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      template: "systems/dnd5e/templates/advancement/scale-value-flow.html"
+      template: "systems/me5e/templates/advancement/scale-value-flow.html"
     });
   }
 

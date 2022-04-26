@@ -36,7 +36,7 @@ export default class ItemSheet5e extends ItemSheet {
     return foundry.utils.mergeObject(super.defaultOptions, {
       width: 560,
       height: 400,
-      classes: ["dnd5e", "sheet", "item"],
+      classes: ["me5e", "sheet", "item"],
       resizable: true,
       scrollY: [".tab.details"],
       tabs: [{navSelector: ".tabs", contentSelector: ".sheet-body", initial: "description"}]
@@ -47,7 +47,7 @@ export default class ItemSheet5e extends ItemSheet {
 
   /** @inheritdoc */
   get template() {
-    const path = "systems/dnd5e/templates/items/";
+    const path = "systems/me5e/templates/items/";
     return `${path}/${this.item.data.type}.html`;
   }
 
@@ -58,7 +58,7 @@ export default class ItemSheet5e extends ItemSheet {
     const data = super.getData(options);
     const itemData = data.data;
     data.labels = this.item.labels;
-    data.config = CONFIG.DND5E;
+    data.config = CONFIG.ME5E;
     data.config.spellComponents = {...data.config.spellComponents, ...data.config.spellTags};
     data.isEmbedded = this.item.isEmbedded;
     data.advancementEditable = (this.advancementConfigurationMode || !data.isEmbedded) && data.editable;
@@ -165,7 +165,7 @@ export default class ItemSheet5e extends ItemSheet {
    */
   async _getItemBaseTypes(item) {
     const type = item.type === "equipment" ? "armor" : item.type;
-    const ids = CONFIG.DND5E[`${type}Ids`];
+    const ids = CONFIG.ME5E[`${type}Ids`];
     if ( ids === undefined ) return {};
 
     const typeProperty = type === "armor" ? "armor.type" : `${type}Type`;
@@ -220,9 +220,9 @@ export default class ItemSheet5e extends ItemSheet {
     // Hit Dice
     else if ( consume.type === "hitDice" ) {
       return {
-        smallest: game.i18n.localize("DND5E.ConsumeHitDiceSmallest"),
-        ...CONFIG.DND5E.hitDieTypes.reduce((obj, hd) => { obj[hd] = hd; return obj; }, {}),
-        largest: game.i18n.localize("DND5E.ConsumeHitDiceLargest")
+        smallest: game.i18n.localize("ME5E.ConsumeHitDiceSmallest"),
+        ...CONFIG.ME5E.hitDieTypes.reduce((obj, hd) => { obj[hd] = hd; return obj; }, {}),
+        largest: game.i18n.localize("ME5E.ConsumeHitDiceLargest")
       };
     }
 
@@ -244,14 +244,14 @@ export default class ItemSheet5e extends ItemSheet {
         const uses = i.data.data.uses || {};
         if ( uses.per && uses.max ) {
           const label = uses.per === "charges"
-            ? ` (${game.i18n.format("DND5E.AbilityUseChargesLabel", {value: uses.value})})`
-            : ` (${game.i18n.format("DND5E.AbilityUseConsumableLabel", {max: uses.max, per: uses.per})})`;
+            ? ` (${game.i18n.format("ME5E.AbilityUseChargesLabel", {value: uses.value})})`
+            : ` (${game.i18n.format("ME5E.AbilityUseConsumableLabel", {max: uses.max, per: uses.per})})`;
           obj[i.id] = i.name + label;
         }
 
         // Recharging items
         const recharge = i.data.data.recharge || {};
-        if ( recharge.value ) obj[i.id] = `${i.name} (${game.i18n.format("DND5E.Recharge")})`;
+        if ( recharge.value ) obj[i.id] = `${i.name} (${game.i18n.format("ME5E.Recharge")})`;
         return obj;
       }, {});
     }
@@ -270,14 +270,14 @@ export default class ItemSheet5e extends ItemSheet {
   _getItemStatus(item) {
     switch ( item.type ) {
       case "class":
-        return game.i18n.format("DND5E.LevelCount", {ordinal: item.data.levels.ordinalString()});
+        return game.i18n.format("ME5E.LevelCount", {ordinal: item.data.levels.ordinalString()});
       case "equipment":
       case "weapon":
-        return game.i18n.localize(item.data.equipped ? "DND5E.Equipped" : "DND5E.Unequipped");
+        return game.i18n.localize(item.data.equipped ? "ME5E.Equipped" : "ME5E.Unequipped");
       case "spell":
-        return CONFIG.DND5E.spellPreparationModes[item.data.preparation];
+        return CONFIG.ME5E.spellPreparationModes[item.data.preparation];
       case "tool":
-        return game.i18n.localize(item.data.proficient ? "DND5E.Proficient" : "DND5E.NotProficient");
+        return game.i18n.localize(item.data.proficient ? "ME5E.Proficient" : "ME5E.NotProficient");
     }
   }
 
@@ -296,7 +296,7 @@ export default class ItemSheet5e extends ItemSheet {
     if ( item.type === "weapon" ) {
       props.push(...Object.entries(item.data.properties)
         .filter(e => e[1] === true)
-        .map(e => CONFIG.DND5E.weaponProperties[e[0]]));
+        .map(e => CONFIG.ME5E.weaponProperties[e[0]]));
     }
 
     else if ( item.type === "spell" ) {
@@ -308,7 +308,7 @@ export default class ItemSheet5e extends ItemSheet {
     }
 
     else if ( item.type === "equipment" ) {
-      props.push(CONFIG.DND5E.equipmentTypes[item.data.armor.type]);
+      props.push(CONFIG.ME5E.equipmentTypes[item.data.armor.type]);
       if ( this.item.isArmor || this._isItemMountable(item) ) props.push(labels.armor);
     }
 
@@ -318,7 +318,7 @@ export default class ItemSheet5e extends ItemSheet {
 
     // Action type
     if ( item.data.actionType ) {
-      props.push(CONFIG.DND5E.itemActionTypes[item.data.actionType]);
+      props.push(CONFIG.ME5E.itemActionTypes[item.data.actionType]);
     }
 
     // Action usage
@@ -381,8 +381,8 @@ export default class ItemSheet5e extends ItemSheet {
       if ( !maxRoll.isDeterministic ) {
         data.data.uses.max = this.object.data._source.data.uses.max;
         this.form.querySelector("input[name='data.uses.max']").value = data.data.uses.max;
-        return ui.notifications.error(game.i18n.format("DND5E.FormulaCannotContainDiceError", {
-          name: game.i18n.localize("DND5E.LimitedUses")
+        return ui.notifications.error(game.i18n.format("ME5E.FormulaCannotContainDiceError", {
+          name: game.i18n.localize("ME5E.LimitedUses")
         }));
       }
     }
@@ -394,7 +394,7 @@ export default class ItemSheet5e extends ItemSheet {
       if ( !match ) {
         data.data.identifier = this.object.data._source.data.identifier;
         this.form.querySelector("input[name='data.identifier']").value = data.data.identifier;
-        return ui.notifications.error(game.i18n.localize("DND5E.IdentifierError"));
+        return ui.notifications.error(game.i18n.localize("ME5E.IdentifierError"));
       }
     }
 
@@ -467,18 +467,18 @@ export default class ItemSheet5e extends ItemSheet {
     };
     switch (a.dataset.options) {
       case "saves":
-        options.choices = CONFIG.DND5E.abilities;
+        options.choices = CONFIG.ME5E.abilities;
         options.valueKey = null;
         break;
       case "skills.choices":
-        options.choices = CONFIG.DND5E.skills;
+        options.choices = CONFIG.ME5E.skills;
         options.valueKey = null;
         break;
       case "skills":
         const skills = this.item.data.data.skills;
-        const choiceSet = skills.choices?.length ? skills.choices : Object.keys(CONFIG.DND5E.skills);
+        const choiceSet = skills.choices?.length ? skills.choices : Object.keys(CONFIG.ME5E.skills);
         options.choices =
-          Object.fromEntries(Object.entries(CONFIG.DND5E.skills).filter(([skill]) => choiceSet.includes(skill)));
+          Object.fromEntries(Object.entries(CONFIG.ME5E.skills).filter(([skill]) => choiceSet.includes(skill)));
         options.maximum = skills.number;
         break;
     }
@@ -494,7 +494,7 @@ export default class ItemSheet5e extends ItemSheet {
    */
   _onAdvancementAction(event) {
     const cl = event.currentTarget.classList;
-    if ( cl.contains("item-add") ) return game.dnd5e.advancement.AdvancementSelection.createDialog(this.item);
+    if ( cl.contains("item-add") ) return game.me5e.advancement.AdvancementSelection.createDialog(this.item);
 
     if ( cl.contains("modify-choices") ) {
       const level = event.currentTarget.closest("li")?.dataset.level;

@@ -53,12 +53,12 @@ export function indexFromUuid(uuid) {
  * @private
  */
 export function _linkForUuid(uuid) {
-  const index = game.dnd5e.utils.indexFromUuid(uuid);
+  const index = game.me5e.utils.indexFromUuid(uuid);
 
   let link;
 
   if ( !index ) {
-    link = `@Item[${uuid}]{${game.i18n.localize("DND5E.Unknown")}}`;
+    link = `@Item[${uuid}]{${game.i18n.localize("ME5E.Unknown")}}`;
   } else if ( uuid.startsWith("Compendium.") ) {
     link = `@Compendium[${uuid.slice(11)}]{${index.name}}`;
   } else {
@@ -82,7 +82,7 @@ const _preLocalizationRegistrations = {};
 
 /**
  * Mark the provided config key to be pre-localized during the init stage.
- * @param {string} configKey              Key within `CONFIG.DND5E` to localize.
+ * @param {string} configKey              Key within `CONFIG.ME5E` to localize.
  * @param {object} [options={}]
  * @param {string} [options.key]          If each entry in the config enum is an object,
  *                                        localize and sort using this property.
@@ -99,7 +99,7 @@ export function preLocalize(configKey, { key, keys=[], sort=false }={}) {
 
 /**
  * Execute previously defined pre-localization tasks on the provided config object.
- * @param {object} config  The `CONFIG.DND5E` object to localize and sort. *Will be mutated.*
+ * @param {object} config  The `CONFIG.ME5E` object to localize and sort. *Will be mutated.*
  */
 export function performPreLocalization(config) {
   for ( const [key, settings] of Object.entries(_preLocalizationRegistrations) ) {

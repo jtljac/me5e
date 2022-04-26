@@ -6,20 +6,20 @@
           {{#if isEmbedded}}
             {{#if advancementEditable}}
               <a class="item-control toggle-configuration"
-                title="{{localize 'DND5E.AdvancementConfigurationActionDisable'}}">
-                <i class="fas fa-lock-open"></i> {{localize "DND5E.AdvancementConfigurationModeEnabled"}}
+                title="{{localize 'ME5E.AdvancementConfigurationActionDisable'}}">
+                <i class="fas fa-lock-open"></i> {{localize "ME5E.AdvancementConfigurationModeEnabled"}}
               </a>
             {{else}}
               <a class="item-control toggle-configuration"
-                title="{{localize 'DND5E.AdvancementConfigurationActionEnable'}}">
-                <i class="fas fa-lock"></i> {{localize "DND5E.AdvancementConfigurationModeDisabled"}}
+                title="{{localize 'ME5E.AdvancementConfigurationActionEnable'}}">
+                <i class="fas fa-lock"></i> {{localize "ME5E.AdvancementConfigurationModeDisabled"}}
               </a>
             {{/if}}
           {{/if}}
         </div>
         {{#if advancementEditable}}
           <div class="item-controls flexrow add-button">
-            <a class="item-control item-add" title="{{localize 'DND5E.ItemCreate'}}"><i class="fas fa-plus"></i></a>
+            <a class="item-control item-add" title="{{localize 'ME5E.ItemCreate'}}"><i class="fas fa-plus"></i></a>
           </div>
         {{/if}}
       </li>
@@ -29,26 +29,26 @@
       <li class="items-header flexrow" data-level="{{level}}">
         <h3 class="item-name flexrow">
           {{#if (eq level "0")}}
-            {{localize "DND5E.AdvancementLevelAnyHeader"}}
+            {{localize "ME5E.AdvancementLevelAnyHeader"}}
           {{else if (eq level "unconfigured")}}
-            {{localize "DND5E.AdvancementLevelNoneHeader"}}
+            {{localize "ME5E.AdvancementLevelNoneHeader"}}
           {{else}}
-            {{localize "DND5E.AdvancementLevelHeader" level=level}}
+            {{localize "ME5E.AdvancementLevelHeader" level=level}}
           {{/if}}
         </h3>
 
         {{#if (and @root.editable data.configured (ne level "unconfigured"))}}
           <div>
-            <a class="item-control modify-choices">{{localize "DND5E.AdvancementModifyChoices"}}</a>
+            <a class="item-control modify-choices">{{localize "ME5E.AdvancementModifyChoices"}}</a>
           </div>
         {{/if}}
 
         {{#if (eq data.configured "full")}}
-          <div class="item-checkmark" title="{{localize 'DND5E.AdvancementConfiguredComplete'}}">
+          <div class="item-checkmark" title="{{localize 'ME5E.AdvancementConfiguredComplete'}}">
             <i class="fas fa-check-circle"></i>
           </div>
         {{else if (eq data.configured "partial")}}
-          <div class="item-warning" title="{{localize 'DND5E.AdvancementConfiguredIncomplete'}}">
+          <div class="item-warning" title="{{localize 'ME5E.AdvancementConfiguredIncomplete'}}">
             <i class="fas fa-exclamation-triangle"></i>
           </div>
         {{/if}}
@@ -63,16 +63,16 @@
             {{#if (or @root.advancementEditable (not @root.isEmbedded))}}
               <div class="flexrow">
                 {{#if (eq this.classRestriction "primary")}}
-                  {{localize "DND5E.AdvancementClassRestrictionPrimary"}}
+                  {{localize "ME5E.AdvancementClassRestrictionPrimary"}}
                 {{else if (eq this.classRestriction "secondary")}}
-                  {{localize "DND5E.AdvancementClassRestrictionSecondary"}}
+                  {{localize "ME5E.AdvancementClassRestrictionSecondary"}}
                 {{/if}}
               </div>
             {{/if}}
             {{#if @root.advancementEditable}}
               <div class="item-controls flexrow">
-                  <a class="item-control item-edit" title="{{localize 'DND5E.ItemEdit'}}"><i class="fas fa-edit"></i></a>
-                  <a class="item-control item-delete" title="{{localize 'DND5E.ItemDelete'}}"><i class="fas fa-trash"></i></a>
+                  <a class="item-control item-edit" title="{{localize 'ME5E.ItemEdit'}}"><i class="fas fa-edit"></i></a>
+                  <a class="item-control item-delete" title="{{localize 'ME5E.ItemDelete'}}"><i class="fas fa-trash"></i></a>
               </div>
             {{/if}}
             {{#if this.summary}}

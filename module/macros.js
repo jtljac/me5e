@@ -13,16 +13,16 @@ export async function create5eMacro(data, slot) {
       foundry.utils.mergeObject(macroData, {
         name: data.data.name,
         img: data.data.img,
-        command: `game.dnd5e.macros.rollItem("${data.data.name}")`,
-        flags: {"dnd5e.itemMacro": true}
+        command: `game.me5e.macros.rollItem("${data.data.name}")`,
+        flags: {"me5e.itemMacro": true}
       });
       break;
     case "ActiveEffect":
       foundry.utils.mergeObject(macroData, {
         name: data.data.label,
         img: data.data.icon,
-        command: `game.dnd5e.macros.toggleEffect("${data.data.label}")`,
-        flags: {"dnd5e.effectMacro": true}
+        command: `game.me5e.macros.toggleEffect("${data.data.label}")`,
+        flags: {"me5e.effectMacro": true}
       });
       break;
     default:

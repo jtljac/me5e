@@ -59,7 +59,7 @@ export class Advancement {
       },
       order: 100,
       icon: "icons/svg/upgrade.svg",
-      title: game.i18n.localize("DND5E.AdvancementTitle"),
+      title: game.i18n.localize("ME5E.AdvancementTitle"),
       hint: "",
       multiLevel: false,
       validItemTypes: new Set(["background", "class", "subclass"]),

@@ -7,8 +7,8 @@ export default class ActorMovementConfig extends DocumentSheet {
   /** @override */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["dnd5e"],
-      template: "systems/dnd5e/templates/apps/movement-config.html",
+      classes: ["me5e"],
+      template: "systems/me5e/templates/apps/movement-config.html",
       width: 300,
       height: "auto"
     });
@@ -18,7 +18,7 @@ export default class ActorMovementConfig extends DocumentSheet {
 
   /** @override */
   get title() {
-    return `${game.i18n.localize("DND5E.MovementConfig")}: ${this.document.name}`;
+    return `${game.i18n.localize("ME5E.MovementConfig")}: ${this.document.name}`;
   }
 
   /* -------------------------------------------- */
@@ -28,7 +28,7 @@ export default class ActorMovementConfig extends DocumentSheet {
     const sourceMovement = foundry.utils.getProperty(this.document.data._source, "data.attributes.movement") || {};
     const data = {
       movement: foundry.utils.deepClone(sourceMovement),
-      units: CONFIG.DND5E.movementUnits
+      units: CONFIG.ME5E.movementUnits
     };
     for ( let [k, v] of Object.entries(data.movement) ) {
       if ( ["units", "hover"].includes(k) ) continue;
