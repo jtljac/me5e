@@ -12,31 +12,6 @@ import Item5e from "../item/entity.js";
  * @extends {Actor}
  */
 export default class Actor5e extends Actor {
-
-  /**
-   * The data source for Actor5e.classes allowing it to be lazily computed.
-   * @type {object<string, Item5e>}
-   * @private
-   */
-  _classes;
-
-  /* -------------------------------------------- */
-  /*  Properties                                  */
-  /* -------------------------------------------- */
-
-  /**
-   * A mapping of classes belonging to this Actor.
-   * @type {object<string, Item5e>}
-   */
-  get classes() {
-    if ( this._classes !== undefined ) return this._classes;
-    if ( !["character", "npc"].includes(this.data.type) ) return this._classes = {};
-    return this._classes = this.items.filter(item => item.type === "class").reduce((obj, cls) => {
-      obj[cls.identifier] = cls;
-      return obj;
-    }, {});
-  }
-
   /* -------------------------------------------- */
 
   /**
@@ -65,6 +40,7 @@ export default class Actor5e extends Actor {
   /** @override */
   prepareBaseData() {
     this._prepareAbilities(this.data);
+    this._prepareActorItems();
 
     this._prepareBaseArmorClass(this.data);
     switch ( this.data.type ) {
@@ -152,9 +128,6 @@ export default class Actor5e extends Actor {
     // Prepare skills
     this._prepareSkills(actorData, bonusData, bonuses, checkBonus, originalSkills);
 
-    // Reset class store to ensure it is updated with any changes
-    this._classes = undefined;
-
     // Determine Initiative Modifier
     this._computeInitiativeModifier(actorData, checkBonus, bonusData);
 
@@ -212,6 +185,9 @@ export default class Actor5e extends Actor {
       data.classes[identifier] = cls.data.data;
       if ( cls.subclass ) data.classes[identifier].subclass = cls.subclass.data.data;
     }
+
+    data.species = this.species.data.data;
+    data.background = this.background.data.data;
     return data;
   }
 
@@ -321,9 +297,8 @@ export default class Actor5e extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Update the actor's abilities list to match the abilities configured in `ME5E.abilities`.
+   * Prepare the ability attribute of skills
    * @param {ActorData} actorData  Data being prepared.
-   * @param {object} updates       Updates to be applied to the actor. *Will be mutated*.
    * @private
    */
   _prepareAbilities(actorData) {
@@ -341,6 +316,34 @@ export default class Actor5e extends Actor {
   }
 
   /**
+   * Prepare the items
+   * @private
+   */
+  _prepareActorItems() {
+    this.classes = {};
+    this.species = null;
+    this.background = null;
+
+    for (const item in this.items) {
+      // Modifiers
+
+      // Effects
+
+      switch (item.type) {
+        case "class":
+          this.classes[item.identifier] = item;
+          break;
+        case "species":
+          this.species = item;
+          break;
+        case "background":
+          this.background = item;
+          break;
+      }
+    }
+  }
+
+  /**
    * Perform any Character specific preparation.
    * @param {object} actorData  Copy of the data for the actor being prepared. *Will be mutated.*
    */
@@ -348,12 +351,10 @@ export default class Actor5e extends Actor {
     const data = actorData.data;
 
     // Determine character level and available hit dice based on owned Class items
-    const [level, hd] = this.items.reduce((arr, item) => {
-      if ( item.type === "class" ) {
-        const classLevels = parseInt(item.data.data.levels) || 1;
-        arr[0] += classLevels;
-        arr[1] += classLevels - (parseInt(item.data.data.hitDiceUsed) || 0);
-      }
+    const [level, hd] = this.classes.reduce((arr, item) => {
+      const classLevels = parseInt(item.data.data.levels) || 1;
+      arr[0] += classLevels;
+      arr[1] += classLevels - (parseInt(item.data.data.hitDiceUsed) || 0);
       return arr;
     }, [0, 0]);
     data.details.level = level;
