@@ -6,12 +6,18 @@ support for the Mass Effect conversion of DnD5e.
 This system provides character sheet support for Actors and Items, mechanical support for dice and rules necessary to
 play games of ME5e, and compendium content for Monsters, Items, Powers, Class Features, and more!
 
-[//]: # (Data present under the `packs/` directory is taken from the [Official ME5e website]&#40;n7.world&#41; and used under the terms of the OGL v1.0a, see OGL.txt.)
+## Disclaimer
+###Content:
+This system is not sanctioned by or affiliated with Mass Effect 5e, Electronic Arts Inc, BioWare, Wizards of the Coast, or any other rights-holding company or entity.
 
-[//]: # ()
-[//]: # (Images present under the `icons/` directory are distributed under various terms, please see the `icons/LICENSE` file for full details.)
+Except where otherwise noted, images in this system are from the Mass Effect Wikia and are licensed under a Creative Commons Attribution 4.0 International license.
 
-The software component of this system is distributed under the MIT license.
+The Mass Effect 5e content is licensed under GNU General Public License v3.0. The Open Game Content contained within this system is licensed under the Open Game License version 1.0a (See `OGL.txt`).
+
+### System
+This system is adapted from the [Foundry VTT 5th Edition](https://gitlab.com/foundrynet/dnd5e), the license of which can be found in `/DND-Foundry-LICENSE.txt`
+
+The software component of this system is distributed under the GNUv3 license.
 
 ## Installation Instructions
 
