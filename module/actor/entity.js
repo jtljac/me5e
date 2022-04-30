@@ -39,8 +39,7 @@ export default class Actor5e extends Actor {
 
   /** @override */
   prepareBaseData() {
-    this._prepareAbilities(this.data);
-    this._prepareActorItems();
+    this._sortActorItems();
 
     this._prepareBaseArmorClass(this.data);
     switch ( this.data.type ) {
@@ -186,8 +185,8 @@ export default class Actor5e extends Actor {
       if ( cls.subclass ) data.classes[identifier].subclass = cls.subclass.data.data;
     }
 
-    data.species = this.species.data.data;
-    data.background = this.background.data.data;
+    data.species = this.species?.data.data;
+    data.background = this.background?.data.data;
     return data;
   }
 
@@ -319,16 +318,12 @@ export default class Actor5e extends Actor {
    * Prepare the items
    * @private
    */
-  _prepareActorItems() {
+  _sortActorItems() {
     this.classes = {};
     this.species = null;
     this.background = null;
 
     for (const item in this.items) {
-      // Modifiers
-
-      // Effects
-
       switch (item.type) {
         case "class":
           this.classes[item.identifier] = item;
@@ -351,7 +346,7 @@ export default class Actor5e extends Actor {
     const data = actorData.data;
 
     // Determine character level and available hit dice based on owned Class items
-    const [level, hd] = this.classes.reduce((arr, item) => {
+    const [level, hd] = Object.values(this.classes).reduce((arr, item) => {
       const classLevels = parseInt(item.data.data.levels) || 1;
       arr[0] += classLevels;
       arr[1] += classLevels - (parseInt(item.data.data.hitDiceUsed) || 0);
@@ -430,6 +425,8 @@ export default class Actor5e extends Actor {
     const observant = flags.observantFeat;
     const skillBonus = this._simplifyBonus(bonuses.skill, bonusData);
     for (let [id, skl] of Object.entries(data.skills)) {
+      skl.ability = skl.userAbility || skl.defaultAbility;
+
       skl.value = Math.clamped(Number(skl.value).toNearest(0.5), 0, 2) ?? 0;
       const baseBonus = this._simplifyBonus(skl.bonuses?.check, bonusData);
       let roundDown = true;
@@ -518,17 +515,20 @@ export default class Actor5e extends Actor {
     const flags = actorData.flags.me5e || {};
     const init = data.attributes.init;
 
+    // Set Ability
+    init.ability = init.userAbility || init.defaultAbility;
+
     // Initiative modifiers
     const joat = flags.jackOfAllTrades;
     const athlete = flags.remarkableAthlete;
-    const dexCheckBonus = this._simplifyBonus(data.abilities.dex?.bonuses?.check, bonusData);
+    const checkBonus = this._simplifyBonus(data.abilities[init.ability]?.bonuses?.check, bonusData);
 
     // Compute initiative modifier
     init.mod = data.abilities[init.ability]?.mod ?? 0;
     init.prof = new Proficiency(data.attributes.prof, (joat || athlete) ? 0.5 : 0, !athlete);
     init.value = init.value ?? 0;
     init.bonus = init.value + (flags.initiativeAlert ? 5 : 0);
-    init.total = init.mod + init.bonus + dexCheckBonus + globalCheckBonus;
+    init.total = init.mod + init.bonus + checkBonus + globalCheckBonus;
     if ( Number.isNumeric(init.prof.term) ) init.total += init.prof.flat;
   }
 
