@@ -1,11 +1,14 @@
 /**
  * A Dialog to prompt the user to select from a list of items.
  * @type {Dialog}
+ * @deprecated since me5e 1.6, targeted for removal in 1.8
  */
+// TODO: ME5E Never supported this, remove it
 export default class SelectItemsPrompt extends Dialog {
   constructor(items, dialogData={}, options={}) {
     super(dialogData, options);
     this.options.classes = ["me5e", "dialog", "select-items-prompt", "sheet"];
+    console.warn("SelectItemsPrompt has been deprecated and will be removed in 1.8.");
 
     /**
      * Store a reference to the Item documents being used
