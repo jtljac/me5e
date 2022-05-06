@@ -11,6 +11,7 @@
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.15.4",
+    "@league-of-foundry-developers/foundry-vtt-types": "^9.268.0",
     "eslint-plugin-jsdoc": "^32.3.0",
     "fs": "^0.0.1-security",
     "gulp": "^4.0.2",
