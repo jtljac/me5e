@@ -15,8 +15,12 @@ import { _getInitiativeFormula } from "./module/combat.js";
 import { measureDistances } from "./module/canvas.js";
 
 // Import Documents
+// Actors
 import Actor5e from "./module/actor/entity.js";
-import Item5e from "./module/item/entity.js";
+
+// Items
+import Item5e from "./module/item/base.js";
+
 import { TokenDocument5e, Token5e } from "./module/token.js";
 
 // Import Applications
@@ -104,6 +108,7 @@ Hooks.once("init", function() {
   CONFIG.ActiveEffect.documentClass = ActiveEffect5e;
   CONFIG.Actor.documentClass = Actor5e;
   CONFIG.Item.documentClass = Item5e;
+
   CONFIG.Token.documentClass = TokenDocument5e;
   CONFIG.Token.objectClass = Token5e;
   CONFIG.time.roundTime = 6;

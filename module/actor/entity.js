@@ -4,7 +4,7 @@ import SelectItemsPrompt from "../apps/select-items-prompt.js";
 import ShortRestDialog from "../apps/short-rest.js";
 import LongRestDialog from "../apps/long-rest.js";
 import ProficiencySelector from "../apps/proficiency-selector.js";
-import Item5e from "../item/entity.js";
+import Item5e from "../item/base.js";
 
 
 /**

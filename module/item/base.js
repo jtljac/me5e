@@ -9,17 +9,24 @@ import Proficiency from "../actor/proficiency.js";
  */
 export default class Item5e extends Item {
 
+  constructor(data, context = {}) {
+    if (!context?.me5e?.isInit) {
+      foundry.utils.mergeObject(context, {
+        me5e: {
+          isInit: true
+        }
+      });
+
+      const ItemConstructor = CONFIG.ME5E.Item.documentClasses[data.type];
+
+      return ItemConstructor ? new ItemConstructor(data, context) : new Item5e(data, context);
+    }
+
+    super(data, context);
+  }
+
   /** @inheritdoc */
   static LOG_V10_COMPATIBILITY_WARNINGS = false;
-
-  /* -------------------------------------------- */
-
-  /**
-   * Caches an item linked to this one, such as a subclass associated with a class.
-   * @type {Item5e}
-   * @private
-   */
-  _classLink;
 
   /* -------------------------------------------- */
   /*  Item Properties                             */
@@ -60,10 +67,12 @@ export default class Item5e extends Item {
         }
 
         // Ranged weapons - Dex (PH p.194)
+        // TODO: Account for new weapon types
         else if ( ["simpleR", "martialR"].includes(wt) ) return "dex";
       }
 
       // Dex for ranged weapon attacks, otherwise default to strength
+      // TODO: Account for finesse
       return itemData.actionType === "rwak" ? "dex" : "str";
     }
 
@@ -129,44 +138,6 @@ export default class Item5e extends Item {
    */
   get isHealing() {
     return (this.data.data.actionType === "heal") && this.data.data.damage.parts.length;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Is this class item the original class for the containing actor? If the item is not a class or it is not
-   * embedded in an actor then this will return `null`.
-   * @type {boolean|null}
-   */
-  get isOriginalClass() {
-    if ( this.type !== "class" || !this.isEmbedded ) return null;
-    return this.id === this.parent.data.data.details.originalClass;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Class associated with this subclass. Always returns null on non-subclass or non-embedded items.
-   * @type {Item5e|null}
-   */
-  get class() {
-    if ( !this.isEmbedded || (this.type !== "subclass") ) return null;
-    this._classLink ??= this.parent.items.find(i => (i.type === "class")
-      && (i.data.data.identifier === this.data.data.classIdentifier));
-    return this._classLink;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Subclass associated with this class. Always returns null on non-class or non-embedded items.
-   * @type {Item5e|null}
-   */
-  get subclass() {
-    if ( !this.isEmbedded || (this.type !== "class") ) return null;
-    this._classLink ??= this.parent.items.find(i => (i.type === "subclass")
-      && (i.data.data.classIdentifier === this.data.data.identifier));
-    return this._classLink;
   }
 
   /* -------------------------------------------- */
@@ -240,6 +211,7 @@ export default class Item5e extends Item {
    * Retrieve scale values for current level from advancement data.
    * @type {object}
    */
+  // TODO: This can be changed
   get scaleValues() {
     if ( !["class", "subclass"].includes(this.type) || !this.advancement.byType.ScaleValue ) return {};
     const level = this.type === "class" ? this.data.data.levels : this.class?.data.data.levels ?? 0;
@@ -267,6 +239,13 @@ export default class Item5e extends Item {
   /*  Data Preparation                            */
   /* -------------------------------------------- */
 
+  prepareData() {
+    super.prepareData();
+
+    // If this item is owned, we prepareFinalAttributes() at the end of actor init
+    if (!this.isOwned) this.prepareFinalAttributes();
+  }
+
   /**
    * Augment the basic Item data model with additional dynamic data.
    */
@@ -278,9 +257,6 @@ export default class Item5e extends Item {
     const data = itemData.data;
     const C = CONFIG.ME5E;
     const labels = this.labels = {};
-
-    // Clear out linked item cache
-    this._classLink = undefined;
 
     // Advancement
     this._prepareAdvancement();
@@ -367,9 +343,6 @@ export default class Item5e extends Item {
         labels.damageTypes = dam.parts.map(d => C.damageTypes[d[1]]).join(", ");
       }
     }
-
-    // If this item is owned, we prepareFinalAttributes() at the end of actor init
-    if (!this.isOwned) this.prepareFinalAttributes();
   }
 
   /* -------------------------------------------- */
@@ -414,8 +387,6 @@ export default class Item5e extends Item {
     // Proficiency
     const isProficient = (this.type === "spell") || this.data.data.proficient; // Always proficient in spell attacks.
     this.data.data.prof = new Proficiency(this.actor?.data.data.attributes.prof, isProficient);
-
-    if ( this.type === "class" ) this.data.data.isOriginalClass = this.isOriginalClass;
 
     if ( this.data.data.hasOwnProperty("actionType") ) {
       // Ability checks
@@ -1716,11 +1687,6 @@ export default class Item5e extends Item {
   async _preCreate(data, options, user) {
     await super._preCreate(data, options, user);
 
-    // Create class identifier based on name
-    if ( ["class", "subclass"].includes(this.type) && !this.data.data.identifier ) {
-      await this.data.update({ "data.identifier": data.name.slugify({strict: true}) });
-    }
-
     if ( !this.isEmbedded || (this.parent.type === "vehicle") ) return;
     const actorData = this.parent.data;
     const isNPC = this.parent.type === "npc";
@@ -1745,57 +1711,11 @@ export default class Item5e extends Item {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  async _onCreate(data, options, userId) {
-    super._onCreate(data, options, userId);
-    if ( (userId !== game.user.id) || !this.parent ) return;
-
-    // Assign a new original class
-    if ( (this.parent.type === "character") && (this.type === "class") ) {
-      const pc = this.parent.items.get(this.parent.data.data.details.originalClass);
-      if ( !pc ) await this.parent._assignPrimaryClass();
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  async _preUpdate(changed, options, user) {
-    await super._preUpdate(changed, options, user);
-    if ( (this.type !== "class") || !changed.data || !("levels" in changed.data) ) return;
-
-    // Check to make sure the updated class level isn't below zero
-    if ( changed.data.levels <= 0 ) {
-      ui.notifications.warn(game.i18n.localize("ME5E.MaxClassLevelMinimumWarn"));
-      changed.data.levels = 1;
-    }
-
-    // Check to make sure the updated class level doesn't exceed level cap
-    if ( changed.data.levels > CONFIG.ME5E.maxLevel ) {
-      ui.notifications.warn(game.i18n.format("ME5E.MaxClassLevelExceededWarn", {max: CONFIG.ME5E.maxLevel}));
-      changed.data.levels = CONFIG.ME5E.maxLevel;
-    }
-    if ( !this.isEmbedded || (this.parent.type !== "character") ) return;
-
-    // Check to ensure the updated character doesn't exceed level cap
-    const newCharacterLevel = this.actor.data.data.details.level + (changed.data.levels - this.data.data.levels);
-    if ( newCharacterLevel > CONFIG.ME5E.maxLevel ) {
-      ui.notifications.warn(game.i18n.format("ME5E.MaxCharacterLevelExceededWarn",
-        {max: CONFIG.ME5E.maxLevel}));
-      changed.data.levels -= newCharacterLevel - CONFIG.ME5E.maxLevel;
-    }
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
   _onDelete(options, userId) {
     super._onDelete(options, userId);
     if ( (userId !== game.user.id) || !this.parent ) return;
 
-    // Assign a new original class
-    if ( (this.type === "class") && (this.id === this.parent.data.data.details.originalClass) ) {
-      this.parent._assignPrimaryClass();
-    }
+    // TODO: check for owned items and delete, or do that in the character
   }
 
   /* -------------------------------------------- */
@@ -1915,6 +1835,7 @@ export default class Item5e extends Item {
    * @param {Item5e} spell      The spell to be made into a scroll
    * @returns {Item5e}          The created scroll consumable item
    */
+  // TODO: Redesign to create a feat from a spell
   static async createScrollFromSpell(spell) {
 
     // Get spell data

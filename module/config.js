@@ -1,6 +1,9 @@
 import { ClassFeatures } from "./classFeatures.js";
 import { preLocalize } from "./utils.js";
 
+// Items
+import Class5e from "./item/class/entity.js";
+import Subclass5e from "./item/subclass/entity.js";
 // Namespace Configuration Values
 export const ME5E = {};
 
@@ -14,6 +17,17 @@ ______      ______ _____ _____
 |___/ \\___/\\/___/ \\____/\\____/
 _______________________________`;
 
+
+ME5E.Item = {
+  /**
+   * A mapping of Item Types to Item Classes
+   * @type {Object<String, Item5e>}
+   */
+  documentClasses: {
+    class: Class5e,
+    subclass: Subclass5e
+  }
+};
 
 /**
  * The set of Ability Scores used within the system.
