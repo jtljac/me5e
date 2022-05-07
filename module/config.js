@@ -39,9 +39,7 @@ ME5E.abilities = {
   con: "ME5E.AbilityCon",
   int: "ME5E.AbilityInt",
   wis: "ME5E.AbilityWis",
-  cha: "ME5E.AbilityCha",
-  hon: "ME5E.AbilityHon",
-  san: "ME5E.AbilitySan"
+  cha: "ME5E.AbilityCha"
 };
 preLocalize("abilities");
 
@@ -115,7 +113,7 @@ ME5E.weaponProficiencies = {
   smg: "ME5E.WeaponSMGProficiency",
   sg: "ME5E.WeaponSGProficiency",
   sr: "ME5E.WeaponSRProficiency",
-  melee: "ME5E.WeaponMeleeProficiency",
+  melee: "ME5E.WeaponMeleeProficiency"
 };
 preLocalize("weaponProficiencies");
 
@@ -335,7 +333,7 @@ ME5E.armorPlacement = {
   legs: "ME5E.EquipmentArmourLegs",
   head: "ME5E.EquipmentArmourHead",
   body: "ME5E.EquipmentArmourBody"
-}
+};
 preLocalize("armorPlacement");
 
 /* -------------------------------------------- */
@@ -409,7 +407,7 @@ ME5E.armorProficienciesMap = {
  * Common armor class calculations.
  * @enum {{ label: string, [formula]: string }}
  */
-//TODO: Change
+// TODO: Change
 ME5E.armorClasses = {
   flat: {
     label: "ME5E.ArmorClassFlat",
@@ -653,7 +651,7 @@ ME5E.senses = {
   blindsight: "ME5E.SenseBlindsight",
   darkvision: "ME5E.SenseDarkvision",
   truesight: "ME5E.SenseTruesight",
-  infrared: "ME5E.SenseInfrared",
+  infrared: "ME5E.SenseInfrared"
 };
 preLocalize("senses", { sort: true });
 
@@ -690,7 +688,7 @@ preLocalize("skills", { sort: true });
 /**
  * Various different ways a spell can be prepared.
  */
-//TODO: This definitely needs changing
+// TODO: This definitely needs changing
 ME5E.spellPreparationModes = {
   prepared: "ME5E.SpellPrepPrepared",
   pact: "ME5E.PactMagic",
@@ -815,7 +813,7 @@ preLocalize("spellTags", {keys: ["label", "abbr"]});
 ME5E.spellSchools = {
   bio: "ME5E.SchoolBio",
   tec: "ME5E.SchoolTec",
-  com: "ME5E.SchoolCom",
+  com: "ME5E.SchoolCom"
 };
 preLocalize("spellSchools", { sort: true });
 
@@ -1025,7 +1023,8 @@ ME5E.CR_EXP_LEVELS = [
  * @type {object}
  * @deprecated since 1.6.0, targeted for removal in 1.8
  */
-DND5E.classFeatures = ClassFeatures;
+// TODO: Remove
+ME5E.classFeatures = ClassFeatures;
 
 /**
  * Special character flags.
