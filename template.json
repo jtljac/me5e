@@ -541,12 +541,13 @@
       "backpack"
     ],
     "templates": {
-      "itemDescription": {
+      "common": {
         "description": {
           "value": "",
           "chat": "",
           "unidentified": ""
         },
+        "rules": [],
         "source": ""
       },
       "physicalItem": {
@@ -630,11 +631,11 @@
     },
     "htmlFields": ["description.value", "description.chat", "description.unidentified"],
     "background": {
-      "templates": ["itemDescription"],
+      "templates": ["common"],
       "advancement": []
     },
     "backpack": {
-      "templates": ["itemDescription", "physicalItem"],
+      "templates": ["common", "physicalItem"],
       "capacity": {
         "type": "weight",
         "value": 0,
@@ -645,7 +646,7 @@
       }
     },
     "class": {
-      "templates": ["itemDescription"],
+      "templates": ["common"],
       "identifier": "",
       "levels": 1,
       "hitDice": "d6",
@@ -663,14 +664,14 @@
       }
     },
     "consumable": {
-      "templates": ["itemDescription", "physicalItem", "activatedEffect", "action"],
+      "templates": ["common", "physicalItem", "activatedEffect", "action"],
       "consumableType": "potion",
       "uses": {
         "autoDestroy": false
       }
     },
     "equipment": {
-      "templates": ["itemDescription", "physicalItem", "activatedEffect", "action", "mountable", "recharge"],
+      "templates": ["common", "physicalItem", "activatedEffect", "action", "mountable", "recharge"],
       "armor": {
         "type": "light",
         "placement": "chest",
@@ -687,14 +688,14 @@
       "proficient": true
     },
     "feat": {
-      "templates": ["itemDescription", "activatedEffect", "action", "recharge"],
+      "templates": ["common", "activatedEffect", "action", "recharge"],
       "requirements": ""
     },
     "loot": {
-      "templates": ["itemDescription", "physicalItem"]
+      "templates": ["common", "physicalItem"]
     },
     "tool": {
-      "templates": ["itemDescription", "physicalItem"],
+      "templates": ["common", "physicalItem"],
       "toolType": "",
       "baseItem": "",
       "ability": "int",
@@ -703,7 +704,7 @@
       "bonus": ""
     },
     "species": {
-      "templates": ["itemDescription", "featSelector"],
+      "templates": ["common"],
       "asi": {
         "str": 1
       },
@@ -717,7 +718,7 @@
       }
     },
     "spell": {
-      "templates": ["itemDescription", "activatedEffect", "action"],
+      "templates": ["common", "activatedEffect", "action"],
       "level": 1,
       "origin": "",
       "school": "",
@@ -737,7 +738,7 @@
       }
     },
     "subclass": {
-      "templates": ["itemDescription"],
+      "templates": ["common"],
       "identifier": "",
       "classIdentifier": "",
       "advancement": [],
@@ -747,7 +748,7 @@
       }
     },
     "weapon": {
-      "templates": ["itemDescription", "physicalItem" ,"activatedEffect", "action", "mountable", "recharge"],
+      "templates": ["common", "physicalItem" ,"activatedEffect", "action", "mountable", "recharge"],
       "weaponType": "ar",
       "baseItem": "",
       "properties": {},

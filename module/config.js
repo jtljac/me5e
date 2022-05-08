@@ -4,6 +4,10 @@ import { preLocalize } from "./utils.js";
 // Items
 import Class5e from "./item/class/entity.js";
 import Subclass5e from "./item/subclass/entity.js";
+
+// Rules
+import AELikeRule from "./rules/ae-like.js";
+
 // Namespace Configuration Values
 export const ME5E = {};
 
@@ -28,6 +32,24 @@ ME5E.Item = {
     subclass: Subclass5e
   }
 };
+
+ME5E.Rule = {
+  /**
+   * A mapping of Rule Types to Rule Classes
+   * @type {Object<String, Rule5e>}
+   */
+  classes: {
+    ActiveEffectLike: AELikeRule
+  },
+
+  /**
+   * A mapping of Predicate Types to Predicate Classes
+   * @type {Object<String, Predicate5e>}
+   */
+  predicates: {
+
+  }
+}
 
 /**
  * The set of Ability Scores used within the system.
