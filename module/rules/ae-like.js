@@ -103,6 +103,8 @@ export default class AELikeRule extends Rule5e {
     if (!this.test(actor, data)) return;
 
     if (this.data.mode === "custom") {
+      const preHook = foundry.utils.getProperty(actor.data, this.data.key);
+
       /**
        * A hook event that fires when a custom active effect is applied
        * @function me5e.applyAELike
@@ -111,6 +113,11 @@ export default class AELikeRule extends Rule5e {
        * @param effectData {Object} The effect data
        */
       Hooks.call("me5e.applyAELike", actor, data, this.data)
+      const postHook = foundry.utils.getProperty(actor.data, this.data.key);
+
+      if (postHook !== preHook) {
+        foundry.utils.setProperty(actor.overrides, this.data.key, postHook);
+      }
       return;
     }
 
