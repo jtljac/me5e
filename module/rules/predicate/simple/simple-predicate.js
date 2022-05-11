@@ -16,7 +16,7 @@ export class SimplePredicate extends Predicate5e {
    */
   constructor(data) {
     super(data);
-    this.eval = Boolean(data.eval && true);
+    this.eval = Boolean(data.eval ?? true);
   }
 
   resolveValue(operator, data) {
