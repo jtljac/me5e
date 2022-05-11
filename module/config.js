@@ -8,6 +8,15 @@ import Subclass5e from "./item/subclass/entity.js";
 // Rules
 import AELikeRule from "./rules/ae-like.js";
 
+// Predicates
+import InvalidPredicate from "./rules/predicate/invalid-predicate.js";
+// Compound
+import AndPredicate from "./rules/predicate/compound/and-predicate.js";
+import OrPredicate from "./rules/predicate/compound/or-predicate.js";
+import XorPredicate from "./rules/predicate/compound/xor-predicate.js";
+// Simple
+import ComparisonPredicate from "./rules/predicate/simple/comparison-predicate.js";
+
 // Namespace Configuration Values
 export const ME5E = {};
 
@@ -39,7 +48,7 @@ ME5E.Rule = {
    * @type {Object<String, Rule5e>}
    */
   classes: {
-    ActiveEffectLike: AELikeRule
+    activeEffectLike: AELikeRule
   },
 
   /**
@@ -47,7 +56,11 @@ ME5E.Rule = {
    * @type {Object<String, Predicate5e>}
    */
   predicates: {
-
+    invalid: InvalidPredicate,
+    and: AndPredicate,
+    or: OrPredicate,
+    xor: XorPredicate,
+    comp: ComparisonPredicate,
   }
 }
 

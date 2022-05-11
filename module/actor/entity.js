@@ -5,6 +5,7 @@ import ShortRestDialog from "../apps/short-rest.js";
 import LongRestDialog from "../apps/long-rest.js";
 import ProficiencySelector from "../apps/proficiency-selector.js";
 import Item5e from "../item/base.js";
+import Rule5e from "../rules/rule.js";
 
 
 /**
@@ -33,7 +34,12 @@ export default class Actor5e extends Actor {
   /** @override */
   prepareData() {
     this._preparationWarnings = [];
+    this.overrides = {}
     super.prepareData();
+
+    for (const rule of this.rules) {
+      rule.afterDerived(this, this.data);
+    }
 
     // Iterate over owned items and recompute attributes that depend on prepared actor data
     this.items.forEach(item => item.prepareFinalAttributes());
@@ -59,11 +65,15 @@ export default class Actor5e extends Actor {
   /* --------------------------------------------- */
 
   /** @override */
-  applyActiveEffects() {
-    // The Active Effects do not have access to their parent at preparation time so we wait until this stage to
-    // determine whether they are suppressed or not.
-    this.effects.forEach(e => e.determineSuppression());
-    return super.applyActiveEffects();
+  prepareEmbeddedDocuments() {
+    // This super call first calls prepare data on all the embedded items, then calls apply active effects
+    super.prepareEmbeddedDocuments();
+
+    this._prepareRules();
+
+    for (const rule of this.rules) {
+      rule.onActiveEffects(this, this.data);
+    }
   }
 
   /* -------------------------------------------- */
@@ -505,6 +515,20 @@ export default class Actor5e extends Actor {
     ac.shield = ac.bonus = ac.cover = 0;
     this.armor = null;
     this.shield = null;
+  }
+
+
+  /* -------------------------------------------- */
+
+  /**
+   * Collects the rules from all the items in the actor
+   * @private
+   */
+  _prepareRules() {
+    this.rules = this.items.contents
+      .flatMap((item) => Rule5e.fromItem(item))
+      .filter((rule) => !rule.isIgnored)
+      .sort((ruleA, ruleB) => ruleA.data.priority - ruleB.data.priority)
   }
 
   /* -------------------------------------------- */

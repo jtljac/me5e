@@ -96,7 +96,7 @@ export default class ItemSheet5e extends ItemSheet {
     data.advancement = this._getItemAdvancement(this.item);
 
     // Prepare Active Effects
-    data.effects = ActiveEffect5e.prepareActiveEffectCategories(this.item.effects);
+    // data.effects = ActiveEffect5e.prepareActiveEffectCategories(this.item.effects);
 
     // Re-define the template data references (backwards compatible)
     data.item = itemData;

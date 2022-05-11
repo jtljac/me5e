@@ -22,6 +22,7 @@ import Actor5e from "./module/actor/entity.js";
 import Item5e from "./module/item/base.js";
 
 import { TokenDocument5e, Token5e } from "./module/token.js";
+import ActiveEffect5e from "./module/active-effect.js";
 
 // Import Applications
 import AbilityTemplate from "./module/pixi/ability-template.js";
@@ -52,7 +53,6 @@ import * as dice from "./module/dice.js";
 import * as macros from "./module/macros.js";
 import * as migrations from "./module/migration.js";
 import * as utils from "./module/utils.js";
-import ActiveEffect5e from "./module/active-effect.js";
 
 /* -------------------------------------------- */
 /*  Foundry VTT Initialization                  */

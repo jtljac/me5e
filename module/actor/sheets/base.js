@@ -158,7 +158,7 @@ export default class ActorSheet5e extends ActorSheet {
     this._prepareItems(data);
 
     // Prepare active effects
-    data.effects = ActiveEffect5e.prepareActiveEffectCategories(this.actor.effects);
+    // data.effects = ActiveEffect5e.prepareActiveEffectCategories(this.actor.effects);
 
     // Prepare warnings
     data.warnings = this.actor._preparationWarnings;

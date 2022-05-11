@@ -1,14 +1,12 @@
-import InvalidPredicate from "./invalid-predicate.js";
-
 /**
- * A class containing logic that must be met in order for a
+ * A class containing logic that must be met in order for a rule to be applied
+ * @abstract
  */
 export default class Predicate5e {
   /**
    * @param data {Object} The data to construct the predicate with
    */
-  constructor(data) {
-  }
+  constructor(data) {}
 
   /**
    * Test the conditions set by the predicate are true based off of the data passed
@@ -27,7 +25,7 @@ export default class Predicate5e {
    * @return {Predicate5e}
    */
   static fromRawData(rawPredicate) {
-    const PredicateConstructor = CONFIG.ME5E.rules.predicates[rawPredicate.type];
+    const PredicateConstructor = CONFIG.ME5E.Rule.predicates[rawPredicate.type];
 
     if (!PredicateConstructor) {
       console.warn(`Failed to find predicate constructor for type ${rawPredicate.type}`);
