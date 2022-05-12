@@ -11,11 +11,18 @@ import AELikeRule from "./rules/ae-like.js";
 // Predicates
 import InvalidPredicate from "./rules/predicate/invalid-predicate.js";
 // Compound
-import AndPredicate from "./rules/predicate/compound/and-predicate.js";
-import OrPredicate from "./rules/predicate/compound/or-predicate.js";
+import AllPredicate from "./rules/predicate/compound/all-predicate.js";
+import AnyPredicate from "./rules/predicate/compound/any-predicate.js";
 import XorPredicate from "./rules/predicate/compound/xor-predicate.js";
+import InversePredicate from "./rules/predicate/compound/inverse-predicate.js";
 // Simple
-import ComparisonPredicate from "./rules/predicate/simple/comparison-predicate.js";
+import HasItemPredicate from "./rules/predicate/simple/has-item-predicate.js";
+import EqPredicate from "./rules/predicate/simple/eq-predicate.js";
+import EquPredicate from "./rules/predicate/simple/equ-predicate.js";
+import GtPredicate from "./rules/predicate/simple/gt-predicate.js";
+import GtePredicate from "./rules/predicate/simple/gte-predicate.js";
+import LtPredicate from "./rules/predicate/simple/lt-predicate.js";
+import LtePredicate from "./rules/predicate/simple/lte-predicate.js";
 
 // Namespace Configuration Values
 export const ME5E = {};
@@ -30,6 +37,15 @@ ______      ______ _____ _____
 |___/ \\___/\\/___/ \\____/\\____/
 _______________________________`;
 
+
+ME5E.Actor = {
+  /**
+   * A mapping of Actor Types to Actor Classes
+   * @type {Object<String, Actor5e>}
+   */
+  documentClasses: {
+  }
+}
 
 ME5E.Item = {
   /**
@@ -47,7 +63,7 @@ ME5E.Rule = {
    * A mapping of Rule Types to Rule Classes
    * @type {Object<String, Rule5e>}
    */
-  classes: {
+  types: {
     activeEffectLike: AELikeRule
   },
 
@@ -57,10 +73,21 @@ ME5E.Rule = {
    */
   predicates: {
     invalid: InvalidPredicate,
-    and: AndPredicate,
-    or: OrPredicate,
+
+    // Compound
+    all: AllPredicate,
+    any: AnyPredicate,
     xor: XorPredicate,
-    comp: ComparisonPredicate,
+    inverse: InversePredicate,
+
+    // Simple
+    eq: EqPredicate,
+    equ: EquPredicate,
+    gt: GtPredicate,
+    gte: GtePredicate,
+    lt: LtPredicate,
+    lte: LtePredicate,
+    "has-item": HasItemPredicate
   }
 }
 
@@ -958,20 +985,6 @@ preLocalize("cover");
 /* -------------------------------------------- */
 
 /**
- * The available types of feat
- * @enum {string}
- */
-ME5E.featTypes = {
-  feat: "ME5E.FeatTypeFeat",
-  background: "ME5E.FeatTypeBackground",
-  class: "ME5E.FeatTypeClass",
-  species: "ME5E.FeatTypeSpecies",
-  fightingStyle: "ME5E.FeatTypeFightingStyle"
-}
-
-/* -------------------------------------------- */
-
-/**
  * A selection of actor attributes that can be tracked on token resource bars.
  * @type {string[]}
  */
@@ -1067,7 +1080,7 @@ ME5E.classFeatures = ClassFeatures;
  *   name: string,
  *   hint: string,
  *   [abilities]: string[],
- *   [choices]: object<string, string>,
+ *   [choices]: Object<string, string>,
  *   [skills]: string[],
  *   section: string,
  *   type: any,

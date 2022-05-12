@@ -84,7 +84,7 @@ export default class Rule5e {
   static fromItem(item) {
     const rules = [];
     for (const rawRule of item.data.data.rules) {
-      const RuleConstructor = CONFIG.ME5E.Rule.classes[rawRule.type];
+      const RuleConstructor = CONFIG.ME5E.Rule.types[rawRule.type];
 
       if (!RuleConstructor) {
         console.warn(`Failed to find rule constructor for type ${rawRule.type}`);

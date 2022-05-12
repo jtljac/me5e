@@ -19,13 +19,13 @@ export class SimplePredicate extends Predicate5e {
     this.eval = Boolean(data.eval ?? true);
   }
 
-  resolveValue(operator, data) {
-    if (this.eval) {
-      const result = Roll.replaceFormulaData(operator, data, {missing: "0", warn: true});
+  resolveValue(value, data) {
+    if (this.eval && isNaN(value)) {
+      const result = Roll.replaceFormulaData(value, data, {missing: "0", warn: true});
 
       return Roll.safeEval(result) ?? 0;
     }
 
-    return operator;
+    return value;
   }
 }

@@ -3,7 +3,7 @@ import CompoundPredicate from "./compound-predicate.js";
 /**
  * A compound predicate where all the sub-predicates must be true
  */
-export default class AndPredicate extends CompoundPredicate {
+export default class AllPredicate extends CompoundPredicate {
   /**
    * @inheritDoc
    */
