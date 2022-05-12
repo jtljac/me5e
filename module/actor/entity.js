@@ -312,25 +312,6 @@ export default class Actor5e extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Prepare the ability attribute of skills
-   * @param {ActorData} actorData  Data being prepared.
-   * @private
-   */
-  _prepareAbilities(actorData) {
-    const data = actorData.data;
-
-    for (const [name, skill] of Object.entries(data.skills)) {
-      skill.ability = skill.userAbility || skill.defaultAbility;
-    }
-
-    {
-      const init = data.attributes.init;
-
-      init.ability = init.userAbility || init.defaultAbility;
-    }
-  }
-
-  /**
    * Prepare the items
    * @private
    */
