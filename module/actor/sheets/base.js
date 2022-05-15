@@ -559,13 +559,13 @@ export default class ActorSheet5e extends ActorSheet {
     filterLists.on("click", ".filter-item", this._onToggleFilter.bind(this));
 
     // Item summaries
-    html.find(".item .item-name.rollable h4").click(event => this._onItemSummary(event));
+    html.find(".item .item-name.rollable h4").on("click", event => this._onItemSummary(event));
 
     // View Item Sheets
-    html.find(".item-edit").click(this._onItemEdit.bind(this));
+    html.find(".item-edit").on("click", this._onItemEdit.bind(this));
 
     // Property attributions
-    html.find(".attributable").mouseover(this._onPropertyAttribution.bind(this));
+    html.find(".attributable").on("mouseover", this._onPropertyAttribution.bind(this));
 
     // Editable Only Listeners
     if ( this.isEditable ) {
@@ -573,43 +573,43 @@ export default class ActorSheet5e extends ActorSheet {
       // Input focus and update
       const inputs = html.find("input");
       inputs.focus(ev => ev.currentTarget.select());
-      inputs.addBack().find('[data-dtype="Number"]').change(this._onChangeInputDelta.bind(this));
+      inputs.addBack().find('[data-dtype="Number"]').on("change", this._onChangeInputDelta.bind(this));
 
       // Ability Proficiency
-      html.find(".ability-proficiency").click(this._onToggleAbilityProficiency.bind(this));
+      html.find(".ability-proficiency").on("click", this._onToggleAbilityProficiency.bind(this));
 
       // Toggle Skill Proficiency
       html.find(".skill-proficiency").on("click contextmenu", this._onCycleSkillProficiency.bind(this));
 
       // Trait Selector
-      html.find(".proficiency-selector").click(this._onProficiencySelector.bind(this));
-      html.find(".trait-selector").click(this._onTraitSelector.bind(this));
+      html.find(".proficiency-selector").one("click", this._onProficiencySelector.bind(this));
+      html.find(".trait-selector").on("click", this._onTraitSelector.bind(this));
 
       // Configure Special Flags
-      html.find(".config-button").click(this._onConfigMenu.bind(this));
+      html.find(".config-button").on("click", this._onConfigMenu.bind(this));
 
       // Owned Item management
-      html.find(".item-create").click(this._onItemCreate.bind(this));
-      html.find(".item-delete").click(this._onItemDelete.bind(this));
-      html.find(".item-uses input").click(ev => ev.target.select()).change(this._onUsesChange.bind(this));
-      html.find(".slot-max-override").click(this._onSpellSlotOverride.bind(this));
+      html.find(".item-create").on("click", this._onItemCreate.bind(this));
+      html.find(".item-delete").on("click", this._onItemDelete.bind(this));
+      html.find(".item-uses input").on("click", ev => ev.target.select()).change(this._onUsesChange.bind(this));
+      html.find(".slot-max-override").on("click", this._onSpellSlotOverride.bind(this));
 
       // Active Effect management
-      html.find(".effect-control").click(ev => ActiveEffect5e.onManageActiveEffect(ev, this.actor));
+      html.find(".effect-control").on("click", ev => ActiveEffect5e.onManageActiveEffect(ev, this.actor));
     }
 
     // Owner Only Listeners
     if ( this.actor.isOwner ) {
 
       // Ability Checks
-      html.find(".ability-name").click(this._onRollAbilityTest.bind(this));
+      html.find(".ability-name").on("click", this._onRollAbilityTest.bind(this));
 
       // Roll Skill Checks
-      html.find(".skill-name").click(this._onRollSkillCheck.bind(this));
+      html.find(".skill-name").on("click", this._onRollSkillCheck.bind(this));
 
       // Item Rolling
-      html.find(".rollable .item-image").click(event => this._onItemRoll(event));
-      html.find(".item .item-recharge").click(event => this._onItemRecharge(event));
+      html.find(".rollable .item-image").on("click", event => this._onItemRoll(event));
+      html.find(".item .item-recharge").on("click", event => this._onItemRecharge(event));
     }
 
     // Otherwise remove rollable classes
