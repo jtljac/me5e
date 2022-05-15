@@ -63,7 +63,7 @@ export default class Rule5e {
    * @returns {boolean}
    */
   test(actor, data) {
-    if (this.data.ignored) return false;
+    if (this.isIgnored) return false;
     if (!this.data.predicate) return true;
 
     return this.data.predicate.test(actor, data);

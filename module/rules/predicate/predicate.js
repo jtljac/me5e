@@ -29,7 +29,8 @@ export default class Predicate5e {
 
     if (!PredicateConstructor) {
       console.warn(`Failed to find predicate constructor for type ${rawPredicate.type}`);
-      return new InvalidPredicate();
+      // noinspection JSPotentiallyInvalidConstructorUsage,JSValidateTypes
+      return new CONFIG.ME5E.Rule.predicates.invalid();
     }
 
     try {
@@ -37,7 +38,8 @@ export default class Predicate5e {
     } catch(e) {
       console.warn(`Failed to construct predicate`)
       console.warn(e)
-      return new InvalidPredicate();
+      // noinspection JSPotentiallyInvalidConstructorUsage,JSValidateTypes
+      return new CONFIG.ME5E.Rule.predicates.invalid();
     }
   }
 }
