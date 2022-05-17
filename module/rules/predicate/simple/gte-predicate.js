@@ -9,6 +9,6 @@ export default class GtePredicate extends ComparisonPredicate {
    * @override
    */
   test(actor, data) {
-    return this.resolveValue(this.lh, data) >= this.resolveValue(this.rh, data);
+    return this._resolveValue(this.lh, data) >= this._resolveValue(this.rh, data);
   }
 }

@@ -10,6 +10,6 @@ export default class EquPredicate extends ComparisonPredicate {
    */
   test(actor, data) {
     // noinspection EqualityComparisonWithCoercionJS
-    return this.resolveValue(this.lh, data) == this.resolveValue(this.rh, data);
+    return this._resolveValue(this.lh, data) == this._resolveValue(this.rh, data);
   }
 }

@@ -19,7 +19,14 @@ export class SimplePredicate extends Predicate5e {
     this.eval = Boolean(data.eval ?? true);
   }
 
-  resolveValue(value, data) {
+  /**
+   * Resolves the formula into a value
+   * @param formula The formula used to calculate the value
+   * @param data The data used by the formula
+   * @return {number}
+   * @protected
+   */
+  _resolveValue(formula, data) {
     if (this.eval && isNaN(value)) {
       const result = Roll.replaceFormulaData(value, data, {missing: "0", warn: true});
 

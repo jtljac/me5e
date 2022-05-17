@@ -123,7 +123,7 @@ export default class AELikeRule extends Rule5e {
 
     const key = this.data.key;
     const original = foundry.utils.getProperty(data, key);
-    const newValue = isNaN(this.data.value) ? this.resolveValue(this.data.value, data) : this.data.value;
+    const newValue = isNaN(this.data.value) ? this._resolveValue(this.data.value, data) : this.data.value;
 
     const change = AELikeRule.mode[this.data.mode](original, newValue);
 

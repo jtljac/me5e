@@ -69,7 +69,14 @@ export default class Rule5e {
     return this.data.predicate.test(actor, data);
   }
 
-  resolveValue(formula, data) {
+  /**
+   * Resolves the formula into a value
+   * @param formula The formula used to calculate the value
+   * @param data The data used by the formula
+   * @return {number}
+   * @protected
+   */
+  _resolveValue(formula, data) {
     const result = Roll.replaceFormulaData(formula, data, {missing: "0", warn: true});
 
     return Roll.safeEval(result) ?? 0;
@@ -83,7 +90,7 @@ export default class Rule5e {
    */
   static fromItem(item) {
     const rules = [];
-    for (const rawRule of item.data.data.rules) {
+    for (const rawRule of item.getRules()) {
       const RuleConstructor = CONFIG.ME5E.Rule.types[rawRule.type];
 
       if (!RuleConstructor) {

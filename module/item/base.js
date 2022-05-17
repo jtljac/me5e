@@ -31,7 +31,6 @@ export default class Item5e extends Item {
   /* -------------------------------------------- */
   /*  Item Properties                             */
   /* -------------------------------------------- */
-
   /**
    * Which ability score modifier is used by this item?
    * @type {string|null}
@@ -343,6 +342,12 @@ export default class Item5e extends Item {
         labels.damageTypes = dam.parts.map(d => C.damageTypes[d[1]]).join(", ");
       }
     }
+  }
+
+  /* -------------------------------------------- */
+
+  getRules() {
+    return this.data.data.rules ?? [];
   }
 
   /* -------------------------------------------- */
