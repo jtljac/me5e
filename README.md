@@ -7,7 +7,7 @@ This system provides character sheet support for Actors and Items, mechanical su
 play games of ME5e, and compendium content for Monsters, Items, Powers, Class Features, and more!
 
 ## Disclaimer
-###Content:
+### Content:
 This system is not sanctioned by or affiliated with Mass Effect 5e, Electronic Arts Inc, BioWare, Wizards of the Coast, or any other rights-holding company or entity.
 
 Except where otherwise noted, images in this system are from the Mass Effect Wikia and are licensed under a Creative Commons Attribution 4.0 International license.

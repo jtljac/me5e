@@ -155,7 +155,6 @@ export default class Creature5e extends Actor5e {
    * @param {object} bonusData       Data produced by `getRollData` to be applied to bonus formulas.
    * @param {object} bonuses         Global bonus data.
    * @param {number} checkBonus      Global ability check bonus.
-   * @param {object} originalSkills  A transformed actor's original actor's skills.
    * @protected
    */
   _prepareSkills(actorData, bonusData, bonuses, checkBonus) {
