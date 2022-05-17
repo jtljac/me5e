@@ -42,7 +42,6 @@ import ActorTypeConfig from "./module/apps/actor-type.js";
 import ItemSheet5e from "./module/item/sheet.js";
 import LongRestDialog from "./module/apps/long-rest.js";
 import ProficiencySelector from "./module/apps/proficiency-selector.js";
-import SelectItemsPrompt from "./module/apps/select-items-prompt.js";
 import ShortRestDialog from "./module/apps/short-rest.js";
 import TraitSelector from "./module/apps/trait-selector.js";
 
@@ -81,7 +80,6 @@ Hooks.once("init", function() {
       ItemSheet5e,
       LongRestDialog,
       ProficiencySelector,
-      SelectItemsPrompt,
       ShortRestDialog,
       TraitSelector
     },

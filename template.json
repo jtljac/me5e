@@ -3,6 +3,58 @@
     "types": ["character", "npc", "vehicle"],
     "templates": {
       "common": {
+        "attributes": {
+          "ac": {
+            "flat": null,
+            "calc": "default",
+            "formula": ""
+          },
+          "shields": {
+            "value": 0,
+            "min": 0
+          },
+          "hp": {
+            "value": 10,
+            "min": 0,
+            "temp": 0,
+            "tempSource": null
+          },
+          "init": {
+            "bonus": 0,
+            "defaultAbility": "dex",
+            "userAbility": ""
+          }
+        },
+        "details": {
+          "biography": {
+            "value": "",
+            "public": ""
+          }
+        },
+        "traits": {
+          "size": "med",
+          "di": {
+            "value": [],
+            "custom": ""
+          },
+          "dr": {
+            "value": [],
+            "custom": ""
+          },
+          "dv": {
+            "value": [],
+            "custom": ""
+          },
+          "ci": {
+            "value": [],
+            "custom": ""
+          }
+        },
+        "currency": {
+          "cr": 0
+        }
+      },
+      "creature": {
         "abilities": {
           "str": {
             "value": 10,
@@ -54,69 +106,18 @@
           }
         },
         "attributes": {
-          "ac": {
-            "flat": null,
-            "calc": "default",
-            "formula": ""
-          },
-          "shields": {
+          "barrier": {
             "value": 0,
-            "max": 0,
-            "bonus": 0
+            "min": 0,
+            "enabled": false,
+            "active": false
           },
-          "hp": {
+          "techArmour": {
             "value": 10,
             "min": 0,
-            "max": 10,
-            "temp": 0
+            "enabled": false,
+            "active": false
           },
-          "init": {
-            "value": 0,
-            "bonus": 0,
-            "defaultAbility": "dex",
-            "userAbility": ""
-          },
-          "movement": {
-            "burrow": 0,
-            "climb": 0,
-            "fly": 0,
-            "swim": 0,
-            "walk": 12,
-            "units": "m",
-            "hover": false
-          }
-        },
-        "details": {
-          "biography": {
-            "value": "",
-            "public": ""
-          }
-        },
-        "traits": {
-          "size": "med",
-          "di": {
-            "value": [],
-            "custom": ""
-          },
-          "dr": {
-            "value": [],
-            "custom": ""
-          },
-          "dv": {
-            "value": [],
-            "custom": ""
-          },
-          "ci": {
-            "value": [],
-            "custom": ""
-          }
-        },
-        "currency": {
-          "cr": 0
-        }
-      },
-      "creature": {
-        "attributes": {
           "attunement": {
             "max": 3
           },
@@ -127,6 +128,15 @@
             "infrared": 0,
             "units": "m",
             "special": ""
+          },
+          "movement": {
+            "burrow": 0,
+            "climb": 0,
+            "fly": 0,
+            "swim": 0,
+            "walk": 12,
+            "units": "m",
+            "hover": false
           },
           "spellcasting": "int"
         },
@@ -427,7 +437,14 @@
       "templates": ["common", "creature"],
       "attributes": {
         "hp": {
+          "max": 10,
           "formula": ""
+        },
+        "barrier": {
+          "max": 0
+        },
+        "techArmour": {
+          "max": 0
         }
       },
       "details": {

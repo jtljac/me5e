@@ -1,9 +1,13 @@
-import { ClassFeatures } from "./classFeatures.js";
 import { preLocalize } from "./utils.js";
 
 // Items
 import Class5e from "./item/class/entity.js";
 import Subclass5e from "./item/subclass/entity.js";
+
+// Actors
+import Character5e from "./actor/character/entity.js";
+import Npc5e from "./actor/npc/entity.js";
+import Vehicle5e from "./actor/vehicle/entity.js";
 
 // Rules
 import AELikeRule from "./rules/ae-like.js";
@@ -44,6 +48,9 @@ ME5E.Actor = {
    * @type {Object<String, Actor5e>}
    */
   documentClasses: {
+    character: Character5e,
+    npc: Npc5e,
+    vehicle: Vehicle5e
   }
 }
 
@@ -1065,14 +1072,6 @@ ME5E.CR_EXP_LEVELS = [
   10, 200, 450, 700, 1100, 1800, 2300, 2900, 3900, 5000, 5900, 7200, 8400, 10000, 11500, 13000, 15000, 18000,
   20000, 22000, 25000, 33000, 41000, 50000, 62000, 75000, 90000, 105000, 120000, 135000, 155000
 ];
-
-/**
- * Character features automatically granted by classes & subclasses at certain levels.
- * @type {object}
- * @deprecated since 1.6.0, targeted for removal in 1.8
- */
-// TODO: Remove
-ME5E.classFeatures = ClassFeatures;
 
 /**
  * Special character flags.
