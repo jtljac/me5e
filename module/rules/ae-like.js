@@ -70,6 +70,9 @@ export default class AELikeRule extends Rule5e {
     super(data, item);
 
     if (!this.data.phase) this.data.phase = AELikeRule.phase.ActiveEffects;
+    else if (!Object.values(AELikeRule.phase).includes(this.data.phase)) {
+      throw new Error(`Unknown AELikeRule Phase: ${this.data.phase}`)
+    }
 
     if (!this.data.mode) this.data.mode = "add";
     else if (!AELikeRule.mode.hasOwnProperty(this.data.mode)) {
