@@ -209,6 +209,7 @@ export default class Creature5e extends Actor5e {
    * @param {number} globalCheckBonus  The simplified global ability check bonus for this actor
    * @param {object} bonusData         Actor data to use for replacing formula variables in bonuses
    */
+  // TODO: Create separate function for initiative and overload
   _computeInitiativeModifier(actorData, globalCheckBonus, bonusData) {
     const data = actorData.data;
     const flags = actorData.flags.me5e || {};
@@ -226,8 +227,7 @@ export default class Creature5e extends Actor5e {
     init.mod = data.abilities[init.ability]?.mod ?? 0;
     init.prof = new Proficiency(data.attributes.prof, (joat || athlete) ? 0.5 : 0, !athlete);
     init.value = init.value ?? 0;
-    init.bonus = init.value + (flags.initiativeAlert ? 5 : 0);
-    init.total = init.mod + init.bonus + checkBonus + globalCheckBonus;
+    init.total = init.mod + init.value + checkBonus + globalCheckBonus;
     if ( Number.isNumeric(init.prof.term) ) init.total += init.prof.flat;
   }
 

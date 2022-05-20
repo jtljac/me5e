@@ -2,10 +2,12 @@ import Creature5e from "../creature/entity.js";
 import {damageRoll} from "../../dice.js";
 import ShortRestDialog from "../../apps/short-rest.js";
 import LongRestDialog from "../../apps/long-rest.js";
+import Modifier5e from "../../modifier/modifier.js";
 
 
 export default class Character5e extends Creature5e {
   /**
+   * @inheritDoc
    * @override
    */
   prepareBaseData() {
@@ -36,9 +38,20 @@ export default class Character5e extends Creature5e {
     const required = xp.max - prior;
     const pct = Math.round((xp.value - prior) * 100 / required);
     xp.pct = Math.clamped(pct, 0, 100);
+
+    this._setupModifiers();
   }
 
   /**
+   *
+   */
+  prepareEmbeddedDocuments() {
+    super.prepareEmbeddedDocuments();
+
+  }
+
+  /**
+   * @inheritDoc
    * @override
    */
   prepareDerivedData() {
@@ -49,6 +62,8 @@ export default class Character5e extends Creature5e {
 
     // Determine Scale Values
     this._computeScaleValues(data);
+
+    this._computeMaxHP(actorData);
   }
 
   /* -------------------------------------------- */
@@ -99,6 +114,44 @@ export default class Character5e extends Creature5e {
     }
   }
 
+  _setupModifiers() {
+    const actorData = this.data;
+    const data = actorData.data;
+
+    // TODO: Test all mods
+
+    // hp
+    {
+      const mods = data.attributes.hp.mods;
+
+      mods.mods = mods.userMods.reduce((acc, rawMod) => {
+        acc.push(new Modifier5e(rawMod));
+        return acc;
+      }, []);
+    }
+
+    // ac
+    {
+      const mods = data.attributes.ac.mods;
+
+      mods.mods = mods.userMods.reduce((acc, rawMod) => {
+        acc.push(new Modifier5e(rawMod));
+        return acc;
+      }, []);
+    }
+
+    // init
+    {
+      const mods = data.attributes.init.mods;
+
+      mods.mods = mods.userMods.reduce((acc, rawMod) => {
+        acc.push(new Modifier5e(rawMod));
+        return acc;
+      }, []);
+    }
+
+  }
+
   /* -------------------------------------------- */
 
   /**
@@ -112,6 +165,36 @@ export default class Character5e extends Creature5e {
       scale[identifier] = cls.scaleValues;
       if ( cls.subclass ) scale[cls.subclass.identifier] = cls.subclass.scaleValues;
     }
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * @inheritDoc
+   */
+  _computeInitiativeModifier(actorData, globalCheckBonus, bonusData) {
+    super._computeInitiativeModifier(actorData, globalCheckBonus, bonusData);
+
+    const data = actorData.data;
+    const init = data.attributes.init;
+
+    init.total += init.mods.mods.reduce((acc, mod) => acc + mod.getValue(data), 0);
+  }
+
+  /**
+   *
+   */
+  _computeMaxHP(actorData) {
+    const data = actorData.data;
+    const hp = data.attributes.hp;
+    const mods = hp.mods.mods;
+    mods.push(new Modifier5e({
+      name: "Constitution",
+      type: Modifier5e.ModTypes.Ability,
+      formula: "@data.abilities.con.mod * @data.details.level"
+    }, false));
+
+    hp.max = mods.reduce((acc, mod) => acc + mod.getValue(actorData));
   }
 
   /* -------------------------------------------- */

@@ -25,7 +25,8 @@ export const _getInitiativeFormula = function() {
     `${nd}d20${mods}`,
     init.mod,
     (init.prof.term !== "0") ? init.prof.term : null,
-    (init.bonus !== 0) ? init.bonus : null
+    (init.bonus !== 0) ? init.bonus : null,
+    ...(init?.mods?.mods.map((mod) => mod.getValue(actorData)) ?? [])
   ];
 
   // Ability Check Bonuses

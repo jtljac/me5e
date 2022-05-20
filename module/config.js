@@ -27,6 +27,7 @@ import GtPredicate from "./rules/predicate/simple/gt-predicate.js";
 import GtePredicate from "./rules/predicate/simple/gte-predicate.js";
 import LtPredicate from "./rules/predicate/simple/lt-predicate.js";
 import LtePredicate from "./rules/predicate/simple/lte-predicate.js";
+import ActorTypePredicate from "./rules/predicate/simple/actor-type-predicate.js";
 
 // Namespace Configuration Values
 export const ME5E = {};
@@ -94,7 +95,8 @@ ME5E.Rule = {
     gte: GtePredicate,
     lt: LtPredicate,
     lte: LtePredicate,
-    "has-item": HasItemPredicate
+    "has-item": HasItemPredicate,
+    "actor-type": ActorTypePredicate
   }
 }
 
