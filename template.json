@@ -400,7 +400,6 @@
         "renegade": 0
       },
       "details": {
-        "background": "",
         "originalClass": "",
         "xp": {
           "value": 0,
@@ -570,6 +569,7 @@
       "species",
       "spell",
       "feat",
+      "fightingstyle",
       "backpack"
     ],
     "templates": {
@@ -589,7 +589,11 @@
         "attunement": 0,
         "equipped": false,
         "rarity": "",
-        "identified": true
+        "identified": true,
+
+        "description": {
+          "unidentified": ""
+        }
       },
       "activatedEffect": {
         "activation": {
@@ -723,6 +727,10 @@
       "templates": ["common", "activatedEffect", "action", "recharge"],
       "requirements": ""
     },
+    "fightingstyle": {
+      "templates": ["common", "activatedEffect", "action", "recharge"],
+      "requirements": ""
+    },
     "loot": {
       "templates": ["common", "physicalItem"]
     },
@@ -737,9 +745,6 @@
     },
     "species": {
       "templates": ["common"],
-      "asi": {
-        "str": 1
-      },
       "size": "medium",
       "speed": {
         "burrow": 0,
@@ -747,7 +752,8 @@
         "fly": 0,
         "swim": 0,
         "walk": 12
-      }
+      },
+      "advancement": []
     },
     "spell": {
       "templates": ["common", "activatedEffect", "action"],
@@ -773,11 +779,7 @@
       "templates": ["common"],
       "identifier": "",
       "classIdentifier": "",
-      "advancement": [],
-      "spellcasting": {
-        "progression": "none",
-        "ability": ""
-      }
+      "advancement": []
     },
     "weapon": {
       "templates": ["common", "physicalItem" ,"activatedEffect", "action", "mountable", "recharge"],
