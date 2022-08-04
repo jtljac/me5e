@@ -17,7 +17,7 @@ const parsedArgs = yargs().argv;
  * Paths of javascript files that should be linted.
  * @type {string[]}
  */
-const LINTING_PATHS = ["./dnd5e.mjs", "./module/"];
+const LINTING_PATHS = ["./me5e.mjs", "./module/"];
 
 
 /**
@@ -27,11 +27,11 @@ const LINTING_PATHS = ["./dnd5e.mjs", "./module/"];
  */
 async function compileJavascript() {
   const bundle = await rollup({
-    input: "./dnd5e.mjs",
+    input: "./me5e.mjs",
     plugins: [nodeResolve()]
   });
   await bundle.write({
-    file: "./dnd5e-compiled.mjs",
+    file: "./me5e-compiled.mjs",
     format: "es",
     sourcemap: true
   });
