@@ -10,7 +10,7 @@ export default class AbilityTemplate extends MeasuredTemplate {
    */
   static fromItem(item) {
     const target = item.system.target || {};
-    const templateShape = dnd5e.config.areaTargetTypes[target.type];
+    const templateShape = me5e.config.areaTargetTypes[target.type];
     if ( !templateShape ) return null;
 
     // Prepare template data

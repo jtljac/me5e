@@ -7,8 +7,8 @@ export default class ActorSheetFlags extends DocumentSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "actor-flags",
-      classes: ["dnd5e"],
-      template: "systems/dnd5e/templates/apps/actor-flags.hbs",
+      classes: ["me5e"],
+      template: "systems/me5e/templates/apps/actor-flags.hbs",
       width: 500,
       closeOnSubmit: true
     });
@@ -18,7 +18,7 @@ export default class ActorSheetFlags extends DocumentSheet {
 
   /** @inheritDoc */
   get title() {
-    return `${game.i18n.localize("DND5E.FlagsTitle")}: ${this.object.name}`;
+    return `${game.i18n.localize("ME5E.FlagsTitle")}: ${this.object.name}`;
   }
 
   /* -------------------------------------------- */
@@ -59,14 +59,14 @@ export default class ActorSheetFlags extends DocumentSheet {
   _getFlags() {
     const flags = {};
     const baseData = this.document.toJSON();
-    for ( let [k, v] of Object.entries(CONFIG.DND5E.characterFlags) ) {
+    for ( let [k, v] of Object.entries(CONFIG.ME5E.characterFlags) ) {
       if ( !flags.hasOwnProperty(v.section) ) flags[v.section] = {};
       let flag = foundry.utils.deepClone(v);
       flag.type = v.type.name;
       flag.isCheckbox = v.type === Boolean;
       flag.isSelect = v.hasOwnProperty("choices");
-      flag.value = foundry.utils.getProperty(baseData.flags, `dnd5e.${k}`);
-      flags[v.section][`flags.dnd5e.${k}`] = flag;
+      flag.value = foundry.utils.getProperty(baseData.flags, `me5e.${k}`);
+      flags[v.section][`flags.me5e.${k}`] = flag;
     }
     return flags;
   }
@@ -81,18 +81,18 @@ export default class ActorSheetFlags extends DocumentSheet {
   _getBonuses() {
     const src = this.object.toObject();
     const bonuses = [
-      {name: "system.bonuses.mwak.attack", label: "DND5E.BonusMWAttack"},
-      {name: "system.bonuses.mwak.damage", label: "DND5E.BonusMWDamage"},
-      {name: "system.bonuses.rwak.attack", label: "DND5E.BonusRWAttack"},
-      {name: "system.bonuses.rwak.damage", label: "DND5E.BonusRWDamage"},
-      {name: "system.bonuses.msak.attack", label: "DND5E.BonusMSAttack"},
-      {name: "system.bonuses.msak.damage", label: "DND5E.BonusMSDamage"},
-      {name: "system.bonuses.rsak.attack", label: "DND5E.BonusRSAttack"},
-      {name: "system.bonuses.rsak.damage", label: "DND5E.BonusRSDamage"},
-      {name: "system.bonuses.abilities.check", label: "DND5E.BonusAbilityCheck"},
-      {name: "system.bonuses.abilities.save", label: "DND5E.BonusAbilitySave"},
-      {name: "system.bonuses.abilities.skill", label: "DND5E.BonusAbilitySkill"},
-      {name: "system.bonuses.spell.dc", label: "DND5E.BonusSpellDC"}
+      {name: "system.bonuses.mwak.attack", label: "ME5E.BonusMWAttack"},
+      {name: "system.bonuses.mwak.damage", label: "ME5E.BonusMWDamage"},
+      {name: "system.bonuses.rwak.attack", label: "ME5E.BonusRWAttack"},
+      {name: "system.bonuses.rwak.damage", label: "ME5E.BonusRWDamage"},
+      {name: "system.bonuses.msak.attack", label: "ME5E.BonusMSAttack"},
+      {name: "system.bonuses.msak.damage", label: "ME5E.BonusMSDamage"},
+      {name: "system.bonuses.rsak.attack", label: "ME5E.BonusRSAttack"},
+      {name: "system.bonuses.rsak.damage", label: "ME5E.BonusRSDamage"},
+      {name: "system.bonuses.abilities.check", label: "ME5E.BonusAbilityCheck"},
+      {name: "system.bonuses.abilities.save", label: "ME5E.BonusAbilitySave"},
+      {name: "system.bonuses.abilities.skill", label: "ME5E.BonusAbilitySkill"},
+      {name: "system.bonuses.spell.dc", label: "ME5E.BonusSpellDC"}
     ];
     for ( let b of bonuses ) {
       b.value = foundry.utils.getProperty(src, b.name) || "";
@@ -109,11 +109,11 @@ export default class ActorSheetFlags extends DocumentSheet {
     const src = actor.toObject();
 
     // Unset any flags which are "false"
-    const flags = updateData.flags.dnd5e;
+    const flags = updateData.flags.me5e;
     for ( let [k, v] of Object.entries(flags) ) {
       if ( [undefined, null, "", false, 0].includes(v) ) {
         delete flags[k];
-        if ( foundry.utils.hasProperty(src.flags, `dnd5e.${k}`) ) flags[`-=${k}`] = null;
+        if ( foundry.utils.hasProperty(src.flags, `me5e.${k}`) ) flags[`-=${k}`] = null;
       }
     }
 

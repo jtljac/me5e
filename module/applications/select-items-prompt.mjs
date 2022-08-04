@@ -1,14 +1,14 @@
 /**
  * A Dialog to prompt the user to select from a list of items.
- * @deprecated since dnd5e 1.6, targeted for removal in 2.1
+ * @deprecated since me5e 1.6, targeted for removal in 2.1
  */
 export default class SelectItemsPrompt extends Dialog {
   constructor(items, dialogData={}, options={}) {
     super(dialogData, options);
-    this.options.classes = ["dnd5e", "dialog", "select-items-prompt", "sheet"];
+    this.options.classes = ["me5e", "dialog", "select-items-prompt", "sheet"];
     foundry.utils.logCompatibilityWarning(
       "SelectItemsPrompt has been deprecated and will be removed.",
-      { since: "DnD5e 1.6", until: "DnD5e 2.1" }
+      { since: "ME5e 1.6", until: "ME5e 2.1" }
     );
 
     /**
@@ -38,15 +38,15 @@ export default class SelectItemsPrompt extends Dialog {
    */
   static async create(items, {hint}) {
     // Render the ability usage template
-    const html = await renderTemplate("systems/dnd5e/templates/apps/select-items-prompt.hbs", {items, hint});
+    const html = await renderTemplate("systems/me5e/templates/apps/select-items-prompt.hbs", {items, hint});
     return new Promise(resolve => {
       const dlg = new this(items, {
-        title: game.i18n.localize("DND5E.SelectItemsPromptTitle"),
+        title: game.i18n.localize("ME5E.SelectItemsPromptTitle"),
         content: html,
         buttons: {
           apply: {
             icon: '<i class="fas fa-user-plus"></i>',
-            label: game.i18n.localize("DND5E.Apply"),
+            label: game.i18n.localize("ME5E.Apply"),
             callback: html => {
               const fd = new FormDataExtended(html[0].querySelector("form")).toObject();
               const selectedIds = Object.keys(fd).filter(itemId => fd[itemId]);
@@ -55,7 +55,7 @@ export default class SelectItemsPrompt extends Dialog {
           },
           cancel: {
             icon: '<i class="fas fa-forward"></i>',
-            label: game.i18n.localize("DND5E.Skip"),
+            label: game.i18n.localize("ME5E.Skip"),
             callback: () => resolve([])
           }
         },

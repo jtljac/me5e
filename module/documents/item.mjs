@@ -203,7 +203,7 @@ export default class Item5e extends Item {
    */
   get hasAreaTarget() {
     const target = this.system.target;
-    return target && (target.type in CONFIG.DND5E.areaTargetTypes);
+    return target && (target.type in CONFIG.ME5E.areaTargetTypes);
   }
 
   /* -------------------------------------------- */
@@ -225,7 +225,7 @@ export default class Item5e extends Item {
    * @type {boolean}
    */
   get isArmor() {
-    return this.system.armor?.type in CONFIG.DND5E.armorTypes;
+    return this.system.armor?.type in CONFIG.ME5E.armorTypes;
   }
 
   /* -------------------------------------------- */
@@ -271,7 +271,7 @@ export default class Item5e extends Item {
     const requireEquipped = (this.type !== "consumable")
       || ["rod", "trinket", "wand"].includes(this.system.consumableType);
     if ( requireEquipped && (this.system.equipped === false) ) return true;
-    return this.system.attunement === CONFIG.DND5E.attunementTypes.REQUIRED;
+    return this.system.attunement === CONFIG.ME5E.attunementTypes.REQUIRED;
   }
 
   /* -------------------------------------------- */
@@ -314,7 +314,7 @@ export default class Item5e extends Item {
    * @protected
    */
   _prepareEquipment() {
-    this.labels.armor = this.system.armor.value ? `${this.system.armor.value} ${game.i18n.localize("DND5E.AC")}` : "";
+    this.labels.armor = this.system.armor.value ? `${this.system.armor.value} ${game.i18n.localize("ME5E.AC")}` : "";
   }
 
   /* -------------------------------------------- */
@@ -325,13 +325,13 @@ export default class Item5e extends Item {
    */
   _prepareFeat() {
     const act = this.system.activation;
-    const types = CONFIG.DND5E.abilityActivationTypes;
-    if ( act?.type === types.legendary ) this.labels.featType = game.i18n.localize("DND5E.LegendaryActionLabel");
-    else if ( act?.type === types.lair ) this.labels.featType = game.i18n.localize("DND5E.LairActionLabel");
+    const types = CONFIG.ME5E.abilityActivationTypes;
+    if ( act?.type === types.legendary ) this.labels.featType = game.i18n.localize("ME5E.LegendaryActionLabel");
+    else if ( act?.type === types.lair ) this.labels.featType = game.i18n.localize("ME5E.LairActionLabel");
     else if ( act?.type ) {
-      this.labels.featType = game.i18n.localize(this.system.damage.length ? "DND5E.Attack" : "DND5E.Action");
+      this.labels.featType = game.i18n.localize(this.system.damage.length ? "ME5E.Attack" : "ME5E.Action");
     }
-    else this.labels.featType = game.i18n.localize("DND5E.Passive");
+    else this.labels.featType = game.i18n.localize("ME5E.Passive");
   }
 
   /* -------------------------------------------- */
@@ -341,14 +341,14 @@ export default class Item5e extends Item {
    * @protected
    */
   _prepareSpell() {
-    const tags = Object.fromEntries(Object.entries(CONFIG.DND5E.spellTags).map(([k, v]) => {
+    const tags = Object.fromEntries(Object.entries(CONFIG.ME5E.spellTags).map(([k, v]) => {
       v.tag = true;
       return [k, v];
     }));
-    const attributes = {...CONFIG.DND5E.spellComponents, ...tags};
+    const attributes = {...CONFIG.ME5E.spellComponents, ...tags};
     this.system.preparation.mode ||= "prepared";
-    this.labels.level = CONFIG.DND5E.spellLevels[this.system.level];
-    this.labels.school = CONFIG.DND5E.spellSchools[this.system.school];
+    this.labels.level = CONFIG.ME5E.spellLevels[this.system.level];
+    this.labels.school = CONFIG.ME5E.spellSchools[this.system.school];
     this.labels.components = Object.entries(this.system.components).reduce((obj, [c, active]) => {
       const config = attributes[c];
       if ( !config || (active !== true) ) return obj;
@@ -370,7 +370,7 @@ export default class Item5e extends Item {
    */
   _prepareActivation() {
     if ( !("activation" in this.system) ) return;
-    const C = CONFIG.DND5E;
+    const C = CONFIG.ME5E;
 
     // Ability Activation Label
     const act = this.system.activation ?? {};
@@ -401,7 +401,7 @@ export default class Item5e extends Item {
     // Recharge Label
     let chg = this.system.recharge ?? {};
     const chgSuffix = `${chg.value}${parseInt(chg.value) < 6 ? "+" : ""}`;
-    this.labels.recharge = `${game.i18n.localize("DND5E.Recharge")} [${chgSuffix}]`;
+    this.labels.recharge = `${game.i18n.localize("ME5E.Recharge")} [${chgSuffix}]`;
   }
 
   /* -------------------------------------------- */
@@ -414,7 +414,7 @@ export default class Item5e extends Item {
     if ( !("actionType" in this.system) ) return;
     let dmg = this.system.damage || {};
     if ( dmg.parts ) {
-      const types = CONFIG.DND5E.damageTypes;
+      const types = CONFIG.ME5E.damageTypes;
       this.labels.damage = dmg.parts.map(d => d[0]).join(" + ").replace(/\+ -/g, "- ");
       this.labels.damageTypes = dmg.parts.map(d => types[d[1]]).join(", ");
     }
@@ -431,13 +431,13 @@ export default class Item5e extends Item {
     this.advancement = {
       byId: {},
       byLevel: Object.fromEntries(
-        Array.fromRange(CONFIG.DND5E.maxLevel + 1).slice(minAdvancementLevel).map(l => [l, []])
+        Array.fromRange(CONFIG.ME5E.maxLevel + 1).slice(minAdvancementLevel).map(l => [l, []])
       ),
       byType: {},
       needingConfiguration: []
     };
     for ( const advancementData of this.system.advancement ?? [] ) {
-      const Advancement = dnd5e.advancement.types[`${advancementData.type}Advancement`];
+      const Advancement = me5e.advancement.types[`${advancementData.type}Advancement`];
       if ( !Advancement ) continue;
       const advancement = new Advancement(this, advancementData);
       this.advancement.byId[advancement.id] = advancement;
@@ -469,8 +469,8 @@ export default class Item5e extends Item {
 
     // Action usage
     if ( "actionType" in this.system ) {
-      this.labels.abilityCheck = game.i18n.format("DND5E.AbilityPromptTitle", {
-        ability: CONFIG.DND5E.abilities[this.system.ability]
+      this.labels.abilityCheck = game.i18n.format("ME5E.AbilityPromptTitle", {
+        ability: CONFIG.ME5E.abilities[this.system.ability]
       });
 
       // Saving throws
@@ -497,7 +497,7 @@ export default class Item5e extends Item {
   getDerivedDamageLabel() {
     if ( !this.hasDamage || !this.isOwned ) return [];
     const rollData = this.getRollData();
-    const damageLabels = { ...CONFIG.DND5E.damageTypes, ...CONFIG.DND5E.healingTypes };
+    const damageLabels = { ...CONFIG.ME5E.damageTypes, ...CONFIG.ME5E.healingTypes };
     const derivedDamage = this.system.damage?.parts?.map(damagePart => {
       let formula;
       try {
@@ -534,8 +534,8 @@ export default class Item5e extends Item {
     }
 
     // Update labels
-    const abl = CONFIG.DND5E.abilities[save.ability] ?? "";
-    this.labels.save = game.i18n.format("DND5E.SaveDC", {dc: save.dc || "", ability: abl});
+    const abl = CONFIG.ME5E.abilities[save.ability] ?? "";
+    this.labels.save = game.i18n.format("ME5E.SaveDC", {dc: save.dc || "", ability: abl});
     return save.dc;
   }
 
@@ -609,7 +609,7 @@ export default class Item5e extends Item {
    * @returns {number|null}  The minimum value that must be rolled to be considered a critical hit.
    */
   getCriticalThreshold() {
-    const actorFlags = this.actor.flags.dnd5e || {};
+    const actorFlags = this.actor.flags.me5e || {};
     if ( !this.hasAttack ) return null;
     let actorThreshold = null;
     if ( this.type === "weapon" ) actorThreshold = actorFlags.weaponCriticalThreshold;
@@ -661,7 +661,7 @@ export default class Item5e extends Item {
     const recharge = is.recharge || {};       // Recharge mechanic
     const uses = is.uses ?? {};               // Limited uses
     const isSpell = this.type === "spell";    // Does the item require a spell slot?
-    const requireSpellSlot = isSpell && (is.level > 0) && CONFIG.DND5E.spellUpcastModes.includes(is.preparation.mode);
+    const requireSpellSlot = isSpell && (is.level > 0) && CONFIG.ME5E.spellUpcastModes.includes(is.preparation.mode);
 
     // Define follow-up actions resulting from the item usage
     let createMeasuredTemplate = hasArea;       // Trigger a template creation
@@ -713,7 +713,7 @@ export default class Item5e extends Item {
 
     // Initiate measured template creation
     if ( createMeasuredTemplate ) {
-      const template = dnd5e.canvas.AbilityTemplate.fromItem(item);
+      const template = me5e.canvas.AbilityTemplate.fromItem(item);
       if ( template ) template.drawPreview();
     }
 
@@ -745,7 +745,7 @@ export default class Item5e extends Item {
     if ( consumeRecharge ) {
       const recharge = this.system.recharge || {};
       if ( recharge.charged === false ) {
-        ui.notifications.warn(game.i18n.format("DND5E.ItemNoUses", {name: this.name}));
+        ui.notifications.warn(game.i18n.format("ME5E.ItemNoUses", {name: this.name}));
         return false;
       }
       itemUpdates["system.recharge.charged"] = false;
@@ -763,9 +763,9 @@ export default class Item5e extends Item {
       const level = this.actor?.system.spells[consumeSpellLevel];
       const spells = Number(level?.value ?? 0);
       if ( spells === 0 ) {
-        const labelKey = consumeSpellLevel === "pact" ? "DND5E.SpellProgPact" : `DND5E.SpellLevel${this.system.level}`;
+        const labelKey = consumeSpellLevel === "pact" ? "ME5E.SpellProgPact" : `ME5E.SpellLevel${this.system.level}`;
         const label = game.i18n.localize(labelKey);
-        ui.notifications.warn(game.i18n.format("DND5E.SpellCastNoSlots", {name: this.name, level: label}));
+        ui.notifications.warn(game.i18n.format("ME5E.SpellCastNoSlots", {name: this.name, level: label}));
         return false;
       }
       actorUpdates[`system.spells.${consumeSpellLevel}.value`] = Math.max(spells - 1, 0);
@@ -794,7 +794,7 @@ export default class Item5e extends Item {
 
       // If the item was not used, return a warning
       if ( !used ) {
-        ui.notifications.warn(game.i18n.format("DND5E.ItemNoUses", {name: this.name}));
+        ui.notifications.warn(game.i18n.format("ME5E.ItemNoUses", {name: this.name}));
         return false;
       }
     }
@@ -818,9 +818,9 @@ export default class Item5e extends Item {
     if ( !consume.type ) return;
 
     // No consumed target
-    const typeLabel = CONFIG.DND5E.abilityConsumptionTypes[consume.type];
+    const typeLabel = CONFIG.ME5E.abilityConsumptionTypes[consume.type];
     if ( !consume.target ) {
-      ui.notifications.warn(game.i18n.format("DND5E.ConsumeWarningNoResource", {name: this.name, type: typeLabel}));
+      ui.notifications.warn(game.i18n.format("ME5E.ConsumeWarningNoResource", {name: this.name, type: typeLabel}));
       return false;
     }
 
@@ -857,14 +857,14 @@ export default class Item5e extends Item {
 
     // Verify that a consumed resource is available
     if ( resource === undefined ) {
-      ui.notifications.warn(game.i18n.format("DND5E.ConsumeWarningNoSource", {name: this.name, type: typeLabel}));
+      ui.notifications.warn(game.i18n.format("ME5E.ConsumeWarningNoSource", {name: this.name, type: typeLabel}));
       return false;
     }
 
     // Verify that the required quantity is available
     let remaining = quantity - amount;
     if ( remaining < 0 ) {
-      ui.notifications.warn(game.i18n.format("DND5E.ConsumeWarningNoQuantity", {name: this.name, type: typeLabel}));
+      ui.notifications.warn(game.i18n.format("ME5E.ConsumeWarningNoQuantity", {name: this.name, type: typeLabel}));
       return false;
     }
 
@@ -935,7 +935,7 @@ export default class Item5e extends Item {
       isTool: this.type === "tool",
       hasAbilityCheck: this.hasAbilityCheck
     };
-    const html = await renderTemplate("systems/dnd5e/templates/chat/item-card.hbs", templateData);
+    const html = await renderTemplate("systems/me5e/templates/chat/item-card.hbs", templateData);
 
     // Create the ChatMessage data object
     const chatData = {
@@ -949,7 +949,7 @@ export default class Item5e extends Item {
 
     // If the Item was destroyed in the process of displaying its card - embed the item data in the chat message
     if ( (this.type === "consumable") && !this.actor.items.has(this.id) ) {
-      chatData.flags["dnd5e.itemData"] = templateData.item;
+      chatData.flags["me5e.itemData"] = templateData.item;
     }
 
     // Apply the roll mode to adjust message visibility
@@ -996,12 +996,12 @@ export default class Item5e extends Item {
 
     // Equipment properties
     if ( data.hasOwnProperty("equipped") && !["loot", "tool"].includes(this.type) ) {
-      if ( data.attunement === CONFIG.DND5E.attunementTypes.REQUIRED ) {
-        props.push(CONFIG.DND5E.attunements[CONFIG.DND5E.attunementTypes.REQUIRED]);
+      if ( data.attunement === CONFIG.ME5E.attunementTypes.REQUIRED ) {
+        props.push(CONFIG.ME5E.attunements[CONFIG.ME5E.attunementTypes.REQUIRED]);
       }
       props.push(
-        game.i18n.localize(data.equipped ? "DND5E.Equipped" : "DND5E.Unequipped"),
-        game.i18n.localize(data.proficient ? "DND5E.Proficient" : "DND5E.NotProficient")
+        game.i18n.localize(data.equipped ? "ME5E.Equipped" : "ME5E.Unequipped"),
+        game.i18n.localize(data.proficient ? "ME5E.Proficient" : "ME5E.NotProficient")
       );
     }
 
@@ -1031,8 +1031,8 @@ export default class Item5e extends Item {
    */
   _consumableChatData(data, labels, props) {
     props.push(
-      CONFIG.DND5E.consumableTypes[data.consumableType],
-      `${data.uses.value}/${data.uses.max} ${game.i18n.localize("DND5E.Charges")}`
+      CONFIG.ME5E.consumableTypes[data.consumableType],
+      `${data.uses.value}/${data.uses.max} ${game.i18n.localize("ME5E.Charges")}`
     );
     data.hasCharges = data.uses.value >= 0;
   }
@@ -1048,9 +1048,9 @@ export default class Item5e extends Item {
    */
   _equipmentChatData(data, labels, props) {
     props.push(
-      CONFIG.DND5E.equipmentTypes[data.armor.type],
+      CONFIG.ME5E.equipmentTypes[data.armor.type],
       labels.armor || null,
-      data.stealth.value ? game.i18n.localize("DND5E.StealthDisadvantage") : null
+      data.stealth.value ? game.i18n.localize("ME5E.StealthDisadvantage") : null
     );
   }
 
@@ -1078,8 +1078,8 @@ export default class Item5e extends Item {
    */
   _lootChatData(data, labels, props) {
     props.push(
-      game.i18n.localize("DND5E.ItemTypeLoot"),
-      data.weight ? `${data.weight} ${game.i18n.localize("DND5E.AbbreviationLbs")}` : null
+      game.i18n.localize("ME5E.ItemTypeLoot"),
+      data.weight ? `${data.weight} ${game.i18n.localize("ME5E.AbbreviationLbs")}` : null
     );
   }
 
@@ -1111,8 +1111,8 @@ export default class Item5e extends Item {
    */
   _toolChatData(data, labels, props) {
     props.push(
-      CONFIG.DND5E.abilities[data.ability] || null,
-      CONFIG.DND5E.proficiencyLevels[data.proficient || 0]
+      CONFIG.ME5E.abilities[data.ability] || null,
+      CONFIG.ME5E.proficiencyLevels[data.proficient || 0]
     );
   }
 
@@ -1127,7 +1127,7 @@ export default class Item5e extends Item {
    */
   _weaponChatData(data, labels, props) {
     props.push(
-      CONFIG.DND5E.weaponTypes[data.weaponType]
+      CONFIG.ME5E.weaponTypes[data.weaponType]
     );
   }
 
@@ -1143,9 +1143,9 @@ export default class Item5e extends Item {
    * @returns {Promise<D20Roll|null>}   A Promise which resolves to the created Roll instance
    */
   async rollAttack(options={}) {
-    const flags = this.actor.flags.dnd5e || {};
+    const flags = this.actor.flags.me5e || {};
     if ( !this.hasAttack ) throw new Error("You may not place an Attack Roll with this Item.");
-    let title = `${this.name} - ${game.i18n.localize("DND5E.AttackRoll")}`;
+    let title = `${this.name} - ${game.i18n.localize("ME5E.AttackRoll")}`;
 
     // Get the parts and rollData for this item's attack
     const {parts, rollData} = this.getAttackToHit();
@@ -1185,7 +1185,7 @@ export default class Item5e extends Item {
         left: window.innerWidth - 710
       },
       messageData: {
-        "flags.dnd5e.roll": {type: "attack", itemId: this.id },
+        "flags.me5e.roll": {type: "attack", itemId: this.id },
         speaker: ChatMessage.getSpeaker({actor: this.actor})
       }
     };
@@ -1194,7 +1194,7 @@ export default class Item5e extends Item {
     rollConfig.critical = this.getCriticalThreshold();
 
     // Elven Accuracy
-    if ( flags.elvenAccuracy && CONFIG.DND5E.characterFlags.elvenAccuracy.abilities.includes(this.abilityMod) ) {
+    if ( flags.elvenAccuracy && CONFIG.ME5E.characterFlags.elvenAccuracy.abilities.includes(this.abilityMod) ) {
       rollConfig.elvenAccuracy = true;
     }
 
@@ -1230,7 +1230,7 @@ export default class Item5e extends Item {
   rollDamage({critical=false, event=null, spellLevel=null, versatile=false, options={}}={}) {
     if ( !this.hasDamage ) throw new Error("You may not make a Damage Roll with this Item.");
     const messageData = {
-      "flags.dnd5e.roll": {type: "damage", itemId: this.id},
+      "flags.me5e.roll": {type: "damage", itemId: this.id},
       speaker: ChatMessage.getSpeaker({actor: this.actor})
     };
 
@@ -1241,7 +1241,7 @@ export default class Item5e extends Item {
     if ( spellLevel ) rollData.item.level = spellLevel;
 
     // Configure the damage roll
-    const actionFlavor = game.i18n.localize(this.system.actionType === "heal" ? "DND5E.Healing" : "DND5E.DamageRoll");
+    const actionFlavor = game.i18n.localize(this.system.actionType === "heal" ? "ME5E.Healing" : "ME5E.DamageRoll");
     const title = `${this.name} - ${actionFlavor}`;
     const rollConfig = {
       actor: this.actor,
@@ -1263,7 +1263,7 @@ export default class Item5e extends Item {
     // Adjust damage from versatile usage
     if ( versatile && dmg.versatile ) {
       parts[0] = dmg.versatile;
-      messageData["flags.dnd5e.roll"].versatile = true;
+      messageData["flags.me5e.roll"].versatile = true;
     }
 
     // Scale damage from up-casting spells
@@ -1297,7 +1297,7 @@ export default class Item5e extends Item {
 
     // Factor in extra critical damage dice from the Barbarian's "Brutal Critical"
     if ( this.system.actionType === "mwak" ) {
-      rollConfig.criticalBonusDice = this.actor.getFlag("dnd5e", "meleeCriticalDamageDice") ?? 0;
+      rollConfig.criticalBonusDice = this.actor.getFlag("me5e", "meleeCriticalDamageDice") ?? 0;
     }
 
     // Factor in extra weapon-specific critical damage
@@ -1390,7 +1390,7 @@ export default class Item5e extends Item {
     // Define Roll Data
     const rollData = this.getRollData();
     if ( spellLevel ) rollData.item.level = spellLevel;
-    const title = `${this.name} - ${game.i18n.localize("DND5E.OtherFormula")}`;
+    const title = `${this.name} - ${game.i18n.localize("ME5E.OtherFormula")}`;
 
     // Invoke the roll and submit it to chat
     const roll = await new Roll(rollData.item.formula, rollData).roll({async: true});
@@ -1398,7 +1398,7 @@ export default class Item5e extends Item {
       speaker: ChatMessage.getSpeaker({actor: this.actor}),
       flavor: title,
       rollMode: game.settings.get("core", "rollMode"),
-      messageData: {"flags.dnd5e.roll": {type: "other", itemId: this.id }}
+      messageData: {"flags.me5e.roll": {type: "other", itemId: this.id }}
     });
     return roll;
   }
@@ -1418,9 +1418,9 @@ export default class Item5e extends Item {
     const success = roll.total >= parseInt(recharge.value);
 
     // Display a Chat Message
-    const resultKey = success ? "DND5E.ItemRechargeSuccess" : "DND5E.ItemRechargeFailure";
+    const resultKey = success ? "ME5E.ItemRechargeSuccess" : "ME5E.ItemRechargeFailure";
     const promises = [roll.toMessage({
-      flavor: `${game.i18n.format("DND5E.ItemRechargeCheck", {name: this.name})} - ${game.i18n.localize(resultKey)}`,
+      flavor: `${game.i18n.format("ME5E.ItemRechargeCheck", {name: this.name})} - ${game.i18n.localize(resultKey)}`,
       speaker: ChatMessage.getSpeaker({actor: this.actor, token: this.actor.token})
     })];
 
@@ -1443,7 +1443,7 @@ export default class Item5e extends Item {
     const rollData = this.getRollData();
     const abl = this.system.ability;
     const parts = ["@mod", "@abilityCheckBonus"];
-    const title = `${this.name} - ${game.i18n.localize("DND5E.ToolCheck")}`;
+    const title = `${this.name} - ${game.i18n.localize("ME5E.ToolCheck")}`;
 
     // Add proficiency
     if ( this.system.prof?.hasProficiency ) {
@@ -1481,11 +1481,11 @@ export default class Item5e extends Item {
         left: window.innerWidth - 710
       },
       chooseModifier: true,
-      halflingLucky: this.actor.getFlag("dnd5e", "halflingLucky" ) || false,
-      reliableTalent: (this.system.proficient >= 1) && this.actor.getFlag("dnd5e", "reliableTalent"),
+      halflingLucky: this.actor.getFlag("me5e", "halflingLucky" ) || false,
+      reliableTalent: (this.system.proficient >= 1) && this.actor.getFlag("me5e", "reliableTalent"),
       messageData: {
         speaker: options.speaker || ChatMessage.getSpeaker({actor: this.actor}),
-        "flags.dnd5e.roll": {type: "tool", itemId: this.id }
+        "flags.me5e.roll": {type: "tool", itemId: this.id }
       }
     }, options);
     rollConfig.event = options.event;
@@ -1562,10 +1562,10 @@ export default class Item5e extends Item {
     if ( !actor ) return;
 
     // Get the Item from stored flag data or by the item ID on the Actor
-    const storedData = message.getFlag("dnd5e", "itemData");
+    const storedData = message.getFlag("me5e", "itemData");
     const item = storedData ? new this(storedData, {parent: actor}) : actor.items.get(card.dataset.itemId);
     if ( !item ) {
-      const err = game.i18n.format("DND5E.ActionWarningNoItem", {item: card.dataset.itemId, name: actor.name});
+      const err = game.i18n.format("ME5E.ActionWarningNoItem", {item: card.dataset.itemId, name: actor.name});
       return ui.notifications.error(err);
     }
     const spellLevel = parseInt(card.dataset.spellLevel) || null;
@@ -1596,7 +1596,7 @@ export default class Item5e extends Item {
       case "toolCheck":
         await item.rollToolCheck({event}); break;
       case "placeTemplate":
-        const template = dnd5e.canvas.AbilityTemplate.fromItem(item);
+        const template = me5e.canvas.AbilityTemplate.fromItem(item);
         if ( template ) template.drawPreview();
         break;
       case "abilityCheck":
@@ -1660,7 +1660,7 @@ export default class Item5e extends Item {
   static _getChatCardTargets(card) {
     let targets = canvas.tokens.controlled.filter(t => !!t.actor);
     if ( !targets.length && game.user.character ) targets = targets.concat(game.user.character.getActiveTokens());
-    if ( !targets.length ) ui.notifications.warn(game.i18n.localize("DND5E.ActionWarningNoToken"));
+    if ( !targets.length ) ui.notifications.warn(game.i18n.localize("ME5E.ActionWarningNoToken"));
     return targets;
   }
 
@@ -1679,8 +1679,8 @@ export default class Item5e extends Item {
   async createAdvancement(type, data={}, { showConfig=true }={}) {
     if ( !this.system.advancement ) return;
 
-    const Advancement = dnd5e.advancement.types[`${type}Advancement`];
-    if ( !Advancement ) throw new Error(`${type}Advancement not found in dnd5e.advancement.types`);
+    const Advancement = me5e.advancement.types[`${type}Advancement`];
+    if ( !Advancement ) throw new Error(`${type}Advancement not found in me5e.advancement.types`);
     data = foundry.utils.mergeObject(Advancement.defaultData, data);
 
     const advancement = this.toObject().system.advancement;
@@ -1796,22 +1796,22 @@ export default class Item5e extends Item {
 
     // Check to make sure the updated class level isn't below zero
     if ( changed.system.levels <= 0 ) {
-      ui.notifications.warn(game.i18n.localize("DND5E.MaxClassLevelMinimumWarn"));
+      ui.notifications.warn(game.i18n.localize("ME5E.MaxClassLevelMinimumWarn"));
       changed.system.levels = 1;
     }
 
     // Check to make sure the updated class level doesn't exceed level cap
-    if ( changed.system.levels > CONFIG.DND5E.maxLevel ) {
-      ui.notifications.warn(game.i18n.format("DND5E.MaxClassLevelExceededWarn", {max: CONFIG.DND5E.maxLevel}));
-      changed.system.levels = CONFIG.DND5E.maxLevel;
+    if ( changed.system.levels > CONFIG.ME5E.maxLevel ) {
+      ui.notifications.warn(game.i18n.format("ME5E.MaxClassLevelExceededWarn", {max: CONFIG.ME5E.maxLevel}));
+      changed.system.levels = CONFIG.ME5E.maxLevel;
     }
     if ( !this.isEmbedded || (this.parent.type !== "character") ) return;
 
     // Check to ensure the updated character doesn't exceed level cap
     const newCharacterLevel = this.actor.system.details.level + (changed.system.levels - this.system.levels);
-    if ( newCharacterLevel > CONFIG.DND5E.maxLevel ) {
-      ui.notifications.warn(game.i18n.format("DND5E.MaxCharacterLevelExceededWarn", {max: CONFIG.DND5E.maxLevel}));
-      changed.system.levels -= newCharacterLevel - CONFIG.DND5E.maxLevel;
+    if ( newCharacterLevel > CONFIG.ME5E.maxLevel ) {
+      ui.notifications.warn(game.i18n.format("ME5E.MaxCharacterLevelExceededWarn", {max: CONFIG.ME5E.maxLevel}));
+      changed.system.levels -= newCharacterLevel - CONFIG.ME5E.maxLevel;
     }
   }
 
@@ -1847,7 +1847,7 @@ export default class Item5e extends Item {
       if ( isNPC ) {
         updates["system.proficient"] = true;  // NPCs automatically have equipment proficiency
       } else {
-        const armorProf = CONFIG.DND5E.armorProficienciesMap[this.system.armor?.type]; // Player characters check proficiency
+        const armorProf = CONFIG.ME5E.armorProficienciesMap[this.system.armor?.type]; // Player characters check proficiency
         const actorArmorProfs = this.parent.system.traits?.armorProf?.value || [];
         updates["system.proficient"] = (armorProf === true) || actorArmorProfs.includes(armorProf)
           || actorArmorProfs.includes(this.system.baseItem);
@@ -1913,7 +1913,7 @@ export default class Item5e extends Item {
     if ( data.system?.proficient !== undefined ) return {};
 
     // Some weapon types are always proficient
-    const weaponProf = CONFIG.DND5E.weaponProficienciesMap[this.system.weaponType];
+    const weaponProf = CONFIG.ME5E.weaponProficienciesMap[this.system.weaponType];
     const updates = {};
     if ( weaponProf === true ) updates["system.proficient"] = true;
 
@@ -1942,7 +1942,7 @@ export default class Item5e extends Item {
       range, damage, formula, save, level} = itemData.system;
 
     // Get scroll data
-    const scrollUuid = `Compendium.${CONFIG.DND5E.sourcePacks.ITEMS}.${CONFIG.DND5E.spellScrollIds[level]}`;
+    const scrollUuid = `Compendium.${CONFIG.ME5E.sourcePacks.ITEMS}.${CONFIG.ME5E.spellScrollIds[level]}`;
     const scrollItem = await fromUuid(scrollUuid);
     const scrollData = scrollItem.toObject();
     delete scrollData._id;
@@ -1959,7 +1959,7 @@ export default class Item5e extends Item {
 
     // Create the spell scroll data
     const spellScrollData = foundry.utils.mergeObject(scrollData, {
-      name: `${game.i18n.localize("DND5E.SpellScroll")}: ${itemData.name}`,
+      name: `${game.i18n.localize("ME5E.SpellScroll")}: ${itemData.name}`,
       img: itemData.img,
       system: {
         "description.value": desc.trim(), source, actionType, activation, duration, target, range, damage, formula,

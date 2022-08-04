@@ -7,9 +7,9 @@ export default class TraitSelector extends DocumentSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "trait-selector",
-      classes: ["dnd5e", "trait-selector", "subconfig"],
+      classes: ["me5e", "trait-selector", "subconfig"],
       title: "Actor Trait Selection",
-      template: "systems/dnd5e/templates/apps/trait-selector.hbs",
+      template: "systems/me5e/templates/apps/trait-selector.hbs",
       width: 320,
       height: "auto",
       choices: {},

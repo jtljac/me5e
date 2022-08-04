@@ -6,6 +6,10 @@
   "version": "2.0.0-alpha2",
   "authors": [
     {
+      "name": "jtljac",
+      "url": "https://jacob-lucas.uk"
+    },
+    {
       "name": "Atropos",
       "url": "https://foundryvtt.com"
     }

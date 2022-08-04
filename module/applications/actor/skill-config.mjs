@@ -3,7 +3,7 @@
  *
  * @param {Actor} actor                 The Actor instance being displayed within the sheet.
  * @param {ApplicationOptions} options  Additional application configuration options.
- * @param {string} skillId              The skill key as defined in CONFIG.DND5E.skills.
+ * @param {string} skillId              The skill key as defined in CONFIG.ME5E.skills.
  */
 export default class ActorSkillConfig extends DocumentSheet {
   constructor(actor, options, skillId) {
@@ -16,8 +16,8 @@ export default class ActorSkillConfig extends DocumentSheet {
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["dnd5e"],
-      template: "systems/dnd5e/templates/apps/skill-config.hbs",
+      classes: ["me5e"],
+      template: "systems/me5e/templates/apps/skill-config.hbs",
       width: 500,
       height: "auto"
     });
@@ -27,7 +27,7 @@ export default class ActorSkillConfig extends DocumentSheet {
 
   /** @inheritdoc */
   get title() {
-    return `${game.i18n.format("DND5E.SkillConfigureTitle", {skill: CONFIG.DND5E.skills[this._skillId]})}: ${this.document.name}`;
+    return `${game.i18n.format("ME5E.SkillConfigureTitle", {skill: CONFIG.ME5E.skills[this._skillId]})}: ${this.document.name}`;
   }
 
   /* -------------------------------------------- */
@@ -38,7 +38,7 @@ export default class ActorSkillConfig extends DocumentSheet {
     return {
       skill: src.system.skills?.[this._skillId] || {},
       skillId: this._skillId,
-      proficiencyLevels: CONFIG.DND5E.proficiencyLevels,
+      proficiencyLevels: CONFIG.ME5E.proficiencyLevels,
       bonusGlobal: src.system.bonuses?.skill
     };
   }
@@ -50,8 +50,8 @@ export default class ActorSkillConfig extends DocumentSheet {
     const passive = formData[`system.skills.${this._skillId}.bonuses.passive`];
     const passiveRoll = new Roll(passive);
     if ( !passiveRoll.isDeterministic ) {
-      const message = game.i18n.format("DND5E.FormulaCannotContainDiceError", {
-        name: game.i18n.localize("DND5E.SkillBonusPassive")
+      const message = game.i18n.format("ME5E.FormulaCannotContainDiceError", {
+        name: game.i18n.localize("ME5E.SkillBonusPassive")
       });
       ui.notifications.error(message);
       throw new Error(message);

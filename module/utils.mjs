@@ -86,37 +86,37 @@ export function linkForUuid(uuid) {
 /**
  * Define a set of template paths to pre-load. Pre-loaded templates are compiled and cached for fast access when
  * rendering. These paths will also be available as Handlebars partials by using the file name
- * (e.g. "dnd5e.actor-traits").
+ * (e.g. "me5e.actor-traits").
  * @returns {Promise}
  */
 export async function preloadHandlebarsTemplates() {
   const partials = [
     // Shared Partials
-    "systems/dnd5e/templates/actors/parts/active-effects.hbs",
+    "systems/me5e/templates/actors/parts/active-effects.hbs",
 
     // Actor Sheet Partials
-    "systems/dnd5e/templates/actors/parts/actor-traits.hbs",
-    "systems/dnd5e/templates/actors/parts/actor-inventory.hbs",
-    "systems/dnd5e/templates/actors/parts/actor-features.hbs",
-    "systems/dnd5e/templates/actors/parts/actor-spellbook.hbs",
-    "systems/dnd5e/templates/actors/parts/actor-warnings.hbs",
+    "systems/me5e/templates/actors/parts/actor-traits.hbs",
+    "systems/me5e/templates/actors/parts/actor-inventory.hbs",
+    "systems/me5e/templates/actors/parts/actor-features.hbs",
+    "systems/me5e/templates/actors/parts/actor-spellbook.hbs",
+    "systems/me5e/templates/actors/parts/actor-warnings.hbs",
 
     // Item Sheet Partials
-    "systems/dnd5e/templates/items/parts/item-action.hbs",
-    "systems/dnd5e/templates/items/parts/item-activation.hbs",
-    "systems/dnd5e/templates/items/parts/item-advancement.hbs",
-    "systems/dnd5e/templates/items/parts/item-description.hbs",
-    "systems/dnd5e/templates/items/parts/item-mountable.hbs",
-    "systems/dnd5e/templates/items/parts/item-spellcasting.hbs",
+    "systems/me5e/templates/items/parts/item-action.hbs",
+    "systems/me5e/templates/items/parts/item-activation.hbs",
+    "systems/me5e/templates/items/parts/item-advancement.hbs",
+    "systems/me5e/templates/items/parts/item-description.hbs",
+    "systems/me5e/templates/items/parts/item-mountable.hbs",
+    "systems/me5e/templates/items/parts/item-spellcasting.hbs",
 
     // Advancement Partials
-    "systems/dnd5e/templates/advancement/parts/advancement-controls.hbs"
+    "systems/me5e/templates/advancement/parts/advancement-controls.hbs"
   ];
 
   const paths = {};
   for ( const path of partials ) {
     paths[path.replace(".hbs", ".html")] = path;
-    paths[`dnd5e.${path.split("/").pop().replace(".hbs", "")}`] = path;
+    paths[`me5e.${path.split("/").pop().replace(".hbs", "")}`] = path;
   }
 
   return loadTemplates(paths);
@@ -130,7 +130,7 @@ export async function preloadHandlebarsTemplates() {
 export function registerHandlebarsHelpers() {
   Handlebars.registerHelper({
     getProperty: foundry.utils.getProperty,
-    "dnd5e-linkForUuid": linkForUuid
+    "me5e-linkForUuid": linkForUuid
   });
 }
 
@@ -147,7 +147,7 @@ const _preLocalizationRegistrations = {};
 
 /**
  * Mark the provided config key to be pre-localized during the init stage.
- * @param {string} configKey              Key within `CONFIG.DND5E` to localize.
+ * @param {string} configKey              Key within `CONFIG.ME5E` to localize.
  * @param {object} [options={}]
  * @param {string} [options.key]          If each entry in the config enum is an object,
  *                                        localize and sort using this property.
@@ -164,7 +164,7 @@ export function preLocalize(configKey, { key, keys=[], sort=false }={}) {
 
 /**
  * Execute previously defined pre-localization tasks on the provided config object.
- * @param {object} config  The `CONFIG.DND5E` object to localize and sort. *Will be mutated.*
+ * @param {object} config  The `CONFIG.ME5E` object to localize and sort. *Will be mutated.*
  */
 export function performPreLocalization(config) {
   for ( const [key, settings] of Object.entries(_preLocalizationRegistrations) ) {

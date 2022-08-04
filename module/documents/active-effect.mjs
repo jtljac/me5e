@@ -14,7 +14,7 @@ export default class ActiveEffect5e extends ActiveEffect {
   /** @inheritdoc */
   apply(actor, change) {
     if ( this.isSuppressed ) return null;
-    if ( change.key.startsWith("flags.dnd5e.") ) change = this._prepareFlagChange(actor, change);
+    if ( change.key.startsWith("flags.me5e.") ) change = this._prepareFlagChange(actor, change);
     return super.apply(actor, change);
   }
 
@@ -28,7 +28,7 @@ export default class ActiveEffect5e extends ActiveEffect {
    */
   _prepareFlagChange(actor, change) {
     const { key, value } = change;
-    const data = CONFIG.DND5E.characterFlags[key.replace("flags.dnd5e.", "")];
+    const data = CONFIG.ME5E.characterFlags[key.replace("flags.me5e.", "")];
     if ( !data ) return change;
 
     // Set flag to initial value if it isn't present
@@ -80,7 +80,7 @@ export default class ActiveEffect5e extends ActiveEffect {
     switch ( a.dataset.action ) {
       case "create":
         return owner.createEmbeddedDocuments("ActiveEffect", [{
-          label: game.i18n.localize("DND5E.EffectNew"),
+          label: game.i18n.localize("ME5E.EffectNew"),
           icon: "icons/svg/aura.svg",
           origin: owner.uuid,
           "duration.rounds": li.dataset.effectType === "temporary" ? 1 : undefined,
@@ -107,24 +107,24 @@ export default class ActiveEffect5e extends ActiveEffect {
     const categories = {
       temporary: {
         type: "temporary",
-        label: game.i18n.localize("DND5E.EffectTemporary"),
+        label: game.i18n.localize("ME5E.EffectTemporary"),
         effects: []
       },
       passive: {
         type: "passive",
-        label: game.i18n.localize("DND5E.EffectPassive"),
+        label: game.i18n.localize("ME5E.EffectPassive"),
         effects: []
       },
       inactive: {
         type: "inactive",
-        label: game.i18n.localize("DND5E.EffectInactive"),
+        label: game.i18n.localize("ME5E.EffectInactive"),
         effects: []
       },
       suppressed: {
         type: "suppressed",
-        label: game.i18n.localize("DND5E.EffectUnavailable"),
+        label: game.i18n.localize("ME5E.EffectUnavailable"),
         effects: [],
-        info: [game.i18n.localize("DND5E.EffectUnavailableInfo")]
+        info: [game.i18n.localize("ME5E.EffectUnavailableInfo")]
       }
     };
 
