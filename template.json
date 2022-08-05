@@ -106,11 +106,7 @@
           }
         },
         "currency": {
-          "pp": 0,
-          "gp": 0,
-          "ep": 0,
-          "sp": 0,
-          "cp": 0
+          "cr": 0
         }
       },
       "creature": {
@@ -141,14 +137,6 @@
               "passive": ""
             }
           },
-          "ani": {
-            "value": 0,
-            "ability": "wis",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
           "arc": {
             "value": 0,
             "ability": "int",
@@ -160,6 +148,23 @@
           "ath": {
             "value": 0,
             "ability": "str",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "elc": {
+            "value": 0,
+            "ability": "int",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
+          },
+          "eng": {
+            "value": 0,
+            "defaultAbility": "int",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -213,14 +218,6 @@
               "passive": ""
             }
           },
-          "nat": {
-            "value": 0,
-            "ability": "int",
-            "bonuses": {
-              "check": "",
-              "passive": ""
-            }
-          },
           "prc": {
             "value": 0,
             "ability": "wis",
@@ -245,7 +242,7 @@
               "passive": ""
             }
           },
-          "rel": {
+          "sci": {
             "value": 0,
             "ability": "int",
             "bonuses": {
@@ -276,12 +273,14 @@
               "check": "",
               "passive": ""
             }
-          }
-        },
-        "traits": {
-          "languages": {
-            "value": [],
-            "custom": ""
+          },
+          "veh": {
+            "value": 0,
+            "ability": "dex",
+            "bonuses": {
+              "check": "",
+              "passive": ""
+            }
           }
         },
         "spells": {
@@ -302,26 +301,6 @@
             "override": null
           },
           "spell5": {
-            "value": 0,
-            "override": null
-          },
-          "spell6": {
-            "value": 0,
-            "override": null
-          },
-          "spell7": {
-            "value": 0,
-            "override": null
-          },
-          "spell8": {
-            "value": 0,
-            "override": null
-          },
-          "spell9": {
-            "value": 0,
-            "override": null
-          },
-          "pact": {
             "value": 0,
             "override": null
           }
@@ -367,7 +346,10 @@
           "failure": 0
         },
         "exhaustion": 0,
-        "inspiration": 0
+        "inspiration": 0,
+        "indoctrination": 0,
+        "paragon": 0,
+        "renegade": 0
       },
       "details": {
         "background": "",
@@ -457,7 +439,7 @@
     },
     "vehicle": {
       "templates": ["common"],
-      "vehicleType": "water",
+      "vehicleType": "space",
       "abilities": {
         "int": {
           "value": 0
@@ -512,9 +494,21 @@
     }
   },
   "Item": {
-    "types": ["weapon", "equipment", "consumable", "tool", "loot", "background", "class", "subclass", "spell", "feat", "backpack"],
+    "types": [
+      "weapon",
+      "equipment",
+      "consumable",
+      "tool",
+      "loot",
+      "background",
+      "class",
+      "subclass",
+      "spell",
+      "feat",
+      "backpack"
+    ],
     "templates": {
-      "itemDescription": {
+      "common": {
         "description": {
           "value": "",
           "chat": "",
@@ -593,30 +587,32 @@
           "dt": null,
           "conditions": ""
         }
+        },
+        "recharge": {
+          "recharge": {
+            "value": null,
+            "charged": false
+        }
       }
     },
     "htmlFields": ["description.value", "description.chat", "description.unidentified"],
     "background": {
-      "templates": ["itemDescription"],
+      "templates": ["common"],
       "advancement": []
     },
     "backpack": {
-      "templates": ["itemDescription", "physicalItem"],
+      "templates": ["common", "physicalItem"],
       "capacity": {
         "type": "weight",
         "value": 0,
         "weightless": false
       },
       "currency": {
-        "cp": 0,
-        "sp": 0,
-        "ep": 0,
-        "gp": 0,
-        "pp": 0
+        "cr": 0
       }
     },
     "class": {
-      "templates": ["itemDescription"],
+      "templates": ["common"],
       "identifier": "",
       "levels": 1,
       "hitDice": "d6",
@@ -634,16 +630,17 @@
       }
     },
     "consumable": {
-      "templates": ["itemDescription", "physicalItem", "activatedEffect", "action"],
+      "templates": ["common", "physicalItem", "activatedEffect", "action"],
       "consumableType": "potion",
       "uses": {
         "autoDestroy": false
       }
     },
     "equipment": {
-      "templates": ["itemDescription", "physicalItem", "activatedEffect", "action", "mountable"],
+      "templates": ["common", "physicalItem", "activatedEffect", "action", "mountable", "recharge"],
       "armor": {
         "type": "light",
+        "placement": "chest",
         "value": null,
         "dex": null
       },
@@ -657,18 +654,18 @@
       "proficient": true
     },
     "feat": {
-      "templates": ["itemDescription", "activatedEffect", "action"],
-      "requirements": "",
-      "recharge": {
-        "value": null,
-        "charged": false
-      }
+      "templates": ["common", "activatedEffect", "action", "recharge"],
+      "requirements": ""
+    },
+    "fightingstyle": {
+      "templates": ["common", "activatedEffect", "action", "recharge"],
+      "requirements": ""
     },
     "loot": {
-      "templates": ["itemDescription", "physicalItem"]
+      "templates": ["common", "physicalItem"]
     },
     "tool": {
-      "templates": ["itemDescription", "physicalItem"],
+      "templates": ["common", "physicalItem"],
       "toolType": "",
       "baseItem": "",
       "ability": "int",
@@ -677,22 +674,14 @@
       "bonus": ""
     },
     "spell": {
-      "templates": ["itemDescription", "activatedEffect", "action"],
+      "templates": ["common", "activatedEffect", "action"],
       "level": 1,
       "school": "",
       "components": {
         "value": "",
-        "vocal": false,
-        "somatic": false,
-        "material": false,
+        "somatic": true,
         "ritual": false,
         "concentration": false
-      },
-      "materials": {
-        "value": "",
-        "consumed": false,
-        "cost": 0,
-        "supply": 0
       },
       "preparation": {
         "mode": "prepared",
@@ -704,7 +693,7 @@
       }
     },
     "subclass": {
-      "templates": ["itemDescription"],
+      "templates": ["common"],
       "identifier": "",
       "classIdentifier": "",
       "advancement": [],
@@ -715,7 +704,7 @@
     },
     "weapon": {
       "templates": ["itemDescription", "physicalItem" ,"activatedEffect", "action", "mountable"],
-      "weaponType": "simpleM",
+      "weaponType": "ar",
       "baseItem": "",
       "properties": {},
       "proficient": true

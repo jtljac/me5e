@@ -56,28 +56,6 @@ export default function registerSystemSettings() {
     }
   });
 
-  // Use Honor ability score
-  game.settings.register("me5e", "honorScore", {
-    name: "SETTINGS.5eHonorN",
-    hint: "SETTINGS.5eHonorL",
-    scope: "world",
-    config: true,
-    default: false,
-    type: Boolean,
-    requiresReload: true
-  });
-
-  // Use Sanity ability score
-  game.settings.register("me5e", "sanityScore", {
-    name: "SETTINGS.5eSanityN",
-    hint: "SETTINGS.5eSanityL",
-    scope: "world",
-    config: true,
-    default: false,
-    type: Boolean,
-    requiresReload: true
-  });
-
   // Apply Dexterity as Initiative Tiebreaker
   game.settings.register("me5e", "initiativeDexTiebreaker", {
     name: "SETTINGS.5eInitTBN",
@@ -168,7 +146,7 @@ export default function registerSystemSettings() {
     scope: "world",
     config: true,
     type: Boolean,
-    default: false
+    default: true
   });
 
   // Critical Damage Modifiers

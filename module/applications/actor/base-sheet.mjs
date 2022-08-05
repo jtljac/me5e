@@ -124,7 +124,6 @@ export default class ActorSheet5e extends ActorSheet {
     // Temporary HP
     const hp = context.system.attributes.hp;
     if ( hp.temp === 0 ) delete hp.temp;
-    if ( hp.tempmax === 0 ) delete hp.tempmax;
 
     // Ability Scores
     for ( const [a, abl] of Object.entries(context.system.abilities) ) {
@@ -363,8 +362,7 @@ export default class ActorSheet5e extends ActorSheet {
       dr: CONFIG.ME5E.damageResistanceTypes,
       di: CONFIG.ME5E.damageResistanceTypes,
       dv: CONFIG.ME5E.damageResistanceTypes,
-      ci: CONFIG.ME5E.conditionTypes,
-      languages: CONFIG.ME5E.languages
+      ci: CONFIG.ME5E.conditionTypes
     };
     for ( let [t, choices] of Object.entries(map) ) {
       const trait = traits[t];

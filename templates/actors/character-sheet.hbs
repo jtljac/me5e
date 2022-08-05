@@ -32,7 +32,7 @@
             {{!-- Character Summary --}}
             <ul class="summary flexrow">
                 <li>
-                    <input type="text" name="system.details.race" value="{{system.details.race}}" placeholder="{{ localize 'ME5E.Race' }}"/>
+                    <input type="text" name="system.details.race" value="{{system.details.race}}" placeholder="{{ localize 'ME5E.Species' }}"/>
                 </li>
                 <li>
                     {{#if labels.background}}
@@ -67,10 +67,6 @@
                             placeholder="+{{ localize 'ME5E.Temp' }}"
                             value="{{system.attributes.hp.temp}}"
                             title="{{localize 'ME5E.HitPointsTemp'}}">
-                        <input name="system.attributes.hp.tempmax" type="number" step="any" class="temphp"
-                            placeholder="+{{ localize 'ME5E.Max' }}"
-                            value="{{system.attributes.hp.tempmax}}"
-                            title="{{localize 'ME5E.HitPointsTempMax'}}">
                     </footer>
                 </li>
 

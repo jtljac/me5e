@@ -1,11 +1,10 @@
 /**
- * The me5e game system for Foundry Virtual Tabletop
+ * The ME5e game system for Foundry Virtual Tabletop
  * A system for playing the fifth edition of the worlds most popular roleplaying game.
- * Author: Atropos
- * Software License: MIT
- * Content License: https://media.wizards.com/2016/downloads/DND/SRD-OGL_V5.1.pdf
- * Repository: https://github.com/jtljac/me5e
- * Issue Tracker: https://github.com/jtljac/me5e/issues
+ * Author: jtljac
+ * Software License: GNU GPLv3
+ * Repository: https://gitlab.com/foundrynet/me5e
+ * Issue Tracker: https://gitlab.com/foundrynet/me5e/issues
  */
 
 // Import Configuration
@@ -95,15 +94,6 @@ Hooks.once("init", function() {
   // Register System Settings
   registerSystemSettings();
 
-  // Remove honor & sanity from configuration if they aren't enabled
-  if ( !game.settings.get("me5e", "honorScore") ) {
-    delete ME5E.abilities.hon;
-    delete ME5E.abilityAbbreviations.hon;
-  }
-  if ( !game.settings.get("me5e", "sanityScore") ) {
-    delete ME5E.abilities.san;
-    delete ME5E.abilityAbbreviations.san;
-  }
 
   // Patch Core Functions
   CONFIG.Combat.initiative.formula = "1d20 + @attributes.init.mod + @attributes.init.prof + @attributes.init.bonus + @abilities.dex.bonuses.check + @bonuses.abilities.check";
