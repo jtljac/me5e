@@ -1,6 +1,12 @@
 <form autocomplete="off">
   <p class="notes">{{localize "ME5E.SkillConfigurationHint"}}</p>
   <div class="form-group">
+    <label>{{ localize "ME5E.SkillAbility" }}</label>
+    <select name="system.skills.{{skillId}}.userAbility">
+      {{selectOptions abilities selected=skill.userAbility blank=(concat "Default (" (lookup abilities skill.defaultAbility) ")")}}
+    </select>
+  </div>
+  <div class="form-group">
     <label>{{ localize "ME5E.ProficiencyLevel" }}</label>
     <select name="system.skills.{{skillId}}.value">
       {{selectOptions proficiencyLevels selected=skill.value}}

@@ -68,15 +68,16 @@
           },
           "init": {
             "value": 0,
-            "bonus": 0
+            "defaultAbility": "dex",
+            "userAbility": ""
           },
           "movement": {
             "burrow": 0,
             "climb": 0,
             "fly": 0,
             "swim": 0,
-            "walk": 30,
-            "units": "ft",
+            "walk": 12,
+            "units": "m",
             "hover": false
           }
         },
@@ -131,7 +132,8 @@
         "skills": {
           "acr": {
             "value": 0,
-            "ability": "dex",
+            "defaultAbility": "dex",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -139,7 +141,8 @@
           },
           "arc": {
             "value": 0,
-            "ability": "int",
+            "defaultAbility": "int",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -147,7 +150,8 @@
           },
           "ath": {
             "value": 0,
-            "ability": "str",
+            "defaultAbility": "str",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -155,7 +159,8 @@
           },
           "elc": {
             "value": 0,
-            "ability": "int",
+            "defaultAbility": "int",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -172,7 +177,8 @@
           },
           "dec": {
             "value": 0,
-            "ability": "cha",
+            "defaultAbility": "cha",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -180,7 +186,8 @@
           },
           "his": {
             "value": 0,
-            "ability": "int",
+            "defaultAbility": "int",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -188,7 +195,8 @@
           },
           "ins": {
             "value": 0,
-            "ability": "wis",
+            "defaultAbility": "wis",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -196,7 +204,8 @@
           },
           "itm": {
             "value": 0,
-            "ability": "cha",
+            "defaultAbility": "cha",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -204,7 +213,8 @@
           },
           "inv": {
             "value": 0,
-            "ability": "int",
+            "defaultAbility": "int",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -212,7 +222,8 @@
           },
           "med": {
             "value": 0,
-            "ability": "wis",
+            "defaultAbility": "wis",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -220,7 +231,8 @@
           },
           "prc": {
             "value": 0,
-            "ability": "wis",
+            "defaultAbility": "wis",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -228,7 +240,8 @@
           },
           "prf": {
             "value": 0,
-            "ability": "cha",
+            "defaultAbility": "cha",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -236,7 +249,8 @@
           },
           "per": {
             "value": 0,
-            "ability": "cha",
+            "defaultAbility": "cha",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -244,7 +258,8 @@
           },
           "sci": {
             "value": 0,
-            "ability": "int",
+            "defaultAbility": "int",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -252,7 +267,8 @@
           },
           "slt": {
             "value": 0,
-            "ability": "dex",
+            "defaultAbility": "dex",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -260,7 +276,8 @@
           },
           "ste": {
             "value": 0,
-            "ability": "dex",
+            "defaultAbility": "dex",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -268,7 +285,8 @@
           },
           "sur": {
             "value": 0,
-            "ability": "wis",
+            "defaultAbility": "wis",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""
@@ -276,7 +294,8 @@
           },
           "veh": {
             "value": 0,
-            "ability": "dex",
+            "defaultAbility": "dex",
+            "userAbility": "",
             "bonuses": {
               "check": "",
               "passive": ""

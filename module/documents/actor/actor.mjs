@@ -82,14 +82,8 @@ export default class Actor5e extends Actor {
 
   /** @inheritDoc */
   prepareBaseData() {
-    const updates = {};
-    this._prepareBaseAbilities(updates);
-    if ( !foundry.utils.isEmpty(updates) ) {
-      if ( !this.id ) this.updateSource(updates);
-      else this.update(updates);
-    }
-
     this._prepareBaseArmorClass();
+
     switch ( this.type ) {
       case "character":
         return this._prepareCharacterData();
@@ -189,39 +183,6 @@ export default class Actor5e extends Actor {
 
   /* -------------------------------------------- */
   /*  Base Data Preparation Helpers               */
-  /* -------------------------------------------- */
-
-  /**
-   * Update the actor's abilities list to match the abilities configured in `ME5E.abilities`.
-   * Mutates the system.abilities object.
-   * @param {object} updates  Updates to be applied to the actor. *Will be mutated.*
-   * @protected
-   */
-  _prepareBaseAbilities(updates) {
-    const abilities = {};
-    for ( const key of Object.keys(CONFIG.ME5E.abilities) ) {
-      abilities[key] = this.system.abilities[key];
-      if ( !abilities[key] ) {
-        abilities[key] = foundry.utils.deepClone(game.system.template.Actor.templates.common.abilities.cha);
-
-        // Honor: Charisma for NPC, 0 for vehicles
-        if ( key === "hon" ) {
-          if ( this.type === "vehicle" ) abilities[key].value = 0;
-          else if ( this.type === "npc" ) abilities[key].value = this.system.abilities.cha?.value ?? 10;
-        }
-
-        // Sanity: Wisdom for NPC, 0 for vehicles
-        else if ( key === "san" ) {
-          if ( this.type === "vehicle" ) abilities[key].value = 0;
-          else if ( this.type === "npc" ) abilities[key].value = this.system.abilities.wis?.value ?? 10;
-        }
-
-        updates[`system.abilities.${key}`] = foundry.utils.deepClone(abilities[key]);
-      }
-    }
-    this.system.abilities = abilities;
-  }
-
   /* -------------------------------------------- */
 
   /**
@@ -367,7 +328,8 @@ export default class Actor5e extends Actor {
     const feats = CONFIG.ME5E.characterFlags;
     const skillBonus = simplifyBonus(globalBonuses.skill, bonusData);
     for ( const [id, skl] of Object.entries(this.system.skills) ) {
-      const ability = this.system.abilities[skl.ability];
+      skl.ability = skl.userAbility || skl.defaultAbility;
+
       skl.value = Math.clamped(Number(skl.value).toNearest(0.5), 0, 2) ?? 0;
       const baseBonus = simplifyBonus(skl.bonuses?.check, bonusData);
       let roundDown = true;
@@ -389,6 +351,7 @@ export default class Actor5e extends Actor {
       }
 
       // Compute modifier
+      const ability = this.system.abilities[skl.ability];
       const checkBonusAbl = simplifyBonus(ability?.bonuses?.check, bonusData);
       skl.bonus = baseBonus + checkBonus + checkBonusAbl + skillBonus;
       skl.mod = ability?.mod ?? 0;
@@ -538,17 +501,18 @@ export default class Actor5e extends Actor {
     const init = this.system.attributes.init ??= {};
     const { initiativeAlert, jackOfAllTrades, remarkableAthlete } = this.flags.me5e ?? {};
 
+    init.ability = init.userAbility || init.defaultAbility;
+
     // Initiative modifiers
-    const dexCheckBonus = simplifyBonus(this.system.abilities.dex?.bonuses?.check, bonusData);
+    const checkBonus = simplifyBonus(this.system.abilities[init.ability]?.bonuses?.check, bonusData);
 
     // Compute initiative modifier
-    init.mod = this.system.abilities.dex?.mod ?? 0;
+    init.mod = this.system.abilities[init.ability]?.mod ?? 0;
     init.prof = new Proficiency(
       this.system.attributes.prof, (jackOfAllTrades || remarkableAthlete) ? 0.5 : 0, !remarkableAthlete
     );
     init.value = init.value ?? 0;
-    init.bonus = init.value + (initiativeAlert ? 5 : 0);
-    init.total = init.mod + init.bonus + dexCheckBonus + globalCheckBonus;
+    init.total = init.mod + init.value + checkBonus + globalCheckBonus;
     if ( Number.isNumeric(init.prof.term) ) init.total += init.prof.flat;
   }
 

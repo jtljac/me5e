@@ -23,13 +23,13 @@ export function _getInitiativeFormula() {
     `${nd}d20${mods}`,
     init.mod,
     (init.prof.term !== "0") ? init.prof.term : null,
-    (init.bonus !== 0) ? init.bonus : null
+    (init.value !== 0) ? init.value : null
   ];
 
   // Ability Check Bonuses
-  const dexCheckBonus = actor.system.abilities.dex?.bonuses?.check;
+  const checkBonus = actor.system.abilities[init.ability]?.bonuses?.check;
   const globalCheckBonus = actor.system.bonuses?.abilities?.check;
-  if ( dexCheckBonus ) parts.push(Roll.replaceFormulaData(dexCheckBonus, rollData));
+  if ( checkBonus ) parts.push(Roll.replaceFormulaData(checkBonus, rollData));
   if ( globalCheckBonus ) parts.push(Roll.replaceFormulaData(globalCheckBonus, rollData));
 
   // Optionally apply Dexterity tiebreaker

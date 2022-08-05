@@ -9,6 +9,7 @@ import ActorMovementConfig from "./movement-config.mjs";
 import ActorSensesConfig from "./senses-config.mjs";
 import ActorSheetFlags from "./sheet-flags.mjs";
 import ActorSkillConfig from "./skill-config.mjs";
+import ActorInitConfig from "./init-config.mjs";
 import ActorTypeConfig from "./type-config.mjs";
 
 import AdvancementConfirmationDialog from "../../advancement/advancement-confirmation-dialog.mjs";
@@ -433,7 +434,7 @@ export default class ActorSheet5e extends ActorSheet {
     };
 
     // Determine the maximum spell level which has a slot
-    const maxLevel = Array.fromRange(10).reduce((max, i) => {
+    const maxLevel = Array.fromRange(5).reduce((max, i) => {
       if ( i === 0 ) return max;
       const level = levels[`spell${i}`];
       if ( (level.max || level.override ) && ( i > max ) ) max = i;
@@ -698,6 +699,10 @@ export default class ActorSheet5e extends ActorSheet {
       case "skill": {
         const skill = event.currentTarget.closest("[data-skill]").dataset.skill;
         app = new ActorSkillConfig(this.actor, null, skill);
+        break;
+      }
+      case "init": {
+        app = new ActorInitConfig(this.actor, null);
         break;
       }
     }

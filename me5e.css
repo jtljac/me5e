@@ -693,8 +693,8 @@
 }
 .me5e.sheet.actor .config-button {
   color: #4b4a44;
-  right: -6px;
-  top: -3px;
+  right: 3px;
+  top: 2px;
   font-size: 10px;
   font-weight: normal;
 }
@@ -725,10 +725,11 @@
   font-size: 18px;
 }
 .me5e.sheet.actor .sheet-header .summary input,
-.me5e.sheet.actor .sheet-header .summary span {
+.me5e.sheet.actor .sheet-header .summary span,
+.me5e.sheet.actor .sheet-header .summary select {
   display: block;
-  height: 24px;
-  line-height: 24px;
+  height: 20px;
+  line-height: 20px;
 }
 .me5e.sheet.actor .sheet-header .summary span {
   margin-inline-start: 4px;
@@ -834,6 +835,9 @@
   font-size: 12px;
   font-weight: 400;
   white-space: nowrap;
+}
+.me5e.sheet.actor ul.attributes li.attribute .attribute-footer .skill-ability {
+  text-transform: capitalize;
 }
 .me5e.sheet.actor .attributable {
   position: relative;
@@ -1812,6 +1816,9 @@
   color: #7a7971;
   flex: none;
   margin-left: 3px;
+}
+.me5e.sheet.actor.character .sheet-header .summary .alignment {
+  color: #4b4a44;
 }
 .me5e.sheet.actor.character .sheet-header .xpbar {
   flex: 0 0 8px;

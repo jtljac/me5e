@@ -1,0 +1,20 @@
+<form autocomplete="off">
+  <p class="notes">{{localize "ME5E.SkillConfigurationHint"}}</p>
+  <div class="form-group">
+    <label>{{ localize "ME5E.SkillAbility" }}</label>
+    <select name="system.attributes.init.userAbility">
+      {{selectOptions abilities selected=init.userAbility blank=(concat "Default (" (lookup abilities init.defaultAbility) ")")}}
+    </select>
+  </div>
+  <div class="form-group">
+    <label>{{localize "ME5E.InitiativeBonus"}}</label>
+      {{numberInput system.attributes.init.value name="system.attributes.init.value" placeholder="0"}}
+  </div>
+  <hr>
+  <div class="form-group">
+    <label>{{localize "ME5E.BonusAbilitySkill"}}</label>
+      <input name="system.bonuses.abilities.skill" type="text" value="{{bonusGlobal}}">
+    <p class="notes">{{localize "ME5E.SkillGlobalBonusCheckHint"}}</p>
+  </div>
+  <button type="submit" name="submit" value="1"><i class="far fa-save"></i> {{ localize "Submit"}}</button>
+</form>
