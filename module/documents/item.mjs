@@ -1913,14 +1913,13 @@ export default class Item5e extends Item {
     if ( data.system?.proficient !== undefined ) return {};
 
     // Some weapon types are always proficient
-    const weaponProf = CONFIG.ME5E.weaponProficienciesMap[this.system.weaponType];
     const updates = {};
-    if ( weaponProf === true ) updates["system.proficient"] = true;
+    if ( this.system.weaponType === "natural" ) updates["system.proficient"] = true;
 
     // Characters may have proficiency in this weapon type (or specific base weapon)
     else {
       const actorProfs = this.parent.system.traits?.weaponProf?.value || [];
-      updates["system.proficient"] = actorProfs.includes(weaponProf) || actorProfs.includes(this.system.baseItem);
+      updates["system.proficient"] = actorProfs.includes(this.system.weaponType) || actorProfs.includes(this.system.baseItem);
     }
     return updates;
   }

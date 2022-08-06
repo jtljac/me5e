@@ -737,75 +737,6 @@ export default class ActorSheet5e extends ActorSheet {
   /* -------------------------------------------- */
 
   /** @override */
-  async _onDropActor(event, data) {
-    const canPolymorph = game.user.isGM || (this.actor.isOwner && game.settings.get("me5e", "allowPolymorphing"));
-    if ( !canPolymorph ) return false;
-
-    // Get the target actor
-    const cls = getDocumentClass("Actor");
-    const sourceActor = await cls.fromDropData(data);
-    if ( !sourceActor ) return;
-
-    // Define a function to record polymorph settings for future use
-    const rememberOptions = html => {
-      const options = {};
-      html.find("input").each((i, el) => {
-        options[el.name] = el.checked;
-      });
-      const settings = foundry.utils.mergeObject(game.settings.get("me5e", "polymorphSettings") ?? {}, options);
-      game.settings.set("me5e", "polymorphSettings", settings);
-      return settings;
-    };
-
-    // Create and render the Dialog
-    return new Dialog({
-      title: game.i18n.localize("ME5E.PolymorphPromptTitle"),
-      content: {
-        options: game.settings.get("me5e", "polymorphSettings"),
-        i18n: CONFIG.ME5E.polymorphSettings,
-        isToken: this.actor.isToken
-      },
-      default: "accept",
-      buttons: {
-        accept: {
-          icon: '<i class="fas fa-check"></i>',
-          label: game.i18n.localize("ME5E.PolymorphAcceptSettings"),
-          callback: html => this.actor.transformInto(sourceActor, rememberOptions(html))
-        },
-        wildshape: {
-          icon: '<i class="fas fa-paw"></i>',
-          label: game.i18n.localize("ME5E.PolymorphWildShape"),
-          callback: html => this.actor.transformInto(sourceActor, {
-            keepBio: true,
-            keepClass: true,
-            keepMental: true,
-            mergeSaves: true,
-            mergeSkills: true,
-            transformTokens: rememberOptions(html).transformTokens
-          })
-        },
-        polymorph: {
-          icon: '<i class="fas fa-pastafarianism"></i>',
-          label: game.i18n.localize("ME5E.Polymorph"),
-          callback: html => this.actor.transformInto(sourceActor, {
-            transformTokens: rememberOptions(html).transformTokens
-          })
-        },
-        cancel: {
-          icon: '<i class="fas fa-times"></i>',
-          label: game.i18n.localize("Cancel")
-        }
-      }
-    }, {
-      classes: ["dialog", "me5e"],
-      width: 600,
-      template: "systems/me5e/templates/apps/polymorph-prompt.hbs"
-    }).render(true);
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
   async _onDropItemCreate(itemData) {
     let items = itemData instanceof Array ? itemData : [itemData];
     const itemsWithoutAdvancement = items.filter(i => !i.system.advancement?.length);
@@ -1192,21 +1123,5 @@ export default class ActorSheet5e extends ActorSheet {
     const choices = CONFIG.ME5E[a.dataset.options];
     const options = { name: a.dataset.target, title: `${label.innerText}: ${this.actor.name}`, choices };
     return new TraitSelector(this.actor, options).render(true);
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  _getHeaderButtons() {
-    let buttons = super._getHeaderButtons();
-    if ( this.actor.isPolymorphed ) {
-      buttons.unshift({
-        label: "ME5E.PolymorphRestoreTransformation",
-        class: "restore-transformation",
-        icon: "fas fa-backward",
-        onclick: () => this.actor.revertOriginalForm()
-      });
-    }
-    return buttons;
   }
 }

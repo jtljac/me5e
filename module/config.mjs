@@ -1,5 +1,5 @@
-import ClassFeatures from "./advancement/class-features.mjs";
 import { preLocalize } from "./utils.mjs";
+import { Character5e } from "./documents/actor/_module.mjs";
 
 // Namespace Configuration Values
 const ME5E = {};
@@ -14,6 +14,17 @@ ___  ___ _____ _____ _____
 \\_|  |_/\\____/\\____/\\____/ 
 ___________________________`;
 
+ME5E.Actor = {
+  /**
+   * A mapping of Actor Types to Actor Classes
+   * @type {Object<String, Actor5e>}
+   */
+  documentClasses: {
+    character: Character5e,
+    // npc: Npc5e,
+    // vehicle: Vehicle5e
+  }
+}
 
 /**
  * The set of Ability Scores used within the system.
@@ -890,29 +901,6 @@ ME5E.SPELL_SLOT_TABLE = [
 /* -------------------------------------------- */
 
 /**
- * Settings to configure how actors are merged when polymorphing is applied.
- * @enum {string}
- */
-// TODO: Double check this is usable
-ME5E.polymorphSettings = {
-  keepPhysical: "ME5E.PolymorphKeepPhysical",
-  keepMental: "ME5E.PolymorphKeepMental",
-  keepSaves: "ME5E.PolymorphKeepSaves",
-  keepSkills: "ME5E.PolymorphKeepSkills",
-  mergeSaves: "ME5E.PolymorphMergeSaves",
-  mergeSkills: "ME5E.PolymorphMergeSkills",
-  keepClass: "ME5E.PolymorphKeepClass",
-  keepFeats: "ME5E.PolymorphKeepFeats",
-  keepSpells: "ME5E.PolymorphKeepSpells",
-  keepItems: "ME5E.PolymorphKeepItems",
-  keepBio: "ME5E.PolymorphKeepBio",
-  keepVision: "ME5E.PolymorphKeepVision"
-};
-preLocalize("polymorphSettings", { sort: true });
-
-/* -------------------------------------------- */
-
-/**
  * Skill, ability, and tool proficiency levels.
  * The key for each level represents its proficiency multiplier.
  * @enum {string}
@@ -1130,6 +1118,6 @@ preLocalize("characterFlags", { keys: ["name", "hint", "section"] });
  * Flags allowed on actors. Any flags not in the list may be deleted during a migration.
  * @type {string[]}
  */
-ME5E.allowedActorFlags = ["isPolymorphed", "originalActor"].concat(Object.keys(ME5E.characterFlags));
+ME5E.allowedActorFlags = Object.keys(ME5E.characterFlags);
 
 export default ME5E;
