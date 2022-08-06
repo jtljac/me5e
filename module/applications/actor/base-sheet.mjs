@@ -90,7 +90,6 @@ export default class ActorSheet5e extends ActorSheet {
       labels: this._getLabels(actorData.system),
       movement: this._getMovementSpeed(actorData.system),
       senses: this._getSenses(actorData.system),
-      effects: ActiveEffect5e.prepareActiveEffectCategories(this.actor.effects),
       warnings: this.actor._preparationWarnings,
       filters: this._filters,
       owner: this.actor.isOwner,

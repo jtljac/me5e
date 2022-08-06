@@ -1496,6 +1496,12 @@ export default class Item5e extends Item {
 
   /* -------------------------------------------- */
 
+  getRules() {
+    return this.system.rules ?? [];
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Prepare a data object which is passed to any Roll formulas which are created related to this Item.
    * @returns {object}  Data used for @ formula replacement in Roll formulas.

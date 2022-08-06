@@ -1,12 +1,10 @@
 import Proficiency from "./proficiency.mjs";
-import { d20Roll, damageRoll } from "../../dice/dice.mjs";
+import { d20Roll} from "../../dice/dice.mjs";
 import { simplifyBonus } from "../../utils.mjs";
-import ShortRestDialog from "../../applications/actor/short-rest.mjs";
-import LongRestDialog from "../../applications/actor/long-rest.mjs";
 import ProficiencySelector from "../../applications/proficiency-selector.mjs";
 import Item5e from "../item.mjs";
+import {Rule5e} from "../../rules/_module.mjs";
 import SelectItemsPrompt from "../../applications/select-items-prompt.mjs";
-
 /**
  * Extend the base Actor class to implement additional system-specific logic.
  */
@@ -81,6 +79,11 @@ export default class Actor5e extends Actor {
     this._classes = undefined;
     this._preparationWarnings = [];
     super.prepareData();
+
+    for (const rule of this.rules) {
+      rule.afterDerived(this, this.toObject(false));
+    }
+
     this.items.forEach(item => item.prepareFinalAttributes());
   }
 
@@ -98,12 +101,16 @@ export default class Actor5e extends Actor {
 
   /* --------------------------------------------- */
 
-  /** @inheritDoc */
-  applyActiveEffects() {
-    // The Active Effects do not have access to their parent at preparation time, so we wait until this stage to
-    // determine whether they are suppressed or not.
-    this.effects.forEach(e => e.determineSuppression());
-    return super.applyActiveEffects();
+  /** @override */
+  prepareEmbeddedDocuments() {
+    // This super call first calls prepare data on all the embedded items, then calls apply active effects
+    super.prepareEmbeddedDocuments();
+
+    this._prepareRules();
+
+    for (const rule of this.rules) {
+      rule.onActiveEffects(this, this.toObject(false));
+    }
   }
 
   /* -------------------------------------------- */
@@ -193,6 +200,21 @@ export default class Actor5e extends Actor {
    */
   _prepareVehicleData() {
     this.system.attributes.prof = 0;
+  }
+
+  /* -------------------------------------------- */
+  /*  Embedded Data Preparation Helpers           */
+  /* -------------------------------------------- */
+
+  /**
+   * Collects the rules from all the items in the actor
+   * @private
+   */
+  _prepareRules() {
+    this.rules = this.items.contents
+      .flatMap((item) => Rule5e.fromItem(item))
+      .filter((rule) => !rule.isIgnored)
+      .sort((ruleA, ruleB) => ruleA.data.priority - ruleB.data.priority)
   }
 
   /* -------------------------------------------- */

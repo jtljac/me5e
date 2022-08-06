@@ -108,7 +108,8 @@
         },
         "currency": {
           "cr": 0
-        }
+        },
+        "rules": []
       },
       "creature": {
         "attributes": {

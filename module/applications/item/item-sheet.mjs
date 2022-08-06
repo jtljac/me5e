@@ -100,9 +100,6 @@ export default class ItemSheet5e extends ItemSheet {
 
       // Advancement
       advancement: this._getItemAdvancement(item),
-
-      // Prepare Active Effects
-      effects: ActiveEffect5e.prepareActiveEffectCategories(item.effects)
     });
 
     /** @deprecated */
