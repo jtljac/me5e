@@ -1,5 +1,5 @@
 import { preLocalize } from "./utils.mjs";
-import { Character5e } from "./documents/actor/_module.mjs";
+import {Character5e, Npc5e} from "./documents/actor/_module.mjs";
 
 // Namespace Configuration Values
 const ME5E = {};
@@ -21,7 +21,7 @@ ME5E.Actor = {
    */
   documentClasses: {
     character: Character5e,
-    // npc: Npc5e,
+    npc: Npc5e,
     // vehicle: Vehicle5e
   }
 }
