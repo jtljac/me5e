@@ -57,19 +57,6 @@ export default class Rule5e {
     return this.predicate.test(actor, data);
   }
 
-  /**
-   * Resolves the formula into a value
-   * @param formula The formula used to calculate the value
-   * @param data The data used by the formula
-   * @return {number}
-   * @protected
-   */
-  _resolveValue(formula, data) {
-    const result = Roll.replaceFormulaData(formula, data, {missing: "0", warn: true});
-
-    return Roll.safeEval(result) ?? 0;
-  }
-
   // Factory Methods
   /**
    * Creates an array of rules from an item, automatically inferring the correct class using its type

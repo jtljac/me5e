@@ -1,4 +1,5 @@
 import Rule5e from "./rule.mjs";
+import {resolveFormulaValue} from "../utils.mjs";
 
 /**
  * A Rule that behaves similarly to the original active effects from foundry, extended to be able to occur at different
@@ -7,7 +8,7 @@ import Rule5e from "./rule.mjs";
 export default class AELikeRule extends Rule5e {
   /**
    * The way in which the effect will modify the value
-   * @typedef AELikeMode {Object<String, function(*, *): *>}
+   * @typedef {Object<String, function(*, *): *>} AELikeMode
    * @readonly
    * @enum {AELikeMode}
    */
@@ -56,7 +57,7 @@ export default class AELikeRule extends Rule5e {
 
   /**
    * The phase that the effect will apply on
-   * @typedef AELikePhase {String}
+   * @typedef {String} AELikePhase
    * @readonly
    * @enum {AELikePhase}
    */
@@ -107,18 +108,16 @@ export default class AELikeRule extends Rule5e {
 
   /**
    * @inheritDoc
-   * @override
    */
   onActiveEffects(actor, data) {
-    if (this.phase === AELikeRule.phases.ActiveEffects) this._applyEffect(actor, data);
+    if (this.phase === AELikeRule.phases.ActiveEffects) this.#applyEffect(actor, data);
   }
 
   /**
    * @inheritDoc
-   * @override
    */
   afterDerived(actor, data) {
-    if (this.phase === AELikeRule.phases.AfterDerived) this._applyEffect(actor, data);
+    if (this.phase === AELikeRule.phases.AfterDerived) this.#applyEffect(actor, data);
   }
 
   /**
@@ -127,7 +126,7 @@ export default class AELikeRule extends Rule5e {
    * @param data {Object} The data used to evaluate formulas
    * @private
    */
-  _applyEffect(actor, data = actor.toObject(false).system) {
+  #applyEffect(actor, data = actor.toObject(false).system) {
     if (!this.test(actor, data)) return;
 
     if (this.mode === AELikeRule.modes.custom) {
@@ -139,8 +138,9 @@ export default class AELikeRule extends Rule5e {
        * @param actor {Actor5e} The actor the active affect is being applied to
        * @param data {Object} The data used when evaluating formulas in the value
        * @param rule {AELikeRule} The Rule
+       * @return {boolean} Explicitly return false to prevent the AELike effect
        */
-      Hooks.call("me5e.applyAELike", actor, data, this);
+      if (Hooks.call("me5e.applyAELike", actor, data, this) === false) return;
       const postHook = foundry.utils.getProperty(actor.toObject(false).system, this.key);
 
       if (postHook !== preHook) {
@@ -150,7 +150,7 @@ export default class AELikeRule extends Rule5e {
     }
 
     const original = foundry.utils.getProperty(data, this.key);
-    const newValue = isNaN(this.value) ? this._resolveValue(this.value, data) : this.value;
+    const newValue = isNaN(this.value) ? resolveFormulaValue(this.value, data) : this.value;
 
     const change = this.mode(original, newValue);
 

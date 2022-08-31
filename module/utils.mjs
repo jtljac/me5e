@@ -23,6 +23,20 @@ export function simplifyBonus(bonus, data={}) {
   }
 }
 
+/**
+ * Resolves a formula into a value
+ * @param formula The formula used to calculate the value
+ * @param data The data used by the formula
+ * @return {number}
+ */
+export function resolveFormulaValue(formula, data) {
+  if (Number.isNumeric(formula)) return Number(formula);
+
+  const result = Roll.replaceFormulaData(formula, data, {missing: "0", warn: true});
+
+  return Roll.safeEval(result) ?? 0;
+}
+
 /* -------------------------------------------- */
 /*  Object Helpers                              */
 /* -------------------------------------------- */

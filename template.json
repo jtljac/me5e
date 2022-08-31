@@ -62,7 +62,6 @@
           "hp": {
             "value": 10,
             "min": 0,
-            "max": 10,
             "temp": 0,
             "tempmax": 0
           },
@@ -351,15 +350,67 @@
             "dc": ""
           }
         }
+      },
+      "modifiers": {
+        "abilities": {
+          "str": {
+            "mods": {
+              "userMods": []
+            }
+          },
+          "dex": {
+            "mods": {
+              "userMods": []
+            }
+          },
+          "con": {
+            "mods": {
+              "userMods": []
+            }
+          },
+          "int": {
+            "mods": {
+              "userMods": []
+            }
+          },
+          "wis": {
+            "mods": {
+              "userMods": []
+            }
+          },
+          "cha": {
+            "mods": {
+              "userMods": []
+            }
+          }
+        },
+        "attributes": {
+          "ac": {
+            "mods": {
+              "userMods": []
+            }
+          },
+          "hp": {
+            "mods": {
+              "userMods": []
+            }
+          },
+          "init": {
+            "mods": {
+              "userMods": []
+            }
+          }
+        }
       }
     },
     "htmlFields": ["details.biography.value", "details.biography.public"],
     "character": {
-      "templates": ["common", "creature"],
+      "templates": ["common", "creature", "modifiers"],
       "attributes": {
         "hp": {
           "value": 0,
-          "max": 0
+          "defaultAbility": "con",
+          "userAbility": ""
         },
         "death": {
           "success": 0,
@@ -424,7 +475,8 @@
       "templates": ["common", "creature"],
       "attributes": {
         "hp": {
-          "formula": ""
+          "formula": "",
+          "max": 10
         }
       },
       "details": {

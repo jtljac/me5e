@@ -3,6 +3,7 @@ import Proficiency from "./proficiency.mjs";
 import {d20Roll, damageRoll} from "../../dice/dice.mjs";
 import ShortRestDialog from "../../applications/actor/short-rest.mjs";
 import LongRestDialog from "../../applications/actor/long-rest.mjs";
+import Modifier5e from "../../modifier/modifier.mjs";
 
 export default class Character5e extends Creature5e {
   /* -------------------------------------------- */
@@ -11,6 +12,8 @@ export default class Character5e extends Creature5e {
   /** @inheritDoc */
   prepareBaseData() {
     super.prepareBaseData();
+
+    this._prepareBaseModifiers();
 
     this.system.details.level = 0;
     this.system.attributes.hd = 0;
@@ -42,6 +45,13 @@ export default class Character5e extends Creature5e {
     xp.pct = Math.clamped(pct, 0, 100);
   }
 
+  /** @inheritDoc */
+  prepareDerivedData() {
+    super.prepareDerivedData();
+
+    this._prepareHp();
+  }
+
   /* -------------------------------------------- */
 
   /** @inheritdoc */
@@ -49,6 +59,74 @@ export default class Character5e extends Creature5e {
     await super._preCreate(data, options, user);
 
     this.updateSource({prototypeToken: {vision: true, actorLink: true, disposition: 1}});
+  }
+
+  /* -------------------------------------------- */
+  /*  Derived Data Preparation Helpers            */
+  /* -------------------------------------------- */
+
+  /**
+   * Setup the modifiers for each
+   * @private
+   */
+  _prepareBaseModifiers() {
+    for (const target of Object.values(Modifier5e.targets)) {
+      const mod = foundry.utils.getProperty(this, target).mods;
+      mod.mods = [];
+    }
+  }
+
+  /**
+   * Prepare the modifiers in the provided target and return the sum
+   * Sets up the user mods and sorts the modifiers
+   * @param target {Modifier5e.targets}
+   * @returns {Number} The sum of the evaluated modifiers
+   * @protected
+   */
+  _prepareModifiers(target) {
+    const mods = foundry.utils.getProperty(this, target).mods;
+
+    mods.mods.sort((a, b) => {
+      if (a.category === b.category) {
+       return  a.category.localeCompare(b.category);
+      }
+
+      const aCat = Object.values(CONFIG.ME5E.ModifierCategories).indexOf(a.category);
+      const bCat = Object.values(CONFIG.ME5E.ModifierCategories).indexOf(b.category);
+      return aCat-bCat;
+    });
+
+    // Instantiate all the raw user mods and add them to the main mods array
+    for (const userMod of mods.userMods) {
+      mods.mods.push(new Modifier5e(userMod, true));
+    }
+
+    return mods.mods.reduce((acc, mod) => acc + mod.evaluate(this), 0);
+  }
+
+  /**
+   * Prepare the character's max hp. Mutates the values of system.attributes.hp.mods
+   * @private
+   */
+  _prepareHp() {
+    const hp = this.system.attributes.hp;
+    hp.ability = hp.userAbility || hp.defaultAbility;
+
+    hp.mods.mods.push(new Modifier5e(
+      {
+        name: CONFIG.ME5E.abilities[hp.ability],
+        category: CONFIG.ME5E.ModifierCategories.attribute,
+        formula: `@system.abilities.${hp.ability}.mod * @system.details.level`
+      }, false
+    ));
+
+    hp.max = this._prepareModifiers(Modifier5e.targets.hp);
+  }
+
+  /** @inheritDoc */
+  _prepareInitiative(bonusData, globalCheckBonus) {
+    super._prepareInitiative(bonusData, globalCheckBonus);
+
   }
 
   /* -------------------------------------------- */

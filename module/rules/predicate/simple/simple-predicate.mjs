@@ -1,4 +1,5 @@
 import Predicate5e from "../predicate.mjs";
+import {resolveFormulaValue} from "../../../utils.mjs";
 
 /**
  * An abstract predicate for handling values
@@ -28,9 +29,7 @@ export default class SimplePredicate extends Predicate5e {
    */
   _resolveValue(formula, data) {
     if (this.eval && isNaN(formula)) {
-      const result = Roll.replaceFormulaData(formula, data, {missing: "0", warn: true});
-
-      return Roll.safeEval(result) ?? 0;
+      return resolveFormulaValue(formula, data)
     }
 
     return formula;

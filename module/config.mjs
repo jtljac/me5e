@@ -68,6 +68,23 @@ ME5E.Rule = {
 };
 
 /**
+ * The available categories the modifier can be
+ * @typedef {String} Modifier5eCategory
+ * @readonly
+ * @enum Modifier5eCategory
+ */
+ME5E.ModifierCategories = {
+  "class": "ME5E.ModifierCategoryClass",
+  "feat": "ME5E.ModifierCategoryFeat",
+  "item": "ME5E.ModifierCategoryItem",
+  "effect": "ME5E.ModifierCategoryEffect",
+  "attribute": "ME5E.ModifierCategoryAttribute",
+  "base": "ME5E.ModifierCategoryBase",
+  "custom": "ME5E.ModifierCategoryCustom"
+};
+preLocalize("ModifierCategories");
+
+/**
  * The set of Ability Scores used within the system.
  * @enum {string}
  */
