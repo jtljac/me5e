@@ -642,101 +642,187 @@ export default class Item5e extends Item {
   /* -------------------------------------------- */
 
   /**
-   * Roll the item to Chat, creating a chat card which contains follow-up attack or damage roll options
-   * @param {object} [options]
-   * @param {boolean} [options.configureDialog]     Display a configuration dialog for the item roll, if applicable?
-   * @param {string} [options.rollMode]             The roll display mode with which to display (or not) the card
-   * @param {boolean} [options.createMessage]       Whether to automatically create a chat message (if true) or simply
-   *                                                return the prepared chat message data (if false).
-   * @returns {Promise<ChatMessage|object|void>}
+   * Configuration data for an item usage being prepared.
+   *
+   * @typedef {object} ItemUseConfiguration
+   * @property {boolean} createMeasuredTemplate  Trigger a template creation
+   * @property {boolean} consumeQuantity         Should the item's quantity be consumed?
+   * @property {boolean} consumeRecharge         Should a recharge be consumed?
+   * @property {boolean} consumeResource         Should a linked (non-ammo) resource be consumed?
+   * @property {number|string|null} consumeSpellLevel  Specific spell level to consume, or "pact" for pact level.
+   * @property {boolean} consumeSpellSlot        Should any spell slot be consumed?
+   * @property {boolean} consumeUsage            Should limited uses be consumed?
+   * @property {boolean} needsConfiguration      Is user-configuration needed?
    */
-  async roll({configureDialog=true, rollMode, createMessage=true}={}) {
+
+  /**
+   * Additional options used for configuring item usage.
+   *
+   * @typedef {object} ItemUseOptions
+   * @property {boolean} configureDialog  Display a configuration dialog for the item usage, if applicable?
+   * @property {string} rollMode          The roll display mode with which to display (or not) the card.
+   * @property {boolean} createMessage    Whether to automatically create a chat message (if true) or simply return
+   *                                      the prepared chat message data (if false).
+   * @property {object} flags             Additional flags added to the chat message.
+   */
+
+  /**
+   * Trigger an item usage, optionally creating a chat message with followup actions.
+   * @param {ItemUseOptions} [options]           Options used for configuring item usage.
+   * @returns {Promise<ChatMessage|object|void>} Chat message if options.createMessage is true, message data if it is
+   *                                             false, and nothing if the roll wasn't performed.
+   * @deprecated since 2.0 in favor of `Item5e#use`, targeted for removal in 2.4
+   */
+  async roll(options={}) {
+    foundry.utils.logCompatibilityWarning(
+      "Item5e#roll has been renamed Item5e#use. Support for the old name will be removed in future versions.",
+      { since: "DnD5e 2.0", until: "DnD5e 2.4" }
+    );
+    return this.use(undefined, options);
+  }
+
+  /**
+   * Trigger an item usage, optionally creating a chat message with followup actions.
+   * @param {ItemUseConfiguration} [config]      Initial configuration data for the usage.
+   * @param {ItemUseOptions} [options]           Options used for configuring item usage.
+   * @returns {Promise<ChatMessage|object|void>} Chat message if options.createMessage is true, message data if it is
+   *                                             false, and nothing if the roll wasn't performed.
+   */
+  async use(config={}, options={}) {
     let item = this;
-    const is = this.system;
-    const as = this.actor.system;
+    const is = item.system;
+    const as = item.actor.system;
+
+    // Ensure the options object is ready
+    options = foundry.utils.mergeObject({
+      configureDialog: true,
+      createMessage: true,
+      flags: {}
+    }, options);
 
     // Reference aspects of the item data necessary for usage
-    const hasArea = this.hasAreaTarget;       // Is the ability usage an AoE?
     const resource = is.consume || {};        // Resource consumption
-    const recharge = is.recharge || {};       // Recharge mechanic
-    const uses = is.uses ?? {};               // Limited uses
-    const isSpell = this.type === "spell";    // Does the item require a spell slot?
+    const isSpell = item.type === "spell";    // Does the item require a spell slot?
     const requireSpellSlot = isSpell && (is.level > 0) && CONFIG.ME5E.spellUpcastModes.includes(is.preparation.mode);
 
     // Define follow-up actions resulting from the item usage
-    let createMeasuredTemplate = hasArea;       // Trigger a template creation
-    let consumeRecharge = !!recharge.value;     // Consume recharge
-    let consumeResource = !!resource.target && (!this.hasAttack || (resource.type !== "ammo")); // Consume a linked (non-ammo) resource
-    let consumeSpellSlot = requireSpellSlot;    // Consume a spell slot
-    let consumeUsage = !!uses.per;              // Consume limited uses
-    let consumeQuantity = uses.autoDestroy;     // Consume quantity of the item in lieu of uses
-    let consumeSpellLevel = null;               // Consume a specific category of spell slot
-    if ( requireSpellSlot ) consumeSpellLevel = is.preparation.mode === "pact" ? "pact" : `spell${is.level}`;
+    config = foundry.utils.mergeObject({
+      createMeasuredTemplate: item.hasAreaTarget,
+      consumeQuantity: is.uses?.autoDestroy ?? false,
+      consumeRecharge: !!is.recharge?.value,
+      consumeResource: !!resource.target && (!item.hasAttack || (resource.type !== "ammo")),
+      consumeSpellLevel: requireSpellSlot ? is.preparation.mode === "pact" ? "pact" : is.level : null,
+      consumeSpellSlot: requireSpellSlot,
+      consumeUsage: !!is.uses?.per
+    }, config);
 
     // Display a configuration dialog to customize the usage
-    const needsConfiguration = createMeasuredTemplate || consumeRecharge || consumeResource
-      || consumeSpellSlot || consumeUsage;
-    if (configureDialog && needsConfiguration) {
-      const configuration = await AbilityUseDialog.create(this);
-      if (!configuration) return;
+    if ( config.needsConfiguration === undefined ) config.needsConfiguration = config.createMeasuredTemplate
+      || config.consumeRecharge || config.consumeResource || config.consumeSpellSlot || config.consumeUsage;
 
-      // Determine consumption preferences
-      createMeasuredTemplate = Boolean(configuration.placeTemplate);
-      consumeUsage = Boolean(configuration.consumeUse);
-      consumeRecharge = Boolean(configuration.consumeRecharge);
-      consumeResource = Boolean(configuration.consumeResource);
-      consumeSpellSlot = Boolean(configuration.consumeSlot);
+    /**
+     * A hook event that fires before an item usage is configured.
+     * @function dnd5e.preUseItem
+     * @memberof hookEvents
+     * @param {Item5e} item                  Item being used.
+     * @param {ItemUseConfiguration} config  Configuration data for the item usage being prepared.
+     * @param {ItemUseOptions} options       Additional options used for configuring item usage.
+     * @returns {boolean}                    Explicitly return `false` to prevent item from being used.
+     */
+    if ( Hooks.call("dnd5e.preUseItem", item, config, options) === false ) return;
 
-      // Handle spell upcasting
-      if ( requireSpellSlot ) {
-        consumeSpellLevel = configuration.level === "pact" ? "pact" : `spell${configuration.level}`;
-        if ( consumeSpellSlot === false ) consumeSpellLevel = null;
-        const upcastLevel = configuration.level === "pact" ? as.spells.pact.level : parseInt(configuration.level);
-        if ( !Number.isNaN(upcastLevel) && (upcastLevel !== is.level) ) {
-          item = this.clone({"system.level": upcastLevel}, {keepId: true});
-          item.prepareData();
-        }
+    // Display configuration dialog
+    if ( (options.configureDialog !== false) && config.needsConfiguration ) {
+      const configuration = await AbilityUseDialog.create(item);
+      if ( !configuration ) return;
+      foundry.utils.mergeObject(config, configuration);
+    }
+
+    // Handle spell upcasting
+    if ( isSpell && (config.consumeSpellSlot || config.consumeSpellLevel) ) {
+      const upcastLevel = config.consumeSpellLevel === "pact" ? as.spells.pact.level
+        : parseInt(config.consumeSpellLevel);
+      if ( upcastLevel && (upcastLevel !== is.level) ) {
+        item = item.clone({"system.level": upcastLevel}, {keepId: true});
+        item.prepareData();
       }
     }
 
+    /**
+     * A hook event that fires before an item's resource consumption has been calculated.
+     * @function dnd5e.preItemUsageConsumption
+     * @memberof hookEvents
+     * @param {Item5e} item                  Item being used.
+     * @param {ItemUseConfiguration} config  Configuration data for the item usage being prepared.
+     * @param {ItemUseOptions} options       Additional options used for configuring item usage.
+     * @returns {boolean}                    Explicitly return `false` to prevent item from being used.
+     */
+    if ( Hooks.call("dnd5e.preItemUsageConsumption", item, config, options) === false ) return;
+
     // Determine whether the item can be used by testing for resource consumption
-    const usage = item._getUsageUpdates({consumeRecharge, consumeResource, consumeSpellLevel, consumeUsage,
-      consumeQuantity});
+    const usage = item._getUsageUpdates(config);
     if ( !usage ) return;
-    const {actorUpdates, itemUpdates, resourceUpdates} = usage;
+
+    /**
+     * A hook event that fires after an item's resource consumption has been calculated but before any
+     * changes have been made.
+     * @function dnd5e.itemUsageConsumption
+     * @memberof hookEvents
+     * @param {Item5e} item                     Item being used.
+     * @param {ItemUseConfiguration} config     Configuration data for the item usage being prepared.
+     * @param {ItemUseOptions} options          Additional options used for configuring item usage.
+     * @param {object} usage
+     * @param {object} usage.actorUpdates       Updates that will be applied to the actor.
+     * @param {object} usage.itemUpdates        Updates that will be applied to the item being used.
+     * @param {object[]} usage.resourceUpdates  Updates that will be applied to other items on the actor.
+     * @returns {boolean}                       Explicitly return `false` to prevent item from being used.
+     */
+    if ( Hooks.call("dnd5e.itemUsageConsumption", item, config, options, usage) === false ) return;
 
     // Commit pending data updates
+    const { actorUpdates, itemUpdates, resourceUpdates } = usage;
     if ( !foundry.utils.isEmpty(itemUpdates) ) await item.update(itemUpdates);
-    if ( consumeQuantity && (item.system.quantity === 0) ) await item.delete();
+    if ( config.consumeQuantity && (item.system.quantity === 0) ) await item.delete();
     if ( !foundry.utils.isEmpty(actorUpdates) ) await this.actor.update(actorUpdates);
     if ( resourceUpdates.length ) await this.actor.updateEmbeddedDocuments("Item", resourceUpdates);
 
+    // Prepare card data & display it if options.createMessage is true
+    const cardData = await item.displayCard(options);
+
     // Initiate measured template creation
-    if ( createMeasuredTemplate ) {
-      const template = me5e.canvas.AbilityTemplate.fromItem(item);
-      if ( template ) template.drawPreview();
+    let templates;
+    if ( config.createMeasuredTemplate ) {
+      try {
+        templates = await (me5e.canvas.AbilityTemplate.fromItem(item))?.drawPreview();
+      } catch(err) {}
     }
 
-    // Create or return the Chat Message data
-    return item.displayCard({rollMode, createMessage});
+    /**
+     * A hook event that fires when an item is used, after the measured template has been created if one is needed.
+     * @function dnd5e.useItem
+     * @memberof hookEvents
+     * @param {Item5e} item                                Item being used.
+     * @param {ItemUseConfiguration} config                Configuration data for the roll.
+     * @param {ItemUseOptions} options                     Additional options for configuring item usage.
+     * @param {MeasuredTemplateDocument[]|null} templates  The measured templates if they were created.
+     */
+    Hooks.callAll("dnd5e.useItem", item, config, options, templates ?? null);
+
+    return cardData;
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Verify that the consumed resources used by an Item are available.
-   * Otherwise, display an error and return false.
-   * @param {object} options
-   * @param {boolean} options.consumeQuantity     Consume quantity of the item if other consumption modes are not
-   *                                              available?
-   * @param {boolean} options.consumeRecharge     Whether the item consumes the recharge mechanic
-   * @param {boolean} options.consumeResource     Whether the item consumes a limited resource
-   * @param {string|null} options.consumeSpellLevel The category of spell slot to consume, or null
-   * @param {boolean} options.consumeUsage        Whether the item consumes a limited usage
-   * @returns {object|boolean}            A set of data changes to apply when the item is used, or false
-   * @private
+   * Verify that the consumed resources used by an Item are available and prepare the updates that should
+   * be performed. If required resources are not available, display an error and return false.
+   * @param {ItemUseConfiguration} config  Configuration data for an item usage being prepared.
+   * @returns {object|boolean}             A set of data changes to apply when the item is used, or false.
+   * @protected
    */
-  _getUsageUpdates({consumeQuantity, consumeRecharge, consumeResource, consumeSpellLevel, consumeUsage}) {
+  _getUsageUpdates({
+    consumeQuantity, consumeRecharge, consumeResource, consumeSpellSlot,
+    consumeSpellLevel, consumeUsage}) {
     const actorUpdates = {};
     const itemUpdates = {};
     const resourceUpdates = [];
@@ -758,7 +844,7 @@ export default class Item5e extends Item {
     }
 
     // Consume Spell Slots
-    if ( consumeSpellLevel ) {
+    if ( consumeSpellSlot && consumeSpellLevel ) {
       if ( Number.isNumeric(consumeSpellLevel) ) consumeSpellLevel = `spell${consumeSpellLevel}`;
       const level = this.actor?.system.spells[consumeSpellLevel];
       const spells = Number(level?.value ?? 0);
@@ -811,7 +897,7 @@ export default class Item5e extends Item {
    * @param {object} actorUpdates       An object of data updates applied to the item owner (Actor)
    * @param {object[]} resourceUpdates  An array of updates to apply to other items owned by the actor
    * @returns {boolean|void}            Return false to block further progress, or return nothing to continue
-   * @private
+   * @protected
    */
   _handleConsumeResource(itemUpdates, actorUpdates, resourceUpdates) {
     const consume = this.system.consume || {};
@@ -908,14 +994,12 @@ export default class Item5e extends Item {
   /* -------------------------------------------- */
 
   /**
-   * Display the chat card for an Item as a Chat Message.
-   * @param {object} [options]                Options which configure the display of the item chat card
-   * @param {string} [options.rollMode]       The message visibility mode to apply to the created card
-   * @param {boolean} [options.createMessage] Whether to automatically create a ChatMessage document (if true), or only
-   *                                          return the prepared message data (if false)
-   * @returns {ChatMessage|object} Chat message if `createMessage` is true, otherwise an object containing message data.
+   * Display the chat card for an Item as a Chat Message
+   * @param {ItemUseOptions} [options]  Options which configure the display of the item chat card.
+   * @returns {ChatMessage|object}      Chat message if `createMessage` is true, otherwise an object containing
+   *                                    message data.
    */
-  async displayCard({rollMode, createMessage=true}={}) {
+  async displayCard(options={}) {
 
     // Render the chat card template
     const token = this.actor.token;
@@ -952,11 +1036,36 @@ export default class Item5e extends Item {
       chatData.flags["me5e.itemData"] = templateData.item;
     }
 
+    // Merge in the flags from options
+    chatData.flags = foundry.utils.mergeObject(chatData.flags, options.flags);
+
+    /**
+     * A hook event that fires before an item chat card is created.
+     * @function dnd5e.preDisplayCard
+     * @memberof hookEvents
+     * @param {Item5e} item             Item for which the chat card is being displayed.
+     * @param {object} chatData         Data used to create the chat message.
+     * @param {ItemUseOptions} options  Options which configure the display of the item chat card.
+     */
+    Hooks.callAll("dnd5e.preDisplayCard", this, chatData, options);
+
     // Apply the roll mode to adjust message visibility
-    ChatMessage.applyRollMode(chatData, rollMode || game.settings.get("core", "rollMode"));
+    ChatMessage.applyRollMode(chatData, options.rollMode ?? game.settings.get("core", "rollMode"));
 
     // Create the Chat Message or return its data
-    return createMessage ? ChatMessage.create(chatData) : chatData;
+    const card = (options.createMessage !== false) ? await ChatMessage.create(chatData) : chatData;
+
+    /**
+     * A hook event that fires after an item chat card is created.
+     * @function dnd5e.displayCard
+     * @memberof hookEvents
+     * @param {Item5e} item              Item for which the chat card is being displayed.
+     * @param {ChatMessage|object} card  The created ChatMessage instance or ChatMessageData depending on whether
+     *                                   options.createMessage was set to `true`.
+     */
+    Hooks.callAll("dnd5e.displayCard", this, card);
+
+    return card;
   }
 
   /* -------------------------------------------- */
@@ -1050,7 +1159,7 @@ export default class Item5e extends Item {
     props.push(
       CONFIG.ME5E.equipmentTypes[data.armor.type],
       labels.armor || null,
-      data.stealth.value ? game.i18n.localize("ME5E.StealthDisadvantage") : null
+      data.stealth ? game.i18n.localize("ME5E.StealthDisadvantage") : null
     );
   }
 
@@ -1139,11 +1248,11 @@ export default class Item5e extends Item {
    * Place an attack roll using an item (weapon, feat, spell, or equipment)
    * Rely upon the d20Roll logic for the core implementation
    *
-   * @param {object} options            Roll options which are configured and provided to the d20Roll function
-   * @returns {Promise<D20Roll|null>}   A Promise which resolves to the created Roll instance
+   * @param {D20RollConfiguration} options  Roll options which are configured and provided to the d20Roll function
+   * @returns {Promise<D20Roll|null>}       A Promise which resolves to the created Roll instance
    */
   async rollAttack(options={}) {
-    const flags = this.actor.flags.me5e || {};
+    const flags = this.actor.flags.me5e ?? {};
     if ( !this.hasAttack ) throw new Error("You may not place an Attack Roll with this Item.");
     let title = `${this.name} - ${game.i18n.localize("ME5E.AttackRoll")}`;
 
@@ -1153,11 +1262,11 @@ export default class Item5e extends Item {
     // Handle ammunition consumption
     delete this._ammo;
     let ammo = null;
-    let ammoUpdate = null;
+    let ammoUpdate = [];
     const consume = this.system.consume;
     if ( consume?.type === "ammo" ) {
       ammo = this.actor.items.get(consume.target);
-      if (ammo?.data) {
+      if ( ammo?.system ) {
         const q = ammo.system.quantity;
         const consumeAmount = consume.amount ?? 0;
         if ( q && (q - consumeAmount >= 0) ) {
@@ -1169,16 +1278,23 @@ export default class Item5e extends Item {
       // Get pending ammunition update
       const usage = this._getUsageUpdates({consumeResource: true});
       if ( usage === false ) return null;
-      ammoUpdate = usage.resourceUpdates || [];
+      ammoUpdate = usage.resourceUpdates ?? [];
     }
 
+    // Flags
+    const elvenAccuracy = (flags.elvenAccuracy
+      && CONFIG.DND5E.characterFlags.elvenAccuracy.abilities.includes(this.abilityMod)) || undefined;
+
     // Compose roll options
-    let rollConfig = {
-      parts: parts,
+    const rollConfig = foundry.utils.mergeObject({
+      parts,
       actor: this.actor,
       data: rollData,
-      title: title,
+      critical: this.getCriticalThreshold(),
+      title,
       flavor: title,
+      elvenAccuracy,
+      halflingLucky: flags.halflingLucky,
       dialogOptions: {
         width: 400,
         top: options.event ? options.event.clientY - 80 : null,
@@ -1188,28 +1304,33 @@ export default class Item5e extends Item {
         "flags.me5e.roll": {type: "attack", itemId: this.id },
         speaker: ChatMessage.getSpeaker({actor: this.actor})
       }
-    };
+    }, options);
 
-    // Critical hit thresholds
-    rollConfig.critical = this.getCriticalThreshold();
+    /**
+     * A hook event that fires before an attack is rolled for an Item.
+     * @function dnd5e.preRollAttack
+     * @memberof hookEvents
+     * @param {Item5e} item                  Item for which the roll is being performed.
+     * @param {D20RollConfiguration} config  Configuration data for the pending roll.
+     * @returns {boolean}                    Explicitly return false to prevent the roll from being performed.
+     */
+    if ( Hooks.call("dnd5e.preRollAttack", this, rollConfig) === false ) return;
 
-    // Elven Accuracy
-    if ( flags.elvenAccuracy && CONFIG.ME5E.characterFlags.elvenAccuracy.abilities.includes(this.abilityMod) ) {
-      rollConfig.elvenAccuracy = true;
-    }
-
-    // Apply Halfling Lucky
-    if ( flags.halflingLucky ) rollConfig.halflingLucky = true;
-
-    // Compose calculated roll options with passed-in roll options
-    rollConfig = foundry.utils.mergeObject(rollConfig, options);
-
-    // Invoke the d20 roll helper
     const roll = await d20Roll(rollConfig);
     if ( roll === null ) return null;
 
+    /**
+     * A hook event that fires after an attack has been rolled for an Item.
+     * @function dnd5e.rollAttack
+     * @memberof hookEvents
+     * @param {Item5e} item          Item for which the roll was performed.
+     * @param {D20Roll} roll         The resulting roll.
+     * @param {object[]} ammoUpdate  Updates that will be applied to ammo Items as a result of this attack.
+     */
+    Hooks.callAll("dnd5e.rollAttack", this, roll, ammoUpdate);
+
     // Commit ammunition consumption on attack rolls resource consumption if the attack roll was made
-    if ( ammo && ammoUpdate.length ) await this.actor?.updateEmbeddedDocuments("Item", ammoUpdate);
+    if ( ammoUpdate.length ) await this.actor?.updateEmbeddedDocuments("Item", ammoUpdate);
     return roll;
   }
 
@@ -1223,11 +1344,11 @@ export default class Item5e extends Item {
    * @param {boolean} [config.critical]    Should damage be rolled as a critical hit?
    * @param {number} [config.spellLevel]   If the item is a spell, override the level for damage scaling
    * @param {boolean} [config.versatile]   If the item is a weapon, roll damage using the versatile formula
-   * @param {object} [config.options]      Additional options passed to the damageRoll function
+   * @param {DamageRollConfiguration} [config.options]  Additional options passed to the damageRoll function
    * @returns {Promise<DamageRoll>}        A Promise which resolves to the created Roll instance, or null if the action
    *                                       cannot be performed.
    */
-  rollDamage({critical=false, event=null, spellLevel=null, versatile=false, options={}}={}) {
+  async rollDamage({critical=false, event=null, spellLevel=null, versatile=false, options={}}={}) {
     if ( !this.hasDamage ) throw new Error("You may not make a Damage Roll with this Item.");
     const messageData = {
       "flags.me5e.roll": {type: "damage", itemId: this.id},
@@ -1303,8 +1424,31 @@ export default class Item5e extends Item {
     // Factor in extra weapon-specific critical damage
     if ( this.system.critical?.damage ) rollConfig.criticalBonusDamage = this.system.critical.damage;
 
+    foundry.utils.mergeObject(rollConfig, options);
+
+    /**
+     * A hook event that fires before a damage is rolled for an Item.
+     * @function dnd5e.preRollDamage
+     * @memberof hookEvents
+     * @param {Item5e} item                     Item for which the roll is being performed.
+     * @param {DamageRollConfiguration} config  Configuration data for the pending roll.
+     * @returns {boolean}                       Explicitly return false to prevent the roll from being performed.
+     */
+    if ( Hooks.call("dnd5e.preRollDamage", this, rollConfig) === false ) return;
+
+    const roll = await damageRoll(rollConfig);
+
+    /**
+     * A hook event that fires after a damage has been rolled for an Item.
+     * @function dnd5e.rollDamage
+     * @memberof hookEvents
+     * @param {Item5e} item      Item for which the roll was performed.
+     * @param {DamageRoll} roll  The resulting roll.
+     */
+    if ( roll ) Hooks.callAll("dnd5e.rollDamage", this, roll);
+
     // Call the roll helper utility
-    return damageRoll(foundry.utils.mergeObject(rollConfig, options));
+    return roll;
   }
 
   /* -------------------------------------------- */
@@ -1387,19 +1531,46 @@ export default class Item5e extends Item {
   async rollFormula({spellLevel}={}) {
     if ( !this.system.formula ) throw new Error("This Item does not have a formula to roll!");
 
-    // Define Roll Data
-    const rollData = this.getRollData();
-    if ( spellLevel ) rollData.item.level = spellLevel;
-    const title = `${this.name} - ${game.i18n.localize("ME5E.OtherFormula")}`;
+    const rollConfig = {
+      formula: this.system.formula,
+      data: this.getRollData(),
+      chatMessage: true
+    };
+    if ( spellLevel ) rollConfig.data.item.level = spellLevel;
 
-    // Invoke the roll and submit it to chat
-    const roll = await new Roll(rollData.item.formula, rollData).roll({async: true});
-    roll.toMessage({
-      speaker: ChatMessage.getSpeaker({actor: this.actor}),
-      flavor: title,
-      rollMode: game.settings.get("core", "rollMode"),
-      messageData: {"flags.me5e.roll": {type: "other", itemId: this.id }}
-    });
+    /**
+     * A hook event that fires before a formula is rolled for an Item.
+     * @function dnd5e.preRollFormula
+     * @memberof hookEvents
+     * @param {Item5e} item                 Item for which the roll is being performed.
+     * @param {object} config               Configuration data for the pending roll.
+     * @param {string} config.formula       Formula that will be rolled.
+     * @param {object} config.data          Data used when evaluating the roll.
+     * @param {boolean} config.chatMessage  Should a chat message be created for this roll?
+     * @returns {boolean}                   Explicitly return false to prevent the roll from being performed.
+     */
+    if ( Hooks.call("me5e.preRollFormula", this, rollConfig) === false ) return;
+
+    const roll = await new Roll(rollConfig.formula, rollConfig.data).roll({async: true});
+
+    if ( rollConfig.chatMessage ) {
+      roll.toMessage({
+        speaker: ChatMessage.getSpeaker({actor: this.actor}),
+        flavor: `${this.name} - ${game.i18n.localize("ME5E.OtherFormula")}`,
+        rollMode: game.settings.get("core", "rollMode"),
+        messageData: {"flags.me5e.roll": {type: "other", itemId: this.id }}
+      });
+    }
+
+    /**
+     * A hook event that fires after a formula has been rolled for an Item.
+     * @function dnd5e.rollFormula
+     * @memberof hookEvents
+     * @param {Item5e} item  Item for which the roll was performed.
+     * @param {Roll} roll    The resulting roll.
+     */
+    Hooks.callAll("me5e.rollFormula", this, roll);
+
     return roll;
   }
 
@@ -1410,33 +1581,65 @@ export default class Item5e extends Item {
    * @returns {Promise<Roll>}   A Promise which resolves to the created Roll instance
    */
   async rollRecharge() {
-    const recharge = this.system.recharge || {};
+    const recharge = this.system.recharge ?? {};
     if ( !recharge.value ) return;
 
-    // Roll the check
-    const roll = await new Roll("1d6").roll({async: true});
-    const success = roll.total >= parseInt(recharge.value);
+    const rollConfig = {
+      formula: "1d6",
+      data: this.getRollData(),
+      target: parseInt(recharge.value),
+      chatMessage: true
+    };
 
-    // Display a Chat Message
-    const resultKey = success ? "ME5E.ItemRechargeSuccess" : "ME5E.ItemRechargeFailure";
-    const promises = [roll.toMessage({
-      flavor: `${game.i18n.format("ME5E.ItemRechargeCheck", {name: this.name})} - ${game.i18n.localize(resultKey)}`,
-      speaker: ChatMessage.getSpeaker({actor: this.actor, token: this.actor.token})
-    })];
+    /**
+     * A hook event that fires before the Item is rolled to recharge.
+     * @function dnd5e.preRollRecharge
+     * @memberof hookEvents
+     * @param {Item5e} item                 Item for which the roll is being performed.
+     * @param {object} config               Configuration data for the pending roll.
+     * @param {string} config.formula       Formula that will be used to roll the recharge.
+     * @param {object} config.data          Data used when evaluating the roll.
+     * @param {number} config.target        Total required to be considered recharged.
+     * @param {boolean} config.chatMessage  Should a chat message be created for this roll?
+     * @returns {boolean}                   Explicitly return false to prevent the roll from being performed.
+     */
+    if ( Hooks.call("me5e.preRollRecharge", this, rollConfig) === false ) return;
+
+    const roll = await new Roll(rollConfig.formula, rollConfig.data).roll({async: true});
+    const success = roll.total >= rollConfig.target;
+
+    if ( rollConfig.chatMessage ) {
+      const resultMessage = game.i18n.localize(`DND5E.ItemRecharge${success ? "Success" : "Failure"}`);
+      roll.toMessage({
+        flavor: `${game.i18n.format("DND5E.ItemRechargeCheck", {name: this.name})} - ${resultMessage}`,
+        speaker: ChatMessage.getSpeaker({actor: this.actor, token: this.actor.token})
+      });
+    }
+
+    /**
+     * A hook event that fires after the Item has rolled to recharge, but before any changes have been performed.
+     * @function dnd5e.rollRecharge
+     * @memberof hookEvents
+     * @param {Item5e} item  Item for which the roll was performed.
+     * @param {Roll} roll    The resulting roll.
+     * @returns {boolean}    Explicitly return false to prevent the item from being recharged.
+     */
+    if ( Hooks.call("dnd5e.rollRecharge", this, roll) === false ) return roll;
 
     // Update the Item data
-    if ( success ) promises.push(this.update({"system.recharge.charged": true}));
-    return Promise.all(promises).then(() => roll);
+    if ( success ) this.update({"system.recharge.charged": true});
+
+    return roll;
   }
 
   /* -------------------------------------------- */
 
   /**
    * Prepare data needed to roll a tool check and then pass it off to `d20Roll`.
-   * @param {object} [options]  Roll configuration options provided to the d20Roll function.
-   * @returns {Promise<Roll>}   A Promise which resolves to the created Roll instance.
+   * @param {D20RollConfiguration} [options]  Roll configuration options provided to the d20Roll function.
+   * @returns {Promise<Roll>}                 A Promise which resolves to the created Roll instance.
    */
-  rollToolCheck(options={}) {
+  async rollToolCheck(options={}) {
     if ( this.type !== "tool" ) throw new Error("Wrong item type!");
 
     // Prepare roll data
@@ -1481,17 +1684,36 @@ export default class Item5e extends Item {
         left: window.innerWidth - 710
       },
       chooseModifier: true,
-      halflingLucky: this.actor.getFlag("me5e", "halflingLucky" ) || false,
+      halflingLucky: this.actor.getFlag("me5e", "halflingLucky" ),
       reliableTalent: (this.system.proficient >= 1) && this.actor.getFlag("me5e", "reliableTalent"),
       messageData: {
         speaker: options.speaker || ChatMessage.getSpeaker({actor: this.actor}),
         "flags.me5e.roll": {type: "tool", itemId: this.id }
       }
     }, options);
-    rollConfig.event = options.event;
 
-    // Call the roll helper utility
-    return d20Roll(rollConfig);
+    /**
+     * A hook event that fires before a tool check is rolled for an Item.
+     * @function dnd5e.preRollToolCheck
+     * @memberof hookEvents
+     * @param {Item5e} item                  Item for which the roll is being performed.
+     * @param {D20RollConfiguration} config  Configuration data for the pending roll.
+     * @returns {boolean}                    Explicitly return false to prevent the roll from being performed.
+     */
+    if ( Hooks.call("dnd5e.preRollToolCheck", this, rollConfig) === false ) return;
+
+    const roll = await d20Roll(rollConfig);
+
+    /**
+     * A hook event that fires after a tool check has been rolled for an Item.
+     * @function dnd5e.rollToolCheck
+     * @memberof hookEvents
+     * @param {Item5e} item   Item for which the roll was performed.
+     * @param {D20Roll} roll  The resulting roll.
+     */
+    if ( roll ) Hooks.callAll("dnd5e.rollToolCheck", this, roll);
+
+    return roll;
   }
 
   /* -------------------------------------------- */
@@ -1747,6 +1969,18 @@ export default class Item5e extends Item {
   }
 
   /* -------------------------------------------- */
+
+  /** @inheritdoc */
+  getEmbeddedDocument(embeddedName, id, options) {
+    if ( embeddedName !== "Advancement" ) return super.getEmbeddedDocument(embeddedName, id, options);
+    const advancement = this.advancement.byId[id];
+    if ( options?.strict && (advancement === undefined) ) {
+      throw new Error(`The key ${id} does not exist in the ${embeddedName} Collection`);
+    }
+    return advancement;
+  }
+
+  /* -------------------------------------------- */
   /*  Event Handlers                              */
   /* -------------------------------------------- */
 
@@ -1915,7 +2149,12 @@ export default class Item5e extends Item {
   _onCreateOwnedWeapon(data, isNPC) {
 
     // NPCs automatically equip items and are proficient with them
-    if ( isNPC ) return {"system.equipped": true, "system.proficient": true};
+    if ( isNPC ) {
+      const updates = {};
+      if ( !foundry.utils.hasProperty(data, "system.equipped") ) updates["system.equipped"] = true;
+      if ( !foundry.utils.hasProperty(data, "system.proficient") ) updates["system.proficient"] = true;
+      return updates;
+    }
     if ( data.system?.proficient !== undefined ) return {};
 
     // Some weapon types are always proficient

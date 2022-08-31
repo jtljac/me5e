@@ -11,7 +11,7 @@ import yargs from "yargs";
  * Parsed arguments passed in through the command line.
  * @type {object}
  */
-const parsedArgs = yargs().argv;
+const parsedArgs = yargs(process.argv).argv;
 
 /**
  * Paths of javascript files that should be linted.
@@ -33,7 +33,8 @@ async function compileJavascript() {
   await bundle.write({
     file: "./me5e-compiled.mjs",
     format: "es",
-    sourcemap: true
+    sourcemap: true,
+    sourcemapFile: "dnd5e.mjs"
   });
 }
 export const compile = compileJavascript;

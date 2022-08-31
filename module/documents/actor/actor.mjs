@@ -571,7 +571,7 @@ export default class Actor5e extends Actor {
    * @param {object} options      Options which configure how ability tests are rolled
    * @returns {Promise<D20Roll>}  A Promise which resolves to the created Roll instance
    */
-  rollAbilityTest(abilityId, options={}) {
+  async rollAbilityTest(abilityId, options={}) {
     const label = CONFIG.ME5E.abilities[abilityId] ?? "";
     const abl = this.system.abilities[abilityId];
     const globalBonuses = this.system.bonuses?.abilities ?? {};
@@ -606,7 +606,7 @@ export default class Actor5e extends Actor {
 
     // Roll and return
     const flavor = game.i18n.format("ME5E.AbilityPromptTitle", {ability: label});
-    const rollData = foundry.utils.mergeObject(options, {
+    const rollData = foundry.utils.mergeObject({
       parts,
       data,
       title: `${flavor}: ${this.name}`,
@@ -616,8 +616,32 @@ export default class Actor5e extends Actor {
         speaker: options.speaker || ChatMessage.getSpeaker({actor: this}),
         "flags.me5e.roll": {type: "ability", abilityId }
       }
-    });
-    return d20Roll(rollData);
+    }, options);
+
+    /**
+     * A hook event that fires before an ability test is rolled for an Actor.
+     * @function dnd5e.preRollAbilityTest
+     * @memberof hookEvents
+     * @param {Actor5e} actor                Actor for which the ability test is being rolled.
+     * @param {D20RollConfiguration} config  Configuration data for the pending roll.
+     * @param {string} abilityId             ID of the ability being rolled as defined in `DND5E.abilities`.
+     * @returns {boolean}                    Explicitly return `false` to prevent ability test from being rolled.
+     */
+    if ( Hooks.call("dnd5e.preRollAbilityTest", this, rollData, abilityId) === false ) return;
+
+    const roll = await d20Roll(rollData);
+
+    /**
+     * A hook event that fires after an ability test has been rolled for an Actor.
+     * @function dnd5e.rollAbilityTest
+     * @memberof hookEvents
+     * @param {Actor5e} actor     Actor for which the ability test has been rolled.
+     * @param {D20Roll} roll      The resulting roll.
+     * @param {string} abilityId  ID of the ability that was rolled as defined in `DND5E.abilities`.
+     */
+    if ( roll ) Hooks.callAll("dnd5e.rollAbilityTest", this, roll, abilityId);
+
+    return roll;
   }
 
   /* -------------------------------------------- */
@@ -629,7 +653,7 @@ export default class Actor5e extends Actor {
    * @param {object} options      Options which configure how ability tests are rolled
    * @returns {Promise<D20Roll>}  A Promise which resolves to the created Roll instance
    */
-  rollAbilitySave(abilityId, options={}) {
+  async rollAbilitySave(abilityId, options={}) {
     const label = CONFIG.ME5E.abilities[abilityId] ?? "";
     const abl = this.system.abilities[abilityId];
     const globalBonuses = this.system.bonuses?.abilities ?? {};
@@ -664,7 +688,7 @@ export default class Actor5e extends Actor {
 
     // Roll and return
     const flavor = game.i18n.format("ME5E.SavePromptTitle", {ability: label});
-    const rollData = foundry.utils.mergeObject(options, {
+    const rollData = foundry.utils.mergeObject({
       parts,
       data,
       title: `${flavor}: ${this.name}`,
@@ -674,8 +698,32 @@ export default class Actor5e extends Actor {
         speaker: options.speaker || ChatMessage.getSpeaker({actor: this}),
         "flags.me5e.roll": {type: "save", abilityId }
       }
-    });
-    return d20Roll(rollData);
+    }, options);
+
+    /**
+     * A hook event that fires before an ability save is rolled for an Actor.
+     * @function dnd5e.preRollAbilitySave
+     * @memberof hookEvents
+     * @param {Actor5e} actor                Actor for which the ability save is being rolled.
+     * @param {D20RollConfiguration} config  Configuration data for the pending roll.
+     * @param {string} abilityId             ID of the ability being rolled as defined in `DND5E.abilities`.
+     * @returns {boolean}                    Explicitly return `false` to prevent ability save from being rolled.
+     */
+    if ( Hooks.call("dnd5e.preRollAbilitySave", this, rollData, abilityId) === false ) return;
+
+    const roll = await d20Roll(rollData);
+
+    /**
+     * A hook event that fires after an ability save has been rolled for an Actor.
+     * @function dnd5e.rollAbilitySave
+     * @memberof hookEvents
+     * @param {Actor5e} actor     Actor for which the ability save has been rolled.
+     * @param {D20Roll} roll      The resulting roll.
+     * @param {string} abilityId  ID of the ability that was rolled as defined in `DND5E.abilities`.
+     */
+    if ( roll ) Hooks.callAll("dnd5e.rollAbilitySave", this, roll, abilityId);
+
+    return roll;
   }
 
   /* -------------------------------------------- */

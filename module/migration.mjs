@@ -275,7 +275,7 @@ export const migrateItemData = function(item, migrationData) {
   _migrateItemSpellcasting(item, updateData);
   _migrateArmorType(item, updateData);
   _migrateItemCriticalData(item, updateData);
-  _migrateItemIcon(item, updateData, migrationData);
+  _migrateDocumentIcon(item, updateData, migrationData);
 
   // Migrate embedded effects
   if ( item.effects ) {
@@ -317,6 +317,7 @@ export const migrateEffects = function(parent, migrationData) {
  */
 export const migrateEffectData = function(effect, migrationData) {
   const updateData = {};
+  _migrateDocumentIcon(effect, updateData, {...migrationData, field: "icon"});
   _migrateEffectArmorClass(effect, updateData);
   return updateData;
 };
@@ -331,7 +332,7 @@ export const migrateEffectData = function(effect, migrationData) {
  */
 export const migrateMacroData = function(macro, migrationData) {
   const updateData = {};
-  _migrateItemIcon(macro, updateData, migrationData);
+  _migrateDocumentIcon(macro, updateData, migrationData);
   _migrateMacroCommands(macro, updateData);
   return updateData;
 };
@@ -567,48 +568,6 @@ function _migrateActorAC(actorData, updateData) {
 /* -------------------------------------------- */
 
 /**
- * Renamed token images.
- * @type {Object<string, string>}
- */
-const TOKEN_IMAGE_RENAME = {
-  "systems/me5e/tokens/beast/OwlWhite.png": "systems/me5e/tokens/beast/Owl.webp",
-  "systems/me5e/tokens/beast/ScorpionSand.png": "systems/me5e/tokens/beast/Scorpion.webp",
-  "systems/me5e/tokens/beast/BaboonBlack.png": "systems/me5e/tokens/beast/Baboon.webp",
-  "systems/me5e/tokens/humanoid/BanditRedM.png": "systems/me5e/tokens/humanoid/Bandit.webp",
-  "systems/me5e/tokens/humanoid/GuardBlueM.png": "systems/me5e/tokens/humanoid/Guard.webp",
-  "systems/me5e/tokens/humanoid/HumanBrownM.png": "systems/me5e/tokens/humanoid/Commoner.webp",
-  "systems/me5e/tokens/humanoid/NobleSwordM.png": "systems/me5e/tokens/humanoid/Noble.webp",
-  "systems/me5e/tokens/humanoid/MerfolkBlue.png": "systems/me5e/tokens/humanoid/Merfolk.webp",
-  "systems/me5e/tokens/humanoid/TribalWarriorM.png": "systems/me5e/tokens/humanoid/TribalWarrior.webp",
-  "systems/me5e/tokens/devil/Lemure.png": "systems/me5e/tokens/fiend/Lemure.webp",
-  "systems/me5e/tokens/humanoid/Satyr.png": "systems/me5e/tokens/fey/Satyr.webp",
-  "systems/me5e/tokens/beast/WinterWolf.png": "systems/me5e/tokens/monstrosity/WinterWolf.webp"
-};
-
-/**
- * Re-scaled token images.
- * @type {Object<string, number>}
- */
-const TOKEN_IMAGE_RESCALE = {
-  "systems/me5e/tokens/beast/HunterShark.png": 1.5,
-  "systems/me5e/tokens/beast/GiantElk.png": 1.5,
-  "systems/me5e/tokens/monstrosity/Bulette.png": 1.5,
-  "systems/me5e/tokens/beast/Wolf.png": 1.5,
-  "systems/me5e/tokens/beast/Panther.png": 1.5,
-  "systems/me5e/tokens/beast/Elk.png": 1.5,
-  "systems/me5e/tokens/beast/AxeBeak.png": 1.5,
-  "systems/me5e/tokens/beast/GiantVulture.png": 1.5,
-  "systems/me5e/tokens/beast/GiantSpider.png": 1.5,
-  "systems/me5e/tokens/beast/DireWolf.png": 1.5,
-  "systems/me5e/tokens/monstrosity/DeathDog.png": 1.5,
-  "systems/me5e/tokens/devil/Lemure.png": 1.5,
-  "systems/me5e/tokens/beast/Deer.png": 1.1,
-  "systems/me5e/tokens/beast/GiantWeasel.png": 1.5,
-  "systems/me5e/tokens/beast/Camel.png": 1.2,
-  "systems/me5e/tokens/beast/BloodHawk.png": 1.5
-};
-
-/**
  * Migrate any system token images from PNG to WEBP.
  * @param {object} actorData    Actor or token data to migrate.
  * @param {object} updateData   Existing update to expand upon.
@@ -616,28 +575,14 @@ const TOKEN_IMAGE_RESCALE = {
  * @private
  */
 function _migrateTokenImage(actorData, updateData) {
-  ["texture.src", "prototypeToken.texture.src"].forEach(prop => {
-    const img = foundry.utils.getProperty(actorData, prop);
-
-    // Special fix for a renamed token that we missed the first time.
-    if ( img === "systems/me5e/tokens/humanoid/HumanBrownM.webp" ) {
-      updateData[prop] = "systems/me5e/tokens/humanoid/Commoner.webp";
-      return updateData;
+  const oldSystemPNG = /^systems\/me5e\/tokens\/([a-z]+)\/([A-z]+).png$/;
+  for ( const path of ["texture.src", "prototypeToken.texture.src"] ) {
+    const v = foundry.utils.getProperty(actorData, path);
+    if ( oldSystemPNG.test(v) ) {
+      const [type, fileName] = v.match(oldSystemPNG).slice(1);
+      updateData[path] = `systems/me5e/tokens/${type}/${fileName}.webp`;
     }
-
-    // Replace image with WEBP equivalent, renaming if necessary
-    if ( !img?.startsWith("systems/me5e/tokens/") || img?.endsWith(".webp") ) return;
-    updateData[prop] = TOKEN_IMAGE_RENAME[img] ?? img.replace(/\.png$/, ".webp");
-
-    // Adjust scaling to match new image
-    const scalePrefix = `${prop.startsWith("prototypeToken.") ? "prototypeToken." : ""}texture`;
-    if ( !foundry.utils.hasProperty(actorData, `${scalePrefix}.scaleX`) ) return;
-    const rescale = TOKEN_IMAGE_RESCALE[img];
-    if ( rescale ) {
-      updateData[`${scalePrefix}.scaleX`] = rescale;
-      updateData[`${scalePrefix}.scaleY`] = rescale;
-    }
-  });
+  }
   return updateData;
 }
 
@@ -731,17 +676,23 @@ function _migrateItemCriticalData(item, updateData) {
 
 /**
  * Convert system icons to use bundled core webp icons.
- * @param {object} item                                     Item data to migrate
+ * @param {object} document                                 Document data to migrate
  * @param {object} updateData                               Existing update to expand upon
  * @param {object} [migrationData={}]                       Additional data to perform the migration
- * @param {Object<string, string>} [migrationData.iconMap]  A mapping of system icons to core foundry icons
+ * @param {object<string, string>} [migrationData.iconMap]  A mapping of system icons to core foundry icons
+ * @param {string} [migrationData.field]                    The document field to migrate
  * @returns {object}                                        The updateData to apply
  * @private
  */
-function _migrateItemIcon(item, updateData, {iconMap}={}) {
-  if ( iconMap && item.img?.startsWith("systems/me5e/icons/") ) {
-    const rename = iconMap[item.img];
-    if ( rename ) updateData.img = rename;
+function _migrateDocumentIcon(document, updateData, {iconMap, field="img"}={}) {
+  if (!document?.[field]) {
+    return;
+  }
+
+  if ( iconMap && document[field]?.startsWith("systems/dnd5e/icons/") ) {
+    debugger;
+    const rename = iconMap[document[field]];
+    if ( rename ) updateData[field] = rename;
   }
   return updateData;
 }

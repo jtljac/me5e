@@ -243,7 +243,7 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
     const classId = event.target.closest(".item")?.dataset.itemId;
     if ( !delta || !classId ) return;
     const classItem = this.actor.items.get(classId);
-    if ( classItem.hasAdvancement && !game.settings.get("me5e", "disableAdvancements") ) {
+    if ( !game.settings.get("me5e", "disableAdvancements") ) {
       const manager = AdvancementManager.forLevelChange(this.actor, classId, delta);
       if ( manager.steps.length ) {
         if ( delta > 0 ) return manager.render(true);

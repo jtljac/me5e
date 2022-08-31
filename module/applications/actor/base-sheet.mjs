@@ -50,7 +50,10 @@ export default class ActorSheet5e extends ActorSheet {
       ],
       tabs: [{navSelector: ".tabs", contentSelector: ".sheet-body", initial: "description"}],
       width: 720,
-      height: Math.max(680, 237 + (Object.keys(CONFIG.ME5E.abilities).length * 70))
+      height: Math.max(680, Math.max(
+        237 + (Object.keys(CONFIG.ME5E.abilities).length * 70),
+        240 + (Object.keys(CONFIG.ME5E.skills).length * 24)
+      ))
     });
   }
 
@@ -138,8 +141,8 @@ export default class ActorSheet5e extends ActorSheet {
       skl.ability = CONFIG.ME5E.abilityAbbreviations[skl.ability];
       skl.icon = this._getProficiencyIcon(skl.value);
       skl.hover = CONFIG.ME5E.proficiencyLevels[skl.value];
-      skl.label = CONFIG.ME5E.skills[s];
-      skl.baseValue = source.system.skills[s].value;
+      skl.label = CONFIG.ME5E.skills[s]?.label;
+      skl.baseValue = source.system.skills[s]?.value ?? 0;
     }
 
     // Update traits
@@ -612,7 +615,7 @@ export default class ActorSheet5e extends ActorSheet {
       html.find(".skill-name").click(this._onRollSkillCheck.bind(this));
 
       // Item Rolling
-      html.find(".rollable .item-image").click(event => this._onItemRoll(event));
+      html.find(".rollable .item-image").click(event => this._onItemUse(event));
       html.find(".item .item-recharge").click(event => this._onItemRecharge(event));
     }
 
@@ -877,16 +880,16 @@ export default class ActorSheet5e extends ActorSheet {
   /* -------------------------------------------- */
 
   /**
-   * Handle rolling an item from the Actor sheet, obtaining the Item instance, and dispatching to its roll method.
+   * Handle using an item from the Actor sheet, obtaining the Item instance, and dispatching to its use method.
    * @param {Event} event  The triggering click event.
-   * @returns {Promise}    Results of the roll.
-   * @private
+   * @returns {Promise}    Results of the usage.
+   * @protected
    */
-  _onItemRoll(event) {
+  _onItemUse(event) {
     event.preventDefault();
     const itemId = event.currentTarget.closest(".item").dataset.itemId;
     const item = this.actor.items.get(itemId);
-    if ( item ) return item.roll();
+    if ( item ) return item.use();
   }
 
   /* -------------------------------------------- */
@@ -991,7 +994,7 @@ export default class ActorSheet5e extends ActorSheet {
     if ( !item ) return;
 
     // If item has advancement, handle it separately
-    if ( item.hasAdvancement && !game.settings.get("me5e", "disableAdvancements") ) {
+    if ( !game.settings.get("me5e", "disableAdvancements") ) {
       const manager = AdvancementManager.forDeletedItem(this.actor, item.id);
       if ( manager.steps.length ) {
         if ( ["class", "subclass"].includes(item.type) ) {

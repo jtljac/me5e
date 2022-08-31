@@ -14,6 +14,7 @@
 "ITEM.TypeTool": "Tool",
 "ITEM.TypeWeapon": "Weapon",
 
+"ME5E.spell": "spell",
 "ME5E.title": "ME5e Game System",
 "ME5E.AbbreviationCR": "CR",
 "ME5E.AbbreviationConc": "Conc.",
@@ -356,6 +357,7 @@
 "ME5E.Dimensions": "Dimensions",
 "ME5E.Disadvantage": "Disadvantage",
 "ME5E.DistAny": "Any",
+"ME5E.Disclaimer": "Disclaimer",
 "ME5E.DistFt": "Feet",
 "ME5E.DistKm": "Kilometers",
 "ME5E.DistM": "Meters",
