@@ -689,7 +689,7 @@ function _migrateDocumentIcon(document, updateData, {iconMap, field="img"}={}) {
     return;
   }
 
-  if ( iconMap && document[field]?.startsWith("systems/dnd5e/icons/") ) {
+  if ( iconMap && document[field]?.startsWith("systems/me5e/icons/") ) {
     debugger;
     const rename = iconMap[document[field]];
     if ( rename ) updateData[field] = rename;

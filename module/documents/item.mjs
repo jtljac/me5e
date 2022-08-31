@@ -676,7 +676,7 @@ export default class Item5e extends Item {
   async roll(options={}) {
     foundry.utils.logCompatibilityWarning(
       "Item5e#roll has been renamed Item5e#use. Support for the old name will be removed in future versions.",
-      { since: "DnD5e 2.0", until: "DnD5e 2.4" }
+      { since: "ME5e 2.0", until: "ME5e 2.4" }
     );
     return this.use(undefined, options);
   }
@@ -722,14 +722,14 @@ export default class Item5e extends Item {
 
     /**
      * A hook event that fires before an item usage is configured.
-     * @function dnd5e.preUseItem
+     * @function me5e.preUseItem
      * @memberof hookEvents
      * @param {Item5e} item                  Item being used.
      * @param {ItemUseConfiguration} config  Configuration data for the item usage being prepared.
      * @param {ItemUseOptions} options       Additional options used for configuring item usage.
      * @returns {boolean}                    Explicitly return `false` to prevent item from being used.
      */
-    if ( Hooks.call("dnd5e.preUseItem", item, config, options) === false ) return;
+    if ( Hooks.call("me5e.preUseItem", item, config, options) === false ) return;
 
     // Display configuration dialog
     if ( (options.configureDialog !== false) && config.needsConfiguration ) {
@@ -750,14 +750,14 @@ export default class Item5e extends Item {
 
     /**
      * A hook event that fires before an item's resource consumption has been calculated.
-     * @function dnd5e.preItemUsageConsumption
+     * @function me5e.preItemUsageConsumption
      * @memberof hookEvents
      * @param {Item5e} item                  Item being used.
      * @param {ItemUseConfiguration} config  Configuration data for the item usage being prepared.
      * @param {ItemUseOptions} options       Additional options used for configuring item usage.
      * @returns {boolean}                    Explicitly return `false` to prevent item from being used.
      */
-    if ( Hooks.call("dnd5e.preItemUsageConsumption", item, config, options) === false ) return;
+    if ( Hooks.call("me5e.preItemUsageConsumption", item, config, options) === false ) return;
 
     // Determine whether the item can be used by testing for resource consumption
     const usage = item._getUsageUpdates(config);
@@ -766,7 +766,7 @@ export default class Item5e extends Item {
     /**
      * A hook event that fires after an item's resource consumption has been calculated but before any
      * changes have been made.
-     * @function dnd5e.itemUsageConsumption
+     * @function me5e.itemUsageConsumption
      * @memberof hookEvents
      * @param {Item5e} item                     Item being used.
      * @param {ItemUseConfiguration} config     Configuration data for the item usage being prepared.
@@ -777,7 +777,7 @@ export default class Item5e extends Item {
      * @param {object[]} usage.resourceUpdates  Updates that will be applied to other items on the actor.
      * @returns {boolean}                       Explicitly return `false` to prevent item from being used.
      */
-    if ( Hooks.call("dnd5e.itemUsageConsumption", item, config, options, usage) === false ) return;
+    if ( Hooks.call("me5e.itemUsageConsumption", item, config, options, usage) === false ) return;
 
     // Commit pending data updates
     const { actorUpdates, itemUpdates, resourceUpdates } = usage;
@@ -799,14 +799,14 @@ export default class Item5e extends Item {
 
     /**
      * A hook event that fires when an item is used, after the measured template has been created if one is needed.
-     * @function dnd5e.useItem
+     * @function me5e.useItem
      * @memberof hookEvents
      * @param {Item5e} item                                Item being used.
      * @param {ItemUseConfiguration} config                Configuration data for the roll.
      * @param {ItemUseOptions} options                     Additional options for configuring item usage.
      * @param {MeasuredTemplateDocument[]|null} templates  The measured templates if they were created.
      */
-    Hooks.callAll("dnd5e.useItem", item, config, options, templates ?? null);
+    Hooks.callAll("me5e.useItem", item, config, options, templates ?? null);
 
     return cardData;
   }
@@ -1041,13 +1041,13 @@ export default class Item5e extends Item {
 
     /**
      * A hook event that fires before an item chat card is created.
-     * @function dnd5e.preDisplayCard
+     * @function me5e.preDisplayCard
      * @memberof hookEvents
      * @param {Item5e} item             Item for which the chat card is being displayed.
      * @param {object} chatData         Data used to create the chat message.
      * @param {ItemUseOptions} options  Options which configure the display of the item chat card.
      */
-    Hooks.callAll("dnd5e.preDisplayCard", this, chatData, options);
+    Hooks.callAll("me5e.preDisplayCard", this, chatData, options);
 
     // Apply the roll mode to adjust message visibility
     ChatMessage.applyRollMode(chatData, options.rollMode ?? game.settings.get("core", "rollMode"));
@@ -1057,13 +1057,13 @@ export default class Item5e extends Item {
 
     /**
      * A hook event that fires after an item chat card is created.
-     * @function dnd5e.displayCard
+     * @function me5e.displayCard
      * @memberof hookEvents
      * @param {Item5e} item              Item for which the chat card is being displayed.
      * @param {ChatMessage|object} card  The created ChatMessage instance or ChatMessageData depending on whether
      *                                   options.createMessage was set to `true`.
      */
-    Hooks.callAll("dnd5e.displayCard", this, card);
+    Hooks.callAll("me5e.displayCard", this, card);
 
     return card;
   }
@@ -1283,7 +1283,7 @@ export default class Item5e extends Item {
 
     // Flags
     const elvenAccuracy = (flags.elvenAccuracy
-      && CONFIG.DND5E.characterFlags.elvenAccuracy.abilities.includes(this.abilityMod)) || undefined;
+      && CONFIG.ME5E.characterFlags.elvenAccuracy.abilities.includes(this.abilityMod)) || undefined;
 
     // Compose roll options
     const rollConfig = foundry.utils.mergeObject({
@@ -1308,26 +1308,26 @@ export default class Item5e extends Item {
 
     /**
      * A hook event that fires before an attack is rolled for an Item.
-     * @function dnd5e.preRollAttack
+     * @function me5e.preRollAttack
      * @memberof hookEvents
      * @param {Item5e} item                  Item for which the roll is being performed.
      * @param {D20RollConfiguration} config  Configuration data for the pending roll.
      * @returns {boolean}                    Explicitly return false to prevent the roll from being performed.
      */
-    if ( Hooks.call("dnd5e.preRollAttack", this, rollConfig) === false ) return;
+    if ( Hooks.call("me5e.preRollAttack", this, rollConfig) === false ) return;
 
     const roll = await d20Roll(rollConfig);
     if ( roll === null ) return null;
 
     /**
      * A hook event that fires after an attack has been rolled for an Item.
-     * @function dnd5e.rollAttack
+     * @function me5e.rollAttack
      * @memberof hookEvents
      * @param {Item5e} item          Item for which the roll was performed.
      * @param {D20Roll} roll         The resulting roll.
      * @param {object[]} ammoUpdate  Updates that will be applied to ammo Items as a result of this attack.
      */
-    Hooks.callAll("dnd5e.rollAttack", this, roll, ammoUpdate);
+    Hooks.callAll("me5e.rollAttack", this, roll, ammoUpdate);
 
     // Commit ammunition consumption on attack rolls resource consumption if the attack roll was made
     if ( ammoUpdate.length ) await this.actor?.updateEmbeddedDocuments("Item", ammoUpdate);
@@ -1428,13 +1428,13 @@ export default class Item5e extends Item {
 
     /**
      * A hook event that fires before a damage is rolled for an Item.
-     * @function dnd5e.preRollDamage
+     * @function me5e.preRollDamage
      * @memberof hookEvents
      * @param {Item5e} item                     Item for which the roll is being performed.
      * @param {DamageRollConfiguration} config  Configuration data for the pending roll.
      * @returns {boolean}                       Explicitly return false to prevent the roll from being performed.
      */
-    if ( Hooks.call("dnd5e.preRollDamage", this, rollConfig) === false ) return;
+    if ( Hooks.call("me5e.preRollDamage", this, rollConfig) === false ) return;
 
     const roll = await damageRoll(rollConfig);
 

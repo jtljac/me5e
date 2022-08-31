@@ -46,7 +46,7 @@ export default class AbilityTemplate extends MeasuredTemplate {
       x: 0,
       y: 0,
       fillColor: game.user.color,
-      flags: { dnd5e: { origin: item.uuid } }
+      flags: { me5e: { origin: item.uuid } }
     };
 
     // Additional type-specific data

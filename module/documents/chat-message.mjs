@@ -13,7 +13,7 @@ export function highlightCriticalSuccessFailure(message, html, data) {
     return (d0?.faces === 20) && (d0?.values.length === 1);
   });
   if ( !d20Roll ) return;
-  d20Roll = dnd5e.dice.D20Roll.fromRoll(d20Roll);
+  d20Roll = me5e.dice.D20Roll.fromRoll(d20Roll);
   const d = d20Roll.dice[0];
 
   const isModifiedRoll = ("success" in d.results[0]) || d.options.marginSuccess || d.options.marginFailure;

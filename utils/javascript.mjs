@@ -34,7 +34,7 @@ async function compileJavascript() {
     file: "./me5e-compiled.mjs",
     format: "es",
     sourcemap: true,
-    sourcemapFile: "dnd5e.mjs"
+    sourcemapFile: "me5e.mjs"
   });
 }
 export const compile = compileJavascript;

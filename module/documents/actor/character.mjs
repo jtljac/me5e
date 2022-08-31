@@ -89,7 +89,7 @@ export default class Character5e extends Creature5e {
 
     // Evaluate the roll
     const flavor = game.i18n.localize("ME5E.DeathSavingThrow");
-    const rollData = foundry.utils.mergeObject(options, {
+    const rollData = foundry.utils.mergeObject({
       parts,
       data,
       title: `${flavor}: ${this.name}`,
@@ -100,55 +100,80 @@ export default class Character5e extends Creature5e {
         speaker: speaker,
         "flags.me5e.roll": {type: "death"}
       }
-    });
+    }, options);
+
+    /**
+     * A hook event that fires before a death saving throw is rolled for an Actor.
+     * @function me5e.preRollDeathSave
+     * @memberof hookEvents
+     * @param {Actor5e} actor                Actor for which the death saving throw is being rolled.
+     * @param {D20RollConfiguration} config  Configuration data for the pending roll.
+     * @returns {boolean}                    Explicitly return `false` to prevent death saving throw from being rolled.
+     */
+    if ( Hooks.call("me5e.preRollDeathSave", this, rollData) === false ) return;
+
     const roll = await d20Roll(rollData);
     if ( !roll ) return null;
 
     // Take action depending on the result
-    const success = roll.total >= 10;
-    const d20 = roll.dice[0].total;
-
-    let chatString;
+    const details = {};
 
     // Save success
-    if ( success ) {
+    if ( roll.total >= (roll.options.targetValue ?? 10) ) {
       let successes = (death.success || 0) + 1;
 
       // Critical Success = revive with 1hp
-      if ( d20 === 20 ) {
-        await this.update({
+      if ( roll.isCritical ) {
+        details.updates = {
           "system.attributes.death.success": 0,
           "system.attributes.death.failure": 0,
           "system.attributes.hp.value": 1
-        });
-        chatString = "ME5E.DeathSaveCriticalSuccess";
+        };
+        details.chatString = "ME5E.DeathSaveCriticalSuccess";
       }
 
       // 3 Successes = survive and reset checks
       else if ( successes === 3 ) {
-        await this.update({
+        details.updates = {
           "system.attributes.death.success": 0,
           "system.attributes.death.failure": 0
-        });
-        chatString = "ME5E.DeathSaveSuccess";
+        };
+        details.chatString = "ME5E.DeathSaveSuccess";
       }
 
       // Increment successes
-      else await this.update({"system.attributes.death.success": Math.clamped(successes, 0, 3)});
+      else details.updates = {"system.attributes.death.success": Math.clamped(successes, 0, 3)};
     }
 
     // Save failure
     else {
-      let failures = (death.failure || 0) + (d20 === 1 ? 2 : 1);
-      await this.update({"system.attributes.death.failure": Math.clamped(failures, 0, 3)});
+      let failures = (death.failure || 0) + (roll.isFumble ? 2 : 1);
+      details.updates = {"system.attributes.death.failure": Math.clamped(failures, 0, 3)};
       if ( failures >= 3 ) {  // 3 Failures = death
-        chatString = "ME5E.DeathSaveFailure";
+        details.chatString = "ME5E.DeathSaveFailure";
       }
     }
 
+    /**
+     * A hook event that fires after a death saving throw has been rolled for an Actor, but before
+     * updates have been performed.
+     * @function me5e.rollDeathSave
+     * @memberof hookEvents
+     * @param {Actor5e} actor              Actor for which the death saving throw has been rolled.
+     * @param {D20Roll} roll               The resulting roll.
+     * @param {object} details
+     * @param {object} details.updates     Updates that will be applied to the actor as a result of this save.
+     * @param {string} details.chatString  Localizable string displayed in the create chat message. If not set, then
+     *                                     no chat message will be displayed.
+     * @returns {boolean}                  Explicitly return `false` to prevent updates from being performed.
+     */
+    if ( Hooks.call("me5e.rollDeathSave", this, roll, details) === false ) return roll;
+
+    if ( !foundry.utils.isEmpty(details.updates) ) await this.update(details.updates);
+
     // Display success/failure chat message
-    if ( chatString ) {
-      let chatData = { content: game.i18n.format(chatString, {name: this.name}), speaker };
+    if ( details.chatString ) {
+      let chatData = { content: game.i18n.format(details.chatString, {name: this.name}), speaker };
       ChatMessage.applyRollMode(chatData, roll.options.rollMode);
       await ChatMessage.create(chatData);
     }
@@ -163,10 +188,10 @@ export default class Character5e extends Creature5e {
    * Roll a hit die of the appropriate type, gaining hit points equal to the die roll plus your CON modifier
    * @param {string} [denomination]       The hit denomination of hit die to roll. Example "d8".
    *                                      If no denomination is provided, the first available HD will be used
-   * @param {boolean} [dialog]            Show a dialog prompt for configuring the hit die roll?
+   * @param {object} options              Additional options which modify the roll.
    * @returns {Promise<DamageRoll|null>}  The created Roll instance, or null if no hit die was rolled
    */
-  async rollHitDie(denomination, {dialog=true}={}) {
+  async rollHitDie(denomination, options={}) {
 
     // If no denomination was provided, choose the first available
     let cls = null;
@@ -189,29 +214,59 @@ export default class Character5e extends Creature5e {
 
     // Prepare roll data
     const flavor = game.i18n.localize("ME5E.HitDiceRoll");
-
-    // Call the roll helper utility
-    const roll = await damageRoll({
+    if ( options.fastForward === undefined ) options.fastForward = !options.dialog;
+    const rollData = foundry.utils.mergeObject({
       event: new Event("hitDie"),
       parts: [`1${denomination}`, "@abilities.con.mod"],
-      data: this.toObject(false).system,
+      data: this.getRollData(),
       title: `${flavor}: ${this.name}`,
       flavor,
       allowCritical: false,
-      fastForward: !dialog,
       dialogOptions: {width: 350},
       messageData: {
         speaker: ChatMessage.getSpeaker({actor: this}),
         "flags.me5e.roll": {type: "hitDie"}
       }
-    });
-    if ( !roll ) return null;
+    }, options);
 
-    // Adjust actor data
-    await cls.update({"system.hitDiceUsed": cls.system.hitDiceUsed + 1});
+    /**
+     * A hook event that fires before a hit die is rolled for an Actor.
+     * @function me5e.preRollHitDie
+     * @memberof hookEvents
+     * @param {Actor5e} actor                   Actor for which the hit die is to be rolled.
+     * @param {DamageRollConfiguration} config  Configuration data for the pending roll.
+     * @param {string} denomination             Size of hit die to be rolled.
+     * @returns {boolean}                       Explicitly return `false` to prevent hit die from being rolled.
+     */
+    if ( Hooks.call("me5e.preRollHitDie", this, rollData, denomination) === false ) return;
+
+    const roll = await damageRoll(rollData);
+    if ( !roll ) return roll;
+
     const hp = this.system.attributes.hp;
     const dhp = Math.min(hp.max + (hp.tempmax ?? 0) - hp.value, roll.total);
-    await this.update({"system.attributes.hp.value": hp.value + dhp});
+    const updates = {
+      actor: {"system.attributes.hp.value": hp.value + dhp},
+      class: {"system.hitDiceUsed": cls.system.hitDiceUsed + 1}
+    };
+
+    /**
+     * A hook event that fires after a hit die has been rolled for an Actor, but before updates have been performed.
+     * @function me5e.rollHitDie
+     * @memberof hookEvents
+     * @param {Actor5e} actor         Actor for which the hit die has been rolled.
+     * @param {DamageRoll} roll       The resulting roll.
+     * @param {object} updates
+     * @param {object} updates.actor  Updates that will be applied to the actor.
+     * @param {object} updates.class  Updates that will be applied to the class.
+     * @returns {boolean}             Explicitly return `false` to prevent updates from being performed.
+     */
+    if ( Hooks.call("me5e.rollHitDie", this, roll, updates) === false ) return roll;
+
+    // Perform updates
+    if ( !foundry.utils.isEmpty(updates.actor) ) await this.update(updates.actor);
+    if ( !foundry.utils.isEmpty(updates.class) ) await cls.update(updates.class);
+
     return roll;
   }
 
@@ -253,8 +308,21 @@ export default class Character5e extends Creature5e {
   }
 
   /* -------------------------------------------- */
-  /*  Rest                                        */
+  /*  Resting                                     */
   /* -------------------------------------------- */
+
+  /**
+   * Configuration options for a rest.
+   *
+   * @typedef {object} RestConfiguration
+   * @property {boolean} dialog            Present a dialog window which allows for rolling hit dice as part of the
+   *                                       Short Rest and selecting whether a new day has occurred.
+   * @property {boolean} chat              Should a chat message be created to summarize the results of the rest?
+   * @property {boolean} newDay            Does this rest carry over to a new day?
+   * @property {boolean} [autoHD]          Should hit dice be spent automatically during a short rest?
+   * @property {number} [autoHDThreshold]  How many hit points should be missing before hit dice are
+   *                                       automatically spent during a short rest.
+   */
 
   /**
    * Results from a rest operation.
@@ -272,67 +340,77 @@ export default class Character5e extends Creature5e {
 
   /**
    * Take a short rest, possibly spending hit dice and recovering resources, item uses, and pact slots.
-   *
-   * @param {object} [options]
-   * @param {boolean} [options.dialog=true]         Present a dialog window which allows for rolling hit dice as part
-   *                                                of the Short Rest and selecting whether a new day has occurred.
-   * @param {boolean} [options.chat=true]           Summarize the results of the rest workflow as a chat message.
-   * @param {boolean} [options.autoHD=false]        Automatically spend Hit Dice if you are missing 3 or more hit
-   *                                                points.
-   * @param {boolean} [options.autoHDThreshold=3]   A number of missing hit points which would trigger an automatic HD
-   *                                                roll.
-   * @returns {Promise<RestResult>}                 A Promise which resolves once the short rest workflow has completed.
+   * @param {RestConfiguration} [config]  Configuration options for a short rest.
+   * @returns {Promise<RestResult>}       A Promise which resolves once the short rest workflow has completed.
    */
-  async shortRest({dialog=true, chat=true, autoHD=false, autoHDThreshold=3}={}) {
+  async shortRest(config={}) {
+    config = foundry.utils.mergeObject({
+      dialog: true, chat: true, newDay: false, autoHD: false, autoHDThreshold: 3
+    }, config);
+
+    /**
+     * A hook event that fires before a short rest is started.
+     * @function me5e.preShortRest
+     * @memberof hookEvents
+     * @param {Actor5e} actor             The actor that is being rested.
+     * @param {RestConfiguration} config  Configuration options for the rest.
+     * @returns {boolean}                 Explicitly return `false` to prevent the rest from being started.
+     */
+    if ( Hooks.call("me5e.preShortRest", this, config) === false ) return;
 
     // Take note of the initial hit points and number of hit dice the Actor has
     const hd0 = this.system.attributes.hd;
     const hp0 = this.system.attributes.hp.value;
-    let newDay = false;
 
     // Display a Dialog for rolling hit dice
-    if ( dialog ) {
-      try {
-        newDay = await ShortRestDialog.shortRestDialog({actor: this, canRoll: hd0 > 0});
-      } catch(err) {
-        return;
-      }
+    if ( config.dialog ) {
+      try { config.newDay = await ShortRestDialog.shortRestDialog({actor: this, canRoll: hd0 > 0});
+      } catch(err) { return; }
     }
 
     // Automatically spend hit dice
-    else if ( autoHD ) await this.autoSpendHitDice({ threshold: autoHDThreshold });
+    else if ( config.autoHD ) await this.autoSpendHitDice({ threshold: config.autoHDThreshold });
 
     // Return the rest result
-    return this._rest(chat, newDay, false, this.system.attributes.hd - hd0, this.system.attributes.hp.value - hp0);
+    const dhd = this.system.attributes.hd - hd0;
+    const dhp = this.system.attributes.hp.value - hp0;
+    return this._rest(config.chat, config.newDay, false, dhd, dhp);
   }
 
   /* -------------------------------------------- */
 
   /**
    * Take a long rest, recovering hit points, hit dice, resources, item uses, and spell slots.
-   *
-   * @param {object} [options]
-   * @param {boolean} [options.dialog=true]  Present a confirmation dialog window whether or not to take a long rest.
-   * @param {boolean} [options.chat=true]    Summarize the results of the rest workflow as a chat message.
-   * @param {boolean} [options.newDay=true]  Whether the long rest carries over to a new day.
-   * @returns {Promise<RestResult>}          A Promise which resolves once the long rest workflow has completed.
+   * @param {RestConfiguration} [config]  Configuration options for a long rest.
+   * @returns {Promise<RestResult>}       A Promise which resolves once the long rest workflow has completed.
    */
-  async longRest({dialog=true, chat=true, newDay=true}={}) {
-    if ( dialog ) {
-      try {
-        newDay = await LongRestDialog.longRestDialog({actor: this});
-      }
-      catch(err) {
-        return;
-      }
+  async longRest(config={}) {
+    config = foundry.utils.mergeObject({
+      dialog: true, chat: true, newDay: true
+    }, config);
+
+    /**
+     * A hook event that fires before a long rest is started.
+     * @function me5e.preLongRest
+     * @memberof hookEvents
+     * @param {Actor5e} actor             The actor that is being rested.
+     * @param {RestConfiguration} config  Configuration options for the rest.
+     * @returns {boolean}                 Explicitly return `false` to prevent the rest from being started.
+     */
+    if ( Hooks.call("me5e.preLongRest", this, config) === false ) return;
+
+    if ( config.dialog ) {
+      try { config.newDay = await LongRestDialog.longRestDialog({actor: this}); }
+      catch(err) { return; }
     }
-    return this._rest(chat, newDay, true);
+
+    return this._rest(config.chat, config.newDay, true);
   }
 
   /* -------------------------------------------- */
 
   /**
-   * Perform all the changes needed for a short or long rest.
+   * Perform all of the changes needed for a short or long rest.
    *
    * @param {boolean} chat           Summarize the results of the rest workflow as a chat message.
    * @param {boolean} newDay         Has a new day occurred during this rest?
@@ -370,6 +448,16 @@ export default class Character5e extends Creature5e {
       longRest,
       newDay
     };
+
+    /**
+     * A hook event that fires after rest result is calculated, but before any updates are performed.
+     * @function me5e.preRestCompleted
+     * @memberof hookEvents
+     * @param {Actor5e} actor      The actor that is being rested.
+     * @param {RestResult} result  Details on the rest to be completed.
+     * @returns {boolean}          Explicitly return `false` to prevent the rest updates from being performed.
+     */
+    if ( Hooks.call("me5e.preRestCompleted", this, result) === false ) return result;
 
     // Perform updates
     await this.update(result.updateData);

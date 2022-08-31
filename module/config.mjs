@@ -33,7 +33,6 @@ ME5E.Actor = {
   }
 };
 
-let XorPredicate;
 ME5E.Rule = {
   /**
    * A mapping of Rule Types to Rule Classes
@@ -112,25 +111,25 @@ preLocalize("abilityAbbreviations");
  * The set of skill which can be trained with their default ability scores.
  * @enum {SkillConfiguration}
  */
-DND5E.skills = {
-  acr: { label: "DND5E.SkillAcr", ability: "dex" },
-  ath: { label: "DND5E.SkillAth", ability: "str" },
-  dec: { label: "DND5E.SkillDec", ability: "cha" },
-  ele: { label: "DND5E.SkillEle", ability: "int" },
-  eng: { label: "DND5E.SkillEng", ability: "int" },
-  his: { label: "DND5E.SkillHis", ability: "int" },
-  ins: { label: "DND5E.SkillIns", ability: "wis" },
-  itm: { label: "DND5E.SkillItm", ability: "cha" },
-  inv: { label: "DND5E.SkillInv", ability: "int" },
-  med: { label: "DND5E.SkillMed", ability: "wis" },
-  prc: { label: "DND5E.SkillPrc", ability: "wis" },
-  prf: { label: "DND5E.SkillPrf", ability: "cha" },
-  per: { label: "DND5E.SkillPer", ability: "cha" },
-  sci: { label: "DND5E.SkillSci", ability: "int" },
-  slt: { label: "DND5E.SkillSlt", ability: "dex" },
-  ste: { label: "DND5E.SkillSte", ability: "dex" },
-  sur: { label: "DND5E.SkillSur", ability: "wis" },
-  veh: { label: "DND5E.SkillVeh", ability: "dex" }
+ME5E.skills = {
+  acr: { label: "ME5E.SkillAcr", ability: "dex" },
+  ath: { label: "ME5E.SkillAth", ability: "str" },
+  dec: { label: "ME5E.SkillDec", ability: "cha" },
+  elc: { label: "ME5E.SkillElc", ability: "int" },
+  eng: { label: "ME5E.SkillEng", ability: "int" },
+  his: { label: "ME5E.SkillHis", ability: "int" },
+  ins: { label: "ME5E.SkillIns", ability: "wis" },
+  itm: { label: "ME5E.SkillItm", ability: "cha" },
+  inv: { label: "ME5E.SkillInv", ability: "int" },
+  med: { label: "ME5E.SkillMed", ability: "wis" },
+  prc: { label: "ME5E.SkillPrc", ability: "wis" },
+  prf: { label: "ME5E.SkillPrf", ability: "cha" },
+  per: { label: "ME5E.SkillPer", ability: "cha" },
+  sci: { label: "ME5E.SkillSci", ability: "int" },
+  slt: { label: "ME5E.SkillSlt", ability: "dex" },
+  ste: { label: "ME5E.SkillSte", ability: "dex" },
+  sur: { label: "ME5E.SkillSur", ability: "wis" },
+  veh: { label: "ME5E.SkillVeh", ability: "dex" }
 };
 preLocalize("skills", { key: "label", sort: true });
 patchConfig("skills", "label", { since: 2.0, until: 2.2 });
@@ -1176,20 +1175,20 @@ ME5E.allowedActorFlags = Object.keys(ME5E.characterFlags);
 /**
  * Patch an existing config enum to allow conversion from string values to object values without
  * breaking existing modules that are expecting strings.
- * @param {string} key          Key within DND5E that has been replaced with an enum of objects.
+ * @param {string} key          Key within ME5E that has been replaced with an enum of objects.
  * @param {string} fallbackKey  Key within the new config object from which to get the fallback value.
  * @param {object} [options]    Additional options passed through to logCompatibilityWarning.
  */
 function patchConfig(key, fallbackKey, options) {
   /** @override */
   function toString() {
-    const message = `The value of CONFIG.DND5E.${key} has been changed to an object.`
+    const message = `The value of CONFIG.ME5E.${key} has been changed to an object.`
       +` The former value can be acccessed from .${fallbackKey}.`;
     foundry.utils.logCompatibilityWarning(message, options);
     return this[fallbackKey];
   }
 
-  Object.values(DND5E[key]).forEach(o => o.toString = toString);
+  Object.values(ME5E[key]).forEach(o => o.toString = toString);
 }
 
 /* -------------------------------------------- */

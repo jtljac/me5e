@@ -3,8 +3,8 @@
  * A system for playing the fifth edition of the worlds most popular roleplaying game.
  * Author: jtljac
  * Software License: GNU GPLv3
- * Repository: https://gitlab.com/foundrynet/me5e
- * Issue Tracker: https://gitlab.com/foundrynet/me5e/issues
+ * Repository: https://github.com/jtljac/me5e
+ * Issue Tracker: https://github.com/jtljac/me5e/issues
  */
 
 // Import Configuration
@@ -173,9 +173,18 @@ Hooks.once("i18nInit", () => utils.performPreLocalization(CONFIG.ME5E));
  * Once the entire VTT framework is initialized, check to see if we should perform a data migration
  */
 Hooks.once("ready", function() {
+  // TODO: Work this out when the compendium is setup
+  // // Apply custom compendium styles to the SRD rules compendium.
+  // const rules = game.packs.get("me5e.rules");
+  // rules.apps = [new applications.SRDCompendium(rules)];
 
   // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
-  Hooks.on("hotbarDrop", (bar, data, slot) => documents.macro.create5eMacro(data, slot));
+  Hooks.on("hotbarDrop", (bar, data, slot) => {
+    if ( ["Item", "ActiveEffect"].includes(data.type) ) {
+      documents.macro.create5eMacro(data, slot);
+      return false;
+    }
+  });
 
   // Determine whether a system migration is required and feasible
   if ( !game.user.isGM ) return;

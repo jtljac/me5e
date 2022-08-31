@@ -8,6 +8,18 @@ export default class Creature5e extends Actor5e {
   /*  Event Handlers                              */
   /* -------------------------------------------- */
   /** @inheritDoc */
+  prepareBaseData() {
+    super.prepareBaseData();
+
+    const updates = {};
+    this._prepareBaseSkills(updates);
+    if ( !foundry.utils.isEmpty(updates) ) {
+      if ( !this.id ) this.updateSource(updates);
+      else this.update(updates);
+    }
+  }
+
+  /** @inheritDoc */
   prepareDerivedData() {
     super.prepareDerivedData();
 
@@ -16,6 +28,29 @@ export default class Creature5e extends Actor5e {
     const checkBonus = simplifyBonus(globalBonuses?.check, bonusData);
     this._prepareSkills(bonusData, globalBonuses, checkBonus);
     this._prepareSpellcasting();
+  }
+
+  /* -------------------------------------------- */
+  /*  Base Data Preparation Helpers               */
+  /* -------------------------------------------- */
+
+  /**
+   * Update the actor's skill list to match the skills configured in `ME5E.skills`.
+   * Mutates the system.skills object.
+   * @param {object} updates  Updates to be applied to the actor. *Will be mutated*.
+   * @private
+   */
+  _prepareBaseSkills(updates) {
+    const skills = {};
+    for ( const [key, skill] of Object.entries(CONFIG.ME5E.skills) ) {
+      skills[key] = this.system.skills[key];
+      if ( !skills[key] ) {
+        skills[key] = foundry.utils.deepClone(game.system.template.Actor.templates.creature.skills.acr);
+        skills[key].ability = skill.ability;
+        updates[`data.skills.${key}`] = foundry.utils.deepClone(skills[key]);
+      }
+    }
+    this.system.skills = skills;
   }
 
   /* -------------------------------------------- */
@@ -160,7 +195,7 @@ export default class Creature5e extends Actor5e {
    * @param {object} options      Options which configure how the skill check is rolled
    * @returns {Promise<D20Roll>}  A Promise which resolves to the created Roll instance
    */
-  rollSkill(skillId, options={}) {
+  async rollSkill(skillId, options={}) {
     const skl = this.system.skills[skillId];
     const abl = this.system.abilities[skl.ability];
     const globalBonuses = this.system.bonuses?.abilities ?? {};
@@ -207,20 +242,44 @@ export default class Creature5e extends Actor5e {
     const reliableTalent = (skl.value >= 1 && this.getFlag("me5e", "reliableTalent"));
 
     // Roll and return
-    const flavor = game.i18n.format("ME5E.SkillPromptTitle", {skill: CONFIG.ME5E.skills[skillId]});
-    const rollData = foundry.utils.mergeObject(options, {
+    const flavor = game.i18n.format("ME5E.SkillPromptTitle", {skill: CONFIG.ME5E.skills[skillId]?.label ?? ""});
+    const rollData = foundry.utils.mergeObject({
       parts: parts,
       data: data,
       title: `${flavor}: ${this.name}`,
       flavor,
       chooseModifier: true,
       halflingLucky: this.getFlag("me5e", "halflingLucky"),
-      reliableTalent: reliableTalent,
+      reliableTalent,
       messageData: {
         speaker: options.speaker || ChatMessage.getSpeaker({actor: this}),
         "flags.me5e.roll": {type: "skill", skillId }
       }
-    });
-    return d20Roll(rollData);
+    }, options);
+
+    /**
+     * A hook event that fires before a skill check is rolled for an Actor.
+     * @function me5e.preRollSkill
+     * @memberof hookEvents
+     * @param {Actor5e} actor                Actor for which the skill check is being rolled.
+     * @param {D20RollConfiguration} config  Configuration data for the pending roll.
+     * @param {string} skillId               ID of the skill being rolled as defined in `ME5E.skills`.
+     * @returns {boolean}                    Explicitly return `false` to prevent skill check from being rolled.
+     */
+    if ( Hooks.call("me5e.preRollSkill", this, rollData, skillId) === false ) return;
+
+    const roll = await d20Roll(rollData);
+
+    /**
+     * A hook event that fires after a skill check has been rolled for an Actor.
+     * @function me5e.rollSkill
+     * @memberof hookEvents
+     * @param {Actor5e} actor   Actor for which the skill check has been rolled.
+     * @param {D20Roll} roll    The resulting roll.
+     * @param {string} skillId  ID of the skill that was rolled as defined in `ME5E.skills`.
+     */
+    if ( roll ) Hooks.callAll("me5e.rollSkill", this, roll, skillId);
+
+    return roll;
   }
 }

@@ -620,26 +620,26 @@ export default class Actor5e extends Actor {
 
     /**
      * A hook event that fires before an ability test is rolled for an Actor.
-     * @function dnd5e.preRollAbilityTest
+     * @function me5e.preRollAbilityTest
      * @memberof hookEvents
      * @param {Actor5e} actor                Actor for which the ability test is being rolled.
      * @param {D20RollConfiguration} config  Configuration data for the pending roll.
-     * @param {string} abilityId             ID of the ability being rolled as defined in `DND5E.abilities`.
+     * @param {string} abilityId             ID of the ability being rolled as defined in `ME5E.abilities`.
      * @returns {boolean}                    Explicitly return `false` to prevent ability test from being rolled.
      */
-    if ( Hooks.call("dnd5e.preRollAbilityTest", this, rollData, abilityId) === false ) return;
+    if ( Hooks.call("me5e.preRollAbilityTest", this, rollData, abilityId) === false ) return;
 
     const roll = await d20Roll(rollData);
 
     /**
      * A hook event that fires after an ability test has been rolled for an Actor.
-     * @function dnd5e.rollAbilityTest
+     * @function me5e.rollAbilityTest
      * @memberof hookEvents
      * @param {Actor5e} actor     Actor for which the ability test has been rolled.
      * @param {D20Roll} roll      The resulting roll.
-     * @param {string} abilityId  ID of the ability that was rolled as defined in `DND5E.abilities`.
+     * @param {string} abilityId  ID of the ability that was rolled as defined in `ME5E.abilities`.
      */
-    if ( roll ) Hooks.callAll("dnd5e.rollAbilityTest", this, roll, abilityId);
+    if ( roll ) Hooks.callAll("me5e.rollAbilityTest", this, roll, abilityId);
 
     return roll;
   }
@@ -702,26 +702,26 @@ export default class Actor5e extends Actor {
 
     /**
      * A hook event that fires before an ability save is rolled for an Actor.
-     * @function dnd5e.preRollAbilitySave
+     * @function me5e.preRollAbilitySave
      * @memberof hookEvents
      * @param {Actor5e} actor                Actor for which the ability save is being rolled.
      * @param {D20RollConfiguration} config  Configuration data for the pending roll.
-     * @param {string} abilityId             ID of the ability being rolled as defined in `DND5E.abilities`.
+     * @param {string} abilityId             ID of the ability being rolled as defined in `ME5E.abilities`.
      * @returns {boolean}                    Explicitly return `false` to prevent ability save from being rolled.
      */
-    if ( Hooks.call("dnd5e.preRollAbilitySave", this, rollData, abilityId) === false ) return;
+    if ( Hooks.call("me5e.preRollAbilitySave", this, rollData, abilityId) === false ) return;
 
     const roll = await d20Roll(rollData);
 
     /**
      * A hook event that fires after an ability save has been rolled for an Actor.
-     * @function dnd5e.rollAbilitySave
+     * @function me5e.rollAbilitySave
      * @memberof hookEvents
      * @param {Actor5e} actor     Actor for which the ability save has been rolled.
      * @param {D20Roll} roll      The resulting roll.
-     * @param {string} abilityId  ID of the ability that was rolled as defined in `DND5E.abilities`.
+     * @param {string} abilityId  ID of the ability that was rolled as defined in `ME5E.abilities`.
      */
-    if ( roll ) Hooks.callAll("dnd5e.rollAbilitySave", this, roll, abilityId);
+    if ( roll ) Hooks.callAll("me5e.rollAbilitySave", this, roll, abilityId);
 
     return roll;
   }
@@ -804,7 +804,7 @@ export default class Actor5e extends Actor {
    * @param {Item5e[]} items         The items being added to the Actor.
    * @param {boolean} [prompt=true]  Whether or not to prompt the user.
    * @returns {Promise<Item5e[]>}
-   * @deprecated since dnd5e 1.6, targeted for removal in 2.1
+   * @deprecated since me5e 1.6, targeted for removal in 2.1
    */
   async addEmbeddedItems(items, prompt=true) {
     foundry.utils.logCompatibilityWarning(
@@ -840,7 +840,7 @@ export default class Actor5e extends Actor {
    * @param {string} [options.subclassName]    Name of the selected subclass if it has been changed.
    * @param {number} [options.level]           New class level if it has been changed.
    * @returns {Promise<Item5e[]>}              Any new items that should be added to the actor.
-   * @deprecated since dnd5e 1.6, targeted for removal in 2.1
+   * @deprecated since me5e 1.6, targeted for removal in 2.1
    */
   async getClassFeatures({classIdentifier, subclassName, level}={}) {
     foundry.utils.logCompatibilityWarning(
@@ -862,7 +862,7 @@ export default class Actor5e extends Actor {
    * @param {number} [options.level]           The number of levels in the added class.
    * @param {number} [options.priorLevel]      The previous level of the added class.
    * @returns {Promise<Item5e[]>}              Items that should be added based on the changes made.
-   * @deprecated since dnd5e 1.6, targeted for removal in 2.1
+   * @deprecated since me5e 1.6, targeted for removal in 2.1
    */
   static async loadClassFeatures({classIdentifier="", subclassName="", level=1, priorLevel=0}={}) {
     foundry.utils.logCompatibilityWarning(
@@ -912,7 +912,7 @@ export default class Actor5e extends Actor {
    * Determine a character's AC value from their equipped armor and shield.
    * @returns {object}
    * @private
-   * @deprecated since dnd5e 2.0, targeted for removal in 2.2
+   * @deprecated since me5e 2.0, targeted for removal in 2.2
    */
   _computeArmorClass() {
     foundry.utils.logCompatibilityWarning(
@@ -929,7 +929,7 @@ export default class Actor5e extends Actor {
    * Compute the level and percentage of encumbrance for an Actor.
    * @returns {object}  An object describing the character's encumbrance level
    * @private
-   * @deprecated since dnd5e 2.0, targeted for removal in 2.2
+   * @deprecated since me5e 2.0, targeted for removal in 2.2
    */
   _computeEncumbrance() {
     foundry.utils.logCompatibilityWarning(
@@ -945,7 +945,7 @@ export default class Actor5e extends Actor {
   /**
    * Calculate the initiative bonus to display on a character sheet.
    * @private
-   * @deprecated since dnd5e 2.0, targeted for removal in 2.2
+   * @deprecated since me5e 2.0, targeted for removal in 2.2
    */
   _computeInitiativeModifier() {
     foundry.utils.logCompatibilityWarning(
@@ -961,7 +961,7 @@ export default class Actor5e extends Actor {
    * Prepare data related to the spell-casting capabilities of the Actor.
    * Mutates the value of the system.spells object.
    * @private
-   * @deprecated since dnd5e 2.0, targeted for removal in 2.2
+   * @deprecated since me5e 2.0, targeted for removal in 2.2
    */
   _computeSpellcastingProgression() {
     foundry.utils.logCompatibilityWarning(
@@ -979,7 +979,7 @@ export default class Actor5e extends Actor {
    * @param {object} data               Actor data to use for replacing @ strings.
    * @returns {number}                  Simplified bonus as an integer.
    * @protected
-   * @deprecated since dnd5e 2.0, targeted for removal in 2.2
+   * @deprecated since me5e 2.0, targeted for removal in 2.2
    */
   _simplifyBonus(bonus, data) {
     foundry.utils.logCompatibilityWarning(
