@@ -65,11 +65,7 @@
             "temp": 0,
             "tempmax": 0
           },
-          "init": {
-            "value": 0,
-            "defaultAbility": "dex",
-            "userAbility": ""
-          },
+          "init": {},
           "movement": {
             "burrow": 0,
             "climb": 0,
@@ -114,6 +110,10 @@
         "attributes": {
           "attunement": {
             "max": 3
+          },
+          "init": {
+            "defaultAbility": "dex",
+            "userAbility": ""
           },
           "senses": {
             "darkvision": 0,
@@ -477,6 +477,9 @@
         "hp": {
           "formula": "",
           "max": 10
+        },
+        "init": {
+          "value": 0
         }
       },
       "details": {
@@ -527,6 +530,9 @@
         "ac": {
           "value": null,
           "motionless": ""
+        },
+        "init": {
+          "value": 0
         },
         "actions": {
           "stations": false,

@@ -128,7 +128,6 @@ export default class Actor5e extends Actor {
     this._prepareAbilities(bonusData, globalBonuses, checkBonus);
     this._prepareArmorClass();
     this._prepareEncumbrance();
-    this._prepareInitiative(bonusData, checkBonus);
     this._prepareScaleValues();
   }
 
@@ -377,34 +376,6 @@ export default class Actor5e extends Actor {
   /* -------------------------------------------- */
 
   /**
-   * Prepare the initiative data for an actor.
-   * Mutates the value of the `system.attributes.init` object.
-   * @param {object} bonusData         Data produced by `getRollData` to be applied to bonus formulas.
-   * @param {number} globalCheckBonus  Global ability check bonus.
-   * @protected
-   */
-  _prepareInitiative(bonusData, globalCheckBonus) {
-    const init = this.system.attributes.init ??= {};
-    const { jackOfAllTrades, remarkableAthlete } = this.flags.me5e ?? {};
-
-    init.ability = init.userAbility || init.defaultAbility;
-
-    // Initiative modifiers
-    const checkBonus = simplifyBonus(this.system.abilities[init.ability]?.bonuses?.check, bonusData);
-
-    // Compute initiative modifier
-    init.mod = this.system.abilities[init.ability]?.mod ?? 0;
-    init.prof = new Proficiency(
-      this.system.attributes.prof, (jackOfAllTrades || remarkableAthlete) ? 0.5 : 0, !remarkableAthlete
-    );
-    init.value = init.value ?? 0;
-    init.total = init.mod + init.value + checkBonus + globalCheckBonus;
-    if ( Number.isNumeric(init.prof.term) ) init.total += init.prof.flat;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Derive any values that have been scaled by the Advancement system.
    * Mutates the value of the `system.scale` object.
    * @protected
@@ -481,38 +452,17 @@ export default class Actor5e extends Actor {
    * @returns {string}  Final initiative formula for the actor.
    */
   getInitiativeFormula() {
-    /*
-     * Apply advantage, proficiency, or bonuses where appropriate
-     * Apply the dexterity score as a decimal tiebreaker if requested
-     */
-    const init = this.system.attributes.init;
-    const rollData = this.getRollData();
-
     // Construct initiative formula parts
     let nd = 1;
     let mods = "";
+
     if ( this.getFlag("me5e", "halflingLucky") ) mods += "r1=1";
     if ( this.getFlag("me5e", "initiativeAdv") ) {
       nd = 2;
       mods += "kh";
     }
-    const parts = [
-      `${nd}d20${mods}`,
-      init.mod,
-      (init.prof.term !== "0") ? init.prof.term : null,
-      (init.value !== 0) ? init.value : null
-    ];
 
-    // Ability Check Bonuses
-    const checkBonus = this.system.abilities[init.ability]?.bonuses?.check;
-    const globalCheckBonus = this.system.bonuses?.abilities?.check;
-    if ( checkBonus ) parts.push(Roll.replaceFormulaData(checkBonus, rollData));
-    if ( globalCheckBonus ) parts.push(Roll.replaceFormulaData(globalCheckBonus, rollData));
-
-    // Optionally apply Dexterity tiebreaker
-    const tiebreaker = game.settings.get("me5e", "initiativeDexTiebreaker");
-    if ( tiebreaker ) parts.push((this.system.abilities.dex?.value ?? 0) / 100);
-    return parts.filter(p => p !== null).join(" + ");
+    return `${nd}d20${mods}` + (this.system.attributes.init.value ? " + " + this.system.attributes.init.value : "");
   }
 
   /** @override */
@@ -563,7 +513,7 @@ export default class Actor5e extends Actor {
   }
 
   /* -------------------------------------------- */
- 
+
   /**
    * Apply a certain amount of temporary hit point, but only if it's more than the actor currently has.
    * @param {number} amount       An amount of temporary hit points to set

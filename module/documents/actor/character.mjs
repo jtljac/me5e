@@ -4,6 +4,7 @@ import {d20Roll, damageRoll} from "../../dice/dice.mjs";
 import ShortRestDialog from "../../applications/actor/short-rest.mjs";
 import LongRestDialog from "../../applications/actor/long-rest.mjs";
 import Modifier5e from "../../modifier/modifier.mjs";
+import {simplifyBonus} from "../../utils.mjs";
 
 export default class Character5e extends Creature5e {
   /* -------------------------------------------- */
@@ -125,8 +126,36 @@ export default class Character5e extends Creature5e {
 
   /** @inheritDoc */
   _prepareInitiative(bonusData, globalCheckBonus) {
+    /*
+     * Set up the value using the modifiers and append on the proficiency
+     */
+    const init = this.system.attributes.init;
+    const { jackOfAllTrades, remarkableAthlete } = this.flags.me5e ?? {};
+
+    // Set the value to the result of the modifiers
+    init.value = this._prepareModifiers(Modifier5e.targets.init);
+
     super._prepareInitiative(bonusData, globalCheckBonus);
 
+    // Add proficiency to the total if it's not the dice variant
+    init.prof = new Proficiency(
+      this.system.attributes.prof,
+      (jackOfAllTrades || remarkableAthlete) ? 0.5 : 0,
+      !remarkableAthlete
+    );
+
+    if ( Number.isNumeric(init.prof.term) ) init.total += init.prof.flat;
+  }
+
+  /* -------------------------------------------- */
+  /*  Gameplay Mechanics                          */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  getInitiativeFormula() {
+    const init = this.system.attributes.init;
+
+    return super.getInitiativeFormula() + (init.prof.term !== "0" ? ` + ${init.prof.term}` : "");
   }
 
   /* -------------------------------------------- */

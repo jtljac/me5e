@@ -27,6 +27,7 @@ export default class Creature5e extends Actor5e {
     const bonusData = this.getRollData();
     const checkBonus = simplifyBonus(globalBonuses?.check, bonusData);
     this._prepareSkills(bonusData, globalBonuses, checkBonus);
+    this._prepareInitiative(bonusData, checkBonus);
     this._prepareSpellcasting();
   }
 
@@ -103,6 +104,28 @@ export default class Creature5e extends Actor5e {
       const passiveBonus = simplifyBonus(skl.bonuses?.passive, bonusData);
       skl.passive = 10 + skl.mod + skl.bonus + skl.prof.flat + passive + passiveBonus;
     }
+  }
+
+
+
+  /* -------------------------------------------- */
+
+  /**
+   * Prepare the initiative data for an actor.
+   * Mutates the value of the `system.attributes.init` object.
+   * @param {object} bonusData         Data produced by `getRollData` to be applied to bonus formulas.
+   * @param {number} globalCheckBonus  Global ability check bonus.
+   * @protected
+   */
+  _prepareInitiative(bonusData, globalCheckBonus) {
+    const init = this.system.attributes.init ??= {};
+    const checkBonus = simplifyBonus(this.system.abilities[init.ability]?.bonuses?.check, bonusData);
+
+    init.ability = init.userAbility || init.defaultAbility;
+
+    init.mod = this.system.abilities[init.ability]?.mod ?? 0;
+    init.value ??= 0;
+    init.total = init.mod + init.value + checkBonus + globalCheckBonus;
   }
 
   /* -------------------------------------------- */
@@ -182,6 +205,36 @@ export default class Creature5e extends Actor5e {
       spells.pact.max = parseInt(spells.pact.override) || 0;
       spells.pact.level = spells.pact.max > 0 ? 1 : 0;
     }
+  }
+
+  /* -------------------------------------------- */
+  /*  Gameplay Mechanics                          */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  getInitiativeFormula() {
+    /*
+     * Apply advantage, proficiency, or bonuses where appropriate
+     * Apply the dexterity score as a decimal tiebreaker if requested
+     */
+    const init = this.system.attributes.init;
+    const rollData = this.getRollData();
+
+    const parts = [
+      super.getInitiativeFormula(),
+      init.mod
+    ];
+
+    // Ability Check Bonuses
+    const checkBonus = this.system.abilities[init.ability]?.bonuses?.check;
+    const globalCheckBonus = this.system.bonuses?.abilities?.check;
+    if ( checkBonus ) parts.push(Roll.replaceFormulaData(checkBonus, rollData));
+    if ( globalCheckBonus ) parts.push(Roll.replaceFormulaData(globalCheckBonus, rollData));
+
+    // Optionally apply Dexterity tiebreaker
+    const tiebreaker = game.settings.get("me5e", "initiativeDexTiebreaker");
+    if ( tiebreaker ) parts.push((this.system.abilities.dex?.value ?? 0) / 100);
+    return parts.filter(p => p !== null).join(" + ");
   }
 
   /* -------------------------------------------- */

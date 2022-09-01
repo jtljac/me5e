@@ -67,7 +67,7 @@ export default class Modifier5e {
     if (!data.name) throw new Error("A modifier must be constructed with a name");
     this.name = data.name;
 
-    if (!Object.values(CONFIG.ME5E.ModifierCategories).includes(data.category)) {
+    if (data.category && !Object.values(CONFIG.ME5E.ModifierCategories).includes(data.category)) {
       throw new Error(`Unknown Modifier Category: ${data.category}`);
     }
     this.category = data.category || CONFIG.ME5E.ModifierCategories.custom;
