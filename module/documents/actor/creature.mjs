@@ -26,6 +26,8 @@ export default class Creature5e extends Actor5e {
     const globalBonuses = this.system.bonuses?.abilities ?? {};
     const bonusData = this.getRollData();
     const checkBonus = simplifyBonus(globalBonuses?.check, bonusData);
+
+    this._prepareAbilities(bonusData, globalBonuses, checkBonus);
     this._prepareSkills(bonusData, globalBonuses, checkBonus);
     this._prepareInitiative(bonusData, checkBonus);
     this._prepareSpellcasting();
@@ -56,6 +58,39 @@ export default class Creature5e extends Actor5e {
 
   /* -------------------------------------------- */
   /*  Derived Data Preparation Helpers            */
+  /* -------------------------------------------- */
+
+
+  /**
+   * Prepare abilities.
+   * @param {object} bonusData      Data produced by `getRollData` to be applied to bonus formulas.
+   * @param {object} globalBonuses  Global bonus data.
+   * @param {number} checkBonus     Global ability check bonus.
+   * @protected
+   */
+  _prepareAbilities(bonusData, globalBonuses, checkBonus) {
+    const flags = this.flags.me5e ?? {};
+    const dcBonus = simplifyBonus(this.system.bonuses?.spell?.dc, bonusData);
+    const saveBonus = simplifyBonus(globalBonuses.save, bonusData);
+    for ( const [id, abl] of Object.entries(this.system.abilities) ) {
+      if ( flags.diamondSoul ) abl.proficient = 1;  // Diamond Soul is proficient in all saves
+      abl.mod = Math.floor((abl.value - 10) / 2);
+
+      const isRA = this._isRemarkableAthlete(id);
+      abl.checkProf = new Proficiency(this.system.attributes.prof, (isRA || flags.jackOfAllTrades) ? 0.5 : 0, !isRA);
+      const saveBonusAbl = simplifyBonus(abl.bonuses?.save, bonusData);
+      abl.saveBonus = saveBonusAbl + saveBonus;
+
+      abl.saveProf = new Proficiency(this.system.attributes.prof, abl.proficient);
+      const checkBonusAbl = simplifyBonus(abl.bonuses?.check, bonusData);
+      abl.checkBonus = checkBonusAbl + checkBonus;
+
+      abl.save = abl.mod + abl.saveBonus;
+      if ( Number.isNumeric(abl.saveProf.term) ) abl.save += abl.saveProf.flat;
+      abl.dc = 8 + abl.mod + this.system.attributes.prof + dcBonus;
+    }
+  }
+
   /* -------------------------------------------- */
 
   /**

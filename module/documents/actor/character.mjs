@@ -4,7 +4,6 @@ import {d20Roll, damageRoll} from "../../dice/dice.mjs";
 import ShortRestDialog from "../../applications/actor/short-rest.mjs";
 import LongRestDialog from "../../applications/actor/long-rest.mjs";
 import Modifier5e from "../../modifier/modifier.mjs";
-import {simplifyBonus} from "../../utils.mjs";
 
 export default class Character5e extends Creature5e {
   /* -------------------------------------------- */
@@ -63,11 +62,11 @@ export default class Character5e extends Creature5e {
   }
 
   /* -------------------------------------------- */
-  /*  Derived Data Preparation Helpers            */
+  /*  Base Data Preparation Helpers               */
   /* -------------------------------------------- */
 
   /**
-   * Setup the modifiers for each
+   * Set up the modifiers for each
    * @private
    */
   _prepareBaseModifiers() {
@@ -76,6 +75,10 @@ export default class Character5e extends Creature5e {
       mod.mods = [];
     }
   }
+
+  /* -------------------------------------------- */
+  /*  Derived Data Preparation Helpers            */
+  /* -------------------------------------------- */
 
   /**
    * Prepare the modifiers in the provided target and return the sum
@@ -103,6 +106,16 @@ export default class Character5e extends Creature5e {
     }
 
     return mods.mods.reduce((acc, mod) => acc + mod.evaluate(this), 0);
+  }
+
+  /** @inheritDoc */
+  _prepareAbilities(bonusData, globalBonuses, checkBonus) {
+    for (const [id, abl] of Object.entries(this.system.abilities)) {
+      abl.value += this._prepareModifiers(Modifier5e.targets[id]);
+      this.overrides[`system.abilities.${id}.value`] = abl.value;
+    }
+
+    super._prepareAbilities(bonusData, globalBonuses, checkBonus);
   }
 
   /**
