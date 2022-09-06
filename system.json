@@ -2,10 +2,10 @@
   "id": "me5e",
   "title": "Mass Effect 5e",
   "description": "A system for playing the mass effect conversion of DnD5e in the Foundry Virtual Tabletop environment.",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "compatibility": {
     "minimum": "10",
-    "verified": "10.282",
+    "verified": "10",
     "maximum": "10"
   },
   "url": "https://github.com/jtljac/me5e/",
