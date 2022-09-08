@@ -1,5 +1,5 @@
 import Rule5e from "./rule.mjs";
-import Modifier5e from "../modifier/modifier.mjs";
+import Modifier5e from "../modifiers/modifier.mjs";
 import ActorTypePredicate from "./predicate/simple/actor-type-predicate.mjs";
 import AllPredicate from "./predicate/compound/all-predicate.mjs";
 

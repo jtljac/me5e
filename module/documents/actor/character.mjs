@@ -3,7 +3,7 @@ import Proficiency from "./proficiency.mjs";
 import {d20Roll, damageRoll} from "../../dice/dice.mjs";
 import ShortRestDialog from "../../applications/actor/short-rest.mjs";
 import LongRestDialog from "../../applications/actor/long-rest.mjs";
-import Modifier5e from "../../modifier/modifier.mjs";
+import Modifier5e from "../../modifiers/modifier.mjs";
 
 export default class Character5e extends Creature5e {
   /* -------------------------------------------- */
