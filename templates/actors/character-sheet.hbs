@@ -58,9 +58,7 @@
                             value="{{system.attributes.hp.value}}" placeholder="10"
                             title="{{localize 'ME5E.HitPointsCurrent'}}">
                         <span class="sep"> / </span>
-                        <input name="system.attributes.hp.max" type="number" step="any"
-                            value="{{system.attributes.hp.max}}" placeholder="10"
-                            title="{{localize 'ME5E.HitPointsMax'}}">
+                        <span class="input-balancer" title="{{localize 'ME5E.HitPointsMax'}}">{{system.attributes.hp.max}}</span>
                     </div>
                     <footer class="attribute-footer">
                         <input name="system.attributes.hp.temp" type="number" step="any" class="temphp"
