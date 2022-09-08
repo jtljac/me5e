@@ -17,7 +17,7 @@ Except where otherwise noted, images in this system are from the Mass Effect Wik
 The Mass Effect 5e content is licensed under GNU General Public License v3.0. The Open Game Content contained within this system is licensed under the Open Game License version 1.0a (See `OGL.txt`).
 
 ### System
-This system is forked and adapted from the [Foundry VTT 5th Edition](https://github.com/foundryvtt/dnd5e), the license of which can be found in `/DND-Foundry-LICENSE.txt`
+This system is forked and adapted from [Foundry VTT 5th Edition](https://github.com/foundryvtt/dnd5e), the license of which can be found in `/DND-Foundry-LICENSE.txt`
 
 The software component of this system is distributed under the GNUv3 license.
 
