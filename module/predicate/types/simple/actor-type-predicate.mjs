@@ -1,4 +1,4 @@
-import Predicate5e from "../predicate.mjs";
+import Predicate5e from "../../predicate.mjs";
 
 
 export default class ActorTypePredicate extends Predicate5e {

@@ -25,21 +25,21 @@ export default class Predicate5e {
    * @return {Predicate5e}
    */
   static fromRawData(rawPredicate) {
-    const PredicateConstructor = CONFIG.ME5E.Rule.predicates[rawPredicate.type];
+    const PredicateConstructor = game.me5e.predicates.types[rawPredicate.type];
 
     if (!PredicateConstructor) {
       console.warn(`Failed to find predicate constructor for type ${rawPredicate.type}`);
       // noinspection JSPotentiallyInvalidConstructorUsage,JSValidateTypes
-      return new CONFIG.ME5E.Rule.predicates.invalid();
+      return new game.me5e.predicates.InvalidPredicate();
     }
 
     try {
       return new PredicateConstructor(rawPredicate);
     } catch(e) {
-      console.warn(`Failed to construct predicate`)
-      console.warn(e)
+      console.warn(`Failed to construct predicate`);
+      console.warn(e);
       // noinspection JSPotentiallyInvalidConstructorUsage,JSValidateTypes
-      return new CONFIG.ME5E.Rule.predicates.invalid();
+      return new game.me5e.predicates.InvalidPredicate();
     }
   }
 }

@@ -18,6 +18,8 @@ import * as canvas from "./module/canvas/_module.mjs";
 import * as dice from "./module/dice/_module.mjs";
 import * as documents from "./module/documents/_module.mjs";
 import * as migrations from "./module/migration.mjs";
+import * as predicates from "./module/predicate/_module.mjs"
+import * as rules from "./module/rules/_module.mjs"
 import * as utils from "./module/utils.mjs";
 
 /* -------------------------------------------- */
@@ -32,6 +34,8 @@ globalThis.me5e = {
   dice,
   documents,
   migrations,
+  predicates,
+  rules,
   utils
 };
 

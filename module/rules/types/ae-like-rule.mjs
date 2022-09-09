@@ -1,5 +1,5 @@
-import Rule5e from "./rule.mjs";
-import {resolveFormulaValue} from "../utils.mjs";
+import Rule5e from "../rule.mjs";
+import {resolveFormulaValue} from "../../utils.mjs";
 
 /**
  * A Rule that behaves similarly to the original active effects from foundry, extended to be able to occur at different

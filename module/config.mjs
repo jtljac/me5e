@@ -1,12 +1,5 @@
 import { preLocalize } from "./utils.mjs";
 import {Character5e, Npc5e} from "./documents/actor/_module.mjs";
-import {
-  AELikeRule,
-  InvalidPredicate,
-  EqPredicate, EquPredicate, GtePredicate, GtPredicate, LtePredicate, LtPredicate,
-  ActorTypePredicate, HasItemPredicate,
-  AllPredicate, AnyPredicate, InversePredicate, OnePredicate
-} from "./rules/_module.mjs";
 
 // Namespace Configuration Values
 const ME5E = {};
@@ -30,40 +23,6 @@ ME5E.Actor = {
     character: Character5e,
     npc: Npc5e,
     // vehicle: Vehicle5e
-  }
-};
-
-ME5E.Rule = {
-  /**
-   * A mapping of Rule Types to Rule Classes
-   * @type {Object<String, Rule5e>}
-   */
-  types: {
-    activeEffectLike: AELikeRule
-  },
-
-  /**
-   * A mapping of Predicate Types to Predicate Classes
-   * @type {Object<String, Predicate5e>}
-   */
-  predicates: {
-    invalid: InvalidPredicate,
-
-    // Compound
-    all: AllPredicate,
-    any: AnyPredicate,
-    one: OnePredicate,
-    inverse: InversePredicate,
-
-    // Simple
-    eq: EqPredicate,
-    equ: EquPredicate,
-    gt: GtPredicate,
-    gte: GtePredicate,
-    lt: LtPredicate,
-    lte: LtePredicate,
-    "has-item": HasItemPredicate,
-    "actor-type": ActorTypePredicate
   }
 };
 

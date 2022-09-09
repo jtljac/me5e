@@ -1,4 +1,4 @@
-import Predicate5e from "./predicate/predicate.mjs"
+import Predicate5e from "../predicate/predicate.mjs"
 
 /**
  * A Rule allows you to apply a modification to an actor's data dynamically
@@ -66,7 +66,7 @@ export default class Rule5e {
   static fromItem(item) {
     const rules = [];
     for (const rawRule of item.getRules()) {
-      const RuleConstructor = CONFIG.ME5E.Rule.types[rawRule.type];
+      const RuleConstructor = game.me5e.rules.types[rawRule.type];
 
       if (!RuleConstructor) {
         console.warn(`Failed to find rule constructor for type ${rawRule.type}`);
@@ -76,7 +76,7 @@ export default class Rule5e {
       try {
         rules.push(new RuleConstructor(rawRule, item));
       } catch(e) {
-        console.warn(`Failed to construct rule with key ${rawRule.key}`)
+        console.warn(`Failed to construct rule with key ${rawRule.key}`);
         console.warn(e)
       }
     }

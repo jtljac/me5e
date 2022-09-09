@@ -1,6 +1,3 @@
-export {default as Predicate5e} from "./predicate.mjs";
-export {default as InvalidPredicate} from "./invalid-predicate.mjs";
-
 // Simple
 export {default as SimplePredicate} from "./simple/simple-predicate.mjs";
 

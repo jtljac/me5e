@@ -1,7 +1,7 @@
-import Rule5e from "./rule.mjs";
-import Modifier5e from "../modifiers/modifier.mjs";
-import ActorTypePredicate from "./predicate/simple/actor-type-predicate.mjs";
-import AllPredicate from "./predicate/compound/all-predicate.mjs";
+import Rule5e from "../rule.mjs";
+import Modifier5e from "../../modifiers/modifier.mjs";
+import ActorTypePredicate from "../../predicate/types/simple/actor-type-predicate.mjs";
+import AllPredicate from "../../predicate/types/compound/all-predicate.mjs";
 
 /**
  * A Rule that adds a modifier onto the actor
