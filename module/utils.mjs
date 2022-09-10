@@ -124,8 +124,8 @@ export async function preloadHandlebarsTemplates() {
     "systems/me5e/templates/items/parts/item-spellcasting.hbs",
 
     // Advancement Partials
-    "systems/dnd5e/templates/advancement/parts/advancement-controls.hbs",
-    "systems/dnd5e/templates/advancement/parts/advancement-spell-config.hbs"
+    "systems/me5e/templates/advancement/parts/advancement-controls.hbs",
+    "systems/me5e/templates/advancement/parts/advancement-spell-config.hbs"
   ];
 
   const paths = {};

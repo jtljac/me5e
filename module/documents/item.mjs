@@ -1444,12 +1444,12 @@ export default class Item5e extends Item {
 
     /**
      * A hook event that fires after a damage has been rolled for an Item.
-     * @function dnd5e.rollDamage
+     * @function ME5e.rollDamage
      * @memberof hookEvents
      * @param {Item5e} item      Item for which the roll was performed.
      * @param {DamageRoll} roll  The resulting roll.
      */
-    if ( roll ) Hooks.callAll("dnd5e.rollDamage", this, roll);
+    if ( roll ) Hooks.callAll("me5e.rollDamage", this, roll);
 
     // Call the roll helper utility
     return roll;
@@ -1544,7 +1544,7 @@ export default class Item5e extends Item {
 
     /**
      * A hook event that fires before a formula is rolled for an Item.
-     * @function dnd5e.preRollFormula
+     * @function me5e.preRollFormula
      * @memberof hookEvents
      * @param {Item5e} item                 Item for which the roll is being performed.
      * @param {object} config               Configuration data for the pending roll.
@@ -1568,7 +1568,7 @@ export default class Item5e extends Item {
 
     /**
      * A hook event that fires after a formula has been rolled for an Item.
-     * @function dnd5e.rollFormula
+     * @function me5e.rollFormula
      * @memberof hookEvents
      * @param {Item5e} item  Item for which the roll was performed.
      * @param {Roll} roll    The resulting roll.
@@ -1597,7 +1597,7 @@ export default class Item5e extends Item {
 
     /**
      * A hook event that fires before the Item is rolled to recharge.
-     * @function dnd5e.preRollRecharge
+     * @function me5e.preRollRecharge
      * @memberof hookEvents
      * @param {Item5e} item                 Item for which the roll is being performed.
      * @param {object} config               Configuration data for the pending roll.
@@ -1613,22 +1613,22 @@ export default class Item5e extends Item {
     const success = roll.total >= rollConfig.target;
 
     if ( rollConfig.chatMessage ) {
-      const resultMessage = game.i18n.localize(`DND5E.ItemRecharge${success ? "Success" : "Failure"}`);
+      const resultMessage = game.i18n.localize(`ME5E.ItemRecharge${success ? "Success" : "Failure"}`);
       roll.toMessage({
-        flavor: `${game.i18n.format("DND5E.ItemRechargeCheck", {name: this.name})} - ${resultMessage}`,
+        flavor: `${game.i18n.format("ME5E.ItemRechargeCheck", {name: this.name})} - ${resultMessage}`,
         speaker: ChatMessage.getSpeaker({actor: this.actor, token: this.actor.token})
       });
     }
 
     /**
      * A hook event that fires after the Item has rolled to recharge, but before any changes have been performed.
-     * @function dnd5e.rollRecharge
+     * @function me5e.rollRecharge
      * @memberof hookEvents
      * @param {Item5e} item  Item for which the roll was performed.
      * @param {Roll} roll    The resulting roll.
      * @returns {boolean}    Explicitly return false to prevent the item from being recharged.
      */
-    if ( Hooks.call("dnd5e.rollRecharge", this, roll) === false ) return roll;
+    if ( Hooks.call("me5e.rollRecharge", this, roll) === false ) return roll;
 
     // Update the Item data
     if ( success ) this.update({"system.recharge.charged": true});
@@ -1698,24 +1698,24 @@ export default class Item5e extends Item {
 
     /**
      * A hook event that fires before a tool check is rolled for an Item.
-     * @function dnd5e.preRollToolCheck
+     * @function me5e.preRollToolCheck
      * @memberof hookEvents
      * @param {Item5e} item                  Item for which the roll is being performed.
      * @param {D20RollConfiguration} config  Configuration data for the pending roll.
      * @returns {boolean}                    Explicitly return false to prevent the roll from being performed.
      */
-    if ( Hooks.call("dnd5e.preRollToolCheck", this, rollConfig) === false ) return;
+    if ( Hooks.call("me5e.preRollToolCheck", this, rollConfig) === false ) return;
 
     const roll = await d20Roll(rollConfig);
 
     /**
      * A hook event that fires after a tool check has been rolled for an Item.
-     * @function dnd5e.rollToolCheck
+     * @function me5e.rollToolCheck
      * @memberof hookEvents
      * @param {Item5e} item   Item for which the roll was performed.
      * @param {D20Roll} roll  The resulting roll.
      */
-    if ( roll ) Hooks.callAll("dnd5e.rollToolCheck", this, roll);
+    if ( roll ) Hooks.callAll("me5e.rollToolCheck", this, roll);
 
     return roll;
   }

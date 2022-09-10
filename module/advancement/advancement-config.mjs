@@ -55,7 +55,7 @@ export default class AdvancementConfig extends FormApplication {
     if ( ["class", "subclass"].includes(this.item.type) ) delete levels[0];
     else levels[0] = game.i18n.localize("ME5E.AdvancementLevelAnyHeader");
     return {
-      CONFIG: CONFIG.DND5E,
+      CONFIG: CONFIG.ME5E,
       data: this.advancement.data,
       default: {
         title: this.advancement.constructor.metadata.title,
@@ -173,12 +173,12 @@ export default class AdvancementConfig extends FormApplication {
 
     // Abort if this uuid is the parent item
     if ( item.uuid === this.item.uuid ) {
-      return ui.notifications.error(game.i18n.localize("DND5E.AdvancementItemGrantRecursiveWarning"));
+      return ui.notifications.error(game.i18n.localize("ME5E.AdvancementItemGrantRecursiveWarning"));
     }
 
     // Abort if this uuid exists already
     if ( existingItems.includes(item.uuid) ) {
-      return ui.notifications.warn(game.i18n.localize("DND5E.AdvancementItemGrantDuplicateWarning"));
+      return ui.notifications.warn(game.i18n.localize("ME5E.AdvancementItemGrantDuplicateWarning"));
     }
 
     await this.advancement.update({[`configuration.${this.options.dropKeyPath}`]: [...existingItems, item.uuid]});
