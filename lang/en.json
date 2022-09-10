@@ -118,6 +118,7 @@
 "ME5E.AdvancementItemGrantRecursiveWarning": "You cannot grant an item in its own advancement.",
 "ME5E.AdvancementItemGrantOptional": "Optional",
 "ME5E.AdvancementItemGrantOptionalHint": "If optional, players will be given the option to opt out of any of the following items, otherwise all of them are granted.",
+"ME5E.AdvancementItemTypeInvalidWarning": "{type} items cannot be added with this advancement type.",
 "ME5E.AdvancementLevelHeader": "Level {level}",
 "ME5E.AdvancementLevelAnyHeader": "Any Level",
 "ME5E.AdvancementLevelNoneHeader": "No Level",

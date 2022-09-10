@@ -426,7 +426,7 @@ export default class ItemSheet5e extends ItemSheet {
     }
 
     // Advancement context menu
-    const contextOptions = this.#getAdvancementContextMenuOptions();
+    const contextOptions = this._getAdvancementContextMenuOptions();
     /**
      * A hook event that fires when the context menu for the advancements list is constructed.
      * @function me5e.getItemAdvancementContext
@@ -443,9 +443,9 @@ export default class ItemSheet5e extends ItemSheet {
   /**
    * Get the set of ContextMenu options which should be applied for advancement entries.
    * @returns {ContextMenuEntry[]}  Context menu entries.
-   * @private
+   * @protected
    */
-  #getAdvancementContextMenuOptions() {
+  _getAdvancementContextMenuOptions() {
     const condition = li => (this.advancementConfigurationMode || !this.isEmbedded) && this.isEditable;
     return [
       {
@@ -457,7 +457,11 @@ export default class ItemSheet5e extends ItemSheet {
       {
         name: "ME5E.AdvancementControlDuplicate",
         icon: "<i class='fas fa-copy fa-fw'></i>",
-        condition,
+        condition: li => {
+          const id = li[0].closest(".advancement-item")?.dataset.id;
+          const advancement = this.item.advancement.byId[id];
+          return condition(li) && advancement?.constructor.availableForItem(this.item);
+        },
         callback: li => this._onAdvancementAction(li[0], "duplicate")
       },
       {
