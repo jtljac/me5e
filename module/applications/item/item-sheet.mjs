@@ -549,7 +549,7 @@ export default class ItemSheet5e extends ItemSheet {
    */
   _onAdvancementAction(target, action) {
     const id = target.closest(".advancement-item")?.dataset.id;
-    const advancement = this.item.advancement.byId[id];
+    const advancement = this.item.advancement.getById(id);
     if ( ["edit", "delete", "duplicate"].includes(action) && !advancement ) return;
     switch (action) {
       case "add": return game.me5e.advancement.AdvancementSelection.createDialog(this.item);

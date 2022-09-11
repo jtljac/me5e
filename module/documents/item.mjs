@@ -2,6 +2,7 @@ import {d20Roll, damageRoll} from "../dice/dice.mjs";
 import simplifyRollFormula from "../dice/simplify-roll-formula.mjs";
 import AbilityUseDialog from "../applications/item/ability-use-dialog.mjs";
 import Proficiency from "./actor/proficiency.mjs";
+import AdvancementList from "../advancement/advancement-list.mjs";
 
 /**
  * Override and extend the basic Item implementation.
@@ -428,27 +429,7 @@ export default class Item5e extends Item {
    */
   _prepareAdvancement() {
     const minAdvancementLevel = ["class", "subclass"].includes(this.type) ? 1 : 0;
-    this.advancement = {
-      byId: {},
-      byLevel: Object.fromEntries(
-        Array.fromRange(CONFIG.ME5E.maxLevel + 1).slice(minAdvancementLevel).map(l => [l, []])
-      ),
-      byType: {},
-      needingConfiguration: []
-    };
-    for ( const advancementData of this.system.advancement ?? [] ) {
-      const Advancement = me5e.advancement.types[`${advancementData.type}Advancement`];
-      if ( !Advancement ) continue;
-      const advancement = new Advancement(this, advancementData);
-      this.advancement.byId[advancement.id] = advancement;
-      this.advancement.byType[advancementData.type] ??= [];
-      this.advancement.byType[advancementData.type].push(advancement);
-      advancement.levels.forEach(l => this.advancement.byLevel[l].push(advancement));
-      if ( !advancement.levels.length ) this.advancement.needingConfiguration.push(advancement);
-    }
-    Object.entries(this.advancement.byLevel).forEach(([lvl, data]) => data.sort((a, b) => {
-      return a.sortingValueForLevel(lvl).localeCompare(b.sortingValueForLevel(lvl));
-    }));
+    this.advancement = new AdvancementList(this.system.advancement, minAdvancementLevel);
   }
 
   /* -------------------------------------------- */

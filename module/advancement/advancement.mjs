@@ -254,8 +254,8 @@ export default class Advancement {
    */
   async update(updates) {
     await this.item.updateAdvancement(this.id, updates);
-    this.data = this.item.advancement.byId[this.id].data;
-    return this.item.advancement.byId[this.id];
+    this.data = this.item.advancement.getById(this.id).data;
+    return this.item.advancement.getById(this.id);
   }
 
   /* -------------------------------------------- */
