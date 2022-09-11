@@ -101,8 +101,14 @@ export default class AELikeRule extends Rule5e {
     }
     this.mode = data.mode || AELikeRule.modes.add;
 
+    if (!data.key) {
+      throw new Error(`AELikeRule missing key`);
+    }
     this.key = data.key;
 
+    if (!data.key) {
+      throw new Error(`AELikeRule missing value`);
+    }
     this.value = data.value;
   }
 

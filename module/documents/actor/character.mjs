@@ -161,6 +161,18 @@ export default class Character5e extends Creature5e {
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Assign a given class itemId as the original class for the Actor.
+   * @param {String} itemId The id of the item being set to the primary class
+   * @returns {Promise<Actor5e>}  Instance of the updated actor.
+   * @protected
+   */
+  _assignPrimaryClass(itemId) {
+    return this.update({"system.details.originalClass": itemId});
+  }
+
+  /* -------------------------------------------- */
   /*  Gameplay Mechanics                          */
   /* -------------------------------------------- */
 

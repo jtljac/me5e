@@ -123,7 +123,6 @@ export default class Actor5e extends Actor {
 
     this._prepareArmorClass();
     this._prepareEncumbrance();
-    this._prepareScaleValues();
   }
 
   /* -------------------------------------------- */
@@ -337,21 +336,6 @@ export default class Actor5e extends Actor {
   }
 
   /* -------------------------------------------- */
-
-  /**
-   * Derive any values that have been scaled by the Advancement system.
-   * Mutates the value of the `system.scale` object.
-   * @protected
-   */
-  _prepareScaleValues() {
-    this.system.scale = Object.entries(this.classes).reduce((scale, [identifier, cls]) => {
-      scale[identifier] = cls.scaleValues;
-      if ( cls.subclass ) scale[cls.subclass.identifier] = cls.subclass.scaleValues;
-      return scale;
-    }, {});
-  }
-
-  /* -------------------------------------------- */
   /*  Event Handlers                              */
   /* -------------------------------------------- */
 
@@ -390,19 +374,6 @@ export default class Actor5e extends Actor {
       foundry.utils.setProperty(changed, "system.attributes.death.success", 0);
       foundry.utils.setProperty(changed, "system.attributes.death.failure", 0);
     }
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Assign a class item as the original class for the Actor based on which class has the most levels.
-   * @returns {Promise<Actor5e>}  Instance of the updated actor.
-   * @protected
-   */
-  _assignPrimaryClass() {
-    const classes = this.itemTypes.class.sort((a, b) => b.system.levels - a.system.levels);
-    const newPC = classes[0]?.id || "";
-    return this.update({"system.details.originalClass": newPC});
   }
 
   /* -------------------------------------------- */

@@ -117,7 +117,22 @@ export class HitPointsAdvancement extends Advancement {
 
   /** @inheritdoc */
   static availableForItem(item) {
-    return !item.advancement.byType.HitPoints?.length;
+    return !item.advancement.getByType("HitPoints")?.length;
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Methods                                */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  getRules() {
+    return [{
+      type: "ModifierRule",
+      name: this.item.name,
+      formula: Object.keys(this.data.value).reduce((total, level) => total + " + " + this.valueForLevel(parseInt(level)), ""),
+      category: CONFIG.ME5E.ModifierCategories.class,
+      target: Modifier5e.targets.hp
+    }];
   }
 
   /* -------------------------------------------- */

@@ -131,6 +131,19 @@ export class ScaleValueAdvancement extends Advancement {
     return `${value.value} ${CONFIG.ME5E.movementUnits[this.data.configuration.distance.units]}`;
   }
 
+  /* -------------------------------------------- */
+  /*  Data Methods                                */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  getRules(level) {
+    return [{
+      type: "ScaleValueRule",
+      classIdentifier: this.item.identifier,
+      identifier: this.identifier,
+      scaleValue: this.prepareValue(level)
+    }];
+  }
 }
 
 

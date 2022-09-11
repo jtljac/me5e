@@ -34,6 +34,24 @@ export default class Advancement {
 
   static ERROR = AdvancementError;
 
+  static fromRawData(item, rawAdvancement) {
+    const AdvancementConstructor = me5e.advancement.types[`${rawAdvancement.type}Advancement`];
+
+    if (!AdvancementConstructor) {
+      console.warn(`Failed to find advancement constructor for type ${rawAdvancement.type}`);
+      return null;
+    }
+
+    try {
+      return new AdvancementConstructor(item, rawAdvancement);
+    } catch(e) {
+      console.warn(`Failed to construct advancement`);
+      console.warn(e);
+
+      return null;
+    }
+  }
+
   /* -------------------------------------------- */
 
   /**
@@ -284,6 +302,19 @@ export default class Advancement {
    */
   static availableForItem(item) {
     return true;
+  }
+
+  /* -------------------------------------------- */
+  /*  Data Methods                                */
+  /* -------------------------------------------- */
+
+  /**
+   * Get an array of objects that represents Rule5e that applies the effects of the advancement
+   * @param {number} [level] The level of the item holding the advancement (only for classes and subclasses)
+   * @returns {Object[]} An array of rules applied by this
+   */
+  getRules(level) {
+    return [];
   }
 
   /* -------------------------------------------- */

@@ -232,21 +232,6 @@ export default class Item5e extends Item {
   /* -------------------------------------------- */
 
   /**
-   * Retrieve scale values for current level from advancement data.
-   * @type {object}
-   */
-  get scaleValues() {
-    if ( !["class", "subclass"].includes(this.type) || !this.advancement.byType.ScaleValue ) return {};
-    const level = this.type === "class" ? this.system.levels : this.class?.system.levels ?? 0;
-    return this.advancement.byType.ScaleValue.reduce((obj, advancement) => {
-      obj[advancement.identifier] = advancement.prepareValue(level);
-      return obj;
-    }, {});
-  }
-
-  /* -------------------------------------------- */
-
-  /**
    * Retrieve the spellcasting for a class or subclass. For classes, this will return the spellcasting
    * of the subclass if it overrides the class. For subclasses, this will return the class's spellcasting
    * if no spellcasting is defined on the subclass.
@@ -1704,7 +1689,17 @@ export default class Item5e extends Item {
   /* -------------------------------------------- */
 
   getRules() {
-    return this.system.rules ?? [];
+    const rules = [...this.system.rules];
+
+    if (this.advancement) {
+      for (const advancement of Object.values(this.advancement.byId)) {
+        if (advancement.configuredForLevel(this.system.levels)) {
+          rules.push(...advancement.getRules());
+        }
+      }
+    }
+
+    return rules;
   }
 
   /* -------------------------------------------- */
@@ -1906,11 +1901,27 @@ export default class Item5e extends Item {
     await this.update({"system.advancement": advancement});
 
     if ( !showConfig ) return;
-    const config = new Advancement.metadata.apps.config(this.advancement.byId[data._id]);
+    const config = new Advancement.metadata.apps.config(this.advancement.getById(data._id));
     return config.render(true);
   }
 
   /* -------------------------------------------- */
+
+  /**
+   * Update multiple advancements belonging to this item at the same time
+   * @param {Object<String, Object>} changes advancement IDs mapped to their updates
+   * @return {Promise<Item5e>} This item with the changes applied.
+   */
+  async updateAdvancements(changes) {
+    if ( !this.system.advancement ) return;
+
+    const advancement = this.toObject().system.advancement;
+    Object.entries(changes).forEach(([id, updates]) => {
+      if (!advancement[id]) return;
+      foundry.utils.mergeObject(advancement[id], updates, {performDeletions: true});
+    });
+    return this.update({"system.advancement": advancement});
+  }
 
   /**
    * Update an advancement belonging to this item.
@@ -1949,7 +1960,7 @@ export default class Item5e extends Item {
    * @returns {Promise<Item5e>}                  This item with the changes applied.
    */
   async duplicateAdvancement(id, options) {
-    const original = this.advancement.byId[id];
+    const original = this.advancement.getById(id);
     if ( !original ) return;
     const duplicate = foundry.utils.deepClone(original.data);
     delete duplicate._id;
@@ -1962,7 +1973,7 @@ export default class Item5e extends Item {
   /** @inheritdoc */
   getEmbeddedDocument(embeddedName, id, options) {
     if ( embeddedName !== "Advancement" ) return super.getEmbeddedDocument(embeddedName, id, options);
-    const advancement = this.advancement.byId[id];
+    const advancement = this.advancement.getById(id);
     if ( options?.strict && (advancement === undefined) ) {
       throw new Error(`The key ${id} does not exist in the ${embeddedName} Collection`);
     }
@@ -2012,7 +2023,7 @@ export default class Item5e extends Item {
     // Assign a new original class
     if ( (this.parent.type === "character") && (this.type === "class") ) {
       const pc = this.parent.items.get(this.parent.system.details.originalClass);
-      if ( !pc ) await this.parent._assignPrimaryClass();
+      if ( !pc ) await this.parent._assignPrimaryClass(this._id);
     }
   }
 

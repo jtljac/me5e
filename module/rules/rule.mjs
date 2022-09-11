@@ -15,7 +15,7 @@ export default class Rule5e {
    */
   constructor(data, item) {
     this.priority = data.priority || 100;
-    this.predicate = data.predicate ? Predicate5e.fromRawData(data.predicate) : undefined,
+    this.predicate = data.predicate ? Predicate5e.fromRawData(data.predicate) : undefined;
     this.ignored = Boolean(data.ignored);
   }
 
