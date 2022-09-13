@@ -322,27 +322,6 @@ export default class Advancement {
   /* -------------------------------------------- */
 
   /**
-   * Locally apply this advancement to the actor.
-   * @param {number} level   Level being advanced.
-   * @param {object} data    Data from the advancement form.
-   * @abstract
-   */
-  async apply(level, data) { }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Locally apply this advancement from stored data, if possible. If stored data can not be restored for any reason,
-   * throw an AdvancementError to display the advancement flow UI.
-   * @param {number} level  Level being advanced.
-   * @param {object} data   Data from `Advancement#reverse` needed to restore this advancement.
-   * @abstract
-   */
-  async restore(level, data) { }
-
-  /* -------------------------------------------- */
-
-  /**
    * Locally remove this advancement's changes from the actor.
    * @param {number} level  Level being removed.
    * @returns {object}      Data that can be passed to the `Advancement#restore` method to restore this reversal.

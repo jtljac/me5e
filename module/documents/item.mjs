@@ -3,6 +3,7 @@ import simplifyRollFormula from "../dice/simplify-roll-formula.mjs";
 import AbilityUseDialog from "../applications/item/ability-use-dialog.mjs";
 import Proficiency from "./actor/proficiency.mjs";
 import AdvancementList from "../advancement/advancement-list.mjs";
+import AdvancementManager from "../advancement/advancement-manager.mjs";
 
 /**
  * Override and extend the basic Item implementation.
@@ -414,7 +415,7 @@ export default class Item5e extends Item {
    */
   _prepareAdvancement() {
     const minAdvancementLevel = ["class", "subclass"].includes(this.type) ? 1 : 0;
-    this.advancement = new AdvancementList(this.system.advancement, minAdvancementLevel);
+    this.advancement = new AdvancementList(this, this.system.advancement, minAdvancementLevel);
   }
 
   /* -------------------------------------------- */
@@ -1689,7 +1690,7 @@ export default class Item5e extends Item {
   /* -------------------------------------------- */
 
   getRules() {
-    const rules = [...this.system.rules];
+    const rules = [...(this.system.rules || [])];
 
     if (this.advancement) {
       for (const advancement of Object.values(this.advancement.byId)) {
@@ -1915,12 +1916,13 @@ export default class Item5e extends Item {
   async updateAdvancements(changes) {
     if ( !this.system.advancement ) return;
 
-    const advancement = this.toObject().system.advancement;
+    const advancements = this.toObject().system.advancement;
     Object.entries(changes).forEach(([id, updates]) => {
-      if (!advancement[id]) return;
-      foundry.utils.mergeObject(advancement[id], updates, {performDeletions: true});
+      const advancement = advancements.find(advancement => advancement._id === id);
+      if (!advancement) return;
+      foundry.utils.mergeObject(advancement, updates, {performDeletions: true});
     });
-    return this.update({"system.advancement": advancement});
+    return this.update({"system.advancement": advancements});
   }
 
   /**
@@ -1993,6 +1995,10 @@ export default class Item5e extends Item {
       await this.updateSource({ "system.identifier": data.name.slugify({strict: true}) });
     }
 
+    if (this.type === "class" && !game.settings.get("me5e", "disableAdvancements")) {
+      await this.updateSource({"system.levels": 0});
+    }
+
     if ( !this.isEmbedded || (this.parent.type === "vehicle") ) return;
     const isNPC = this.parent.type === "npc";
     let updates;
@@ -2024,6 +2030,14 @@ export default class Item5e extends Item {
     if ( (this.parent.type === "character") && (this.type === "class") ) {
       const pc = this.parent.items.get(this.parent.system.details.originalClass);
       if ( !pc ) await this.parent._assignPrimaryClass(this._id);
+    }
+
+    // Bypass normal creation flow for any items with advancement
+    if (this.system.advancement?.length && !game.settings.get("me5e", "disableAdvancements")) {
+      const manager = AdvancementManager.forNewItem(this.parent, this);
+      if ( manager.steps.length ) {
+        manager.render(true);
+      }
     }
   }
 

@@ -1,6 +1,7 @@
 import Advancement from "../advancement.mjs";
 import AdvancementFlow from "../advancement-flow.mjs";
 import AdvancementConfig from "../advancement-config.mjs";
+import {advancement} from "../../../me5e.mjs";
 
 /**
  * Advancement that automatically grants one or more items to the player. Presents the player with the option of
@@ -173,6 +174,12 @@ export class ItemGrantConfig extends AdvancementConfig {
  */
 export class ItemGrantFlow extends AdvancementFlow {
 
+  get advancementType() {
+    return "ItemGrant";
+  }
+
+  /* -------------------------------------------- */
+
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -184,20 +191,24 @@ export class ItemGrantFlow extends AdvancementFlow {
 
   /** @inheritdoc */
   async getData() {
-    const config = this.advancement.data.configuration.items;
-    const added = this.retainedData?.items.map(i => foundry.utils.getProperty(i, "flags.me5e.sourceId"))
-      ?? this.advancement.data.value.added;
-    const checked = new Set(Object.values(added ?? {}));
+    const groups = await this.advancements.sort((a, b) => {
+        if (a.data.level === b.data.level) return a.title.localeCompare(b.title);
+        return a - b;
+      }).reduce(async (acc, advancement) => {
+        acc = await acc;
+        if (!acc[advancement.data.level]) acc[advancement.data.level] = [];
+        acc[advancement.data.level].push({
+          id: advancement.id,
+          title: advancement.title,
+          icon: advancement.icon,
+          optional: advancement.data.configuration.optional,
+          items: (await Promise.all(advancement.data.configuration.items.map(fromUuid))).filter(item => item)
+        });
+        return acc;
+      }, Promise.resolve({}));
 
-    const items = await Promise.all(config.map(fromUuid));
     return foundry.utils.mergeObject(super.getData(), {
-      optional: this.advancement.data.configuration.optional,
-      items: items.reduce((arr, item) => {
-        if ( !item ) return arr;
-        item.checked = added ? checked.has(item.uuid) : true;
-        arr.push(item);
-        return arr;
-      }, [])
+      groups
     });
   }
 
@@ -223,15 +234,33 @@ export class ItemGrantFlow extends AdvancementFlow {
     item?.sheet.render(true);
   }
 
-  /* -------------------------------------------- */
+  /** @inheritDoc */
+  async getChanges() {
+    const formData = this._getSubmitData();
+    const toCreate = [];
+    const advancementUpdates = {};
+    for (const [uuid, checked] of Object.entries(formData)) {
+      if (!checked) continue;
 
-  /** @inheritdoc */
-  async _updateObject(event, formData) {
-    const retainedData = this.retainedData?.items.reduce((obj, i) => {
-      obj[foundry.utils.getProperty(i, "flags.me5e.sourceId")] = i;
-      return obj;
-    }, {});
-    await this.advancement.apply(this.level, formData, retainedData);
+      let splitIndex = uuid.indexOf(".", 0);
+      const advancementId = uuid.slice(0, splitIndex);
+      const itemId = uuid.slice(splitIndex + 1, uuid.length);
+
+      const source = await fromUuid(itemId);
+      if (!source) continue;
+      const itemData = source.clone({
+        _id: foundry.utils.randomID(),
+        "flags.me5e.sourceId": uuid,
+        "flags.me5e.advancementOrigin": `${this.item.id}.${advancementId}`
+      }, {keepId: true}).toObject();
+
+      if ( itemData.type === "spell" ) foundry.utils.mergeObject(itemData, this.advancements.find((advancement => advancement.id === advancementId))?.spellChanges);
+
+      toCreate.push(itemData);
+      if (!advancementUpdates[advancementId]) advancementUpdates[advancementId] = {"value.added": {}};
+      advancementUpdates[advancementId]["value.added"][itemData._id] = itemId;
+    }
+
+    return {toCreate, advancementUpdates};
   }
-
 }

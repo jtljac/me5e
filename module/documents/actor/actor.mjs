@@ -208,7 +208,7 @@ export default class Actor5e extends Actor {
     this.rules = this.items.contents
       .flatMap((item) => Rule5e.fromItem(item))
       .filter((rule) => !rule.isIgnored)
-      .sort((ruleA, ruleB) => ruleA.data.priority - ruleB.data.priority)
+      .sort((ruleA, ruleB) => ruleA.priority - ruleB.priority)
   }
 
   /* -------------------------------------------- */

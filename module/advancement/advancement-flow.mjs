@@ -2,40 +2,39 @@
  * Base class for the advancement interface displayed by the advancement prompt that should be subclassed by
  * individual advancement types.
  *
- * @param {Item5e} item           Item to which the advancement belongs.
- * @param {string} advancementId  ID of the advancement this flow modifies.
- * @param {number} level          Level for which to configure this flow.
- * @param {object} [options={}]   Application rendering options.
+ * @param {Actor5e} item                                The item to which the advancements belong.
+ * @param {Advancement[]} advancements                  The Advancements being processed by this flow
+ * @param {number} startingLevel                        The level before the advancement change is applied
+ * @param {number} levelDelta                           The change in level
+ * @param {object} [options={}]                         Application rendering options.
  */
 export default class AdvancementFlow extends FormApplication {
-  constructor(item, advancementId, level, options={}) {
+  constructor(item, advancements, startingLevel, levelDelta, options={}) {
     super({}, options);
 
     /**
-     * The item that houses the Advancement.
+     * The item that houses the Advancements.
      * @type {Item5e}
      */
     this.item = item;
 
     /**
-     * ID of the advancement this flow modifies.
-     * @type {string}
-     * @private
+     * The Advancements being processed by this flow
+     * @type {Advancement[]}
      */
-    this._advancementId = advancementId;
+    this.advancements = advancements;
 
     /**
-     * Level for which to configure this flow.
+     * The level before the advancement change is applied
      * @type {number}
      */
-    this.level = level;
+    this.startingLevel = startingLevel;
 
     /**
-     * Data retained by the advancement manager during a reverse step. If restoring data using Advancement#restore,
-     * this data should be used when displaying the flow's form.
-     * @type {object|null}
+     * The change in level
+     * @type {number}
      */
-    this.retainedData = null;
+    this.levelDelta = levelDelta;
   }
 
   /* -------------------------------------------- */
@@ -52,24 +51,31 @@ export default class AdvancementFlow extends FormApplication {
 
   /** @inheritdoc */
   get id() {
-    return `actor-${this.advancement.item.id}-advancement-${this.advancement.id}-${this.level}`;
+    return `actor-${this.item.parent._id}-item-${this.item._id}-advancement-${this.advancementType}-${this.startingLevel + this.levelDelta}`;
+  }
+
+  /* -------------------------------------------- */
+
+  /**
+   * The type of the advancement this flow is responsible for
+   * @abstract
+   */
+  get advancementType() {
+    return "";
   }
 
   /* -------------------------------------------- */
 
   /** @inheritdoc */
   get title() {
-    return this.advancement.title;
+    return this.advancements[0].title;
   }
 
-  /* -------------------------------------------- */
-
   /**
-   * The Advancement object this flow modifies.
-   * @type {Advancement|null}
+   * The summary of the represented advancement
    */
-  get advancement() {
-    return this.item.advancement?.byId[this._advancementId] ?? null;
+  get summary() {
+    return "";
   }
 
   /* -------------------------------------------- */
@@ -78,19 +84,34 @@ export default class AdvancementFlow extends FormApplication {
   getData() {
     return {
       appId: this.id,
-      advancement: this.advancement,
-      type: this.advancement.constructor.typeName,
+      advancements: this.advancements,
+      type: this.advancementType,
       title: this.title,
-      summary: this.advancement.summaryForLevel(this.level),
-      level: this.level
+      summary: this.summary,
+      startingLevel: this.startingLevel,
+      levelDelta: this.levelDelta
     };
   }
 
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  async _updateObject(event, formData) {
-    await this.advancement.apply(this.level, formData);
-  }
+  async _updateObject(event, formData) {}
 
+  /* -------------------------------------------- */
+
+  /**
+   * @typedef flowChanges
+   * @property {Object[]} [toCreate] An array of item data to be created in the actor
+   * @property {String[]} [toDelete] An array of item Ids to be deleted from the actor
+   * @property {Object[]} [toUpdate] An array of item data used to update items in the actor
+   * @property {Object<String, Object<String, Object>>} [advancementUpdates] itemIds mapped to an object containing advancement Ids mapped to their changes
+   */
+
+  /**
+   * Get the changes this flow makes to the actor and advancements
+   * @returns {flowChanges}
+   * @abstract
+   */
+  async getChanges() {}
 }

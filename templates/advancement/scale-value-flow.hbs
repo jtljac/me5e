@@ -1,11 +1,12 @@
-<form id="{{appId}}" data-level="{{level}}" data-id="{{advancement.id}}" data-type="{{type}}">
-  <h3>{{{this.title}}}</h3>
-
-  <p>
-    <span class="initial-scale-value {{#unless initial}}none{{/unless}}">
-      {{#if initial}}{{initial}}{{else}}{{localize "ME5E.None"}}{{/if}}
-    </span>
-    &#x27A1;
-    <span class="new-scale-value">{{final}}</span>
-  </p>
+<form id="{{appId}}" data-level="{{level}}" data-type="{{type}}">
+  {{#each groups}}
+    <h3>{{{this.title}}}</h3>
+    <p>
+      <span class="initial-scale-value {{#unless (eq this.initial 0)}}none{{/unless}}">
+        {{#if (eq this.initial 0)}}{{this.initial}}{{else}}{{localize "ME5E.None"}}{{/if}}
+      </span>
+      &#x27A1;
+      <span class="new-scale-value">{{this.final}}</span>
+    </p>
+  {{/each}}
 </form>

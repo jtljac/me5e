@@ -274,8 +274,7 @@ export class ScaleValueConfig extends AdvancementConfig {
    * @param {Event} event  Change event to the title input.
    */
   _onChangeTitle(event) {
-    const slug = (event.target.value || this.advancement.constructor.metadata.title).slugify();
-    this.form.querySelector("input[name='data.configuration.identifier']").placeholder = slug;
+    this.form.querySelector("input[name='data.configuration.identifier']").placeholder = (event.target.value || this.advancement.constructor.metadata.title).slugify();
   }
 
   /* -------------------------------------------- */
@@ -310,12 +309,27 @@ export class ScaleValueFlow extends AdvancementFlow {
 
   /* -------------------------------------------- */
 
+  get advancementType() {
+    return "ScaleValue";
+  }
+
+  /* -------------------------------------------- */
+
   /** @inheritdoc */
   getData() {
     return foundry.utils.mergeObject(super.getData(), {
-      initial: this.advancement.formatValue(this.level - 1),
-      final: this.advancement.formatValue(this.level)
+      groups: this.advancements.map(advancement=> {
+        return {
+          title: advancement.title,
+          initial: advancement.formatValue(this.startingLevel),
+          final: advancement.formatValue(this.startingLevel + this.levelDelta)
+        }
+      }),
     });
   }
 
+  /** @override */
+  async getChanges() {
+    return {};
+  }
 }

@@ -50,7 +50,7 @@ export default class ModifierRule extends Rule5e {
     }
     this.category = data.category || CONFIG.ME5E.ModifierCategories.effect;
 
-    if (!Object.values(ModifierRule.targets).includes(data.target)) {
+    if (!Object.values(Modifier5e.targets).includes(data.target)) {
       throw new Error(`Unknown Modifier Mod: ${data.target}`);
     }
     this.target = data.target;

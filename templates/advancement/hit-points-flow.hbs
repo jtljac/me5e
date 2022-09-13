@@ -1,25 +1,26 @@
-<form id="{{appId}}" data-level="{{level}}" data-id="{{advancement.id}}" data-type="{{type}}">
+<form id="{{appId}}" data-level="{{level}}" data-type="{{type}}">
   <h3>{{{title}}}</h3>
+  <div class="rolls">
+    {{#each values}}
+      <div class="roll">
+        <p>Lvl.{{this.level}}</p>
 
-  {{#if isFirstClassLevel}}
-
-    <div>
-      {{{localize "ME5E.AdvancementHitPointsMaxAtFirstLevel" max=dieValue}}}
-      <input type="hidden" name="useMax" value="true" data-dtype="Boolean">
-    </div>
-
-  {{else}}
-
-    <div class="rolls">
-      <label class="averageLabel">
-        <span>{{localize "ME5E.AdvancementHitPointsAverage"}}</span>
-        <input class="averageCheckbox" type="checkbox" name="useAverage" {{checked data.useAverage}}>
-      </label>
-      <input class="rollResult" type="number" name="value" value="{{data.value}}" {{disabled data.useAverage}}>
-      <button class="rollButton" type="button" name="roll" {{disabled data.useAverage}}>
-        <i class="fas fa-dice-d20"></i> {{localize "ME5E.AdvancementHitPointsRollButton" die=hitDie}}
-      </button>
-    </div>
-
-  {{/if}}
+        {{#if (eq this.level 1)}}
+          <div>{{localize "ME5E.AdvancementHitPointsMaxAtFirstLevel"}}</div>
+          <input class="rollResult" style="grid-column: 3/5;" type="number" value="{{../dieValue}}" disabled>
+          <input type="hidden" name="useAverage" data-dtype="Boolean" value="true">
+          <input type="hidden" name="value" value="max">
+        {{else}}
+          <label class="averageLabel">
+            <span>{{localize "ME5E.AdvancementHitPointsAverage"}}</span>
+            <input class="averageCheckbox" type="checkbox" name="useAverage" {{checked this.useAverage}}>
+          </label>
+          <input class="rollResult" type="number" name="value" value="{{this.value}}" {{disabled this.useAverage}}>
+          <button class="rollButton" type="button" name="roll" {{disabled this.useAverage}}>
+            <i class="fas fa-dice-d20"></i> {{localize "ME5E.AdvancementHitPointsRollButton" die=../hitDie}}
+          </button>
+        {{/if}}
+      </div>
+    {{/each}}
+  </div>
 </form>

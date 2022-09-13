@@ -1,19 +1,31 @@
 <form id="{{appId}}" data-level="{{level}}" data-id="{{advancement.id}}" data-type="{{type}}">
-  <h3>{{{title}}}</h3>
-
-  {{#each items}}
-    <div class="item-name flexrow">
-      <div class="item-image" style="background-image: url({{this.img}});"></div>
-      <label class="flexrow">
-        <h4>
-          <a data-uuid="{{uuid}}">{{this.name}}</a>
-        </h4>
-        {{#if @root.optional}}
-          <input type="checkbox" name="{{this.uuid}}" {{checked this.checked}}>
-        {{else}}
-          <input type="hidden" name="{{this.uuid}}" value="true" data-dtype="Boolean">
-        {{/if}}
-      </label>
+  <!--TODO: implement groups here-->
+  {{#each groups}}
+    <div class="level-group">
+      <h3 class="level-header">{{{localize "ME5E.AdvancementLevelHeader" level=@key}}}</h3>
+      {{#each this}}
+        <div class="grant-group">
+          <div class="grant-header flexrow">
+            <div class="header-image" style="background-image: url({{this.icon}});"></div>
+            <h3>{{this.title}}</h3>
+          </div>
+          {{#each this.items}}
+            <div class="item-name flexrow">
+              <div class="item-image" style="background-image: url({{this.img}});"></div>
+              <label class="flexrow">
+                <h4>
+                  <a data-uuid="{{this.uuid}}">{{this.name}}</a>
+                </h4>
+                {{#if ../this.optional}}
+                  <input type="checkbox" name="{{../this.id}}.{{this.uuid}}" checked>
+                {{else}}
+                  <input type="hidden" name="{{../this.id}}.{{this.uuid}}" value="true" data-dtype="Boolean">
+                {{/if}}
+              </label>
+            </div>
+          {{/each}}
+        </div>
+      {{/each}}
     </div>
   {{/each}}
 </form>

@@ -27,17 +27,17 @@ export default class ScaleValueRule extends Rule5e {
   constructor(data, item) {
     super(data, item);
 
-    if (!data.key) {
+    if (!data.classIdentifier) {
       throw new Error(`ScaleValueRule missing classIdentifier`);
     }
     this.classIdentifier = data.classIdentifier;
 
-    if (!data.key) {
+    if (!data.identifier) {
       throw new Error(`ScaleValueRule missing identifier`);
     }
     this.identifier = data.identifier;
 
-    if (!data.key) {
+    if (data.scaleValue === undefined) {
       throw new Error(`ScaleValueRule missing scaleValue`);
     }
     this.scaleValue = data.scaleValue;

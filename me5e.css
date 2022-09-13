@@ -1466,27 +1466,66 @@
   font-size: var(--font-size-14);
 }
 .me5e.advancement.flow form[data-type="HitPoints"] .rolls {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+}
+.me5e.advancement.flow form[data-type="HitPoints"] .rolls .roll {
   display: grid;
-  grid-template-columns: 50% 1fr 1fr;
+  grid-template-columns: 10% 40% 1fr 1fr;
   align-items: center;
   gap: 2px;
 }
-.me5e.advancement.flow form[data-type="HitPoints"] .rolls .averageLabel span,
-.me5e.advancement.flow form[data-type="HitPoints"] .rolls .averageLabel input {
+.me5e.advancement.flow form[data-type="HitPoints"] .rolls .roll .averageLabel span,
+.me5e.advancement.flow form[data-type="HitPoints"] .rolls .roll .averageLabel input {
   vertical-align: middle;
 }
-.me5e.advancement.flow form[data-type="HitPoints"] .rolls .rollResult {
+.me5e.advancement.flow form[data-type="HitPoints"] .rolls .roll .rollResult {
   text-align: center;
 }
-.me5e.advancement.flow form[data-type="HitPoints"] .rolls .rollButton {
+.me5e.advancement.flow form[data-type="HitPoints"] .rolls .roll .rollButton {
   height: calc(var(--form-field-height) + 5px);
   line-height: 1.5em;
 }
 .me5e.advancement.flow input.error {
   outline: 2px solid red;
 }
+.me5e.advancement.flow form[data-type="ItemGrant"] {
+  max-height: 400px;
+}
+.me5e.advancement.flow form[data-type="ItemGrant"] .level-group .level-header {
+  width: 40%;
+  border-bottom: 2px solid var(--color-underline-header);
+}
+.me5e.advancement.flow form[data-type="ItemGrant"] .level-group .grant-group {
+  margin-bottom: 20px;
+}
+.me5e.advancement.flow form[data-type="ItemGrant"] .level-group .grant-group .grant-header {
+  height: 33px;
+  margin-bottom: 5px;
+  padding-bottom: 3px;
+  border-bottom: 1px solid var(--color-underline-header);
+}
+.me5e.advancement.flow form[data-type="ItemGrant"] .level-group .grant-group .grant-header h3 {
+  height: fit-content;
+  align-self: center;
+  margin: 0;
+  font-size: var(--font-size-18);
+}
+.me5e.advancement.flow form[data-type="ItemGrant"] .level-group .grant-group .grant-header .header-image {
+  flex: 0 0 30px;
+  background-size: cover;
+  background-position: 50% 0;
+  margin-inline-end: 5px;
+}
+.me5e.advancement.flow form[data-type="ScaleValue"] h3 {
+  margin: 0;
+  border-bottom: 1px solid var(--color-underline-header);
+}
 .me5e.advancement.flow form[data-type="ScaleValue"] p {
-  margin-block-end: 0;
+  margin: 0 0 20px;
   font-size: var(--font-size-18);
 }
 .me5e.advancement.flow form[data-type="ScaleValue"] span.none {

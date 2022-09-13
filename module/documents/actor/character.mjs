@@ -15,6 +15,7 @@ export default class Character5e extends Creature5e {
 
     this._prepareBaseModifiers();
 
+    this.system.scale = {};
     this.system.details.level = 0;
     this.system.attributes.hd = 0;
     this.system.attributes.attunement.value = 0;
@@ -111,8 +112,12 @@ export default class Character5e extends Creature5e {
   /** @inheritDoc */
   _prepareAbilities(bonusData, globalBonuses, checkBonus) {
     for (const [id, abl] of Object.entries(this.system.abilities)) {
-      abl.value += this._prepareModifiers(Modifier5e.targets[id]);
-      this.overrides[`system.abilities.${id}.value`] = abl.value;
+      const change = this._prepareModifiers(Modifier5e.targets[id]);
+
+      if (change) {
+        abl.value += change;
+        this.overrides[`system.abilities.${id}.value`] = abl.value;
+      }
     }
 
     super._prepareAbilities(bonusData, globalBonuses, checkBonus);

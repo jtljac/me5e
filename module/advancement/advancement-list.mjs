@@ -1,4 +1,5 @@
 import Advancement from "./advancement.mjs";
+import {advancement} from "../../me5e.mjs";
 
 export default class AdvancementList {
 
@@ -17,12 +18,13 @@ export default class AdvancementList {
   #minAdvancementLevel;
 
   /**
+   * @param {Item5e} item The item the advancement belongs to
    * @param {Object[]} rawAdvancements An array of raw advancement data
    * @param {Number} minAdvancementLevel The minimum level the advancements can be (1 for classes and subclasses, 0 for everything else)
    */
-  constructor(rawAdvancements, minAdvancementLevel) {
-    for (const rawAdvancement of rawAdvancements) {
-      const advancement = Advancement.fromRawData(rawAdvancement);
+  constructor(item, rawAdvancements, minAdvancementLevel) {
+    for (const rawAdvancement of rawAdvancements ?? []) {
+      const advancement = Advancement.fromRawData(item, rawAdvancement);
       if (advancement) {
         this.#advancements[advancement.id] = advancement;
       }
@@ -62,14 +64,17 @@ export default class AdvancementList {
   /**
    * Get the advancements sorted into the levels they make changes in
    * @see Advancement#getByLevel
-   * @return {Object<Number, Advancement>}
+   * @return {Object<Number, Advancement[]>}
    */
   get byLevel() {
     // noinspection JSValidateTypes
     return Object.values(this.#advancements).reduce((acc, advancement) => {
       advancement.levels.forEach(l => acc[l].push(advancement));
       return acc;
-    }, Array.fromRange(CONFIG.ME5E.maxLevel + 1).slice(this.#minAdvancementLevel).reduce((acc, l) => acc[l] = []));
+    }, Array.fromRange(CONFIG.ME5E.maxLevel + 1).slice(this.#minAdvancementLevel).reduce((acc, l) => {
+      acc[l.toString()] = [];
+      return acc;
+    }, {}));
   }
 
   /**
@@ -84,7 +89,7 @@ export default class AdvancementList {
   /**
    * Get the advancements grouped by their types
    * @see Advancement#getByType
-   * @return {Object<String, Advancement>}
+   * @return {Object<String, Advancement[]>}
    */
   get byType() {
     return Object.values(this.#advancements).reduce((acc, advancement) => {
@@ -92,5 +97,25 @@ export default class AdvancementList {
       acc[advancement.data.type].push(advancement);
       return acc;
     }, {});
+  }
+
+  get needingConfiguration() {
+    return Object.values(this.#advancements).filter(advancement => !advancement.levels.length)
+  }
+
+  /**
+   * Get the advancements in a level range, sorted by type
+   * @param start The lower bound of levels to get (inclusive)
+   * @param end The upper bound of levels to get (exclusive)
+   * @return {Object<String, Advancement[]>}
+   */
+  getByTypeInLevelRange(start, end) {
+    return Object.values(this.#advancements)
+      .filter(advancement => advancement.levels.find(level => level >= start && level < end))
+      .reduce((acc, advancement) => {
+        if (!acc[advancement.data.type]) acc[advancement.data.type] = [];
+        acc[advancement.data.type].push(advancement);
+        return acc;
+      }, {});
   }
 }

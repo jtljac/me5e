@@ -135,9 +135,10 @@ export default class ItemSheet5e extends ItemSheet {
       ? (item.system.levels ?? item.class?.system.levels ?? item.parent.system.details.level) : -1;
 
     // Improperly configured advancements
-    if ( item.advancement.needingConfiguration.length ) {
+    const needingConfiguration = item.advancement.needingConfiguration;
+    if ( needingConfiguration.length ) {
       advancement.unconfigured = {
-        items: item.advancement.needingConfiguration.map(a => ({
+        items: needingConfiguration.map(a => ({
           id: a.id,
           order: a.constructor.order,
           title: a.title,

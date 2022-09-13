@@ -800,14 +800,6 @@ export default class ActorSheet5e extends ActorSheet {
     const stacked = this._onDropStackConsumables(itemData);
     if ( stacked ) return false;
 
-    // Bypass normal creation flow for any items with advancement
-    if ( itemData.system.advancement?.length && !game.settings.get("me5e", "disableAdvancements") ) {
-      const manager = AdvancementManager.forNewItem(this.actor, itemData);
-      if ( manager.steps.length ) {
-        manager.render(true);
-        return false;
-      }
-    }
     return itemData;
   }
 
@@ -1002,22 +994,22 @@ export default class ActorSheet5e extends ActorSheet {
     const item = this.actor.items.get(li.dataset.itemId);
     if ( !item ) return;
 
-    // If item has advancement, handle it separately
-    if ( !game.settings.get("me5e", "disableAdvancements") ) {
-      const manager = AdvancementManager.forDeletedItem(this.actor, item.id);
-      if ( manager.steps.length ) {
-        if ( ["class", "subclass"].includes(item.type) ) {
-          try {
-            const shouldRemoveAdvancements = await AdvancementConfirmationDialog.forDelete(item);
-            if ( shouldRemoveAdvancements ) return manager.render(true);
-          } catch(err) {
-            return;
-          }
-        } else {
-          return manager.render(true);
-        }
-      }
-    }
+    // // If item has advancement, handle it separately
+    // if ( !game.settings.get("me5e", "disableAdvancements") ) {
+    //   const manager = AdvancementManager.forDeletedItem(this.actor, item.id);
+    //   if ( manager.steps.length ) {
+    //     if ( ["class", "subclass"].includes(item.type) ) {
+    //       try {
+    //         const shouldRemoveAdvancements = await AdvancementConfirmationDialog.forDelete(item);
+    //         if ( shouldRemoveAdvancements ) return manager.render(true);
+    //       } catch(err) {
+    //         return;
+    //       }
+    //     } else {
+    //       return manager.render(true);
+    //     }
+    //   }
+    // }
 
     return item.delete();
   }

@@ -1,6 +1,7 @@
 import Advancement from "../advancement.mjs";
 import AdvancementFlow from "../advancement-flow.mjs";
 import AdvancementConfig from "../advancement-config.mjs";
+import Modifier5e from "../../modifiers/modifier.mjs";
 
 /**
  * Advancement that presents the player with the option to roll hit points at each level or select the average value.
@@ -140,29 +141,6 @@ export class HitPointsAdvancement extends Advancement {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  apply(level, data) {
-    let value = this.constructor.valueForLevel(data, this.hitDieValue, level);
-    if ( value === undefined ) return;
-    const con = this.actor.system.abilities.con;
-    const hp = this.actor.system.attributes.hp;
-    value += con?.mod ?? 0;
-    this.actor.updateSource({
-      "system.attributes.hp.max": hp.max + value,
-      "system.attributes.hp.value": hp.value + value
-    });
-    this.updateSource({ value: data });
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  restore(level, data) {
-    this.apply(level, data);
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
   reverse(level) {
     let value = this.valueForLevel(level);
     if ( value === undefined ) return;
@@ -184,6 +162,7 @@ export class HitPointsAdvancement extends Advancement {
  * Configuration application for hit points.
  */
 export class HitPointsConfig extends AdvancementConfig {
+
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -191,7 +170,6 @@ export class HitPointsConfig extends AdvancementConfig {
     });
   }
 
-  /* -------------------------------------------- */
 
   /** @inheritdoc */
   getData() {
@@ -207,6 +185,12 @@ export class HitPointsConfig extends AdvancementConfig {
  */
 export class HitPointsFlow extends AdvancementFlow {
 
+  get advancementType() {
+    return "HitPoints";
+  }
+
+  /* -------------------------------------------- */
+
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
@@ -218,24 +202,21 @@ export class HitPointsFlow extends AdvancementFlow {
 
   /** @inheritdoc */
   getData() {
-    const source = this.retainedData ?? this.advancement.data.value;
-    const value = source[this.level];
+    // The below would usually need to be +1 for both parts of the slice, however levels start from 1
+    const source = Object.values(this.advancements[0].data.value).slice(this.startingLevel, this.startingLevel + this.levelDelta);
+    let lastValue = source[this.startingLevel] || "avg";
 
-    // If value is empty, `useAverage` should default to the value selected at the previous level
-    let useAverage = value === "avg";
-    if ( !value ) {
-      const lastValue = source[this.level - 1];
-      if ( lastValue === "avg" ) useAverage = true;
+    let values = [];
+    for (let i = 0; i < this.levelDelta; i++) {
+      if (source[i]) lastValue = source[i];
+      values.push({useAverage: lastValue === "avg", value: Number.isInteger(lastValue) ? lastValue : "", level: this.startingLevel + i + 1})
     }
 
     return foundry.utils.mergeObject(super.getData(), {
-      isFirstClassLevel: (this.level === 1) && this.advancement.item.isOriginalClass,
-      hitDie: this.advancement.hitDie,
-      dieValue: this.advancement.hitDieValue,
-      data: {
-        value: Number.isInteger(value) ? value : "",
-        useAverage
-      }
+      isFirstClassLevel: (this.startingLevel === 1) && this.item.isOriginalClass,
+      hitDie: this.advancements[0].hitDie,
+      dieValue: this.advancements[0].hitDieValue,
+      values
     });
   }
 
@@ -243,16 +224,17 @@ export class HitPointsFlow extends AdvancementFlow {
 
   /** @inheritdoc */
   activateListeners(html) {
-    this.form.querySelector(".averageCheckbox")?.addEventListener("change", event => {
-      this.form.querySelector(".rollResult").disabled = event.target.checked;
-      this.form.querySelector(".rollButton").disabled = event.target.checked;
-      this._updateRollResult();
+    html.find(".averageCheckbox").change(event => {
+      const rollElement = event.target.parentElement.parentElement;
+      rollElement.querySelector(".rollResult").disabled = event.target.checked;
+      rollElement.querySelector(".rollButton").disabled = event.target.checked;
+      this._updateRollResults();
     });
-    this.form.querySelector(".rollButton")?.addEventListener("click", async () => {
-      const roll = await this.advancement.actor.rollClassHitPoints(this.advancement.item);
-      this.form.querySelector(".rollResult").value = roll.total;
+    html.find(".rollButton").click(async (event) => {
+      const roll = await this.advancements[0].actor.rollClassHitPoints(this.advancements[0].item);
+      event.target.parentElement.querySelector(".rollResult").value = roll.total;
     });
-    this._updateRollResult();
+    this._updateRollResults();
   }
 
   /* -------------------------------------------- */
@@ -261,25 +243,37 @@ export class HitPointsFlow extends AdvancementFlow {
    * Update the roll result display when the average result is taken.
    * @protected
    */
-  _updateRollResult() {
-    if ( !this.form.elements.useAverage?.checked ) return;
-    this.form.elements.value.value = (this.advancement.hitDieValue / 2) + 1;
+  _updateRollResults() {
+    this.form.querySelectorAll(".roll").forEach(element => {
+      if ( !element.querySelector(".averageCheckbox")?.checked ) return;
+      element.querySelector(".rollResult").value = (this.advancements[0].hitDieValue / 2) + 1;
+    });
   }
 
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  _updateObject(event, formData) {
-    let value;
-    if ( formData.useMax ) value = "max";
-    else if ( formData.useAverage ) value = "avg";
-    else if ( Number.isInteger(formData.value) ) value = parseInt(formData.value);
+  async getChanges() {
+    const formData = this._getSubmitData();
+    const useAverage = Array.isArray(formData.useAverage) ? formData.useAverage : [formData.useAverage];
+    const values = Array.isArray(formData.value) ? formData.value : [formData.value];
 
-    if ( value !== undefined ) return this.advancement.apply(this.level, { [this.level]: value });
+    const results = values.reduce((acc, value, index) => {
+      let newValue;
+      if (value === "max") newValue = "max";
+      else if (useAverage[index]) value = "avg";
+      else if (Number.isInteger(value)) value = parseInt(value);
 
-    this.form.querySelector(".rollResult")?.classList.add("error");
-    const errorType = formData.value ? "Invalid" : "Empty";
-    throw new Advancement.ERROR(game.i18n.localize(`ME5E.AdvancementHitPoints${errorType}Error`));
+      if (newValue === undefined) {
+        this.form.querySelector(".rollResult")?.classList.add("error");
+        const errorType = newValue ? "Invalid" : "Empty";
+        throw new Advancement.ERROR(game.i18n.localize(`ME5E.AdvancementHitPoints${errorType}Error`));
+      }
+
+      acc[(this.startingLevel + index + 1).toString()] = newValue;
+      return acc;
+    }, {});
+
+    return {advancementUpdates: {[this.advancements[0].id]: {value: results}}}
   }
-
 }
