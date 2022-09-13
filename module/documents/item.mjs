@@ -4,6 +4,7 @@ import AbilityUseDialog from "../applications/item/ability-use-dialog.mjs";
 import Proficiency from "./actor/proficiency.mjs";
 import AdvancementList from "../advancement/advancement-list.mjs";
 import AdvancementManager from "../advancement/advancement-manager.mjs";
+import {advancement} from "../../me5e.mjs";
 
 /**
  * Override and extend the basic Item implementation.
@@ -1695,7 +1696,7 @@ export default class Item5e extends Item {
     if (this.advancement) {
       for (const advancement of Object.values(this.advancement.byId)) {
         if (advancement.configuredForLevel(this.system.levels)) {
-          rules.push(...advancement.getRules());
+          rules.push(...advancement.getRules(this.system.levels));
         }
       }
     }
@@ -2079,6 +2080,13 @@ export default class Item5e extends Item {
     // Assign a new original class
     if ( (this.type === "class") && (this.id === this.parent.system.details.originalClass) ) {
       this.parent._assignPrimaryClass();
+    }
+
+    // Cleanup advancements
+    if (options.cleanupAdvancements && !game.settings.get("me5e", "disableAdvancements")) {
+      this.parent.deleteEmbeddedDocuments("Item", Object.values(this.advancement.byId).flatMap((advancement) => {
+        return advancement.getDeletionSideEffects();
+      }), {cleanupAdvancements: true})
     }
   }
 

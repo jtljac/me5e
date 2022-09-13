@@ -12,9 +12,6 @@ import ActorSkillConfig from "./skill-config.mjs";
 import ActorInitConfig from "./init-config.mjs";
 import ActorTypeConfig from "./type-config.mjs";
 
-import AdvancementConfirmationDialog from "../../advancement/advancement-confirmation-dialog.mjs";
-import AdvancementManager from "../../advancement/advancement-manager.mjs";
-
 import ProficiencySelector from "../proficiency-selector.mjs";
 import PropertyAttribution from "../property-attribution.mjs";
 import TraitSelector from "../trait-selector.mjs";
@@ -653,10 +650,6 @@ export default class ActorSheet5e extends ActorSheet {
     }
   }
 
-  /* -------------------------------------------- */
-  /*  Event Listeners and Handlers                */
-  /* -------------------------------------------- */
-
   /**
    * Handle input changes to numeric form fields, allowing them to accept delta-typed inputs
    * @param {Event} event  Triggering event.
@@ -750,12 +743,6 @@ export default class ActorSheet5e extends ActorSheet {
   /** @override */
   async _onDropItemCreate(itemData) {
     let items = itemData instanceof Array ? itemData : [itemData];
-    const itemsWithoutAdvancement = items.filter(i => !i.system.advancement?.length);
-    const multipleAdvancements = (items.length - itemsWithoutAdvancement.length) > 1;
-    if ( multipleAdvancements && !game.settings.get("me5e", "disableAdvancements") ) {
-      ui.notifications.warn(game.i18n.format("ME5E.WarnCantAddMultipleAdvancements"));
-      items = itemsWithoutAdvancement;
-    }
 
     const toCreate = [];
     for ( const item of items ) {
@@ -984,8 +971,7 @@ export default class ActorSheet5e extends ActorSheet {
   /**
    * Handle deleting an existing Owned Item for the Actor.
    * @param {Event} event  The originating click event.
-   * @returns {Promise<Item5e|AdvancementManager>|undefined}  The deleted item if something was deleted or the
-   *                                                          advancement manager if advancements need removing.
+   * @returns {Promise<Item5e>|undefined}  The deleted item if something was deleted
    * @private
    */
   async _onItemDelete(event) {
@@ -993,23 +979,6 @@ export default class ActorSheet5e extends ActorSheet {
     const li = event.currentTarget.closest(".item");
     const item = this.actor.items.get(li.dataset.itemId);
     if ( !item ) return;
-
-    // // If item has advancement, handle it separately
-    // if ( !game.settings.get("me5e", "disableAdvancements") ) {
-    //   const manager = AdvancementManager.forDeletedItem(this.actor, item.id);
-    //   if ( manager.steps.length ) {
-    //     if ( ["class", "subclass"].includes(item.type) ) {
-    //       try {
-    //         const shouldRemoveAdvancements = await AdvancementConfirmationDialog.forDelete(item);
-    //         if ( shouldRemoveAdvancements ) return manager.render(true);
-    //       } catch(err) {
-    //         return;
-    //       }
-    //     } else {
-    //       return manager.render(true);
-    //     }
-    //   }
-    // }
 
     return item.delete();
   }

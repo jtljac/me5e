@@ -135,26 +135,6 @@ export class HitPointsAdvancement extends Advancement {
       target: Modifier5e.targets.hp
     }];
   }
-
-  /* -------------------------------------------- */
-  /*  Application Methods                         */
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  reverse(level) {
-    let value = this.valueForLevel(level);
-    if ( value === undefined ) return;
-    const con = this.actor.system.abilities.con;
-    const hp = this.actor.system.attributes.hp;
-    value += con?.mod ?? 0;
-    this.actor.updateSource({
-      "system.attributes.hp.max": hp.max - value,
-      "system.attributes.hp.value": hp.value - value
-    });
-    const source = { [level]: this.data.value[level] };
-    this.updateSource({ [`value.-=${level}`]: null });
-    return source;
-  }
 }
 
 
@@ -253,7 +233,10 @@ export class HitPointsFlow extends AdvancementFlow {
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  async getChanges() {
+  async getForwardChanges() {
+    // Enable all the roll results, so we actually get their data
+    this.form.querySelectorAll(".rollResult").forEach((element) => element.disabled = false);
+
     const formData = this._getSubmitData();
     const useAverage = Array.isArray(formData.useAverage) ? formData.useAverage : [formData.useAverage];
     const values = Array.isArray(formData.value) ? formData.value : [formData.value];
@@ -261,8 +244,8 @@ export class HitPointsFlow extends AdvancementFlow {
     const results = values.reduce((acc, value, index) => {
       let newValue;
       if (value === "max") newValue = "max";
-      else if (useAverage[index]) value = "avg";
-      else if (Number.isInteger(value)) value = parseInt(value);
+      else if (useAverage[index]) newValue = "avg";
+      else if (Number.isInteger(value)) newValue = parseInt(value);
 
       if (newValue === undefined) {
         this.form.querySelector(".rollResult")?.classList.add("error");
@@ -275,5 +258,14 @@ export class HitPointsFlow extends AdvancementFlow {
     }, {});
 
     return {advancementUpdates: {[this.advancements[0].id]: {value: results}}}
+  }
+
+  /** @inheritDoc */
+  async getReverseChanges() {
+    const changes = {};
+    for (let i = this.startingLevel; i > this.startingLevel + this.levelDelta; i--) {
+      changes[`-=${i}`] = "";
+    }
+    return {advancementUpdates: {[this.advancements[0].id]: {value: changes}}}
   }
 }

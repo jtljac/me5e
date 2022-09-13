@@ -244,7 +244,7 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
     if ( !delta || !classId ) return;
     const classItem = this.actor.items.get(classId);
     if ( !game.settings.get("me5e", "disableAdvancements") ) {
-      const manager = AdvancementManager.forLevelChange(this.actor, classId, delta);
+      const manager = AdvancementManager.forLevelChange(this.actor, classItem, delta);
       if ( manager.steps.length ) {
         if ( delta > 0 ) return manager.render(true);
         try {
@@ -277,6 +277,23 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
 
   /* -------------------------------------------- */
 
+  /** @inheritDoc */
+  async _onItemDelete(event) {
+    event.preventDefault();
+    const li = event.currentTarget.closest(".item");
+    const item = this.actor.items.get(li.dataset.itemId);
+
+    // If item has advancement, handle it separately
+    if (!game.settings.get("me5e", "disableAdvancements") && Object.values(item.advancement.byId).length) {
+      if (await AdvancementConfirmationDialog.forDelete(item))
+        return this.actor.deleteEmbeddedDocuments("Item", [item._id], {cleanupAdvancements: true});
+    }
+
+    return await super._onItemDelete(event);
+  }
+
+  /* -------------------------------------------- */
+
   /**
    * Take a short rest, calling the relevant function on the Actor instance.
    * @param {Event} event             The triggering click event.
@@ -301,6 +318,20 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
     event.preventDefault();
     await this._onSubmit(event);
     return this.actor.longRest();
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _onDropItemCreate(itemData) {
+    let items = itemData instanceof Array ? itemData : [itemData];
+    const itemsWithoutAdvancement = items.filter(i => !i.system.advancement?.length);
+    const multipleAdvancements = (items.length - itemsWithoutAdvancement.length) > 1;
+    if (multipleAdvancements && !game.settings.get("me5e", "disableAdvancements")) {
+      ui.notifications.warn(game.i18n.format("ME5E.WarnCantAddMultipleAdvancements"));
+      items = itemsWithoutAdvancement;
+    }
+    return await super._onDropItemCreate(items);
   }
 
   /* -------------------------------------------- */

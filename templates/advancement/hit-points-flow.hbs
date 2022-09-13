@@ -8,7 +8,7 @@
         {{#if (eq this.level 1)}}
           <div>{{localize "ME5E.AdvancementHitPointsMaxAtFirstLevel"}}</div>
           <input class="rollResult" style="grid-column: 3/5;" type="number" value="{{../dieValue}}" disabled>
-          <input type="hidden" name="useAverage" data-dtype="Boolean" value="true">
+          <input type="hidden" name="useAverage" data-dtype="Boolean" value="false">
           <input type="hidden" name="value" value="max">
         {{else}}
           <label class="averageLabel">

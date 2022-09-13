@@ -1,7 +1,6 @@
 import Advancement from "../advancement.mjs";
 import AdvancementFlow from "../advancement-flow.mjs";
 import AdvancementConfig from "../advancement-config.mjs";
-import {advancement} from "../../../me5e.mjs";
 
 /**
  * Advancement that automatically grants one or more items to the player. Presents the player with the option of
@@ -69,69 +68,10 @@ export class ItemGrantAdvancement extends Advancement {
   /*  Application Methods                         */
   /* -------------------------------------------- */
 
-  /**
-   * Locally apply this advancement to the actor.
-   * @param {number} level              Level being advanced.
-   * @param {object} data               Data from the advancement form.
-   * @param {object} [retainedData={}]  Item data grouped by UUID. If present, this data will be used rather than
-   *                                    fetching new data from the source.
-   */
-  async apply(level, data, retainedData={}) {
-    const items = [];
-    const updates = {};
-    const spellChanges = this.data.configuration.spell ? this._prepareSpellChanges(this.data.configuration.spell) : {};
-    for ( const [uuid, selected] of Object.entries(data) ) {
-      if ( !selected ) continue;
-
-      let itemData = retainedData[uuid];
-      if ( !itemData ) {
-        const source = await fromUuid(uuid);
-        if ( !source ) continue;
-        itemData = source.clone({
-          _id: foundry.utils.randomID(),
-          "flags.me5e.sourceId": uuid,
-          "flags.me5e.advancementOrigin": `${this.item.id}.${this.id}`
-        }, {keepId: true}).toObject();
-      }
-      if ( itemData.type === "spell" ) foundry.utils.mergeObject(itemData, spellChanges);
-
-      items.push(itemData);
-      // TODO: Trigger any additional advancement steps for added items
-      updates[itemData._id] = uuid;
-    }
-    this.actor.updateSource({items});
-    this.updateSource({"value.added": updates});
+  /** @inheritDoc */
+  getDeletionSideEffects() {
+    return Object.keys(this.data.value?.added || {});
   }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  restore(level, data) {
-    const updates = {};
-    for ( const item of data.items ) {
-      this.actor.updateSource({items: [item]});
-      // TODO: Restore any additional advancement data here
-      updates[item._id] = item.flags.me5e.sourceId;
-    }
-    this.updateSource({"value.added": updates});
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  reverse(level) {
-    const items = [];
-    for ( const id of Object.keys(this.data.value.added ?? {}) ) {
-      const item = this.actor.items.get(id);
-      if ( item ) items.push(item.toObject());
-      this.actor.items.delete(id);
-      // TODO: Ensure any advancement data attached to these items is properly reversed
-      // and store any advancement data for these items in case they need to be restored
-    }
-    this.updateSource({ "value.-=added": null });
-    return { items };
-  }
-
 }
 
 
@@ -235,7 +175,7 @@ export class ItemGrantFlow extends AdvancementFlow {
   }
 
   /** @inheritDoc */
-  async getChanges() {
+  async getForwardChanges() {
     const formData = this._getSubmitData();
     const toCreate = [];
     const advancementUpdates = {};
@@ -262,5 +202,23 @@ export class ItemGrantFlow extends AdvancementFlow {
     }
 
     return {toCreate, advancementUpdates};
+  }
+
+  /** @inheritDoc */
+  async getReverseChanges() {
+    return this.advancements.reduce((acc, advancement) => {
+      if (!advancement.data.value?.added) return acc;
+
+      const items = Object.keys(advancement.data.value.added);
+
+      acc.toDelete.push(...items);
+      acc.advancementUpdates[advancement.id] = {
+        "value.added": items.reduce((acc, item) => {
+          acc[`-=${item}`] = "";
+          return acc;
+        }, {})
+      };
+      return acc;
+    }, {toDelete: [], advancementUpdates: {}})
   }
 }

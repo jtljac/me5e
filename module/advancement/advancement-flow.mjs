@@ -102,16 +102,36 @@ export default class AdvancementFlow extends FormApplication {
 
   /**
    * @typedef flowChanges
+   * @type {Object}
    * @property {Object[]} [toCreate] An array of item data to be created in the actor
    * @property {String[]} [toDelete] An array of item Ids to be deleted from the actor
    * @property {Object[]} [toUpdate] An array of item data used to update items in the actor
    * @property {Object<String, Object<String, Object>>} [advancementUpdates] itemIds mapped to an object containing advancement Ids mapped to their changes
    */
+  /**
+   * Get the changes this flow makes to the actor's items and advancements
+   * @returns {flowChanges}
+   */
+  async getChanges() {
+    if (this.levelDelta >= 0) return this.getForwardChanges();
+    return this.getReverseChanges();
+  }
 
   /**
-   * Get the changes this flow makes to the actor and advancements
+   * Get the changes this flow makes to the actor's items and advancements when adding levels
    * @returns {flowChanges}
    * @abstract
    */
-  async getChanges() {}
+  async getForwardChanges() {
+    return {};
+  }
+
+  /**
+   * Get the changes this flow makes to the actor's items and advancements when subtracting levels
+   * @returns {flowChanges}
+   * @abstract
+   */
+  async getReverseChanges() {
+    return {};
+  }
 }

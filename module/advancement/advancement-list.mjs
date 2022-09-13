@@ -111,7 +111,7 @@ export default class AdvancementList {
    */
   getByTypeInLevelRange(start, end) {
     return Object.values(this.#advancements)
-      .filter(advancement => advancement.levels.find(level => level >= start && level < end))
+      .filter(advancement => advancement.levels.some(level => level >= start && level < end))
       .reduce((acc, advancement) => {
         if (!acc[advancement.data.type]) acc[advancement.data.type] = [];
         acc[advancement.data.type].push(advancement);

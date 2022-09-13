@@ -322,12 +322,13 @@ export default class Advancement {
   /* -------------------------------------------- */
 
   /**
-   * Locally remove this advancement's changes from the actor.
-   * @param {number} level  Level being removed.
-   * @returns {object}      Data that can be passed to the `Advancement#restore` method to restore this reversal.
+   * Get the Ids for items that should be deleted when this advancement is deleted
+   * @returns {String[]} A list of IDs that should also be deleted
    * @abstract
    */
-  async reverse(level) { }
+  getDeletionSideEffects() {
+    return []
+  }
 
   /* -------------------------------------------- */
 
