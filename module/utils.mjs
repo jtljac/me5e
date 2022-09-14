@@ -125,7 +125,10 @@ export async function preloadHandlebarsTemplates() {
 
     // Advancement Partials
     "systems/me5e/templates/advancement/parts/advancement-controls.hbs",
-    "systems/me5e/templates/advancement/parts/advancement-spell-config.hbs"
+    "systems/me5e/templates/advancement/parts/advancement-spell-config.hbs",
+
+    // Modifier Partials
+    "systems/me5e/templates/apps/parts/modifier-input.hbs"
   ];
 
   const paths = {};

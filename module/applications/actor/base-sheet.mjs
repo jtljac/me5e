@@ -4,13 +4,11 @@ import Item5e from "../../documents/item.mjs";
 
 import ActorAbilityConfig from "./ability-config.mjs";
 import ActorArmorConfig from "./armor-config.mjs";
-import ActorHitDiceConfig from "./hit-dice-config.mjs";
 import ActorMovementConfig from "./movement-config.mjs";
 import ActorSensesConfig from "./senses-config.mjs";
 import ActorSheetFlags from "./sheet-flags.mjs";
 import ActorSkillConfig from "./skill-config.mjs";
 import ActorInitConfig from "./init-config.mjs";
-import ActorTypeConfig from "./type-config.mjs";
 
 import ProficiencySelector from "../proficiency-selector.mjs";
 import PropertyAttribution from "../property-attribution.mjs";
@@ -673,7 +671,7 @@ export default class ActorSheet5e extends ActorSheet {
   /**
    * Handle spawning the TraitSelector application which allows a checkbox of multiple trait options.
    * @param {Event} event   The click event which originated the selection.
-   * @private
+   * @protected
    */
   _onConfigMenu(event) {
     event.preventDefault();
@@ -683,9 +681,6 @@ export default class ActorSheet5e extends ActorSheet {
       case "armor":
         app = new ActorArmorConfig(this.actor);
         break;
-      case "hit-dice":
-        app = new ActorHitDiceConfig(this.actor);
-        break;
       case "movement":
         app = new ActorMovementConfig(this.actor);
         break;
@@ -694,9 +689,6 @@ export default class ActorSheet5e extends ActorSheet {
         break;
       case "senses":
         app = new ActorSensesConfig(this.actor);
-        break;
-      case "type":
-        app = new ActorTypeConfig(this.actor);
         break;
       case "ability": {
         const ability = event.currentTarget.closest("[data-ability]").dataset.ability;

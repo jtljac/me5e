@@ -284,13 +284,6 @@ export default class AdvancementManager extends Application {
   render(...args) {
     if ( this.steps.length && (this._stepIndex === null) ) this._stepIndex = 0;
 
-    // Ensure the level on the class item matches the specified level
-    if ( this.step?.class ) {
-      let level = this.step.class.level;
-      if ( this.step.type === "reverse" ) level -= 1;
-      this.step.class.item.updateSource({"system.levels": level});
-      this.clone.reset();
-    }
 
     /**
      * A hook event that fires when an AdvancementManager is about to be processed.

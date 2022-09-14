@@ -301,6 +301,12 @@
   padding: 2px 8px;
   margin-bottom: 2px;
 }
+.me5e.sheet .warnings .warning,
+.me5e.sheet .info .warning,
+.me5e.sheet .warnings .error,
+.me5e.sheet .info .error {
+  text-shadow: black 0 0 1px, rgba(0, 0, 0, 0.75) 0 0 2px, rgba(0, 0, 0, 0.5) 0 0 4px;
+}
 .me5e.sheet .sheet-header {
   flex: 0 0 100px;
   border-bottom: 2px groove #eeede0;
@@ -525,6 +531,66 @@
 }
 .me5e .effects .item .effect-controls {
   border: none;
+}
+/* ----------------------------------------- */
+/* Trait Selector
+/* ----------------------------------------- */
+.modifiers {
+  max-height: 305px;
+  overflow-y: auto;
+  position: relative;
+}
+.modifiers .mod-group {
+  border-top: 2px groove #eeede0;
+}
+.modifiers .mod-group:first-child,
+.modifiers .mod-group:empty {
+  border-top: none;
+}
+.modifiers .mod-group.add-mod {
+  position: sticky;
+  bottom: 0;
+  background: url(../../ui/parchment.jpg) repeat;
+}
+.modifiers .mod-group .mod {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  align-items: center;
+  height: 60px;
+}
+.modifiers .mod-group .mod .mod-value {
+  height: fit-content;
+  padding: 0 7px;
+  min-width: 50px;
+  font-size: 30px;
+  text-align: center;
+}
+.modifiers .mod-group .mod .mod-form {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-items: stretch;
+  justify-content: space-evenly;
+  height: 60px;
+  flex-grow: 1;
+}
+.modifiers .mod-group .mod .mod-form input,
+.modifiers .mod-group .mod .mod-form select {
+  height: 25px;
+}
+.modifiers .mod-group .mod .mod-form .mod-title {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+}
+.modifiers .mod-group .mod .mod-form .mod-title select {
+  margin: 0 2px 0 3px;
+}
+.modifiers .mod-group .mod .mod-button {
+  width: 55px;
+  height: 55px;
+  padding: 0;
 }
 /* ----------------------------------------- */
 /* Trait Selector

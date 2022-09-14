@@ -1,0 +1,27 @@
+<form class="modifiers" autocomplete="off">
+    {{#each values}}
+        <div class="mod-group">
+            {{~#each this}}
+                {{> "me5e.modifier-input" this categories=../../categories}}
+            {{/each~}}
+        </div>
+    {{/each}}
+    <div class="mod-group add-mod">
+        <div class="mod">
+            <span class="mod-value">-</span>
+            <div class="mod-form">
+                <div class="mod-title">
+                    <input type="text" placeholder="{{localize "ME5E.ModifierConfigPlaceholderName"}}" name="add-name" value="">
+                    <select name="add-category">
+                        {{selectOptions categories selected="custom"}}
+                    </select>
+                </div>
+                <input type="text" placeholder="{{localize "ME5E.ModifierConfigPlaceholderFormula"}}" name="add-formula" value="">
+            </div>
+            <button class="mod-button" type="button" data-action="add" title="{{localize "ME5E.ModifierConfigTitleAdd"}}">
+                <i class="fas fa-plus"></i>
+            </button>
+        </div>
+    </div>
+</form>
+

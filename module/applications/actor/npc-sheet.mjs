@@ -1,4 +1,5 @@
 import ActorSheet5e from "./base-sheet.mjs";
+import ActorTypeConfig from "./type-config.mjs";
 
 /**
  * An Actor sheet for NPC type characters.
@@ -131,6 +132,23 @@ export default class ActorSheet5eNPC extends ActorSheet5e {
   activateListeners(html) {
     super.activateListeners(html);
     html.find(".health .rollable").click(this._onRollHPFormula.bind(this));
+  }
+
+  /* -------------------------------------------- */
+
+  _onConfigMenu(event) {
+    event.preventDefault();
+    const button = event.currentTarget;
+    let app;
+    switch ( button.dataset.action ) {
+      case "type":
+        app = new ActorTypeConfig(this.actor);
+        break;
+      default:
+        super._onConfigMenu(event);
+        return;
+    }
+    app?.render(true);
   }
 
   /* -------------------------------------------- */

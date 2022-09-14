@@ -2,24 +2,24 @@ import ActorModifierConfig from "./modifier-config.mjs";
 import Modifier5e from "../../modifiers/modifier.mjs";
 
 /**
- * A simple form to set init configuration.
+ * A simple form to set hp configuration.
  * @extends {DocumentSheet}
  * @param {Actor} actor                   The Actor instance being displayed within the sheet.
  * @param {ApplicationOptions} options    Additional application configuration options.
  */
-export default class ActorInitConfig extends DocumentSheet {
+export default class ActorHitPointsConfig extends DocumentSheet {
 
   constructor(actor, opts) {
     super(actor, opts);
 
-    this.modifiers = new ActorModifierConfig(actor, opts, Modifier5e.targets.init, this);
+    this.modifiers = new ActorModifierConfig(actor, opts, Modifier5e.targets.hp, this);
   }
 
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       classes: ["me5e"],
-      template: "systems/me5e/templates/apps/init-config.hbs",
+      template: "systems/me5e/templates/apps/hp-config.hbs",
       width: 500,
       height: "auto"
     });
@@ -29,7 +29,7 @@ export default class ActorInitConfig extends DocumentSheet {
 
   /** @inheritdoc */
   get title() {
-    return `${game.i18n.format("ME5E.SkillConfigureTitle", {skill: game.i18n.format("ME5E.Initiative")})}: ${this.document.name}`;
+    return `${game.i18n.format("ME5E.SkillConfigureTitle", {skill: game.i18n.format("ME5E.HitPoints")})}: ${this.document.name}`;
   }
 
   /* -------------------------------------------- */
@@ -49,9 +49,8 @@ export default class ActorInitConfig extends DocumentSheet {
     const src = this.document.toObject();
 
     return {
-      init: src.system.attributes.init || {},
+      hp: src.system.attributes.hp || {},
       abilities: CONFIG.ME5E.abilities,
-      bonusGlobal: src.system.bonuses?.skill
     };
   }
 

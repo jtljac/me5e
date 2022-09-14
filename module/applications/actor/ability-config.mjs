@@ -5,10 +5,15 @@
  * @param {ApplicationOptions} options  Additional application configuration options.
  * @param {string} abilityId            The ability key as defined in CONFIG.ME5E.abilities.
  */
+import ActorModifierConfig from "./modifier-config.mjs";
+import Modifier5e from "../../modifiers/modifier.mjs";
+
 export default class ActorAbilityConfig extends DocumentSheet {
   constructor(actor, options, abilityId) {
     super(actor, options);
     this._abilityId = abilityId;
+
+    this.modifiers = new ActorModifierConfig(actor, options, Modifier5e.targets[abilityId], this);
   }
 
   /* -------------------------------------------- */
@@ -32,6 +37,16 @@ export default class ActorAbilityConfig extends DocumentSheet {
 
   /* -------------------------------------------- */
 
+  /** @inheritdoc */
+  async _render(force, options) {
+    await super._render(force, options);
+
+    await this.modifiers._render(force, options);
+    this.setPosition();
+  }
+
+  /* -------------------------------------------- */
+
   /** @override */
   getData(options) {
     const src = this.object.toObject();
@@ -47,5 +62,13 @@ export default class ActorAbilityConfig extends DocumentSheet {
       bonusGlobalSave: src.system.bonuses?.abilities?.save,
       bonusGlobalCheck: src.system.bonuses?.abilities?.check
     };
+  }
+
+  /* -------------------------------------------- */
+
+  /** @override */
+  async _updateObject(event, formData) {
+    await this.modifiers._updateObject(event, this.modifiers._getSubmitData());
+    return await super._updateObject(event, formData);
   }
 }

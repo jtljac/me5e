@@ -1,0 +1,17 @@
+<div class="mod">
+    <span class="mod-value">{{this.value}}</span>
+    <div class="mod-form">
+        <div class="mod-title">
+            <input type="text" placeholder="{{localize "ME5E.ModifierConfigPlaceholderName"}}" name="name" value="{{this.name}}" {{disabled (not this.user)}}>
+            <select name="category" {{disabled (not this.user)}}>
+                {{selectOptions categories selected=this.category}}
+            </select>
+        </div>
+        <input type="text" placeholder="{{localize "ME5E.ModifierConfigPlaceholderFormula"}}" name="formula" value="{{this.formula}}" {{disabled (not this.user)}}>
+    </div>
+    {{#if this.user}}
+        <button class="mod-button" type="button" data-action="delete" title="{{localize "ME5E.ModifierConfigTitleDelete"}}">
+            <i class="fas fa-trash"></i>
+        </button>
+    {{/if}}
+</div>

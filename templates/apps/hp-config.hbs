@@ -1,0 +1,12 @@
+<form autocomplete="off">
+  <p class="notes">{{localize "ME5E.HitPointsConfigurationHint"}}</p>
+  <div class="form-group">
+    <label>{{ localize "ME5E.HitPointsAbility" }}</label>
+    <select name="system.attributes.hp.userAbility">
+      {{selectOptions abilities selected=hp.userAbility blank=(concat "Default (" (lookup abilities hp.defaultAbility) ")")}}
+    </select>
+  </div>
+  <h3 class="form-header">{{localize "ME5E.Modifiers"}}</h3>
+  <template id="modifiers"></template>
+  <button type="submit" name="submit" value="1"><i class="far fa-save"></i> {{ localize "Submit"}}</button>
+</form>

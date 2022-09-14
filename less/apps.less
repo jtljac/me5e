@@ -520,7 +520,81 @@
 }
 
 /* ----------------------------------------- */
-/* Trait Selector
+/* Modifier config                           */
+/* ----------------------------------------- */
+.modifiers {
+  max-height: 305px;
+  overflow-y: auto;
+    position: relative;
+
+  .mod-group {
+    border-top: 2px groove #eeede0;
+
+    &:first-child, &:empty {
+      border-top: none;
+    }
+
+    &.add-mod {
+      position: sticky;
+      bottom: 0;
+      background: url("ui/parchment.jpg") repeat
+    }
+
+    .mod {
+      display: flex;
+      flex-direction: row;
+      flex-wrap: nowrap;
+      align-items: center;
+
+      height: 60px;
+
+      .mod-value {
+        height: fit-content;
+        padding: 0 7px;
+
+        min-width: 50px;
+        font-size: 30px;
+
+        text-align: center;
+      }
+
+      .mod-form {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: nowrap;
+        justify-items: stretch;
+        justify-content: space-evenly;
+
+        height: 60px;
+
+        flex-grow: 1;
+
+        input, select {
+          height: 25px;
+        }
+
+        .mod-title {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: nowrap;
+
+          select {
+            margin: 0 2px 0 3px;
+          }
+        }
+      }
+
+      .mod-button {
+        width: 55px;
+        height: 55px;
+        padding: 0;
+      }
+    }
+  }
+}
+
+/* ----------------------------------------- */
+/* Trait Selector                            */
 /* ----------------------------------------- */
 
 .trait-selector {

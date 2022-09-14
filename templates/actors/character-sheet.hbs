@@ -52,7 +52,10 @@
             {{!-- Header Attributes --}}
             <ul class="attributes flexrow">
                 <li class="attribute health">
-                    <h4 class="attribute-name box-title">{{ localize "ME5E.HitPoints" }}</h4>
+                    <div class="attribute-name box-title">
+                        <h4 class="box-title">{{ localize "ME5E.HitPoints" }}</h4>
+                        <a class="config-button" data-action="hp" title="{{localize 'ME5E.HitPointsConfig'}}"><i class="fas fa-cog"></i></a>
+                    </div>
                     <div class="attribute-value multiple">
                         <input name="system.attributes.hp.value" type="number" step="any"
                             value="{{system.attributes.hp.value}}" placeholder="10"

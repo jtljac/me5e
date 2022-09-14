@@ -1,6 +1,8 @@
 import ActorSheet5e from "./base-sheet.mjs";
 import AdvancementConfirmationDialog from "../../advancement/advancement-confirmation-dialog.mjs";
 import AdvancementManager from "../../advancement/advancement-manager.mjs";
+import ActorHitDiceConfig from "./hit-dice-config.mjs";
+import ActorHitPointsConfig from "./hp-config.mjs";
 
 /**
  * An Actor sheet for player character type actors.
@@ -204,6 +206,28 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
     html.find(".short-rest").click(this._onShortRest.bind(this));
     html.find(".long-rest").click(this._onLongRest.bind(this));
     html.find(".rollable[data-action]").click(this._onSheetAction.bind(this));
+  }
+
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _onConfigMenu(event) {
+    event.preventDefault();
+    const button = event.currentTarget;
+    let app;
+    switch ( button.dataset.action ) {
+      case "hit-dice":
+        app = new ActorHitDiceConfig(this.actor);
+        break;
+      case "hp": {
+        app = new ActorHitPointsConfig(this.actor, null);
+        break;
+      }
+      default:
+        super._onConfigMenu(event);
+        return;
+    }
+    app?.render(true);
   }
 
   /* -------------------------------------------- */

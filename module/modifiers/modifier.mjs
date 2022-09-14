@@ -67,15 +67,15 @@ export default class Modifier5e {
     if (!data.name) throw new Error("A modifier must be constructed with a name");
     this.name = data.name;
 
-    if (data.category && !Object.values(CONFIG.ME5E.ModifierCategories).includes(data.category)) {
+    if (data.category && !Object.keys(CONFIG.ME5E.ModifierCategories).includes(data.category)) {
       throw new Error(`Unknown Modifier Category: ${data.category}`);
     }
-    this.category = data.category || CONFIG.ME5E.ModifierCategories.custom;
+    this.category = data.category || "custom";
 
     if (!data.formula) throw new Error("A modifier must be constructed with a formula");
     this.formula = data.formula;
 
-    this.user = user || true;
+    this.user = user ?? true;
   }
 
   /**

@@ -96,8 +96,8 @@ export default class Character5e extends Creature5e {
        return  a.category.localeCompare(b.category);
       }
 
-      const aCat = Object.values(CONFIG.ME5E.ModifierCategories).indexOf(a.category);
-      const bCat = Object.values(CONFIG.ME5E.ModifierCategories).indexOf(b.category);
+      const aCat = Object.values(CONFIG.ME5E.ModifierCategories).indexOf(CONFIG.ME5E.ModifierCategories[a.category]);
+      const bCat = Object.values(CONFIG.ME5E.ModifierCategories).indexOf(CONFIG.ME5E.ModifierCategories[b.category]);
       return aCat-bCat;
     });
 
@@ -112,10 +112,16 @@ export default class Character5e extends Creature5e {
   /** @inheritDoc */
   _prepareAbilities(bonusData, globalBonuses, checkBonus) {
     for (const [id, abl] of Object.entries(this.system.abilities)) {
-      const change = this._prepareModifiers(Modifier5e.targets[id]);
+      abl.mods.mods.push(new Modifier5e({
+          name: game.i18n.localize("ME5E.ModifierNameAbilityBase"),
+          category: "base",
+          formula: `${abl.value}`
+        }, false));
 
-      if (change) {
-        abl.value += change;
+      const newScore = this._prepareModifiers(Modifier5e.targets[id]);
+
+      if (abl.value !== newScore) {
+        abl.value = newScore;
         this.overrides[`system.abilities.${id}.value`] = abl.value;
       }
     }
@@ -134,7 +140,7 @@ export default class Character5e extends Creature5e {
     hp.mods.mods.push(new Modifier5e(
       {
         name: CONFIG.ME5E.abilities[hp.ability],
-        category: CONFIG.ME5E.ModifierCategories.attribute,
+        category: "attribute",
         formula: `@system.abilities.${hp.ability}.mod * @system.details.level`
       }, false
     ));
