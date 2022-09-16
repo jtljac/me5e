@@ -722,7 +722,7 @@ preLocalize("healingTypes");
  * Denominations of hit dice which can apply to classes.
  * @type {string[]}
  */
-ME5E.hitDieTypes = ["d6", "d8", "d10", "d12"];
+ME5E.hitDieTypes = ["d4", "d6", "d8", "d10", "d12"];
 
 /* -------------------------------------------- */
 
