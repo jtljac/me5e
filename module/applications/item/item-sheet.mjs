@@ -401,7 +401,7 @@ export default class ItemSheet5e extends ItemSheet {
       if ( !match ) {
         formData.system.identifier = this.item._source.system.identifier;
         this.form.querySelector("input[name='system.identifier']").value = formData.system.identifier;
-        return ui.notifications.error(game.i18n.localize("DND5E.IdentifierError"));
+        return ui.notifications.error(game.i18n.localize("ME5E.IdentifierError"));
       }
     }
 
@@ -534,14 +534,14 @@ export default class ItemSheet5e extends ItemSheet {
     
     /**
      * A hook event that fires when some useful data is dropped onto an ItemSheet5e.
-     * @function dnd5e.dropItemSheetData
+     * @function me5e.dropItemSheetData
      * @memberof hookEvents
      * @param {Item5e} item                  The Item5e
      * @param {ItemSheet5e} sheet            The ItemSheet5e application
      * @param {object} data                  The data that has been dropped onto the sheet
      * @returns {boolean}                    Explicitly return `false` to prevent normal drop handling.
      */
-    const allowed = Hooks.call("dnd5e.dropItemSheetData", item, this, data);
+    const allowed = Hooks.call("me5e.dropItemSheetData", item, this, data);
     if ( allowed === false ) return;
 
     switch ( data.type ) {
