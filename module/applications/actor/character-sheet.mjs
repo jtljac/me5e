@@ -416,13 +416,14 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
   _getSubmitData(updateData = {}) {
     const data = super._getSubmitData(updateData);
 
+    // Filter out any ability value changes that exceed the maximum
     for (const id of Object.keys(this.object.system.abilities)) {
       const key = `system.abilities.${id}.value`;
       const value = data[key];
 
       if (value !== undefined && value > this.object.system.abilities[id].max) {
         delete data[key];
-        ui.notification.warn(game.i18n.localize("ME5E.AbilityExceedMaxWarn", {ability: id, max: this.object.system.abilities[id].max}));
+        ui.notifications.warn(game.i18n.format("ME5E.AbilityExceedMaxWarn", {ability: CONFIG.ME5E.abilities[id], max: this.object.system.abilities[id].max}));
       }
     }
   }

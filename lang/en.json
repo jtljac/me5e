@@ -65,7 +65,7 @@
 "ME5E.AbilityConfigurationHint": "Configure ability saving throw proficiency, saving throw bonuses, and check bonuses.",
 "ME5E.AbilityCheckBonus": "Check Bonus",
 "ME5E.AbilityCheckGlobalBonusHint": "This bonus applies to all ability checks made by this actor.",
-"ME5E.AbilityExceedMaxWarn": "{ability} cannot be greater than {max}",
+"ME5E.AbilityExceedMaxWarn": "You cannot set {ability} to be greater than {max}",
 "ME5E.Action": "Action",
 "ME5E.ActionPl": "Actions",
 "ME5E.ActionAbil": "Ability Check",
