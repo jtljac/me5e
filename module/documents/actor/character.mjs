@@ -112,6 +112,7 @@ export default class Character5e extends Creature5e {
   /** @inheritDoc */
   _prepareAbilities(bonusData, globalBonuses, checkBonus) {
     for (const [id, abl] of Object.entries(this.system.abilities)) {
+      // Add the base value so it shows up nicely in the modifiers UI
       abl.mods.mods.push(new Modifier5e({
           name: game.i18n.localize("ME5E.ModifierNameAbilityBase"),
           category: "base",
@@ -120,8 +121,10 @@ export default class Character5e extends Creature5e {
 
       const newScore = this._prepareModifiers(Modifier5e.targets[id]);
 
-      if (abl.value !== newScore) {
-        abl.value = newScore;
+      // Ensure the ability isn't greater than it's max
+      abl.value = Math.min(newScore, abl.max);
+
+      if (abl.value !== this._source.system.abilities[id].value) {
         this.overrides[`system.abilities.${id}.value`] = abl.value;
       }
     }

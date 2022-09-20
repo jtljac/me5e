@@ -407,4 +407,23 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
     }
     return super._onDropSingleItem(itemData);
   }
+
+  /* -------------------------------------------- */
+  /*  Data Submission                             */
+  /* -------------------------------------------- */
+
+  /** @inheritDoc */
+  _getSubmitData(updateData = {}) {
+    const data = super._getSubmitData(updateData);
+
+    for (const id of Object.keys(this.object.system.abilities)) {
+      const key = `system.abilities.${id}.value`;
+      const value = data[key];
+
+      if (value !== undefined && value > this.object.system.abilities[id].max) {
+        delete data[key];
+        ui.notification.warn(game.i18n.localize("ME5E.AbilityExceedMaxWarn", {ability: id, max: this.object.system.abilities[id].max}));
+      }
+    }
+  }
 }
