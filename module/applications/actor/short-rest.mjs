@@ -102,7 +102,7 @@ export default class ShortRestDialog extends Dialog {
             label: game.i18n.localize("ME5E.Rest"),
             callback: html => {
               let newDay = false;
-              if (game.settings.get("me5e", "restVariant") === "gritty") {
+              if ( game.settings.get("me5e", "restVariant") !== "epic" ) {
                 newDay = html.find('input[name="newDay"]')[0].checked;
               }
               resolve(newDay);

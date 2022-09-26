@@ -137,7 +137,7 @@ export default class ActorSheet5eCharacter extends ActorSheet5e {
       const message = game.i18n.format("ME5E.SubclassMismatchWarn", {
         name: subclass.name, class: subclass.system.classIdentifier
       });
-      this.actor._preparationWarnings.push({ message, type: "warning" });
+      context.warnings.push({ message, type: "warning" });
     }
 
     // Organize Features

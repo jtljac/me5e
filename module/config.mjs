@@ -564,31 +564,47 @@ ME5E.currencies = {
 preLocalize("currencies", { keys: ["label", "abbreviation"] });
 
 /* -------------------------------------------- */
+/*  Damage Types                                */
+/* -------------------------------------------- */
+
+/**
+ * Types of damage that are considered physical.
+ * @enum {string}
+ */
+ME5E.physicalDamageTypes = {
+  bludgeoning: "ME5E.DamageBludgeoning",
+  piercing: "ME5E.DamagePiercing",
+  slashing: "ME5E.DamageSlashing"
+};
+preLocalize("physicalDamageTypes", { sort: true });
+
+/* -------------------------------------------- */
 
 /**
  * Types of damage the can be caused by abilities.
  * @enum {string}
  */
 ME5E.damageTypes = {
+  ...ME5E.physicalDamageTypes,
   acid: "ME5E.DamageAcid",
-  bludgeoning: "ME5E.DamageBludgeoning",
   cold: "ME5E.DamageCold",
   fire: "ME5E.DamageFire",
   force: "ME5E.DamageForce",
   lightning: "ME5E.DamageLightning",
   necrotic: "ME5E.DamageNecrotic",
-  piercing: "ME5E.DamagePiercing",
   poison: "ME5E.DamagePoison",
   psychic: "ME5E.DamagePsychic",
   radiant: "ME5E.DamageRadiant",
-  slashing: "ME5E.DamageSlashing",
   thunder: "ME5E.DamageThunder"
 };
 preLocalize("damageTypes", { sort: true });
 
+/* -------------------------------------------- */
+
 /**
  * Types of damage to which an actor can possess resistance, immunity, or vulnerability.
  * @enum {string}
+ * @deprecated
  */
 ME5E.damageResistanceTypes = {
   ...ME5E.damageTypes,
@@ -596,6 +612,8 @@ ME5E.damageResistanceTypes = {
 };
 preLocalize("damageResistanceTypes", { sort: true });
 
+/* -------------------------------------------- */
+/*  Movement                                    */
 /* -------------------------------------------- */
 
 /**
@@ -788,6 +806,8 @@ ME5E.spellScalingModes = {
 preLocalize("spellScalingModes", { sort: true });
 
 /* -------------------------------------------- */
+/*  Weapon Details                              */
+/* -------------------------------------------- */
 
 /**
  * The set of types which a weapon item can take.
@@ -808,10 +828,25 @@ preLocalize("weaponTypes");
 /* -------------------------------------------- */
 
 /**
+ * A subset of weapon properties that determine the physical characteristics of the weapon.
+ * These properties are used for determining physical resistance bypasses.
+ * @enum {string}
+ */
+ME5E.physicalWeaponProperties = {
+  ada: "ME5E.WeaponPropertiesAda",
+  mgc: "ME5E.WeaponPropertiesMgc",
+  sil: "ME5E.WeaponPropertiesSil"
+};
+preLocalize("physicalWeaponProperties", { sort: true });
+
+/* -------------------------------------------- */
+
+/**
  * The set of weapon property flags which can exist on a weapon.
  * @enum {string}
  */
 ME5E.weaponProperties = {
+  ...ME5E.physicalWeaponProperties,
   arc: "ME5E.WeaponPropertiesArc",
   bur: "ME5E.WeaponPropertiesBur",
   dbt: "ME5E.WeaponPropertiesDbt",
@@ -832,6 +867,10 @@ ME5E.weaponProperties = {
   wgt: "ME5E.WeaponPropertiesWgt"
 };
 preLocalize("weaponProperties", { sort: true });
+
+/* -------------------------------------------- */
+/*  Spell Details                               */
+/* -------------------------------------------- */
 
 /**
  * Types of components that can be required when casting a spell.
