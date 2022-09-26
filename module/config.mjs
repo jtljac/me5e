@@ -833,9 +833,6 @@ preLocalize("weaponTypes");
  * @enum {string}
  */
 ME5E.physicalWeaponProperties = {
-  ada: "ME5E.WeaponPropertiesAda",
-  mgc: "ME5E.WeaponPropertiesMgc",
-  sil: "ME5E.WeaponPropertiesSil"
 };
 preLocalize("physicalWeaponProperties", { sort: true });
 

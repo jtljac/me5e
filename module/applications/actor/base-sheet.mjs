@@ -10,9 +10,6 @@ import ActorSheetFlags from "./sheet-flags.mjs";
 import ActorSkillConfig from "./skill-config.mjs";
 import ActorInitConfig from "./init-config.mjs";
 
-import AdvancementConfirmationDialog from "../../advancement/advancement-confirmation-dialog.mjs";
-import AdvancementManager from "../../advancement/advancement-manager.mjs";
-
 import DamageTraitSelector from "../damage-trait-selector.mjs";
 import ProficiencySelector from "../proficiency-selector.mjs";
 import PropertyAttribution from "../property-attribution.mjs";
@@ -376,7 +373,7 @@ export default class ActorSheet5e extends ActorSheet {
       dv: CONFIG.ME5E.damageResistanceTypes,
       ci: CONFIG.ME5E.conditionTypes
     };
-    const config = CONFIG.DND5E;
+    const config = CONFIG.ME5E;
     for ( const [key, choices] of Object.entries(map) ) {
       const trait = traits[key];
       if ( !trait ) continue;
@@ -402,7 +399,7 @@ export default class ActorSheet5e extends ActorSheet {
       if ( physical.length ) {
         const damageTypesFormatter = new Intl.ListFormat(game.i18n.lang, { style: "long", type: "conjunction" });
         const bypassFormatter = new Intl.ListFormat(game.i18n.lang, { style: "long", type: "disjunction" });
-        trait.selected.physical = game.i18n.format("DND5E.DamagePhysicalBypasses", {
+        trait.selected.physical = game.i18n.format("ME5E.DamagePhysicalBypasses", {
           damageTypes: damageTypesFormatter.format(physical.map(t => choices[t])),
           bypassTypes: bypassFormatter.format(trait.bypasses.map(t => config.physicalWeaponProperties[t]))
         });

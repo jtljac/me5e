@@ -481,6 +481,7 @@ export default class Character5e extends Creature5e {
    * @property {object[]} updateItems  Updates applied to actor's items.
    * @property {boolean} longRest      Whether the rest type was a long rest.
    * @property {boolean} newDay        Whether a new day occurred during the rest.
+   * @property {Roll[]} rolls          Any rolls that occurred during the rest process, not including hit dice.
    */
 
   /* -------------------------------------------- */
@@ -572,6 +573,7 @@ export default class Character5e extends Creature5e {
     let hitPointUpdates = {};
     let hitDiceRecovered = 0;
     let hitDiceUpdates = [];
+    const rolls = [];
 
     // Recover hit points & hit dice on long rest
     if ( longRest ) {
@@ -590,11 +592,12 @@ export default class Character5e extends Creature5e {
       },
       updateItems: [
         ...hitDiceUpdates,
-        ...this._getRestItemUsesRecovery({ recoverLongRestUses: longRest, recoverDailyUses: newDay })
+        ...await this._getRestItemUsesRecovery({ recoverLongRestUses: longRest, recoverDailyUses: newDay, rolls })
       ],
       longRest,
       newDay
     };
+    result.rolls = rolls;
 
     /**
      * A hook event that fires after rest result is calculated, but before any updates are performed.
@@ -652,9 +655,15 @@ export default class Character5e extends Creature5e {
     // Summarize the rest duration
     let restFlavor;
     switch (game.settings.get("me5e", "restVariant")) {
-      case "normal": restFlavor = (longRest && newDay) ? "ME5E.LongRestOvernight" : `ME5E.${length}RestNormal`; break;
-      case "gritty": restFlavor = (!longRest && newDay) ? "ME5E.ShortRestOvernight" : `ME5E.${length}RestGritty`; break;
-      case "epic": restFlavor = `ME5E.${length}RestEpic`; break;
+      case "normal":
+        restFlavor = (longRest && newDay) ? "ME5E.LongRestOvernight" : `ME5E.${length}RestNormal`;
+        break;
+      case "gritty":
+        restFlavor = (!longRest && newDay) ? "ME5E.ShortRestOvernight" : `ME5E.${length}RestGritty`;
+        break;
+      case "epic":
+        restFlavor = `ME5E.${length}RestEpic`;
+        break;
     }
 
     // Determine the chat message to display
@@ -669,6 +678,7 @@ export default class Character5e extends Creature5e {
       user: game.user.id,
       speaker: {actor: this, alias: this.name},
       flavor: game.i18n.localize(restFlavor),
+      rolls: result.rolls,
       content: game.i18n.format(message, {
         name: this.name,
         dice: longRest ? dhd : -dhd,
@@ -750,7 +760,7 @@ export default class Character5e extends Creature5e {
    * @returns {object}                               Updates to the actor.
    * @protected
    */
-  _getRestSpellRecovery({ recoverPact=true, recoverSpells=true }={}) {
+  _getRestSpellRecovery({recoverPact=true, recoverSpells=true}={}) {
     const spells = this.system.spells;
     let updates = {};
     if ( recoverPact ) {
@@ -775,7 +785,7 @@ export default class Character5e extends Creature5e {
    * @returns {object}                     Array of item updates and number of hit dice recovered.
    * @protected
    */
-  _getRestHitDiceRecovery({maxHitDice=undefined}={}) {
+  _getRestHitDiceRecovery({maxHitDice}={}) {
 
     // Determine the number of hit dice which may be recovered
     if ( maxHitDice === undefined ) maxHitDice = Math.max(Math.floor(this.system.details.level / 2), 1);
@@ -803,26 +813,62 @@ export default class Character5e extends Creature5e {
 
   /**
    * Recovers item uses during short or long rests.
-   *
    * @param {object} [options]
    * @param {boolean} [options.recoverShortRestUses=true]  Recover uses for items that recharge after a short rest.
    * @param {boolean} [options.recoverLongRestUses=true]   Recover uses for items that recharge after a long rest.
    * @param {boolean} [options.recoverDailyUses=true]      Recover uses for items that recharge on a new day.
-   * @returns {Array<object>}                              Array of item updates.
+   * @param {Roll[]} [options.rolls]                       Rolls that have been performed as part of this rest.
+   * @returns {Promise<object[]>}                          Array of item updates.
    * @protected
    */
-  _getRestItemUsesRecovery({ recoverShortRestUses=true, recoverLongRestUses=true, recoverDailyUses=true }={}) {
+  async _getRestItemUsesRecovery({recoverShortRestUses=true, recoverLongRestUses=true,
+    recoverDailyUses=true, rolls}={}) {
     let recovery = [];
     if ( recoverShortRestUses ) recovery.push("sr");
     if ( recoverLongRestUses ) recovery.push("lr");
     if ( recoverDailyUses ) recovery.push("day");
     let updates = [];
     for ( let item of this.items ) {
-      if ( recovery.includes(item.system.uses?.per) ) {
-        updates.push({_id: item.id, "system.uses.value": item.system.uses.max});
+      const uses = item.system.uses;
+      if ( recovery.includes(uses?.per) ) {
+        updates.push({_id: item.id, "system.uses.value": uses.max});
       }
       if ( recoverLongRestUses && item.system.recharge?.value ) {
         updates.push({_id: item.id, "system.recharge.charged": true});
+      }
+
+
+
+      // Items that roll to gain charges on a new day
+      if ( recoverDailyUses && uses?.recovery && (uses?.per === "charges") ) {
+        const roll = new Roll(uses.recovery, this.getRollData());
+        if ( recoverLongRestUses && (game.settings.get("me5e", "restVariant") === "gritty") ) {
+          roll.alter(7, 0, {multiplyNumeric: true});
+        }
+
+        let total = 0;
+        try {
+          total = (await roll.evaluate({async: true})).total;
+        } catch (err) {
+          ui.notifications.warn(game.i18n.format("ME5E.ItemRecoveryFormulaWarning", {
+            name: item.name,
+            formula: uses.recovery
+          }));
+        }
+
+        const newValue = Math.clamped(uses.value + total, 0, uses.max);
+        if ( newValue !== uses.value ) {
+          const diff = newValue - uses.value;
+          const isMax = newValue === uses.max;
+          const locKey = `ME5E.Item${diff < 0 ? "Loss" : "Recovery"}Roll${isMax ? "Max" : ""}`;
+          updates.push({_id: item.id, "system.uses.value": newValue});
+          rolls.push(roll);
+          await roll.toMessage({
+            user: game.user.id,
+            speaker: {actor: this, alias: this.name},
+            flavor: game.i18n.format(locKey, {name: item.name, count: Math.abs(diff)})
+          });
+        }
       }
     }
     return updates;
