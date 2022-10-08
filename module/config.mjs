@@ -717,8 +717,6 @@ ME5E.encumbrance = {
  * @enum {string}
  */
 ME5E.individualTargetTypes = {
-  self:5E.TargetSelf",
-ME5E.individualTargetTypes = {
   self: "ME5E.TargetSelf",
   ally: "ME5E.TargetAlly",
   enemy: "ME5E.TargetEnemy",
