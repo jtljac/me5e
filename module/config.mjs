@@ -249,7 +249,7 @@ ME5E.abilityActivationTypes = {
   lair: "ME5E.LairActionLabel",
   crew: "ME5E.VehicleCrewAction"
 };
-preLocalize("abilityActivationTypes", { sort: true });
+preLocalize("abilityActivationTypes");
 
 /* -------------------------------------------- */
 
@@ -617,6 +617,18 @@ preLocalize("damageResistanceTypes", { sort: true });
 /* -------------------------------------------- */
 
 /**
+ * Different types of healing that can be applied using abilities.
+ * @enum {string}
+ */
+ME5E.healingTypes = {
+  healing: "ME5E.Healing",
+  temphp: "ME5E.HealingTemp"
+};
+preLocalize("healingTypes");
+
+/* -------------------------------------------- */
+
+/**
  * The valid units of measure for movement distances in the game system.
  * By default this uses the imperial units of feet and miles.
  * @enum {string}
@@ -629,6 +641,10 @@ ME5E.movementTypes = {
   walk: "ME5E.MovementWalk"
 };
 preLocalize("movementTypes", { sort: true });
+
+/* -------------------------------------------- */
+/*  Measurement                                 */
+/* -------------------------------------------- */
 
 /**
  * The valid units of measure for movement distances in the game system.
@@ -643,18 +659,31 @@ ME5E.movementUnits = {
 };
 preLocalize("movementUnits");
 
+/* -------------------------------------------- */
+
 /**
- * The valid units of measure for the range of an action or effect.
- * This object automatically includes the movement units from `ME5E.movementUnits`.
+ * The types of range that are used for measuring actions and effects.
+ * @enum {string}
+ */
+ME5E.rangeTypes = {
+  self: "ME5E.DistSelf",
+  touch: "ME5E.DistTouch",
+  spec: "ME5E.Special",
+  any: "ME5E.DistAny"
+};
+preLocalize("rangeTypes");
+
+/* -------------------------------------------- */
+
+/**
+ * The valid units of measure for the range of an action or effect. A combination of `ME5E.movementUnits` and
+ * `ME5E.rangeUnits`.
  * @enum {string}
  */
 ME5E.distanceUnits = {
   none: "ME5E.None",
-  self: "ME5E.DistSelf",
-  touch: "ME5E.DistTouch",
-  spec: "ME5E.Special",
-  any: "ME5E.DistAny",
-  ...ME5E.movementUnits
+  ...ME5E.movementUnits,
+  ...ME5E.rangeTypes
 };
 preLocalize("distanceUnits");
 
@@ -680,6 +709,77 @@ ME5E.encumbrance = {
 };
 
 /* -------------------------------------------- */
+/*  Targeting                                   */
+/* -------------------------------------------- */
+
+/**
+ * Targeting types that apply to one or more distinct targets.
+ * @enum {string}
+ */
+ME5E.individualTargetTypes = {
+  self:5E.TargetSelf",
+ME5E.individualTargetTypes = {
+  self: "ME5E.TargetSelf",
+  ally: "ME5E.TargetAlly",
+  enemy: "ME5E.TargetEnemy",
+  creature: "ME5E.TargetCreature",
+  object: "ME5E.TargetObject",
+  space: "ME5E.TargetSpace"
+};
+preLocalize("individualTargetTypes");
+
+/* -------------------------------------------- */
+
+/**
+ * Information needed to represent different area of effect target types.
+ *
+ * @typedef {object} AreaTargetDefinition
+ * @property {string} label     Localized label for this type.
+ * @property {string} template  Type of `MeasuredTemplate` create for this target type.
+ */
+
+/**
+ * Targeting types that cover an area.
+ * @enum {AreaTargetDefinition}
+ */
+ME5E.areaTargetTypes = {
+  radius: {
+    label: "ME5E.TargetRadius",
+    template: "circle"
+  },
+  sphere: {
+    label: "ME5E.TargetSphere",
+    template: "circle"
+  },
+  cylinder: {
+    label: "ME5E.TargetCylinder",
+    template: "circle"
+  },
+  cone: {
+    label: "ME5E.TargetCone",
+    template: "cone"
+  },
+  square: {
+    label: "ME5E.TargetSquare",
+    template: "rect"
+  },
+  cube: {
+    label: "ME5E.TargetCube",
+    template: "rect"
+  },
+  line: {
+    label: "ME5E.TargetLine",
+    template: "ray"
+  },
+  wall: {
+    label: "ME5E.TargetWall",
+    template: "ray"
+  }
+};
+preLocalize("areaTargetTypes", { key: "label", sort: true });
+patchConfig("areaTargetTypes", "template", { since: 2.0, until: 2.2 });
+
+/* -------------------------------------------- */
 
 /**
  * The types of single or area targets which can be applied to abilities.
@@ -687,52 +787,10 @@ ME5E.encumbrance = {
  */
 ME5E.targetTypes = {
   none: "ME5E.None",
-  self: "ME5E.TargetSelf",
-  creature: "ME5E.TargetCreature",
-  ally: "ME5E.TargetAlly",
-  enemy: "ME5E.TargetEnemy",
-  object: "ME5E.TargetObject",
-  space: "ME5E.TargetSpace",
-  radius: "ME5E.TargetRadius",
-  sphere: "ME5E.TargetSphere",
-  cylinder: "ME5E.TargetCylinder",
-  cone: "ME5E.TargetCone",
-  square: "ME5E.TargetSquare",
-  cube: "ME5E.TargetCube",
-  line: "ME5E.TargetLine",
-  wall: "ME5E.TargetWall"
+  ...ME5E.individualTargetTypes,
+  ...Object.fromEntries(Object.entries(ME5E.areaTargetTypes).map(([k, v]) => [k, v.label]))
 };
 preLocalize("targetTypes", { sort: true });
-
-/* -------------------------------------------- */
-
-/**
- * Mapping between `ME5E.targetTypes` and `MeasuredTemplate` shape types to define
- * which templates are produced by which area of effect target type.
- * @enum {string}
- */
-ME5E.areaTargetTypes = {
-  cone: "cone",
-  cube: "rect",
-  cylinder: "circle",
-  line: "ray",
-  radius: "circle",
-  sphere: "circle",
-  square: "rect",
-  wall: "ray"
-};
-
-/* -------------------------------------------- */
-
-/**
- * Different types of healing that can be applied using abilities.
- * @enum {string}
- */
-ME5E.healingTypes = {
-  healing: "ME5E.Healing",
-  temphp: "ME5E.HealingTemp"
-};
-preLocalize("healingTypes");
 
 /* -------------------------------------------- */
 
