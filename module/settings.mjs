@@ -133,45 +133,6 @@ export default function registerSystemSettings() {
         }
     });
 
-    // Allow Polymorphing
-    game.settings.register("me5e", "allowPolymorphing", {
-        name: "SETTINGS.5eAllowPolymorphingN",
-        hint: "SETTINGS.5eAllowPolymorphingL",
-        scope: "world",
-        config: true,
-        default: false,
-        type: Boolean
-    });
-
-    // Polymorph Settings
-    game.settings.register("me5e", "polymorphSettings", {
-        scope: "client",
-        default: {
-            keepPhysical: false,
-            keepMental: false,
-            keepSaves: false,
-            keepSkills: false,
-            mergeSaves: false,
-            mergeSkills: false,
-            keepClass: false,
-            keepFeats: false,
-            keepSpells: false,
-            keepItems: false,
-            keepBio: false,
-            keepVision: true,
-            keepSelf: false,
-            keepAE: false,
-            keepOriginAE: true,
-            keepOtherOriginAE: true,
-            keepFeatAE: true,
-            keepSpellAE: true,
-            keepEquipmentAE: true,
-            keepClassAE: true,
-            keepBackgroundAE: true,
-            transformTokens: true
-        }
-    });
-
     // Metric Unit Weights
     game.settings.register("me5e", "metricWeightUnits", {
         name: "SETTINGS.5eMetricN",

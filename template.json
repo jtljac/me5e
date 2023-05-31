@@ -281,12 +281,6 @@
           }
         },
         "tools": {},
-        "traits": {
-          "languages": {
-            "value": [],
-            "custom": ""
-          }
-        },
         "spells": {
           "spell1": {
             "value": 0,
