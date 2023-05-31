@@ -1,15 +1,17 @@
 /**
- * The DnD5e game system for Foundry Virtual Tabletop
- * A system for playing the fifth edition of the world's most popular role-playing game.
- * Author: Atropos
- * Software License: MIT
- * Content License: https://www.dndbeyond.com/attachments/39j2li89/SRD5.1-CCBY4.0License.pdf
- * Repository: https://github.com/foundryvtt/dnd5e
- * Issue Tracker: https://github.com/foundryvtt/dnd5e/issues
+ * The ME5e game system for Foundry Virtual Tabletop
+ * A system for playing the Mass Effect homebrew conversion of D&D5e.
+ * Author: jtljac
+ * Software License: GPLv3.0
+ * Content Licenses:
+  * SRD: https://www.dndbeyond.com/attachments/39j2li89/SRD5.1-CCBY4.0License.pdf
+  * ME5e: https://data.n7.world/OGL
+ * Repository: https://github.com/jtljac/me5e
+ * Issue Tracker: https://github.com/jtljac/me5e/issues
  */
 
 // Import Configuration
-import DND5E from "./module/config.mjs";
+import ME5E from "./module/config.mjs";
 import registerSystemSettings from "./module/settings.mjs";
 
 // Import Submodules
@@ -26,10 +28,10 @@ import {ModuleArt} from "./module/module-art.mjs";
 /*  Define Module Structure                     */
 /* -------------------------------------------- */
 
-globalThis.dnd5e = {
+globalThis.me5e = {
   applications,
   canvas,
-  config: DND5E,
+  config: ME5E,
   dataModels,
   dice,
   documents,
@@ -42,11 +44,11 @@ globalThis.dnd5e = {
 /* -------------------------------------------- */
 
 Hooks.once("init", function() {
-  globalThis.dnd5e = game.dnd5e = Object.assign(game.system, globalThis.dnd5e);
-  console.log(`DnD5e | Initializing the DnD5e Game System - Version ${dnd5e.version}\n${DND5E.ASCII}`);
+  globalThis.me5e = game.me5e = Object.assign(game.system, globalThis.me5e);
+  console.log(`ME5e | Initializing the ME5e Game System - Version ${me5e.version}\n${ME5E.ASCII}`);
 
   // Record Configuration Values
-  CONFIG.DND5E = DND5E;
+  CONFIG.ME5E = ME5E;
   CONFIG.ActiveEffect.documentClass = documents.ActiveEffect5e;
   CONFIG.Actor.documentClass = documents.Actor5e;
   CONFIG.Item.documentClass = documents.Item5e;
@@ -58,7 +60,7 @@ Hooks.once("init", function() {
   CONFIG.MeasuredTemplate.defaults.angle = 53.13; // 5e cone RAW should be 53.13 degrees
   CONFIG.ui.combat = applications.combat.CombatTracker5e;
   CONFIG.compatibility.excludePatterns.push(/\bActiveEffect5e#label\b/); // backwards compatibility with v10
-  game.dnd5e.isV10 = game.release.generation < 11;
+  game.me5e.isV10 = game.release.generation < 11;
 
   // Configure trackable attributes.
   _configureTrackableAttributes();
@@ -67,14 +69,14 @@ Hooks.once("init", function() {
   registerSystemSettings();
 
   // Validation strictness.
-  if ( game.dnd5e.isV10 ) _determineValidationStrictness();
+  if ( game.me5e.isV10 ) _determineValidationStrictness();
 
   // Configure module art.
-  game.dnd5e.moduleArt = new ModuleArt();
+  game.me5e.moduleArt = new ModuleArt();
 
   // Remove honor & sanity from configuration if they aren't enabled
-  if ( !game.settings.get("dnd5e", "honorScore") ) delete DND5E.abilities.hon;
-  if ( !game.settings.get("dnd5e", "sanityScore") ) delete DND5E.abilities.san;
+  if ( !game.settings.get("me5e", "honorScore") ) delete ME5E.abilities.hon;
+  if ( !game.settings.get("me5e", "sanityScore") ) delete ME5E.abilities.san;
 
   // Patch Core Functions
   Combatant.prototype.getInitiativeRoll = documents.combat.getInitiativeRoll;
@@ -84,41 +86,41 @@ Hooks.once("init", function() {
   CONFIG.Dice.rolls.push(dice.DamageRoll);
 
   // Hook up system data types
-  const modelType = game.dnd5e.isV10 ? "systemDataModels" : "dataModels";
+  const modelType = game.me5e.isV10 ? "systemDataModels" : "dataModels";
   CONFIG.Actor[modelType] = dataModels.actor.config;
   CONFIG.Item[modelType] = dataModels.item.config;
   CONFIG.JournalEntryPage[modelType] = dataModels.journal.config;
 
   // Register sheet application classes
   Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("dnd5e", applications.actor.ActorSheet5eCharacter, {
+  Actors.registerSheet("me5e", applications.actor.ActorSheet5eCharacter, {
     types: ["character"],
     makeDefault: true,
-    label: "DND5E.SheetClassCharacter"
+    label: "ME5E.SheetClassCharacter"
   });
-  Actors.registerSheet("dnd5e", applications.actor.ActorSheet5eNPC, {
+  Actors.registerSheet("me5e", applications.actor.ActorSheet5eNPC, {
     types: ["npc"],
     makeDefault: true,
-    label: "DND5E.SheetClassNPC"
+    label: "ME5E.SheetClassNPC"
   });
-  Actors.registerSheet("dnd5e", applications.actor.ActorSheet5eVehicle, {
+  Actors.registerSheet("me5e", applications.actor.ActorSheet5eVehicle, {
     types: ["vehicle"],
     makeDefault: true,
-    label: "DND5E.SheetClassVehicle"
+    label: "ME5E.SheetClassVehicle"
   });
-  Actors.registerSheet("dnd5e", applications.actor.GroupActorSheet, {
+  Actors.registerSheet("me5e", applications.actor.GroupActorSheet, {
     types: ["group"],
     makeDefault: true,
-    label: "DND5E.SheetClassGroup"
+    label: "ME5E.SheetClassGroup"
   });
 
   Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("dnd5e", applications.item.ItemSheet5e, {
+  Items.registerSheet("me5e", applications.item.ItemSheet5e, {
     makeDefault: true,
-    label: "DND5E.SheetClassItem"
+    label: "ME5E.SheetClassItem"
   });
-  DocumentSheetConfig.registerSheet(JournalEntryPage, "dnd5e", applications.journal.JournalClassPageSheet, {
-    label: "DND5E.SheetClassClassSummary",
+  DocumentSheetConfig.registerSheet(JournalEntryPage, "me5e", applications.journal.JournalClassPageSheet, {
+    label: "ME5E.SheetClassClassSummary",
     types: ["class"]
   });
 
@@ -132,7 +134,7 @@ Hooks.once("init", function() {
  * @internal
  */
 function _determineValidationStrictness() {
-  dataModels.SystemDataModel._enableV10Validation = game.settings.get("dnd5e", "strictValidation");
+  dataModels.SystemDataModel._enableV10Validation = game.settings.get("me5e", "strictValidation");
 }
 
 /**
@@ -143,9 +145,9 @@ async function _configureValidationStrictness() {
   if ( !game.user.isGM ) return;
   const invalidDocuments = game.actors.invalidDocumentIds.size + game.items.invalidDocumentIds.size
     + game.scenes.invalidDocumentIds.size;
-  const strictValidation = game.settings.get("dnd5e", "strictValidation");
+  const strictValidation = game.settings.get("me5e", "strictValidation");
   if ( invalidDocuments && strictValidation ) {
-    await game.settings.set("dnd5e", "strictValidation", false);
+    await game.settings.set("me5e", "strictValidation", false);
     game.socket.emit("reload");
     foundry.utils.debouncedReload();
   }
@@ -159,8 +161,8 @@ function _configureTrackableAttributes() {
   const common = {
     bar: [],
     value: [
-      ...Object.keys(DND5E.abilities).map(ability => `abilities.${ability}.value`),
-      ...Object.keys(DND5E.movementTypes).map(movement => `attributes.movement.${movement}`),
+      ...Object.keys(ME5E.abilities).map(ability => `abilities.${ability}.value`),
+      ...Object.keys(ME5E.movementTypes).map(movement => `attributes.movement.${movement}`),
       "attributes.ac.value", "attributes.init.total"
     ]
   };
@@ -169,8 +171,8 @@ function _configureTrackableAttributes() {
     bar: [...common.bar, "attributes.hp"],
     value: [
       ...common.value,
-      ...Object.keys(DND5E.skills).map(skill => `skills.${skill}.passive`),
-      ...Object.keys(DND5E.senses).map(sense => `attributes.senses.${sense}`),
+      ...Object.keys(ME5E.skills).map(skill => `skills.${skill}.passive`),
+      ...Object.keys(ME5E.senses).map(sense => `attributes.senses.${sense}`),
       "attributes.spelldc"
     ]
   };
@@ -203,15 +205,9 @@ function _configureTrackableAttributes() {
  * Prepare attribute lists.
  */
 Hooks.once("setup", function() {
-  CONFIG.DND5E.trackableAttributes = expandAttributeList(CONFIG.DND5E.trackableAttributes);
-  CONFIG.DND5E.consumableResources = expandAttributeList(CONFIG.DND5E.consumableResources);
-  game.dnd5e.moduleArt.registerModuleArt();
-
-  // Apply custom compendium styles to the SRD rules compendium.
-  if ( !game.dnd5e.isV10 ) {
-    const rules = game.packs.get("dnd5e.rules");
-    rules.applicationClass = applications.journal.SRDCompendium;
-  }
+  CONFIG.ME5E.trackableAttributes = expandAttributeList(CONFIG.ME5E.trackableAttributes);
+  CONFIG.ME5E.consumableResources = expandAttributeList(CONFIG.ME5E.consumableResources);
+  game.me5e.moduleArt.registerModuleArt();
 });
 
 /* --------------------------------------------- */
@@ -233,7 +229,7 @@ function expandAttributeList(attributes) {
 /**
  * Perform one-time pre-localization and sorting of some configuration objects
  */
-Hooks.once("i18nInit", () => utils.performPreLocalization(CONFIG.DND5E));
+Hooks.once("i18nInit", () => utils.performPreLocalization(CONFIG.ME5E));
 
 /* -------------------------------------------- */
 /*  Foundry VTT Ready                           */
@@ -243,12 +239,12 @@ Hooks.once("i18nInit", () => utils.performPreLocalization(CONFIG.DND5E));
  * Once the entire VTT framework is initialized, check to see if we should perform a data migration
  */
 Hooks.once("ready", function() {
-  if ( game.dnd5e.isV10 ) {
+  if ( game.me5e.isV10 ) {
     // Configure validation strictness.
     _configureValidationStrictness();
 
     // Apply custom compendium styles to the SRD rules compendium.
-    const rules = game.packs.get("dnd5e.rules");
+    const rules = game.packs.get("me5e.rules");
     rules.apps = [new applications.journal.SRDCompendium(rules)];
   }
 
@@ -262,9 +258,9 @@ Hooks.once("ready", function() {
 
   // Determine whether a system migration is required and feasible
   if ( !game.user.isGM ) return;
-  const cv = game.settings.get("dnd5e", "systemMigrationVersion") || game.world.flags.dnd5e?.version;
+  const cv = game.settings.get("me5e", "systemMigrationVersion") || game.world.flags.me5e?.version;
   const totalDocuments = game.actors.size + game.scenes.size + game.items.size;
-  if ( !cv && totalDocuments === 0 ) return game.settings.set("dnd5e", "systemMigrationVersion", game.system.version);
+  if ( !cv && totalDocuments === 0 ) return game.settings.set("me5e", "systemMigrationVersion", game.system.version);
   if ( cv && !isNewerVersion(game.system.flags.needsMigrationVersion, cv) ) return;
 
   // Perform the migration
@@ -279,7 +275,7 @@ Hooks.once("ready", function() {
 /* -------------------------------------------- */
 
 Hooks.on("canvasInit", gameCanvas => {
-  gameCanvas.grid.diagonalRule = game.settings.get("dnd5e", "diagonalMovement");
+  gameCanvas.grid.diagonalRule = game.settings.get("me5e", "diagonalMovement");
   SquareGrid.prototype.measureDistances = canvas.measureDistances;
 });
 
@@ -306,5 +302,5 @@ export {
   documents,
   migrations,
   utils,
-  DND5E
+  ME5E
 };

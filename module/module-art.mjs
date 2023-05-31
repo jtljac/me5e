@@ -1,3 +1,5 @@
+// TODO: Modify to allow defining attribution directly
+
 /**
  * @typedef {object} ModuleArtInfo
  * @property {string} actor         The path to the actor's portrait image.
@@ -47,7 +49,7 @@ export class ModuleArt {
 
     // Load system mapping.
     try {
-      const mapping = await foundry.utils.fetchJsonWithTimeout("systems/me5e/json/fa-token-mapping.json");
+      const mapping = await foundry.utils.fetchJsonWithTimeout("systems/me5e/json/token-mapping.json");
       const credit = `
         <em>
           Token artwork by
