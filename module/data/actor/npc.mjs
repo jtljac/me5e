@@ -1,4 +1,4 @@
-import { FormulaField } from "../fields.mjs";
+import {FormulaField} from "../fields.mjs";
 import AttributesFields from "./templates/attributes.mjs";
 import CreatureTemplate from "./templates/creature.mjs";
 import DetailsFields from "./templates/details.mjs";
@@ -41,143 +41,178 @@ import TraitsFields from "./templates/traits.mjs";
  */
 export default class NPCData extends CreatureTemplate {
 
-  /** @inheritdoc */
-  static _systemType = "npc";
+    /** @inheritdoc */
+    static _systemType = "npc";
 
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  static defineSchema() {
-    return this.mergeSchema(super.defineSchema(), {
-      attributes: new foundry.data.fields.SchemaField({
-        ...AttributesFields.common,
-        ...AttributesFields.creature,
-        ac: new foundry.data.fields.SchemaField({
-          flat: new foundry.data.fields.NumberField({integer: true, min: 0, label: "ME5E.ArmorClassFlat"}),
-          calc: new foundry.data.fields.StringField({initial: "default", label: "ME5E.ArmorClassCalculation"}),
-          formula: new FormulaField({deterministic: true, label: "ME5E.ArmorClassFormula"})
-        }, {label: "ME5E.ArmorClass"}),
-        hp: new foundry.data.fields.SchemaField({
-          value: new foundry.data.fields.NumberField({
-            nullable: false, integer: true, min: 0, initial: 10, label: "ME5E.HitPointsCurrent"
-          }),
-          max: new foundry.data.fields.NumberField({
-            nullable: false, integer: true, min: 0, initial: 10, label: "ME5E.HitPointsMax"
-          }),
-          temp: new foundry.data.fields.NumberField({integer: true, initial: 0, min: 0, label: "ME5E.HitPointsTemp"}),
-          tempmax: new foundry.data.fields.NumberField({integer: true, initial: 0, label: "ME5E.HitPointsTempMax"}),
-          formula: new FormulaField({required: true, label: "ME5E.HPFormula"})
-        }, {label: "ME5E.HitPoints"})
-      }, {label: "ME5E.Attributes"}),
-      details: new foundry.data.fields.SchemaField({
-        ...DetailsFields.common,
-        ...DetailsFields.creature,
-        type: new foundry.data.fields.SchemaField({
-          value: new foundry.data.fields.StringField({required: true, blank: true, label: "ME5E.CreatureType"}),
-          subtype: new foundry.data.fields.StringField({required: true, label: "ME5E.CreatureTypeSelectorSubtype"}),
-          swarm: new foundry.data.fields.StringField({required: true, blank: true, label: "ME5E.CreatureSwarmSize"}),
-          custom: new foundry.data.fields.StringField({required: true, label: "ME5E.CreatureTypeSelectorCustom"})
-        }, {label: "ME5E.CreatureType"}),
-        environment: new foundry.data.fields.StringField({required: true, label: "ME5E.Environment"}),
-        cr: new foundry.data.fields.NumberField({
-          required: true, nullable: false, min: 0, initial: 1, label: "ME5E.ChallengeRating"
-        }),
-        spellLevel: new foundry.data.fields.NumberField({
-          required: true, nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.SpellcasterLevel"
-        }),
-        source: new foundry.data.fields.StringField({required: true, label: "ME5E.Source"})
-      }, {label: "ME5E.Details"}),
-      resources: new foundry.data.fields.SchemaField({
-        legact: new foundry.data.fields.SchemaField({
-          value: new foundry.data.fields.NumberField({
-            required: true, nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.LegActRemaining"
-          }),
-          max: new foundry.data.fields.NumberField({
-            required: true, nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.LegActMax"
-          })
-        }, {label: "ME5E.LegAct"}),
-        legres: new foundry.data.fields.SchemaField({
-          value: new foundry.data.fields.NumberField({
-            required: true, nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.LegResRemaining"
-          }),
-          max: new foundry.data.fields.NumberField({
-            required: true, nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.LegResMax"
-          })
-        }, {label: "ME5E.LegRes"}),
-        lair: new foundry.data.fields.SchemaField({
-          value: new foundry.data.fields.BooleanField({required: true, label: "ME5E.LairAct"}),
-          initiative: new foundry.data.fields.NumberField({
-            required: true, integer: true, label: "ME5E.LairActionInitiative"
-          })
-        }, {label: "ME5E.LairActionLabel"})
-      }, {label: "ME5E.Resources"}),
-      traits: new foundry.data.fields.SchemaField({
-        ...TraitsFields.common,
-        ...TraitsFields.creature
-      }, {label: "ME5E.Traits"})
-    });
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  static migrateData(source) {
-    super.migrateData(source);
-    NPCData.#migrateTypeData(source);
-    AttributesFields._migrateInitiative(source.attributes);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Migrate the actor type string to type object.
-   * @param {object} source  The candidate source data from which the model will be constructed.
-   */
-  static #migrateTypeData(source) {
-    const original = source.type;
-    if ( typeof original !== "string" ) return;
-
-    source.type = {
-      value: "",
-      subtype: "",
-      swarm: "",
-      custom: ""
-    };
-
-    // Match the existing string
-    const pattern = /^(?:swarm of (?<size>[\w-]+) )?(?<type>[^(]+?)(?:\((?<subtype>[^)]+)\))?$/i;
-    const match = original.trim().match(pattern);
-    if ( match ) {
-
-      // Match a known creature type
-      const typeLc = match.groups.type.trim().toLowerCase();
-      const typeMatch = Object.entries(CONFIG.ME5E.creatureTypes).find(([k, v]) => {
-        return (typeLc === k)
-          || (typeLc === game.i18n.localize(v).toLowerCase())
-          || (typeLc === game.i18n.localize(`${v}Pl`).toLowerCase());
-      });
-      if ( typeMatch ) source.type.value = typeMatch[0];
-      else {
-        source.type.value = "custom";
-        source.type.custom = match.groups.type.trim().titleCase();
-      }
-      source.type.subtype = match.groups.subtype?.trim().titleCase() ?? "";
-
-      // Match a swarm
-      if ( match.groups.size ) {
-        const sizeLc = match.groups.size ? match.groups.size.trim().toLowerCase() : "tiny";
-        const sizeMatch = Object.entries(CONFIG.ME5E.actorSizes).find(([k, v]) => {
-          return (sizeLc === k) || (sizeLc === game.i18n.localize(v).toLowerCase());
+    /** @inheritdoc */
+    static defineSchema() {
+        return this.mergeSchema(super.defineSchema(), {
+            attributes: new foundry.data.fields.SchemaField({
+                ...AttributesFields.common,
+                ...AttributesFields.creature,
+                ac: new foundry.data.fields.SchemaField({
+                    flat: new foundry.data.fields.NumberField({integer: true, min: 0, label: "ME5E.ArmorClassFlat"}),
+                    calc: new foundry.data.fields.StringField({
+                        initial: "default",
+                        label: "ME5E.ArmorClassCalculation"
+                    }),
+                    formula: new FormulaField({deterministic: true, label: "ME5E.ArmorClassFormula"})
+                }, {label: "ME5E.ArmorClass"}),
+                hp: new foundry.data.fields.SchemaField({
+                    value: new foundry.data.fields.NumberField({
+                        nullable: false, integer: true, min: 0, initial: 10, label: "ME5E.HitPointsCurrent"
+                    }),
+                    max: new foundry.data.fields.NumberField({
+                        nullable: false, integer: true, min: 0, initial: 10, label: "ME5E.HitPointsMax"
+                    }),
+                    temp: new foundry.data.fields.NumberField({
+                        integer: true,
+                        initial: 0,
+                        min: 0,
+                        label: "ME5E.HitPointsTemp"
+                    }),
+                    tempmax: new foundry.data.fields.NumberField({
+                        integer: true,
+                        initial: 0,
+                        label: "ME5E.HitPointsTempMax"
+                    }),
+                    formula: new FormulaField({required: true, label: "ME5E.HPFormula"})
+                }, {label: "ME5E.HitPoints"})
+            }, {label: "ME5E.Attributes"}),
+            details: new foundry.data.fields.SchemaField({
+                ...DetailsFields.common,
+                ...DetailsFields.creature,
+                type: new foundry.data.fields.SchemaField({
+                    value: new foundry.data.fields.StringField({
+                        required: true,
+                        blank: true,
+                        label: "ME5E.CreatureType"
+                    }),
+                    subtype: new foundry.data.fields.StringField({
+                        required: true,
+                        label: "ME5E.CreatureTypeSelectorSubtype"
+                    }),
+                    swarm: new foundry.data.fields.StringField({
+                        required: true,
+                        blank: true,
+                        label: "ME5E.CreatureSwarmSize"
+                    }),
+                    custom: new foundry.data.fields.StringField({
+                        required: true,
+                        label: "ME5E.CreatureTypeSelectorCustom"
+                    })
+                }, {label: "ME5E.CreatureType"}),
+                environment: new foundry.data.fields.StringField({required: true, label: "ME5E.Environment"}),
+                cr: new foundry.data.fields.NumberField({
+                    required: true, nullable: false, min: 0, initial: 1, label: "ME5E.ChallengeRating"
+                }),
+                spellLevel: new foundry.data.fields.NumberField({
+                    required: true, nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.SpellcasterLevel"
+                }),
+                source: new foundry.data.fields.StringField({required: true, label: "ME5E.Source"})
+            }, {label: "ME5E.Details"}),
+            resources: new foundry.data.fields.SchemaField({
+                legact: new foundry.data.fields.SchemaField({
+                    value: new foundry.data.fields.NumberField({
+                        required: true,
+                        nullable: false,
+                        integer: true,
+                        min: 0,
+                        initial: 0,
+                        label: "ME5E.LegActRemaining"
+                    }),
+                    max: new foundry.data.fields.NumberField({
+                        required: true, nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.LegActMax"
+                    })
+                }, {label: "ME5E.LegAct"}),
+                legres: new foundry.data.fields.SchemaField({
+                    value: new foundry.data.fields.NumberField({
+                        required: true,
+                        nullable: false,
+                        integer: true,
+                        min: 0,
+                        initial: 0,
+                        label: "ME5E.LegResRemaining"
+                    }),
+                    max: new foundry.data.fields.NumberField({
+                        required: true, nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.LegResMax"
+                    })
+                }, {label: "ME5E.LegRes"}),
+                lair: new foundry.data.fields.SchemaField({
+                    value: new foundry.data.fields.BooleanField({required: true, label: "ME5E.LairAct"}),
+                    initiative: new foundry.data.fields.NumberField({
+                        required: true, integer: true, label: "ME5E.LairActionInitiative"
+                    })
+                }, {label: "ME5E.LairActionLabel"})
+            }, {label: "ME5E.Resources"}),
+            traits: new foundry.data.fields.SchemaField({
+                ...TraitsFields.common,
+                ...TraitsFields.creature
+            }, {label: "ME5E.Traits"})
         });
-        source.type.swarm = sizeMatch ? sizeMatch[0] : "tiny";
-      }
-      else source.type.swarm = "";
     }
 
-    // No match found
-    else {
-      source.type.value = "custom";
-      source.type.custom = original;
+    /* -------------------------------------------- */
+
+    /** @inheritdoc */
+    static migrateData(source) {
+        super.migrateData(source);
+        NPCData.#migrateTypeData(source);
+        AttributesFields._migrateInitiative(source.attributes);
     }
-  }
+
+    /* -------------------------------------------- */
+
+    /**
+     * Migrate the actor type string to type object.
+     * @param {object} source  The candidate source data from which the model will be constructed.
+     */
+    static #migrateTypeData(source) {
+        const original = source.type;
+        if (typeof original !== "string") return;
+
+        source.type = {
+            value: "",
+            subtype: "",
+            swarm: "",
+            custom: ""
+        };
+
+        // Match the existing string
+        const pattern = /^(?:swarm of (?<size>[\w-]+) )?(?<type>[^(]+?)(?:\((?<subtype>[^)]+)\))?$/i;
+        const match = original.trim().match(pattern);
+        if (match) {
+
+            // Match a known creature type
+            const typeLc = match.groups.type.trim().toLowerCase();
+            const typeMatch = Object.entries(CONFIG.ME5E.creatureTypes).find(([k, v]) => {
+                return (typeLc === k)
+                    || (typeLc === game.i18n.localize(v).toLowerCase())
+                    || (typeLc === game.i18n.localize(`${v}Pl`).toLowerCase());
+            });
+            if (typeMatch) source.type.value = typeMatch[0];
+            else {
+                source.type.value = "custom";
+                source.type.custom = match.groups.type.trim().titleCase();
+            }
+            source.type.subtype = match.groups.subtype?.trim().titleCase() ?? "";
+
+            // Match a swarm
+            if (match.groups.size) {
+                const sizeLc = match.groups.size ? match.groups.size.trim().toLowerCase() : "tiny";
+                const sizeMatch = Object.entries(CONFIG.ME5E.actorSizes).find(([k, v]) => {
+                    return (sizeLc === k) || (sizeLc === game.i18n.localize(v).toLowerCase());
+                });
+                source.type.swarm = sizeMatch ? sizeMatch[0] : "tiny";
+            } else source.type.swarm = "";
+        }
+
+        // No match found
+        else {
+            source.type.value = "custom";
+            source.type.custom = original;
+        }
+    }
 }

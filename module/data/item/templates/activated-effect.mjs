@@ -1,5 +1,5 @@
 import SystemDataModel from "../../abstract.mjs";
-import { FormulaField } from "../../fields.mjs";
+import {FormulaField} from "../../fields.mjs";
 
 /**
  * Data model template for items that can be used as some sort of action.
@@ -32,245 +32,255 @@ import { FormulaField } from "../../fields.mjs";
  * @mixin
  */
 export default class ActivatedEffectTemplate extends foundry.abstract.DataModel {
-  /** @inheritdoc */
-  static defineSchema() {
-    return {
-      activation: new foundry.data.fields.SchemaField({
-        type: new foundry.data.fields.StringField({required: true, blank: true, label: "ME5E.ItemActivationType"}),
-        cost: new foundry.data.fields.NumberField({required: true, label: "ME5E.ItemActivationCost"}),
-        condition: new foundry.data.fields.StringField({required: true, label: "ME5E.ItemActivationCondition"})
-      }, {label: "ME5E.ItemActivation"}),
-      duration: new foundry.data.fields.SchemaField({
-        value: new FormulaField({required: true, deterministic: true, label: "ME5E.Duration"}),
-        units: new foundry.data.fields.StringField({required: true, blank: true, label: "ME5E.DurationType"})
-      }, {label: "ME5E.Duration"}),
-      cover: new foundry.data.fields.NumberField({
-        required: true, nullable: true, min: 0, max: 1, label: "ME5E.Cover"
-      }),
-      crewed: new foundry.data.fields.BooleanField({label: "ME5E.Crewed"}),
-      target: new foundry.data.fields.SchemaField({
-        value: new foundry.data.fields.NumberField({required: true, min: 0, label: "ME5E.TargetValue"}),
-        width: new foundry.data.fields.NumberField({required: true, min: 0, label: "ME5E.TargetWidth"}),
-        units: new foundry.data.fields.StringField({required: true, blank: true, label: "ME5E.TargetUnits"}),
-        type: new foundry.data.fields.StringField({required: true, blank: true, label: "ME5E.TargetType"})
-      }, {label: "ME5E.Target"}),
-      range: new foundry.data.fields.SchemaField({
-        value: new foundry.data.fields.NumberField({required: true, min: 0, label: "ME5E.RangeNormal"}),
-        long: new foundry.data.fields.NumberField({required: true, min: 0, label: "ME5E.RangeLong"}),
-        units: new foundry.data.fields.StringField({required: true, blank: true, label: "ME5E.RangeUnits"})
-      }, {label: "ME5E.Range"}),
-      uses: new this.ItemUsesField({}, {label: "ME5E.LimitedUses"}),
-      consume: new foundry.data.fields.SchemaField({
-        type: new foundry.data.fields.StringField({required: true, blank: true, label: "ME5E.ConsumeType"}),
-        target: new foundry.data.fields.StringField({
-          required: true, nullable: true, initial: null, label: "ME5E.ConsumeTarget"
-        }),
-        amount: new foundry.data.fields.NumberField({required: true, integer: true, label: "ME5E.ConsumeAmount"})
-      }, {label: "ME5E.ConsumeTitle"})
+    /** @inheritdoc */
+    static defineSchema() {
+        return {
+            activation: new foundry.data.fields.SchemaField({
+                type: new foundry.data.fields.StringField({
+                    required: true,
+                    blank: true,
+                    label: "ME5E.ItemActivationType"
+                }),
+                cost: new foundry.data.fields.NumberField({required: true, label: "ME5E.ItemActivationCost"}),
+                condition: new foundry.data.fields.StringField({required: true, label: "ME5E.ItemActivationCondition"})
+            }, {label: "ME5E.ItemActivation"}),
+            duration: new foundry.data.fields.SchemaField({
+                value: new FormulaField({required: true, deterministic: true, label: "ME5E.Duration"}),
+                units: new foundry.data.fields.StringField({required: true, blank: true, label: "ME5E.DurationType"})
+            }, {label: "ME5E.Duration"}),
+            cover: new foundry.data.fields.NumberField({
+                required: true, nullable: true, min: 0, max: 1, label: "ME5E.Cover"
+            }),
+            crewed: new foundry.data.fields.BooleanField({label: "ME5E.Crewed"}),
+            target: new foundry.data.fields.SchemaField({
+                value: new foundry.data.fields.NumberField({required: true, min: 0, label: "ME5E.TargetValue"}),
+                width: new foundry.data.fields.NumberField({required: true, min: 0, label: "ME5E.TargetWidth"}),
+                units: new foundry.data.fields.StringField({required: true, blank: true, label: "ME5E.TargetUnits"}),
+                type: new foundry.data.fields.StringField({required: true, blank: true, label: "ME5E.TargetType"})
+            }, {label: "ME5E.Target"}),
+            range: new foundry.data.fields.SchemaField({
+                value: new foundry.data.fields.NumberField({required: true, min: 0, label: "ME5E.RangeNormal"}),
+                long: new foundry.data.fields.NumberField({required: true, min: 0, label: "ME5E.RangeLong"}),
+                units: new foundry.data.fields.StringField({required: true, blank: true, label: "ME5E.RangeUnits"})
+            }, {label: "ME5E.Range"}),
+            uses: new this.ItemUsesField({}, {label: "ME5E.LimitedUses"}),
+            consume: new foundry.data.fields.SchemaField({
+                type: new foundry.data.fields.StringField({required: true, blank: true, label: "ME5E.ConsumeType"}),
+                target: new foundry.data.fields.StringField({
+                    required: true, nullable: true, initial: null, label: "ME5E.ConsumeTarget"
+                }),
+                amount: new foundry.data.fields.NumberField({
+                    required: true,
+                    integer: true,
+                    label: "ME5E.ConsumeAmount"
+                })
+            }, {label: "ME5E.ConsumeTitle"})
+        };
+    }
+
+    /* -------------------------------------------- */
+
+    /**
+     * Extension of SchemaField used to track item uses.
+     * @internal
+     */
+    static ItemUsesField = class ItemUsesField extends foundry.data.fields.SchemaField {
+        constructor(extraSchema, options) {
+            super(SystemDataModel.mergeSchema({
+                value: new foundry.data.fields.NumberField({
+                    required: true, min: 0, integer: true, label: "ME5E.LimitedUsesAvailable"
+                }),
+                max: new FormulaField({required: true, deterministic: true, label: "ME5E.LimitedUsesMax"}),
+                per: new foundry.data.fields.StringField({
+                    required: true, nullable: true, blank: false, initial: null, label: "ME5E.LimitedUsesPer"
+                }),
+                recovery: new FormulaField({required: true, label: "ME5E.RecoveryFormula"})
+            }, extraSchema), options);
+        }
     };
-  }
 
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Migrations                                  */
 
-  /**
-   * Extension of SchemaField used to track item uses.
-   * @internal
-   */
-  static ItemUsesField = class ItemUsesField extends foundry.data.fields.SchemaField {
-    constructor(extraSchema, options) {
-      super(SystemDataModel.mergeSchema({
-        value: new foundry.data.fields.NumberField({
-          required: true, min: 0, integer: true, label: "ME5E.LimitedUsesAvailable"
-        }),
-        max: new FormulaField({required: true, deterministic: true, label: "ME5E.LimitedUsesMax"}),
-        per: new foundry.data.fields.StringField({
-          required: true, nullable: true, blank: false, initial: null, label: "ME5E.LimitedUsesPer"
-        }),
-        recovery: new FormulaField({required: true, label: "ME5E.RecoveryFormula"})
-      }, extraSchema), options);
+    /* -------------------------------------------- */
+
+    /** @inheritdoc */
+    static migrateData(source) {
+        ActivatedEffectTemplate.#migrateFormulaFields(source);
+        ActivatedEffectTemplate.#migrateRanges(source);
+        ActivatedEffectTemplate.#migrateTargets(source);
+        ActivatedEffectTemplate.#migrateUses(source);
+        ActivatedEffectTemplate.#migrateConsume(source);
     }
-  };
 
-  /* -------------------------------------------- */
-  /*  Migrations                                  */
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  static migrateData(source) {
-    ActivatedEffectTemplate.#migrateFormulaFields(source);
-    ActivatedEffectTemplate.#migrateRanges(source);
-    ActivatedEffectTemplate.#migrateTargets(source);
-    ActivatedEffectTemplate.#migrateUses(source);
-    ActivatedEffectTemplate.#migrateConsume(source);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Ensure a 0 or null in max uses & durations are converted to an empty string rather than "0". Convert numbers into
-   * strings.
-   * @param {object} source  The candidate source data from which the model will be constructed.
-   */
-  static #migrateFormulaFields(source) {
-    if ( [0, "0", null].includes(source.uses?.max) ) source.uses.max = "";
-    else if ( typeof source.uses?.max === "number" ) source.uses.max = source.uses.max.toString();
-    if ( [0, "0", null].includes(source.duration?.value) ) source.duration.value = "";
-    else if ( typeof source.duration?.value === "number" ) source.duration.value = source.duration.value.toString();
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Fix issue with some imported range data that uses the format "100/400" in the range field,
-   * rather than splitting it between "range.value" & "range.long".
-   * @param {object} source  The candidate source data from which the model will be constructed.
-   */
-  static #migrateRanges(source) {
-    if ( !("range" in source) ) return;
-    if ( source.range.units === null ) source.range.units = "";
-    if ( typeof source.range.long === "string" ) {
-      if ( source.range.long === "" ) source.range.long = null;
-      else if ( Number.isNumeric(source.range.long) ) source.range.long = Number(source.range.long);
+    /**
+     * Ensure a 0 or null in max uses & durations are converted to an empty string rather than "0". Convert numbers into
+     * strings.
+     * @param {object} source  The candidate source data from which the model will be constructed.
+     */
+    static #migrateFormulaFields(source) {
+        if ([0, "0", null].includes(source.uses?.max)) source.uses.max = "";
+        else if (typeof source.uses?.max === "number") source.uses.max = source.uses.max.toString();
+        if ([0, "0", null].includes(source.duration?.value)) source.duration.value = "";
+        else if (typeof source.duration?.value === "number") source.duration.value = source.duration.value.toString();
     }
-    if ( typeof source.range.value !== "string" ) return;
-    if ( source.range.value === "" ) {
-      source.range.value = null;
-      return;
+
+    /* -------------------------------------------- */
+
+    /**
+     * Fix issue with some imported range data that uses the format "100/400" in the range field,
+     * rather than splitting it between "range.value" & "range.long".
+     * @param {object} source  The candidate source data from which the model will be constructed.
+     */
+    static #migrateRanges(source) {
+        if (!("range" in source)) return;
+        if (source.range.units === null) source.range.units = "";
+        if (typeof source.range.long === "string") {
+            if (source.range.long === "") source.range.long = null;
+            else if (Number.isNumeric(source.range.long)) source.range.long = Number(source.range.long);
+        }
+        if (typeof source.range.value !== "string") return;
+        if (source.range.value === "") {
+            source.range.value = null;
+            return;
+        }
+        const [value, long] = source.range.value.split("/");
+        if (Number.isNumeric(value)) source.range.value = Number(value);
+        if (Number.isNumeric(long)) source.range.long = Number(long);
     }
-    const [value, long] = source.range.value.split("/");
-    if ( Number.isNumeric(value) ) source.range.value = Number(value);
-    if ( Number.isNumeric(long) ) source.range.long = Number(long);
-  }
 
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
-  /**
-   * Ensure blank strings in targets are converted to null.
-   * @param {object} source  The candidate source data from which the model will be constructed.
-   */
-  static #migrateTargets(source) {
-    if ( source.target?.value === "" ) source.target.value = null;
-    if ( source.target?.units === null ) source.target.units = "";
-    if ( source.target?.type === null ) source.target.type = "";
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Ensure a blank string in uses.value is converted to null.
-   * @param {object} source  The candidate source data from which the model will be constructed.
-   */
-  static #migrateUses(source) {
-    if ( !("uses" in source) ) return;
-    const value = source.uses.value;
-    if ( typeof value === "string" ) {
-      if ( value === "" ) source.uses.value = null;
-      else if ( Number.isNumeric(value) ) source.uses.value = Number(source.uses.value);
+    /**
+     * Ensure blank strings in targets are converted to null.
+     * @param {object} source  The candidate source data from which the model will be constructed.
+     */
+    static #migrateTargets(source) {
+        if (source.target?.value === "") source.target.value = null;
+        if (source.target?.units === null) source.target.units = "";
+        if (source.target?.type === null) source.target.type = "";
     }
-    if ( source.uses.recovery === undefined ) source.uses.recovery = "";
-  }
 
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
-  /**
-   * Migrate the consume field.
-   * @param {object} source  The candidate source data from which the model will be constructed.
-   */
-  static #migrateConsume(source) {
-    if ( !("consume" in source) ) return;
-    if ( source.consume.type === null ) source.consume.type = "";
-    const amount = source.consume.amount;
-    if ( typeof amount === "string" ) {
-      if ( amount === "" ) source.consume.amount = null;
-      else if ( Number.isNumeric(amount) ) source.consume.amount = Number(amount);
+    /**
+     * Ensure a blank string in uses.value is converted to null.
+     * @param {object} source  The candidate source data from which the model will be constructed.
+     */
+    static #migrateUses(source) {
+        if (!("uses" in source)) return;
+        const value = source.uses.value;
+        if (typeof value === "string") {
+            if (value === "") source.uses.value = null;
+            else if (Number.isNumeric(value)) source.uses.value = Number(source.uses.value);
+        }
+        if (source.uses.recovery === undefined) source.uses.recovery = "";
     }
-  }
 
-  /* -------------------------------------------- */
-  /*  Getters                                     */
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
-  /**
-   * Chat properties for activated effects.
-   * @type {string[]}
-   */
-  get activatedEffectChatProperties() {
-    return [
-      this.parent.labels.activation + (this.activation.condition ? ` (${this.activation.condition})` : ""),
-      this.parent.labels.target,
-      this.parent.labels.range,
-      this.parent.labels.duration
-    ];
-  }
+    /**
+     * Migrate the consume field.
+     * @param {object} source  The candidate source data from which the model will be constructed.
+     */
+    static #migrateConsume(source) {
+        if (!("consume" in source)) return;
+        if (source.consume.type === null) source.consume.type = "";
+        const amount = source.consume.amount;
+        if (typeof amount === "string") {
+            if (amount === "") source.consume.amount = null;
+            else if (Number.isNumeric(amount)) source.consume.amount = Number(amount);
+        }
+    }
 
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Getters                                     */
 
-  /**
-   * Does the Item have an area of effect target?
-   * @type {boolean}
-   */
-  get hasAreaTarget() {
-    return this.target.type in CONFIG.ME5E.areaTargetTypes;
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
+    /**
+     * Chat properties for activated effects.
+     * @type {string[]}
+     */
+    get activatedEffectChatProperties() {
+        return [
+            this.parent.labels.activation + (this.activation.condition ? ` (${this.activation.condition})` : ""),
+            this.parent.labels.target,
+            this.parent.labels.range,
+            this.parent.labels.duration
+        ];
+    }
 
-  /**
-   * Does the Item target one or more distinct targets?
-   * @type {boolean}
-   */
-  get hasIndividualTarget() {
-    return this.target.type in CONFIG.ME5E.individualTargetTypes;
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
+    /**
+     * Does the Item have an area of effect target?
+     * @type {boolean}
+     */
+    get hasAreaTarget() {
+        return this.target.type in CONFIG.ME5E.areaTargetTypes;
+    }
 
-  /**
-   * Is this Item limited in its ability to be used by charges or by recharge?
-   * @type {boolean}
-   */
-  get hasLimitedUses() {
-    return !!this.uses.per && (this.uses.max > 0);
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
+    /**
+     * Does the Item target one or more distinct targets?
+     * @type {boolean}
+     */
+    get hasIndividualTarget() {
+        return this.target.type in CONFIG.ME5E.individualTargetTypes;
+    }
 
-  /**
-   * Does the Item duration accept an associated numeric value or formula?
-   * @type {boolean}
-   */
-  get hasScalarDuration() {
-    return this.duration.units in CONFIG.ME5E.scalarTimePeriods;
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
+    /**
+     * Is this Item limited in its ability to be used by charges or by recharge?
+     * @type {boolean}
+     */
+    get hasLimitedUses() {
+        return !!this.uses.per && (this.uses.max > 0);
+    }
 
-  /**
-   * Does the Item range accept an associated numeric value?
-   * @type {boolean}
-   */
-  get hasScalarRange() {
-    return this.range.units in CONFIG.ME5E.movementUnits;
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
+    /**
+     * Does the Item duration accept an associated numeric value or formula?
+     * @type {boolean}
+     */
+    get hasScalarDuration() {
+        return this.duration.units in CONFIG.ME5E.scalarTimePeriods;
+    }
 
-  /**
-   * Does the Item target accept an associated numeric value?
-   * @type {boolean}
-   */
-  get hasScalarTarget() {
-    return ![null, "", "self"].includes(this.target.type);
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
+    /**
+     * Does the Item range accept an associated numeric value?
+     * @type {boolean}
+     */
+    get hasScalarRange() {
+        return this.range.units in CONFIG.ME5E.movementUnits;
+    }
 
-  /**
-   * Does the Item have a target?
-   * @type {boolean}
-   */
-  get hasTarget() {
-    return !["", null].includes(this.target.type);
-  }
+    /* -------------------------------------------- */
+
+    /**
+     * Does the Item target accept an associated numeric value?
+     * @type {boolean}
+     */
+    get hasScalarTarget() {
+        return ![null, "", "self"].includes(this.target.type);
+    }
+
+    /* -------------------------------------------- */
+
+    /**
+     * Does the Item have a target?
+     * @type {boolean}
+     */
+    get hasTarget() {
+        return !["", null].includes(this.target.type);
+    }
 
 }

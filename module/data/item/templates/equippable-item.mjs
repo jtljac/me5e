@@ -6,61 +6,63 @@
  * @mixin
  */
 export default class EquippableItemTemplate extends foundry.abstract.DataModel {
-  /** @inheritdoc */
-  static defineSchema() {
-    return {
-      attunement: new foundry.data.fields.NumberField({
-        required: true, integer: true, initial: CONFIG.ME5E.attunementTypes.NONE, label: "ME5E.Attunement"
-      }),
-      equipped: new foundry.data.fields.BooleanField({required: true, label: "ME5E.Equipped"})
-    };
-  }
+    /** @inheritdoc */
+    static defineSchema() {
+        return {
+            attunement: new foundry.data.fields.NumberField({
+                required: true, integer: true, initial: CONFIG.ME5E.attunementTypes.NONE, label: "ME5E.Attunement"
+            }),
+            equipped: new foundry.data.fields.BooleanField({required: true, label: "ME5E.Equipped"})
+        };
+    }
 
-  /* -------------------------------------------- */
-  /*  Migrations                                  */
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Migrations                                  */
 
-  /** @inheritdoc */
-  static migrateData(source) {
-    EquippableItemTemplate.#migrateAttunement(source);
-    EquippableItemTemplate.#migrateEquipped(source);
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
+    /** @inheritdoc */
+    static migrateData(source) {
+        EquippableItemTemplate.#migrateAttunement(source);
+        EquippableItemTemplate.#migrateEquipped(source);
+    }
 
-  /**
-   * Migrate the item's attuned boolean to attunement string.
-   * @param {object} source  The candidate source data from which the model will be constructed.
-   */
-  static #migrateAttunement(source) {
-    if ( (source.attuned === undefined) || (source.attunement !== undefined) ) return;
-    source.attunement = source.attuned ? CONFIG.ME5E.attunementTypes.ATTUNED : CONFIG.ME5E.attunementTypes.NONE;
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
+    /**
+     * Migrate the item's attuned boolean to attunement string.
+     * @param {object} source  The candidate source data from which the model will be constructed.
+     */
+    static #migrateAttunement(source) {
+        if ((source.attuned === undefined) || (source.attunement !== undefined)) return;
+        source.attunement = source.attuned ? CONFIG.ME5E.attunementTypes.ATTUNED : CONFIG.ME5E.attunementTypes.NONE;
+    }
 
-  /**
-   * Migrate the equipped field.
-   * @param {object} source  The candidate source data from which the model will be constructed.
-   */
-  static #migrateEquipped(source) {
-    if ( (source.equipped === null) || (source.equipped === undefined) ) source.equipped = false;
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
-  /*  Getters                                     */
-  /* -------------------------------------------- */
+    /**
+     * Migrate the equipped field.
+     * @param {object} source  The candidate source data from which the model will be constructed.
+     */
+    static #migrateEquipped(source) {
+        if ((source.equipped === null) || (source.equipped === undefined)) source.equipped = false;
+    }
 
-  /**
-   * Chat properties for equippable items.
-   * @type {string[]}
-   */
-  get equippableItemChatProperties() {
-    const req = CONFIG.ME5E.attunementTypes.REQUIRED;
-    return [
-      this.attunement === req ? CONFIG.ME5E.attunements[req] : null,
-      game.i18n.localize(this.equipped ? "ME5E.Equipped" : "ME5E.Unequipped"),
-      ("proficient" in this) ? CONFIG.ME5E.proficiencyLevels[Number(this.proficient)] : null
-    ];
-  }
+    /* -------------------------------------------- */
+    /*  Getters                                     */
+
+    /* -------------------------------------------- */
+
+    /**
+     * Chat properties for equippable items.
+     * @type {string[]}
+     */
+    get equippableItemChatProperties() {
+        const req = CONFIG.ME5E.attunementTypes.REQUIRED;
+        return [
+            this.attunement === req ? CONFIG.ME5E.attunements[req] : null,
+            game.i18n.localize(this.equipped ? "ME5E.Equipped" : "ME5E.Unequipped"),
+            ("proficient" in this) ? CONFIG.ME5E.proficiencyLevels[Number(this.proficient)] : null
+        ];
+    }
 }

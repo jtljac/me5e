@@ -5,56 +5,56 @@ import BaseConfigSheet from "./base-config.mjs";
  */
 export default class ActorMovementConfig extends BaseConfigSheet {
 
-  /** @override */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["me5e"],
-      template: "systems/me5e/templates/apps/movement-config.hbs",
-      width: 300,
-      height: "auto"
-    });
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  get title() {
-    return `${game.i18n.localize("ME5E.MovementConfig")}: ${this.document.name}`;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @override */
-  getData(options={}) {
-    const source = this.document.toObject();
-
-    // Current movement values
-    const movement = source.system.attributes?.movement || {};
-    for ( let [k, v] of Object.entries(movement) ) {
-      if ( ["units", "hover"].includes(k) ) continue;
-      movement[k] = Number.isNumeric(v) ? v.toNearest(0.1) : 0;
+    /** @override */
+    static get defaultOptions() {
+        return foundry.utils.mergeObject(super.defaultOptions, {
+            classes: ["me5e"],
+            template: "systems/me5e/templates/apps/movement-config.hbs",
+            width: 300,
+            height: "auto"
+        });
     }
 
-    // Allowed speeds
-    const speeds = source.type === "group" ? {
-      land: "ME5E.MovementLand",
-      water: "ME5E.MovementWater",
-      air: "ME5E.MovementAir"
-    } : {
-      walk: "ME5E.MovementWalk",
-      burrow: "ME5E.MovementBurrow",
-      climb: "ME5E.MovementClimb",
-      fly: "ME5E.MovementFly",
-      swim: "ME5E.MovementSwim"
-    };
+    /* -------------------------------------------- */
 
-    // Return rendering context
-    return {
-      speeds,
-      movement,
-      selectUnits: source.type !== "group",
-      canHover: source.type !== "group",
-      units: CONFIG.ME5E.movementUnits
-    };
-  }
+    /** @override */
+    get title() {
+        return `${game.i18n.localize("ME5E.MovementConfig")}: ${this.document.name}`;
+    }
+
+    /* -------------------------------------------- */
+
+    /** @override */
+    getData(options = {}) {
+        const source = this.document.toObject();
+
+        // Current movement values
+        const movement = source.system.attributes?.movement || {};
+        for (let [k, v] of Object.entries(movement)) {
+            if (["units", "hover"].includes(k)) continue;
+            movement[k] = Number.isNumeric(v) ? v.toNearest(0.1) : 0;
+        }
+
+        // Allowed speeds
+        const speeds = source.type === "group" ? {
+            land: "ME5E.MovementLand",
+            water: "ME5E.MovementWater",
+            air: "ME5E.MovementAir"
+        } : {
+            walk: "ME5E.MovementWalk",
+            burrow: "ME5E.MovementBurrow",
+            climb: "ME5E.MovementClimb",
+            fly: "ME5E.MovementFly",
+            swim: "ME5E.MovementSwim"
+        };
+
+        // Return rendering context
+        return {
+            speeds,
+            movement,
+            selectUnits: source.type !== "group",
+            canHover: source.type !== "group",
+            units: CONFIG.ME5E.movementUnits
+        };
+    }
 }

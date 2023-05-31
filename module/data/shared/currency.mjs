@@ -1,4 +1,4 @@
-import { MappingField } from "../fields.mjs";
+import {MappingField} from "../fields.mjs";
 
 /**
  * A template for currently held currencies.
@@ -7,12 +7,12 @@ import { MappingField } from "../fields.mjs";
  * @mixin
  */
 export default class CurrencyTemplate extends foundry.abstract.DataModel {
-  /** @inheritdoc */
-  static defineSchema() {
-    return {
-      currency: new MappingField(new foundry.data.fields.NumberField({
-        required: true, nullable: false, integer: true, min: 0, initial: 0
-      }), {initialKeys: CONFIG.ME5E.currencies, initialKeysOnly: true, label: "ME5E.Currency"})
-    };
-  }
+    /** @inheritdoc */
+    static defineSchema() {
+        return {
+            currency: new MappingField(new foundry.data.fields.NumberField({
+                required: true, nullable: false, integer: true, min: 0, initial: 0
+            }), {initialKeys: CONFIG.ME5E.currencies, initialKeysOnly: true, label: "ME5E.Currency"})
+        };
+    }
 }

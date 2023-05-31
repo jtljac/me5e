@@ -1,5 +1,5 @@
 import SystemDataModel from "../abstract.mjs";
-import { FormulaField } from "../fields.mjs";
+import {FormulaField} from "../fields.mjs";
 import EquippableItemTemplate from "./templates/equippable-item.mjs";
 import ItemDescriptionTemplate from "./templates/item-description.mjs";
 import PhysicalItemTemplate from "./templates/physical-item.mjs";
@@ -18,63 +18,65 @@ import PhysicalItemTemplate from "./templates/physical-item.mjs";
  * @property {string} bonus       Bonus formula added to tool rolls.
  */
 export default class ToolData extends SystemDataModel.mixin(
-  ItemDescriptionTemplate, PhysicalItemTemplate, EquippableItemTemplate
+    ItemDescriptionTemplate, PhysicalItemTemplate, EquippableItemTemplate
 ) {
-  /** @inheritdoc */
-  static defineSchema() {
-    return this.mergeSchema(super.defineSchema(), {
-      toolType: new foundry.data.fields.StringField({required: true, label: "ME5E.ItemToolType"}),
-      baseItem: new foundry.data.fields.StringField({required: true, label: "ME5E.ItemToolBase"}),
-      ability: new foundry.data.fields.StringField({
-        required: true, blank: true, label: "ME5E.DefaultAbilityCheck"
-      }),
-      chatFlavor: new foundry.data.fields.StringField({required: true, label: "ME5E.ChatFlavor"}),
-      proficient: new foundry.data.fields.NumberField({
-        required: true, nullable: false, initial: 0, min: 0, label: "ME5E.ItemToolProficiency"
-      }),
-      bonus: new FormulaField({required: true, label: "ME5E.ItemToolBonus"})
-    });
-  }
+    /** @inheritdoc */
+    static defineSchema() {
+        return this.mergeSchema(super.defineSchema(), {
+            toolType: new foundry.data.fields.StringField({required: true, label: "ME5E.ItemToolType"}),
+            baseItem: new foundry.data.fields.StringField({required: true, label: "ME5E.ItemToolBase"}),
+            ability: new foundry.data.fields.StringField({
+                required: true, blank: true, label: "ME5E.DefaultAbilityCheck"
+            }),
+            chatFlavor: new foundry.data.fields.StringField({required: true, label: "ME5E.ChatFlavor"}),
+            proficient: new foundry.data.fields.NumberField({
+                required: true, nullable: false, initial: 0, min: 0, label: "ME5E.ItemToolProficiency"
+            }),
+            bonus: new FormulaField({required: true, label: "ME5E.ItemToolBonus"})
+        });
+    }
 
-  /* -------------------------------------------- */
-  /*  Migrations                                  */
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Migrations                                  */
 
-  /** @inheritdoc */
-  static migrateData(source) {
-    super.migrateData(source);
-    ToolData.#migrateAbility(source);
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
+    /** @inheritdoc */
+    static migrateData(source) {
+        super.migrateData(source);
+        ToolData.#migrateAbility(source);
+    }
 
-  /**
-   * Migrate the ability field.
-   * @param {object} source  The candidate source data from which the model will be constructed.
-   */
-  static #migrateAbility(source) {
-    if ( Array.isArray(source.ability) ) source.ability = source.ability[0];
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
-  /*  Getters                                     */
-  /* -------------------------------------------- */
+    /**
+     * Migrate the ability field.
+     * @param {object} source  The candidate source data from which the model will be constructed.
+     */
+    static #migrateAbility(source) {
+        if (Array.isArray(source.ability)) source.ability = source.ability[0];
+    }
 
-  /**
-   * Properties displayed in chat.
-   * @type {string[]}
-   */
-  get chatProperties() {
-    return [CONFIG.ME5E.abilities[this.ability]?.label];
-  }
+    /* -------------------------------------------- */
+    /*  Getters                                     */
 
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
-  /**
-   * Which ability score modifier is used by this item?
-   * @type {string|null}
-   */
-  get abilityMod() {
-    return this.ability || "int";
-  }
+    /**
+     * Properties displayed in chat.
+     * @type {string[]}
+     */
+    get chatProperties() {
+        return [CONFIG.ME5E.abilities[this.ability]?.label];
+    }
+
+    /* -------------------------------------------- */
+
+    /**
+     * Which ability score modifier is used by this item?
+     * @type {string|null}
+     */
+    get abilityMod() {
+        return this.ability || "int";
+    }
 }

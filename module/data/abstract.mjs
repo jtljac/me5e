@@ -17,107 +17,108 @@
  */
 export default class SystemDataModel extends foundry.abstract.DataModel {
 
-  /** @inheritdoc */
-  static _enableV10Validation = true;
+    /** @inheritdoc */
+    static _enableV10Validation = true;
 
-  /**
-   * System type that this system data model represents (e.g. "character", "npc", "vehicle").
-   * @type {string}
-   */
-  static _systemType;
+    /**
+     * System type that this system data model represents (e.g. "character", "npc", "vehicle").
+     * @type {string}
+     */
+    static _systemType;
 
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
-  /**
-   * Base templates used for construction.
-   * @type {*[]}
-   * @private
-   */
-  static _schemaTemplates = [];
+    /**
+     * Base templates used for construction.
+     * @type {*[]}
+     * @private
+     */
+    static _schemaTemplates = [];
 
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
-  /**
-   * A list of properties that should not be mixed-in to the final type.
-   * @type {Set<string>}
-   * @private
-   */
-  static _immiscible = new Set(["length", "mixed", "name", "prototype", "migrateData", "defineSchema"]);
+    /**
+     * A list of properties that should not be mixed-in to the final type.
+     * @type {Set<string>}
+     * @private
+     */
+    static _immiscible = new Set(["length", "mixed", "name", "prototype", "migrateData", "defineSchema"]);
 
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  static defineSchema() {
-    const schema = {};
-    for ( const template of this._schemaTemplates ) {
-      if ( !template.defineSchema ) {
-        throw new Error(`Invalid me5e template mixin ${template} defined on class ${this.constructor}`);
-      }
-      this.mergeSchema(schema, template.defineSchema());
-    }
-    return schema;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Merge two schema definitions together as well as possible.
-   * @param {DataSchema} a  First schema that forms the basis for the merge. *Will be mutated.*
-   * @param {DataSchema} b  Second schema that will be merged in, overwriting any non-mergeable properties.
-   * @returns {DataSchema}  Fully merged schema.
-   */
-  static mergeSchema(a, b) {
-    Object.assign(a, b);
-    return a;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  static migrateData(source) {
-    for ( const template of this._schemaTemplates ) {
-      template.migrateData?.(source);
-    }
-    return super.migrateData(source);
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  validate(options={}) {
-    if ( this.constructor._enableV10Validation === false ) return true;
-    return super.validate(options);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Mix multiple templates with the base type.
-   * @param {...*} templates            Template classes to mix.
-   * @returns {typeof SystemDataModel}  Final prepared type.
-   */
-  static mixin(...templates) {
-    const Base = class extends this {};
-    Object.defineProperty(Base, "_schemaTemplates", {
-      value: Object.seal([...this._schemaTemplates, ...templates]),
-      writable: false,
-      configurable: false
-    });
-
-    for ( const template of templates ) {
-      // Take all static methods and fields from template and mix in to base class
-      for ( const [key, descriptor] of Object.entries(Object.getOwnPropertyDescriptors(template)) ) {
-        if ( this._immiscible.has(key) ) continue;
-        Object.defineProperty(Base, key, descriptor);
-      }
-
-      // Take all instance methods and fields from template and mix in to base class
-      for ( const [key, descriptor] of Object.entries(Object.getOwnPropertyDescriptors(template.prototype)) ) {
-        if ( ["constructor"].includes(key) ) continue;
-        Object.defineProperty(Base.prototype, key, descriptor);
-      }
+    /** @inheritdoc */
+    static defineSchema() {
+        const schema = {};
+        for (const template of this._schemaTemplates) {
+            if (!template.defineSchema) {
+                throw new Error(`Invalid me5e template mixin ${template} defined on class ${this.constructor}`);
+            }
+            this.mergeSchema(schema, template.defineSchema());
+        }
+        return schema;
     }
 
-    return Base;
-  }
+    /* -------------------------------------------- */
+
+    /**
+     * Merge two schema definitions together as well as possible.
+     * @param {DataSchema} a  First schema that forms the basis for the merge. *Will be mutated.*
+     * @param {DataSchema} b  Second schema that will be merged in, overwriting any non-mergeable properties.
+     * @returns {DataSchema}  Fully merged schema.
+     */
+    static mergeSchema(a, b) {
+        Object.assign(a, b);
+        return a;
+    }
+
+    /* -------------------------------------------- */
+
+    /** @inheritdoc */
+    static migrateData(source) {
+        for (const template of this._schemaTemplates) {
+            template.migrateData?.(source);
+        }
+        return super.migrateData(source);
+    }
+
+    /* -------------------------------------------- */
+
+    /** @inheritdoc */
+    validate(options = {}) {
+        if (this.constructor._enableV10Validation === false) return true;
+        return super.validate(options);
+    }
+
+    /* -------------------------------------------- */
+
+    /**
+     * Mix multiple templates with the base type.
+     * @param {...*} templates            Template classes to mix.
+     * @returns {typeof SystemDataModel}  Final prepared type.
+     */
+    static mixin(...templates) {
+        const Base = class extends this {
+        };
+        Object.defineProperty(Base, "_schemaTemplates", {
+            value: Object.seal([...this._schemaTemplates, ...templates]),
+            writable: false,
+            configurable: false
+        });
+
+        for (const template of templates) {
+            // Take all static methods and fields from template and mix in to base class
+            for (const [key, descriptor] of Object.entries(Object.getOwnPropertyDescriptors(template))) {
+                if (this._immiscible.has(key)) continue;
+                Object.defineProperty(Base, key, descriptor);
+            }
+
+            // Take all instance methods and fields from template and mix in to base class
+            for (const [key, descriptor] of Object.entries(Object.getOwnPropertyDescriptors(template.prototype))) {
+                if (["constructor"].includes(key)) continue;
+                Object.defineProperty(Base.prototype, key, descriptor);
+            }
+        }
+
+        return Base;
+    }
 }

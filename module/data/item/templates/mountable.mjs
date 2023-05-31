@@ -11,26 +11,26 @@
  * @mixin
  */
 export default class MountableTemplate extends foundry.abstract.DataModel {
-  /** @inheritdoc */
-  static defineSchema() {
-    return {
-      armor: new foundry.data.fields.SchemaField({
-        value: new foundry.data.fields.NumberField({
-          required: true, integer: true, min: 0, label: "ME5E.ArmorClass"
-        })
-      }, {label: "ME5E.ArmorClass"}),
-      hp: new foundry.data.fields.SchemaField({
-        value: new foundry.data.fields.NumberField({
-          required: true, integer: true, min: 0, label: "ME5E.HitPointsCurrent"
-        }),
-        max: new foundry.data.fields.NumberField({
-          required: true, integer: true, min: 0, label: "ME5E.HitPointsMax"
-        }),
-        dt: new foundry.data.fields.NumberField({
-          required: true, integer: true, min: 0, label: "ME5E.DamageThreshold"
-        }),
-        conditions: new foundry.data.fields.StringField({required: true, label: "ME5E.HealthConditions"})
-      }, {label: "ME5E.HitPoints"})
-    };
-  }
+    /** @inheritdoc */
+    static defineSchema() {
+        return {
+            armor: new foundry.data.fields.SchemaField({
+                value: new foundry.data.fields.NumberField({
+                    required: true, integer: true, min: 0, label: "ME5E.ArmorClass"
+                })
+            }, {label: "ME5E.ArmorClass"}),
+            hp: new foundry.data.fields.SchemaField({
+                value: new foundry.data.fields.NumberField({
+                    required: true, integer: true, min: 0, label: "ME5E.HitPointsCurrent"
+                }),
+                max: new foundry.data.fields.NumberField({
+                    required: true, integer: true, min: 0, label: "ME5E.HitPointsMax"
+                }),
+                dt: new foundry.data.fields.NumberField({
+                    required: true, integer: true, min: 0, label: "ME5E.DamageThreshold"
+                }),
+                conditions: new foundry.data.fields.StringField({required: true, label: "ME5E.HealthConditions"})
+            }, {label: "ME5E.HitPoints"})
+        };
+    }
 }

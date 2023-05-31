@@ -9,36 +9,41 @@
  * @mixin
  */
 export default class ItemDescriptionTemplate extends foundry.abstract.DataModel {
-  /** @inheritdoc */
-  static defineSchema() {
-    return {
-      description: new foundry.data.fields.SchemaField({
-        value: new foundry.data.fields.HTMLField({required: true, nullable: true, label: "ME5E.Description"}),
-        chat: new foundry.data.fields.HTMLField({required: true, nullable: true, label: "ME5E.DescriptionChat"}),
-        unidentified: new foundry.data.fields.HTMLField({
-          required: true, nullable: true, label: "ME5E.DescriptionUnidentified"
-        })
-      }),
-      source: new foundry.data.fields.StringField({required: true, label: "ME5E.Source"})
-    };
-  }
+    /** @inheritdoc */
+    static defineSchema() {
+        return {
+            description: new foundry.data.fields.SchemaField({
+                value: new foundry.data.fields.HTMLField({required: true, nullable: true, label: "ME5E.Description"}),
+                chat: new foundry.data.fields.HTMLField({
+                    required: true,
+                    nullable: true,
+                    label: "ME5E.DescriptionChat"
+                }),
+                unidentified: new foundry.data.fields.HTMLField({
+                    required: true, nullable: true, label: "ME5E.DescriptionUnidentified"
+                })
+            }),
+            source: new foundry.data.fields.StringField({required: true, label: "ME5E.Source"})
+        };
+    }
 
-  /* -------------------------------------------- */
-  /*  Migrations                                  */
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Migrations                                  */
 
-  /** @inheritdoc */
-  static migrateData(source) {
-    ItemDescriptionTemplate.#migrateSource(source);
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
+    /** @inheritdoc */
+    static migrateData(source) {
+        ItemDescriptionTemplate.#migrateSource(source);
+    }
 
-  /**
-   * Convert null source to the blank string.
-   * @param {object} source  The candidate source data from which the model will be constructed.
-   */
-  static #migrateSource(source) {
-    if ( source.source === null ) source.source = "";
-  }
+    /* -------------------------------------------- */
+
+    /**
+     * Convert null source to the blank string.
+     * @param {object} source  The candidate source data from which the model will be constructed.
+     */
+    static #migrateSource(source) {
+        if (source.source === null) source.source = "";
+    }
 }

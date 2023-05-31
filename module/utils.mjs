@@ -1,5 +1,6 @@
 /* -------------------------------------------- */
 /*  Formulas                                    */
+
 /* -------------------------------------------- */
 
 /**
@@ -9,20 +10,21 @@
  * @returns {number}                  Simplified bonus as an integer.
  * @protected
  */
-export function simplifyBonus(bonus, data={}) {
-  if ( !bonus ) return 0;
-  if ( Number.isNumeric(bonus) ) return Number(bonus);
-  try {
-    const roll = new Roll(bonus, data);
-    return roll.isDeterministic ? Roll.safeEval(roll.formula) : 0;
-  } catch(error) {
-    console.error(error);
-    return 0;
-  }
+export function simplifyBonus(bonus, data = {}) {
+    if (!bonus) return 0;
+    if (Number.isNumeric(bonus)) return Number(bonus);
+    try {
+        const roll = new Roll(bonus, data);
+        return roll.isDeterministic ? Roll.safeEval(roll.formula) : 0;
+    } catch(error) {
+        console.error(error);
+        return 0;
+    }
 }
 
 /* -------------------------------------------- */
 /*  Object Helpers                              */
+
 /* -------------------------------------------- */
 
 /**
@@ -32,10 +34,10 @@ export function simplifyBonus(bonus, data={}) {
  * @returns {object}          A copy of the original object that has been sorted.
  */
 export function sortObjectEntries(obj, sortKey) {
-  let sorted = Object.entries(obj);
-  if ( sortKey ) sorted = sorted.sort((a, b) => a[1][sortKey].localeCompare(b[1][sortKey]));
-  else sorted = sorted.sort((a, b) => a[1].localeCompare(b[1]));
-  return Object.fromEntries(sorted);
+    let sorted = Object.entries(obj);
+    if (sortKey) sorted = sorted.sort((a, b) => a[1][sortKey].localeCompare(b[1][sortKey]));
+    else sorted = sorted.sort((a, b) => a[1].localeCompare(b[1]));
+    return Object.fromEntries(sorted);
 }
 
 /* -------------------------------------------- */
@@ -46,24 +48,24 @@ export function sortObjectEntries(obj, sortKey) {
  * @returns {object}     Document's index if one could be found.
  */
 export function indexFromUuid(uuid) {
-  const parts = uuid.split(".");
-  let index;
+    const parts = uuid.split(".");
+    let index;
 
-  // Compendium Documents
-  if ( parts[0] === "Compendium" ) {
-    const [, scope, packName, id] = parts;
-    const pack = game.packs.get(`${scope}.${packName}`);
-    index = pack?.index.get(id);
-  }
+    // Compendium Documents
+    if (parts[0] === "Compendium") {
+        const [, scope, packName, id] = parts;
+        const pack = game.packs.get(`${scope}.${packName}`);
+        index = pack?.index.get(id);
+    }
 
-  // World Documents
-  else if ( parts.length < 3 ) {
-    const [docName, id] = parts;
-    const collection = CONFIG[docName].collection.instance;
-    index = collection.get(id);
-  }
+    // World Documents
+    else if (parts.length < 3) {
+        const [docName, id] = parts;
+        const collection = CONFIG[docName].collection.instance;
+        index = collection.get(id);
+    }
 
-  return index || null;
+    return index || null;
 }
 
 /* -------------------------------------------- */
@@ -74,11 +76,12 @@ export function indexFromUuid(uuid) {
  * @returns {string}     Link to the item or empty string if item wasn't found.
  */
 export function linkForUuid(uuid) {
-  return TextEditor._createContentLink(["", "UUID", uuid]).outerHTML;
+    return TextEditor._createContentLink(["", "UUID", uuid]).outerHTML;
 }
 
 /* -------------------------------------------- */
 /*  Validators                                  */
+
 /* -------------------------------------------- */
 
 /**
@@ -87,15 +90,16 @@ export function linkForUuid(uuid) {
  * @returns {boolean}
  */
 function isValidIdentifier(identifier) {
-  return /^([a-z0-9_-]+)$/i.test(identifier);
+    return /^([a-z0-9_-]+)$/i.test(identifier);
 }
 
 export const validators = {
-  isValidIdentifier: isValidIdentifier
+    isValidIdentifier: isValidIdentifier
 };
 
 /* -------------------------------------------- */
 /*  Handlebars Template Helpers                 */
+
 /* -------------------------------------------- */
 
 /**
@@ -105,42 +109,42 @@ export const validators = {
  * @returns {Promise}
  */
 export async function preloadHandlebarsTemplates() {
-  const partials = [
-    // Shared Partials
-    "systems/me5e/templates/actors/parts/active-effects.hbs",
-    "systems/me5e/templates/apps/parts/trait-list.hbs",
+    const partials = [
+        // Shared Partials
+        "systems/me5e/templates/actors/parts/active-effects.hbs",
+        "systems/me5e/templates/apps/parts/trait-list.hbs",
 
-    // Actor Sheet Partials
-    "systems/me5e/templates/actors/parts/actor-traits.hbs",
-    "systems/me5e/templates/actors/parts/actor-inventory.hbs",
-    "systems/me5e/templates/actors/parts/actor-features.hbs",
-    "systems/me5e/templates/actors/parts/actor-spellbook.hbs",
-    "systems/me5e/templates/actors/parts/actor-warnings.hbs",
+        // Actor Sheet Partials
+        "systems/me5e/templates/actors/parts/actor-traits.hbs",
+        "systems/me5e/templates/actors/parts/actor-inventory.hbs",
+        "systems/me5e/templates/actors/parts/actor-features.hbs",
+        "systems/me5e/templates/actors/parts/actor-spellbook.hbs",
+        "systems/me5e/templates/actors/parts/actor-warnings.hbs",
 
-    // Item Sheet Partials
-    "systems/me5e/templates/items/parts/item-action.hbs",
-    "systems/me5e/templates/items/parts/item-activation.hbs",
-    "systems/me5e/templates/items/parts/item-advancement.hbs",
-    "systems/me5e/templates/items/parts/item-description.hbs",
-    "systems/me5e/templates/items/parts/item-mountable.hbs",
-    "systems/me5e/templates/items/parts/item-spellcasting.hbs",
-    "systems/me5e/templates/items/parts/item-summary.hbs",
+        // Item Sheet Partials
+        "systems/me5e/templates/items/parts/item-action.hbs",
+        "systems/me5e/templates/items/parts/item-activation.hbs",
+        "systems/me5e/templates/items/parts/item-advancement.hbs",
+        "systems/me5e/templates/items/parts/item-description.hbs",
+        "systems/me5e/templates/items/parts/item-mountable.hbs",
+        "systems/me5e/templates/items/parts/item-spellcasting.hbs",
+        "systems/me5e/templates/items/parts/item-summary.hbs",
 
-    // Journal Partials
-    "systems/me5e/templates/journal/parts/journal-table.hbs",
+        // Journal Partials
+        "systems/me5e/templates/journal/parts/journal-table.hbs",
 
-    // Advancement Partials
-    "systems/me5e/templates/advancement/parts/advancement-controls.hbs",
-    "systems/me5e/templates/advancement/parts/advancement-spell-config.hbs"
-  ];
+        // Advancement Partials
+        "systems/me5e/templates/advancement/parts/advancement-controls.hbs",
+        "systems/me5e/templates/advancement/parts/advancement-spell-config.hbs"
+    ];
 
-  const paths = {};
-  for ( const path of partials ) {
-    paths[path.replace(".hbs", ".html")] = path;
-    paths[`me5e.${path.split("/").pop().replace(".hbs", "")}`] = path;
-  }
+    const paths = {};
+    for (const path of partials) {
+        paths[path.replace(".hbs", ".html")] = path;
+        paths[`me5e.${path.split("/").pop().replace(".hbs", "")}`] = path;
+    }
 
-  return loadTemplates(paths);
+    return loadTemplates(paths);
 }
 
 /* -------------------------------------------- */
@@ -152,16 +156,16 @@ export async function preloadHandlebarsTemplates() {
  * @returns {string}
  */
 function itemContext(context, options) {
-  if ( arguments.length !== 2 ) throw new Error("#me5e-itemContext requires exactly one argument");
-  if ( foundry.utils.getType(context) === "function" ) context = context.call(this);
+    if (arguments.length !== 2) throw new Error("#me5e-itemContext requires exactly one argument");
+    if (foundry.utils.getType(context) === "function") context = context.call(this);
 
-  const ctx = options.data.root.itemContext?.[context.id];
-  if ( !ctx ) {
-    const inverse = options.inverse(this);
-    if ( inverse ) return options.inverse(this);
-  }
+    const ctx = options.data.root.itemContext?.[context.id];
+    if (!ctx) {
+        const inverse = options.inverse(this);
+        if (inverse) return options.inverse(this);
+    }
 
-  return options.fn(context, { data: options.data, blockParams: [ctx] });
+    return options.fn(context, {data: options.data, blockParams: [ctx]});
 }
 
 /* -------------------------------------------- */
@@ -170,11 +174,11 @@ function itemContext(context, options) {
  * Register custom Handlebars helpers used by 5e.
  */
 export function registerHandlebarsHelpers() {
-  Handlebars.registerHelper({
-    getProperty: foundry.utils.getProperty,
-    "me5e-linkForUuid": linkForUuid,
-    "me5e-itemContext": itemContext
-  });
+    Handlebars.registerHelper({
+        getProperty: foundry.utils.getProperty,
+        "me5e-linkForUuid": linkForUuid,
+        "me5e-itemContext": itemContext
+    });
 }
 
 /* -------------------------------------------- */
@@ -198,9 +202,9 @@ const _preLocalizationRegistrations = {};
  *                                        if multiple are provided.
  * @param {boolean} [options.sort=false]  Sort this config enum, using the key if set.
  */
-export function preLocalize(configKeyPath, { key, keys=[], sort=false }={}) {
-  if ( key ) keys.unshift(key);
-  _preLocalizationRegistrations[configKeyPath] = { keys, sort };
+export function preLocalize(configKeyPath, {key, keys = [], sort = false} = {}) {
+    if (key) keys.unshift(key);
+    _preLocalizationRegistrations[configKeyPath] = {keys, sort};
 }
 
 /* -------------------------------------------- */
@@ -210,11 +214,11 @@ export function preLocalize(configKeyPath, { key, keys=[], sort=false }={}) {
  * @param {object} config  The `CONFIG.ME5E` object to localize and sort. *Will be mutated.*
  */
 export function performPreLocalization(config) {
-  for ( const [keyPath, settings] of Object.entries(_preLocalizationRegistrations) ) {
-    const target = foundry.utils.getProperty(config, keyPath);
-    _localizeObject(target, settings.keys);
-    if ( settings.sort ) foundry.utils.setProperty(config, keyPath, sortObjectEntries(target, settings.keys[0]));
-  }
+    for (const [keyPath, settings] of Object.entries(_preLocalizationRegistrations)) {
+        const target = foundry.utils.getProperty(config, keyPath);
+        _localizeObject(target, settings.keys);
+        if (settings.sort) foundry.utils.setProperty(config, keyPath, sortObjectEntries(target, settings.keys[0]));
+    }
 }
 
 /* -------------------------------------------- */
@@ -226,35 +230,36 @@ export function performPreLocalization(config) {
  * @private
  */
 function _localizeObject(obj, keys) {
-  for ( const [k, v] of Object.entries(obj) ) {
-    const type = typeof v;
-    if ( type === "string" ) {
-      obj[k] = game.i18n.localize(v);
-      continue;
-    }
+    for (const [k, v] of Object.entries(obj)) {
+        const type = typeof v;
+        if (type === "string") {
+            obj[k] = game.i18n.localize(v);
+            continue;
+        }
 
-    if ( type !== "object" ) {
-      console.error(new Error(
-        `Pre-localized configuration values must be a string or object, ${type} found for "${k}" instead.`
-      ));
-      continue;
-    }
-    if ( !keys?.length ) {
-      console.error(new Error(
-        "Localization keys must be provided for pre-localizing when target is an object."
-      ));
-      continue;
-    }
+        if (type !== "object") {
+            console.error(new Error(
+                `Pre-localized configuration values must be a string or object, ${type} found for "${k}" instead.`
+            ));
+            continue;
+        }
+        if (!keys?.length) {
+            console.error(new Error(
+                "Localization keys must be provided for pre-localizing when target is an object."
+            ));
+            continue;
+        }
 
-    for ( const key of keys ) {
-      if ( !v[key] ) continue;
-      v[key] = game.i18n.localize(v[key]);
+        for (const key of keys) {
+            if (!v[key]) continue;
+            v[key] = game.i18n.localize(v[key]);
+        }
     }
-  }
 }
 
 /* -------------------------------------------- */
 /*  Migration                                   */
+
 /* -------------------------------------------- */
 
 /**
@@ -265,30 +270,30 @@ function _localizeObject(obj, keys) {
  */
 export async function synchronizeActorSpells(actorPack, spellsPack) {
 
-  // Load all actors and spells
-  const actors = await actorPack.getDocuments();
-  const spells = await spellsPack.getDocuments();
-  const spellsMap = spells.reduce((obj, item) => {
-    obj[item.name] = item;
-    return obj;
-  }, {});
+    // Load all actors and spells
+    const actors = await actorPack.getDocuments();
+    const spells = await spellsPack.getDocuments();
+    const spellsMap = spells.reduce((obj, item) => {
+        obj[item.name] = item;
+        return obj;
+    }, {});
 
-  // Unlock the pack
-  await actorPack.configure({locked: false});
+    // Unlock the pack
+    await actorPack.configure({locked: false});
 
-  // Iterate over actors
-  SceneNavigation.displayProgressBar({label: "Synchronizing Spell Data", pct: 0});
-  for ( const [i, actor] of actors.entries() ) {
-    const {toDelete, toCreate} = _synchronizeActorSpells(actor, spellsMap);
-    if ( toDelete.length ) await actor.deleteEmbeddedDocuments("Item", toDelete);
-    if ( toCreate.length ) await actor.createEmbeddedDocuments("Item", toCreate, {keepId: true});
-    console.debug(`${actor.name} | Synchronized ${toCreate.length} spells`);
-    SceneNavigation.displayProgressBar({label: actor.name, pct: ((i / actors.length) * 100).toFixed(0)});
-  }
+    // Iterate over actors
+    SceneNavigation.displayProgressBar({label: "Synchronizing Spell Data", pct: 0});
+    for (const [i, actor] of actors.entries()) {
+        const {toDelete, toCreate} = _synchronizeActorSpells(actor, spellsMap);
+        if (toDelete.length) await actor.deleteEmbeddedDocuments("Item", toDelete);
+        if (toCreate.length) await actor.createEmbeddedDocuments("Item", toCreate, {keepId: true});
+        console.debug(`${actor.name} | Synchronized ${toCreate.length} spells`);
+        SceneNavigation.displayProgressBar({label: actor.name, pct: ((i / actors.length) * 100).toFixed(0)});
+    }
 
-  // Re-lock the pack
-  await actorPack.configure({locked: true});
-  SceneNavigation.displayProgressBar({label: "Synchronizing Spell Data", pct: 100});
+    // Re-lock the pack
+    await actorPack.configure({locked: true});
+    SceneNavigation.displayProgressBar({label: "Synchronizing Spell Data", pct: 100});
 }
 
 /* -------------------------------------------- */
@@ -301,28 +306,28 @@ export async function synchronizeActorSpells(actorPack, spellsPack) {
  * @private
  */
 function _synchronizeActorSpells(actor, spellsMap) {
-  const spells = actor.itemTypes.spell;
-  const toDelete = [];
-  const toCreate = [];
-  if ( !spells.length ) return {toDelete, toCreate};
+    const spells = actor.itemTypes.spell;
+    const toDelete = [];
+    const toCreate = [];
+    if (!spells.length) return {toDelete, toCreate};
 
-  for ( const spell of spells ) {
-    const source = spellsMap[spell.name];
-    if ( !source ) {
-      console.warn(`${actor.name} | ${spell.name} | Does not exist in spells compendium pack`);
-      continue;
+    for (const spell of spells) {
+        const source = spellsMap[spell.name];
+        if (!source) {
+            console.warn(`${actor.name} | ${spell.name} | Does not exist in spells compendium pack`);
+            continue;
+        }
+
+        // Combine source data with the preparation and uses data from the actor
+        const spellData = source.toObject();
+        const {preparation, uses, save} = spell.toObject().system;
+        Object.assign(spellData.system, {preparation, uses});
+        spellData.system.save.dc = save.dc;
+        foundry.utils.setProperty(spellData, "flags.core.sourceId", source.uuid);
+
+        // Record spells to be deleted and created
+        toDelete.push(spell.id);
+        toCreate.push(spellData);
     }
-
-    // Combine source data with the preparation and uses data from the actor
-    const spellData = source.toObject();
-    const {preparation, uses, save} = spell.toObject().system;
-    Object.assign(spellData.system, {preparation, uses});
-    spellData.system.save.dc = save.dc;
-    foundry.utils.setProperty(spellData, "flags.core.sourceId", source.uuid);
-
-    // Record spells to be deleted and created
-    toDelete.push(spell.id);
-    toCreate.push(spellData);
-  }
-  return {toDelete, toCreate};
+    return {toDelete, toCreate};
 }

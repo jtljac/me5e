@@ -5,29 +5,29 @@ import AdvancementConfig from "./advancement-config.mjs";
  */
 export default class ItemGrantConfig extends AdvancementConfig {
 
-  /** @inheritdoc */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["me5e", "advancement", "item-grant"],
-      dragDrop: [{ dropSelector: ".drop-target" }],
-      dropKeyPath: "items",
-      template: "systems/me5e/templates/advancement/item-grant-config.hbs"
-    });
-  }
+    /** @inheritdoc */
+    static get defaultOptions() {
+        return foundry.utils.mergeObject(super.defaultOptions, {
+            classes: ["me5e", "advancement", "item-grant"],
+            dragDrop: [{dropSelector: ".drop-target"}],
+            dropKeyPath: "items",
+            template: "systems/me5e/templates/advancement/item-grant-config.hbs"
+        });
+    }
 
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  getData(options={}) {
-    const context = super.getData(options);
-    context.showSpellConfig = context.configuration.items.map(uuid => fromUuidSync(uuid)).some(i => i.type === "spell");
-    return context;
-  }
+    /** @inheritdoc */
+    getData(options = {}) {
+        const context = super.getData(options);
+        context.showSpellConfig = context.configuration.items.map(uuid => fromUuidSync(uuid)).some(i => i.type === "spell");
+        return context;
+    }
 
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  _validateDroppedItem(event, item) {
-    this.advancement._validateItemType(item);
-  }
+    /** @inheritdoc */
+    _validateDroppedItem(event, item) {
+        this.advancement._validateItemType(item);
+    }
 }
