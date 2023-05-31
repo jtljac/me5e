@@ -3,7 +3,7 @@ import * as Trait from "../documents/actor/trait.mjs";
 
 /**
  * An application for selecting proficiencies with categories that can contain children.
- * @deprecated since dnd5e 2.1, targeted for removal in 2.3
+ * @deprecated since me5e 2.1, targeted for removal in 2.3
  */
 export default class ProficiencySelector extends TraitSelector {
 
@@ -35,12 +35,12 @@ export default class ProficiencySelector extends TraitSelector {
    * @param {string} type               Proficiency type to select, either `armor`, `tool`, or `weapon`.
    * @param {string[]} [chosen]         Optional list of items to be marked as chosen.
    * @returns {Object<string, SelectChoices>}  Object mapping proficiency ids to choice objects.
-   * @deprecated since dnd5e 2.1, targeted for removal in 2.3
+   * @deprecated since me5e 2.1, targeted for removal in 2.3
    */
   static async getChoices(type, chosen=[]) {
     foundry.utils.logCompatibilityWarning(
       "ProficiencySelector#getChoices has been deprecated in favor of Trait#choices.",
-      { since: "DnD5e 2.1", until: "DnD5e 2.3" }
+      { since: "ME5e 2.1", until: "ME5e 2.3" }
     );
     return Trait.choices(type, chosen);
   }
@@ -50,7 +50,7 @@ export default class ProficiencySelector extends TraitSelector {
   /**
    * Fetch an item for the provided ID. If the provided ID contains a compendium pack name
    * it will be fetched from that pack, otherwise it will be fetched from the compendium defined
-   * in `DND5E.sourcePacks.ITEMS`.
+   * in `ME5E.sourcePacks.ITEMS`.
    *
    * @param {string} identifier            Simple ID or compendium name and ID separated by a dot.
    * @param {object} [options]
@@ -60,12 +60,12 @@ export default class ProficiencySelector extends TraitSelector {
    *                                       false.
    * @returns {Promise<Item5e>|object}     Promise for a `Document` if `indexOnly` is false & `fullItem` is true,
    *                                       otherwise else a simple object containing the minimal index data.
-   * @deprecated since dnd5e 2.1, targeted for removal in 2.3
+   * @deprecated since me5e 2.1, targeted for removal in 2.3
    */
   static getBaseItem(identifier, options) {
     foundry.utils.logCompatibilityWarning(
       "ProficiencySelector#getBaseItem has been deprecated in favor of Trait#getBaseItem.",
-      { since: "DnD5e 2.1", until: "DnD5e 2.3" }
+      { since: "ME5e 2.1", until: "ME5e 2.3" }
     );
     return Trait.getBaseItem(identifier, options);
   }

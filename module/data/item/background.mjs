@@ -12,7 +12,7 @@ export default class BackgroundData extends SystemDataModel.mixin(ItemDescriptio
   /** @inheritdoc */
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
-      advancement: new foundry.data.fields.ArrayField(new AdvancementField(), {label: "DND5E.AdvancementTitle"})
+      advancement: new foundry.data.fields.ArrayField(new AdvancementField(), {label: "ME5E.AdvancementTitle"})
     });
   }
 }

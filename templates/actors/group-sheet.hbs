@@ -3,7 +3,7 @@
         <img class="profile" src="{{actor.img}}" data-tooltip="{{actor.name}}" alt="{{actor.name}}" data-edit="img">
         <section class="header-details flexrow">
             <h1 class="charname">
-                <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'DND5E.Name'}}">
+                <input name="name" type="text" value="{{actor.name}}" placeholder="{{localize 'ME5E.Name'}}">
             </h1>
             <ul class="summary flexrow">
                 <li>
@@ -13,17 +13,17 @@
 
             <ul class="attributes flexrow">
                 <li class="attribute health">
-                    <h4 class="attribute-name box-title">{{localize "DND5E.GroupHP"}}</h4>
+                    <h4 class="attribute-name box-title">{{localize "ME5E.GroupHP"}}</h4>
                     <div class="attribute-value">
-                        <span class="value" data-tooltip="DND5E.HitPointsCurrent">{{currentHP}}</span>
+                        <span class="value" data-tooltip="ME5E.HitPointsCurrent">{{currentHP}}</span>
                         <span class="sep"> &sol; </span>
-                        <span class="value" data-tooltip="DND5E.HitPointsMax">{{maxHP}}</span>
+                        <span class="value" data-tooltip="ME5E.HitPointsMax">{{maxHP}}</span>
                     </div>
                 </li>
                 <li class="attribute movement">
-                    <h4 class="attribute-name box-title">{{localize "DND5E.Movement"}}</h4>
+                    <h4 class="attribute-name box-title">{{localize "ME5E.Movement"}}</h4>
                     <a class="action-button config-button" data-action="movementConfig"
-                       data-tooltip="DND5E.MovementConfig">
+                       data-tooltip="ME5E.MovementConfig">
                         <i class="fas fa-cog"></i>
                     </a>
                     <div class="attribute-value">
@@ -38,9 +38,9 @@
     </header>
 
     <nav class="sheet-navigation tabs" data-group="primary">
-        <a class="item active" data-tab="members">{{localize 'DND5E.GroupMembers'}}</a>
-        <a class="item" data-tab="inventory">{{localize 'DND5E.GroupInventory'}}</a>
-        <a class="item" data-tab="description">{{localize 'DND5E.Description'}}</a>
+        <a class="item active" data-tab="members">{{localize 'ME5E.GroupMembers'}}</a>
+        <a class="item" data-tab="inventory">{{localize 'ME5E.GroupInventory'}}</a>
+        <a class="item" data-tab="description">{{localize 'ME5E.Description'}}</a>
     </nav>
 
     <section class="sheet-body">
@@ -49,8 +49,8 @@
             <section class="directory" data-section="{{id}}">
                 <header class="directory-header flexrow">
                     <h3 class="name">{{localize section.label}}</h3>
-                    <span class="hp">{{localize "DND5E.HitPoints"}}</span>
-                    <span class="controls">{{localize "DND5E.GroupControls"}}</span>
+                    <span class="hp">{{localize "ME5E.HitPoints"}}</span>
+                    <span class="controls">{{localize "ME5E.GroupControls"}}</span>
                 </header>
                 <ol class="members-list directory-list">
                     {{#each section.members as |member|}}
@@ -80,7 +80,7 @@
         </div>
 
         <div class="tab inventory flexcol" data-group="primary" data-tab="inventory">
-            {{> "dnd5e.actor-inventory" sections=inventory}}
+            {{> "me5e.actor-inventory" sections=inventory}}
         </div>
 
         <div class="tab description" data-group="primary" data-tab="description">

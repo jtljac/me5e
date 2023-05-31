@@ -31,49 +31,49 @@ export default class CreatureTemplate extends CommonTemplate {
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
       bonuses: new foundry.data.fields.SchemaField({
-        mwak: makeAttackBonuses({label: "DND5E.BonusMWAttack"}),
-        rwak: makeAttackBonuses({label: "DND5E.BonusRWAttack"}),
-        msak: makeAttackBonuses({label: "DND5E.BonusMSAttack"}),
-        rsak: makeAttackBonuses({label: "DND5E.BonusRSAttack"}),
+        mwak: makeAttackBonuses({label: "ME5E.BonusMWAttack"}),
+        rwak: makeAttackBonuses({label: "ME5E.BonusRWAttack"}),
+        msak: makeAttackBonuses({label: "ME5E.BonusMSAttack"}),
+        rsak: makeAttackBonuses({label: "ME5E.BonusRSAttack"}),
         abilities: new foundry.data.fields.SchemaField({
-          check: new FormulaField({required: true, label: "DND5E.BonusAbilityCheck"}),
-          save: new FormulaField({required: true, label: "DND5E.BonusAbilitySave"}),
-          skill: new FormulaField({required: true, label: "DND5E.BonusAbilitySkill"})
-        }, {label: "DND5E.BonusAbility"}),
+          check: new FormulaField({required: true, label: "ME5E.BonusAbilityCheck"}),
+          save: new FormulaField({required: true, label: "ME5E.BonusAbilitySave"}),
+          skill: new FormulaField({required: true, label: "ME5E.BonusAbilitySkill"})
+        }, {label: "ME5E.BonusAbility"}),
         spell: new foundry.data.fields.SchemaField({
-          dc: new FormulaField({required: true, deterministic: true, label: "DND5E.BonusSpellDC"})
-        }, {label: "DND5E.BonusSpell"})
-      }, {label: "DND5E.Bonuses"}),
+          dc: new FormulaField({required: true, deterministic: true, label: "ME5E.BonusSpellDC"})
+        }, {label: "ME5E.BonusSpell"})
+      }, {label: "ME5E.Bonuses"}),
       skills: new MappingField(new foundry.data.fields.SchemaField({
         value: new foundry.data.fields.NumberField({
-          required: true, min: 0, max: 2, step: 0.5, initial: 0, label: "DND5E.ProficiencyLevel"
+          required: true, min: 0, max: 2, step: 0.5, initial: 0, label: "ME5E.ProficiencyLevel"
         }),
-        ability: new foundry.data.fields.StringField({required: true, initial: "dex", label: "DND5E.Ability"}),
+        ability: new foundry.data.fields.StringField({required: true, initial: "dex", label: "ME5E.Ability"}),
         bonuses: new foundry.data.fields.SchemaField({
-          check: new FormulaField({required: true, label: "DND5E.SkillBonusCheck"}),
-          passive: new FormulaField({required: true, label: "DND5E.SkillBonusPassive"})
-        }, {label: "DND5E.SkillBonuses"})
+          check: new FormulaField({required: true, label: "ME5E.SkillBonusCheck"}),
+          passive: new FormulaField({required: true, label: "ME5E.SkillBonusPassive"})
+        }, {label: "ME5E.SkillBonuses"})
       }), {
-        initialKeys: CONFIG.DND5E.skills, initialValue: this._initialSkillValue,
-        initialKeysOnly: true, label: "DND5E.Skills"
+        initialKeys: CONFIG.ME5E.skills, initialValue: this._initialSkillValue,
+        initialKeysOnly: true, label: "ME5E.Skills"
       }),
       tools: new MappingField(new foundry.data.fields.SchemaField({
         value: new foundry.data.fields.NumberField({
-          required: true, min: 0, max: 2, step: 0.5, initial: 1, label: "DND5E.ProficiencyLevel"
+          required: true, min: 0, max: 2, step: 0.5, initial: 1, label: "ME5E.ProficiencyLevel"
         }),
-        ability: new foundry.data.fields.StringField({required: true, initial: "int", label: "DND5E.Ability"}),
+        ability: new foundry.data.fields.StringField({required: true, initial: "int", label: "ME5E.Ability"}),
         bonuses: new foundry.data.fields.SchemaField({
-          check: new FormulaField({required: true, label: "DND5E.CheckBonus"})
-        }, {label: "DND5E.ToolBonuses"})
+          check: new FormulaField({required: true, label: "ME5E.CheckBonus"})
+        }, {label: "ME5E.ToolBonuses"})
       })),
       spells: new MappingField(new foundry.data.fields.SchemaField({
         value: new foundry.data.fields.NumberField({
-          nullable: false, integer: true, min: 0, initial: 0, label: "DND5E.SpellProgAvailable"
+          nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.SpellProgAvailable"
         }),
         override: new foundry.data.fields.NumberField({
-          integer: true, min: 0, label: "DND5E.SpellProgOverride"
+          integer: true, min: 0, label: "ME5E.SpellProgOverride"
         })
-      }), {initialKeys: this._spellLevels, label: "DND5E.SpellLevels"})
+      }), {initialKeys: this._spellLevels, label: "ME5E.SpellLevels"})
     });
   }
 
@@ -87,7 +87,7 @@ export default class CreatureTemplate extends CommonTemplate {
    * @private
    */
   static _initialSkillValue(key, initial) {
-    if ( CONFIG.DND5E.skills[key]?.ability ) initial.ability = CONFIG.DND5E.skills[key].ability;
+    if ( CONFIG.ME5E.skills[key]?.ability ) initial.ability = CONFIG.ME5E.skills[key].ability;
     return initial;
   }
 
@@ -99,7 +99,7 @@ export default class CreatureTemplate extends CommonTemplate {
    * @private
    */
   static get _spellLevels() {
-    const levels = Object.keys(CONFIG.DND5E.spellLevels).filter(a => a !== "0").map(l => `spell${l}`);
+    const levels = Object.keys(CONFIG.ME5E.spellLevels).filter(a => a !== "0").map(l => `spell${l}`);
     return [...levels, "pact"];
   }
 
@@ -136,7 +136,7 @@ export default class CreatureTemplate extends CommonTemplate {
       const match = s.match(pattern);
       if ( !match ) continue;
       const type = match[1].toLowerCase();
-      if ( type in CONFIG.DND5E.senses ) {
+      if ( type in CONFIG.ME5E.senses ) {
         source.attributes.senses[type] = Number(match[2]).toNearest(0.5);
         wasMatched = true;
       }
@@ -157,7 +157,7 @@ export default class CreatureTemplate extends CommonTemplate {
     if ( !original || foundry.utils.isEmpty(original.value) ) return;
     source.tools ??= {};
     for ( const prof of original.value ) {
-      if ( !(prof in CONFIG.DND5E.toolProficiencies) && !(prof in CONFIG.DND5E.toolIds) ) continue;
+      if ( !(prof in CONFIG.ME5E.toolProficiencies) && !(prof in CONFIG.ME5E.toolIds) ) continue;
       source.tools[prof] = {
         value: 1,
         ability: "int",
@@ -194,7 +194,7 @@ export default class CreatureTemplate extends CommonTemplate {
  */
 function makeAttackBonuses(schemaOptions={}) {
   return new foundry.data.fields.SchemaField({
-    attack: new FormulaField({required: true, label: "DND5E.BonusAttack"}),
-    damage: new FormulaField({required: true, label: "DND5E.BonusDamage"})
+    attack: new FormulaField({required: true, label: "ME5E.BonusAttack"}),
+    damage: new FormulaField({required: true, label: "ME5E.BonusDamage"})
   }, schemaOptions);
 }

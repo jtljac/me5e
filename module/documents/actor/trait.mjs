@@ -11,11 +11,11 @@ const _cachedIndices = {};
 
 /**
  * Get the key path to the specified trait on an actor.
- * @param {string} trait  Trait as defined in `CONFIG.DND5E.traits`.
+ * @param {string} trait  Trait as defined in `CONFIG.ME5E.traits`.
  * @returns {string}      Key path to this trait's object within an actor's system data.
  */
 export function actorKeyPath(trait) {
-  const traitConfig = CONFIG.DND5E.traits[trait];
+  const traitConfig = CONFIG.ME5E.traits[trait];
   if ( traitConfig.actorKeyPath ) return traitConfig.actorKeyPath;
   return `traits.${trait}`;
 }
@@ -24,24 +24,24 @@ export function actorKeyPath(trait) {
 
 /**
  * Fetch the categories object for the specified trait.
- * @param {string} trait  Trait as defined in `CONFIG.DND5E.traits`.
- * @returns {object}      Trait categories defined within `CONFIG.DND5E`.
+ * @param {string} trait  Trait as defined in `CONFIG.ME5E.traits`.
+ * @returns {object}      Trait categories defined within `CONFIG.ME5E`.
  */
 export function categories(trait) {
-  const traitConfig = CONFIG.DND5E.traits[trait];
-  return CONFIG.DND5E[traitConfig.configKey ?? trait];
+  const traitConfig = CONFIG.ME5E.traits[trait];
+  return CONFIG.ME5E[traitConfig.configKey ?? trait];
 }
 
 /* -------------------------------------------- */
 
 /**
  * Get a list of choices for a specific trait.
- * @param {string} trait             Trait as defined in `CONFIG.DND5E.traits`.
+ * @param {string} trait             Trait as defined in `CONFIG.ME5E.traits`.
  * @param {Set<string>} [chosen=[]]  Optional list of keys to be marked as chosen.
  * @returns {object}                 Object mapping proficiency ids to choice objects.
  */
 export async function choices(trait, chosen=new Set()) {
-  const traitConfig = CONFIG.DND5E.traits[trait];
+  const traitConfig = CONFIG.ME5E.traits[trait];
   if ( foundry.utils.getType(chosen) === "Array" ) chosen = new Set(chosen);
 
   let data = Object.entries(categories(trait)).reduce((obj, [key, label]) => {
@@ -51,7 +51,7 @@ export async function choices(trait, chosen=new Set()) {
 
   if ( traitConfig.children ) {
     for ( const [categoryKey, childrenKey] of Object.entries(traitConfig.children) ) {
-      const children = CONFIG.DND5E[childrenKey];
+      const children = CONFIG.ME5E[childrenKey];
       if ( !children || !data[categoryKey] ) continue;
       data[categoryKey].children = Object.entries(children).reduce((obj, [key, label]) => {
         obj[key] = { label, chosen: chosen.has(key) };
@@ -62,11 +62,11 @@ export async function choices(trait, chosen=new Set()) {
 
   if ( traitConfig.subtypes ) {
     const keyPath = `system.${traitConfig.subtypes.keyPath}`;
-    const map = CONFIG.DND5E[`${trait}ProficienciesMap`];
+    const map = CONFIG.ME5E[`${trait}ProficienciesMap`];
 
     // Merge all IDs lists together
     const ids = traitConfig.subtypes.ids.reduce((obj, key) => {
-      if ( CONFIG.DND5E[key] ) Object.assign(obj, CONFIG.DND5E[key]);
+      if ( CONFIG.ME5E[key] ) Object.assign(obj, CONFIG.ME5E[key]);
       return obj;
     }, {});
 
@@ -98,12 +98,12 @@ export async function choices(trait, chosen=new Set()) {
   }
 
   // Sort Categories
-  if ( traitConfig.sortCategories ) data = dnd5e.utils.sortObjectEntries(data, "label");
+  if ( traitConfig.sortCategories ) data = me5e.utils.sortObjectEntries(data, "label");
 
   // Sort Children
   for ( const category of Object.values(data) ) {
     if ( !category.children ) continue;
-    category.children = dnd5e.utils.sortObjectEntries(category.children, "label");
+    category.children = me5e.utils.sortObjectEntries(category.children, "label");
   }
 
   return data;
@@ -114,7 +114,7 @@ export async function choices(trait, chosen=new Set()) {
 /**
  * Fetch an item for the provided ID. If the provided ID contains a compendium pack name
  * it will be fetched from that pack, otherwise it will be fetched from the compendium defined
- * in `DND5E.sourcePacks.ITEMS`.
+ * in `ME5E.sourcePacks.ITEMS`.
  * @param {string} identifier            Simple ID or compendium name and ID separated by a dot.
  * @param {object} [options]
  * @param {boolean} [options.indexOnly]  If set to true, only the index data will be fetched (will never return
@@ -125,7 +125,7 @@ export async function choices(trait, chosen=new Set()) {
  *                                       otherwise else a simple object containing the minimal index data.
  */
 export function getBaseItem(identifier, { indexOnly=false, fullItem=false }={}) {
-  let pack = CONFIG.DND5E.sourcePacks.ITEMS;
+  let pack = CONFIG.ME5E.sourcePacks.ITEMS;
   let [scope, collection, id] = identifier.split(".");
   if ( scope && collection ) pack = `${scope}.${collection}`;
   if ( !id ) id = identifier;
@@ -171,7 +171,7 @@ export function getBaseItem(identifier, { indexOnly=false, fullItem=false }={}) 
  */
 export function traitIndexFields() {
   const fields = [];
-  for ( const traitConfig of Object.values(CONFIG.DND5E.traits) ) {
+  for ( const traitConfig of Object.values(CONFIG.ME5E.traits) ) {
     if ( !traitConfig.subtypes ) continue;
     fields.push(`system.${traitConfig.subtypes.keyPath}`);
   }
@@ -184,7 +184,7 @@ export function traitIndexFields() {
 
 /**
  * Get the localized label for a specific trait type.
- * @param {string} trait    Trait as defined in `CONFIG.DND5E.traits`.
+ * @param {string} trait    Trait as defined in `CONFIG.ME5E.traits`.
  * @param {number} [count]  Count used to determine pluralization. If no count is provided, will default to
  *                          the 'other' pluralization.
  * @returns {string}        Localized label.
@@ -195,19 +195,19 @@ export function traitLabel(trait, count) {
   else typeCap = trait.capitalize();
 
   const pluralRule = ( count !== undefined ) ? new Intl.PluralRules(game.i18n.lang).select(count) : "other";
-  return game.i18n.localize(`DND5E.Trait${typeCap}Plural.${pluralRule}`);
+  return game.i18n.localize(`ME5E.Trait${typeCap}Plural.${pluralRule}`);
 }
 
 /* -------------------------------------------- */
 
 /**
  * Retrieve the proper display label for the provided key.
- * @param {string} trait  Trait as defined in `CONFIG.DND5E.traits`.
+ * @param {string} trait  Trait as defined in `CONFIG.ME5E.traits`.
  * @param {string} key    Key for which to generate the label.
  * @returns {string}      Retrieved label.
  */
 export function keyLabel(trait, key) {
-  const traitConfig = CONFIG.DND5E.traits[trait];
+  const traitConfig = CONFIG.ME5E.traits[trait];
   if ( categories(trait)[key] ) {
     const category = categories(trait)[key];
     if ( !traitConfig.labelKey ) return category;
@@ -215,12 +215,12 @@ export function keyLabel(trait, key) {
   }
 
   for ( const childrenKey of Object.values(traitConfig.children ?? {}) ) {
-    if ( CONFIG.DND5E[childrenKey]?.[key] ) return CONFIG.DND5E[childrenKey]?.[key];
+    if ( CONFIG.ME5E[childrenKey]?.[key] ) return CONFIG.ME5E[childrenKey]?.[key];
   }
 
   for ( const idsKey of traitConfig.subtypes?.ids ?? [] ) {
-    if ( !CONFIG.DND5E[idsKey]?.[key] ) continue;
-    const index = getBaseItem(CONFIG.DND5E[idsKey][key], { indexOnly: true });
+    if ( !CONFIG.ME5E[idsKey]?.[key] ) continue;
+    const index = getBaseItem(CONFIG.ME5E[idsKey][key], { indexOnly: true });
     if ( index ) return index.name;
     else break;
   }
@@ -232,14 +232,14 @@ export function keyLabel(trait, key) {
 
 /**
  * Create a human readable description of the provided choice.
- * @param {string} trait        Trait as defined in `CONFIG.DND5E.traits`.
+ * @param {string} trait        Trait as defined in `CONFIG.ME5E.traits`.
  * @param {TraitChoice} choice  Data for a specific choice.
  * @returns {string}
  */
 export function choiceLabel(trait, choice) {
   // Select from any trait values
   if ( !choice.pool ) {
-    return game.i18n.format("DND5E.TraitConfigChooseAny", {
+    return game.i18n.format("ME5E.TraitConfigChooseAny", {
       count: choice.count,
       type: traitLabel(trait, choice.count).toLowerCase()
     });
@@ -248,7 +248,7 @@ export function choiceLabel(trait, choice) {
   // Select from a list of options
   const choices = choice.pool.map(key => keyLabel(trait, key));
   const listFormatter = new Intl.ListFormat(game.i18n.lang, { type: "disjunction" });
-  return game.i18n.format("DND5E.TraitConfigChooseList", {
+  return game.i18n.format("ME5E.TraitConfigChooseList", {
     count: choice.count,
     list: listFormatter.format(choices)
   });

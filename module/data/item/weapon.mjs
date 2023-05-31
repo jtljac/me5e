@@ -16,8 +16,8 @@ import MountableTemplate from "./templates/mountable.mjs";
  * @mixes ActionTemplate
  * @mixes MountableTemplate
  *
- * @property {string} weaponType   Weapon category as defined in `DND5E.weaponTypes`.
- * @property {string} baseItem     Base weapon as defined in `DND5E.weaponIds` for determining proficiency.
+ * @property {string} weaponType   Weapon category as defined in `ME5E.weaponTypes`.
+ * @property {string} baseItem     Base weapon as defined in `ME5E.weaponIds` for determining proficiency.
  * @property {object} properties   Mapping of various weapon property booleans.
  * @property {boolean} proficient  Does the weapon's owner have proficiency?
  */
@@ -29,13 +29,13 @@ export default class WeaponData extends SystemDataModel.mixin(
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
       weaponType: new foundry.data.fields.StringField({
-        required: true, initial: "simpleM", label: "DND5E.ItemWeaponType"
+        required: true, initial: "simpleM", label: "ME5E.ItemWeaponType"
       }),
-      baseItem: new foundry.data.fields.StringField({required: true, blank: true, label: "DND5E.ItemWeaponBase"}),
+      baseItem: new foundry.data.fields.StringField({required: true, blank: true, label: "ME5E.ItemWeaponBase"}),
       properties: new MappingField(new foundry.data.fields.BooleanField(), {
-        required: true, initialKeys: CONFIG.DND5E.weaponProperties, label: "DND5E.ItemWeaponProperties"
+        required: true, initialKeys: CONFIG.ME5E.weaponProperties, label: "ME5E.ItemWeaponProperties"
       }),
-      proficient: new foundry.data.fields.BooleanField({required: true, initial: true, label: "DND5E.Proficient"})
+      proficient: new foundry.data.fields.BooleanField({required: true, initial: true, label: "ME5E.Proficient"})
     });
   }
 
@@ -93,7 +93,7 @@ export default class WeaponData extends SystemDataModel.mixin(
    * @type {string[]}
    */
   get chatProperties() {
-    return [CONFIG.DND5E.weaponTypes[this.weaponType]];
+    return [CONFIG.ME5E.weaponTypes[this.weaponType]];
   }
 
   /* -------------------------------------------- */
@@ -114,7 +114,7 @@ export default class WeaponData extends SystemDataModel.mixin(
 
   /** @inheritdoc */
   get _typeCriticalThreshold() {
-    return this.parent?.actor?.flags.dnd5e?.weaponCriticalThreshold ?? Infinity;
+    return this.parent?.actor?.flags.me5e?.weaponCriticalThreshold ?? Infinity;
   }
 
   /* -------------------------------------------- */

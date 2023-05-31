@@ -1,6 +1,6 @@
 /**
  * A specialized form used to select from a checklist of attributes, traits, or properties.
- * @deprecated since dnd5e 2.1, targeted for removal in 2.3
+ * @deprecated since me5e 2.1, targeted for removal in 2.3
  */
 export default class TraitSelector extends DocumentSheet {
   constructor(...args) {
@@ -8,9 +8,9 @@ export default class TraitSelector extends DocumentSheet {
 
     if ( !this.options.suppressWarning ) foundry.utils.logCompatibilityWarning(
       `${this.constructor.name} has been deprecated in favor of a more specialized TraitSelector `
-      + "available at 'dnd5e.applications.actor.TraitSelector'. Support for the old application will "
+      + "available at 'me5e.applications.actor.TraitSelector'. Support for the old application will "
       + "be removed in a future version.",
-      { since: "DnD5e 2.1", until: "DnD5e 2.3" }
+      { since: "ME5e 2.1", until: "ME5e 2.3" }
     );
   }
 
@@ -20,9 +20,9 @@ export default class TraitSelector extends DocumentSheet {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       id: "trait-selector",
-      classes: ["dnd5e", "trait-selector", "subconfig"],
+      classes: ["me5e", "trait-selector", "subconfig"],
       title: "Actor Trait Selection",
-      template: "systems/dnd5e/templates/apps/trait-selector.hbs",
+      template: "systems/me5e/templates/apps/trait-selector.hbs",
       width: 320,
       height: "auto",
       choices: {},

@@ -16,10 +16,10 @@ import MountableTemplate from "./templates/mountable.mjs";
  * @mixes MountableTemplate
  *
  * @property {object} armor             Armor details and equipment type information.
- * @property {string} armor.type        Equipment type as defined in `DND5E.equipmentTypes`.
+ * @property {string} armor.type        Equipment type as defined in `ME5E.equipmentTypes`.
  * @property {number} armor.value       Base armor class or shield bonus.
  * @property {number} armor.dex         Maximum dex bonus added to armor class.
- * @property {string} baseItem          Base armor as defined in `DND5E.armorIds` for determining proficiency.
+ * @property {string} baseItem          Base armor as defined in `ME5E.armorIds` for determining proficiency.
  * @property {object} speed             Speed granted by a piece of vehicle equipment.
  * @property {number} speed.value       Speed granted by this piece of equipment measured in feet or meters
  *                                      depending on system setting.
@@ -37,21 +37,21 @@ export default class EquipmentData extends SystemDataModel.mixin(
     return this.mergeSchema(super.defineSchema(), {
       armor: new foundry.data.fields.SchemaField({
         type: new foundry.data.fields.StringField({
-          required: true, initial: "light", label: "DND5E.ItemEquipmentType"
+          required: true, initial: "light", label: "ME5E.ItemEquipmentType"
         }),
-        value: new foundry.data.fields.NumberField({required: true, integer: true, min: 0, label: "DND5E.ArmorClass"}),
-        dex: new foundry.data.fields.NumberField({required: true, integer: true, label: "DND5E.ItemEquipmentDexMod"})
+        value: new foundry.data.fields.NumberField({required: true, integer: true, min: 0, label: "ME5E.ArmorClass"}),
+        dex: new foundry.data.fields.NumberField({required: true, integer: true, label: "ME5E.ItemEquipmentDexMod"})
       }, {label: ""}),
-      baseItem: new foundry.data.fields.StringField({required: true, label: "DND5E.ItemEquipmentBase"}),
+      baseItem: new foundry.data.fields.StringField({required: true, label: "ME5E.ItemEquipmentBase"}),
       speed: new foundry.data.fields.SchemaField({
-        value: new foundry.data.fields.NumberField({required: true, min: 0, label: "DND5E.Speed"}),
-        conditions: new foundry.data.fields.StringField({required: true, label: "DND5E.SpeedConditions"})
-      }, {label: "DND5E.Speed"}),
+        value: new foundry.data.fields.NumberField({required: true, min: 0, label: "ME5E.Speed"}),
+        conditions: new foundry.data.fields.StringField({required: true, label: "ME5E.SpeedConditions"})
+      }, {label: "ME5E.Speed"}),
       strength: new foundry.data.fields.NumberField({
-        required: true, integer: true, min: 0, label: "DND5E.ItemRequiredStr"
+        required: true, integer: true, min: 0, label: "ME5E.ItemRequiredStr"
       }),
-      stealth: new foundry.data.fields.BooleanField({required: true, label: "DND5E.ItemEquipmentStealthDisav"}),
-      proficient: new foundry.data.fields.BooleanField({required: true, initial: true, label: "DND5E.Proficient"})
+      stealth: new foundry.data.fields.BooleanField({required: true, label: "ME5E.ItemEquipmentStealthDisav"}),
+      proficient: new foundry.data.fields.BooleanField({required: true, initial: true, label: "ME5E.Proficient"})
     });
   }
 
@@ -104,9 +104,9 @@ export default class EquipmentData extends SystemDataModel.mixin(
    */
   get chatProperties() {
     return [
-      CONFIG.DND5E.equipmentTypes[this.armor.type],
+      CONFIG.ME5E.equipmentTypes[this.armor.type],
       this.parent.labels?.armor ?? null,
-      this.stealth ? game.i18n.localize("DND5E.StealthDisadvantage") : null
+      this.stealth ? game.i18n.localize("ME5E.StealthDisadvantage") : null
     ];
   }
 
@@ -117,7 +117,7 @@ export default class EquipmentData extends SystemDataModel.mixin(
    * @type {boolean}
    */
   get isArmor() {
-    return this.armor.type in CONFIG.DND5E.armorTypes;
+    return this.armor.type in CONFIG.ME5E.armorTypes;
   }
 
   /* -------------------------------------------- */

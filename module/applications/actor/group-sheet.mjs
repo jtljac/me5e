@@ -21,8 +21,8 @@ export default class GroupActorSheet extends ActorSheet {
   /** @inheritDoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["dnd5e", "sheet", "actor", "group"],
-      template: "systems/dnd5e/templates/actors/group-sheet.hbs",
+      classes: ["me5e", "sheet", "actor", "group"],
+      template: "systems/me5e/templates/actors/group-sheet.hbs",
       tabs: [{navSelector: ".tabs", contentSelector: ".sheet-body", initial: "members"}],
       scrollY: [".inventory .inventory-list"],
       width: 620,
@@ -80,7 +80,7 @@ export default class GroupActorSheet extends ActorSheet {
 
     // Text labels
     context.labels = {
-      currencies: Object.entries(CONFIG.DND5E.currencies).reduce((obj, [k, c]) => {
+      currencies: Object.entries(CONFIG.ME5E.currencies).reduce((obj, [k, c]) => {
         obj[k] = c.label;
         return obj;
       }, {})
@@ -98,9 +98,9 @@ export default class GroupActorSheet extends ActorSheet {
   #getSummary(stats) {
     const formatter = new Intl.ListFormat(game.i18n.lang, {style: "long", type: "conjunction"});
     const members = [];
-    if ( stats.nMembers ) members.push(`${stats.nMembers} ${game.i18n.localize("DND5E.GroupMembers")}`);
-    if ( stats.nVehicles ) members.push(`${stats.nVehicles} ${game.i18n.localize("DND5E.GroupVehicles")}`);
-    return game.i18n.format("DND5E.GroupSummary", {members: formatter.format(members)});
+    if ( stats.nMembers ) members.push(`${stats.nMembers} ${game.i18n.localize("ME5E.GroupMembers")}`);
+    if ( stats.nVehicles ) members.push(`${stats.nVehicles} ${game.i18n.localize("ME5E.GroupVehicles")}`);
+    return game.i18n.format("ME5E.GroupSummary", {members: formatter.format(members)});
   }
 
   /* -------------------------------------------- */
@@ -136,7 +136,7 @@ export default class GroupActorSheet extends ActorSheet {
       m.hp.current = hp.value + (hp.temp || 0);
       m.hp.max = hp.max + (hp.tempmax || 0);
       m.hp.pct = Math.clamped((m.hp.current / m.hp.max) * 100, 0, 100).toFixed(2);
-      m.hp.color = dnd5e.documents.Actor5e.getHPColor(m.hp.current, m.hp.max).css;
+      m.hp.color = me5e.documents.Actor5e.getHPColor(m.hp.current, m.hp.max).css;
       stats.currentHP += m.hp.current;
       stats.maxHP += m.hp.max;
 
@@ -159,9 +159,9 @@ export default class GroupActorSheet extends ActorSheet {
   #prepareMovementSpeed() {
     const movement = this.object.system.attributes.movement;
     let speeds = [
-      [movement.land, `${game.i18n.localize("DND5E.MovementLand")} ${movement.land}`],
-      [movement.water, `${game.i18n.localize("DND5E.MovementWater")} ${movement.water}`],
-      [movement.air, `${game.i18n.localize("DND5E.MovementAir")} ${movement.air}`]
+      [movement.land, `${game.i18n.localize("ME5E.MovementLand")} ${movement.land}`],
+      [movement.water, `${game.i18n.localize("ME5E.MovementWater")} ${movement.water}`],
+      [movement.air, `${game.i18n.localize("ME5E.MovementAir")} ${movement.air}`]
     ];
     speeds = speeds.filter(s => s[0]).sort((a, b) => b[0] - a[0]);
     const primary = speeds.shift();
@@ -250,8 +250,8 @@ export default class GroupActorSheet extends ActorSheet {
     switch ( button.dataset.action ) {
       case "convertCurrency":
         Dialog.confirm({
-          title: `${game.i18n.localize("DND5E.CurrencyConvert")}`,
-          content: `<p>${game.i18n.localize("DND5E.CurrencyConvertHint")}</p>`,
+          title: `${game.i18n.localize("ME5E.CurrencyConvert")}`,
+          content: `<p>${game.i18n.localize("ME5E.CurrencyConvertHint")}</p>`,
           yes: () => this.actor.convertCurrency()
         });
         break;
@@ -305,7 +305,7 @@ export default class GroupActorSheet extends ActorSheet {
     const type = button.dataset.type;
     const system = {...button.dataset};
     delete system.type;
-    const name = game.i18n.format("DND5E.ItemNew", {type: game.i18n.localize(CONFIG.Item.typeLabels[type])});
+    const name = game.i18n.format("ME5E.ItemNew", {type: game.i18n.localize(CONFIG.Item.typeLabels[type])});
     const itemData = {name, type, system};
     return this.actor.createEmbeddedDocuments("Item", [itemData]);
   }
@@ -323,7 +323,7 @@ export default class GroupActorSheet extends ActorSheet {
     const item = this.actor.items.get(element.dataset.itemId);
     if ( !item ) return;
     ui.context.menuItems = ActorSheet5e.prototype._getItemContextOptions.call(this, item);
-    Hooks.call("dnd5e.getItemContextOptions", item, ui.context.menuItems);
+    Hooks.call("me5e.getItemContextOptions", item, ui.context.menuItems);
   }
 
   /* -------------------------------------------- */
@@ -391,7 +391,7 @@ export default class GroupActorSheet extends ActorSheet {
 
     // Check to make sure items of this type are allowed on this actor
     if ( this.constructor.unsupportedItemTypes.has(itemData.type) ) {
-      ui.notifications.warn(game.i18n.format("DND5E.ActorWarningInvalidItem", {
+      ui.notifications.warn(game.i18n.format("ME5E.ActorWarningInvalidItem", {
         itemType: game.i18n.localize(CONFIG.Item.typeLabels[itemData.type]),
         actorType: game.i18n.localize(CONFIG.Actor.typeLabels[this.actor.type])
       }));

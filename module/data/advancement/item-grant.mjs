@@ -8,7 +8,7 @@ export default class ItemGrantConfigurationData extends foundry.abstract.DataMod
         required: true, label: "DOCUMENT.Items"
       }),
       optional: new foundry.data.fields.BooleanField({
-        required: true, label: "DND5E.AdvancementItemGrantOptional", hint: "DND5E.AdvancementItemGrantOptionalHint"
+        required: true, label: "ME5E.AdvancementItemGrantOptional", hint: "ME5E.AdvancementItemGrantOptionalHint"
       }),
       spell: new foundry.data.fields.EmbeddedDataField(SpellConfigurationData, {
         required: true, nullable: true, initial: null

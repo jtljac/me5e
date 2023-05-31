@@ -1,8 +1,8 @@
 <form autocomplete="off">
   <div class="left-column">
-    {{> "dnd5e.advancement-controls"}}
+    {{> "me5e.advancement-controls"}}
     <div class="form-group">
-      <label>{{localize "DND5E.AdvancementScaleValueTypeLabel"}}</label>
+      <label>{{localize "ME5E.AdvancementScaleValueTypeLabel"}}</label>
       <div class="form-fields">
         <select name="configuration.type">
           {{selectOptions types selected=configuration.type}}
@@ -20,14 +20,14 @@
     <hr>
 
     <div class="form-group">
-      <label>{{localize "DND5E.Identifier"}}</label>
+      <label>{{localize "ME5E.Identifier"}}</label>
       <div class="form-fields">
         <input name="configuration.identifier" type="text" value="{{configuration.identifier}}"
           placeholder="{{previewIdentifier}}">
       </div>
       <p class="hint identifier-hint">
-        {{{localize "DND5E.AdvancementScaleValueIdentifierHint" class=classIdentifier identifier=previewIdentifier}}}
-        <a class="identifier-hint-copy" data-tooltip="DND5E.IdentifierCopy">
+        {{{localize "ME5E.AdvancementScaleValueIdentifierHint" class=classIdentifier identifier=previewIdentifier}}}
+        <a class="identifier-hint-copy" data-tooltip="ME5E.IdentifierCopy">
           <i class="far fa-clipboard"></i>
         </a>
       </p>

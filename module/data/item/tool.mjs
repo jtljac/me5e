@@ -10,11 +10,11 @@ import PhysicalItemTemplate from "./templates/physical-item.mjs";
  * @mixes PhysicalItemTemplate
  * @mixes EquippableItemTemplate
  *
- * @property {string} toolType    Tool category as defined in `DND5E.toolTypes`.
- * @property {string} baseItem    Base tool as defined in `DND5E.toolIds` for determining proficiency.
+ * @property {string} toolType    Tool category as defined in `ME5E.toolTypes`.
+ * @property {string} baseItem    Base tool as defined in `ME5E.toolIds` for determining proficiency.
  * @property {string} ability     Default ability when this tool is being used.
  * @property {string} chatFlavor  Additional text added to chat when this tool is used.
- * @property {number} proficient  Level of proficiency in this tool as defined in `DND5E.proficiencyLevels`.
+ * @property {number} proficient  Level of proficiency in this tool as defined in `ME5E.proficiencyLevels`.
  * @property {string} bonus       Bonus formula added to tool rolls.
  */
 export default class ToolData extends SystemDataModel.mixin(
@@ -23,16 +23,16 @@ export default class ToolData extends SystemDataModel.mixin(
   /** @inheritdoc */
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
-      toolType: new foundry.data.fields.StringField({required: true, label: "DND5E.ItemToolType"}),
-      baseItem: new foundry.data.fields.StringField({required: true, label: "DND5E.ItemToolBase"}),
+      toolType: new foundry.data.fields.StringField({required: true, label: "ME5E.ItemToolType"}),
+      baseItem: new foundry.data.fields.StringField({required: true, label: "ME5E.ItemToolBase"}),
       ability: new foundry.data.fields.StringField({
-        required: true, blank: true, label: "DND5E.DefaultAbilityCheck"
+        required: true, blank: true, label: "ME5E.DefaultAbilityCheck"
       }),
-      chatFlavor: new foundry.data.fields.StringField({required: true, label: "DND5E.ChatFlavor"}),
+      chatFlavor: new foundry.data.fields.StringField({required: true, label: "ME5E.ChatFlavor"}),
       proficient: new foundry.data.fields.NumberField({
-        required: true, nullable: false, initial: 0, min: 0, label: "DND5E.ItemToolProficiency"
+        required: true, nullable: false, initial: 0, min: 0, label: "ME5E.ItemToolProficiency"
       }),
-      bonus: new FormulaField({required: true, label: "DND5E.ItemToolBonus"})
+      bonus: new FormulaField({required: true, label: "ME5E.ItemToolBonus"})
     });
   }
 
@@ -65,7 +65,7 @@ export default class ToolData extends SystemDataModel.mixin(
    * @type {string[]}
    */
   get chatProperties() {
-    return [CONFIG.DND5E.abilities[this.ability]?.label];
+    return [CONFIG.ME5E.abilities[this.ability]?.label];
   }
 
   /* -------------------------------------------- */

@@ -24,16 +24,16 @@ export default class CommonTemplate extends SystemDataModel.mixin(CurrencyTempla
     return this.mergeSchema(super.defineSchema(), {
       abilities: new MappingField(new foundry.data.fields.SchemaField({
         value: new foundry.data.fields.NumberField({
-          required: true, nullable: false, integer: true, min: 0, initial: 10, label: "DND5E.AbilityScore"
+          required: true, nullable: false, integer: true, min: 0, initial: 10, label: "ME5E.AbilityScore"
         }),
-        proficient: new foundry.data.fields.NumberField({required: true, initial: 0, label: "DND5E.ProficiencyLevel"}),
+        proficient: new foundry.data.fields.NumberField({required: true, initial: 0, label: "ME5E.ProficiencyLevel"}),
         bonuses: new foundry.data.fields.SchemaField({
-          check: new FormulaField({required: true, label: "DND5E.AbilityCheckBonus"}),
-          save: new FormulaField({required: true, label: "DND5E.SaveBonus"})
-        }, {label: "DND5E.AbilityBonuses"})
+          check: new FormulaField({required: true, label: "ME5E.AbilityCheckBonus"}),
+          save: new FormulaField({required: true, label: "ME5E.SaveBonus"})
+        }, {label: "ME5E.AbilityBonuses"})
       }), {
-        initialKeys: CONFIG.DND5E.abilities, initialValue: this._initialAbilityValue.bind(this),
-        initialKeysOnly: true, label: "DND5E.Abilities"
+        initialKeys: CONFIG.ME5E.abilities, initialValue: this._initialAbilityValue.bind(this),
+        initialKeysOnly: true, label: "ME5E.Abilities"
       })
     });
   }
@@ -49,7 +49,7 @@ export default class CommonTemplate extends SystemDataModel.mixin(CurrencyTempla
    * @private
    */
   static _initialAbilityValue(key, initial, existing) {
-    const config = CONFIG.DND5E.abilities[key];
+    const config = CONFIG.ME5E.abilities[key];
     if ( config ) {
       let defaultValue = config.defaults?.[this._systemType] ?? initial.value;
       if ( typeof defaultValue === "string" ) defaultValue = existing[defaultValue]?.value ?? initial.value;

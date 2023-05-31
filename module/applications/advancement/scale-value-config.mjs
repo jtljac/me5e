@@ -9,8 +9,8 @@ export default class ScaleValueConfig extends AdvancementConfig {
   /** @inheritdoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["dnd5e", "advancement", "scale-value", "two-column"],
-      template: "systems/dnd5e/templates/advancement/scale-value-config.hbs",
+      classes: ["me5e", "advancement", "scale-value", "two-column"],
+      template: "systems/me5e/templates/advancement/scale-value-config.hbs",
       width: 540
     });
   }
@@ -31,7 +31,7 @@ export default class ScaleValueConfig extends AdvancementConfig {
       ),
       faces: Object.fromEntries(TYPES.dice.FACES.map(die => [die, `d${die}`])),
       levels: this._prepareLevelData(),
-      movementUnits: CONFIG.DND5E.movementUnits
+      movementUnits: CONFIG.ME5E.movementUnits
     });
   }
 
@@ -44,7 +44,7 @@ export default class ScaleValueConfig extends AdvancementConfig {
    */
   _prepareLevelData() {
     let lastValue = null;
-    return Array.fromRange(CONFIG.DND5E.maxLevel + 1).slice(1).reduce((obj, level) => {
+    return Array.fromRange(CONFIG.ME5E.maxLevel + 1).slice(1).reduce((obj, level) => {
       obj[level] = { placeholder: this._formatPlaceholder(lastValue), value: null };
       const value = this.advancement.configuration.scale[level];
       if ( value ) {
@@ -132,7 +132,7 @@ export default class ScaleValueConfig extends AdvancementConfig {
   _onIdentifierHintCopy(event) {
     const data = this.getData();
     game.clipboard.copyPlainText(`@scale.${data.classIdentifier}.${data.previewIdentifier}`);
-    game.tooltip.activate(event.target, {text: game.i18n.localize("DND5E.IdentifierCopied"), direction: "UP"});
+    game.tooltip.activate(event.target, {text: game.i18n.localize("ME5E.IdentifierCopied"), direction: "UP"});
   }
 
   /* -------------------------------------------- */
@@ -154,7 +154,7 @@ export default class ScaleValueConfig extends AdvancementConfig {
     const typeChange = "configuration.type" in formData;
     if ( typeChange && (updates.configuration.type !== this.advancement.configuration.type) ) {
       // Clear existing scale value data to prevent error during type update
-      await this.advancement.update(Array.fromRange(CONFIG.DND5E.maxLevel, 1).reduce((obj, lvl) => {
+      await this.advancement.update(Array.fromRange(CONFIG.ME5E.maxLevel, 1).reduce((obj, lvl) => {
         obj[`configuration.scale.-=${lvl}`] = null;
         return obj;
       }, {}));

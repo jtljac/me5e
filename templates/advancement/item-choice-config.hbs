@@ -1,28 +1,28 @@
 <form autocomplete="off">
   <div class="left-column">
-    {{> "dnd5e.advancement-controls"}}
+    {{> "me5e.advancement-controls"}}
     <div class="form-group">
-      <label>{{localize "DND5E.AdvancementHint"}}</label>
+      <label>{{localize "ME5E.AdvancementHint"}}</label>
       <textarea name="configuration.hint">{{configuration.hint}}</textarea>
     </div>
 
     <div class="form-group">
-      <label>{{localize "DND5E.AdvancementConfigureAllowDrops"}}</label>
+      <label>{{localize "ME5E.AdvancementConfigureAllowDrops"}}</label>
       <div class="form-fields">
         <input type="checkbox" name="configuration.allowDrops" {{checked configuration.allowDrops}}>
       </div>
-      <p class="hint">{{localize "DND5E.AdvancementConfigureAllowDropsHint"}}</p>
+      <p class="hint">{{localize "ME5E.AdvancementConfigureAllowDropsHint"}}</p>
     </div>
 
     <div class="form-group">
-      <label>{{localize "DND5E.AdvancementItemChoiceType"}}</label>
+      <label>{{localize "ME5E.AdvancementItemChoiceType"}}</label>
       <div class="form-fields">
         <select name="configuration.type">
           {{selectOptions validTypes selected=configuration.type
-            blank=(localize "DND5E.AdvancementItemChoiceTypeAny")}}
+            blank=(localize "ME5E.AdvancementItemChoiceTypeAny")}}
         </select>
       </div>
-      <p class="hint">{{localize "DND5E.AdvancementItemChoiceTypeHint"}}</p>
+      <p class="hint">{{localize "ME5E.AdvancementItemChoiceTypeHint"}}</p>
     </div>
 
     {{#if typeRestriction}}
@@ -35,7 +35,7 @@
           </select>
         </div>
       </div>
-      
+
       {{#if typeRestriction.subtypeOptions}}
         <div class="form-group">
           <label>{{typeRestriction.subtypeLabel}}</label>
@@ -50,7 +50,7 @@
 
     {{#if showSpellConfig}}
       <div class="form-group">
-        <label>{{localize "DND5E.SpellLevel"}}</label>
+        <label>{{localize "ME5E.SpellLevel"}}</label>
         <div class="form-fields">
           <select name="configuration.restriction.level">
             {{#select configuration.restriction.level}}
@@ -58,14 +58,14 @@
               {{#each CONFIG.spellLevels as |label key|}}
                 <option value="{{key}}">{{label}}</option>
               {{/each}}
-              <option value="available">{{localize "DND5E.AdvancementItemChoiceSpellLevelAvailable"}}</option>
+              <option value="available">{{localize "ME5E.AdvancementItemChoiceSpellLevelAvailable"}}</option>
             {{/select}}
           </select>
         </div>
-        <p class="hint">{{localize "DND5E.AdvancementItemChoiceSpellLevelHint"}}</p>
+        <p class="hint">{{localize "ME5E.AdvancementItemChoiceSpellLevelHint"}}</p>
       </div>
-      
-      {{> "dnd5e.advancement-spell-config"}}
+
+      {{> "me5e.advancement-spell-config"}}
     {{/if}}
 
     <div class="drop-target">
@@ -74,9 +74,9 @@
         <ol class="item-list">
         {{#each configuration.pool}}
           <li class="item flexrow" data-item-uuid="{{this}}">
-            <div class="item-name">{{{dnd5e-linkForUuid this}}}</div>
+            <div class="item-name">{{{me5e-linkForUuid this}}}</div>
             <div class="item-controls flexrow">
-              <a class="item-control item-action" data-action="delete" title="{{localize 'DND5E.ItemDelete'}}">
+              <a class="item-control item-action" data-action="delete" title="{{localize 'ME5E.ItemDelete'}}">
                 <i class="fas fa-trash"></i>
               </a>
             </div>
@@ -85,12 +85,12 @@
         </ol>
       </ol>
 
-      <p class="hint centered">{{localize "DND5E.AdvancementConfigureDropAreaHint"}}</p>
+      <p class="hint centered">{{localize "ME5E.AdvancementConfigureDropAreaHint"}}</p>
     </div>
   </div>
 
   <div class="right-column level-list">
-    <p class="hint">{{localize "DND5E.AdvancementItemChoiceLevelsHint"}}</p>
+    <p class="hint">{{localize "ME5E.AdvancementItemChoiceLevelsHint"}}</p>
     {{#each levels as |level|}}
       <div class="form-group">
         <label>{{level}}</label>
