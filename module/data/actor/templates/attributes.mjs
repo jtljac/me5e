@@ -85,7 +85,7 @@ export default class AttributesFields {
                 truesight: new foundry.data.fields.NumberField({
                     required: true, nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.SenseTruesight"
                 }),
-                units: new foundry.data.fields.StringField({required: true, initial: "ft", label: "ME5E.SenseUnits"}),
+                units: new foundry.data.fields.StringField({required: true, initial: "m", label: "ME5E.SenseUnits"}),
                 special: new foundry.data.fields.StringField({required: true, label: "ME5E.SenseSpecial"})
             }, {label: "ME5E.Senses"}),
             spellcasting: new foundry.data.fields.StringField({

@@ -1,4 +1,5 @@
 import * as advancement from "./documents/advancement/_module.mjs";
+import * as rule from "./data/rule/_module.mjs"
 import {preLocalize} from "./utils.mjs";
 
 // Namespace Configuration Values
@@ -13,6 +14,22 @@ ___  ___ _____ _____ _____
 | |  | || |___/\\__/ / |___ 
 \\_|  |_/\\____/\\____/\\____/ 
 ___________________________`;
+
+/**
+ * The available types of rules
+ * @type {Object<String, typeof RuleData>}
+ */
+ME5E.ruleTypes = {
+
+}
+
+/**
+ * The available types of predicates
+ * @type {Object<String, typeof Predicate>}
+ */
+ME5E.predicateTypes = {
+
+}
 
 /**
  * Configuration data for abilities.

@@ -142,8 +142,8 @@ export default class Actor5e extends Actor {
         const globalBonuses = this.system.bonuses?.abilities ?? {};
         const rollData = this.getRollData();
         const checkBonus = simplifyBonus(globalBonuses?.check, rollData);
-        this._prepareAbilities(rollData, globalBonuses, checkBonus, originalSaves);
-        this._prepareSkills(rollData, globalBonuses, checkBonus, originalSkills);
+        this._prepareAbilities(rollData, globalBonuses, checkBonus);
+        this._prepareSkills(rollData, globalBonuses, checkBonus);
         this._prepareTools(rollData, globalBonuses, checkBonus);
         this._prepareArmorClass();
         this._prepareEncumbrance();
@@ -317,10 +317,9 @@ export default class Actor5e extends Actor {
      * @param {object} bonusData      Data produced by `getRollData` to be applied to bonus formulas.
      * @param {object} globalBonuses  Global bonus data.
      * @param {number} checkBonus     Global ability check bonus.
-     * @param {object} originalSaves  A transformed actor's original actor's abilities.
      * @protected
      */
-    _prepareAbilities(bonusData, globalBonuses, checkBonus, originalSaves) {
+    _prepareAbilities(bonusData, globalBonuses, checkBonus) {
         const flags = this.flags.me5e ?? {};
         const dcBonus = simplifyBonus(this.system.bonuses?.spell?.dc, bonusData);
         const saveBonus = simplifyBonus(globalBonuses.save, bonusData);
@@ -340,9 +339,6 @@ export default class Actor5e extends Actor {
             abl.save = abl.mod + abl.saveBonus;
             if (Number.isNumeric(abl.saveProf.term)) abl.save += abl.saveProf.flat;
             abl.dc = 8 + abl.mod + this.system.attributes.prof + dcBonus;
-
-            // If we merged saves when transforming, take the highest bonus here.
-            if (originalSaves && abl.proficient) abl.save = Math.max(abl.save, originalSaves[id].save);
         }
     }
 
@@ -353,10 +349,9 @@ export default class Actor5e extends Actor {
      * @param {object} bonusData       Data produced by `getRollData` to be applied to bonus formulas.
      * @param {object} globalBonuses   Global bonus data.
      * @param {number} checkBonus      Global ability check bonus.
-     * @param {object} originalSkills  A transformed actor's original actor's skills.
      * @protected
      */
-    _prepareSkills(bonusData, globalBonuses, checkBonus, originalSkills) {
+    _prepareSkills(bonusData, globalBonuses, checkBonus) {
         if (this.type === "vehicle") return;
         const flags = this.flags.me5e ?? {};
 
