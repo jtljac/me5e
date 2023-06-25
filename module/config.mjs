@@ -1,6 +1,7 @@
 import * as advancement from "./documents/advancement/_module.mjs";
 import * as rule from "./data/rule/_module.mjs"
 import {preLocalize} from "./utils.mjs";
+import TestRule from "./data/rule/test-rule.mjs";
 
 // Namespace Configuration Values
 const ME5E = {};
@@ -17,10 +18,10 @@ ___________________________`;
 
 /**
  * The available types of rules
- * @type {Object<String, typeof RuleData>}
+ * @type {Object<String, ObjectConstructor>}
  */
 ME5E.ruleTypes = {
-
+    test: TestRule
 }
 
 /**

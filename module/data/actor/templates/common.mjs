@@ -64,7 +64,6 @@ export default class CommonTemplate extends SystemDataModel.mixin(CurrencyTempla
 
     /* -------------------------------------------- */
     /*  Migrations                                  */
-
     /* -------------------------------------------- */
 
     /** @inheritdoc */

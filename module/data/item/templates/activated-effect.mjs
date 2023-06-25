@@ -101,7 +101,6 @@ export default class ActivatedEffectTemplate extends foundry.abstract.DataModel 
 
     /* -------------------------------------------- */
     /*  Migrations                                  */
-
     /* -------------------------------------------- */
 
     /** @inheritdoc */

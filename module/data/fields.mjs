@@ -101,6 +101,146 @@ export class AdvancementDataField extends foundry.data.fields.ObjectField {
 /* -------------------------------------------- */
 
 /**
+ * A subclass of [ObjectField]{@link ObjectField} which supports a type specific DataModel object.
+ *
+ * This class is similar to [TypeDataField]{@link TypeDataField}, however it is modified for DataModel
+ * objects instead of Documents
+ */
+export class TypeDataModelField extends foundry.data.fields.ObjectField {
+    /**
+     * The path from `globalThis` to an object containing the types of dataModels available, for example `CONFIG.ME5E.ruleTypes`
+     * @type {string}
+     */
+    dataModelPath;
+
+    /** @override */
+    static recursive = true;
+
+    /**
+     * @param {string} dataModelPath        The path from `globalThis` to an object containing the types of dataModels available, for example `CONFIG.ME5E.ruleTypes`
+     * @param {DataFieldOptions} options    Options which configure the behavior of the field
+     */
+    constructor(dataModelPath, options={}) {
+        super(options);
+
+        this.dataModelPath = dataModelPath;
+    }
+
+    /**
+     * Return the package that provides the sub-type for the given model.
+     * @param {DataModel} model       The model instance created for this sub-type.
+     * @returns {System|Module|null}
+     * @see TypeDataField#getModelProvider
+     */
+    static getModelProvider = foundry.data.fields.TypeDataField.getModelProvider
+
+    /**
+     * A convenience accessor for the name of the document type associated with this TypeDataField
+     * @type {string}
+     */
+    get getAvailableDataModels() {
+        return foundry.utils.getProperty(globalThis, this.dataModelPath);
+    }
+
+    /**
+     * Get the type of this
+     *
+     * @param source {object} The source
+     * @return {string}
+     * @private
+     */
+    _getType(source) {
+        return source.type;
+    }
+
+    /**
+     * Get the DataModel definition that should be used for this type of document.
+     * @param {string} type              The Document instance type
+     * @returns {typeof DataModel|null}  The DataModel class or null
+     */
+    getModelForType(type) {
+        if ( !type ) return null;
+        return this.getAvailableDataModels?.[type] ?? null;
+    }
+
+    /** @override */
+    getInitialValue(data) {
+        const cls = this.getModelForType(data.type);
+        return cls?.cleanData() || super.getInitialValue(data);
+    }
+
+    /** @override */
+    _cleanType(value, options) {
+        if ( !(typeof value === "object") ) value = {};
+
+        // Use a defined DataModel
+        const type = this._getType(value);
+        const cls = this.getModelForType(type);
+        if ( cls ) return cls.cleanData(value, options);
+        if ( options.partial ) return value;
+
+        // The validation should prevent this
+        return undefined;
+    }
+
+    /** @override */
+    initialize(value, model, options={}) {
+        if (!value) return value;
+        const cls = this.getModelForType(this._getType(value));
+        if ( cls ) {
+            const instance = new cls(value, {parent: model, ...options});
+            if ( !("modelProvider" in instance) ) Object.defineProperty(instance, "modelProvider", {
+                value: this.constructor.getModelProvider(instance),
+                writable: false
+            });
+            return instance;
+        }
+        return deepClone(value);
+    }
+
+    /** @inheritdoc */
+    _validateType(data, options={}) {
+        super._validateType(data);
+
+        const type = data.type || this._getType(data);
+
+        if (!type) throw new Error("Missing type");
+        if (!this.getAvailableDataModels.hasOwnProperty(type)) throw new Error("Unknown type");
+
+        const cls = this.getModelForType(options.source.type);
+        const schema = cls?.schema;
+        return schema?.validate(data, options);
+    }
+
+    /* ---------------------------------------- */
+
+    /** @override */
+    _validateModel(changes, options) {
+        const cls = this.getModelForType(this._getType(changes));
+        return cls?.validateJoint(changes);
+    }
+
+    /* ---------------------------------------- */
+
+    /** @override */
+    toObject(value) {
+        return value.toObject instanceof Function ? value.toObject(false) : deepClone(value);
+    }
+
+    /**
+     * Migrate this field's candidate source data.
+     * @param {object} sourceData   Candidate source data of the root model
+     * @param {any} fieldData       The value of this field within the source data
+     */
+    migrateSource(sourceData, fieldData) {
+        const cls = this.getModelForType(sourceData.type);
+        if ( cls ) cls.migrateDataSafe(fieldData);
+    }
+}
+
+/* -------------------------------------------- */
+
+/**
  * @typedef {StringFieldOptions} FormulaFieldOptions
  * @property {boolean} [deterministic=false]  Is this formula not allowed to have dice values?
  */

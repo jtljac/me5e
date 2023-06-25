@@ -1,4 +1,4 @@
-import {FormulaField} from "../fields.mjs";
+import {AdvancementField, FormulaField, TypeDataModelField} from "../fields.mjs";
 import AttributesFields from "./templates/attributes.mjs";
 import CreatureTemplate from "./templates/creature.mjs";
 import DetailsFields from "./templates/details.mjs";
@@ -142,7 +142,9 @@ export default class CharacterData extends CreatureTemplate {
                 primary: makeResourceField({label: "ME5E.ResourcePrimary"}),
                 secondary: makeResourceField({label: "ME5E.ResourceSecondary"}),
                 tertiary: makeResourceField({label: "ME5E.ResourceTertiary"})
-            }, {label: "ME5E.Resources"})
+            }, {label: "ME5E.Resources"}),
+
+            rules: new foundry.data.fields.ArrayField(new TypeDataModelField("CONFIG.ME5E.ruleTypes"), {label: "ME5E.RuleTitle"}),
         });
     }
 
