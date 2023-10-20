@@ -19,7 +19,6 @@ export default class Actor5e extends Actor {
 
     /* -------------------------------------------- */
     /*  Properties                                  */
-
     /* -------------------------------------------- */
 
     /**
@@ -36,6 +35,12 @@ export default class Actor5e extends Actor {
     }
 
     /* -------------------------------------------- */
+
+    static defineSchema() {
+        const test = super.defineSchema();
+        test.testing = new foundry.data.fields.EmbeddedCollectionField(foundry.documents.BaseItem);
+        return test;
+    }
 
     /**
      * The Actor's currently equipped armor, if any.

@@ -89,6 +89,7 @@ Hooks.once("init", function() {
     const modelType = game.me5e.isV10 ? "systemDataModels" : "dataModels";
     CONFIG.Actor[modelType] = dataModels.actor.config;
     CONFIG.Item[modelType] = dataModels.item.config;
+    CONFIG.testing = CONFIG.Item;
     CONFIG.JournalEntryPage[modelType] = dataModels.journal.config;
 
     // Register sheet application classes
