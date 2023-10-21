@@ -113,7 +113,7 @@
       },
       "icon": "icons/equipment/wrist/bracer-segmented-leather.webp",
       "label": "+2 to AC",
-      "origin": "Compendium.dnd5e.items.DSHi7yT6OUyDoCcu",
+      "origin": "Compendium.me5e.items.DSHi7yT6OUyDoCcu",
       "transfer": true,
       "flags": {},
       "tint": null,
@@ -128,12 +128,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787233523,
     "modifiedTime": 1671220958745,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!DSHi7yT6OUyDoCcu"
 }

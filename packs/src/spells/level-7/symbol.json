@@ -97,12 +97,12 @@
   "effects": [],
   "folder": null,
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.2.0",
     "coreVersion": "10.291",
     "createdTime": 1661787234090,
     "modifiedTime": 1674761650271,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!B2kbmgbA2WQR00kx"
 }

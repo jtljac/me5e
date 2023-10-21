@@ -113,7 +113,7 @@
       },
       "icon": "icons/magic/symbols/rune-sigil-black-pink.webp",
       "label": "15 base AC",
-      "origin": "Compendium.dnd5e.items.mr96Z8YTI490ExhP",
+      "origin": "Compendium.me5e.items.mr96Z8YTI490ExhP",
       "transfer": true,
       "flags": {},
       "tint": null,
@@ -128,12 +128,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787233856,
     "modifiedTime": 1671220964066,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!mr96Z8YTI490ExhP"
 }

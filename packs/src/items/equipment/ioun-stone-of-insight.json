@@ -100,7 +100,7 @@
     {
       "label": "Ioun Stone of Insight",
       "icon": "icons/commodities/stone/ore-pile-teal.webp",
-      "origin": "Compendium.dnd5e.items.9jMQEm99q1ttAV1Q",
+      "origin": "Compendium.me5e.items.9jMQEm99q1ttAV1Q",
       "duration": {
         "startTime": null,
         "seconds": null,
@@ -133,12 +133,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.2.2",
     "coreVersion": "10.303",
     "createdTime": 1661787233501,
     "modifiedTime": 1690480798346,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!9jMQEm99q1ttAV1Q"
 }

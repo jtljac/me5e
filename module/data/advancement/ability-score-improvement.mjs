@@ -14,12 +14,12 @@ export class AbilityScoreImprovementConfigurationData extends foundry.abstract.D
       // TODO: This should default to 2 if added to a class, or 0 if added to anything else
       points: new foundry.data.fields.NumberField({
         integer: true, min: 0, initial: 2,
-        label: "DND5E.AdvancementAbilityScoreImprovementPoints",
-        hint: "DND5E.AdvancementAbilityScoreImprovementPointsHint"
+        label: "ME5E.AdvancementAbilityScoreImprovementPoints",
+        hint: "ME5E.AdvancementAbilityScoreImprovementPointsHint"
       }),
       fixed: new MappingField(
         new foundry.data.fields.NumberField({nullable: false, integer: true, initial: 0}),
-        {label: "DND5E.AdvancementAbilityScoreImprovementFixed"}
+        {label: "ME5E.AdvancementAbilityScoreImprovementFixed"}
       )
     };
   }
@@ -43,7 +43,7 @@ export class AbilityScoreImprovementValueData extends SparseDataModel {
         nullable: false, integer: true
       }), {required: false, initial: undefined}),
       feat: new MappingField(new foundry.data.fields.StringField(), {
-        required: false, initial: undefined, label: "DND5E.Feature.Feat"
+        required: false, initial: undefined, label: "ME5E.Feature.Feat"
       })
     };
   }

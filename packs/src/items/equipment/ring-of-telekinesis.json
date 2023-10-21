@@ -5,7 +5,7 @@
   "img": "icons/equipment/finger/ring-inlay-red.webp",
   "system": {
     "description": {
-      "value": "<p><em>(Requires attunement)</em></p>\n<p>While wearing this ring, you can cast the @Compendium[dnd5e.spells.HQfd7jJyULIoGxrZ]{Telekinesis} spell at will, but you can target only objects that aren't being worn or carried.</p>",
+      "value": "<p><em>(Requires attunement)</em></p>\n<p>While wearing this ring, you can cast the @Compendium[me5e.spells.HQfd7jJyULIoGxrZ]{Telekinesis} spell at will, but you can target only objects that aren't being worn or carried.</p>",
       "chat": "",
       "unidentified": ""
     },
@@ -98,12 +98,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787233817,
     "modifiedTime": 1671220963044,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!hxfOtvFrY1PXHQN1"
 }

@@ -95,7 +95,7 @@
     {
       "label": "Belt of Cloud Giant Strength",
       "icon": "icons/equipment/waist/belt-thick-gemmed-steel-grey.webp",
-      "origin": "Compendium.dnd5e.items.NRj0lC3SM03s1YB3",
+      "origin": "Compendium.me5e.items.NRj0lC3SM03s1YB3",
       "duration": {
         "startTime": null,
         "seconds": null,
@@ -128,12 +128,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.2.2",
     "coreVersion": "10.303",
     "createdTime": 1661787233631,
     "modifiedTime": 1690480168162,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!NRj0lC3SM03s1YB3"
 }

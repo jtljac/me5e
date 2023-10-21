@@ -29,12 +29,12 @@
   "effects": [],
   "folder": null,
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.0.3",
     "coreVersion": "10.290",
     "createdTime": 1661787234020,
     "modifiedTime": 1670010072172,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!eDVTXE3qv28DwvPl"
 }

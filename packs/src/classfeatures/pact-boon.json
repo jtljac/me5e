@@ -7,7 +7,7 @@
   "type": "feat",
   "system": {
     "description": {
-      "value": "<p>At 3rd level, your otherworldly patron bestows a gift upon you for your loyal service. You gain one of the following features of your choice.</p><p>@UUID[Compendium.dnd5e.classfeatures.9dSSa68mIPoX2ezA]{Pact of the Blade}</p><p>@UUID[Compendium.dnd5e.classfeatures.Ic1CSjvbWKudVUv9]{Pact of the Chain}</p><p>@UUID[Compendium.dnd5e.classfeatures.MYM908WLZ1lVvA1u]{Pact of the Tome}</p>",
+      "value": "<p>At 3rd level, your otherworldly patron bestows a gift upon you for your loyal service. You gain one of the following features of your choice.</p><p>@UUID[Compendium.me5e.classfeatures.9dSSa68mIPoX2ezA]{Pact of the Blade}</p><p>@UUID[Compendium.me5e.classfeatures.Ic1CSjvbWKudVUv9]{Pact of the Chain}</p><p>@UUID[Compendium.me5e.classfeatures.MYM908WLZ1lVvA1u]{Pact of the Tome}</p>",
       "chat": "",
       "unidentified": ""
     },
@@ -78,12 +78,12 @@
   "folder": null,
   "sort": 0,
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.2",
     "coreVersion": "10.291",
     "createdTime": 1661787234376,
     "modifiedTime": 1674435984779,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!QwgfIpCN8VWfoUtX"
 }

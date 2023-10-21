@@ -100,7 +100,7 @@
     {
       "label": "Ioun Stone of Leadership",
       "icon": "icons/commodities/stone/ore-pile-purple.webp",
-      "origin": "Compendium.dnd5e.items.hDF4RSCzMO8iI14x",
+      "origin": "Compendium.me5e.items.hDF4RSCzMO8iI14x",
       "duration": {
         "startTime": null,
         "seconds": null,
@@ -133,12 +133,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.2.2",
     "coreVersion": "10.303",
     "createdTime": 1661787233810,
     "modifiedTime": 1690480879261,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!hDF4RSCzMO8iI14x"
 }

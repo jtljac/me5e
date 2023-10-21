@@ -100,7 +100,7 @@
     {
       "label": "Ioun Stone of Protection",
       "icon": "icons/commodities/gems/gem-rough-ball-purple.webp",
-      "origin": "Compendium.dnd5e.items.v4uNbmiz4ECTI89n",
+      "origin": "Compendium.me5e.items.v4uNbmiz4ECTI89n",
       "duration": {
         "startTime": null,
         "seconds": null,
@@ -133,12 +133,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.2.2",
     "coreVersion": "10.303",
     "createdTime": 1661787233950,
     "modifiedTime": 1690481078298,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!v4uNbmiz4ECTI89n"
 }

@@ -7,7 +7,7 @@
   "type": "feat",
   "system": {
     "description": {
-      "value": "<p>At 20th level, when you roll initiative and have no uses of @Compendium[dnd5e.classfeatures.hpLNiGq7y67d2EHA]{Bardic Inspiraton} left, you regain one use.</p>",
+      "value": "<p>At 20th level, when you roll initiative and have no uses of @Compendium[me5e.classfeatures.hpLNiGq7y67d2EHA]{Bardic Inspiraton} left, you regain one use.</p>",
       "chat": "",
       "unidentified": ""
     },
@@ -78,12 +78,12 @@
   "folder": null,
   "sort": 0,
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787234356,
     "modifiedTime": 1672335255120,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!GBYN5rH4nh1ocRlY"
 }

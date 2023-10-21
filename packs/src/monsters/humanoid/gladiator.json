@@ -545,7 +545,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.items.TIV3B1vbrVHIhQAm"
+          "sourceId": "Compendium.me5e.items.TIV3B1vbrVHIhQAm"
         }
       },
       "_stats": {
@@ -658,7 +658,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.monsterfeatures.yHcr3vlkmtInELj2"
+          "sourceId": "Compendium.me5e.monsterfeatures.yHcr3vlkmtInELj2"
         }
       },
       "_stats": {
@@ -751,7 +751,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.monsterfeatures.108q5fJnnBRoLKfe"
+          "sourceId": "Compendium.me5e.monsterfeatures.108q5fJnnBRoLKfe"
         }
       },
       "_stats": {
@@ -844,7 +844,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.monsterfeatures.q8w1UF9woZDGIwvS"
+          "sourceId": "Compendium.me5e.monsterfeatures.q8w1UF9woZDGIwvS"
         }
       },
       "_stats": {
@@ -937,7 +937,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.monsterfeatures.EqoLg8T8EHvhJgKE"
+          "sourceId": "Compendium.me5e.monsterfeatures.EqoLg8T8EHvhJgKE"
         }
       },
       "_stats": {
@@ -1064,7 +1064,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.items.OG4nBBydvmfWYXIk"
+          "sourceId": "Compendium.me5e.items.OG4nBBydvmfWYXIk"
         }
       },
       "_stats": {
@@ -1280,7 +1280,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.monsterfeatures.kfi26Jy0VLXv9TTm"
+          "sourceId": "Compendium.me5e.monsterfeatures.kfi26Jy0VLXv9TTm"
         }
       },
       "_stats": {
@@ -1302,12 +1302,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787232965,
     "modifiedTime": 1672596103395,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!actors!fsPruAIDOg4tVrgb"
 }

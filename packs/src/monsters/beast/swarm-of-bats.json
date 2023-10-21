@@ -659,7 +659,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.monsterfeatures.eL3OJmc4FuetizKO"
+          "sourceId": "Compendium.me5e.monsterfeatures.eL3OJmc4FuetizKO"
         }
       },
       "_stats": {
@@ -841,7 +841,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.monsterfeatures.rUongiWD51ZopRk2"
+          "sourceId": "Compendium.me5e.monsterfeatures.rUongiWD51ZopRk2"
         }
       },
       "_stats": {
@@ -863,12 +863,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787232810,
     "modifiedTime": 1672596099371,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!actors!PcZ0QjIG6bHpffp9"
 }

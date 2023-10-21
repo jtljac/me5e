@@ -5,7 +5,7 @@
   "img": "icons/commodities/gems/pearl-natural.webp",
   "system": {
     "description": {
-      "value": "<p><em>Wondrous item, (requires attunement)</em></p>\n<p>The typical Crystal Ball, a very rare item, is about 6 inches in diameter. While touching it, you can cast the @Compendium[dnd5e.spells.fVbCxFRaORalHB20]{Scrying} spell (save DC 17) with it.</p>",
+      "value": "<p><em>Wondrous item, (requires attunement)</em></p>\n<p>The typical Crystal Ball, a very rare item, is about 6 inches in diameter. While touching it, you can cast the @Compendium[me5e.spells.fVbCxFRaORalHB20]{Scrying} spell (save DC 17) with it.</p>",
       "chat": "",
       "unidentified": ""
     },
@@ -81,12 +81,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787233575,
     "modifiedTime": 1671220959323,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!ItoGjtOtDOQ2noNM"
 }

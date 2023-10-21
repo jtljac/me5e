@@ -31,7 +31,7 @@ async function compileJavascript() {
     plugins: [nodeResolve()]
   });
   await bundle.write({
-    file: "./dnd5e-compiled.mjs",
+    file: "./me5e-compiled.mjs",
     format: "es",
     sourcemap: true,
     sourcemapFile: "me5e.mjs"

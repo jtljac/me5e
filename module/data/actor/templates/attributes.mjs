@@ -23,28 +23,28 @@ export default class AttributesFields {
   static get common() {
     return {
       init: new foundry.data.fields.SchemaField({
-        ability: new foundry.data.fields.StringField({label: "DND5E.AbilityModifier"}),
-        bonus: new FormulaField({label: "DND5E.InitiativeBonus"})
-      }, { label: "DND5E.Initiative" }),
+        ability: new foundry.data.fields.StringField({label: "ME5E.AbilityModifier"}),
+        bonus: new FormulaField({label: "ME5E.InitiativeBonus"})
+      }, { label: "ME5E.Initiative" }),
       movement: new foundry.data.fields.SchemaField({
         burrow: new foundry.data.fields.NumberField({
-          nullable: false, min: 0, step: 0.1, initial: 0, label: "DND5E.MovementBurrow"
+          nullable: false, min: 0, step: 0.1, initial: 0, label: "ME5E.MovementBurrow"
         }),
         climb: new foundry.data.fields.NumberField({
-          nullable: false, min: 0, step: 0.1, initial: 0, label: "DND5E.MovementClimb"
+          nullable: false, min: 0, step: 0.1, initial: 0, label: "ME5E.MovementClimb"
         }),
         fly: new foundry.data.fields.NumberField({
-          nullable: false, min: 0, step: 0.1, initial: 0, label: "DND5E.MovementFly"
+          nullable: false, min: 0, step: 0.1, initial: 0, label: "ME5E.MovementFly"
         }),
         swim: new foundry.data.fields.NumberField({
-          nullable: false, min: 0, step: 0.1, initial: 0, label: "DND5E.MovementSwim"
+          nullable: false, min: 0, step: 0.1, initial: 0, label: "ME5E.MovementSwim"
         }),
         walk: new foundry.data.fields.NumberField({
-          nullable: false, min: 0, step: 0.1, initial: 30, label: "DND5E.MovementWalk"
+          nullable: false, min: 0, step: 0.1, initial: 30, label: "ME5E.MovementWalk"
         }),
-        units: new foundry.data.fields.StringField({initial: "ft", label: "DND5E.MovementUnits"}),
-        hover: new foundry.data.fields.BooleanField({label: "DND5E.MovementHover"})
-      }, {label: "DND5E.Movement"})
+        units: new foundry.data.fields.StringField({initial: "ft", label: "ME5E.MovementUnits"}),
+        hover: new foundry.data.fields.BooleanField({label: "ME5E.MovementHover"})
+      }, {label: "ME5E.Movement"})
     };
   }
 
@@ -69,27 +69,27 @@ export default class AttributesFields {
     return {
       attunement: new foundry.data.fields.SchemaField({
         max: new foundry.data.fields.NumberField({
-          required: true, nullable: false, integer: true, min: 0, initial: 3, label: "DND5E.AttunementMax"
+          required: true, nullable: false, integer: true, min: 0, initial: 3, label: "ME5E.AttunementMax"
         })
-      }, {label: "DND5E.Attunement"}),
+      }, {label: "ME5E.Attunement"}),
       senses: new foundry.data.fields.SchemaField({
         darkvision: new foundry.data.fields.NumberField({
-          required: true, nullable: false, integer: true, min: 0, initial: 0, label: "DND5E.SenseDarkvision"
+          required: true, nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.SenseDarkvision"
         }),
         blindsight: new foundry.data.fields.NumberField({
-          required: true, nullable: false, integer: true, min: 0, initial: 0, label: "DND5E.SenseBlindsight"
+          required: true, nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.SenseBlindsight"
         }),
         tremorsense: new foundry.data.fields.NumberField({
-          required: true, nullable: false, integer: true, min: 0, initial: 0, label: "DND5E.SenseTremorsense"
+          required: true, nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.SenseTremorsense"
         }),
         truesight: new foundry.data.fields.NumberField({
-          required: true, nullable: false, integer: true, min: 0, initial: 0, label: "DND5E.SenseTruesight"
+          required: true, nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.SenseTruesight"
         }),
-        units: new foundry.data.fields.StringField({required: true, initial: "ft", label: "DND5E.SenseUnits"}),
-        special: new foundry.data.fields.StringField({required: true, label: "DND5E.SenseSpecial"})
-      }, {label: "DND5E.Senses"}),
+        units: new foundry.data.fields.StringField({required: true, initial: "ft", label: "ME5E.SenseUnits"}),
+        special: new foundry.data.fields.StringField({required: true, label: "ME5E.SenseSpecial"})
+      }, {label: "ME5E.Senses"}),
       spellcasting: new foundry.data.fields.StringField({
-        required: true, blank: true, initial: "int", label: "DND5E.SpellAbility"
+        required: true, blank: true, initial: "int", label: "ME5E.SpellAbility"
       })
     };
   }

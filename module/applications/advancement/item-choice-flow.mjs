@@ -30,7 +30,7 @@ export default class ItemChoiceFlow extends ItemGrantFlow {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       dragDrop: [{ dropSelector: ".drop-target" }],
-      template: "systems/dnd5e/templates/advancement/item-choice-flow.hbs"
+      template: "systems/me5e/templates/advancement/item-choice-flow.hbs"
     });
   }
 
@@ -39,14 +39,14 @@ export default class ItemChoiceFlow extends ItemGrantFlow {
   /** @inheritdoc */
   async getContext() {
     this.selected ??= new Set(
-      this.retainedData?.items.map(i => foundry.utils.getProperty(i, "flags.dnd5e.sourceId"))
+      this.retainedData?.items.map(i => foundry.utils.getProperty(i, "flags.me5e.sourceId"))
         ?? Object.values(this.advancement.value[this.level] ?? {})
     );
     this.pool ??= await Promise.all(this.advancement.configuration.pool.map(uuid => fromUuid(uuid)));
     if ( !this.dropped ) {
       this.dropped = [];
       for ( const data of this.retainedData?.items ?? [] ) {
-        const uuid = foundry.utils.getProperty(data, "flags.dnd5e.sourceId");
+        const uuid = foundry.utils.getProperty(data, "flags.me5e.sourceId");
         if ( this.pool.find(i => uuid === i.uuid) ) continue;
         const item = await fromUuid(uuid);
         item.dropped = true;
@@ -139,7 +139,7 @@ export default class ItemChoiceFlow extends ItemGrantFlow {
     for ( const [level, data] of Object.entries(this.advancement.value.added ?? {}) ) {
       if ( level >= this.level ) continue;
       if ( Object.values(data).includes(item.uuid) ) {
-        ui.notifications.error("DND5E.AdvancementItemChoicePreviouslyChosenWarning", {localize: true});
+        ui.notifications.error("ME5E.AdvancementItemChoicePreviouslyChosenWarning", {localize: true});
         return null;
       }
     }
@@ -149,8 +149,8 @@ export default class ItemChoiceFlow extends ItemGrantFlow {
     if ( (this.advancement.configuration.type === "spell") && spellLevel === "available" ) {
       const maxSlot = this._maxSpellSlotLevel();
       if ( item.system.level > maxSlot ) {
-        ui.notifications.error(game.i18n.format("DND5E.AdvancementItemChoiceSpellLevelAvailableWarning", {
-          level: CONFIG.DND5E.spellLevels[maxSlot]
+        ui.notifications.error(game.i18n.format("ME5E.AdvancementItemChoiceSpellLevelAvailableWarning", {
+          level: CONFIG.ME5E.spellLevels[maxSlot]
         }));
         return null;
       }
@@ -181,7 +181,7 @@ export default class ItemChoiceFlow extends ItemGrantFlow {
     // For advancements on classes or subclasses, use the largest slot available for that class
     if ( spellcasting ) {
       const progression = { slot: 0, pact: {} };
-      const maxSpellLevel = CONFIG.DND5E.SPELL_SLOT_TABLE[CONFIG.DND5E.SPELL_SLOT_TABLE.length - 1].length;
+      const maxSpellLevel = CONFIG.ME5E.SPELL_SLOT_TABLE[CONFIG.ME5E.SPELL_SLOT_TABLE.length - 1].length;
       spells = Object.fromEntries(Array.fromRange(maxSpellLevel, 1).map(l => [`spell${l}`, {}]));
       Actor5e.computeClassProgression(progression, this.advancement.item, { spellcasting });
       Actor5e.prepareSpellcastingSlots(spells, spellcasting.type, progression);

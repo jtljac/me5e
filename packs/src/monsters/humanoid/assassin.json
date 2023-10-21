@@ -548,7 +548,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.items.TIV3B1vbrVHIhQAm"
+          "sourceId": "Compendium.me5e.items.TIV3B1vbrVHIhQAm"
         }
       },
       "_stats": {
@@ -641,7 +641,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.monsterfeatures.IwqUTWqdgrKEvohr"
+          "sourceId": "Compendium.me5e.monsterfeatures.IwqUTWqdgrKEvohr"
         }
       },
       "_stats": {
@@ -734,7 +734,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.monsterfeatures.xOgrn5QXzSP4QN6V"
+          "sourceId": "Compendium.me5e.monsterfeatures.xOgrn5QXzSP4QN6V"
         }
       },
       "_stats": {
@@ -832,7 +832,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.monsterfeatures.9uKShqfuA73duQsT"
+          "sourceId": "Compendium.me5e.monsterfeatures.9uKShqfuA73duQsT"
         }
       },
       "_stats": {
@@ -925,7 +925,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.monsterfeatures.EqoLg8T8EHvhJgKE"
+          "sourceId": "Compendium.me5e.monsterfeatures.EqoLg8T8EHvhJgKE"
         }
       },
       "_stats": {
@@ -1052,7 +1052,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.items.osLzOwQdPtrK3rQH"
+          "sourceId": "Compendium.me5e.items.osLzOwQdPtrK3rQH"
         }
       },
       "_stats": {
@@ -1179,7 +1179,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.items.ddWvQRLmnnIS0eLF"
+          "sourceId": "Compendium.me5e.items.ddWvQRLmnnIS0eLF"
         }
       },
       "_stats": {
@@ -1201,12 +1201,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787232691,
     "modifiedTime": 1672596095190,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!actors!EMvcuOpu7ABCmBWi"
 }

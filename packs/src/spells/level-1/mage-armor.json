@@ -107,7 +107,7 @@
       },
       "icon": "icons/magic/defensive/shield-barrier-glowing-triangle-blue.webp",
       "label": "Mage Armor",
-      "origin": "Compendium.dnd5e.spells.CKZTpZlxj7hjjo2H",
+      "origin": "Compendium.me5e.spells.CKZTpZlxj7hjjo2H",
       "transfer": true,
       "flags": {},
       "tint": null,
@@ -122,12 +122,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787234095,
     "modifiedTime": 1671220968939,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!CKZTpZlxj7hjjo2H"
 }

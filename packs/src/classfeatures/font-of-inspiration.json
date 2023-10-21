@@ -7,7 +7,7 @@
   "type": "feat",
   "system": {
     "description": {
-      "value": "<p>Beginning when you reach 5th level, you regain all of your expended uses of @Compendium[dnd5e.classfeatures.hpLNiGq7y67d2EHA]{Bardic Inspiraton} when you finish a short or long rest.</p><section class=\"secret foundry-note\" id=\"secret-2Ixwv0urEA2kot3D\"><p><strong>Foundry Note</strong></p><p>Bardic Inspiration is set to long rest recovery by default. Please edit to short rest upon reaching this level.</p></section>",
+      "value": "<p>Beginning when you reach 5th level, you regain all of your expended uses of @Compendium[me5e.classfeatures.hpLNiGq7y67d2EHA]{Bardic Inspiraton} when you finish a short or long rest.</p><section class=\"secret foundry-note\" id=\"secret-2Ixwv0urEA2kot3D\"><p><strong>Foundry Note</strong></p><p>Bardic Inspiration is set to long rest recovery by default. Please edit to short rest upon reaching this level.</p></section>",
       "chat": "",
       "unidentified": ""
     },
@@ -78,12 +78,12 @@
   "folder": null,
   "sort": 0,
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787234326,
     "modifiedTime": 1672334606443,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!3VDZGs5Ug3hIE322"
 }

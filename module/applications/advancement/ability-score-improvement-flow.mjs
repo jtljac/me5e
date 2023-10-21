@@ -25,7 +25,7 @@ export default class AbilityScoreImprovementFlow extends AdvancementFlow {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       dragDrop: [{ dropSelector: "form" }],
-      template: "systems/dnd5e/templates/advancement/ability-score-improvement-flow.hbs"
+      template: "systems/me5e/templates/advancement/ability-score-improvement-flow.hbs"
     });
   }
 
@@ -44,7 +44,7 @@ export default class AbilityScoreImprovementFlow extends AdvancementFlow {
   /** @inheritdoc */
   async getData() {
     const points = {
-      assigned: Object.keys(CONFIG.DND5E.abilities).reduce((assigned, key) => {
+      assigned: Object.keys(CONFIG.ME5E.abilities).reduce((assigned, key) => {
         if ( !this.advancement.canImprove(key) || this.advancement.configuration.fixed[key] ) return assigned;
         return assigned + (this.assignments[key] ?? 0);
       }, 0),
@@ -54,7 +54,7 @@ export default class AbilityScoreImprovementFlow extends AdvancementFlow {
 
     const formatter = new Intl.NumberFormat(game.i18n.lang, { signDisplay: "always" });
 
-    const abilities = Object.entries(CONFIG.DND5E.abilities).reduce((obj, [key, data]) => {
+    const abilities = Object.entries(CONFIG.ME5E.abilities).reduce((obj, [key, data]) => {
       if ( !this.advancement.canImprove(key) ) return obj;
       const ability = this.advancement.actor.system.abilities[key];
       const fixed = this.advancement.configuration.fixed[key] ?? 0;
@@ -82,7 +82,7 @@ export default class AbilityScoreImprovementFlow extends AdvancementFlow {
       feat: this.feat,
       staticIncrease: !this.advancement.configuration.points,
       pointsRemaining: game.i18n.format(
-        `DND5E.AdvancementAbilityScoreImprovementPointsRemaining.${pluralRule}`, {points: points.available}
+        `ME5E.AdvancementAbilityScoreImprovementPointsRemaining.${pluralRule}`, {points: points.available}
       )
     });
   }
@@ -188,7 +188,7 @@ export default class AbilityScoreImprovementFlow extends AdvancementFlow {
     const item = await Item.implementation.fromDropData(data);
 
     if ( (item.type !== "feat") || (item.system.type.value !== "feat") ) {
-      ui.notifications.error("DND5E.AdvancementAbilityScoreImprovementFeatWarning", {localize: true});
+      ui.notifications.error("ME5E.AdvancementAbilityScoreImprovementFeatWarning", {localize: true});
       return null;
     }
 

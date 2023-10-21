@@ -10,7 +10,7 @@ export class AdvancementField extends foundry.data.fields.ObjectField {
    * @returns {typeof BaseAdvancement|null}  The BaseAdvancement class, or null.
    */
   getModelForType(type) {
-    return CONFIG.DND5E.advancementTypes[type] ?? null;
+    return CONFIG.ME5E.advancementTypes[type] ?? null;
   }
 
   /* -------------------------------------------- */
@@ -142,8 +142,8 @@ export class FormulaField extends foundry.data.fields.StringField {
 export class IdentifierField extends foundry.data.fields.StringField {
   /** @override */
   _validateType(value) {
-    if ( !dnd5e.utils.validators.isValidIdentifier(value) ) {
-      throw new Error(game.i18n.localize("DND5E.IdentifierError"));
+    if ( !me5e.utils.validators.isValidIdentifier(value) ) {
+      throw new Error(game.i18n.localize("ME5E.IdentifierError"));
     }
   }
 }

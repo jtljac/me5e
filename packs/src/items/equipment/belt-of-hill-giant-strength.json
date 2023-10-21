@@ -95,7 +95,7 @@
     {
       "label": "Belt of Hill Giant Strength",
       "icon": "icons/equipment/waist/belt-buckle-square-leather-brown.webp",
-      "origin": "Compendium.dnd5e.items.ER75WHewYN04Zp11",
+      "origin": "Compendium.me5e.items.ER75WHewYN04Zp11",
       "duration": {
         "startTime": null,
         "seconds": null,
@@ -128,12 +128,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.2.2",
     "coreVersion": "10.303",
     "createdTime": 1661787233535,
     "modifiedTime": 1690480497698,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!ER75WHewYN04Zp11"
 }

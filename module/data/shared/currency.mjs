@@ -13,7 +13,7 @@ export default class CurrencyTemplate extends SystemDataModel {
     return {
       currency: new MappingField(new foundry.data.fields.NumberField({
         required: true, nullable: false, integer: true, min: 0, initial: 0
-      }), {initialKeys: CONFIG.DND5E.currencies, initialKeysOnly: true, label: "DND5E.Currency"})
+      }), {initialKeys: CONFIG.ME5E.currencies, initialKeysOnly: true, label: "ME5E.Currency"})
     };
   }
 }

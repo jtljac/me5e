@@ -7,7 +7,7 @@
   "type": "feat",
   "system": {
     "description": {
-      "value": "<p>When you cast @Compendium[dnd5e.spells.Z9p1vezIn95jw1Yw]{Eldritch Blast}, its range is 300 feet.</p>",
+      "value": "<p>When you cast @Compendium[me5e.spells.Z9p1vezIn95jw1Yw]{Eldritch Blast}, its range is 300 feet.</p>",
       "chat": "",
       "unidentified": ""
     },
@@ -78,12 +78,12 @@
   "folder": null,
   "sort": 0,
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787234427,
     "modifiedTime": 1672334768328,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!r01WtcxTg4yTHm9m"
 }

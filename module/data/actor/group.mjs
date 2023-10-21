@@ -2,7 +2,7 @@ import SystemDataModel from "../abstract.mjs";
 import CurrencyTemplate from "../shared/currency.mjs";
 
 /**
- * A data model and API layer which handles the schema and functionality of "group" type Actors in the dnd5e system.
+ * A data model and API layer which handles the schema and functionality of "group" type Actors in the me5e system.
  * @mixes CurrencyTemplate
  *
  * @property {object} description
@@ -16,7 +16,7 @@ import CurrencyTemplate from "../shared/currency.mjs";
  * @property {number} attributes.movement.air    Base movement speed through the air.
  *
  * @example Create a new Group
- * const g = new dnd5e.documents.Actor5e({
+ * const g = new me5e.documents.Actor5e({
  *  type: "group",
  *  name: "Test Group",
  *  system: {
@@ -29,26 +29,26 @@ export default class GroupActor extends SystemDataModel.mixin(CurrencyTemplate) 
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
       description: new foundry.data.fields.SchemaField({
-        full: new foundry.data.fields.HTMLField({label: "DND5E.Description"}),
-        summary: new foundry.data.fields.HTMLField({label: "DND5E.DescriptionSummary"})
+        full: new foundry.data.fields.HTMLField({label: "ME5E.Description"}),
+        summary: new foundry.data.fields.HTMLField({label: "ME5E.DescriptionSummary"})
       }),
       members: new foundry.data.fields.SetField(
         new foundry.data.fields.ForeignDocumentField(foundry.documents.BaseActor, {idOnly: true}),
-        {label: "DND5E.GroupMembers"}
+        {label: "ME5E.GroupMembers"}
       ),
       attributes: new foundry.data.fields.SchemaField({
         movement: new foundry.data.fields.SchemaField({
           land: new foundry.data.fields.NumberField({
-            nullable: false, min: 0, step: 0.1, initial: 0, label: "DND5E.MovementLand"
+            nullable: false, min: 0, step: 0.1, initial: 0, label: "ME5E.MovementLand"
           }),
           water: new foundry.data.fields.NumberField({
-            nullable: false, min: 0, step: 0.1, initial: 0, label: "DND5E.MovementWater"
+            nullable: false, min: 0, step: 0.1, initial: 0, label: "ME5E.MovementWater"
           }),
           air: new foundry.data.fields.NumberField({
-            nullable: false, min: 0, step: 0.1, initial: 0, label: "DND5E.MovementAir"
+            nullable: false, min: 0, step: 0.1, initial: 0, label: "ME5E.MovementAir"
           })
         })
-      }, {label: "DND5E.Attributes"})
+      }, {label: "ME5E.Attributes"})
     });
   }
 

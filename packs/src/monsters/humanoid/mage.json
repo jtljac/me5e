@@ -525,7 +525,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.monsterfeatures.fdmzHw875EzpXM2a"
+          "sourceId": "Compendium.me5e.monsterfeatures.fdmzHw875EzpXM2a"
         }
       },
       "_stats": {
@@ -652,7 +652,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.items.0E565kQUBmndJ1a2"
+          "sourceId": "Compendium.me5e.items.0E565kQUBmndJ1a2"
         }
       },
       "_stats": {
@@ -761,19 +761,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.EOmsUcFQJTfG2oio"
+          "sourceId": "Compendium.me5e.spells.EOmsUcFQJTfG2oio"
         }
       },
       "img": "icons/magic/fire/projectile-fireball-smoke-orange.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234100,
         "modifiedTime": 1661791116808,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!mQnsXanewsPiV7QE.EOmsUcFQJTfG2oio"
     },
@@ -868,19 +868,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.Bnn9Nzajixvow9xi"
+          "sourceId": "Compendium.me5e.spells.Bnn9Nzajixvow9xi"
         }
       },
       "img": "icons/magic/light/explosion-star-small-blue-yellow.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234093,
         "modifiedTime": 1661791116808,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!mQnsXanewsPiV7QE.Bnn9Nzajixvow9xi"
     },
@@ -975,19 +975,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.Utk1OQRwYkMkFRD3"
+          "sourceId": "Compendium.me5e.spells.Utk1OQRwYkMkFRD3"
         }
       },
       "img": "icons/magic/water/water-hand.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234148,
         "modifiedTime": 1661791116809,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!mQnsXanewsPiV7QE.Utk1OQRwYkMkFRD3"
     },
@@ -1082,19 +1082,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.udsLtG0BugXHR2JQ"
+          "sourceId": "Compendium.me5e.spells.udsLtG0BugXHR2JQ"
         }
       },
       "img": "icons/magic/fire/explosion-fireball-small-purple-orange.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234236,
         "modifiedTime": 1661791116809,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!mQnsXanewsPiV7QE.udsLtG0BugXHR2JQ"
     },
@@ -1189,19 +1189,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.ghXTfe7sgCbgf1Q8"
+          "sourceId": "Compendium.me5e.spells.ghXTfe7sgCbgf1Q8"
         }
       },
       "img": "icons/magic/light/explosion-star-blue.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234192,
         "modifiedTime": 1661791116809,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!mQnsXanewsPiV7QE.ghXTfe7sgCbgf1Q8"
     },
@@ -1314,7 +1314,7 @@
           },
           "icon": "icons/magic/defensive/shield-barrier-glowing-triangle-blue.webp",
           "label": "Mage Armor",
-          "origin": "Compendium.dnd5e.spells.CKZTpZlxj7hjjo2H",
+          "origin": "Compendium.me5e.spells.CKZTpZlxj7hjjo2H",
           "transfer": true,
           "flags": {},
           "tint": null,
@@ -1329,16 +1329,16 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.CKZTpZlxj7hjjo2H"
+          "sourceId": "Compendium.me5e.spells.CKZTpZlxj7hjjo2H"
         }
       },
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234095,
         "modifiedTime": 1661791116810,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!mQnsXanewsPiV7QE.CKZTpZlxj7hjjo2H"
     },
@@ -1438,19 +1438,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.41JIhpDyM9Anm7cs"
+          "sourceId": "Compendium.me5e.spells.41JIhpDyM9Anm7cs"
         }
       },
       "img": "icons/magic/fire/projectile-meteor-salvo-light-pink.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234065,
         "modifiedTime": 1661791116810,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!mQnsXanewsPiV7QE.41JIhpDyM9Anm7cs"
     },
@@ -1578,16 +1578,16 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.z1mx84ONwkXKUZd7"
+          "sourceId": "Compendium.me5e.spells.z1mx84ONwkXKUZd7"
         }
       },
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234244,
         "modifiedTime": 1661791116810,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!mQnsXanewsPiV7QE.z1mx84ONwkXKUZd7"
     },
@@ -1682,19 +1682,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.wqfAVANuQonNBgnL"
+          "sourceId": "Compendium.me5e.spells.wqfAVANuQonNBgnL"
         }
       },
       "img": "icons/magic/control/debuff-energy-snare-brown.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234238,
         "modifiedTime": 1661791116811,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!mQnsXanewsPiV7QE.wqfAVANuQonNBgnL"
     },
@@ -1789,19 +1789,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.zMAWdyc8UVb37BK4"
+          "sourceId": "Compendium.me5e.spells.zMAWdyc8UVb37BK4"
         }
       },
       "img": "icons/magic/air/air-burst-spiral-pink.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234245,
         "modifiedTime": 1661791116811,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!mQnsXanewsPiV7QE.zMAWdyc8UVb37BK4"
     },
@@ -1896,19 +1896,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.Ek45cBpVXvJdv1Qy"
+          "sourceId": "Compendium.me5e.spells.Ek45cBpVXvJdv1Qy"
         }
       },
       "img": "icons/skills/melee/strike-blade-hooked-orange-blue.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234102,
         "modifiedTime": 1661791116811,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!mQnsXanewsPiV7QE.Ek45cBpVXvJdv1Qy"
     },
@@ -2008,19 +2008,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.ztgcdrWPshKRpFd0"
+          "sourceId": "Compendium.me5e.spells.ztgcdrWPshKRpFd0"
         }
       },
       "img": "icons/magic/fire/projectile-fireball-smoke-large-orange.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234246,
         "modifiedTime": 1661791116812,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!mQnsXanewsPiV7QE.ztgcdrWPshKRpFd0"
     },
@@ -2115,19 +2115,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.yfbK8gZqESlaoY5t"
+          "sourceId": "Compendium.me5e.spells.yfbK8gZqESlaoY5t"
         }
       },
       "img": "icons/magic/control/energy-stream-link-white.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234243,
         "modifiedTime": 1661791116812,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!mQnsXanewsPiV7QE.yfbK8gZqESlaoY5t"
     },
@@ -2222,19 +2222,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.tEpDmYZNGc9f5OhJ"
+          "sourceId": "Compendium.me5e.spells.tEpDmYZNGc9f5OhJ"
         }
       },
       "img": "icons/magic/air/fog-gas-smoke-swirling-gray.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234234,
         "modifiedTime": 1661791116812,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!mQnsXanewsPiV7QE.tEpDmYZNGc9f5OhJ"
     },
@@ -2338,19 +2338,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.WN2LWEljYU6QqnRH"
+          "sourceId": "Compendium.me5e.spells.WN2LWEljYU6QqnRH"
         }
       },
       "img": "icons/magic/water/projectiles-ice-faceted-shard-salvo-blue.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234152,
         "modifiedTime": 1661791116813,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!mQnsXanewsPiV7QE.WN2LWEljYU6QqnRH"
     },
@@ -2450,19 +2450,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.RpKjTlYASrfqUPVA"
+          "sourceId": "Compendium.me5e.spells.RpKjTlYASrfqUPVA"
         }
       },
       "img": "icons/magic/water/projectiles-ice-faceted-shard-salvo-blue.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234138,
         "modifiedTime": 1661791116813,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!mQnsXanewsPiV7QE.RpKjTlYASrfqUPVA"
     }
@@ -2490,7 +2490,7 @@
       },
       "icon": "icons/magic/defensive/shield-barrier-glowing-triangle-blue.webp",
       "label": "Mage Armor",
-      "origin": "Compendium.dnd5e.monsters.mQnsXanewsPiV7QE.Item.CKZTpZlxj7hjjo2H",
+      "origin": "Compendium.me5e.monsters.mQnsXanewsPiV7QE.Item.CKZTpZlxj7hjjo2H",
       "transfer": false,
       "flags": {},
       "tint": null,
@@ -2520,7 +2520,7 @@
       },
       "icon": "icons/magic/defensive/shield-barrier-glowing-triangle-magenta.webp",
       "label": "Shield",
-      "origin": "Compendium.dnd5e.monsters.mQnsXanewsPiV7QE.Item.z1mx84ONwkXKUZd7",
+      "origin": "Compendium.me5e.monsters.mQnsXanewsPiV7QE.Item.z1mx84ONwkXKUZd7",
       "tint": null,
       "transfer": false,
       "sort": 0,
@@ -2534,12 +2534,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787233145,
     "modifiedTime": 1672596105756,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!actors!mQnsXanewsPiV7QE"
 }

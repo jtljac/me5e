@@ -24,16 +24,16 @@ export default class FeatData extends SystemDataModel.mixin(
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
       type: new foundry.data.fields.SchemaField({
-        value: new foundry.data.fields.StringField({required: true, label: "DND5E.Type"}),
-        subtype: new foundry.data.fields.StringField({required: true, label: "DND5E.Subtype"})
-      }, {label: "DND5E.ItemFeatureType"}),
-      requirements: new foundry.data.fields.StringField({required: true, nullable: true, label: "DND5E.Requirements"}),
+        value: new foundry.data.fields.StringField({required: true, label: "ME5E.Type"}),
+        subtype: new foundry.data.fields.StringField({required: true, label: "ME5E.Subtype"})
+      }, {label: "ME5E.ItemFeatureType"}),
+      requirements: new foundry.data.fields.StringField({required: true, nullable: true, label: "ME5E.Requirements"}),
       recharge: new foundry.data.fields.SchemaField({
         value: new foundry.data.fields.NumberField({
-          required: true, integer: true, min: 1, label: "DND5E.FeatureRechargeOn"
+          required: true, integer: true, min: 1, label: "ME5E.FeatureRechargeOn"
         }),
-        charged: new foundry.data.fields.BooleanField({required: true, label: "DND5E.Charged"})
-      }, {label: "DND5E.FeatureActionRecharge"})
+        charged: new foundry.data.fields.BooleanField({required: true, label: "ME5E.Charged"})
+      }, {label: "ME5E.FeatureActionRecharge"})
     });
   }
 

@@ -34,7 +34,7 @@ export default class AbilityTemplate extends MeasuredTemplate {
    */
   static fromItem(item) {
     const target = item.system.target ?? {};
-    const templateShape = dnd5e.config.areaTargetTypes[target.type]?.template;
+    const templateShape = me5e.config.areaTargetTypes[target.type]?.template;
     if ( !templateShape ) return null;
 
     // Prepare template data
@@ -46,9 +46,9 @@ export default class AbilityTemplate extends MeasuredTemplate {
       x: 0,
       y: 0,
       fillColor: game.user.color,
-      flags: { dnd5e: { origin: item.uuid } }
+      flags: { me5e: { origin: item.uuid } }
     };
-    if ( item.type === "spell" ) foundry.utils.mergeObject(templateData.flags, {"dnd5e.spellLevel": item.system.level});
+    if ( item.type === "spell" ) foundry.utils.mergeObject(templateData.flags, {"me5e.spellLevel": item.system.level});
 
     // Additional type-specific data
     switch ( templateShape ) {

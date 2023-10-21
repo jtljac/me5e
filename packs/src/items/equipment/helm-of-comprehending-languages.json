@@ -5,7 +5,7 @@
   "img": "icons/magic/defensive/illusion-evasion-echo-purple.webp",
   "system": {
     "description": {
-      "value": "<p><em>Wondrous item</em></p>\n<p>While wearing this helm, you can use an action to cast the @Compendium[dnd5e.spells.4dSvfvTy2ZIJ3K4k]{Comprehend Languages} spell from it at will.</p>",
+      "value": "<p><em>Wondrous item</em></p>\n<p>While wearing this helm, you can use an action to cast the @Compendium[me5e.spells.4dSvfvTy2ZIJ3K4k]{Comprehend Languages} spell from it at will.</p>",
       "chat": "",
       "unidentified": ""
     },
@@ -98,12 +98,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787233892,
     "modifiedTime": 1671220964615,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!rY9sRFQp5CFSfsat"
 }

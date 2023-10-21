@@ -1,6 +1,6 @@
 <div class="polymorph two-column">
     <div class="left-column">
-        <h3>{{localize 'DND5E.PolymorphCustomTransformation'}}</h3>
+        <h3>{{localize 'ME5E.PolymorphCustomTransformation'}}</h3>
         {{#each content.settings}}
             <div>
                 <label class="checkbox" for="{{@key}}">
@@ -15,13 +15,13 @@
             <label class="checkbox" for="transformTokens">
                 <input type="checkbox" id="transformTokens" name="transformTokens"
                     {{checked content.options.transformTokens}}>
-                {{localize 'DND5E.PolymorphTokens'}}
+                {{localize 'ME5E.PolymorphTokens'}}
             </label>
         </div>
         {{/unless}}
     </div>
     <div class="right-column">
-        <h3>{{localize 'DND5E.PolymorphEffectTransformation'}}</h3>
+        <h3>{{localize 'ME5E.PolymorphEffectTransformation'}}</h3>
         {{#each content.effectSettings}}
         <div>
             <label class="checkbox" for="{{@key}}">

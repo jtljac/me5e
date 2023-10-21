@@ -5,7 +5,7 @@
   "img": "icons/weapons/staves/staff-ornate-engraved-blue.webp",
   "system": {
     "description": {
-      "value": "<p><em>(Requires attunement by a druid, sorcerer, warlock, or wizard)</em></p><p>You have resistance to cold damage while you hold this staff.</p><p>The staff has 10 charges. While holding it, you can use an action to expend 1 or more of its charges to cast one of the following spells from it, using your spell save DC: @Compendium[dnd5e.spells.RpKjTlYASrfqUPVA]{Cone of Cold} (5 charges), @Compendium[dnd5e.spells.IBJmWjzbQGu7M4UX]{Fog Cloud} (1 charge), @Compendium[dnd5e.spells.WN2LWEljYU6QqnRH]{Ice Storm} (4 charges), or @Compendium[dnd5e.spells.fzZnVKLmBMo2f5up]{Wall of Ice} (4 charges).</p><p>The staff regains 1d6 + 4 expended charges daily at dawn. If you expend the last charge, roll a d20. On a 1, the staff turns to water and is destroyed.</p>",
+      "value": "<p><em>(Requires attunement by a druid, sorcerer, warlock, or wizard)</em></p><p>You have resistance to cold damage while you hold this staff.</p><p>The staff has 10 charges. While holding it, you can use an action to expend 1 or more of its charges to cast one of the following spells from it, using your spell save DC: @Compendium[me5e.spells.RpKjTlYASrfqUPVA]{Cone of Cold} (5 charges), @Compendium[me5e.spells.IBJmWjzbQGu7M4UX]{Fog Cloud} (1 charge), @Compendium[me5e.spells.WN2LWEljYU6QqnRH]{Ice Storm} (4 charges), or @Compendium[me5e.spells.fzZnVKLmBMo2f5up]{Wall of Ice} (4 charges).</p><p>The staff regains 1d6 + 4 expended charges daily at dawn. If you expend the last charge, roll a d20. On a 1, the staff turns to water and is destroyed.</p>",
       "chat": "",
       "unidentified": ""
     },
@@ -110,12 +110,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787233964,
     "modifiedTime": 1671220965681,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!xEtBeZjJnkDXojQM"
 }

@@ -14,9 +14,9 @@ export default class HitPointsAdvancement extends Advancement {
   static get metadata() {
     return foundry.utils.mergeObject(super.metadata, {
       order: 10,
-      icon: "systems/dnd5e/icons/svg/hit-points.svg",
-      title: game.i18n.localize("DND5E.AdvancementHitPointsTitle"),
-      hint: game.i18n.localize("DND5E.AdvancementHitPointsHint"),
+      icon: "systems/me5e/icons/svg/hit-points.svg",
+      title: game.i18n.localize("ME5E.AdvancementHitPointsTitle"),
+      hint: game.i18n.localize("ME5E.AdvancementHitPointsHint"),
       multiLevel: true,
       validItemTypes: new Set(["class"]),
       apps: {
@@ -32,7 +32,7 @@ export default class HitPointsAdvancement extends Advancement {
 
   /** @inheritdoc */
   get levels() {
-    return Array.fromRange(CONFIG.DND5E.maxLevel + 1).slice(1);
+    return Array.fromRange(CONFIG.ME5E.maxLevel + 1).slice(1);
   }
 
   /* -------------------------------------------- */
@@ -144,7 +144,7 @@ export default class HitPointsAdvancement extends Advancement {
    * @returns {number}      Hit points adjusted with ability modifier and per-level bonuses.
    */
   #getApplicableValue(value) {
-    const abilityId = CONFIG.DND5E.hitPointsAbility || "con";
+    const abilityId = CONFIG.ME5E.hitPointsAbility || "con";
     value = Math.max(value + (this.actor.system.abilities[abilityId]?.mod ?? 0), 1);
     value += simplifyBonus(this.actor.system.attributes.hp.bonuses.level, this.actor.getRollData());
     return value;

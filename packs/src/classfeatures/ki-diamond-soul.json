@@ -79,7 +79,7 @@
       "_id": "v6jhyPoAYRIIXBG1",
       "changes": [
         {
-          "key": "flags.dnd5e.diamondSoul",
+          "key": "flags.me5e.diamondSoul",
           "mode": 5,
           "value": "true",
           "priority": null
@@ -108,12 +108,12 @@
   "folder": null,
   "sort": 0,
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787234336,
     "modifiedTime": 1672334898763,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!7D2EkLdISwShEDlN"
 }

@@ -5,7 +5,7 @@
   "img": "icons/equipment/finger/ring-cabochon-gold-purple.webp",
   "system": {
     "description": {
-      "value": "<p>While wearing this ring, you can use an action to expend 1 of its 3 charges to cast the @Compendium[dnd5e.spells.3okM6Gn63zzEULkz]{Wish} spell from it. The ring becomes nonmagical when you use the last charge.</p>",
+      "value": "<p>While wearing this ring, you can use an action to expend 1 of its 3 charges to cast the @Compendium[me5e.spells.3okM6Gn63zzEULkz]{Wish} spell from it. The ring becomes nonmagical when you use the last charge.</p>",
       "chat": "",
       "unidentified": ""
     },
@@ -98,12 +98,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787233791,
     "modifiedTime": 1671220962736,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!ewXgnWiYQhS8KArS"
 }

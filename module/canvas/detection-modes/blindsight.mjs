@@ -5,7 +5,7 @@ export class DetectionModeBlindsight extends DetectionMode {
   constructor() {
     super({
       id: "blindsight",
-      label: "DND5E.SenseBlindsight",
+      label: "ME5E.SenseBlindsight",
       type: DetectionMode.DETECTION_TYPES.OTHER,
       walls: true,
       angle: false

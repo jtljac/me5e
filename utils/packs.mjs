@@ -51,7 +51,7 @@ function cleanPackEntry(data, { clearSourceId=true }={}) {
   if ( typeof data.folder === "string" ) data.folder = null;
   delete data.flags?.importSource;
   delete data.flags?.exportSource;
-  if ( data._stats?.lastModifiedBy ) data._stats.lastModifiedBy = "dnd5ebuilder0000";
+  if ( data._stats?.lastModifiedBy ) data._stats.lastModifiedBy = "me5ebuilder0000";
 
   // Remove empty entries in flags
   if ( !data.flags ) data.flags = {};

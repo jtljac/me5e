@@ -95,7 +95,7 @@
     {
       "label": "Boots of Striding and Springing",
       "icon": "icons/equipment/feet/boots-collared-rounded-brown.webp",
-      "origin": "Compendium.dnd5e.items.hSY1b8yi8JWw2blf",
+      "origin": "Compendium.me5e.items.hSY1b8yi8JWw2blf",
       "duration": {
         "startTime": null,
         "seconds": null,
@@ -128,12 +128,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.2.2",
     "coreVersion": "10.303",
     "createdTime": 1661787233814,
     "modifiedTime": 1690480596552,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!hSY1b8yi8JWw2blf"
 }

@@ -7,7 +7,7 @@
   "type": "feat",
   "system": {
     "description": {
-      "value": "<p>Beginning at 15th level, you are always under the effects of a @Compendium[dnd5e.spells.xmDBqZhRVrtLP8h2]{Protection from Evil and Good} spell.</p>",
+      "value": "<p>Beginning at 15th level, you are always under the effects of a @Compendium[me5e.spells.xmDBqZhRVrtLP8h2]{Protection from Evil and Good} spell.</p>",
       "chat": "",
       "unidentified": ""
     },
@@ -78,12 +78,12 @@
   "folder": null,
   "sort": 0,
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787234389,
     "modifiedTime": 1672335069710,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!ZHJyYrqMYSLub4RY"
 }

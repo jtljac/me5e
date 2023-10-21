@@ -1,5 +1,5 @@
 <form autocomplete="off">
-    <p class="notes">{{localize "DND5E.MovementConfigHint"}}</p>
+    <p class="notes">{{localize "ME5E.MovementConfigHint"}}</p>
     {{#each speeds as |label id|}}
     <div class="form-group">
         <label>{{localize label}}</label>
@@ -8,7 +8,7 @@
     {{/each}}
     {{#if selectUnits}}
     <div class="form-group">
-        <label>{{localize "DND5E.MovementUnits"}}</label>
+        <label>{{localize "ME5E.MovementUnits"}}</label>
         <select name="system.attributes.movement.units">
             {{selectOptions units selected=movement.units}}
         </select>
@@ -16,7 +16,7 @@
     {{/if}}
     {{#if canHover}}
     <div class="form-group">
-        <label>{{localize "DND5E.MovementHover"}}</label>
+        <label>{{localize "ME5E.MovementHover"}}</label>
         <input name="system.attributes.movement.hover" type="checkbox" {{checked movement.hover}}/>
     </div>
     {{/if}}

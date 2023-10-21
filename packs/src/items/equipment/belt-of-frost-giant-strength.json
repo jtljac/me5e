@@ -95,7 +95,7 @@
     {
       "label": "Belt of Frost Giant Strength",
       "icon": "icons/equipment/waist/cloth-sash-purple.webp",
-      "origin": "Compendium.dnd5e.items.ORKf6RRcalrdD6Qp",
+      "origin": "Compendium.me5e.items.ORKf6RRcalrdD6Qp",
       "duration": {
         "startTime": null,
         "seconds": null,
@@ -128,12 +128,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.2.2",
     "coreVersion": "10.303",
     "createdTime": 1661787233637,
     "modifiedTime": 1690480308813,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!ORKf6RRcalrdD6Qp"
 }

@@ -95,7 +95,7 @@
     {
       "label": "Bracers of Archery",
       "icon": "icons/equipment/wrist/bracer-studded-leather-steel.webp",
-      "origin": "Compendium.dnd5e.items.ZYEqOSY9BLZs2GPx",
+      "origin": "Compendium.me5e.items.ZYEqOSY9BLZs2GPx",
       "duration": {
         "startTime": null,
         "seconds": null,
@@ -133,12 +133,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.2.2",
     "coreVersion": "10.303",
     "createdTime": 1661787233715,
     "modifiedTime": 1690480681414,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!ZYEqOSY9BLZs2GPx"
 }

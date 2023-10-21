@@ -5,7 +5,7 @@
   "img": "icons/commodities/gems/gem-rough-rose-teal.webp",
   "system": {
     "description": {
-      "value": "<p><em>Wondrous item</em></p>\n<p>This blue sapphire contains a mote of elemental energy. When you use an action to break the gem, an @Compendium[dnd5e.monsters.banHjKDMCegbUwYE]{Air Elemental}is summoned as if you had cast the @Compendium[dnd5e.spells.1LkZvINag7KqBmDR]{Conjure Elemental} spell, and the gem's magic is lost.</p>",
+      "value": "<p><em>Wondrous item</em></p>\n<p>This blue sapphire contains a mote of elemental energy. When you use an action to break the gem, an @Compendium[me5e.monsters.banHjKDMCegbUwYE]{Air Elemental}is summoned as if you had cast the @Compendium[me5e.spells.1LkZvINag7KqBmDR]{Conjure Elemental} spell, and the gem's magic is lost.</p>",
       "chat": "",
       "unidentified": ""
     },
@@ -81,12 +81,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787233976,
     "modifiedTime": 1671220965840,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!zDJ4oEt5HArN1xmP"
 }

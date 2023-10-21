@@ -526,7 +526,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.monsterfeatures.fdmzHw875EzpXM2a"
+          "sourceId": "Compendium.me5e.monsterfeatures.fdmzHw875EzpXM2a"
         }
       },
       "_stats": {
@@ -653,7 +653,7 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.items.g2dWN7PQiMRYWzyk"
+          "sourceId": "Compendium.me5e.items.g2dWN7PQiMRYWzyk"
         }
       },
       "_stats": {
@@ -757,19 +757,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.SbSvZKkJASyk8jKo"
+          "sourceId": "Compendium.me5e.spells.SbSvZKkJASyk8jKo"
         }
       },
       "img": "icons/magic/nature/vines-thorned-glow-teal.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234141,
         "modifiedTime": 1661791116365,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!K15Yl8JmB5iPircc.SbSvZKkJASyk8jKo"
     },
@@ -869,19 +869,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.eCPQuQkIabFKTl9u"
+          "sourceId": "Compendium.me5e.spells.eCPQuQkIabFKTl9u"
         }
       },
       "img": "icons/magic/fire/explosion-fireball-medium-orange.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234183,
         "modifiedTime": 1661791116365,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!K15Yl8JmB5iPircc.eCPQuQkIabFKTl9u"
     },
@@ -973,7 +973,7 @@
       "effects": [],
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.gMrWeG8fMDPRFiVe"
+          "sourceId": "Compendium.me5e.spells.gMrWeG8fMDPRFiVe"
         }
       },
       "_id": "gMrWeG8fMDPRFiVe",
@@ -983,12 +983,12 @@
         "default": 0
       },
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234191,
         "modifiedTime": 1661791116366,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!K15Yl8JmB5iPircc.gMrWeG8fMDPRFiVe"
     },
@@ -1083,19 +1083,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.B0pnIcc52O6G8hi8"
+          "sourceId": "Compendium.me5e.spells.B0pnIcc52O6G8hi8"
         }
       },
       "img": "icons/magic/air/wind-stream-blue-gray.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234090,
         "modifiedTime": 1661791116366,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!K15Yl8JmB5iPircc.B0pnIcc52O6G8hi8"
     },
@@ -1190,19 +1190,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.aL1F8fvYLtNzUbKu"
+          "sourceId": "Compendium.me5e.spells.aL1F8fvYLtNzUbKu"
         }
       },
       "img": "icons/magic/nature/wolf-paw-glow-small-teal-blue.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234167,
         "modifiedTime": 1661791116366,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!K15Yl8JmB5iPircc.aL1F8fvYLtNzUbKu"
     },
@@ -1302,19 +1302,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.WTbOQBsarsL1LuXJ"
+          "sourceId": "Compendium.me5e.spells.WTbOQBsarsL1LuXJ"
         }
       },
       "img": "icons/magic/lightning/bolt-forked-teal.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234152,
         "modifiedTime": 1661791116367,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!K15Yl8JmB5iPircc.WTbOQBsarsL1LuXJ"
     },
@@ -1409,19 +1409,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.X8w9EzYLGc4vQ1H2"
+          "sourceId": "Compendium.me5e.spells.X8w9EzYLGc4vQ1H2"
         }
       },
       "img": "icons/magic/nature/wolf-paw-glow-small-teal-blue.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234156,
         "modifiedTime": 1661791116367,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!K15Yl8JmB5iPircc.X8w9EzYLGc4vQ1H2"
     },
@@ -1521,19 +1521,19 @@
       "sort": 0,
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.VzgFzcmocr1X1cp4"
+          "sourceId": "Compendium.me5e.spells.VzgFzcmocr1X1cp4"
         }
       },
       "img": "icons/magic/fire/dagger-rune-enchant-teal.webp",
       "effects": [],
       "folder": null,
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234149,
         "modifiedTime": 1661791116367,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!K15Yl8JmB5iPircc.VzgFzcmocr1X1cp4"
     },
@@ -1667,16 +1667,16 @@
       },
       "flags": {
         "core": {
-          "sourceId": "Compendium.dnd5e.spells.JPwIEfgUPVebr5AH"
+          "sourceId": "Compendium.me5e.spells.JPwIEfgUPVebr5AH"
         }
       },
       "_stats": {
-        "systemId": "dnd5e",
+        "systemId": "me5e",
         "systemVersion": "2.0.0",
         "coreVersion": "10.279",
         "createdTime": 1661787234113,
         "modifiedTime": 1661791116367,
-        "lastModifiedBy": "dnd5ebuilder0000"
+        "lastModifiedBy": "me5ebuilder0000"
       },
       "_key": "!actors.items!K15Yl8JmB5iPircc.JPwIEfgUPVebr5AH"
     }
@@ -1711,7 +1711,7 @@
       },
       "icon": "icons/magic/defensive/shield-barrier-flaming-diamond-orange.webp",
       "label": "Barkskin",
-      "origin": "Compendium.dnd5e.monsters.K15Yl8JmB5iPircc.Item.JPwIEfgUPVebr5AH",
+      "origin": "Compendium.me5e.monsters.K15Yl8JmB5iPircc.Item.JPwIEfgUPVebr5AH",
       "tint": null,
       "transfer": false,
       "sort": 0,
@@ -1725,12 +1725,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787232744,
     "modifiedTime": 1672596096691,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!actors!K15Yl8JmB5iPircc"
 }

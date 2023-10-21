@@ -5,7 +5,7 @@
   "img": "icons/consumables/potions/bottle-bulb-corked-green.webp",
   "system": {
     "description": {
-      "value": "<p><em>The potion is a plain indescriminate color and smells slightly foul.</em></p>\n<p>When you drink this potion, you gain resistance to Acidic type damage for 1 hour.</p>\n<p>For other potions of resistance, roll on the @Compendium[dnd5e.tables.JzLOE4IxcmxjLLuz]{Potion of Resistance} table.</p>",
+      "value": "<p><em>The potion is a plain indescriminate color and smells slightly foul.</em></p>\n<p>When you drink this potion, you gain resistance to Acidic type damage for 1 hour.</p>\n<p>For other potions of resistance, roll on the @Compendium[me5e.tables.JzLOE4IxcmxjLLuz]{Potion of Resistance} table.</p>",
       "chat": "",
       "unidentified": ""
     },
@@ -81,12 +81,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787233979,
     "modifiedTime": 1671220965874,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!zgZkJAyFAfYmyn11"
 }

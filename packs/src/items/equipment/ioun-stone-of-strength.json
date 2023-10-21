@@ -100,7 +100,7 @@
     {
       "label": "Ioun Stone of Strength",
       "icon": "icons/commodities/gems/gem-rough-cushion-blue.webp",
-      "origin": "Compendium.dnd5e.items.0G5LSgbb5NTV4XC7",
+      "origin": "Compendium.me5e.items.0G5LSgbb5NTV4XC7",
       "duration": {
         "startTime": null,
         "seconds": null,
@@ -133,12 +133,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.2.2",
     "coreVersion": "10.303",
     "createdTime": 1661787233434,
     "modifiedTime": 1690481115410,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!0G5LSgbb5NTV4XC7"
 }

@@ -5,7 +5,7 @@
   "img": "icons/equipment/chest/breastplate-cuirass-steel-grey.webp",
   "system": {
     "description": {
-      "value": "<p><em>(Requires attunement)</em></p>\n<p>You have resistance to one type of damage while you wear this armor. The GM chooses the type or determines it randomly from the @Compendium[dnd5e.tables.VRqG3F72ebgNHyVR]{Armor of Resistance} table.\n</p><p> </p>",
+      "value": "<p><em>(Requires attunement)</em></p>\n<p>You have resistance to one type of damage while you wear this armor. The GM chooses the type or determines it randomly from the @Compendium[me5e.tables.VRqG3F72ebgNHyVR]{Armor of Resistance} table.\n</p><p> </p>",
       "chat": "",
       "unidentified": ""
     },
@@ -99,12 +99,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.2.2",
     "coreVersion": "10.291",
     "createdTime": 1661787233845,
     "modifiedTime": 1690539027525,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!lN1VbnGFo3HNZXNb"
 }

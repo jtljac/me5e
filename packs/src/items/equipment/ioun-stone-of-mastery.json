@@ -100,7 +100,7 @@
     {
       "label": "Ioun Stone of Mastery",
       "icon": "icons/commodities/gems/gem-rough-cushion-green.webp",
-      "origin": "Compendium.dnd5e.items.nk2MH16KcZmKp7FQ",
+      "origin": "Compendium.me5e.items.nk2MH16KcZmKp7FQ",
       "duration": {
         "startTime": null,
         "seconds": null,
@@ -133,12 +133,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.2.2",
     "coreVersion": "10.303",
     "createdTime": 1661787233863,
     "modifiedTime": 1690481038713,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!nk2MH16KcZmKp7FQ"
 }

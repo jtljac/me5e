@@ -14,7 +14,7 @@ import PhysicalItemTemplate from "./templates/physical-item.mjs";
  * @mixes ActivatedEffectTemplate
  * @mixes ActionTemplate
  *
- * @property {string} consumableType     Type of consumable as defined in `DND5E.consumableTypes`.
+ * @property {string} consumableType     Type of consumable as defined in `ME5E.consumableTypes`.
  * @property {object} uses
  * @property {boolean} uses.autoDestroy  Should this item be destroyed when it runs out of uses.
  */
@@ -25,14 +25,14 @@ export default class ConsumableData extends SystemDataModel.mixin(
   static defineSchema() {
     return this.mergeSchema(super.defineSchema(), {
       consumableType: new foundry.data.fields.StringField({
-        required: true, initial: "potion", label: "DND5E.ItemConsumableType"
+        required: true, initial: "potion", label: "ME5E.ItemConsumableType"
       }),
       properties: new MappingField(new foundry.data.fields.BooleanField(), {
-        required: false, label: "DND5E.ItemAmmoProperties"
+        required: false, label: "ME5E.ItemAmmoProperties"
       }),
       uses: new ActivatedEffectTemplate.ItemUsesField({
-        autoDestroy: new foundry.data.fields.BooleanField({required: true, label: "DND5E.ItemDestroyEmpty"})
-      }, {label: "DND5E.LimitedUses"})
+        autoDestroy: new foundry.data.fields.BooleanField({required: true, label: "ME5E.ItemDestroyEmpty"})
+      }, {label: "ME5E.LimitedUses"})
     });
   }
 
@@ -46,8 +46,8 @@ export default class ConsumableData extends SystemDataModel.mixin(
    */
   get chatProperties() {
     return [
-      CONFIG.DND5E.consumableTypes[this.consumableType],
-      this.hasLimitedUses ? `${this.uses.value}/${this.uses.max} ${game.i18n.localize("DND5E.Charges")}` : null
+      CONFIG.ME5E.consumableTypes[this.consumableType],
+      this.hasLimitedUses ? `${this.uses.value}/${this.uses.max} ${game.i18n.localize("ME5E.Charges")}` : null
     ];
   }
 
@@ -66,7 +66,7 @@ export default class ConsumableData extends SystemDataModel.mixin(
    * @returns {number}
    */
   get proficiencyMultiplier() {
-    const isProficient = this.parent?.actor?.getFlag("dnd5e", "tavernBrawlerFeat");
+    const isProficient = this.parent?.actor?.getFlag("me5e", "tavernBrawlerFeat");
     return isProficient ? 1 : 0;
   }
 }

@@ -7,7 +7,7 @@
 
     {{#if (ne consumeSpellSlot null)}}
     <div class="form-group">
-        <label>{{ localize "DND5E.SpellCastUpcast" }}</label>
+        <label>{{ localize "ME5E.SpellCastUpcast" }}</label>
         <div class="form-fields">
             <select name="slotLevel">
                 {{#select slotLevel}}
@@ -21,7 +21,7 @@
 
     <div class="form-group">
         <label class="checkbox">
-            <input type="checkbox" name="consumeSpellSlot" {{checked consumeSpellSlot}}>{{localize "DND5E.SpellCastConsume"}}
+            <input type="checkbox" name="consumeSpellSlot" {{checked consumeSpellSlot}}>{{localize "ME5E.SpellCastConsume"}}
         </label>
     </div>
     {{/if}}
@@ -29,7 +29,7 @@
     {{#if (ne consumeUsage null)}}
     <div class="form-group">
         <label class="checkbox">
-            <input type="checkbox" name="consumeUsage" {{checked consumeUsage}}>{{localize "DND5E.AbilityUseConsume"}}
+            <input type="checkbox" name="consumeUsage" {{checked consumeUsage}}>{{localize "ME5E.AbilityUseConsume"}}
         </label>
     </div>
     {{/if}}
@@ -37,7 +37,7 @@
     {{#if (ne consumeResource null)}}
     <div class="form-group">
         <label class="checkbox">
-            <input type="checkbox" name="consumeResource" {{checked consumeResource}}>{{localize "DND5E.ConsumeResource"}}
+            <input type="checkbox" name="consumeResource" {{checked consumeResource}}>{{localize "ME5E.ConsumeResource"}}
         </label>
     </div>
     {{/if}}
@@ -45,7 +45,7 @@
     {{#if (ne createMeasuredTemplate null)}}
     <div class="form-group">
         <label class="checkbox">
-            <input type="checkbox" name="createMeasuredTemplate" {{checked createMeasuredTemplate}}>{{localize "DND5E.PlaceTemplate"}}
+            <input type="checkbox" name="createMeasuredTemplate" {{checked createMeasuredTemplate}}>{{localize "ME5E.PlaceTemplate"}}
         </label>
     </div>
     {{/if}}

@@ -7,7 +7,7 @@
   "type": "feat",
   "system": {
     "description": {
-      "value": "<p>Beginning at 18th level, you can cast many of your druid spells in any shape you assume using @Compendium[dnd5e.classfeatures.swK0r5TOIxredxWS]{Wild Shape}. You can perform the somatic and verbal components of a druid spell while in a beast shape, but you aren't able to provide material components.</p>",
+      "value": "<p>Beginning at 18th level, you can cast many of your druid spells in any shape you assume using @Compendium[me5e.classfeatures.swK0r5TOIxredxWS]{Wild Shape}. You can perform the somatic and verbal components of a druid spell while in a beast shape, but you aren't able to provide material components.</p>",
       "chat": "",
       "unidentified": ""
     },
@@ -78,12 +78,12 @@
   "folder": null,
   "sort": 0,
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787234441,
     "modifiedTime": 1672334266521,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!xvgPu1O57DgXCM86"
 }

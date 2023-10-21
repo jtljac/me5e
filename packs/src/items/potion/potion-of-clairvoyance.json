@@ -5,7 +5,7 @@
   "img": "icons/consumables/potions/bottle-bulb-corked-purple.webp",
   "system": {
     "description": {
-      "value": "<p><em>An eyeball bobs in this yellowish liquid but vanishes when the potion is opened.</em></p>\n<p>When you drink this potion, you gain the effect of the @Compendium[dnd5e.spells.cg50KpBkBdPK6vPL]{Clairvoyance} spell.</p>",
+      "value": "<p><em>An eyeball bobs in this yellowish liquid but vanishes when the potion is opened.</em></p>\n<p>When you drink this potion, you gain the effect of the @Compendium[me5e.spells.cg50KpBkBdPK6vPL]{Clairvoyance} spell.</p>",
       "chat": "",
       "unidentified": ""
     },
@@ -81,12 +81,12 @@
   },
   "flags": {},
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787233729,
     "modifiedTime": 1671220961877,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!bAyr7j5Peq9wIJTa"
 }

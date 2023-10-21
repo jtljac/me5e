@@ -93,7 +93,7 @@
     {
       "label": "Stoneskin",
       "icon": "icons/magic/defensive/shield-barrier-flaming-diamond-orange.webp",
-      "origin": "Compendium.dnd5e.spells.ReMbjfeOKoSj3O79",
+      "origin": "Compendium.me5e.spells.ReMbjfeOKoSj3O79",
       "duration": {
         "startTime": null,
         "seconds": 3600,
@@ -140,12 +140,12 @@
   ],
   "folder": null,
   "_stats": {
-    "systemId": "dnd5e",
+    "systemId": "me5e",
     "systemVersion": "2.1.0",
     "coreVersion": "10.291",
     "createdTime": 1661787234137,
     "modifiedTime": 1671220969932,
-    "lastModifiedBy": "dnd5ebuilder0000"
+    "lastModifiedBy": "me5ebuilder0000"
   },
   "_key": "!items!ReMbjfeOKoSj3O79"
 }
