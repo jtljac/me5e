@@ -1,4 +1,4 @@
-import { FormulaField } from "../fields.mjs";
+import {FormulaField} from "../fields.mjs";
 import AttributesFields from "./templates/attributes.mjs";
 import CommonTemplate from "./templates/common.mjs";
 import DetailsFields from "./templates/details.mjs";
@@ -40,91 +40,128 @@ import TraitsFields from "./templates/traits.mjs";
  */
 export default class VehicleData extends CommonTemplate {
 
-  /** @inheritdoc */
-  static _systemType = "vehicle";
+    /** @inheritdoc */
+    static _systemType = "vehicle";
 
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  static defineSchema() {
-    return this.mergeSchema(super.defineSchema(), {
-      vehicleType: new foundry.data.fields.StringField({required: true, initial: "water", label: "ME5E.VehicleType"}),
-      attributes: new foundry.data.fields.SchemaField({
-        ...AttributesFields.common,
-        ac: new foundry.data.fields.SchemaField({
-          flat: new foundry.data.fields.NumberField({integer: true, min: 0, label: "ME5E.ArmorClassFlat"}),
-          calc: new foundry.data.fields.StringField({initial: "default", label: "ME5E.ArmorClassCalculation"}),
-          formula: new FormulaField({deterministic: true, label: "ME5E.ArmorClassFormula"}),
-          motionless: new foundry.data.fields.StringField({required: true, label: "ME5E.ArmorClassMotionless"})
-        }, {label: "ME5E.ArmorClass"}),
-        hp: new foundry.data.fields.SchemaField({
-          value: new foundry.data.fields.NumberField({
-            nullable: true, integer: true, min: 0, initial: null, label: "ME5E.HitPointsCurrent"
-          }),
-          max: new foundry.data.fields.NumberField({
-            nullable: true, integer: true, min: 0, initial: null, label: "ME5E.HitPointsMax"
-          }),
-          temp: new foundry.data.fields.NumberField({integer: true, initial: 0, min: 0, label: "ME5E.HitPointsTemp"}),
-          tempmax: new foundry.data.fields.NumberField({integer: true, initial: 0, label: "ME5E.HitPointsTempMax"}),
-          dt: new foundry.data.fields.NumberField({
-            required: true, integer: true, min: 0, label: "ME5E.DamageThreshold"
-          }),
-          mt: new foundry.data.fields.NumberField({
-            required: true, integer: true, min: 0, label: "ME5E.VehicleMishapThreshold"
-          })
-        }, {label: "ME5E.HitPoints"}),
-        actions: new foundry.data.fields.SchemaField({
-          stations: new foundry.data.fields.BooleanField({required: true, label: "ME5E.VehicleActionStations"}),
-          value: new foundry.data.fields.NumberField({
-            required: true, nullable: false, integer: true, initial: 0, min: 0, label: "ME5E.VehicleActionMax"
-          }),
-          thresholds: new foundry.data.fields.SchemaField({
-            2: new foundry.data.fields.NumberField({
-              required: true, integer: true, min: 0, label: "ME5E.VehicleActionThresholdsFull"
+    /** @inheritdoc */
+    static defineSchema() {
+        return this.mergeSchema(super.defineSchema(), {
+            vehicleType: new foundry.data.fields.StringField({
+                required: true,
+                initial: "water",
+                label: "ME5E.VehicleType"
             }),
-            1: new foundry.data.fields.NumberField({
-              required: true, integer: true, min: 0, label: "ME5E.VehicleActionThresholdsMid"
-            }),
-            0: new foundry.data.fields.NumberField({
-              required: true, integer: true, min: 0, label: "ME5E.VehicleActionThresholdsMin"
-            })
-          }, {label: "ME5E.VehicleActionThresholds"})
-        }, {label: "ME5E.VehicleActions"}),
-        capacity: new foundry.data.fields.SchemaField({
-          creature: new foundry.data.fields.StringField({required: true, label: "ME5E.VehicleCreatureCapacity"}),
-          cargo: new foundry.data.fields.NumberField({
-            required: true, nullable: false, integer: true, initial: 0, min: 0, label: "ME5E.VehicleCargoCapacity"
-          })
-        }, {label: "ME5E.VehicleCargoCrew"})
-      }, {label: "ME5E.Attributes"}),
-      details: new foundry.data.fields.SchemaField({
-        ...DetailsFields.common,
-        source: new foundry.data.fields.StringField({required: true, label: "ME5E.Source"})
-      }, {label: "ME5E.Details"}),
-      traits: new foundry.data.fields.SchemaField({
-        ...TraitsFields.common,
-        size: new foundry.data.fields.StringField({required: true, initial: "lg", label: "ME5E.Size"}),
-        di: TraitsFields.makeDamageTrait({label: "ME5E.DamImm"}, {initial: ["poison", "psychic"]}),
-        ci: TraitsFields.makeSimpleTrait({label: "ME5E.ConImm"}, {initial: [
-          "blinded", "charmed", "deafened", "frightened", "paralyzed",
-          "petrified", "poisoned", "stunned", "unconscious"
-        ]}),
-        dimensions: new foundry.data.fields.StringField({required: true, label: "ME5E.Dimensions"})
-      }, {label: "ME5E.Traits"}),
-      cargo: new foundry.data.fields.SchemaField({
-        crew: new foundry.data.fields.ArrayField(makePassengerData(), {label: "ME5E.VehicleCrew"}),
-        passengers: new foundry.data.fields.ArrayField(makePassengerData(), {label: "ME5E.VehiclePassengers"})
-      }, {label: "ME5E.VehicleCrewPassengers"})
-    });
-  }
+            attributes: new foundry.data.fields.SchemaField({
+                ...AttributesFields.common,
+                ac: new foundry.data.fields.SchemaField({
+                    flat: new foundry.data.fields.NumberField({integer: true, min: 0, label: "ME5E.ArmorClassFlat"}),
+                    calc: new foundry.data.fields.StringField({
+                        initial: "default",
+                        label: "ME5E.ArmorClassCalculation"
+                    }),
+                    formula: new FormulaField({deterministic: true, label: "ME5E.ArmorClassFormula"}),
+                    motionless: new foundry.data.fields.StringField({
+                        required: true,
+                        label: "ME5E.ArmorClassMotionless"
+                    })
+                }, {label: "ME5E.ArmorClass"}),
+                hp: new foundry.data.fields.SchemaField({
+                    value: new foundry.data.fields.NumberField({
+                        nullable: true, integer: true, min: 0, initial: null, label: "ME5E.HitPointsCurrent"
+                    }),
+                    max: new foundry.data.fields.NumberField({
+                        nullable: true, integer: true, min: 0, initial: null, label: "ME5E.HitPointsMax"
+                    }),
+                    temp: new foundry.data.fields.NumberField({
+                        integer: true,
+                        initial: 0,
+                        min: 0,
+                        label: "ME5E.HitPointsTemp"
+                    }),
+                    tempmax: new foundry.data.fields.NumberField({
+                        integer: true,
+                        initial: 0,
+                        label: "ME5E.HitPointsTempMax"
+                    }),
+                    dt: new foundry.data.fields.NumberField({
+                        required: true, integer: true, min: 0, label: "ME5E.DamageThreshold"
+                    }),
+                    mt: new foundry.data.fields.NumberField({
+                        required: true, integer: true, min: 0, label: "ME5E.VehicleMishapThreshold"
+                    })
+                }, {label: "ME5E.HitPoints"}),
+                actions: new foundry.data.fields.SchemaField({
+                    stations: new foundry.data.fields.BooleanField({
+                        required: true,
+                        label: "ME5E.VehicleActionStations"
+                    }),
+                    value: new foundry.data.fields.NumberField({
+                        required: true,
+                        nullable: false,
+                        integer: true,
+                        initial: 0,
+                        min: 0,
+                        label: "ME5E.VehicleActionMax"
+                    }),
+                    thresholds: new foundry.data.fields.SchemaField({
+                        2: new foundry.data.fields.NumberField({
+                            required: true, integer: true, min: 0, label: "ME5E.VehicleActionThresholdsFull"
+                        }),
+                        1: new foundry.data.fields.NumberField({
+                            required: true, integer: true, min: 0, label: "ME5E.VehicleActionThresholdsMid"
+                        }),
+                        0: new foundry.data.fields.NumberField({
+                            required: true, integer: true, min: 0, label: "ME5E.VehicleActionThresholdsMin"
+                        })
+                    }, {label: "ME5E.VehicleActionThresholds"})
+                }, {label: "ME5E.VehicleActions"}),
+                capacity: new foundry.data.fields.SchemaField({
+                    creature: new foundry.data.fields.StringField({
+                        required: true,
+                        label: "ME5E.VehicleCreatureCapacity"
+                    }),
+                    cargo: new foundry.data.fields.NumberField({
+                        required: true,
+                        nullable: false,
+                        integer: true,
+                        initial: 0,
+                        min: 0,
+                        label: "ME5E.VehicleCargoCapacity"
+                    })
+                }, {label: "ME5E.VehicleCargoCrew"})
+            }, {label: "ME5E.Attributes"}),
+            details: new foundry.data.fields.SchemaField({
+                ...DetailsFields.common,
+                source: new foundry.data.fields.StringField({required: true, label: "ME5E.Source"})
+            }, {label: "ME5E.Details"}),
+            traits: new foundry.data.fields.SchemaField({
+                ...TraitsFields.common,
+                size: new foundry.data.fields.StringField({required: true, initial: "lg", label: "ME5E.Size"}),
+                di: TraitsFields.makeDamageTrait({label: "ME5E.DamImm"}, {initial: ["poison", "psychic"]}),
+                ci: TraitsFields.makeSimpleTrait({label: "ME5E.ConImm"}, {
+                    initial: [
+                        "blinded", "charmed", "deafened", "frightened", "paralyzed",
+                        "petrified", "poisoned", "stunned", "unconscious"
+                    ]
+                }),
+                dimensions: new foundry.data.fields.StringField({required: true, label: "ME5E.Dimensions"})
+            }, {label: "ME5E.Traits"}),
+            cargo: new foundry.data.fields.SchemaField({
+                crew: new foundry.data.fields.ArrayField(makePassengerData(), {label: "ME5E.VehicleCrew"}),
+                passengers: new foundry.data.fields.ArrayField(makePassengerData(), {label: "ME5E.VehiclePassengers"})
+            }, {label: "ME5E.VehicleCrewPassengers"})
+        });
+    }
 
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  static _migrateData(source) {
-    super._migrateData(source);
-    AttributesFields._migrateInitiative(source.attributes);
-  }
+    /** @inheritdoc */
+    static _migrateData(source) {
+        super._migrateData(source);
+        AttributesFields._migrateInitiative(source.attributes);
+    }
 }
 
 /* -------------------------------------------- */
@@ -142,11 +179,11 @@ export default class VehicleData extends CommonTemplate {
  * @param {object} schemaOptions  Options passed to the outer schema.
  * @returns {PassengerData}
  */
-function makePassengerData(schemaOptions={}) {
-  return new foundry.data.fields.SchemaField({
-    name: new foundry.data.fields.StringField({required: true, label: "ME5E.VehiclePassengerName"}),
-    quantity: new foundry.data.fields.NumberField({
-      required: true, nullable: false, integer: true, initial: 0, min: 0, label: "ME5E.VehiclePassengerQuantity"
-    })
-  }, schemaOptions);
+function makePassengerData(schemaOptions = {}) {
+    return new foundry.data.fields.SchemaField({
+        name: new foundry.data.fields.StringField({required: true, label: "ME5E.VehiclePassengerName"}),
+        quantity: new foundry.data.fields.NumberField({
+            required: true, nullable: false, integer: true, initial: 0, min: 0, label: "ME5E.VehiclePassengerQuantity"
+        })
+    }, schemaOptions);
 }

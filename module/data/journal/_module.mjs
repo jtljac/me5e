@@ -1,9 +1,9 @@
 import ClassJournalPageData from "./class.mjs";
 
 export {
-  ClassJournalPageData
+    ClassJournalPageData
 };
 
 export const config = {
-  class: ClassJournalPageData
+    class: ClassJournalPageData
 };

@@ -19,30 +19,30 @@
  * @property {string} choiceMode          Method by which player can select from sets of choices.
  */
 export class TraitConfigurationData extends foundry.abstract.DataModel {
-  static defineSchema() {
-    return {
-      hint: new foundry.data.fields.StringField({label: "ME5E.AdvancementHint"}),
-      mode: new foundry.data.fields.StringField({initial: "default", label: "ME5E.AdvancementTraitMode"}),
-      allowReplacements: new foundry.data.fields.BooleanField({
-        required: true, label: "ME5E.AdvancementTraitAllowReplacements",
-        hint: "ME5E.AdvancementTraitAllowReplacementsHint"
-      }),
-      grants: new foundry.data.fields.SetField(new foundry.data.fields.StringField(), {
-        required: true, label: "ME5E.AdvancementTraitGrants"
-      }),
-      choices: new foundry.data.fields.ArrayField(new foundry.data.fields.SchemaField({
-        count: new foundry.data.fields.NumberField({
-          required: true, positive: true, integer: true, initial: 1, label: "ME5E.AdvancementTraitCount"
-        }),
-        pool: new foundry.data.fields.SetField(new foundry.data.fields.StringField(), {
-          required: false, initial: undefined, label: "DOCUMENT.Items"
-        })
-      }), {label: "ME5E.AdvancementTraitChoices"}),
-      choiceMode: new foundry.data.fields.StringField({
-        initial: "inclusive", label: "ME5E.AdvancementTraitChoiceMode"
-      })
-    };
-  }
+    static defineSchema() {
+        return {
+            hint: new foundry.data.fields.StringField({label: "ME5E.AdvancementHint"}),
+            mode: new foundry.data.fields.StringField({initial: "default", label: "ME5E.AdvancementTraitMode"}),
+            allowReplacements: new foundry.data.fields.BooleanField({
+                required: true, label: "ME5E.AdvancementTraitAllowReplacements",
+                hint: "ME5E.AdvancementTraitAllowReplacementsHint"
+            }),
+            grants: new foundry.data.fields.SetField(new foundry.data.fields.StringField(), {
+                required: true, label: "ME5E.AdvancementTraitGrants"
+            }),
+            choices: new foundry.data.fields.ArrayField(new foundry.data.fields.SchemaField({
+                count: new foundry.data.fields.NumberField({
+                    required: true, positive: true, integer: true, initial: 1, label: "ME5E.AdvancementTraitCount"
+                }),
+                pool: new foundry.data.fields.SetField(new foundry.data.fields.StringField(), {
+                    required: false, initial: undefined, label: "DOCUMENT.Items"
+                })
+            }), {label: "ME5E.AdvancementTraitChoices"}),
+            choiceMode: new foundry.data.fields.StringField({
+                initial: "inclusive", label: "ME5E.AdvancementTraitChoiceMode"
+            })
+        };
+    }
 }
 
 /**
@@ -51,11 +51,11 @@ export class TraitConfigurationData extends foundry.abstract.DataModel {
  * @property {Set<string>} chosen  Trait keys that have been chosen.
  */
 export class TraitValueData extends foundry.abstract.DataModel {
-  static defineSchema() {
-    return {
-      chosen: new foundry.data.fields.SetField(new foundry.data.fields.StringField(), {
-        required: false, initial: undefined
-      })
-    };
-  }
+    static defineSchema() {
+        return {
+            chosen: new foundry.data.fields.SetField(new foundry.data.fields.StringField(), {
+                required: false, initial: undefined
+            })
+        };
+    }
 }

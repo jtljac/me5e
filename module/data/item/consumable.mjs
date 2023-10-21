@@ -1,5 +1,5 @@
 import SystemDataModel from "../abstract.mjs";
-import { MappingField } from "../fields.mjs";
+import {MappingField} from "../fields.mjs";
 import ActionTemplate from "./templates/action.mjs";
 import ActivatedEffectTemplate from "./templates/activated-effect.mjs";
 import EquippableItemTemplate from "./templates/equippable-item.mjs";
@@ -19,54 +19,55 @@ import PhysicalItemTemplate from "./templates/physical-item.mjs";
  * @property {boolean} uses.autoDestroy  Should this item be destroyed when it runs out of uses.
  */
 export default class ConsumableData extends SystemDataModel.mixin(
-  ItemDescriptionTemplate, PhysicalItemTemplate, EquippableItemTemplate, ActivatedEffectTemplate, ActionTemplate
+    ItemDescriptionTemplate, PhysicalItemTemplate, EquippableItemTemplate, ActivatedEffectTemplate, ActionTemplate
 ) {
-  /** @inheritdoc */
-  static defineSchema() {
-    return this.mergeSchema(super.defineSchema(), {
-      consumableType: new foundry.data.fields.StringField({
-        required: true, initial: "potion", label: "ME5E.ItemConsumableType"
-      }),
-      properties: new MappingField(new foundry.data.fields.BooleanField(), {
-        required: false, label: "ME5E.ItemAmmoProperties"
-      }),
-      uses: new ActivatedEffectTemplate.ItemUsesField({
-        autoDestroy: new foundry.data.fields.BooleanField({required: true, label: "ME5E.ItemDestroyEmpty"})
-      }, {label: "ME5E.LimitedUses"})
-    });
-  }
+    /** @inheritdoc */
+    static defineSchema() {
+        return this.mergeSchema(super.defineSchema(), {
+            consumableType: new foundry.data.fields.StringField({
+                required: true, initial: "potion", label: "ME5E.ItemConsumableType"
+            }),
+            properties: new MappingField(new foundry.data.fields.BooleanField(), {
+                required: false, label: "ME5E.ItemAmmoProperties"
+            }),
+            uses: new ActivatedEffectTemplate.ItemUsesField({
+                autoDestroy: new foundry.data.fields.BooleanField({required: true, label: "ME5E.ItemDestroyEmpty"})
+            }, {label: "ME5E.LimitedUses"})
+        });
+    }
 
-  /* -------------------------------------------- */
-  /*  Getters                                     */
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Getters                                     */
 
-  /**
-   * Properties displayed in chat.
-   * @type {string[]}
-   */
-  get chatProperties() {
-    return [
-      CONFIG.ME5E.consumableTypes[this.consumableType],
-      this.hasLimitedUses ? `${this.uses.value}/${this.uses.max} ${game.i18n.localize("ME5E.Charges")}` : null
-    ];
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
+    /**
+     * Properties displayed in chat.
+     * @type {string[]}
+     */
+    get chatProperties() {
+        return [
+            CONFIG.ME5E.consumableTypes[this.consumableType],
+            this.hasLimitedUses ? `${this.uses.value}/${this.uses.max} ${game.i18n.localize("ME5E.Charges")}` : null
+        ];
+    }
 
-  /** @inheritdoc */
-  get _typeAbilityMod() {
-    if ( this.consumableType !== "scroll" ) return null;
-    return this.parent?.actor?.system.attributes.spellcasting || "int";
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
+    /** @inheritdoc */
+    get _typeAbilityMod() {
+        if (this.consumableType !== "scroll") return null;
+        return this.parent?.actor?.system.attributes.spellcasting || "int";
+    }
 
-  /**
-   * The proficiency multiplier for this item.
-   * @returns {number}
-   */
-  get proficiencyMultiplier() {
-    const isProficient = this.parent?.actor?.getFlag("me5e", "tavernBrawlerFeat");
-    return isProficient ? 1 : 0;
-  }
+    /* -------------------------------------------- */
+
+    /**
+     * The proficiency multiplier for this item.
+     * @returns {number}
+     */
+    get proficiencyMultiplier() {
+        const isProficient = this.parent?.actor?.getFlag("me5e", "tavernBrawlerFeat");
+        return isProficient ? 1 : 0;
+    }
 }

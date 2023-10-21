@@ -1,5 +1,5 @@
 import SystemDataModel from "../abstract.mjs";
-import { AdvancementField, IdentifierField } from "../fields.mjs";
+import {AdvancementField, IdentifierField} from "../fields.mjs";
 import ItemDescriptionTemplate from "./templates/item-description.mjs";
 
 /**
@@ -14,20 +14,20 @@ import ItemDescriptionTemplate from "./templates/item-description.mjs";
  * @property {string} spellcasting.ability      Ability score to use for spellcasting.
  */
 export default class SubclassData extends SystemDataModel.mixin(ItemDescriptionTemplate) {
-  /** @inheritdoc */
-  static defineSchema() {
-    return this.mergeSchema(super.defineSchema(), {
-      identifier: new IdentifierField({required: true, label: "ME5E.Identifier"}),
-      classIdentifier: new IdentifierField({
-        required: true, label: "ME5E.ClassIdentifier", hint: "ME5E.ClassIdentifierHint"
-      }),
-      advancement: new foundry.data.fields.ArrayField(new AdvancementField(), {label: "ME5E.AdvancementTitle"}),
-      spellcasting: new foundry.data.fields.SchemaField({
-        progression: new foundry.data.fields.StringField({
-          required: true, initial: "none", blank: false, label: "ME5E.SpellProgression"
-        }),
-        ability: new foundry.data.fields.StringField({required: true, label: "ME5E.SpellAbility"})
-      }, {label: "ME5E.Spellcasting"})
-    });
-  }
+    /** @inheritdoc */
+    static defineSchema() {
+        return this.mergeSchema(super.defineSchema(), {
+            identifier: new IdentifierField({required: true, label: "ME5E.Identifier"}),
+            classIdentifier: new IdentifierField({
+                required: true, label: "ME5E.ClassIdentifier", hint: "ME5E.ClassIdentifierHint"
+            }),
+            advancement: new foundry.data.fields.ArrayField(new AdvancementField(), {label: "ME5E.AdvancementTitle"}),
+            spellcasting: new foundry.data.fields.SchemaField({
+                progression: new foundry.data.fields.StringField({
+                    required: true, initial: "none", blank: false, label: "ME5E.SpellProgression"
+                }),
+                ability: new foundry.data.fields.StringField({required: true, label: "ME5E.SpellAbility"})
+            }, {label: "ME5E.Spellcasting"})
+        });
+    }
 }

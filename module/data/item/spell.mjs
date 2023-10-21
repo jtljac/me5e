@@ -1,5 +1,5 @@
 import SystemDataModel from "../abstract.mjs";
-import { FormulaField, MappingField } from "../fields.mjs";
+import {FormulaField, MappingField} from "../fields.mjs";
 import ActionTemplate from "./templates/action.mjs";
 import ActivatedEffectTemplate from "./templates/activated-effect.mjs";
 import ItemDescriptionTemplate from "./templates/item-description.mjs";
@@ -31,114 +31,116 @@ import ItemDescriptionTemplate from "./templates/item-description.mjs";
  * @property {string} scaling.formula            Dice formula used for scaling.
  */
 export default class SpellData extends SystemDataModel.mixin(
-  ItemDescriptionTemplate, ActivatedEffectTemplate, ActionTemplate
+    ItemDescriptionTemplate, ActivatedEffectTemplate, ActionTemplate
 ) {
-  /** @inheritdoc */
-  static defineSchema() {
-    return this.mergeSchema(super.defineSchema(), {
-      level: new foundry.data.fields.NumberField({
-        required: true, integer: true, initial: 1, min: 0, label: "ME5E.SpellLevel"
-      }),
-      school: new foundry.data.fields.StringField({required: true, label: "ME5E.SpellSchool"}),
-      components: new MappingField(new foundry.data.fields.BooleanField(), {
-        required: true, label: "ME5E.SpellComponents",
-        initialKeys: [...Object.keys(CONFIG.ME5E.spellComponents), ...Object.keys(CONFIG.ME5E.spellTags)]
-      }),
-      materials: new foundry.data.fields.SchemaField({
-        value: new foundry.data.fields.StringField({required: true, label: "ME5E.SpellMaterialsDescription"}),
-        consumed: new foundry.data.fields.BooleanField({required: true, label: "ME5E.SpellMaterialsConsumed"}),
-        cost: new foundry.data.fields.NumberField({
-          required: true, initial: 0, min: 0, label: "ME5E.SpellMaterialsCost"
-        }),
-        supply: new foundry.data.fields.NumberField({
-          required: true, initial: 0, min: 0, label: "ME5E.SpellMaterialsSupply"
-        })
-      }, {label: "ME5E.SpellMaterials"}),
-      preparation: new foundry.data.fields.SchemaField({
-        mode: new foundry.data.fields.StringField({
-          required: true, initial: "prepared", label: "ME5E.SpellPreparationMode"
-        }),
-        prepared: new foundry.data.fields.BooleanField({required: true, label: "ME5E.SpellPrepared"})
-      }, {label: "ME5E.SpellPreparation"}),
-      scaling: new foundry.data.fields.SchemaField({
-        mode: new foundry.data.fields.StringField({required: true, initial: "none", label: "ME5E.ScalingMode"}),
-        formula: new FormulaField({required: true, nullable: true, initial: null, label: "ME5E.ScalingFormula"})
-      }, {label: "ME5E.LevelScaling"})
-    });
-  }
-
-  /* -------------------------------------------- */
-  /*  Migrations                                  */
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  static _migrateData(source) {
-    super._migrateData(source);
-    SpellData.#migrateComponentData(source);
-    SpellData.#migrateScaling(source);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Migrate the spell's component object to remove any old, non-boolean values.
-   * @param {object} source  The candidate source data from which the model will be constructed.
-   */
-  static #migrateComponentData(source) {
-    if ( !source.components ) return;
-    for ( const [key, value] of Object.entries(source.components) ) {
-      if ( typeof value !== "boolean" ) delete source.components[key];
+    /** @inheritdoc */
+    static defineSchema() {
+        return this.mergeSchema(super.defineSchema(), {
+            level: new foundry.data.fields.NumberField({
+                required: true, integer: true, initial: 1, min: 0, label: "ME5E.SpellLevel"
+            }),
+            school: new foundry.data.fields.StringField({required: true, label: "ME5E.SpellSchool"}),
+            components: new MappingField(new foundry.data.fields.BooleanField(), {
+                required: true, label: "ME5E.SpellComponents",
+                initialKeys: [...Object.keys(CONFIG.ME5E.spellComponents), ...Object.keys(CONFIG.ME5E.spellTags)]
+            }),
+            materials: new foundry.data.fields.SchemaField({
+                value: new foundry.data.fields.StringField({required: true, label: "ME5E.SpellMaterialsDescription"}),
+                consumed: new foundry.data.fields.BooleanField({required: true, label: "ME5E.SpellMaterialsConsumed"}),
+                cost: new foundry.data.fields.NumberField({
+                    required: true, initial: 0, min: 0, label: "ME5E.SpellMaterialsCost"
+                }),
+                supply: new foundry.data.fields.NumberField({
+                    required: true, initial: 0, min: 0, label: "ME5E.SpellMaterialsSupply"
+                })
+            }, {label: "ME5E.SpellMaterials"}),
+            preparation: new foundry.data.fields.SchemaField({
+                mode: new foundry.data.fields.StringField({
+                    required: true, initial: "prepared", label: "ME5E.SpellPreparationMode"
+                }),
+                prepared: new foundry.data.fields.BooleanField({required: true, label: "ME5E.SpellPrepared"})
+            }, {label: "ME5E.SpellPreparation"}),
+            scaling: new foundry.data.fields.SchemaField({
+                mode: new foundry.data.fields.StringField({required: true, initial: "none", label: "ME5E.ScalingMode"}),
+                formula: new FormulaField({required: true, nullable: true, initial: null, label: "ME5E.ScalingFormula"})
+            }, {label: "ME5E.LevelScaling"})
+        });
     }
-  }
 
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Migrations                                  */
 
-  /**
-   * Migrate spell scaling.
-   * @param {object} source  The candidate source data from which the model will be constructed.
-   */
-  static #migrateScaling(source) {
-    if ( !("scaling" in source) ) return;
-    if ( (source.scaling.mode === "") || (source.scaling.mode === null) ) source.scaling.mode = "none";
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
-  /*  Getters                                     */
-  /* -------------------------------------------- */
+    /** @inheritdoc */
+    static _migrateData(source) {
+        super._migrateData(source);
+        SpellData.#migrateComponentData(source);
+        SpellData.#migrateScaling(source);
+    }
 
-  /**
-   * Properties displayed in chat.
-   * @type {string[]}
-   */
-  get chatProperties() {
-    return [
-      this.parent.labels.level,
-      this.parent.labels.components.vsm + (this.parent.labels.materials ? ` (${this.parent.labels.materials})` : ""),
-      ...this.parent.labels.components.tags
-    ];
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
+    /**
+     * Migrate the spell's component object to remove any old, non-boolean values.
+     * @param {object} source  The candidate source data from which the model will be constructed.
+     */
+    static #migrateComponentData(source) {
+        if (!source.components) return;
+        for (const [key, value] of Object.entries(source.components)) {
+            if (typeof value !== "boolean") delete source.components[key];
+        }
+    }
 
-  /** @inheritdoc */
-  get _typeAbilityMod() {
-    return this.parent?.actor?.system.attributes.spellcasting || "int";
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
+    /**
+     * Migrate spell scaling.
+     * @param {object} source  The candidate source data from which the model will be constructed.
+     */
+    static #migrateScaling(source) {
+        if (!("scaling" in source)) return;
+        if ((source.scaling.mode === "") || (source.scaling.mode === null)) source.scaling.mode = "none";
+    }
 
-  /** @inheritdoc */
-  get _typeCriticalThreshold() {
-    return this.parent?.actor?.flags.me5e?.spellCriticalThreshold ?? Infinity;
-  }
+    /* -------------------------------------------- */
+    /*  Getters                                     */
 
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
-  /**
-   * The proficiency multiplier for this item.
-   * @returns {number}
-   */
-  get proficiencyMultiplier() {
-    return 1;
-  }
+    /**
+     * Properties displayed in chat.
+     * @type {string[]}
+     */
+    get chatProperties() {
+        return [
+            this.parent.labels.level,
+            this.parent.labels.components.vsm + (this.parent.labels.materials ? ` (${this.parent.labels.materials})` : ""),
+            ...this.parent.labels.components.tags
+        ];
+    }
+
+    /* -------------------------------------------- */
+
+    /** @inheritdoc */
+    get _typeAbilityMod() {
+        return this.parent?.actor?.system.attributes.spellcasting || "int";
+    }
+
+    /* -------------------------------------------- */
+
+    /** @inheritdoc */
+    get _typeCriticalThreshold() {
+        return this.parent?.actor?.flags.me5e?.spellCriticalThreshold ?? Infinity;
+    }
+
+    /* -------------------------------------------- */
+
+    /**
+     * The proficiency multiplier for this item.
+     * @returns {number}
+     */
+    get proficiencyMultiplier() {
+        return 1;
+    }
 }

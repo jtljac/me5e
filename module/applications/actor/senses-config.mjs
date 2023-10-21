@@ -5,40 +5,40 @@ import BaseConfigSheet from "./base-config.mjs";
  */
 export default class ActorSensesConfig extends BaseConfigSheet {
 
-  /** @inheritdoc */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["me5e"],
-      template: "systems/me5e/templates/apps/senses-config.hbs",
-      width: 300,
-      height: "auto"
-    });
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  get title() {
-    return `${game.i18n.localize("ME5E.SensesConfig")}: ${this.document.name}`;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  getData(options) {
-    const source = this.document.toObject().system.attributes?.senses || {};
-    const data = {
-      senses: {},
-      special: source.special ?? "",
-      units: source.units, movementUnits: CONFIG.ME5E.movementUnits
-    };
-    for ( let [name, label] of Object.entries(CONFIG.ME5E.senses) ) {
-      const v = Number(source[name]);
-      data.senses[name] = {
-        label: game.i18n.localize(label),
-        value: Number.isNumeric(v) ? v.toNearest(0.1) : 0
-      };
+    /** @inheritdoc */
+    static get defaultOptions() {
+        return foundry.utils.mergeObject(super.defaultOptions, {
+            classes: ["me5e"],
+            template: "systems/me5e/templates/apps/senses-config.hbs",
+            width: 300,
+            height: "auto"
+        });
     }
-    return data;
-  }
+
+    /* -------------------------------------------- */
+
+    /** @inheritdoc */
+    get title() {
+        return `${game.i18n.localize("ME5E.SensesConfig")}: ${this.document.name}`;
+    }
+
+    /* -------------------------------------------- */
+
+    /** @inheritdoc */
+    getData(options) {
+        const source = this.document.toObject().system.attributes?.senses || {};
+        const data = {
+            senses: {},
+            special: source.special ?? "",
+            units: source.units, movementUnits: CONFIG.ME5E.movementUnits
+        };
+        for (let [name, label] of Object.entries(CONFIG.ME5E.senses)) {
+            const v = Number(source[name]);
+            data.senses[name] = {
+                label: game.i18n.localize(label),
+                value: Number.isNumeric(v) ? v.toNearest(0.1) : 0
+            };
+        }
+        return data;
+    }
 }

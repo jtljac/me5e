@@ -1,4 +1,4 @@
-import { FormulaField, MappingField } from "../../fields.mjs";
+import {FormulaField, MappingField} from "../../fields.mjs";
 import CommonTemplate from "./common.mjs";
 
 /**
@@ -24,148 +24,161 @@ import CommonTemplate from "./common.mjs";
  * @property {string} bonuses.abilities.skill        Numeric or dice bonus to skill checks.
  * @property {object} bonuses.spell                  Bonuses to spells.
  * @property {string} bonuses.spell.dc               Numeric bonus to spellcasting DC.
- * @property {Object<string, SkillData>} skills      Actor's skills.
- * @property {Object<string, SpellSlotData>} spells  Actor's spell slots.
+ * @property {Object<SkillData>} skills      Actor's skills.
+ * @property {Object<SpellSlotData>} spells  Actor's spell slots.
  */
 export default class CreatureTemplate extends CommonTemplate {
-  static defineSchema() {
-    return this.mergeSchema(super.defineSchema(), {
-      bonuses: new foundry.data.fields.SchemaField({
-        mwak: makeAttackBonuses({label: "ME5E.BonusMWAttack"}),
-        rwak: makeAttackBonuses({label: "ME5E.BonusRWAttack"}),
-        msak: makeAttackBonuses({label: "ME5E.BonusMSAttack"}),
-        rsak: makeAttackBonuses({label: "ME5E.BonusRSAttack"}),
-        abilities: new foundry.data.fields.SchemaField({
-          check: new FormulaField({required: true, label: "ME5E.BonusAbilityCheck"}),
-          save: new FormulaField({required: true, label: "ME5E.BonusAbilitySave"}),
-          skill: new FormulaField({required: true, label: "ME5E.BonusAbilitySkill"})
-        }, {label: "ME5E.BonusAbility"}),
-        spell: new foundry.data.fields.SchemaField({
-          dc: new FormulaField({required: true, deterministic: true, label: "ME5E.BonusSpellDC"})
-        }, {label: "ME5E.BonusSpell"})
-      }, {label: "ME5E.Bonuses"}),
-      skills: new MappingField(new foundry.data.fields.SchemaField({
-        value: new foundry.data.fields.NumberField({
-          required: true, nullable: false, min: 0, max: 2, step: 0.5, initial: 0, label: "ME5E.ProficiencyLevel"
-        }),
-        ability: new foundry.data.fields.StringField({required: true, initial: "dex", label: "ME5E.Ability"}),
-        bonuses: new foundry.data.fields.SchemaField({
-          check: new FormulaField({required: true, label: "ME5E.SkillBonusCheck"}),
-          passive: new FormulaField({required: true, label: "ME5E.SkillBonusPassive"})
-        }, {label: "ME5E.SkillBonuses"})
-      }), {
-        initialKeys: CONFIG.ME5E.skills, initialValue: this._initialSkillValue,
-        initialKeysOnly: true, label: "ME5E.Skills"
-      }),
-      tools: new MappingField(new foundry.data.fields.SchemaField({
-        value: new foundry.data.fields.NumberField({
-          required: true, nullable: false, min: 0, max: 2, step: 0.5, initial: 1, label: "ME5E.ProficiencyLevel"
-        }),
-        ability: new foundry.data.fields.StringField({required: true, initial: "int", label: "ME5E.Ability"}),
-        bonuses: new foundry.data.fields.SchemaField({
-          check: new FormulaField({required: true, label: "ME5E.CheckBonus"})
-        }, {label: "ME5E.ToolBonuses"})
-      })),
-      spells: new MappingField(new foundry.data.fields.SchemaField({
-        value: new foundry.data.fields.NumberField({
-          nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.SpellProgAvailable"
-        }),
-        override: new foundry.data.fields.NumberField({
-          integer: true, min: 0, label: "ME5E.SpellProgOverride"
-        })
-      }), {initialKeys: this._spellLevels, label: "ME5E.SpellLevels"})
-    });
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Populate the proper initial abilities for the skills.
-   * @param {string} key      Key for which the initial data will be created.
-   * @param {object} initial  The initial skill object created by SkillData.
-   * @returns {object}        Initial skills object with the ability defined.
-   * @private
-   */
-  static _initialSkillValue(key, initial) {
-    if ( CONFIG.ME5E.skills[key]?.ability ) initial.ability = CONFIG.ME5E.skills[key].ability;
-    return initial;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Helper for building the default list of spell levels.
-   * @type {string[]}
-   * @private
-   */
-  static get _spellLevels() {
-    const levels = Object.keys(CONFIG.ME5E.spellLevels).filter(a => a !== "0").map(l => `spell${l}`);
-    return [...levels, "pact"];
-  }
-
-  /* -------------------------------------------- */
-  /*  Migrations                                  */
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  static _migrateData(source) {
-    super._migrateData(source);
-    CreatureTemplate.#migrateSensesData(source);
-    CreatureTemplate.#migrateToolData(source);
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Migrate the actor traits.senses string to attributes.senses object.
-   * @param {object} source  The candidate source data from which the model will be constructed.
-   */
-  static #migrateSensesData(source) {
-    const original = source.traits?.senses;
-    if ( (original === undefined) || (typeof original !== "string") ) return;
-    source.attributes ??= {};
-    source.attributes.senses ??= {};
-
-    // Try to match old senses with the format like "Darkvision 60 ft, Blindsight 30 ft"
-    const pattern = /([A-z]+)\s?([0-9]+)\s?([A-z]+)?/;
-    let wasMatched = false;
-
-    // Match each comma-separated term
-    for ( let s of original.split(",") ) {
-      s = s.trim();
-      const match = s.match(pattern);
-      if ( !match ) continue;
-      const type = match[1].toLowerCase();
-      if ( (type in CONFIG.ME5E.senses) && !(type in source.attributes.senses) ) {
-        source.attributes.senses[type] = Number(match[2]).toNearest(0.5);
-        wasMatched = true;
-      }
+    static defineSchema() {
+        return this.mergeSchema(super.defineSchema(), {
+            bonuses: new foundry.data.fields.SchemaField({
+                mwak: makeAttackBonuses({label: "ME5E.BonusMWAttack"}),
+                rwak: makeAttackBonuses({label: "ME5E.BonusRWAttack"}),
+                msak: makeAttackBonuses({label: "ME5E.BonusMSAttack"}),
+                rsak: makeAttackBonuses({label: "ME5E.BonusRSAttack"}),
+                abilities: new foundry.data.fields.SchemaField({
+                    check: new FormulaField({required: true, label: "ME5E.BonusAbilityCheck"}),
+                    save: new FormulaField({required: true, label: "ME5E.BonusAbilitySave"}),
+                    skill: new FormulaField({required: true, label: "ME5E.BonusAbilitySkill"})
+                }, {label: "ME5E.BonusAbility"}),
+                spell: new foundry.data.fields.SchemaField({
+                    dc: new FormulaField({required: true, deterministic: true, label: "ME5E.BonusSpellDC"})
+                }, {label: "ME5E.BonusSpell"})
+            }, {label: "ME5E.Bonuses"}),
+            skills: new MappingField(new foundry.data.fields.SchemaField({
+                value: new foundry.data.fields.NumberField({
+                    required: true,
+                    nullable: false,
+                    min: 0,
+                    max: 2,
+                    step: 0.5,
+                    initial: 0,
+                    label: "ME5E.ProficiencyLevel"
+                }),
+                ability: new foundry.data.fields.StringField({required: true, initial: "dex", label: "ME5E.Ability"}),
+                bonuses: new foundry.data.fields.SchemaField({
+                    check: new FormulaField({required: true, label: "ME5E.SkillBonusCheck"}),
+                    passive: new FormulaField({required: true, label: "ME5E.SkillBonusPassive"})
+                }, {label: "ME5E.SkillBonuses"})
+            }), {
+                initialKeys: CONFIG.ME5E.skills, initialValue: this._initialSkillValue,
+                initialKeysOnly: true, label: "ME5E.Skills"
+            }),
+            tools: new MappingField(new foundry.data.fields.SchemaField({
+                value: new foundry.data.fields.NumberField({
+                    required: true,
+                    nullable: false,
+                    min: 0,
+                    max: 2,
+                    step: 0.5,
+                    initial: 1,
+                    label: "ME5E.ProficiencyLevel"
+                }),
+                ability: new foundry.data.fields.StringField({required: true, initial: "int", label: "ME5E.Ability"}),
+                bonuses: new foundry.data.fields.SchemaField({
+                    check: new FormulaField({required: true, label: "ME5E.CheckBonus"})
+                }, {label: "ME5E.ToolBonuses"})
+            })),
+            spells: new MappingField(new foundry.data.fields.SchemaField({
+                value: new foundry.data.fields.NumberField({
+                    nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.SpellProgAvailable"
+                }),
+                override: new foundry.data.fields.NumberField({
+                    integer: true, min: 0, label: "ME5E.SpellProgOverride"
+                })
+            }), {initialKeys: this._spellLevels, label: "ME5E.SpellLevels"})
+        });
     }
 
-    // If nothing was matched, but there was an old string - put the whole thing in "special"
-    if ( !wasMatched && original ) source.attributes.senses.special = original;
-  }
+    /* -------------------------------------------- */
 
-  /* -------------------------------------------- */
-
-  /**
-   * Migrate traits.toolProf to the tools field.
-   * @param {object} source  The candidate source data from which the model will be constructed.
-   */
-  static #migrateToolData(source) {
-    const original = source.traits?.toolProf;
-    if ( !original || foundry.utils.isEmpty(original.value) ) return;
-    source.tools ??= {};
-    for ( const prof of original.value ) {
-      const validProf = (prof in CONFIG.ME5E.toolProficiencies) || (prof in CONFIG.ME5E.toolIds);
-      if ( !validProf || (prof in source.tools) ) continue;
-      source.tools[prof] = {
-        value: 1,
-        ability: "int",
-        bonuses: {check: ""}
-      };
+    /**
+     * Populate the proper initial abilities for the skills.
+     * @param {string} key      Key for which the initial data will be created.
+     * @param {object} initial  The initial skill object created by SkillData.
+     * @returns {object}        Initial skills object with the ability defined.
+     * @private
+     */
+    static _initialSkillValue(key, initial) {
+        if (CONFIG.ME5E.skills[key]?.ability) initial.ability = CONFIG.ME5E.skills[key].ability;
+        return initial;
     }
-  }
+
+    /* -------------------------------------------- */
+
+    /**
+     * Helper for building the default list of spell levels.
+     * @type {string[]}
+     * @private
+     */
+    static get _spellLevels() {
+        const levels = Object.keys(CONFIG.ME5E.spellLevels).filter(a => a !== "0").map(l => `spell${l}`);
+        return [...levels, "pact"];
+    }
+
+    /* -------------------------------------------- */
+    /*  Migrations                                  */
+
+    /* -------------------------------------------- */
+
+    /** @inheritdoc */
+    static _migrateData(source) {
+        super._migrateData(source);
+        CreatureTemplate.#migrateSensesData(source);
+        CreatureTemplate.#migrateToolData(source);
+    }
+
+    /* -------------------------------------------- */
+
+    /**
+     * Migrate the actor traits.senses string to attributes.senses object.
+     * @param {object} source  The candidate source data from which the model will be constructed.
+     */
+    static #migrateSensesData(source) {
+        const original = source.traits?.senses;
+        if ((original === undefined) || (typeof original !== "string")) return;
+        source.attributes ??= {};
+        source.attributes.senses ??= {};
+
+        // Try to match old senses with the format like "Darkvision 60 ft, Blindsight 30 ft"
+        const pattern = /([A-z]+)\s?([0-9]+)\s?([A-z]+)?/;
+        let wasMatched = false;
+
+        // Match each comma-separated term
+        for (let s of original.split(",")) {
+            s = s.trim();
+            const match = s.match(pattern);
+            if (!match) continue;
+            const type = match[1].toLowerCase();
+            if ((type in CONFIG.ME5E.senses) && !(type in source.attributes.senses)) {
+                source.attributes.senses[type] = Number(match[2]).toNearest(0.5);
+                wasMatched = true;
+            }
+        }
+
+        // If nothing was matched, but there was an old string - put the whole thing in "special"
+        if (!wasMatched && original) source.attributes.senses.special = original;
+    }
+
+    /* -------------------------------------------- */
+
+    /**
+     * Migrate traits.toolProf to the tools field.
+     * @param {object} source  The candidate source data from which the model will be constructed.
+     */
+    static #migrateToolData(source) {
+        const original = source.traits?.toolProf;
+        if (!original || foundry.utils.isEmpty(original.value)) return;
+        source.tools ??= {};
+        for (const prof of original.value) {
+            const validProf = (prof in CONFIG.ME5E.toolProficiencies) || (prof in CONFIG.ME5E.toolIds);
+            if (!validProf || (prof in source.tools)) continue;
+            source.tools[prof] = {
+                value: 1,
+                ability: "int",
+                bonuses: {check: ""}
+            };
+        }
+    }
 }
 
 /* -------------------------------------------- */
@@ -193,9 +206,9 @@ export default class CreatureTemplate extends CommonTemplate {
  * @param {object} schemaOptions  Options passed to the outer schema.
  * @returns {AttackBonusesData}
  */
-function makeAttackBonuses(schemaOptions={}) {
-  return new foundry.data.fields.SchemaField({
-    attack: new FormulaField({required: true, label: "ME5E.BonusAttack"}),
-    damage: new FormulaField({required: true, label: "ME5E.BonusDamage"})
-  }, schemaOptions);
+function makeAttackBonuses(schemaOptions = {}) {
+    return new foundry.data.fields.SchemaField({
+        attack: new FormulaField({required: true, label: "ME5E.BonusAttack"}),
+        damage: new FormulaField({required: true, label: "ME5E.BonusDamage"})
+    }, schemaOptions);
 }

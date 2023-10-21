@@ -9,18 +9,19 @@ import PhysicalItemTemplate from "./templates/physical-item.mjs";
  */
 export default class LootData extends SystemDataModel.mixin(ItemDescriptionTemplate, PhysicalItemTemplate) {
 
-  /* -------------------------------------------- */
-  /*  Getters                                     */
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
+    /*  Getters                                     */
 
-  /**
-   * Properties displayed in chat.
-   * @type {string[]}
-   */
-  get chatProperties() {
-    return [
-      game.i18n.localize(CONFIG.Item.typeLabels.loot),
-      this.weight ? `${this.weight} ${game.i18n.localize("ME5E.AbbreviationLbs")}` : null
-    ];
-  }
+    /* -------------------------------------------- */
+
+    /**
+     * Properties displayed in chat.
+     * @type {string[]}
+     */
+    get chatProperties() {
+        return [
+            game.i18n.localize(CONFIG.Item.typeLabels.loot),
+            this.weight ? `${this.weight} ${game.i18n.localize("ME5E.AbbreviationLbs")}` : null
+        ];
+    }
 }

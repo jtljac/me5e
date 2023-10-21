@@ -8,100 +8,100 @@
  * @param {object} [options={}]   Application rendering options.
  */
 export default class AdvancementFlow extends FormApplication {
-  constructor(item, advancementId, level, options={}) {
-    super({}, options);
+    constructor(item, advancementId, level, options = {}) {
+        super({}, options);
+
+        /**
+         * The item that houses the Advancement.
+         * @type {Item5e}
+         */
+        this.item = item;
+
+        /**
+         * ID of the advancement this flow modifies.
+         * @type {string}
+         * @private
+         */
+        this._advancementId = advancementId;
+
+        /**
+         * Level for which to configure this flow.
+         * @type {number}
+         */
+        this.level = level;
+
+        /**
+         * Data retained by the advancement manager during a reverse step. If restoring data using Advancement#restore,
+         * this data should be used when displaying the flow's form.
+         * @type {object|null}
+         */
+        this.retainedData = null;
+    }
+
+    /* -------------------------------------------- */
+
+    /** @inheritdoc */
+    static get defaultOptions() {
+        return foundry.utils.mergeObject(super.defaultOptions, {
+            template: "systems/me5e/templates/advancement/advancement-flow.hbs",
+            popOut: false
+        });
+    }
+
+    /* -------------------------------------------- */
+
+    /** @inheritdoc */
+    get id() {
+        return `actor-${this.advancement.item.id}-advancement-${this.advancement.id}-${this.level}`;
+    }
+
+    /* -------------------------------------------- */
+
+    /** @inheritdoc */
+    get title() {
+        return this.advancement.title;
+    }
+
+    /* -------------------------------------------- */
 
     /**
-     * The item that houses the Advancement.
-     * @type {Item5e}
+     * The Advancement object this flow modifies.
+     * @type {Advancement|null}
      */
-    this.item = item;
+    get advancement() {
+        return this.item.advancement?.byId[this._advancementId] ?? null;
+    }
+
+    /* -------------------------------------------- */
 
     /**
-     * ID of the advancement this flow modifies.
-     * @type {string}
-     * @private
+     * Set the retained data for this flow. This method gives the flow a chance to do any additional prep
+     * work required for the retained data before the application is rendered.
+     * @param {object} data  Retained data associated with this flow.
      */
-    this._advancementId = advancementId;
+    async retainData(data) {
+        this.retainedData = data;
+    }
 
-    /**
-     * Level for which to configure this flow.
-     * @type {number}
-     */
-    this.level = level;
+    /* -------------------------------------------- */
 
-    /**
-     * Data retained by the advancement manager during a reverse step. If restoring data using Advancement#restore,
-     * this data should be used when displaying the flow's form.
-     * @type {object|null}
-     */
-    this.retainedData = null;
-  }
+    /** @inheritdoc */
+    getData() {
+        return {
+            appId: this.id,
+            advancement: this.advancement,
+            type: this.advancement.constructor.typeName,
+            title: this.title,
+            summary: this.advancement.summaryForLevel(this.level),
+            level: this.level
+        };
+    }
 
-  /* -------------------------------------------- */
+    /* -------------------------------------------- */
 
-  /** @inheritdoc */
-  static get defaultOptions() {
-    return foundry.utils.mergeObject(super.defaultOptions, {
-      template: "systems/me5e/templates/advancement/advancement-flow.hbs",
-      popOut: false
-    });
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  get id() {
-    return `actor-${this.advancement.item.id}-advancement-${this.advancement.id}-${this.level}`;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  get title() {
-    return this.advancement.title;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * The Advancement object this flow modifies.
-   * @type {Advancement|null}
-   */
-  get advancement() {
-    return this.item.advancement?.byId[this._advancementId] ?? null;
-  }
-
-  /* -------------------------------------------- */
-
-  /**
-   * Set the retained data for this flow. This method gives the flow a chance to do any additional prep
-   * work required for the retained data before the application is rendered.
-   * @param {object} data  Retained data associated with this flow.
-   */
-  async retainData(data) {
-    this.retainedData = data;
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  getData() {
-    return {
-      appId: this.id,
-      advancement: this.advancement,
-      type: this.advancement.constructor.typeName,
-      title: this.title,
-      summary: this.advancement.summaryForLevel(this.level),
-      level: this.level
-    };
-  }
-
-  /* -------------------------------------------- */
-
-  /** @inheritdoc */
-  async _updateObject(event, formData) {
-    await this.advancement.apply(this.level, formData);
-  }
+    /** @inheritdoc */
+    async _updateObject(event, formData) {
+        await this.advancement.apply(this.level, formData);
+    }
 
 }

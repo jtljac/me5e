@@ -18,20 +18,23 @@ import CurrencyTemplate from "../shared/currency.mjs";
  * @property {boolean} capacity.weightless  Does the weight of the items in the container carry over to the actor?
  */
 export default class ContainerData extends SystemDataModel.mixin(
-  ItemDescriptionTemplate, PhysicalItemTemplate, EquippableItemTemplate, CurrencyTemplate
+    ItemDescriptionTemplate, PhysicalItemTemplate, EquippableItemTemplate, CurrencyTemplate
 ) {
-  /** @inheritdoc */
-  static defineSchema() {
-    return this.mergeSchema(super.defineSchema(), {
-      capacity: new foundry.data.fields.SchemaField({
-        type: new foundry.data.fields.StringField({
-          required: true, initial: "weight", blank: false, label: "ME5E.ItemContainerCapacityType"
-        }),
-        value: new foundry.data.fields.NumberField({
-          required: true, min: 0, label: "ME5E.ItemContainerCapacityMax"
-        }),
-        weightless: new foundry.data.fields.BooleanField({required: true, label: "ME5E.ItemContainerWeightless"})
-      }, {label: "ME5E.ItemContainerCapacity"})
-    });
-  }
+    /** @inheritdoc */
+    static defineSchema() {
+        return this.mergeSchema(super.defineSchema(), {
+            capacity: new foundry.data.fields.SchemaField({
+                type: new foundry.data.fields.StringField({
+                    required: true, initial: "weight", blank: false, label: "ME5E.ItemContainerCapacityType"
+                }),
+                value: new foundry.data.fields.NumberField({
+                    required: true, min: 0, label: "ME5E.ItemContainerCapacityMax"
+                }),
+                weightless: new foundry.data.fields.BooleanField({
+                    required: true,
+                    label: "ME5E.ItemContainerWeightless"
+                })
+            }, {label: "ME5E.ItemContainerCapacity"})
+        });
+    }
 }

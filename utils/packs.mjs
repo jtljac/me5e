@@ -30,7 +30,7 @@ const PACK_SRC = "packs/src";
 
 /**
  * Cache of DBs so they aren't loaded repeatedly when determining IDs.
- * @type {Object<string,Datastore>}
+ * @type {Object<Datastore>}
  */
 const DB_CACHE = {};
 

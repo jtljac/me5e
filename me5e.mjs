@@ -34,14 +34,14 @@ import {ModuleArt} from "./module/module-art.mjs";
 /* -------------------------------------------- */
 
 globalThis.me5e = {
-  applications,
-  canvas,
-  config: ME5E,
-  dataModels,
-  dice,
-  documents,
-  migrations,
-  utils
+    applications,
+    canvas,
+    config: ME5E,
+    dataModels,
+    dice,
+    documents,
+    migrations,
+    utils
 };
 
 /* -------------------------------------------- */
@@ -49,90 +49,90 @@ globalThis.me5e = {
 /* -------------------------------------------- */
 
 Hooks.once("init", function() {
-  globalThis.me5e = game.me5e = Object.assign(game.system, globalThis.me5e);
-  console.log(`ME5e | Initializing the ME5e Game System - Version ${me5e.version}\n${ME5E.ASCII}`);
+    globalThis.me5e = game.me5e = Object.assign(game.system, globalThis.me5e);
+    console.log(`ME5e | Initializing the ME5e Game System - Version ${me5e.version}\n${ME5E.ASCII}`);
 
-  // Record Configuration Values
-  CONFIG.ME5E = ME5E;
-  CONFIG.ActiveEffect.documentClass = documents.ActiveEffect5e;
-  CONFIG.Actor.documentClass = documents.Actor5e;
-  CONFIG.Item.documentClass = documents.Item5e;
-  CONFIG.Token.documentClass = documents.TokenDocument5e;
-  CONFIG.Token.objectClass = canvas.Token5e;
-  CONFIG.time.roundTime = 6;
-  CONFIG.Dice.DamageRoll = dice.DamageRoll;
-  CONFIG.Dice.D20Roll = dice.D20Roll;
-  CONFIG.MeasuredTemplate.defaults.angle = 53.13; // 5e cone RAW should be 53.13 degrees
-  CONFIG.ui.combat = applications.combat.CombatTracker5e;
-  CONFIG.compatibility.excludePatterns.push(/\bActiveEffect5e#label\b/); // Backwards compatibility with v10.
-  game.me5e.isV10 = game.release.generation < 11;
+    // Record Configuration Values
+    CONFIG.ME5E = ME5E;
+    CONFIG.ActiveEffect.documentClass = documents.ActiveEffect5e;
+    CONFIG.Actor.documentClass = documents.Actor5e;
+    CONFIG.Item.documentClass = documents.Item5e;
+    CONFIG.Token.documentClass = documents.TokenDocument5e;
+    CONFIG.Token.objectClass = canvas.Token5e;
+    CONFIG.time.roundTime = 6;
+    CONFIG.Dice.DamageRoll = dice.DamageRoll;
+    CONFIG.Dice.D20Roll = dice.D20Roll;
+    CONFIG.MeasuredTemplate.defaults.angle = 53.13; // 5e cone RAW should be 53.13 degrees
+    CONFIG.ui.combat = applications.combat.CombatTracker5e;
+    CONFIG.compatibility.excludePatterns.push(/\bActiveEffect5e#label\b/); // Backwards compatibility with v10.
+    game.me5e.isV10 = game.release.generation < 11;
 
-  // Register System Settings
-  registerSystemSettings();
+    // Register System Settings
+    registerSystemSettings();
 
-  // Validation strictness.
-  if ( game.me5e.isV10 ) _determineValidationStrictness();
+    // Validation strictness.
+    if ( game.me5e.isV10 ) _determineValidationStrictness();
 
-  // Configure module art.
-  game.me5e.moduleArt = new ModuleArt();
+    // Configure module art.
+    game.me5e.moduleArt = new ModuleArt();
 
-  // Remove honor & sanity from configuration if they aren't enabled
-  if ( !game.settings.get("me5e", "honorScore") ) delete ME5E.abilities.hon;
-  if ( !game.settings.get("me5e", "sanityScore") ) delete ME5E.abilities.san;
+    // Remove honor & sanity from configuration if they aren't enabled
+    if ( !game.settings.get("me5e", "honorScore") ) delete ME5E.abilities.hon;
+    if ( !game.settings.get("me5e", "sanityScore") ) delete ME5E.abilities.san;
 
-  // Configure trackable & consumable attributes.
-  _configureTrackableAttributes();
-  _configureConsumableAttributes();
+    // Configure trackable & consumable attributes.
+    _configureTrackableAttributes();
+    _configureConsumableAttributes();
 
-  // Patch Core Functions
-  Combatant.prototype.getInitiativeRoll = documents.combat.getInitiativeRoll;
+    // Patch Core Functions
+    Combatant.prototype.getInitiativeRoll = documents.combat.getInitiativeRoll;
 
-  // Register Roll Extensions
-  CONFIG.Dice.rolls.push(dice.D20Roll);
-  CONFIG.Dice.rolls.push(dice.DamageRoll);
+    // Register Roll Extensions
+    CONFIG.Dice.rolls.push(dice.D20Roll);
+    CONFIG.Dice.rolls.push(dice.DamageRoll);
 
-  // Hook up system data types
-  const modelType = game.me5e.isV10 ? "systemDataModels" : "dataModels";
-  CONFIG.Actor[modelType] = dataModels.actor.config;
-  CONFIG.Item[modelType] = dataModels.item.config;
-  CONFIG.JournalEntryPage[modelType] = dataModels.journal.config;
+    // Hook up system data types
+    const modelType = game.me5e.isV10 ? "systemDataModels" : "dataModels";
+    CONFIG.Actor[modelType] = dataModels.actor.config;
+    CONFIG.Item[modelType] = dataModels.item.config;
+    CONFIG.JournalEntryPage[modelType] = dataModels.journal.config;
 
-  // Register sheet application classes
-  Actors.unregisterSheet("core", ActorSheet);
-  Actors.registerSheet("me5e", applications.actor.ActorSheet5eCharacter, {
-    types: ["character"],
-    makeDefault: true,
-    label: "ME5E.SheetClassCharacter"
-  });
-  Actors.registerSheet("me5e", applications.actor.ActorSheet5eNPC, {
-    types: ["npc"],
-    makeDefault: true,
-    label: "ME5E.SheetClassNPC"
-  });
-  Actors.registerSheet("me5e", applications.actor.ActorSheet5eVehicle, {
-    types: ["vehicle"],
-    makeDefault: true,
-    label: "ME5E.SheetClassVehicle"
-  });
-  Actors.registerSheet("me5e", applications.actor.GroupActorSheet, {
-    types: ["group"],
-    makeDefault: true,
-    label: "ME5E.SheetClassGroup"
-  });
+    // Register sheet application classes
+    Actors.unregisterSheet("core", ActorSheet);
+    Actors.registerSheet("me5e", applications.actor.ActorSheet5eCharacter, {
+        types: ["character"],
+        makeDefault: true,
+        label: "ME5E.SheetClassCharacter"
+    });
+    Actors.registerSheet("me5e", applications.actor.ActorSheet5eNPC, {
+        types: ["npc"],
+        makeDefault: true,
+        label: "ME5E.SheetClassNPC"
+    });
+    Actors.registerSheet("me5e", applications.actor.ActorSheet5eVehicle, {
+        types: ["vehicle"],
+        makeDefault: true,
+        label: "ME5E.SheetClassVehicle"
+    });
+    Actors.registerSheet("me5e", applications.actor.GroupActorSheet, {
+        types: ["group"],
+        makeDefault: true,
+        label: "ME5E.SheetClassGroup"
+    });
 
-  Items.unregisterSheet("core", ItemSheet);
-  Items.registerSheet("me5e", applications.item.ItemSheet5e, {
-    makeDefault: true,
-    label: "ME5E.SheetClassItem"
-  });
-  DocumentSheetConfig.registerSheet(JournalEntryPage, "me5e", applications.journal.JournalClassPageSheet, {
-    label: "ME5E.SheetClassClassSummary",
-    types: ["class"]
-  });
+    Items.unregisterSheet("core", ItemSheet);
+    Items.registerSheet("me5e", applications.item.ItemSheet5e, {
+        makeDefault: true,
+        label: "ME5E.SheetClassItem"
+    });
+    DocumentSheetConfig.registerSheet(JournalEntryPage, "me5e", applications.journal.JournalClassPageSheet, {
+        label: "ME5E.SheetClassClassSummary",
+        types: ["class"]
+    });
 
-  // Preload Handlebars helpers & partials
-  utils.registerHandlebarsHelpers();
-  utils.preloadHandlebarsTemplates();
+    // Preload Handlebars helpers & partials
+    utils.registerHandlebarsHelpers();
+    utils.preloadHandlebarsTemplates();
 });
 
 /**
@@ -140,7 +140,7 @@ Hooks.once("init", function() {
  * @internal
  */
 function _determineValidationStrictness() {
-  dataModels.SystemDataModel._enableV10Validation = game.settings.get("me5e", "strictValidation");
+    dataModels.SystemDataModel._enableV10Validation = game.settings.get("me5e", "strictValidation");
 }
 
 /**
@@ -148,15 +148,15 @@ function _determineValidationStrictness() {
  * @internal
  */
 async function _configureValidationStrictness() {
-  if ( !game.user.isGM ) return;
-  const invalidDocuments = game.actors.invalidDocumentIds.size + game.items.invalidDocumentIds.size
+    if ( !game.user.isGM ) return;
+    const invalidDocuments = game.actors.invalidDocumentIds.size + game.items.invalidDocumentIds.size
     + game.scenes.invalidDocumentIds.size;
-  const strictValidation = game.settings.get("me5e", "strictValidation");
-  if ( invalidDocuments && strictValidation ) {
-    await game.settings.set("me5e", "strictValidation", false);
-    game.socket.emit("reload");
-    foundry.utils.debouncedReload();
-  }
+    const strictValidation = game.settings.get("me5e", "strictValidation");
+    if ( invalidDocuments && strictValidation ) {
+        await game.settings.set("me5e", "strictValidation", false);
+        game.socket.emit("reload");
+        foundry.utils.debouncedReload();
+    }
 }
 
 /**
@@ -164,43 +164,43 @@ async function _configureValidationStrictness() {
  * @internal
  */
 function _configureTrackableAttributes() {
-  const common = {
-    bar: [],
-    value: [
-      ...Object.keys(ME5E.abilities).map(ability => `abilities.${ability}.value`),
-      ...Object.keys(ME5E.movementTypes).map(movement => `attributes.movement.${movement}`),
-      "attributes.ac.value", "attributes.init.total"
-    ]
-  };
+    const common = {
+        bar: [],
+        value: [
+            ...Object.keys(ME5E.abilities).map(ability => `abilities.${ability}.value`),
+            ...Object.keys(ME5E.movementTypes).map(movement => `attributes.movement.${movement}`),
+            "attributes.ac.value", "attributes.init.total"
+        ]
+    };
 
-  const creature = {
-    bar: [...common.bar, "attributes.hp", "spells.pact"],
-    value: [
-      ...common.value,
-      ...Object.keys(ME5E.skills).map(skill => `skills.${skill}.passive`),
-      ...Object.keys(ME5E.senses).map(sense => `attributes.senses.${sense}`),
-      "attributes.spelldc"
-    ]
-  };
+    const creature = {
+        bar: [...common.bar, "attributes.hp", "spells.pact"],
+        value: [
+            ...common.value,
+            ...Object.keys(ME5E.skills).map(skill => `skills.${skill}.passive`),
+            ...Object.keys(ME5E.senses).map(sense => `attributes.senses.${sense}`),
+            "attributes.spelldc"
+        ]
+    };
 
-  CONFIG.Actor.trackableAttributes = {
-    character: {
-      bar: [...creature.bar, "resources.primary", "resources.secondary", "resources.tertiary", "details.xp"],
-      value: [...creature.value]
-    },
-    npc: {
-      bar: [...creature.bar, "resources.legact", "resources.legres"],
-      value: [...creature.value, "details.cr", "details.spellLevel", "details.xp.value"]
-    },
-    vehicle: {
-      bar: [...common.bar, "attributes.hp"],
-      value: [...common.value]
-    },
-    group: {
-      bar: [],
-      value: []
-    }
-  };
+    CONFIG.Actor.trackableAttributes = {
+        character: {
+            bar: [...creature.bar, "resources.primary", "resources.secondary", "resources.tertiary", "details.xp"],
+            value: [...creature.value]
+        },
+        npc: {
+            bar: [...creature.bar, "resources.legact", "resources.legres"],
+            value: [...creature.value, "details.cr", "details.spellLevel", "details.xp.value"]
+        },
+        vehicle: {
+            bar: [...common.bar, "attributes.hp"],
+            value: [...common.value]
+        },
+        group: {
+            bar: [],
+            value: []
+        }
+    };
 }
 
 /**
@@ -208,19 +208,19 @@ function _configureTrackableAttributes() {
  * @internal
  */
 function _configureConsumableAttributes() {
-  CONFIG.ME5E.consumableResources = [
-    ...Object.keys(ME5E.abilities).map(ability => `abilities.${ability}.value`),
-    "attributes.ac.flat",
-    "attributes.hp.value",
-    ...Object.keys(ME5E.senses).map(sense => `attributes.senses.${sense}`),
-    ...Object.keys(ME5E.movementTypes).map(type => `attributes.movement.${type}`),
-    ...Object.keys(ME5E.currencies).map(denom => `currency.${denom}`),
-    "details.xp.value",
-    "resources.primary.value", "resources.secondary.value", "resources.tertiary.value",
-    "resources.legact.value", "resources.legres.value",
-    "spells.pact.value",
-    ...Array.fromRange(Object.keys(ME5E.spellLevels).length - 1, 1).map(level => `spells.spell${level}.value`)
-  ];
+    CONFIG.ME5E.consumableResources = [
+        ...Object.keys(ME5E.abilities).map(ability => `abilities.${ability}.value`),
+        "attributes.ac.flat",
+        "attributes.hp.value",
+        ...Object.keys(ME5E.senses).map(sense => `attributes.senses.${sense}`),
+        ...Object.keys(ME5E.movementTypes).map(type => `attributes.movement.${type}`),
+        ...Object.keys(ME5E.currencies).map(denom => `currency.${denom}`),
+        "details.xp.value",
+        "resources.primary.value", "resources.secondary.value", "resources.tertiary.value",
+        "resources.legact.value", "resources.legres.value",
+        "spells.pact.value",
+        ...Array.fromRange(Object.keys(ME5E.spellLevels).length - 1, 1).map(level => `spells.spell${level}.value`)
+    ];
 }
 
 /* -------------------------------------------- */
@@ -231,14 +231,14 @@ function _configureConsumableAttributes() {
  * Prepare attribute lists.
  */
 Hooks.once("setup", function() {
-  CONFIG.ME5E.trackableAttributes = expandAttributeList(CONFIG.ME5E.trackableAttributes);
-  game.me5e.moduleArt.registerModuleArt();
+    CONFIG.ME5E.trackableAttributes = expandAttributeList(CONFIG.ME5E.trackableAttributes);
+    game.me5e.moduleArt.registerModuleArt();
 
-  // Apply custom compendium styles to the SRD rules compendium.
-  if ( !game.me5e.isV10 ) {
-    const rules = game.packs.get("me5e.rules");
-    rules.applicationClass = applications.journal.SRDCompendium;
-  }
+    // Apply custom compendium styles to the SRD rules compendium.
+    if ( !game.me5e.isV10 ) {
+        const rules = game.packs.get("me5e.rules");
+        rules.applicationClass = applications.journal.SRDCompendium;
+    }
 });
 
 /* --------------------------------------------- */
@@ -249,10 +249,10 @@ Hooks.once("setup", function() {
  * @returns {object}  The expanded object structure.
  */
 function expandAttributeList(attributes) {
-  return attributes.reduce((obj, attr) => {
-    foundry.utils.setProperty(obj, attr, true);
-    return obj;
-  }, {});
+    return attributes.reduce((obj, attr) => {
+        foundry.utils.setProperty(obj, attr, true);
+        return obj;
+    }, {});
 }
 
 /* --------------------------------------------- */
@@ -270,35 +270,35 @@ Hooks.once("i18nInit", () => utils.performPreLocalization(CONFIG.ME5E));
  * Once the entire VTT framework is initialized, check to see if we should perform a data migration
  */
 Hooks.once("ready", function() {
-  if ( game.me5e.isV10 ) {
+    if ( game.me5e.isV10 ) {
     // Configure validation strictness.
-    _configureValidationStrictness();
+        _configureValidationStrictness();
 
-    // Apply custom compendium styles to the SRD rules compendium.
-    const rules = game.packs.get("me5e.rules");
-    rules.apps = [new applications.journal.SRDCompendium(rules)];
-  }
-
-  // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
-  Hooks.on("hotbarDrop", (bar, data, slot) => {
-    if ( ["Item", "ActiveEffect"].includes(data.type) ) {
-      documents.macro.create5eMacro(data, slot);
-      return false;
+        // Apply custom compendium styles to the SRD rules compendium.
+        const rules = game.packs.get("me5e.rules");
+        rules.apps = [new applications.journal.SRDCompendium(rules)];
     }
-  });
 
-  // Determine whether a system migration is required and feasible
-  if ( !game.user.isGM ) return;
-  const cv = game.settings.get("me5e", "systemMigrationVersion") || game.world.flags.me5e?.version;
-  const totalDocuments = game.actors.size + game.scenes.size + game.items.size;
-  if ( !cv && totalDocuments === 0 ) return game.settings.set("me5e", "systemMigrationVersion", game.system.version);
-  if ( cv && !isNewerVersion(game.system.flags.needsMigrationVersion, cv) ) return;
+    // Wait to register hotbar drop hook on ready so that modules could register earlier if they want to
+    Hooks.on("hotbarDrop", (bar, data, slot) => {
+        if ( ["Item", "ActiveEffect"].includes(data.type) ) {
+            documents.macro.create5eMacro(data, slot);
+            return false;
+        }
+    });
 
-  // Perform the migration
-  if ( cv && isNewerVersion(game.system.flags.compatibleMigrationVersion, cv) ) {
-    ui.notifications.error("MIGRATION.5eVersionTooOldWarning", {localize: true, permanent: true});
-  }
-  migrations.migrateWorld();
+    // Determine whether a system migration is required and feasible
+    if ( !game.user.isGM ) return;
+    const cv = game.settings.get("me5e", "systemMigrationVersion") || game.world.flags.me5e?.version;
+    const totalDocuments = game.actors.size + game.scenes.size + game.items.size;
+    if ( !cv && totalDocuments === 0 ) return game.settings.set("me5e", "systemMigrationVersion", game.system.version);
+    if ( cv && !isNewerVersion(game.system.flags.needsMigrationVersion, cv) ) return;
+
+    // Perform the migration
+    if ( cv && isNewerVersion(game.system.flags.compatibleMigrationVersion, cv) ) {
+        ui.notifications.error("MIGRATION.5eVersionTooOldWarning", {localize: true, permanent: true});
+    }
+    migrations.migrateWorld();
 });
 
 /* -------------------------------------------- */
@@ -306,8 +306,8 @@ Hooks.once("ready", function() {
 /* -------------------------------------------- */
 
 Hooks.on("canvasInit", gameCanvas => {
-  gameCanvas.grid.diagonalRule = game.settings.get("me5e", "diagonalMovement");
-  SquareGrid.prototype.measureDistances = canvas.measureDistances;
+    gameCanvas.grid.diagonalRule = game.settings.get("me5e", "diagonalMovement");
+    SquareGrid.prototype.measureDistances = canvas.measureDistances;
 });
 
 /* -------------------------------------------- */
@@ -326,12 +326,12 @@ Hooks.on("getActorDirectoryEntryContext", documents.Actor5e.addDirectoryContextO
 /* -------------------------------------------- */
 
 export {
-  applications,
-  canvas,
-  dataModels,
-  dice,
-  documents,
-  migrations,
-  utils,
-  ME5E
+    applications,
+    canvas,
+    dataModels,
+    dice,
+    documents,
+    migrations,
+    utils,
+    ME5E
 };

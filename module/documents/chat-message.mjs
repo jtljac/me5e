@@ -5,27 +5,27 @@
  * @param {object} data          Configuration data passed to the message.
  */
 export function highlightCriticalSuccessFailure(message, html, data) {
-  if ( !message.isRoll || !message.isContentVisible || !message.rolls.length ) return;
+    if (!message.isRoll || !message.isContentVisible || !message.rolls.length) return;
 
-  // Highlight rolls where the first part is a d20 roll
-  let d20Roll = message.rolls.find(r => {
-    const d0 = r.dice[0];
-    return (d0?.faces === 20) && (d0?.values.length === 1);
-  });
-  if ( !d20Roll ) return;
-  d20Roll = me5e.dice.D20Roll.fromRoll(d20Roll);
-  const d = d20Roll.dice[0];
+    // Highlight rolls where the first part is a d20 roll
+    let d20Roll = message.rolls.find(r => {
+        const d0 = r.dice[0];
+        return (d0?.faces === 20) && (d0?.values.length === 1);
+    });
+    if (!d20Roll) return;
+    d20Roll = me5e.dice.D20Roll.fromRoll(d20Roll);
+    const d = d20Roll.dice[0];
 
-  const isModifiedRoll = ("success" in d.results[0]) || d.options.marginSuccess || d.options.marginFailure;
-  if ( isModifiedRoll ) return;
+    const isModifiedRoll = ("success" in d.results[0]) || d.options.marginSuccess || d.options.marginFailure;
+    if (isModifiedRoll) return;
 
-  // Highlight successes and failures
-  if ( d20Roll.isCritical ) html.find(".dice-total").addClass("critical");
-  else if ( d20Roll.isFumble ) html.find(".dice-total").addClass("fumble");
-  else if ( d.options.target ) {
-    if ( d20Roll.total >= d.options.target ) html.find(".dice-total").addClass("success");
-    else html.find(".dice-total").addClass("failure");
-  }
+    // Highlight successes and failures
+    if (d20Roll.isCritical) html.find(".dice-total").addClass("critical");
+    else if (d20Roll.isFumble) html.find(".dice-total").addClass("fumble");
+    else if (d.options.target) {
+        if (d20Roll.total >= d.options.target) html.find(".dice-total").addClass("success");
+        else html.find(".dice-total").addClass("failure");
+    }
 }
 
 /* -------------------------------------------- */
@@ -37,23 +37,23 @@ export function highlightCriticalSuccessFailure(message, html, data) {
  * @param {object} data          Configuration data passed to the message.
  */
 export function displayChatActionButtons(message, html, data) {
-  const chatCard = html.find(".me5e.chat-card");
-  if ( chatCard.length > 0 ) {
-    const flavor = html.find(".flavor-text");
-    if ( flavor.text() === html.find(".item-name").text() ) flavor.remove();
+    const chatCard = html.find(".me5e.chat-card");
+    if (chatCard.length > 0) {
+        const flavor = html.find(".flavor-text");
+        if (flavor.text() === html.find(".item-name").text()) flavor.remove();
 
-    // If the user is the message author or the actor owner, proceed
-    let actor = game.actors.get(data.message.speaker.actor);
-    if ( actor && actor.isOwner ) return;
-    else if ( game.user.isGM || (data.author.id === game.user.id)) return;
+        // If the user is the message author or the actor owner, proceed
+        let actor = game.actors.get(data.message.speaker.actor);
+        if (actor && actor.isOwner) return;
+        else if (game.user.isGM || (data.author.id === game.user.id)) return;
 
-    // Otherwise conceal action buttons except for saving throw
-    const buttons = chatCard.find("button[data-action]");
-    buttons.each((i, btn) => {
-      if ( btn.dataset.action === "save" ) return;
-      btn.style.display = "none";
-    });
-  }
+        // Otherwise conceal action buttons except for saving throw
+        const buttons = chatCard.find("button[data-action]");
+        buttons.each((i, btn) => {
+            if (btn.dataset.action === "save") return;
+            btn.style.display = "none";
+        });
+    }
 }
 
 /* -------------------------------------------- */
@@ -68,43 +68,43 @@ export function displayChatActionButtons(message, html, data) {
  * @returns {object[]}          The extended options Array including new context choices
  */
 export function addChatMessageContextOptions(html, options) {
-  let canApply = li => {
-    const message = game.messages.get(li.data("messageId"));
-    return message?.isRoll && message?.isContentVisible && canvas.tokens?.controlled.length;
-  };
-  options.push(
-    {
-      name: game.i18n.localize("ME5E.ChatContextDamage"),
-      icon: '<i class="fas fa-user-minus"></i>',
-      condition: canApply,
-      callback: li => applyChatCardDamage(li, 1)
-    },
-    {
-      name: game.i18n.localize("ME5E.ChatContextHealing"),
-      icon: '<i class="fas fa-user-plus"></i>',
-      condition: canApply,
-      callback: li => applyChatCardDamage(li, -1)
-    },
-    {
-      name: game.i18n.localize("ME5E.ChatContextTempHP"),
-      icon: '<i class="fas fa-user-clock"></i>',
-      condition: canApply,
-      callback: li => applyChatCardTemp(li)
-    },
-    {
-      name: game.i18n.localize("ME5E.ChatContextDoubleDamage"),
-      icon: '<i class="fas fa-user-injured"></i>',
-      condition: canApply,
-      callback: li => applyChatCardDamage(li, 2)
-    },
-    {
-      name: game.i18n.localize("ME5E.ChatContextHalfDamage"),
-      icon: '<i class="fas fa-user-shield"></i>',
-      condition: canApply,
-      callback: li => applyChatCardDamage(li, 0.5)
-    }
-  );
-  return options;
+    let canApply = li => {
+        const message = game.messages.get(li.data("messageId"));
+        return message?.isRoll && message?.isContentVisible && canvas.tokens?.controlled.length;
+    };
+    options.push(
+        {
+            name: game.i18n.localize("ME5E.ChatContextDamage"),
+            icon: "<i class=\"fas fa-user-minus\"></i>",
+            condition: canApply,
+            callback: li => applyChatCardDamage(li, 1)
+        },
+        {
+            name: game.i18n.localize("ME5E.ChatContextHealing"),
+            icon: "<i class=\"fas fa-user-plus\"></i>",
+            condition: canApply,
+            callback: li => applyChatCardDamage(li, -1)
+        },
+        {
+            name: game.i18n.localize("ME5E.ChatContextTempHP"),
+            icon: "<i class=\"fas fa-user-clock\"></i>",
+            condition: canApply,
+            callback: li => applyChatCardTemp(li)
+        },
+        {
+            name: game.i18n.localize("ME5E.ChatContextDoubleDamage"),
+            icon: "<i class=\"fas fa-user-injured\"></i>",
+            condition: canApply,
+            callback: li => applyChatCardDamage(li, 2)
+        },
+        {
+            name: game.i18n.localize("ME5E.ChatContextHalfDamage"),
+            icon: "<i class=\"fas fa-user-shield\"></i>",
+            condition: canApply,
+            callback: li => applyChatCardDamage(li, 0.5)
+        }
+    );
+    return options;
 }
 
 /* -------------------------------------------- */
@@ -118,12 +118,12 @@ export function addChatMessageContextOptions(html, options) {
  * @returns {Promise}
  */
 function applyChatCardDamage(li, multiplier) {
-  const message = game.messages.get(li.data("messageId"));
-  const roll = message.rolls[0];
-  return Promise.all(canvas.tokens.controlled.map(t => {
-    const a = t.actor;
-    return a.applyDamage(roll.total, multiplier);
-  }));
+    const message = game.messages.get(li.data("messageId"));
+    const roll = message.rolls[0];
+    return Promise.all(canvas.tokens.controlled.map(t => {
+        const a = t.actor;
+        return a.applyDamage(roll.total, multiplier);
+    }));
 }
 
 /* -------------------------------------------- */
@@ -134,12 +134,12 @@ function applyChatCardDamage(li, multiplier) {
  * @returns {Promise}
  */
 function applyChatCardTemp(li) {
-  const message = game.messages.get(li.data("messageId"));
-  const roll = message.rolls[0];
-  return Promise.all(canvas.tokens.controlled.map(t => {
-    const a = t.actor;
-    return a.applyTempHP(roll.total);
-  }));
+    const message = game.messages.get(li.data("messageId"));
+    const roll = message.rolls[0];
+    return Promise.all(canvas.tokens.controlled.map(t => {
+        const a = t.actor;
+        return a.applyTempHP(roll.total);
+    }));
 }
 
 /* -------------------------------------------- */
@@ -151,7 +151,7 @@ function applyChatCardTemp(li) {
  * @param {object} data     Data passed to the render context
  */
 export function onRenderChatMessage(app, html, data) {
-  displayChatActionButtons(app, html, data);
-  highlightCriticalSuccessFailure(app, html, data);
-  if (game.settings.get("me5e", "autoCollapseItemCards")) html.find(".card-content").hide();
+    displayChatActionButtons(app, html, data);
+    highlightCriticalSuccessFailure(app, html, data);
+    if (game.settings.get("me5e", "autoCollapseItemCards")) html.find(".card-content").hide();
 }
