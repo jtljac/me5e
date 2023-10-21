@@ -1,12 +1,16 @@
-# Contributing to foundrynet/dnd5e
+[//]: # (TODO: Update this to sw5e workflow)
 
-Code and content contributions are accepted. Please feel free to submit issues to the issue tracker or submit merge requests for code/content changes. Approval for such requests involves code and (if necessary) design review by the Maintainers of this repo. Please reach out on the [Foundry Community Discord](https://discord.gg/foundryvtt) with any questions.
+# Contributing to jtljac/me5e
+
+Code and content contributions are accepted. Please feel free to submit issues to the issue tracker or submit merge requests for code/content changes. Approval for such requests involves code and (if necessary) design review by the Maintainers of this repo.
+
+[//]: # (Please reach out on the [ME5e Foundry Community Discord]&#40;https://discord.gg/foundryvtt&#41; with any questions.)
 
 Please ensure there is an open issue about whatever contribution you are submitting. Please also ensure your contribution does not duplicate an existing one.
 
 ## Developer Tooling
 
-Cloning this repository and either placing it in or symlinking it to your `Data/systems/dnd5e` user data directory is all that is necessary to run this within Foundry VTT. However, if you want to make changes to either the LESS stylesheets or the compendia, there are some developer tools which will make your life easier.
+Cloning this repository and either placing it in or symlinking it to your `Data/systems/me5e` user data directory is all that is necessary to run this within Foundry VTT. However, if you want to make changes to either the LESS stylesheets or the compendia, there are some developer tools which will make your life easier.
 
 This repository leverages [gulp](https://gulpjs.com/) to run automated build tasks. If your system supports `npm`, you can run the following commands from the root of the project to get set up:
 
@@ -23,7 +27,7 @@ Runs all relevant build scripts:
 
 ### `npm run build:css` / `gulp buildCSS`
 
-Converts the LESS in `./less` to the final `dnd5e.css`.
+Converts the LESS in `./less` to the final `me5e.css`.
 
 ### `npm run build:watch` / `gulp`
 
@@ -94,7 +98,7 @@ Any feature request should be considered from the lens of "Does this belong in t
 
 ## Content
 
-All Content released with this system must come from the WotC [5e System Reference Document](https://dnd.wizards.com/articles/features/systems-reference-document-srd) (aka SRD).
+All Content released with this system must come from the [ME5e website](https://n7.world).
 
 If there is missing content, please open an issue detailing what is missing.
 
@@ -104,7 +108,7 @@ Every PR which contributes content must change both the source JSON file and the
 
 ### Translations
 
-Non-English languages are not contained within the core dnd5e system, but instead they are managed by specialized [localization modules](https://foundryvtt.com/packages/tag/translation).
+Non-English languages are not contained within the core me5e system, but instead they are managed by specialized [localization modules](https://foundryvtt.com/packages/tag/translation).
 
 Instead of opening an PR with translation files, create one of these modules (or contribute to an existing one!).
 
@@ -156,8 +160,8 @@ Please appreciate that reviewing contributions constitutes a substantial amount 
 PRs have a few phases:
 
 0. **Prioritization.** If the PR relates to the current milestone, it is assigned to that milestone.
-1. **Initial Review from the 5e contributor team.** This lets us spread out the review work and catch some of the more obvious things that need to be fixed before final review. Generally this talks about code style and some methodology.
-2. **Final Review from the Maintainers.** Atropos and Kim have final review and are the only ones with merge permission.
+1. **Initial Review from the me5e contributor team.** This lets us spread out the review work and catch some of the more obvious things that need to be fixed before final review. Generally this talks about code style and some methodology.
+2. **Final Review from the Maintainers.** jtljac has final review and is the only one with merge permission.
 
 #### PR Size
 
@@ -165,7 +169,7 @@ Please understand that large and sprawling PRs are exceptionally difficult to re
 
 ## Releases
 
-This repository includes a GitHub Actions configuration which automates the compilation and bundling required for a release when a Tag is pushed or created with the name `release-x.x.x`.
+This repository includes a GitHub Actions configuration which automates the compilation and bundling required for a release when a Tag is pushed or created with the name `release-x.x.x.y.y.y`.
 
 ### Prerequisites
 
@@ -175,8 +179,9 @@ If either of these conditions are not met on the commit that tag points at, the 
 - The `system.json` file's `download` url must match the expected outcome of the release CI artifact. This should simply be changing version numbers in the url to match the release version.
 
 ```text
-https://github.com/foundryvtt/dnd5e/releases/download/release-1.6.3/dnd5e-1.6.3.zip
-                                                     └─ Tag Name ──┘     └─ V ─┘ (version)
+                                                                               ┌─ M ─┐ (ME5e Foundry project version)
+https://github.com/jtljac/me5e/releases/download/release-2.3.1.1.0.0/me5e-2.3.1.1.0.0.zip
+                                                └──── Tag Name ─────┘    └─ D ─┘ (Base ME5e Foundry project version)
 ```
 
 ### Process for Release
@@ -184,7 +189,8 @@ https://github.com/foundryvtt/dnd5e/releases/download/release-1.6.3/dnd5e-1.6.3.
 `master` is to be kept as the "most recently released" version of the system. All work is done on development branches matching the milestone the work is a part of. Once the work on a milestone is complete, the following steps will create a system release:
 
 0. [ ] Verify the `NEEDS_MIGRATION_VERSION` is correct.
-1. [ ] `system.json` `version` and `download` fields are updated on the development branch (e.g. `1.5.x`).
-2. [ ] A Tag is created at the tip of the development branch with the format `release-x.x.x`, triggering the CI workflow (which takes ~2 mins to complete).
+1. [ ] `system.json` `version` and `download` fields are updated on the development branch (e.g. `1.5.x.1.0.y`).
+2. [ ] A Tag is created at the tip of the development branch with the format `release-x.x.x.y.y.y`, triggering the CI workflow (which takes ~2 mins to complete).
 3. [ ] Development Branch is merged to `master` after the workflow is completed.
-4. [ ] The Foundryvtt.com admin listing is updated with the `manifest` url pointing to the `system.json` attached to the workflow-created release.
+
+[//]: # (4. [ ] The Foundryvtt.com admin listing is updated with the `manifest` url pointing to the `system.json` attached to the workflow-created release.)

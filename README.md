@@ -1,32 +1,51 @@
 ![](https://github.com/foundryvtt/dnd5e/blob/v10-dev/media/repo-dnd5e.jpg?raw=true)
 
-# Foundry Virtual Tabletop - DnD5e Game System
+# Foundry Virtual Tabletop - ME5e Game System
 
-This game system for [Foundry Virtual Tabletop](http://foundryvtt.com) provides character sheet and game system 
-support for the Fifth Edition of the world's most popular roleplaying game.
+This game system for [Foundry Virtual Tabletop](http://foundryvtt.com) provides character sheet and game system
+support for the Mass Effect conversion of D&D5e.
 
 This system provides character sheet support for Actors and Items, mechanical support for dice and rules necessary to
-play games of 5th Edition, and compendium content for Monsters, Heroes, Items, Spells, Class Features, Monster 
-Features, and more!
+play games of Mass Effect 5th Edition, and compendium content for Enemies, Classes, Items, Powers, and more!
+
+## Disclaimer
+### Content:
+
+This work is not sanctioned by or affiliated with Mass Effect 5e, Electronic Arts Inc, BioWare, Wizards of the Coast, or any other rights-holding company or entity.
 
 This work includes material taken from the System Reference Document 5.1 ("SRD 5.1") by Wizards of the Coast LLC and available at https://dnd.wizards.com/resources/systems-reference-document. The SRD 5.1 is licensed under the Creative Commons Attribution 4.0 International License available at https://creativecommons.org/licenses/by/4.0/legalcode.
 
+This work also includes material taken from the fan-made D&D 5th edition homebrew project: Mass Effect 5e ("ME5e") by Luke Aeschleman and Hugh Thompson available at https://n7.world. ME5e is licensed under the OGL available at https://data.n7.world/OGL
+
+Except where otherwise noted, images in this work are from [The Mass Effect Wikia](https://masseffect.fandom.com/wiki/Mass_Effect_Wiki) and are licensed under [The Creative Commons Attribution-ShareAlike 3.0 Unported](https://creativecommons.org/licenses/by-sa/3.0/legalcode).
+
+[//]: # (Images present under the `tokens/` directory have been modified, please see the `tokens/LICENSE` file for full details.)
+
 Images present under the `icons/` directory are distributed under various terms, please see the `icons/LICENSE` file for full details.
 
-The software component of this system is distributed under the MIT license.
+### System
+This project forked and adapted from [The DnD5e system for FoundryVTT](https://github.com/foundryvtt/dnd5e), the license of which can be found in [dnd5e-License.txt](dnd5e-license.txt)
 
-## Installation Instructions
+The software component of this system is distributed under the GPLv3 license.
 
-To install and use the DnD5e system for Foundry Virtual Tabletop, simply paste the following URL into the 
-**Install System** dialog on the Setup menu of the application.
+[//]: # (## Installation Instructions)
 
-https://raw.githubusercontent.com/foundryvtt/dnd5e/master/system.json
+[//]: # ()
+[//]: # (To install and use the DnD5e system for Foundry Virtual Tabletop, simply paste the following URL into the )
 
-If you wish to manually install the system, you must clone or extract it into the ``Data/systems/dnd5e`` folder. You
-may do this by cloning the repository or downloading a zip archive from the
-[Releases Page](https://github.com/foundryvtt/dnd5e/releases).
+[//]: # (**Install System** dialog on the Setup menu of the application.)
 
-## Frequently Asked Questions  
+[//]: # ()
+[//]: # (https://raw.githubusercontent.com/jtljac/me5e/master/system.json)
+
+[//]: # ()
+[//]: # (If you wish to manually install the system, you must clone or extract it into the ``Data/systems/dnd5e`` folder. You)
+
+[//]: # (may do this by cloning the repository or downloading a zip archive from the)
+
+[//]: # ([Releases Page]&#40;https://github.com/foundryvtt/dnd5e/releases&#41;.)
+
+## Frequently Asked Questions
 Check the [Wiki](../../wiki) for answers to our most [frequently asked questions](../../wiki/faq)
 
 ## Community Contribution
