@@ -514,7 +514,6 @@ export default class Actor5e extends Actor {
 
     /**
      * Prepare the level and percentage of encumbrance for an Actor.
-     * Optionally include the weight of carried currency by applying the standard rule from the PHB pg. 143.
      * Mutates the value of the `system.attributes.encumbrance` object.
      * @protected
      */
@@ -529,16 +528,6 @@ export default class Actor5e extends Actor {
             const w = i.system.weight || 0;
             return weight + (q * w);
         }, 0);
-
-        // [Optional] add Currency Weight (for non-transformed actors)
-        const currency = this.system.currency;
-        if (game.settings.get("me5e", "currencyWeight") && currency) {
-            const numCoins = Object.values(currency).reduce((val, denom) => val + Math.max(denom, 0), 0);
-            const currencyPerWeight = game.settings.get("me5e", "metricWeightUnits")
-                ? CONFIG.ME5E.encumbrance.currencyPerWeight.metric
-                : CONFIG.ME5E.encumbrance.currencyPerWeight.imperial;
-            weight += numCoins / currencyPerWeight;
-        }
 
         // Determine the Encumbrance size class
         let mod = {tiny: 0.5, sm: 1, med: 1, lg: 2, huge: 4, grg: 8}[this.system.traits.size] || 1;
@@ -2223,41 +2212,6 @@ export default class Actor5e extends Actor {
         }
         return updates;
     }
-
-    /* -------------------------------------------- */
-    /*  Conversion & Transformation                 */
-
-    /* -------------------------------------------- */
-
-    /**
-     * Convert all carried currency to the highest possible denomination using configured conversion rates.
-     * See CONFIG.ME5E.currencies for configuration.
-     * @returns {Promise<Actor5e>}
-     */
-    convertCurrency() {
-        const currency = foundry.utils.deepClone(this.system.currency);
-        const currencies = Object.entries(CONFIG.ME5E.currencies);
-        currencies.sort((a, b) => a[1].conversion - b[1].conversion);
-
-        // Count total converted units of the base currency
-        let basis = currencies.reduce((change, [denomination, config]) => {
-            if (!config.conversion) return change;
-            return change + (currency[denomination] / config.conversion);
-        }, 0);
-
-        // Convert base units into the highest denomination possible
-        for (const [denomination, config] of currencies) {
-            if (!config.conversion) continue;
-            const amount = Math.floor(basis * config.conversion);
-            currency[denomination] = amount;
-            basis -= (amount / config.conversion);
-        }
-
-        // Save the updated currency object
-        return this.update({"system.currency": currency});
-    }
-
-    /* -------------------------------------------- */
 
     /**
      * Add additional system-specific sidebar directory context menu options for Actor documents

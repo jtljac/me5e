@@ -76,10 +76,6 @@ Hooks.once("init", function() {
     // Configure module art.
     game.me5e.moduleArt = new ModuleArt();
 
-    // Remove honor & sanity from configuration if they aren't enabled
-    if ( !game.settings.get("me5e", "honorScore") ) delete ME5E.abilities.hon;
-    if ( !game.settings.get("me5e", "sanityScore") ) delete ME5E.abilities.san;
-
     // Configure trackable & consumable attributes.
     _configureTrackableAttributes();
     _configureConsumableAttributes();
@@ -234,11 +230,11 @@ Hooks.once("setup", function() {
     CONFIG.ME5E.trackableAttributes = expandAttributeList(CONFIG.ME5E.trackableAttributes);
     game.me5e.moduleArt.registerModuleArt();
 
-    // Apply custom compendium styles to the SRD rules compendium.
-    if ( !game.me5e.isV10 ) {
-        const rules = game.packs.get("me5e.rules");
-        rules.applicationClass = applications.journal.SRDCompendium;
-    }
+    // // Apply custom compendium styles to the SRD rules compendium.
+    // if ( !game.me5e.isV10 ) {
+    //     const rules = game.packs.get("me5e.rules");
+    //     rules.applicationClass = applications.journal.SRDCompendium;
+    // }
 });
 
 /* --------------------------------------------- */
