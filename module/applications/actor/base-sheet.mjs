@@ -970,75 +970,7 @@ export default class ActorSheet5e extends ActorSheet {
 
     /** @override */
     async _onDropActor(event, data) {
-        const canPolymorph = game.user.isGM || (this.actor.isOwner && game.settings.get("me5e", "allowPolymorphing"));
-        if (!canPolymorph) return false;
-
-        // Get the target actor
-        const cls = getDocumentClass("Actor");
-        const sourceActor = await cls.fromDropData(data);
-        if (!sourceActor) return;
-
-        // Define a function to record polymorph settings for future use
-        const rememberOptions = html => {
-            const options = {};
-            html.find("input").each((i, el) => {
-                options[el.name] = el.checked;
-            });
-            const settings = foundry.utils.mergeObject(game.settings.get("me5e", "polymorphSettings") ?? {}, options);
-            game.settings.set("me5e", "polymorphSettings", settings);
-            return settings;
-        };
-
-        // Create and render the Dialog
-        return new Dialog({
-            title: game.i18n.localize("ME5E.PolymorphPromptTitle"),
-            content: {
-                options: game.settings.get("me5e", "polymorphSettings"),
-                settings: CONFIG.ME5E.polymorphSettings,
-                effectSettings: CONFIG.ME5E.polymorphEffectSettings,
-                isToken: this.actor.isToken
-            },
-            default: "accept",
-            buttons: {
-                accept: {
-                    icon: "<i class=\"fas fa-check\"></i>",
-                    label: game.i18n.localize("ME5E.PolymorphAcceptSettings"),
-                    callback: html => this.actor.transformInto(sourceActor, rememberOptions(html))
-                },
-                wildshape: {
-                    icon: CONFIG.ME5E.transformationPresets.wildshape.icon,
-                    label: CONFIG.ME5E.transformationPresets.wildshape.label,
-                    callback: html => this.actor.transformInto(sourceActor, foundry.utils.mergeObject(
-                        CONFIG.ME5E.transformationPresets.wildshape.options,
-                        {transformTokens: rememberOptions(html).transformTokens}
-                    ))
-                },
-                polymorph: {
-                    icon: CONFIG.ME5E.transformationPresets.polymorph.icon,
-                    label: CONFIG.ME5E.transformationPresets.polymorph.label,
-                    callback: html => this.actor.transformInto(sourceActor, foundry.utils.mergeObject(
-                        CONFIG.ME5E.transformationPresets.polymorph.options,
-                        {transformTokens: rememberOptions(html).transformTokens}
-                    ))
-                },
-                self: {
-                    icon: CONFIG.ME5E.transformationPresets.polymorphSelf.icon,
-                    label: CONFIG.ME5E.transformationPresets.polymorphSelf.label,
-                    callback: html => this.actor.transformInto(sourceActor, foundry.utils.mergeObject(
-                        CONFIG.ME5E.transformationPresets.polymorphSelf.options,
-                        {transformTokens: rememberOptions(html).transformTokens}
-                    ))
-                },
-                cancel: {
-                    icon: "<i class=\"fas fa-times\"></i>",
-                    label: game.i18n.localize("Cancel")
-                }
-            }
-        }, {
-            classes: ["dialog", "me5e", "polymorph"],
-            width: 900,
-            template: "systems/me5e/templates/apps/polymorph-prompt.hbs"
-        }).render(true);
+        return super._onDropActor(event, data);
     }
 
     /* -------------------------------------------- */
@@ -1555,14 +1487,6 @@ export default class ActorSheet5e extends ActorSheet {
     /** @override */
     _getHeaderButtons() {
         let buttons = super._getHeaderButtons();
-        if (this.actor.isPolymorphed) {
-            buttons.unshift({
-                label: "ME5E.PolymorphRestoreTransformation",
-                class: "restore-transformation",
-                icon: "fas fa-backward",
-                onclick: () => this.actor.revertOriginalForm()
-            });
-        }
         return buttons;
     }
 }

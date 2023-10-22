@@ -68,28 +68,6 @@ export default function registerSystemSettings() {
         type: Boolean
     });
 
-    // Use Honor ability score
-    game.settings.register("me5e", "honorScore", {
-        name: "SETTINGS.5eHonorN",
-        hint: "SETTINGS.5eHonorL",
-        scope: "world",
-        config: true,
-        default: false,
-        type: Boolean,
-        requiresReload: true
-    });
-
-    // Use Sanity ability score
-    game.settings.register("me5e", "sanityScore", {
-        name: "SETTINGS.5eSanityN",
-        hint: "SETTINGS.5eSanityL",
-        scope: "world",
-        config: true,
-        default: false,
-        type: Boolean,
-        requiresReload: true
-    });
-
     // Apply Dexterity as Initiative Tiebreaker
     game.settings.register("me5e", "initiativeDexTiebreaker", {
         name: "SETTINGS.5eInitTBN",
@@ -140,45 +118,6 @@ export default function registerSystemSettings() {
         type: Boolean,
         onChange: s => {
             ui.chat.render();
-        }
-    });
-
-    // Allow Polymorphing
-    game.settings.register("me5e", "allowPolymorphing", {
-        name: "SETTINGS.5eAllowPolymorphingN",
-        hint: "SETTINGS.5eAllowPolymorphingL",
-        scope: "world",
-        config: true,
-        default: false,
-        type: Boolean
-    });
-
-    // Polymorph Settings
-    game.settings.register("me5e", "polymorphSettings", {
-        scope: "client",
-        default: {
-            keepPhysical: false,
-            keepMental: false,
-            keepSaves: false,
-            keepSkills: false,
-            mergeSaves: false,
-            mergeSkills: false,
-            keepClass: false,
-            keepFeats: false,
-            keepSpells: false,
-            keepItems: false,
-            keepBio: false,
-            keepVision: true,
-            keepSelf: false,
-            keepAE: false,
-            keepOriginAE: true,
-            keepOtherOriginAE: true,
-            keepFeatAE: true,
-            keepSpellAE: true,
-            keepEquipmentAE: true,
-            keepClassAE: true,
-            keepBackgroundAE: true,
-            transformTokens: true
         }
     });
 

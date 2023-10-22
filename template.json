@@ -286,12 +286,7 @@
             }
           }
         },
-        "tools": {},
-        "traits": {
-          "languages": {
-            "value": [],
-            "custom": ""
-          }
+        "tools": {}
         },
         "spells": {},
         "bonuses": {

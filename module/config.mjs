@@ -64,20 +64,6 @@ ME5E.abilities = {
         abbreviation: "ME5E.AbilityChaAbbr",
         type: "mental",
         defaults: {vehicle: 0}
-    },
-    hon: {
-        label: "ME5E.AbilityHon",
-        abbreviation: "ME5E.AbilityHonAbbr",
-        type: "mental",
-        defaults: {npc: "cha", vehicle: 0},
-        improvement: false
-    },
-    san: {
-        label: "ME5E.AbilitySan",
-        abbreviation: "ME5E.AbilitySanAbbr",
-        type: "mental",
-        defaults: {npc: "wis", vehicle: 0},
-        improvement: false
     }
 };
 preLocalize("abilities", {keys: ["label", "abbreviation"]});
@@ -85,12 +71,16 @@ preLocalize("abilities", {keys: ["label", "abbreviation"]});
 /**
  * Configure which ability score is used as the default modifier for initiative rolls.
  * @type {string}
+ *
+ * TODO: Move to actor
  */
 ME5E.initiativeAbility = "dex";
 
 /**
  * Configure which ability score is used when calculating hit points per level.
  * @type {string}
+ *
+ * TODO: Move to actor
  */
 ME5E.hitPointsAbility = "con";
 
@@ -110,23 +100,23 @@ ME5E.hitPointsAbility = "con";
  */
 ME5E.skills = {
     acr: {label: "ME5E.SkillAcr", ability: "dex"},
-    ani: {label: "ME5E.SkillAni", ability: "wis"},
-    arc: {label: "ME5E.SkillArc", ability: "int"},
     ath: {label: "ME5E.SkillAth", ability: "str"},
     dec: {label: "ME5E.SkillDec", ability: "cha"},
+    ele: {label: "ME5E.SkillEle", ability: "int"},
+    eng: {label: "ME5E.SkillEng", ability: "int"},
     his: {label: "ME5E.SkillHis", ability: "int"},
     ins: {label: "ME5E.SkillIns", ability: "wis"},
     itm: {label: "ME5E.SkillItm", ability: "cha"},
     inv: {label: "ME5E.SkillInv", ability: "int"},
     med: {label: "ME5E.SkillMed", ability: "wis"},
-    nat: {label: "ME5E.SkillNat", ability: "int"},
     prc: {label: "ME5E.SkillPrc", ability: "wis"},
     prf: {label: "ME5E.SkillPrf", ability: "cha"},
     per: {label: "ME5E.SkillPer", ability: "cha"},
-    rel: {label: "ME5E.SkillRel", ability: "int"},
+    sci: {label: "ME5E.SkillSci", ability: "int"},
     slt: {label: "ME5E.SkillSlt", ability: "dex"},
     ste: {label: "ME5E.SkillSte", ability: "dex"},
-    sur: {label: "ME5E.SkillSur", ability: "wis"}
+    sur: {label: "ME5E.SkillSur", ability: "wis"},
+    veh: {label: "ME5E.SkillVeh", ability: "dex"}
 };
 preLocalize("skills", {key: "label", sort: true});
 
@@ -154,6 +144,8 @@ preLocalize("alignments");
 /**
  * An enumeration of item attunement types.
  * @enum {number}
+ *
+ * TODO: Check this is still relevant
  */
 ME5E.attunementTypes = {
     NONE: 0,
@@ -164,6 +156,8 @@ ME5E.attunementTypes = {
 /**
  * An enumeration of item attunement states.
  * @type {{"0": string, "1": string, "2": string}}
+ *
+ * TODO: Check this is still relevant
  */
 ME5E.attunements = {
     0: "ME5E.AttunementNone",
@@ -179,8 +173,12 @@ preLocalize("attunements");
  * @enum {string}
  */
 ME5E.weaponProficiencies = {
-    sim: "ME5E.WeaponSimpleProficiency",
-    mar: "ME5E.WeaponMartialProficiency"
+    ass: "ME5E.WeaponAssaultProficiency",
+    pis: "ME5E.WeaponHeavyPistolProficiency",
+    smg: "ME5E.WeaponSmgProficiency",
+    sht: "ME5E.WeaponShotgunProficiency",
+    sni: "ME5E.WeaponSniperProficiency",
+    mel: "ME5E.WeaponMeleeProficiency"
 };
 preLocalize("weaponProficiencies");
 
@@ -188,6 +186,8 @@ preLocalize("weaponProficiencies");
  * A mapping between `ME5E.weaponTypes` and `ME5E.weaponProficiencies` that
  * is used to determine if character has proficiency when adding an item.
  * @enum {(boolean|string)}
+ *
+ * TODO: Check this is still necessary
  */
 ME5E.weaponProficienciesMap = {
     simpleM: "sim",
@@ -200,59 +200,20 @@ ME5E.weaponProficienciesMap = {
  * The basic weapon types in 5e. This enables specific weapon proficiencies or
  * starting equipment provided by classes and backgrounds.
  * @enum {string}
+ *
+ * TODO: Check this is still necessary
  */
-ME5E.weaponIds = {
-    battleaxe: "I0WocDSuNpGJayPb",
-    blowgun: "wNWK6yJMHG9ANqQV",
-    club: "nfIRTECQIG81CvM4",
-    dagger: "0E565kQUBmndJ1a2",
-    dart: "3rCO8MTIdPGSW6IJ",
-    flail: "UrH3sMdnUDckIHJ6",
-    glaive: "rOG1OM2ihgPjOvFW",
-    greataxe: "1Lxk6kmoRhG8qQ0u",
-    greatclub: "QRCsxkCwWNwswL9o",
-    greatsword: "xMkP8BmFzElcsMaR",
-    halberd: "DMejWAc8r8YvDPP1",
-    handaxe: "eO7Fbv5WBk5zvGOc",
-    handcrossbow: "qaSro7kFhxD6INbZ",
-    heavycrossbow: "RmP0mYRn2J7K26rX",
-    javelin: "DWLMnODrnHn8IbAG",
-    lance: "RnuxdHUAIgxccVwj",
-    lightcrossbow: "ddWvQRLmnnIS0eLF",
-    lighthammer: "XVK6TOL4sGItssAE",
-    longbow: "3cymOVja8jXbzrdT",
-    longsword: "10ZP2Bu3vnCuYMIB",
-    mace: "Ajyq6nGwF7FtLhDQ",
-    maul: "DizirD7eqjh8n95A",
-    morningstar: "dX8AxCh9o0A9CkT3",
-    net: "aEiM49V8vWpWw7rU",
-    pike: "tC0kcqZT9HHAO0PD",
-    quarterstaff: "g2dWN7PQiMRYWzyk",
-    rapier: "Tobce1hexTnDk4sV",
-    scimitar: "fbC0Mg1a73wdFbqO",
-    shortsword: "osLzOwQdPtrK3rQH",
-    sickle: "i4NeNZ30ycwPDHMx",
-    spear: "OG4nBBydvmfWYXIk",
-    shortbow: "GJv6WkD7D2J6rP6M",
-    sling: "3gynWO9sN4OLGMWD",
-    trident: "F65ANO66ckP8FDMa",
-    warpick: "2YdfjN1PIIrSHZii",
-    warhammer: "F0Df164Xv1gWcYt0",
-    whip: "QKTyxoO0YDnAsbYe"
-};
+ME5E.weaponIds = {};
 
 /* -------------------------------------------- */
 
 /**
  * The basic ammunition types.
  * @enum {string}
+ *
+ * TODO: Check this is still necessary
  */
-ME5E.ammoIds = {
-    arrow: "3c7JXOzsv55gqJS5",
-    blowgunNeedle: "gBQ8xqTA5f8wP5iu",
-    crossbowBolt: "SItCnYBqhzqBoaWG",
-    slingBullet: "z9SbsMIBZzuhZOqT"
-};
+ME5E.ammoIds = {};
 
 /* -------------------------------------------- */
 
@@ -260,6 +221,8 @@ ME5E.ammoIds = {
  * The categories into which Tool items can be grouped.
  *
  * @enum {string}
+ *
+ * TODO: Check if this can be improved
  */
 ME5E.toolTypes = {
     art: "ME5E.ToolArtisans",
@@ -269,13 +232,40 @@ ME5E.toolTypes = {
 preLocalize("toolTypes", {sort: true});
 
 /**
+ * The various types of vehicles in which characters can be proficient.
+ * @enum {string}
+ */
+ME5E.vehicleTypes = {
+    air: "ME5E.VehicleTypeAir",
+    land: "ME5E.VehicleTypeLand",
+    space: "ME5E.VehicleTypeSpace",
+    water: "ME5E.VehicleTypeWater"
+};
+preLocalize("vehicleTypes", {sort: true});
+
+/**
+ * The various types of starship systems in which characters can be proficient.
+ * @enum {string}
+ */
+ME5E.shipSystemTypes = {
+    drive: "ME5E.ShipSystemDrive",
+    ews: "ME5E.ShipSystemEws",
+    helm: "ME5E.ShipSystemHelm",
+    nav: "ME5E.ShipSystemNav",
+    scc: "ME5E.ShipSystemSsc",
+    weap: "ME5E.ShipSystemWeapons"
+};
+preLocalize("shipSystemTypes", {sort: true});
+
+/**
  * The categories of tool proficiencies that a character can gain.
  *
  * @enum {string}
  */
 ME5E.toolProficiencies = {
     ...ME5E.toolTypes,
-    vehicle: "ME5E.ToolVehicle"
+    vehicle: "ME5E.ToolVehicle",
+    system: "ME5E.ToolShipSystem"
 };
 preLocalize("toolProficiencies", {sort: true});
 
@@ -283,44 +273,10 @@ preLocalize("toolProficiencies", {sort: true});
  * The basic tool types in 5e. This enables specific tool proficiencies or
  * starting equipment provided by classes and backgrounds.
  * @enum {string}
+ *
+ * TODO: Check this is still necessary
  */
 ME5E.toolIds = {
-    alchemist: "SztwZhbhZeCqyAes",
-    bagpipes: "yxHi57T5mmVt0oDr",
-    brewer: "Y9S75go1hLMXUD48",
-    calligrapher: "jhjo20QoiD5exf09",
-    card: "YwlHI3BVJapz4a3E",
-    carpenter: "8NS6MSOdXtUqD7Ib",
-    cartographer: "fC0lFK8P4RuhpfaU",
-    chess: "23y8FvWKf9YLcnBL",
-    cobbler: "hM84pZnpCqKfi8XH",
-    cook: "Gflnp29aEv5Lc1ZM",
-    dice: "iBuTM09KD9IoM5L8",
-    disg: "IBhDAr7WkhWPYLVn",
-    drum: "69Dpr25pf4BjkHKb",
-    dulcimer: "NtdDkjmpdIMiX7I2",
-    flute: "eJOrPcAz9EcquyRQ",
-    forg: "cG3m4YlHfbQlLEOx",
-    glassblower: "rTbVrNcwApnuTz5E",
-    herb: "i89okN7GFTWHsvPy",
-    horn: "aa9KuBy4dst7WIW9",
-    jeweler: "YfBwELTgPFHmQdHh",
-    leatherworker: "PUMfwyVUbtyxgYbD",
-    lute: "qBydtUUIkv520DT7",
-    lyre: "EwG1EtmbgR3bM68U",
-    mason: "skUih6tBvcBbORzA",
-    navg: "YHCmjsiXxZ9UdUhU",
-    painter: "ccm5xlWhx74d6lsK",
-    panflute: "G5m5gYIx9VAUWC3J",
-    pois: "il2GNi8C0DvGLL9P",
-    potter: "hJS8yEVkqgJjwfWa",
-    shawm: "G3cqbejJpfB91VhP",
-    smith: "KndVe2insuctjIaj",
-    thief: "woWZ1sO5IUVGzo58",
-    tinker: "0d08g1i5WXnNrCNA",
-    viol: "baoe3U5BfMMMxhCU",
-    weaver: "ap9prThUB2y9lDyj",
-    woodcarver: "xKErqkLo4ASYr5EP"
 };
 
 /* -------------------------------------------- */
@@ -404,6 +360,8 @@ preLocalize("abilityActivationTypes");
 /**
  * Different things that an ability can consume upon use.
  * @enum {string}
+ *
+ * TODO: Consider expanding
  */
 ME5E.abilityConsumptionTypes = {
     ammo: "ME5E.ConsumeAmmunition",
@@ -463,20 +421,9 @@ ME5E.tokenHPColors = {
  * @enum {string}
  */
 ME5E.creatureTypes = {
-    aberration: "ME5E.CreatureAberration",
-    beast: "ME5E.CreatureBeast",
-    celestial: "ME5E.CreatureCelestial",
-    construct: "ME5E.CreatureConstruct",
-    dragon: "ME5E.CreatureDragon",
-    elemental: "ME5E.CreatureElemental",
-    fey: "ME5E.CreatureFey",
-    fiend: "ME5E.CreatureFiend",
-    giant: "ME5E.CreatureGiant",
-    humanoid: "ME5E.CreatureHumanoid",
-    monstrosity: "ME5E.CreatureMonstrosity",
-    ooze: "ME5E.CreatureOoze",
-    plant: "ME5E.CreaturePlant",
-    undead: "ME5E.CreatureUndead"
+    organic: "ME5E.CreatureOrganic",
+    synthetic: "ME5E.CreatureSynthetic",
+    synthOrganic: "ME5E.CreatureSynthOrganic"
 };
 
 /* -------------------------------------------- */
@@ -484,6 +431,8 @@ ME5E.creatureTypes = {
 /**
  * Classification types for item action types.
  * @enum {string}
+ *
+ * TODO: Consider if this needs changing
  */
 ME5E.itemActionTypes = {
     mwak: "ME5E.ActionMWAK",
@@ -520,9 +469,7 @@ ME5E.itemRarity = {
     common: "ME5E.ItemRarityCommon",
     uncommon: "ME5E.ItemRarityUncommon",
     rare: "ME5E.ItemRarityRare",
-    veryRare: "ME5E.ItemRarityVeryRare",
-    legendary: "ME5E.ItemRarityLegendary",
-    artifact: "ME5E.ItemRarityArtifact"
+    spectre: "ME5E.ItemRaritySpectre",
 };
 preLocalize("itemRarity");
 
@@ -555,6 +502,19 @@ ME5E.armorTypes = {
 };
 preLocalize("armorTypes");
 
+/**
+ * The types of armour placements that are available
+ * @enum {string}
+ */
+ME5E.armorPlacements = {
+    arms: "ME5E.ArmorPlacementArms",
+    body: "ME5E.ArmorPlacementBody",
+    chest: "ME5E.ArmorPlacementChest",
+    head: "ME5E.ArmorPlacementHead",
+    legs: "ME5E.ArmorPlacementLegs",
+}
+preLocalize("armorPlacements");
+
 /* -------------------------------------------- */
 
 /**
@@ -583,20 +543,6 @@ preLocalize("equipmentTypes", {sort: true});
 /* -------------------------------------------- */
 
 /**
- * The various types of vehicles in which characters can be proficient.
- * @enum {string}
- */
-ME5E.vehicleTypes = {
-    air: "ME5E.VehicleTypeAir",
-    land: "ME5E.VehicleTypeLand",
-    space: "ME5E.VehicleTypeSpace",
-    water: "ME5E.VehicleTypeWater"
-};
-preLocalize("vehicleTypes", {sort: true});
-
-/* -------------------------------------------- */
-
-/**
  * The set of Armor Proficiencies which a character may have.
  * @type {object}
  */
@@ -612,6 +558,8 @@ preLocalize("armorProficiencies");
  * A mapping between `ME5E.equipmentTypes` and `ME5E.armorProficiencies` that
  * is used to determine if character has proficiency when adding an item.
  * @enum {(boolean|string)}
+ *
+ * TODO: Check if this can be improved
  */
 ME5E.armorProficienciesMap = {
     natural: true,
@@ -626,33 +574,24 @@ ME5E.armorProficienciesMap = {
  * The basic armor types in 5e. This enables specific armor proficiencies,
  * automated AC calculation in NPCs, and starting equipment.
  * @enum {string}
+ *
+ * TODO: Check if this is still necessary
  */
-ME5E.armorIds = {
-    breastplate: "SK2HATQ4abKUlV8i",
-    chainmail: "rLMflzmxpe8JGTOA",
-    chainshirt: "p2zChy24ZJdVqMSH",
-    halfplate: "vsgmACFYINloIdPm",
-    hide: "n1V07puo0RQxPGuF",
-    leather: "WwdpHLXGX5r8uZu5",
-    padded: "GtKV1b5uqFQqpEni",
-    plate: "OjkIqlW2UpgFcjZa",
-    ringmail: "nsXZejlmgalj4he9",
-    scalemail: "XmnlF5fgIO3tg6TG",
-    splint: "cKpJmsJmU8YaiuqG",
-    studded: "TIV3B1vbrVHIhQAm"
-};
+ME5E.armorIds = {};
 
 /**
  * The basic shield in 5e.
  * @enum {string}
+ *
+ * TODO: Check if this is still necessary
  */
-ME5E.shieldIds = {
-    shield: "sSs3hSzkKBMNBgTs"
-};
+ME5E.shieldIds = {};
 
 /**
  * Common armor class calculations.
  * @enum {{ label: string, [formula]: string }}
+ *
+ * TODO: Check if this can be improved
  */
 ME5E.armorClasses = {
     flat: {
@@ -697,12 +636,12 @@ preLocalize("armorClasses", {key: "label"});
  */
 ME5E.consumableTypes = {
     ammo: "ME5E.ConsumableAmmo",
-    potion: "ME5E.ConsumablePotion",
-    poison: "ME5E.ConsumablePoison",
-    food: "ME5E.ConsumableFood",
-    scroll: "ME5E.ConsumableScroll",
-    wand: "ME5E.ConsumableWand",
-    rod: "ME5E.ConsumableRod",
+    device: "ME5E.ConsumableDevice",
+    grenade: "ME5E.ConsumableGrenade",
+    hvyWeap: "ME5E.ConsumableHvyWeap",
+    heal: "ME5E.ConsumableHeal",
+    mat: "ME5E.ConsumableMat",
+    omni: "ME5E.ConsumableOmni",
     trinket: "ME5E.ConsumableTrinket"
 };
 preLocalize("consumableTypes", {sort: true});
@@ -712,29 +651,14 @@ preLocalize("consumableTypes", {sort: true});
 /**
  * Types of containers.
  * @enum {string}
+ *
+ * TODO: Check if this is still necessary
  */
-ME5E.containerTypes = {
-    backpack: "H8YCd689ezlD26aT",
-    barrel: "7Yqbqg5EtVW16wfT",
-    basket: "Wv7HzD6dv1P0q78N",
-    boltcase: "eJtPBiZtr2pp6ynt",
-    bottle: "HZp69hhyNZUUCipF",
-    bucket: "mQVYcHmMSoCUnBnM",
-    case: "5mIeX824uMklU3xq",
-    chest: "2YbuclKfhDL0bU4u",
-    flask: "lHS63sC6bypENNlR",
-    jug: "0ZBWwjFz3nIAXMLW",
-    pot: "M8xM8BLK4tpUayEE",
-    pitcher: "nXWdGtzi8DXDLLsL",
-    pouch: "9bWTRRDym06PzSAf",
-    quiver: "4MtQKPn9qMWCFjDA",
-    sack: "CNdDj8dsXVpRVpXt",
-    saddlebags: "TmfaFUSZJAotndn9",
-    tankard: "uw6fINSmZ2j2o57A",
-    vial: "meJEfX3gZgtMX4x2"
-};
+ME5E.containerTypes = {};
 
 /* -------------------------------------------- */
+
+// TODO: This all needs revising
 
 /**
  * Configuration data for spellcasting foci.
@@ -798,6 +722,7 @@ ME5E.featureTypes = {
     },
     class: {
         label: "ME5E.Feature.Class",
+        // TODO: See if this can be improved
         subtypes: {
             arcaneShot: "ME5E.ClassFeature.ArcaneShot",
             artificerInfusion: "ME5E.ClassFeature.ArtificerInfusion",
@@ -845,30 +770,9 @@ preLocalize("featureTypes.class.subtypes", {sort: true});
  * @enum {CurrencyConfiguration}
  */
 ME5E.currencies = {
-    pp: {
-        label: "ME5E.CurrencyPP",
-        abbreviation: "ME5E.CurrencyAbbrPP",
-        conversion: 0.1
-    },
-    gp: {
-        label: "ME5E.CurrencyGP",
-        abbreviation: "ME5E.CurrencyAbbrGP",
-        conversion: 1
-    },
-    ep: {
-        label: "ME5E.CurrencyEP",
-        abbreviation: "ME5E.CurrencyAbbrEP",
-        conversion: 2
-    },
-    sp: {
-        label: "ME5E.CurrencySP",
-        abbreviation: "ME5E.CurrencyAbbrSP",
-        conversion: 10
-    },
-    cp: {
-        label: "ME5E.CurrencyCP",
-        abbreviation: "ME5E.CurrencyAbbrCP",
-        conversion: 100
+    cr: {
+        label: "ME5E.CurrencyCR",
+        abbreviation: "ME5E.CurrencyAbbrCR"
     }
 };
 preLocalize("currencies", {keys: ["label", "abbreviation"]});
@@ -891,7 +795,7 @@ preLocalize("physicalDamageTypes", {sort: true});
 /* -------------------------------------------- */
 
 /**
- * Types of damage the can be caused by abilities.
+ * Types of damage that can be caused by abilities.
  * @enum {string}
  */
 ME5E.damageTypes = {
@@ -923,8 +827,6 @@ ME5E.damageResistanceTypes = {
 preLocalize("damageResistanceTypes", {sort: true});
 
 /* -------------------------------------------- */
-/*  Movement                                    */
-/* -------------------------------------------- */
 
 /**
  * Different types of healing that can be applied using abilities.
@@ -937,10 +839,12 @@ ME5E.healingTypes = {
 preLocalize("healingTypes");
 
 /* -------------------------------------------- */
+/*  Movement                                    */
+/* -------------------------------------------- */
 
 /**
  * The valid units of measure for movement distances in the game system.
- * By default this uses the imperial units of feet and miles.
+ * By default, this uses the imperial units of feet and miles.
  * @enum {string}
  */
 ME5E.movementTypes = {
@@ -962,10 +866,10 @@ preLocalize("movementTypes", {sort: true});
  * @enum {string}
  */
 ME5E.movementUnits = {
-    ft: "ME5E.DistFt",
-    mi: "ME5E.DistMi",
     m: "ME5E.DistM",
-    km: "ME5E.DistKm"
+    km: "ME5E.DistKm",
+    ft: "ME5E.DistFt",
+    mi: "ME5E.DistMi"
 };
 preLocalize("movementUnits");
 
@@ -1003,16 +907,12 @@ preLocalize("distanceUnits");
  * @enum {{ imperial: number, metric: number }}
  */
 ME5E.encumbrance = {
-    currencyPerWeight: {
-        imperial: 50,
-        metric: 110
-    },
     strMultiplier: {
         imperial: 15,
-        metric: 6.8
+        metric: 5
     },
     vehicleWeightMultiplier: {
-        imperial: 2000, // 2000 lbs in an imperial ton
+        imperial: 2204, // 2000 lbs in an imperial ton
         metric: 1000 // 1000 kg in a metric ton
     }
 };
@@ -1128,8 +1028,11 @@ preLocalize("senses", {sort: true});
 
 /**
  * Define the standard slot progression by character level.
+ *
  * The entries of this array represent the spell slot progression for a full spell-caster.
  * @type {number[][]}
+ *
+ * TODO: Check if there is a better way to do this
  */
 ME5E.SPELL_SLOT_TABLE = [
     [2],
@@ -1183,6 +1086,8 @@ ME5E.pactCastingProgression = {
 
 /**
  * Various different ways a spell can be prepared.
+ *
+ * TODO: This'll need revising
  */
 ME5E.spellPreparationModes = {
     prepared: "ME5E.SpellPrepPrepared",
@@ -1198,6 +1103,8 @@ preLocalize("spellPreparationModes");
 /**
  * Subset of `ME5E.spellPreparationModes` that consume spell slots.
  * @type {boolean[]}
+ *
+ * TODO: This'll need revising
  */
 ME5E.spellUpcastModes = ["always", "pact", "prepared"];
 
@@ -1223,6 +1130,8 @@ ME5E.spellUpcastModes = ["always", "pact", "prepared"];
 /**
  * Different spellcasting types and their progression.
  * @type {SpellcastingTypeConfiguration}
+ *
+ * TODO: This'll need revising
  */
 ME5E.spellcastingTypes = {
     leveled: {
@@ -1259,6 +1168,8 @@ preLocalize("spellcastingTypes.leveled.progression", {key: "label"});
 /**
  * Ways in which a class can contribute to spellcasting levels.
  * @enum {string}
+ *
+ * TODO: This'll need revising
  */
 ME5E.spellProgression = {
     none: "ME5E.SpellNone",
@@ -1275,6 +1186,8 @@ preLocalize("spellProgression", {key: "label"});
 /**
  * Valid spell levels.
  * @enum {string}
+ *
+ * TODO: This'll need revising
  */
 ME5E.spellLevels = {
     0: "ME5E.SpellLevel0",
@@ -1308,6 +1221,8 @@ preLocalize("spellScalingModes", {sort: true});
 /**
  * Types of components that can be required when casting a spell.
  * @enum {object}
+ *
+ * TODO: This'll need revising
  */
 ME5E.spellComponents = {
     vocal: {
@@ -1330,6 +1245,8 @@ preLocalize("spellComponents", {keys: ["label", "abbr"]});
 /**
  * Supplementary rules keywords that inform a spell's use.
  * @enum {object}
+ *
+ * TODO: This'll need revising
  */
 ME5E.spellTags = {
     concentration: {
@@ -1348,6 +1265,8 @@ preLocalize("spellTags", {keys: ["label", "abbr"]});
 /**
  * Schools to which a spell can belong.
  * @enum {string}
+ *
+ * TODO: This'll need revising
  */
 ME5E.spellSchools = {
     abj: "ME5E.SchoolAbj",
@@ -1366,6 +1285,8 @@ preLocalize("spellSchools", {sort: true});
 /**
  * Spell scroll item ID within the `ME5E.sourcePacks` compendium for each level.
  * @enum {string}
+ *
+ * TODO: This'll need revising
  */
 ME5E.spellScrollIds = {
     0: "rQ6sO7HDWzqMhSI3",
@@ -1389,10 +1310,12 @@ ME5E.spellScrollIds = {
  * @enum {string}
  */
 ME5E.weaponTypes = {
-    simpleM: "ME5E.WeaponSimpleM",
-    simpleR: "ME5E.WeaponSimpleR",
-    martialM: "ME5E.WeaponMartialM",
-    martialR: "ME5E.WeaponMartialR",
+    melee: "ME5E.WeaponMelee",
+    pistol: "ME5E.WeaponPistol",
+    smg: "ME5E.WeaponSmg",
+    assault: "ME5E.WeaponAssault",
+    shotgun: "ME5E.WeaponShotgun",
+    sniper: "ME5E.WeaponSniper",
     natural: "ME5E.WeaponNatural",
     improv: "ME5E.WeaponImprov",
     siege: "ME5E.WeaponSiege"
@@ -1405,12 +1328,10 @@ preLocalize("weaponTypes");
  * A subset of weapon properties that determine the physical characteristics of the weapon.
  * These properties are used for determining physical resistance bypasses.
  * @enum {string}
+ *
+ * TODO: This might not be necessary
  */
-ME5E.physicalWeaponProperties = {
-    ada: "ME5E.WeaponPropertiesAda",
-    mgc: "ME5E.WeaponPropertiesMgc",
-    sil: "ME5E.WeaponPropertiesSil"
-};
+ME5E.physicalWeaponProperties = {};
 preLocalize("physicalWeaponProperties", {sort: true});
 
 /* -------------------------------------------- */
@@ -1421,20 +1342,24 @@ preLocalize("physicalWeaponProperties", {sort: true});
  */
 ME5E.weaponProperties = {
     ...ME5E.physicalWeaponProperties,
-    amm: "ME5E.WeaponPropertiesAmm",
+    arc: "ME5E.WeaponPropertiesArc",
+    bst: "ME5E.WeaponPropertiesBst",
+    dbl: "ME5E.WeaponPropertiesDbl",
     fin: "ME5E.WeaponPropertiesFin",
-    fir: "ME5E.WeaponPropertiesFir",
-    foc: "ME5E.WeaponPropertiesFoc",
+    Het: "ME5E.WeaponPropertiesHet",
     hvy: "ME5E.WeaponPropertiesHvy",
+    hip: "ME5E.WeaponPropertiesHip",
     lgt: "ME5E.WeaponPropertiesLgt",
-    lod: "ME5E.WeaponPropertiesLod",
-    rch: "ME5E.WeaponPropertiesRch",
-    rel: "ME5E.WeaponPropertiesRel",
-    ret: "ME5E.WeaponPropertiesRet",
+    mel: "ME5E.WeaponPropertiesMel",
+    ran: "ME5E.WeaponPropertiesRan",
+    rec: "ME5E.WeaponPropertiesRec",
+    sil: "ME5E.WeaponPropertiesSil",
     spc: "ME5E.WeaponPropertiesSpc",
     thr: "ME5E.WeaponPropertiesThr",
     two: "ME5E.WeaponPropertiesTwo",
-    ver: "ME5E.WeaponPropertiesVer"
+    ven: "ME5E.WeaponPropertiesVen",
+    ver: "ME5E.WeaponPropertiesVer",
+    wei: "ME5E.WeaponPropertiesWei"
 };
 preLocalize("weaponProperties", {sort: true});
 
@@ -1443,86 +1368,12 @@ preLocalize("weaponProperties", {sort: true});
 /**
  * Compendium packs used for localized items.
  * @enum {string}
+ *
+ * TODO: This'll need revising
  */
 ME5E.sourcePacks = {
     ITEMS: "me5e.items"
 };
-
-/* -------------------------------------------- */
-
-/**
- * Settings to configure how actors are merged when polymorphing is applied.
- * @enum {string}
- */
-ME5E.polymorphSettings = {
-    keepPhysical: "ME5E.PolymorphKeepPhysical",
-    keepMental: "ME5E.PolymorphKeepMental",
-    keepSaves: "ME5E.PolymorphKeepSaves",
-    keepSkills: "ME5E.PolymorphKeepSkills",
-    mergeSaves: "ME5E.PolymorphMergeSaves",
-    mergeSkills: "ME5E.PolymorphMergeSkills",
-    keepClass: "ME5E.PolymorphKeepClass",
-    keepFeats: "ME5E.PolymorphKeepFeats",
-    keepSpells: "ME5E.PolymorphKeepSpells",
-    keepItems: "ME5E.PolymorphKeepItems",
-    keepBio: "ME5E.PolymorphKeepBio",
-    keepVision: "ME5E.PolymorphKeepVision",
-    keepSelf: "ME5E.PolymorphKeepSelf"
-};
-preLocalize("polymorphSettings", {sort: true});
-
-/**
- * Settings to configure how actors are effects are merged when polymorphing is applied.
- * @enum {string}
- */
-ME5E.polymorphEffectSettings = {
-    keepAE: "ME5E.PolymorphKeepAE",
-    keepOtherOriginAE: "ME5E.PolymorphKeepOtherOriginAE",
-    keepOriginAE: "ME5E.PolymorphKeepOriginAE",
-    keepEquipmentAE: "ME5E.PolymorphKeepEquipmentAE",
-    keepFeatAE: "ME5E.PolymorphKeepFeatureAE",
-    keepSpellAE: "ME5E.PolymorphKeepSpellAE",
-    keepClassAE: "ME5E.PolymorphKeepClassAE",
-    keepBackgroundAE: "ME5E.PolymorphKeepBackgroundAE"
-};
-preLocalize("polymorphEffectSettings", {sort: true});
-
-/**
- * Settings to configure how actors are merged when preset polymorphing is applied.
- * @enum {object}
- */
-ME5E.transformationPresets = {
-    wildshape: {
-        icon: "<i class=\"fas fa-paw\"></i>",
-        label: "ME5E.PolymorphWildShape",
-        options: {
-            keepBio: true,
-            keepClass: true,
-            keepMental: true,
-            mergeSaves: true,
-            mergeSkills: true,
-            keepEquipmentAE: false
-        }
-    },
-    polymorph: {
-        icon: "<i class=\"fas fa-pastafarianism\"></i>",
-        label: "ME5E.Polymorph",
-        options: {
-            keepEquipmentAE: false,
-            keepClassAE: false,
-            keepFeatAE: false,
-            keepBackgroundAE: false
-        }
-    },
-    polymorphSelf: {
-        icon: "<i class=\"fas fa-eye\"></i>",
-        label: "ME5E.PolymorphSelf",
-        options: {
-            keepSelf: true
-        }
-    }
-};
-preLocalize("transformationPresets", {sort: true, keys: ["label"]});
 
 /* -------------------------------------------- */
 
@@ -1598,55 +1449,32 @@ ME5E.consumableResources = [
 ME5E.conditionTypes = {
     blinded: "ME5E.ConBlinded",
     charmed: "ME5E.ConCharmed",
+    concentrating: "ME5E.ConConcentrating",
     deafened: "ME5E.ConDeafened",
     diseased: "ME5E.ConDiseased",
     exhaustion: "ME5E.ConExhaustion",
     frightened: "ME5E.ConFrightened",
+    frozen: "ME5E.ConFrozen",
     grappled: "ME5E.ConGrappled",
     incapacitated: "ME5E.ConIncapacitated",
+    indoctrinated: "ME5E.ConIndoctrinated",
     invisible: "ME5E.ConInvisible",
+    lifted: "ME5E.ConLifted",
     paralyzed: "ME5E.ConParalyzed",
-    petrified: "ME5E.ConPetrified",
     poisoned: "ME5E.ConPoisoned",
+    primeCold: "ME5E.ConPrimedCold",
+    primeFire: "ME5E.ConPrimedFire",
+    primeForce: "ME5E.ConPrimedForce",
+    primeLightning: "ME5E.ConPrimedLightning",
+    primeNecrotic: "ME5E.ConPrimedNecrotic",
+    primeRadiant: "ME5E.ConPrimedRadiant",
     prone: "ME5E.ConProne",
     restrained: "ME5E.ConRestrained",
     stunned: "ME5E.ConStunned",
+    targeting: "ME5E.ConTargeting",
     unconscious: "ME5E.ConUnconscious"
 };
 preLocalize("conditionTypes", {sort: true});
-
-/**
- * Languages a character can learn.
- * @enum {string}
- */
-ME5E.languages = {
-    common: "ME5E.LanguagesCommon",
-    aarakocra: "ME5E.LanguagesAarakocra",
-    abyssal: "ME5E.LanguagesAbyssal",
-    aquan: "ME5E.LanguagesAquan",
-    auran: "ME5E.LanguagesAuran",
-    celestial: "ME5E.LanguagesCelestial",
-    deep: "ME5E.LanguagesDeepSpeech",
-    draconic: "ME5E.LanguagesDraconic",
-    druidic: "ME5E.LanguagesDruidic",
-    dwarvish: "ME5E.LanguagesDwarvish",
-    elvish: "ME5E.LanguagesElvish",
-    giant: "ME5E.LanguagesGiant",
-    gith: "ME5E.LanguagesGith",
-    gnomish: "ME5E.LanguagesGnomish",
-    goblin: "ME5E.LanguagesGoblin",
-    gnoll: "ME5E.LanguagesGnoll",
-    halfling: "ME5E.LanguagesHalfling",
-    ignan: "ME5E.LanguagesIgnan",
-    infernal: "ME5E.LanguagesInfernal",
-    orc: "ME5E.LanguagesOrc",
-    primordial: "ME5E.LanguagesPrimordial",
-    sylvan: "ME5E.LanguagesSylvan",
-    terran: "ME5E.LanguagesTerran",
-    cant: "ME5E.LanguagesThievesCant",
-    undercommon: "ME5E.LanguagesUndercommon"
-};
-preLocalize("languages", {sort: true});
 
 /**
  * Maximum allowed character level.
@@ -1738,13 +1566,6 @@ ME5E.traits = {
         actorKeyPath: "system.skills",
         labelKeyPath: "label",
         expertise: true
-    },
-    languages: {
-        labels: {
-            title: "ME5E.Languages",
-            localization: "ME5E.TraitLanguagesPlural"
-        },
-        icon: "systems/me5e/icons/svg/trait-languages.svg"
     },
     armor: {
         labels: {
@@ -1845,6 +1666,8 @@ preLocalize("traitModes", {keys: ["label", "hint"]});
 /**
  * Special character flags.
  * @enum {CharacterFlagConfig}
+ *
+ * TODO: This'll need revising
  */
 ME5E.characterFlags = {
     diamondSoul: {
@@ -1944,13 +1767,15 @@ preLocalize("characterFlags", {keys: ["name", "hint", "section"]});
  * Flags allowed on actors. Any flags not in the list may be deleted during a migration.
  * @type {string[]}
  */
-ME5E.allowedActorFlags = ["isPolymorphed", "originalActor"].concat(Object.keys(ME5E.characterFlags));
+ME5E.allowedActorFlags = ["originalActor"].concat(Object.keys(ME5E.characterFlags));
 
 /* -------------------------------------------- */
 
 /**
  * Advancement types that can be added to items.
  * @enum {*}
+ *
+ * TODO: This'll need revising
  */
 ME5E.advancementTypes = {
     AbilityScoreImprovement: advancement.AbilityScoreImprovementAdvancement,
@@ -1968,6 +1793,8 @@ ME5E.advancementTypes = {
  * @param {string} key          Key within ME5E that has been replaced with an enum of objects.
  * @param {string} fallbackKey  Key within the new config object from which to get the fallback value.
  * @param {object} [options]    Additional options passed through to logCompatibilityWarning.
+ *
+ * TODO: This may not be necessary
  */
 function patchConfig(key, fallbackKey, options) {
     /** @override */
