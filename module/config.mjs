@@ -1,5 +1,6 @@
 import * as advancement from "./documents/advancement/_module.mjs";
 import {preLocalize} from "./utils.mjs";
+import {config as ruleTypes} from "./data/rule/_module.mjs"
 
 // Namespace Configuration Values
 const ME5E = {};
@@ -13,6 +14,12 @@ ___  ___ _____ _____ _____
 | |  | || |___/\\__/ / |___ 
 \\_|  |_/\\____/\\____/\\____/ 
 ___________________________`;
+
+ME5E.rules = {
+    types: {
+        ...ruleTypes
+    }
+}
 
 
 /**

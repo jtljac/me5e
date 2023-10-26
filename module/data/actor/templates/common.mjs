@@ -1,6 +1,7 @@
 import SystemDataModel from "../../abstract.mjs";
-import {FormulaField, MappingField} from "../../fields.mjs";
+import {EnhancedEmbeddedDataField, FormulaField, MappingField} from "../../fields.mjs";
 import CurrencyTemplate from "../../shared/currency.mjs";
+import BaseRule from "../../rule/base-rule.mjs";
 
 /**
  * @typedef {object} AbilityData
@@ -40,7 +41,8 @@ export default class CommonTemplate extends SystemDataModel.mixin(CurrencyTempla
             }), {
                 initialKeys: CONFIG.ME5E.abilities, initialValue: this._initialAbilityValue.bind(this),
                 initialKeysOnly: true, label: "ME5E.Abilities"
-            })
+            }),
+            rules: new foundry.data.fields.ArrayField(new foundry.data.fields.EmbeddedDataField(BaseRule), {label: "ME5E.RulesTitle"})
         });
     }
 

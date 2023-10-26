@@ -93,7 +93,6 @@ export default class SystemDataModel extends foundry.abstract.DataModel {
 
     /* ---------------------------------------- */
     /*  Data Cleaning                           */
-
     /* ---------------------------------------- */
 
     /** @inheritdoc */
@@ -118,7 +117,6 @@ export default class SystemDataModel extends foundry.abstract.DataModel {
 
     /* ---------------------------------------- */
     /*  Data Initialization                     */
-
     /* ---------------------------------------- */
 
     /** @inheritdoc */
@@ -137,7 +135,6 @@ export default class SystemDataModel extends foundry.abstract.DataModel {
 
     /* ---------------------------------------- */
     /*  Data Validation                         */
-
     /* ---------------------------------------- */
 
     /** @inheritdoc */
@@ -170,7 +167,6 @@ export default class SystemDataModel extends foundry.abstract.DataModel {
 
     /* ---------------------------------------- */
     /*  Data Migration                          */
-
     /* ---------------------------------------- */
 
     /** @inheritdoc */

@@ -284,3 +284,209 @@ export class MappingField extends foundry.data.fields.ObjectField {
         return this.model._getField(path);
     }
 }
+
+/* -------------------------------------------- */
+
+/**
+ * An enhanced Schema Field that adds its data to "options.parent" for subfields to access
+ */
+export class EnhancedSchemaField extends foundry.data.fields.SchemaField {
+    /** @inheritdoc */
+    _cleanType(data, options={}) {
+        super._cleanType(
+            data,
+            {
+                ...options,
+                parent: data,
+                parentOptions: options
+            }
+        );
+    }
+
+    /** @override */
+    _validateType(data, options={}) {
+        super._validateType(
+            data,
+            {
+                ...options,
+                parent: data,
+                parentOptions: options
+            }
+        );
+    }
+
+    /** @override */
+    _validateModel(changes, options={}) {
+        super._validateModel(
+            changes,
+            {
+                ...options,
+                parent: changes,
+                parentOptions: options
+            }
+        );
+    }
+}
+
+/* -------------------------------------------- */
+
+/**
+ * An enhanced version of [EmbeddedDataField]{@link foundry.data.fields.EmbeddedDataField} which uses
+ * {@link EnhancedSchemaField}
+ */
+class EnhancedEmbeddedDataFieldPart extends EnhancedSchemaField {
+    /**
+     * @param {foundry.abstract.DataModel} model          The class of DataModel which should be embedded in this field
+     * @param {DataFieldOptions} options        Options which configure the behavior of the field
+     */
+    constructor(model, options) {
+        if ( !foundry.utils.isSubclass(model, foundry.abstract.DataModel) ) {
+            throw new Error("An EnhancedEmbeddedDataField must specify a DataModel class as its type");
+        }
+        super(model.schema.fields, options);
+
+        /**
+         * The embedded DataModel definition which is contained in this field.
+         * @type {foundry.abstract.DataModel}
+         */
+        this.model = model;
+    }
+}
+
+const EnhancedEmbeddedDataField =  Object.assign(EnhancedEmbeddedDataFieldPart, {
+    _initialize: foundry.data.fields.EmbeddedDataField.prototype._initialize,
+    initialize: foundry.data.fields.EmbeddedDataField.prototype.initialize,
+    toObject: foundry.data.fields.EmbeddedDataField.prototype.toObject,
+    migrateSource: foundry.data.fields.EmbeddedDataField.prototype.migrateSource,
+    _validateModel: foundry.data.fields.EmbeddedDataField.prototype._validateModel
+})
+
+export {EnhancedEmbeddedDataField};
+
+/* -------------------------------------------- */
+
+/**
+ * A subclass of [ObjectField]{@link foundry.data.fields.ObjectField} which supports a type-specific data model.
+ *
+ * This is similar to [TypeDataField]{@link foundry.data.fields.TypeDataField} except it uses the "options.parent.type"
+ * value by {@link EnhancedSchemaField} to get its type
+ */
+export class TypedDataModelField extends foundry.data.fields.ObjectField {
+    /**
+     * The data model that owns this typed data model
+     * @type {foundry.abstract.DataModel}
+     */
+    dataModel;
+
+    /**
+     * The path from `globalThis` to an object that contains the available types for this TypedDataModel
+     *
+     * The variable pointed to by this path should be of the type Object<String, DataModel>
+     *
+     * @example CONFIG.ME5E.rules.types
+     *
+     * @type {string}
+     */
+    typesPath;
+
+    /**
+     * @param {foundry.abstract.DataModel} dataModel The data model that owns this typed data model
+     * @param {string} typePath The path from `globalThis` to an object that contains the available types for this
+     *                          TypedDataModel
+     * @param {DataFieldOptions} options Options which configure the behaviour of the field
+     */
+    constructor(dataModel, typePath, options={}) {
+        super(options);
+        this.dataModel = dataModel;
+        this.typesPath = typePath;
+    }
+
+
+    /** @inheritdoc */
+    static get _defaults() {
+        return foundry.utils.mergeObject(super._defaults, {required: true});
+    }
+
+    /** @override */
+    static recursive = true;
+
+    /**
+     * A convenience accessor for the name of the document type associated with this TypeDataField
+     * @type {string}
+     */
+    get getAvailableDataModels() {
+        return foundry.utils.getProperty(globalThis, this.typesPath);
+    }
+
+    /**
+     * Get the DataModel that should be used for the given type
+     * @param {String} type The type of this TypedDataModel
+     */
+    getModel(type) {
+        return !type ? null : this.getAvailableDataModels?.[type];
+    }
+
+    /** @override */
+    getInitialValue(data) {
+        const cls = this.getModel(data.type);
+        return cls?.cleanData() || super.getInitialValue(data);
+    }
+
+    /** @override */
+    _cleanType(value, options) {
+        if (!(typeof value === "object")) value = {};
+
+        // Use a defined DataModel
+        const type = options.parent?.type || null;
+        const cls = this.getModel(type);
+        if ( cls ) return cls.cleanData(value, options);
+        if ( options.partial ) return value;
+
+        // The validation should prevent this
+        return undefined;
+    }
+
+    /** @override */
+    initialize(value, model, options={}) {
+        const cls = this.getModel(model._source.type);
+        if ( cls ) return new cls(value, {parent: model, ...options});
+
+        return foundry.utils.deepClone(value);
+    }
+
+    /** @inheritdoc */
+    _validateType(data, options={}) {
+        super._validateType(data);
+
+        const type = options.parent?.type || null;
+        const cls = this.getModel(type);
+        const schema = cls?.schema;
+        return schema?.validate(data, options);
+    }
+
+    /* ---------------------------------------- */
+
+    /** @override */
+    _validateModel(changes, options) {
+        options.source ||= changes;
+        const cls = this.getModel(options.parent?.type);
+        return cls?.validateJoint(changes);
+    }
+
+    /* ---------------------------------------- */
+
+    /** @override */
+    toObject(value) {
+        return value.toObject instanceof Function ? value.toObject(false) : foundry.utils.deepClone(value);
+    }
+
+    /**
+     * Migrate this field's candidate source data.
+     * @param {object} sourceData   Candidate source data of the root model
+     * @param {any} fieldData       The value of this field within the source data
+     */
+    migrateSource(sourceData, fieldData) {
+        const cls = this.getModel(sourceData.type);
+        if ( cls ) cls.migrateDataSafe(fieldData);
+    }
+}

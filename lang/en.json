@@ -886,6 +886,7 @@
 "ME5E.MovementUnits": "Units",
 "ME5E.NewDay": "Is New Day?",
 "ME5E.NewDayHint": "Recover limited use abilities which recharge \"per day\"?",
+"ME5E.RulesTitle": "Rules",
 "ME5E.SaveBonus": "Saving Throw Bonus",
 "ME5E.SaveGlobalBonusHint": "This bonus applies to all saving throws made by this actor.",
 "ME5E.ScrollDetails": "Scroll Details",

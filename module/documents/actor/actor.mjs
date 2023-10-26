@@ -317,7 +317,6 @@ export default class Actor5e extends Actor {
      * @param {object} bonusData      Data produced by `getRollData` to be applied to bonus formulas.
      * @param {object} globalBonuses  Global bonus data.
      * @param {number} checkBonus     Global ability check bonus.
-     * @param {object} originalSaves  A transformed actor's original actor's abilities.
      * @protected
      */
     _prepareAbilities(bonusData, globalBonuses, checkBonus) {

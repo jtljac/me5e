@@ -1,4 +1,5 @@
-import {FormulaField} from "../../fields.mjs";
+import {AdvancementField, FormulaField} from "../../fields.mjs";
+import BaseRule from "../../rule/base-rule.mjs";
 
 /**
  * Shared contents of the attributes schema between various actor types.
