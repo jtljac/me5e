@@ -20,8 +20,8 @@ export default class StartingEquipmentTemplate extends SystemDataModel {
   static defineSchema() {
     return {
       startingEquipment: new ArrayField(new EmbeddedDataField(EquipmentEntryData), {required: true}),
-      wealth: new FormulaField({ label: "DND5E.StartingEquipment.Wealth.Label",
-        hint: "DND5E.StartingEquipment.Wealth.Hint" })
+      wealth: new FormulaField({ label: "ME5E.StartingEquipment.Wealth.Label",
+        hint: "ME5E.StartingEquipment.Wealth.Hint" })
     };
   }
 
@@ -58,7 +58,7 @@ export default class StartingEquipmentTemplate extends SystemDataModel {
 
     // For modern classes, display as "Choose A or B"
     modernStyle ??= (this.source.rules === "2024")
-      || (!this.source.rules && (game.settings.get("dnd5e", "rulesVersion") === "modern"));
+      || (!this.source.rules && (game.settings.get("me5e", "rulesVersion") === "modern"));
     if ( modernStyle ) {
       const entries = topLevel[0].type === "OR" ? topLevel[0].children : topLevel;
       if ( this.wealth ) entries.push(new EquipmentEntryData({ type: "currency", key: "gp", count: this.wealth }));
@@ -68,7 +68,7 @@ export default class StartingEquipmentTemplate extends SystemDataModel {
           entries.map(e => e.generateLabel({ modernStyle, depth: 2 })), { modernStyle, usedPrefixes }
         );
         const formatter = game.i18n.getListFormatter({ type: "disjunction" });
-        return `<p>${game.i18n.format("DND5E.StartingEquipment.ChooseList", {
+        return `<p>${game.i18n.format("ME5E.StartingEquipment.ChooseList", {
           prefixes: formatter.format(usedPrefixes), choices: formatter.format(choices)
         })}</p>`;
       }
@@ -99,8 +99,8 @@ export class EquipmentEntryData extends foundry.abstract.DataModel {
    * @enum {string}
    */
   static GROUPING_TYPES = {
-    OR: "DND5E.StartingEquipment.Operator.OR",
-    AND: "DND5E.StartingEquipment.Operator.AND"
+    OR: "ME5E.StartingEquipment.Operator.OR",
+    AND: "ME5E.StartingEquipment.Operator.AND"
   };
 
   /**
@@ -109,16 +109,16 @@ export class EquipmentEntryData extends foundry.abstract.DataModel {
    */
   static OPTION_TYPES = {
     // Category types
-    armor: "DND5E.StartingEquipment.Choice.Armor",
-    tool: "DND5E.StartingEquipment.Choice.Tool",
-    weapon: "DND5E.StartingEquipment.Choice.Weapon",
-    focus: "DND5E.StartingEquipment.Choice.Focus",
+    armor: "ME5E.StartingEquipment.Choice.Armor",
+    tool: "ME5E.StartingEquipment.Choice.Tool",
+    weapon: "ME5E.StartingEquipment.Choice.Weapon",
+    focus: "ME5E.StartingEquipment.Choice.Focus",
 
     // Currency
-    currency: "DND5E.StartingEquipment.Currency",
+    currency: "ME5E.StartingEquipment.Currency",
 
     // Generic item type
-    linked: "DND5E.StartingEquipment.SpecificItem"
+    linked: "ME5E.StartingEquipment.SpecificItem"
   };
 
   /**
@@ -132,19 +132,19 @@ export class EquipmentEntryData extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /**
-   * Where in `CONFIG.DND5E` to find the type category labels.
+   * Where in `CONFIG.ME5E` to find the type category labels.
    * @enum {{ label: string, config: string }}
    */
   static CATEGORIES = {
     armor: {
-      label: "DND5E.Armor",
+      label: "ME5E.Armor",
       config: "armorTypes"
     },
     currency: {
       config: "currencies"
     },
     focus: {
-      label: "DND5E.Focus.Label",
+      label: "ME5E.Focus.Label",
       config: "focusTypes"
     },
     tool: {
@@ -168,7 +168,7 @@ export class EquipmentEntryData extends foundry.abstract.DataModel {
       type: new StringField({ required: true, initial: "OR", choices: this.TYPES }),
       count: new NumberField({ initial: undefined }),
       key: new StringField({ initial: undefined }),
-      requiresProficiency: new BooleanField({ label: "DND5E.StartingEquipment.Proficient.Label" })
+      requiresProficiency: new BooleanField({ label: "ME5E.StartingEquipment.Proficient.Label" })
     };
   }
 
@@ -216,7 +216,7 @@ export class EquipmentEntryData extends foundry.abstract.DataModel {
     let label = configEntry?.label ?? configEntry;
     if ( !label ) return this.blankLabel.toLowerCase();
 
-    if ( this.type === "weapon" ) label = game.i18n.format("DND5E.WeaponCategory", { category: label });
+    if ( this.type === "weapon" ) label = game.i18n.format("ME5E.WeaponCategory", { category: label });
     return label.toLowerCase();
   }
 
@@ -227,8 +227,8 @@ export class EquipmentEntryData extends foundry.abstract.DataModel {
    * @returns {Record<string, string>}
    */
   get keyOptions() {
-    const config = foundry.utils.deepClone(CONFIG.DND5E[this.constructor.CATEGORIES[this.type]?.config]);
-    if ( this.type === "weapon" ) foundry.utils.mergeObject(config, CONFIG.DND5E.weaponTypes);
+    const config = foundry.utils.deepClone(CONFIG.ME5E[this.constructor.CATEGORIES[this.type]?.config]);
+    if ( this.type === "weapon" ) foundry.utils.mergeObject(config, CONFIG.ME5E.weaponTypes);
     return Object.entries(config).reduce((obj, [k, v]) => {
       obj[k] = foundry.utils.getType(v) === "Object" ? v.label : v;
       return obj;
@@ -249,7 +249,7 @@ export class EquipmentEntryData extends foundry.abstract.DataModel {
   generateLabel({ depth=1, modernStyle }={}) {
     let label;
     modernStyle ??= (this.parent.source?.rules === "2024")
-      || (!this.parent.source?.rules && (game.settings.get("dnd5e", "rulesVersion") === "modern"));
+      || (!this.parent.source?.rules && (game.settings.get("me5e", "rulesVersion") === "modern"));
 
     switch ( this.type ) {
       // For AND/OR, use a simple conjunction/disjunction list (e.g. "first, second, and third")
@@ -263,7 +263,7 @@ export class EquipmentEntryData extends foundry.abstract.DataModel {
           .format(entries);
 
       case "currency":
-        const currencyConfig = CONFIG.DND5E.currencies[this.key];
+        const currencyConfig = CONFIG.ME5E.currencies[this.key];
         if ( this.count && currencyConfig ) label = `${this.count} ${currencyConfig.abbreviation.toUpperCase()}`;
         break;
 
@@ -281,9 +281,9 @@ export class EquipmentEntryData extends foundry.abstract.DataModel {
     if ( !label ) return "";
     if ( this.type === "currency" ) return label;
     if ( this.count > 1 ) label = `${formatNumber(this.count)}&times; ${label}`;
-    else if ( this.type !== "linked" ) label = game.i18n.format("DND5E.TraitConfigChooseAnyUncounted", { type: label });
+    else if ( this.type !== "linked" ) label = game.i18n.format("ME5E.TraitConfigChooseAnyUncounted", { type: label });
     if ( (this.type === "linked") && this.requiresProficiency ) {
-      label += ` (${game.i18n.localize("DND5E.StartingEquipment.IfProficient").toLowerCase()})`;
+      label += ` (${game.i18n.localize("ME5E.StartingEquipment.IfProficient").toLowerCase()})`;
     }
     return label;
   }
@@ -300,7 +300,7 @@ export class EquipmentEntryData extends foundry.abstract.DataModel {
    * @returns {string[]}
    */
   static prefixOrEntries(entries, { depth=1, modernStyle=true, usedPrefixes }={}) {
-    let letters = game.i18n.localize("DND5E.StartingEquipment.Prefixes");
+    let letters = game.i18n.localize("ME5E.StartingEquipment.Prefixes");
     if ( !letters ) return entries;
     if ( (modernStyle && (depth === 1)) || (!modernStyle && (depth === 2)) ) letters = letters.toUpperCase();
     return entries.map((e, idx) => {

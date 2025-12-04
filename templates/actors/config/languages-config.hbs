@@ -2,12 +2,12 @@
     {{#each choices}}
     <fieldset class="traits card">
         <legend>{{ label }}</legend>
-        {{> "dnd5e.traits-list" choices=children keyPath=(concat @root.keyPath ".value.") topLevel=true
+        {{> "me5e.traits-list" choices=children keyPath=(concat @root.keyPath ".value.") topLevel=true
             field=@root.checkbox input=@root.inputs.createCheckboxInput }}
     </fieldset>
     {{/each}}
     <fieldset class="card">
-        <legend>{{ localize "DND5E.Language.Communication.Label" }}</legend>
+        <legend>{{ localize "ME5E.Language.Communication.Label" }}</legend>
         {{#each communication}}
         <div class="form-group split-group">
             <label>{{ label }}</label>
@@ -19,8 +19,8 @@
         {{/each}}
     </fieldset>
     <fieldset class="card">
-        <legend>{{ localize "DND5E.Special" }}</legend>
+        <legend>{{ localize "ME5E.Special" }}</legend>
         {{ formInput fields.custom value=data.custom }}
-        <p class="hint">{{ localize "DND5E.SpecialHint" }}</p>
+        <p class="hint">{{ localize "ME5E.SpecialHint" }}</p>
     </fieldset>
 </section>

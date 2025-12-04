@@ -17,7 +17,7 @@ export default class ConcentrationConfig extends BaseConfigSheet {
   /** @override */
   static PARTS = {
     config: {
-      template: "systems/dnd5e/templates/actors/config/concentration-config.hbs"
+      template: "systems/me5e/templates/actors/config/concentration-config.hbs"
     }
   };
 
@@ -27,7 +27,7 @@ export default class ConcentrationConfig extends BaseConfigSheet {
 
   /** @override */
   get title() {
-    return game.i18n.format("DND5E.ABILITY.Configure.Title", { ability: game.i18n.localize("DND5E.Concentration") });
+    return game.i18n.format("ME5E.ABILITY.Configure.Title", { ability: game.i18n.localize("ME5E.Concentration") });
   }
 
   /* -------------------------------------------- */
@@ -41,11 +41,11 @@ export default class ConcentrationConfig extends BaseConfigSheet {
 
     context.data = source.attributes?.concentration ?? {};
     context.fields = this.document.system.schema.fields.attributes.fields.concentration.fields;
-    const ability = CONFIG.DND5E.abilities[CONFIG.DND5E.defaultAbilities.concentration]?.label?.toLowerCase();
+    const ability = CONFIG.ME5E.abilities[CONFIG.ME5E.defaultAbilities.concentration]?.label?.toLowerCase();
     context.abilityOptions = [
-      { value: "", label: ability ? game.i18n.format("DND5E.DefaultSpecific", { default: ability }) : "" },
+      { value: "", label: ability ? game.i18n.format("ME5E.DefaultSpecific", { default: ability }) : "" },
       { rule: true },
-      ...Object.entries(CONFIG.DND5E.abilities).map(([value, { label }]) => ({ value, label }))
+      ...Object.entries(CONFIG.ME5E.abilities).map(([value, { label }]) => ({ value, label }))
     ];
 
     if ( this.document.system.bonuses?.abilities ) context.global = {

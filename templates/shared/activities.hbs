@@ -8,7 +8,7 @@
 
             {{!-- Section Header --}}
             <div class="items-header header">
-                <h3 class="item-name activity-name">{{ localize "DND5E.ACTIVITY.Title.other" }}</h3>
+                <h3 class="item-name activity-name">{{ localize "ME5E.ACTIVITY.Title.other" }}</h3>
                 <div class="item-header item-controls activity-controls"></div>
             </div>
 
@@ -56,7 +56,7 @@
 {{!-- Name & Icon --}}
 <div class="item-name activity-name">
 
-    {{#if img.svg}}<dnd5e-icon src="{{ img.src }}" class="item-image"></dnd5e-icon>
+    {{#if img.svg}}<me5e-icon src="{{ img.src }}" class="item-image"></me5e-icon>
     {{else}}<img src="{{ img.src }}" class="item-image gold-icon" alt="{{ name }}">{{/if}}
 
     <div class="name name-stacked">
@@ -72,20 +72,20 @@
     {{#if @root.editable}}
     {{!-- Edit --}}
     <button type="button" class="unbutton control-button item-control item-action" data-action="editDocument"
-            data-tooltip aria-label="{{ localize "DND5E.ACTIVITY.Action.Edit" }}">
+            data-tooltip aria-label="{{ localize "ME5E.ACTIVITY.Action.Edit" }}">
         <i class="fa-solid fa-pen-to-square" inert></i>
     </button>
 
     {{!-- Delete --}}
     <button type="button" class="unbutton control-button item-control" data-action="deleteDocument"
-            data-tooltip aria-label="{{ localize "DND5E.ACTIVITY.Action.Delete" }}">
+            data-tooltip aria-label="{{ localize "ME5E.ACTIVITY.Action.Delete" }}">
         <i class="fas fa-trash" inert></i>
     </button>
     {{/if}}
 
     {{!-- Context Menu --}}
     <button type="button" class="unbutton config-button item-control always-interactive" data-context-menu
-            aria-label="{{ localize "DND5E.AdditionalControls" }}">
+            aria-label="{{ localize "ME5E.AdditionalControls" }}">
         <i class="fa-solid fa-ellipsis-vertical" inert></i>
     </button>
 

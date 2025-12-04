@@ -20,9 +20,9 @@ export default class AbilityScoreImprovementAdvancement extends Advancement {
       },
       order: 20,
       icon: "icons/magic/symbols/star-solid-gold.webp",
-      typeIcon: "systems/dnd5e/icons/svg/ability-score-improvement.svg",
-      title: game.i18n.localize("DND5E.ADVANCEMENT.AbilityScoreImprovement.Title"),
-      hint: game.i18n.localize("DND5E.ADVANCEMENT.AbilityScoreImprovement.Hint"),
+      typeIcon: "systems/me5e/icons/svg/ability-score-improvement.svg",
+      title: game.i18n.localize("ME5E.ADVANCEMENT.AbilityScoreImprovement.Title"),
+      hint: game.i18n.localize("ME5E.ADVANCEMENT.AbilityScoreImprovement.Hint"),
       apps: {
         config: AbilityScoreImprovementConfig,
         flow: AbilityScoreImprovementFlow
@@ -44,7 +44,7 @@ export default class AbilityScoreImprovementAdvancement extends Advancement {
 
   /** @inheritDoc */
   get _defaultTitle() {
-    if ( this.isEpicBoon ) return game.i18n.localize("DND5E.ADVANCEMENT.AbilityScoreImprovement.TitleEpic");
+    if ( this.isEpicBoon ) return game.i18n.localize("ME5E.ADVANCEMENT.AbilityScoreImprovement.TitleEpic");
     return super._defaultTitle;
   }
 
@@ -66,8 +66,8 @@ export default class AbilityScoreImprovementAdvancement extends Advancement {
    * @type {boolean}
    */
   get allowFeat() {
-    return (this.item.type === "class") && (game.settings.get("dnd5e", "allowFeats")
-      || game.settings.get("dnd5e", "rulesVersion") === "modern");
+    return (this.item.type === "class") && (game.settings.get("me5e", "allowFeats")
+      || game.settings.get("me5e", "rulesVersion") === "modern");
   }
 
   /* -------------------------------------------- */
@@ -80,7 +80,7 @@ export default class AbilityScoreImprovementAdvancement extends Advancement {
     return (this.level >= AbilityScoreImprovementAdvancement.EPIC_BOON_LEVEL)
       && (this.item.type === "class")
       && (this.item.system.source?.rules ? (this.item.system.source.rules === "2024")
-        : (game.settings.get("dnd5e", "rulesVersion") === "modern"));
+        : (game.settings.get("me5e", "rulesVersion") === "modern"));
   }
 
   /* -------------------------------------------- */
@@ -112,7 +112,7 @@ export default class AbilityScoreImprovementAdvancement extends Advancement {
    * @returns {boolean}
    */
   canImprove(ability) {
-    return CONFIG.DND5E.abilities[ability]?.improvement !== false;
+    return CONFIG.ME5E.abilities[ability]?.improvement !== false;
   }
 
   /* -------------------------------------------- */
@@ -122,7 +122,7 @@ export default class AbilityScoreImprovementAdvancement extends Advancement {
   /** @inheritDoc */
   titleForLevel(level, { configMode=false }={}) {
     if ( this.value.selected !== "feat" ) return this.title;
-    return game.i18n.localize("DND5E.Feature.Feat");
+    return game.i18n.localize("ME5E.Feature.Feat");
   }
 
   /* -------------------------------------------- */
@@ -131,17 +131,17 @@ export default class AbilityScoreImprovementAdvancement extends Advancement {
   summaryForLevel(level, { configMode=false }={}) {
     const formatter = new Intl.NumberFormat(game.i18n.lang, { signDisplay: "always" });
     if ( configMode && this.isEpicBoon ) {
-      return dnd5e.utils.linkForUuid(this.configuration.recommendation);
+      return me5e.utils.linkForUuid(this.configuration.recommendation);
     }
 
     else if ( configMode ) {
       const entries = Object.entries(this.configuration.fixed).map(([key, value]) => {
         if ( !value ) return null;
-        const name = CONFIG.DND5E.abilities[key]?.label ?? key;
+        const name = CONFIG.ME5E.abilities[key]?.label ?? key;
         return `<span class="tag">${name} <strong>${formatter.format(value)}</strong></span>`;
       });
       if ( this.configuration.points ) entries.push(`<span class="tag">${
-        game.i18n.localize("DND5E.ADVANCEMENT.AbilityScoreImprovement.FIELDS.points.label")}: <strong>${
+        game.i18n.localize("ME5E.ADVANCEMENT.AbilityScoreImprovement.FIELDS.points.label")}: <strong>${
         this.configuration.points}</strong></span>`
       );
       return entries.filterJoin("\n");
@@ -155,7 +155,7 @@ export default class AbilityScoreImprovementAdvancement extends Advancement {
 
     else if ( (this.value.type === "asi") && this.value.assignments ) {
       return Object.entries(this.value.assignments).reduce((html, [key, value]) => {
-        const name = CONFIG.DND5E.abilities[key]?.label ?? key;
+        const name = CONFIG.ME5E.abilities[key]?.label ?? key;
         html += `<span class="tag">${name} <strong>${formatter.format(value)}</strong></span>\n`;
         return html;
       }, "");
@@ -171,7 +171,7 @@ export default class AbilityScoreImprovementAdvancement extends Advancement {
   /** @inheritDoc */
   async apply(level, data) {
     if ( data.type === "asi" ) {
-      const assignments = Object.keys(CONFIG.DND5E.abilities).reduce((obj, key) => {
+      const assignments = Object.keys(CONFIG.ME5E.abilities).reduce((obj, key) => {
         obj[key] = (this.configuration.fixed[key] ?? 0) + (data.assignments[key] ?? 0);
         return obj;
       }, {});

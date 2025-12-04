@@ -7,6 +7,6 @@ export default class Actors5e extends foundry.documents.collections.Actors {
    * @type {Actor5e|null}
    */
   get party() {
-    return game.settings.get("dnd5e", "primaryParty")?.actor ?? null;
+    return game.settings.get("me5e", "primaryParty")?.actor ?? null;
   }
 }

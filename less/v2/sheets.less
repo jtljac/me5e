@@ -1,5 +1,5 @@
 /* Styles common to Document sheets */
-.dnd5e2.sheet:is(.item, .actor) {
+.me5e2.sheet:is(.item, .actor) {
 
   /* ---------------------------------- */
   /*  Outer Window                      */
@@ -23,13 +23,13 @@
         &::before {
           content: "\f0ad";
           font-family: var(--font-awesome);
-          color: var(--dnd5e-background-alt-1);
+          color: var(--me5e-background-alt-1);
           font-weight: bold;
           font-size: var(--font-size-9);
         }
       }
 
-      &[checked] .slide-toggle-thumb::before { color: var(--dnd5e-color-gold); }
+      &[checked] .slide-toggle-thumb::before { color: var(--me5e-color-gold); }
     }
   }
   &.minimized slide-toggle { display: none; }
@@ -57,8 +57,8 @@
       border-radius: 3px;
 
       &:hover, &:focus {
-        border: 1px solid var(--dnd5e-color-gold);
-        box-shadow: 0 0 6px var(--dnd5e-color-gold);
+        border: 1px solid var(--me5e-color-gold);
+        box-shadow: 0 0 6px var(--me5e-color-gold);
       }
     }
 
@@ -71,7 +71,7 @@
 
   .meter.progress::before {
     // Becomes more red the closer it is to 100% encumbrance.
-    --bar-color-2: color-mix(in oklab, var(--dnd5e-color-blue), var(--dnd5e-color-maroon) var(--bar-percentage));
+    --bar-color-2: color-mix(in oklab, var(--me5e-color-blue), var(--me5e-color-maroon) var(--bar-percentage));
     --bar-color-1: color-mix(in oklab, var(--bar-color-2), black 33%);
     --bar-color-3: color-mix(in oklab, var(--bar-color-2), black 20%);
     background: linear-gradient(to right, var(--bar-color-1), var(--bar-color-2));
@@ -90,7 +90,7 @@
       border-radius: 3px 3px 0 0;
       height: 25px;
       border: none;
-      border-bottom: var(--dnd5e-border-gold);
+      border-bottom: var(--me5e-border-gold);
 
       .label {
         display: flex;
@@ -113,11 +113,11 @@
         &.breakpoint-high { inset-inline-start: var(--breakpoint-high); }
         &.arrow-up {
           inset-block-end: 0;
-          border-block-end: 3px solid var(--dnd5e-color-gold);
+          border-block-end: 3px solid var(--me5e-color-gold);
         }
         &.arrow-down {
           inset-block-start: 0;
-          border-top: 3px solid var(--dnd5e-color-gold);
+          border-top: 3px solid var(--me5e-color-gold);
         }
         transform: translateX(-50%);
         z-index: 1;
@@ -166,7 +166,7 @@
 
   .badge {
     background: transparent no-repeat center / contain;
-    font-family: var(--dnd5e-font-roboto);
+    font-family: var(--me5e-font-roboto);
     font-weight: bold;
     color: var(--color-text-light-0);
     display: grid;

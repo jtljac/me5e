@@ -12,7 +12,7 @@ const { BooleanField, SchemaField, StringField } = foundry.data.fields;
 export class CalendarConfigSetting extends foundry.abstract.DataModel {
 
   /** @override */
-  static LOCALIZATION_PREFIXES = ["DND5E.CALENDAR"];
+  static LOCALIZATION_PREFIXES = ["ME5E.CALENDAR"];
 
   /* -------------------------------------------- */
 
@@ -34,7 +34,7 @@ export class CalendarConfigSetting extends foundry.abstract.DataModel {
 export class CalendarPreferencesSetting extends foundry.abstract.DataModel {
 
   /** @override */
-  static LOCALIZATION_PREFIXES = ["DND5E.CALENDAR"];
+  static LOCALIZATION_PREFIXES = ["ME5E.CALENDAR"];
 
   /* -------------------------------------------- */
 

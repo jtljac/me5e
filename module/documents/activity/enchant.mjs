@@ -14,7 +14,7 @@ export default class EnchantActivity extends ActivityMixin(BaseEnchantActivityDa
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  static LOCALIZATION_PREFIXES = [...super.LOCALIZATION_PREFIXES, "DND5E.ENCHANT"];
+  static LOCALIZATION_PREFIXES = [...super.LOCALIZATION_PREFIXES, "ME5E.ENCHANT"];
 
   /* -------------------------------------------- */
 
@@ -22,9 +22,9 @@ export default class EnchantActivity extends ActivityMixin(BaseEnchantActivityDa
   static metadata = Object.freeze(
     foundry.utils.mergeObject(super.metadata, {
       type: "enchant",
-      img: "systems/dnd5e/icons/svg/activity/enchant.svg",
-      title: "DND5E.ENCHANT.Title",
-      hint: "DND5E.ENCHANT.Hint",
+      img: "systems/me5e/icons/svg/activity/enchant.svg",
+      title: "ME5E.ENCHANT.Title",
+      hint: "ME5E.ENCHANT.Hint",
       sheetClass: EnchantSheet,
       usage: {
         dialog: EnchantUsageDialog
@@ -65,7 +65,7 @@ export default class EnchantActivity extends ActivityMixin(BaseEnchantActivityDa
   /** @inheritDoc */
   _prepareUsageConfig(config) {
     config = super._prepareUsageConfig(config);
-    const existingProfile = this.existingEnchantment?.flags.dnd5e?.enchantmentProfile;
+    const existingProfile = this.existingEnchantment?.flags.me5e?.enchantmentProfile;
     config.enchantmentProfile ??= this.item.effects.has(existingProfile) ? existingProfile
       : this.availableEnchantments[0]?._id;
     return config;
@@ -86,11 +86,11 @@ export default class EnchantActivity extends ActivityMixin(BaseEnchantActivityDa
 
     // Store selected enchantment profile in message flag
     if ( usageConfig.enchantmentProfile ) foundry.utils.setProperty(
-      messageConfig, "data.flags.dnd5e.use.enchantmentProfile", usageConfig.enchantmentProfile
+      messageConfig, "data.flags.me5e.use.enchantmentProfile", usageConfig.enchantmentProfile
     );
 
     // Don't display message if just auto-disabling existing enchantment
-    if ( this.existingEnchantment?.flags.dnd5e?.enchantmentProfile === usageConfig.enchantmentProfile ) {
+    if ( this.existingEnchantment?.flags.me5e?.enchantmentProfile === usageConfig.enchantmentProfile ) {
       messageConfig.create = false;
     }
   }
@@ -106,7 +106,7 @@ export default class EnchantActivity extends ActivityMixin(BaseEnchantActivityDa
     if ( existingEnchantment ) await existingEnchantment?.delete({ chatMessageOrigin: results.message?.id });
 
     // If no existing enchantment, or existing enchantment profile doesn't match provided one, create new enchantment
-    if ( !existingEnchantment || (existingEnchantment.flags.dnd5e?.enchantmentProfile !== config.enchantmentProfile) ) {
+    if ( !existingEnchantment || (existingEnchantment.flags.me5e?.enchantmentProfile !== config.enchantmentProfile) ) {
       const concentration = results.effects.find(e => e.statuses.has(CONFIG.specialStatusEffects.CONCENTRATING));
       this.applyEnchantment(config.enchantmentProfile, this.item, {
         chatMessage: results.message, concentration, strict: false
@@ -144,7 +144,7 @@ export default class EnchantActivity extends ActivityMixin(BaseEnchantActivityDa
     // If concentration is required, ensure it is still being maintained & GM is present
     if ( !game.user.isGM && concentration && !concentration.isOwner ) {
       if ( strict ) {
-        ui.notifications.error("DND5E.EffectApplyWarningConcentration", { console: false, localize: true });
+        ui.notifications.error("ME5E.EffectApplyWarningConcentration", { console: false, localize: true });
         return null;
       } else {
         concentration = null;
@@ -153,11 +153,11 @@ export default class EnchantActivity extends ActivityMixin(BaseEnchantActivityDa
 
     const flags = { enchantmentProfile: profile };
     if ( concentration ) flags.dependentOn = concentration.uuid;
-    const enchantmentData = effect.clone({ origin: this.uuid, "flags.dnd5e": flags }).toObject();
+    const enchantmentData = effect.clone({ origin: this.uuid, "flags.me5e": flags }).toObject();
 
     /**
      * Hook that fires before an enchantment is applied to an item.
-     * @function dnd5e.preApplyEnchantment
+     * @function me5e.preApplyEnchantment
      * @memberof hookEvents
      * @param {Item5e} item                Item to which the enchantment will be applied.
      * @param {object} enchantmentData     Data for the enchantment effect that will be created.
@@ -165,18 +165,18 @@ export default class EnchantActivity extends ActivityMixin(BaseEnchantActivityDa
      * @param {Activity} options.activity  Enchant activity applied the enchantment.
      * @returns {boolean}                  Explicitly return `false` to prevent enchantment from being applied.
      */
-    if ( Hooks.call("dnd5e.preApplyEnchantment", item, enchantmentData, { activity: this }) === false ) return null;
+    if ( Hooks.call("me5e.preApplyEnchantment", item, enchantmentData, { activity: this }) === false ) return null;
 
     // For compendium items, create on actor
     if ( item.inCompendium ) {
       const actor = this.actor.isOwner ? this.actor : (getSceneTargets()[0]?.actor ?? game.user.character);
       if ( !actor ) {
-        ui.notifications.warn("DND5E.ENCHANT.Warning.NoTargetActor", { localize: true });
+        ui.notifications.warn("ME5E.ENCHANT.Warning.NoTargetActor", { localize: true });
         return null;
       }
       enchantmentData._id = foundry.utils.randomID();
       const toCreate = await Item5e.createWithContents([item], {
-        transformAll: item => item.clone({ "flags.dnd5e.dependentOn": `.ActiveEffect.${enchantmentData._id}` })
+        transformAll: item => item.clone({ "flags.me5e.dependentOn": `.ActiveEffect.${enchantmentData._id}` })
       });
       [item] = await Item5e.createDocuments(toCreate, { keepId: true, parent: actor });
     }
@@ -187,14 +187,14 @@ export default class EnchantActivity extends ActivityMixin(BaseEnchantActivityDa
 
     /**
      * Hook that fires after an enchantment has been applied to an item.
-     * @function dnd5e.applyEnchantment
+     * @function me5e.applyEnchantment
      * @memberof hookEvents
      * @param {Item5e} item                 Item to which the enchantment was be applied.
      * @param {ActiveEffect5e} enchantment  The enchantment effect that was be created.
      * @param {object} options
      * @param {Activity} options.activity   Enchant activity applied the enchantment.
      */
-    Hooks.callAll("dnd5e.applyEnchantment", item, enchantment, { activity: this });
+    Hooks.callAll("me5e.applyEnchantment", item, enchantment, { activity: this });
 
     return enchantment;
   }
@@ -211,11 +211,11 @@ export default class EnchantActivity extends ActivityMixin(BaseEnchantActivityDa
 
     if ( !this.restrictions.allowMagical && item.system.properties?.has("mgc")
       && ("quantity" in item.system) ) {
-      errors.push(new EnchantmentError(game.i18n.localize("DND5E.ENCHANT.Warning.NoMagicalItems")));
+      errors.push(new EnchantmentError(game.i18n.localize("ME5E.ENCHANT.Warning.NoMagicalItems")));
     }
 
     if ( this.restrictions.type && (item.type !== this.restrictions.type) ) {
-      errors.push(new EnchantmentError(game.i18n.format("DND5E.ENCHANT.Warning.WrongType", {
+      errors.push(new EnchantmentError(game.i18n.format("ME5E.ENCHANT.Warning.WrongType", {
         incorrectType: game.i18n.localize(CONFIG.Item.typeLabels[item.type]),
         allowedType: game.i18n.localize(CONFIG.Item.typeLabels[this.restrictions.type])
       })));
@@ -229,7 +229,7 @@ export default class EnchantActivity extends ActivityMixin(BaseEnchantActivityDa
         return config.label;
       };
       errors.push(new EnchantmentError(game.i18n.format(
-        `DND5E.ENCHANT.Warning.${item.system.type?.value ? "WrongType" : "NoSubtype"}`,
+        `ME5E.ENCHANT.Warning.${item.system.type?.value ? "WrongType" : "NoSubtype"}`,
         {
           allowedType: game.i18n.getListFormatter({ type: "disjunction" }).format(
             Array.from(this.restrictions.categories).map(c => getLabel(c).toLowerCase())
@@ -241,16 +241,16 @@ export default class EnchantActivity extends ActivityMixin(BaseEnchantActivityDa
 
     if ( this.restrictions.properties.size
       && !this.restrictions.properties.intersection(item.system.properties ?? new Set()).size ) {
-      errors.push(new EnchantmentError(game.i18n.format("DND5E.Enchantment.Warning.MissingProperty", {
+      errors.push(new EnchantmentError(game.i18n.format("ME5E.Enchantment.Warning.MissingProperty", {
         validProperties: game.i18n.getListFormatter({ type: "disjunction" }).format(
-          Array.from(this.restrictions.properties).map(p => CONFIG.DND5E.itemProperties[p]?.label ?? p)
+          Array.from(this.restrictions.properties).map(p => CONFIG.ME5E.itemProperties[p]?.label ?? p)
         )
       })));
     }
 
     /**
      * A hook event that fires while validating whether an enchantment can be applied to a specific item.
-     * @function dnd5e.canEnchant
+     * @function me5e.canEnchant
      * @memberof hookEvents
      * @param {EnchantActivity} activity   The activity performing the enchanting.
      * @param {Item5e} item                Item to which the enchantment will be applied.
@@ -258,7 +258,7 @@ export default class EnchantActivity extends ActivityMixin(BaseEnchantActivityDa
      *                                     so long as no errors are listed, otherwise the provided errors will be
      *                                     displayed to the user.
      */
-    Hooks.callAll("dnd5e.canEnchant", this, item, errors);
+    Hooks.callAll("me5e.canEnchant", this, item, errors);
 
     return errors.length ? errors : true;
   }

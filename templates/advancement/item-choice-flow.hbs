@@ -10,7 +10,7 @@
         {{#if replaceable}}
         <div class="item-name">
             <label class="flexrow">
-                <h4>{{ localize "DND5E.ADVANCEMENT.ItemChoice.Replacement.None" }}</h4>
+                <h4>{{ localize "ME5E.ADVANCEMENT.ItemChoice.Replacement.None" }}</h4>
                 <input type="radio" name="replace" value="" {{ checked noReplacement }}>
             </label>
         </div>
@@ -18,7 +18,7 @@
 
         {{#if abilities.options}}
         <div class="form-group">
-            <label>{{ localize "DND5E.SpellAbility" }}</label>
+            <label>{{ localize "ME5E.SpellAbility" }}</label>
             <select name="ability" {{ disabled abilities.disabled }}>
                 {{ selectOptions abilities.options selected=abilities.selected }}
             </select>
@@ -28,9 +28,9 @@
         {{#each previousLevels}}
         <h4 class="form-header">
             {{#if (ne @key "0")}}
-            {{ localize "DND5E.AdvancementLevelHeader" level=@key }}
+            {{ localize "ME5E.AdvancementLevelHeader" level=@key }}
             {{else}}
-            {{ localize "DND5E.AdvancementLevelAnyHeader" }}
+            {{ localize "ME5E.AdvancementLevelAnyHeader" }}
             {{/if}}
         </h4>
         {{#each this}}
@@ -47,7 +47,7 @@
         {{/each}}
 
         <h4 class="form-header">
-            {{ localize "DND5E.ADVANCEMENT.ItemChoice.Chosen" current=choices.current max=choices.max }}
+            {{ localize "ME5E.ADVANCEMENT.ItemChoice.Chosen" current=choices.current max=choices.max }}
         </h4>
 
         {{#each items}}
@@ -59,12 +59,12 @@
                 </h4>
                 {{#if dropped}}
                 <button type="button" class="unbutton control-button item-control item-delete" data-action="delete"
-                        data-tooltip aria-label="{{ localize 'DND5E.ItemDelete' }}">
+                        data-tooltip aria-label="{{ localize 'ME5E.ItemDelete' }}">
                     <i class="fa-solid fa-trash" inert></i>
                 </button>
                 <input type="hidden" name="{{ uuid }}" value="true" data-dtype="Boolean">
                 {{else}}
-                <dnd5e-checkbox name="{{ uuid }}" {{ checked checked }} {{ disabled disabled }}></dnd5e-checkbox>
+                <me5e-checkbox name="{{ uuid }}" {{ checked checked }} {{ disabled disabled }}></me5e-checkbox>
                 {{/if}}
             </label>
         </div>

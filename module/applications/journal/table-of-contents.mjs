@@ -24,7 +24,7 @@ export default class TableOfContentsCompendium extends foundry.applications.side
   static PARTS = {
     article: {
       root: true,
-      template: "systems/dnd5e/templates/journal/table-of-contents.hbs"
+      template: "systems/me5e/templates/journal/table-of-contents.hbs"
     }
   };
 
@@ -85,7 +85,7 @@ export default class TableOfContentsCompendium extends foundry.applications.side
     context.chapters = [];
     const specialEntries = [];
     for ( const entry of documents ) {
-      const flags = entry.flags?.dnd5e;
+      const flags = entry.flags?.me5e;
       if ( !flags ) continue;
       const type = flags.type ?? "chapter";
 
@@ -104,7 +104,7 @@ export default class TableOfContentsCompendium extends foundry.applications.side
         name: flags.title ?? entry.name,
         pages: Array.from(entry.pages).map(({ flags, id, name, sort }) => ({
           id, sort, flags,
-          name: flags.dnd5e?.title ?? name,
+          name: flags.me5e?.title ?? name,
           entryId: entry.id
         }))
       };

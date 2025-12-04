@@ -15,8 +15,8 @@ export default class RuleJournalPageData extends foundry.abstract.TypeDataModel 
   /** @inheritDoc */
   static defineSchema() {
     return {
-      tooltip: new HTMLField({textSearch: true, label: "DND5E.Rule.Tooltip"}),
-      type: new StringField({blank: false, initial: "rule", label: "DND5E.Rule.Type.Label"})
+      tooltip: new HTMLField({textSearch: true, label: "ME5E.Rule.Tooltip"}),
+      type: new StringField({blank: false, initial: "rule", label: "ME5E.Rule.Type.Label"})
     };
   }
 
@@ -30,16 +30,16 @@ export default class RuleJournalPageData extends foundry.abstract.TypeDataModel 
   async richTooltip(enrichmentOptions={}) {
     const context = {
       page: this.parent,
-      type: CONFIG.DND5E.ruleTypes[this.type].label,
+      type: CONFIG.ME5E.ruleTypes[this.type].label,
       content: await TextEditor.enrichHTML(this.tooltip || this.parent.text.content, {
         secrets: false, relativeTo: this.parent, ...enrichmentOptions
       })
     };
     return {
       content: await foundry.applications.handlebars.renderTemplate(
-        "systems/dnd5e/templates/journal/page-rule-tooltip.hbs", context
+        "systems/me5e/templates/journal/page-rule-tooltip.hbs", context
       ),
-      classes: ["dnd5e-tooltip", "rule-tooltip", "dnd5e2", "themed", "theme-light"]
+      classes: ["me5e-tooltip", "rule-tooltip", "me5e2", "themed", "theme-light"]
     };
   }
 

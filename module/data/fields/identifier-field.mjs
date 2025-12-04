@@ -13,8 +13,8 @@ export default class IdentifierField extends foundry.data.fields.StringField {
 
   /** @override */
   _validateType(value) {
-    if ( !dnd5e.utils.validators.isValidIdentifier(value, { allowType: this.allowType }) ) {
-      throw new Error(game.i18n.localize("DND5E.IdentifierError"));
+    if ( !me5e.utils.validators.isValidIdentifier(value, { allowType: this.allowType }) ) {
+      throw new Error(game.i18n.localize("ME5E.IdentifierError"));
     }
   }
 }

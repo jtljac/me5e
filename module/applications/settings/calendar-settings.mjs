@@ -11,7 +11,7 @@ export default class CalendarSettingsConfig extends BaseSettingsConfig {
   /** @override */
   static DEFAULT_OPTIONS = {
     window: {
-      title: "DND5E.CALENDAR.Configuration.Label"
+      title: "ME5E.CALENDAR.Configuration.Label"
     }
   };
 
@@ -20,10 +20,10 @@ export default class CalendarSettingsConfig extends BaseSettingsConfig {
   /** @override */
   static PARTS = {
     config: {
-      template: "systems/dnd5e/templates/settings/base-config.hbs"
+      template: "systems/me5e/templates/settings/base-config.hbs"
     },
     preferences: {
-      template: "systems/dnd5e/templates/settings/base-config.hbs"
+      template: "systems/me5e/templates/settings/base-config.hbs"
     },
     footer: {
       template: "templates/generic/form-footer.hbs"
@@ -63,7 +63,7 @@ export default class CalendarSettingsConfig extends BaseSettingsConfig {
    * @protected
    */
   async _prepareConfigContext(context, options) {
-    const data = game.settings.get("dnd5e", "calendarConfig");
+    const data = game.settings.get("me5e", "calendarConfig");
     context.fields = Object.entries(CalendarConfigSetting.schema.fields)
       .filter(([name]) => name !== "buttons")
       .map(([name, field]) => ({
@@ -74,13 +74,13 @@ export default class CalendarSettingsConfig extends BaseSettingsConfig {
       }));
     context.fields.splice(1, 0, this.createSettingField("calendar"));
 
-    if ( !CONFIG.DND5E.calendar.application ) {
+    if ( !CONFIG.ME5E.calendar.application ) {
       const enabledField = context.fields.find(f => f.name === "calendarConfig.enabled");
       enabledField.disabled = true;
       enabledField.value = false;
       context.message = {
         level: "warn",
-        text: game.i18n.localize("DND5E.CALENDAR.Configuration.UnavailableMessage")
+        text: game.i18n.localize("ME5E.CALENDAR.Configuration.UnavailableMessage")
       };
     }
 
@@ -97,7 +97,7 @@ export default class CalendarSettingsConfig extends BaseSettingsConfig {
    * @protected
    */
   async _preparePreferencesContext(context, options) {
-    const data = game.settings.get("dnd5e", "calendarPreferences");
+    const data = game.settings.get("me5e", "calendarPreferences");
     const fields = CalendarPreferencesSetting.schema.fields;
     context.fields = [
       {
@@ -109,28 +109,28 @@ export default class CalendarSettingsConfig extends BaseSettingsConfig {
       {
         field: fields.formatters.fields.date,
         name: "calendarPreferences.formatters.date",
-        options: CONFIG.DND5E.calendar.formatters,
+        options: CONFIG.ME5E.calendar.formatters,
         value: data.formatters.date
       },
       {
         field: fields.formatters.fields.time,
         name: "calendarPreferences.formatters.time",
-        options: CONFIG.DND5E.calendar.formatters,
+        options: CONFIG.ME5E.calendar.formatters,
         value: data.formatters.time
       }
     ];
-    context.legend = game.i18n.localize("DND5E.CALENDAR.Configuration.Preferences");
-    if ( !CONFIG.DND5E.calendar.application ) {
+    context.legend = game.i18n.localize("ME5E.CALENDAR.Configuration.Preferences");
+    if ( !CONFIG.ME5E.calendar.application ) {
       context.disabled = true;
       if ( !game.user.isGM ) context.message = {
         level: "warn",
-        text: game.i18n.localize("DND5E.CALENDAR.Configuration.UnavailableMessage")
+        text: game.i18n.localize("ME5E.CALENDAR.Configuration.UnavailableMessage")
       };
-    } else if ( !game.settings.get("dnd5e", "calendarConfig")?.enabled ) {
+    } else if ( !game.settings.get("me5e", "calendarConfig")?.enabled ) {
       context.disabled = !game.user.isGM;
       context.message = {
         level: "warn",
-        text: game.i18n.localize("DND5E.CALENDAR.Configuration.DisabledMessage")
+        text: game.i18n.localize("ME5E.CALENDAR.Configuration.DisabledMessage")
       };
     }
     return context;

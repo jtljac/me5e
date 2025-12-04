@@ -22,19 +22,19 @@
         {{ formField fields.units value=data.units options=unitsOptions localize=true blank=unitsOptions.blank
                      rootId=partId }}
         {{/if}}
-        {{> "dnd5e.fieldlist" extras }}
+        {{> "me5e.fieldlist" extras }}
     </fieldset>
     {{/if}}
 
     {{#with travel}}
     <fieldset class="card">
-        <legend>{{ localize "DND5E.TRAVEL.Speed" }}</legend>
+        <legend>{{ localize "ME5E.TRAVEL.Speed" }}</legend>
         <div class="header">
             <div class="form-group split-group">
                 <span></span>
                 <div class="form-fields">
-                    <span>{{ localize "DND5E.TRAVEL.Per.Hour" }}</span>
-                    <span>{{ localize "DND5E.TRAVEL.Per.Day" }}</span>
+                    <span>{{ localize "ME5E.TRAVEL.Per.Hour" }}</span>
+                    <span>{{ localize "ME5E.TRAVEL.Per.Day" }}</span>
                 </div>
             </div>
         </div>
@@ -51,16 +51,16 @@
         {{#if fields.units}}
         {{ formField fields.units value=data.units options=unitsOptions localize=true blank=false rootId=@root.partId }}
         {{/if}}
-        {{> "dnd5e.fieldlist" extras }}
+        {{> "me5e.fieldlist" extras }}
     </fieldset>
     {{/with}}
 
     {{#if fields.special}}
     <fieldset class="card">
-        <legend>{{ localize "DND5E.Special" }}</legend>
+        <legend>{{ localize "ME5E.Special" }}</legend>
         <div class="form-group">
             {{ formInput fields.special value=data.special }}
-            <p class="hint">{{ localize "DND5E.SpecialHint" }}</p>
+            <p class="hint">{{ localize "ME5E.SpecialHint" }}</p>
         </div>
     </fieldset>
     {{/if}}

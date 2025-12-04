@@ -50,7 +50,7 @@ export default function PseudoDocumentMixin(Base) {
      * @type {object}
      */
     static get documentConfig() {
-      return CONFIG.DND5E[`${this.documentName.toLowerCase()}Types`];
+      return CONFIG.ME5E[`${this.documentName.toLowerCase()}Types`];
     }
 
     get documentConfig() {

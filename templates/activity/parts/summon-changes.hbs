@@ -1,8 +1,8 @@
 <section class="tab activity-{{ tab.id }} {{ tab.cssClass }}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
     <fieldset>
-        <legend>{{ localize "DND5E.SUMMON.CreatureChanges.Label" }}</legend>
+        <legend>{{ localize "ME5E.SUMMON.CreatureChanges.Label" }}</legend>
         <div class="form-group">
-            <p class="hint">{{ localize "DND5E.SUMMON.CreatureChanges.Hint" }}</p>
+            <p class="hint">{{ localize "ME5E.SUMMON.CreatureChanges.Hint" }}</p>
         </div>
         {{ formField fields.match.fields.disposition value=source.match.disposition input=inputs.createCheckboxInput
                      rootId=partId }}
@@ -15,9 +15,9 @@
         {{ formField fields.creatureTypes value=source.creatureTypes options=creatureTypeOptions rootId=partId }}
     </fieldset>
     <fieldset>
-        <legend>{{ localize "DND5E.SUMMON.ItemChanges.Label" }}</legend>
+        <legend>{{ localize "ME5E.SUMMON.ItemChanges.Label" }}</legend>
         <div class="form-group">
-            <p class="hint">{{ localize "DND5E.SUMMON.ItemChanges.Hint" }}</p>
+            <p class="hint">{{ localize "ME5E.SUMMON.ItemChanges.Hint" }}</p>
         </div>
         {{ formField fields.match.fields.ability value=source.match.ability options=abilityOptions rootId=partId }}
         {{ formField fields.match.fields.attacks value=source.match.attacks input=inputs.createCheckboxInput
@@ -28,5 +28,5 @@
         {{ formField fields.bonuses.fields.saveDamage value=source.bonuses.saveDamage rootId=partId }}
         {{ formField fields.bonuses.fields.healing value=source.bonuses.healing rootId=partId }}
     </fieldset>
-    {{> "systems/dnd5e/templates/activity/parts/activity-effects.hbs" }}
+    {{> "systems/me5e/templates/activity/parts/activity-effects.hbs" }}
 </section>

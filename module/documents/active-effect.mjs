@@ -20,9 +20,9 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
    * @type {Record<string, string>}
    */
   static ID = {
-    BLOODIED: staticID("dnd5ebloodied"),
-    ENCUMBERED: staticID("dnd5eencumbered"),
-    EXHAUSTION: staticID("dnd5eexhaustion")
+    BLOODIED: staticID("me5ebloodied"),
+    ENCUMBERED: staticID("me5eencumbered"),
+    EXHAUSTION: staticID("me5eexhaustion")
   };
 
   /* -------------------------------------------- */
@@ -59,7 +59,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   /* -------------------------------------------- */
 
   /** @inheritdoc */
-  static LOCALIZATION_PREFIXES = [...super.LOCALIZATION_PREFIXES, "DND5E.ACTIVEEFFECT"];
+  static LOCALIZATION_PREFIXES = [...super.LOCALIZATION_PREFIXES, "ME5E.ACTIVEEFFECT"];
 
   /* -------------------------------------------- */
   /*  Properties                                  */
@@ -71,7 +71,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
    */
   get dependentOrigin() {
     if ( !(this.parent instanceof Item) ) return null;
-    return this.parent.effects.get(this.flags.dnd5e?.dependentOn) ?? null;
+    return this.parent.effects.get(this.flags.me5e?.dependentOn) ?? null;
   }
 
   /* -------------------------------------------- */
@@ -94,7 +94,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
     if ( this.target?.testUserPermission(game.user, "OBSERVER") ) return false;
 
     // Hide bloodied status effect from players unless the token is friendly
-    if ( (this.id === this.constructor.ID.BLOODIED) && (game.settings.get("dnd5e", "bloodied") === "player") ) {
+    if ( (this.id === this.constructor.ID.BLOODIED) && (game.settings.get("me5e", "bloodied") === "player") ) {
       return this.target?.token?.disposition !== foundry.CONST.TOKEN_DISPOSITIONS.FRIENDLY;
     }
 
@@ -107,7 +107,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   get isSuppressed() {
     if ( super.isSuppressed ) return true;
     if ( this.type === "enchantment" ) return false;
-    if ( this.parent instanceof dnd5e.documents.Item5e ) {
+    if ( this.parent instanceof me5e.documents.Item5e ) {
       if ( this.parent.areEffectsSuppressed ) return true;
       if ( this.dependentOrigin?.active === false ) return true;
     }
@@ -128,7 +128,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
    * @returns {Promise<Actor5e|Item5e|null>}
    */
   async getSource() {
-    if ( (this.target instanceof dnd5e.documents.Actor5e) && (this.parent instanceof dnd5e.documents.Item5e) ) {
+    if ( (this.target instanceof me5e.documents.Actor5e) && (this.parent instanceof me5e.documents.Item5e) ) {
       return this.parent;
     }
     return fromUuid(this.origin);
@@ -150,10 +150,10 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   _initializeSource(data, options={}) {
     if ( data instanceof foundry.abstract.DataModel ) data = data.toObject();
 
-    if ( data.flags?.dnd5e?.type === "enchantment" ) {
+    if ( data.flags?.me5e?.type === "enchantment" ) {
       data.type = "enchantment";
-      delete data.flags.dnd5e.type;
-      foundry.utils.setProperty(data, "flags.dnd5e.persistSourceMigration", true);
+      delete data.flags.me5e.type;
+      foundry.utils.setProperty(data, "flags.me5e.persistSourceMigration", true);
     }
 
     return super._initializeSource(data, options);
@@ -165,7 +165,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   static migrateData(data) {
     data = super.migrateData(data);
     for ( const change of data.changes ?? [] ) {
-      if ( change.key === "flags.dnd5e.initiativeAdv" ) {
+      if ( change.key === "flags.me5e.initiativeAdv" ) {
         change.key = "system.attributes.init.roll.mode";
         change.mode = CONST.ACTIVE_EFFECT_MODES.ADD;
         change.value = 1;
@@ -184,7 +184,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
     change = this._applyChangeShim(change);
 
     // Ensure changes targeting flags use the proper types
-    if ( change.key.startsWith("flags.dnd5e.") ) change = this._prepareFlagChange(doc, change);
+    if ( change.key.startsWith("flags.me5e.") ) change = this._prepareFlagChange(doc, change);
 
     // Properly handle formulas that don't exist as part of the data model
     if ( ActiveEffect5e.FORMULA_FIELDS.has(change.key) ) {
@@ -337,7 +337,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
    */
   _prepareFlagChange(actor, change) {
     const { key, value } = change;
-    const data = CONFIG.DND5E.characterFlags[key.replace("flags.dnd5e.", "")];
+    const data = CONFIG.ME5E.characterFlags[key.replace("flags.me5e.", "")];
     if ( !data ) return change;
 
     // Set flag to initial value if it isn't present
@@ -367,7 +367,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   determineSuppression() {
     foundry.utils.logCompatibilityWarning(
       "The `ActiveEffect5e#determineSuppression` method has been deprecated and is no longer necessary to call.",
-      { since: "DnD5e 5.1", until: "DnD5e 5.3" }
+      { since: "ME5e 5.1", until: "ME5e 5.3" }
     );
   }
   /* -------------------------------------------- */
@@ -378,7 +378,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   prepareDerivedData() {
     super.prepareDerivedData();
     if ( this.id === this.constructor.ID.EXHAUSTION ) this._prepareExhaustionLevel();
-    if ( this.isAppliedEnchantment && this.uuid ) dnd5e.registry.enchantments.track(this.origin, this.uuid);
+    if ( this.isAppliedEnchantment && this.uuid ) me5e.registry.enchantments.track(this.origin, this.uuid);
   }
 
   /* -------------------------------------------- */
@@ -388,14 +388,14 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
    * @protected
    */
   _prepareExhaustionLevel() {
-    const config = CONFIG.DND5E.conditionTypes.exhaustion;
-    let level = this.getFlag("dnd5e", "exhaustionLevel");
+    const config = CONFIG.ME5E.conditionTypes.exhaustion;
+    let level = this.getFlag("me5e", "exhaustionLevel");
     if ( !Number.isFinite(level) ) level = 1;
     this.img = this.constructor._getExhaustionImage(level);
-    this.name = `${game.i18n.localize("DND5E.Exhaustion")} ${level}`;
+    this.name = `${game.i18n.localize("ME5E.Exhaustion")} ${level}`;
     if ( level >= config.levels ) {
       this.statuses.add("dead");
-      CONFIG.DND5E.statusEffects.dead.statuses?.forEach(s => this.statuses.add(s));
+      CONFIG.ME5E.statusEffects.dead.statuses?.forEach(s => this.statuses.add(s));
     }
   }
 
@@ -424,7 +424,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   async createRiderConditions() {
     const riders = new Set();
 
-    for ( const status of this.getFlag("dnd5e", "riders.statuses") ?? [] ) {
+    for ( const status of this.getFlag("me5e", "riders.statuses") ?? [] ) {
       riders.add(status);
     }
 
@@ -436,7 +436,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
     if ( !riders.size ) return [];
 
     const createRider = async id => {
-      const existing = this.parent.effects.get(staticID(`dnd5e${id}`));
+      const existing = this.parent.effects.get(staticID(`me5e${id}`));
       if ( existing ) return;
       const effect = await ActiveEffect5e.fromStatusEffect(id);
       return effect.toObject();
@@ -456,17 +456,17 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
     let item;
     let profile;
     const { chatMessageOrigin } = options;
-    const { enchantmentProfile, activityId } = options.dnd5e ?? {};
+    const { enchantmentProfile, activityId } = options.me5e ?? {};
 
     if ( chatMessageOrigin ) {
       const message = game.messages.get(options?.chatMessageOrigin);
       item = message?.getAssociatedItem();
       const activity = message?.getAssociatedActivity();
-      profile = activity?.effects.find(e => e._id === message?.getFlag("dnd5e", "use.enchantmentProfile"));
+      profile = activity?.effects.find(e => e._id === message?.getFlag("me5e", "use.enchantmentProfile"));
     } else if ( enchantmentProfile && activityId ) {
       let activity;
       const origin = await fromUuid(this.origin);
-      if ( origin instanceof dnd5e.documents.activity.EnchantActivity ) {
+      if ( origin instanceof me5e.documents.activity.EnchantActivity ) {
         activity = origin;
         item = activity.item;
       } else if ( origin instanceof Item ) {
@@ -485,7 +485,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
       const activityData = item.system.activities.get(id)?.toObject();
       if ( !activityData ) continue;
       activityData._id = foundry.utils.randomID();
-      foundry.utils.setProperty(activityData, "flags.dnd5e.dependentOn", this.id);
+      foundry.utils.setProperty(activityData, "flags.me5e.dependentOn", this.id);
       riderActivities[activityData._id] = activityData;
     }
     let createdActivities = [];
@@ -502,13 +502,13 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
       const effectData = item.effects.get(id)?.toObject();
       if ( effectData ) {
         delete effectData._id;
-        delete effectData.flags?.dnd5e?.rider;
+        delete effectData.flags?.me5e?.rider;
         effectData.origin = this.origin;
       }
       return effectData;
     }));
     riderEffects = riderEffects.filter(_ => _);
-    riderEffects.forEach(e => foundry.utils.setProperty(e, "flags.dnd5e.dependentOn", this.id));
+    riderEffects.forEach(e => foundry.utils.setProperty(e, "flags.me5e.dependentOn", this.id));
     await this.parent.createEmbeddedDocuments("ActiveEffect", riderEffects, { keepId: true });
 
     // Create Items
@@ -517,8 +517,8 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
         (await Promise.all(profile.riders.item.map(uuid => fromUuid(uuid)))).filter(_ => _), {
           transformAll: item => {
             const itemData = item.clone({}, { keepId: true }).toObject();
-            foundry.utils.setProperty(itemData, "flags.dnd5e.dependentOn", this.uuid);
-            foundry.utils.setProperty(itemData, "flags.dnd5e.enchantment.origin", this.uuid);
+            foundry.utils.setProperty(itemData, "flags.me5e.dependentOn", this.uuid);
+            foundry.utils.setProperty(itemData, "flags.me5e.enchantment.origin", this.uuid);
             return itemData;
           }
         }
@@ -550,7 +550,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
 
     // Enchantments cannot be added directly to actors
     if ( (this.type === "enchantment") && (this.parent instanceof Actor) ) {
-      ui.notifications.error("DND5E.ENCHANTMENT.Warning.NotOnActor", { localize: true });
+      ui.notifications.error("ME5E.ENCHANTMENT.Warning.NotOnActor", { localize: true });
       return false;
     }
 
@@ -585,9 +585,9 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   /** @inheritDoc */
   _onUpdate(data, options, userId) {
     super._onUpdate(data, options, userId);
-    const originalLevel = foundry.utils.getProperty(options, "dnd5e.originalExhaustion");
-    const newLevel = foundry.utils.getProperty(data, "flags.dnd5e.exhaustionLevel");
-    const originalEncumbrance = foundry.utils.getProperty(options, "dnd5e.originalEncumbrance");
+    const originalLevel = foundry.utils.getProperty(options, "me5e.originalExhaustion");
+    const newLevel = foundry.utils.getProperty(data, "flags.me5e.exhaustionLevel");
+    const originalEncumbrance = foundry.utils.getProperty(options, "me5e.originalEncumbrance");
     const newEncumbrance = data.statuses?.[0];
     const name = this.name;
 
@@ -606,7 +606,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
       if ( newEncumbrance === originalEncumbrance ) return;
       const increase = !originalEncumbrance || ((originalEncumbrance === "encumbered") && newEncumbrance)
         || (newEncumbrance === "exceedingCarryingCapacity");
-      if ( !increase ) this.name = CONFIG.DND5E.encumbrance.effects[originalEncumbrance].name;
+      if ( !increase ) this.name = CONFIG.ME5E.encumbrance.effects[originalEncumbrance].name;
       this._displayScrollingStatus(increase);
       this.name = name;
     }
@@ -618,7 +618,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   async _preDelete(options, user) {
     const dependents = this.getDependents();
     if ( dependents.length && !game.users.activeGM ) {
-      ui.notifications.warn("DND5E.ConcentrationBreakWarning", { localize: true });
+      ui.notifications.warn("ME5E.ConcentrationBreakWarning", { localize: true });
       return false;
     }
     return super._preDelete(options, user);
@@ -630,7 +630,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   _onDelete(options, userId) {
     super._onDelete(options, userId);
     if ( game.user === game.users.activeGM ) this.getDependents().forEach(e => e.delete());
-    if ( this.isAppliedEnchantment ) dnd5e.registry.enchantments.untrack(this.origin, this.uuid);
+    if ( this.isAppliedEnchantment ) me5e.registry.enchantments.untrack(this.origin, this.uuid);
     document.body.querySelectorAll(`enchantment-application:has([data-enchantment-uuid="${this.uuid}"]`)
       .forEach(element => element.buildItemList());
   }
@@ -662,13 +662,13 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
     const statusEffect = CONFIG.statusEffects.find(e => e.id === CONFIG.specialStatusEffects.CONCENTRATING);
     const effectData = foundry.utils.mergeObject({
       ...statusEffect,
-      name: `${game.i18n.localize("EFFECT.DND5E.StatusConcentrating")}: ${item.name}`,
-      description: `<p>${game.i18n.format("DND5E.ConcentratingOn", {
+      name: `${game.i18n.localize("EFFECT.ME5E.StatusConcentrating")}: ${item.name}`,
+      description: `<p>${game.i18n.format("ME5E.ConcentratingOn", {
         name: item.name,
         type: game.i18n.localize(`TYPES.Item.${item.type}`)
       })}</p><hr><p>@Embed[${item.uuid} inline]</p>`,
       duration: activity.duration.getEffectData(),
-      "flags.dnd5e": {
+      "flags.me5e": {
         activity: {
           type: activity.type, id: activity.id, uuid: activity.uuid
         },
@@ -681,7 +681,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
       statuses: [statusEffect.id].concat(statusEffect.statuses ?? [])
     }, data, {inplace: false});
     delete effectData.id;
-    if ( item.type === "spell" ) effectData["flags.dnd5e.spellLevel"] = item.system.level;
+    if ( item.type === "spell" ) effectData["flags.me5e.spellLevel"] = item.system.level;
 
     return effectData;
   }
@@ -707,11 +707,11 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
    */
   static onRenderActiveEffectConfig(app, html, context) {
     const element = new foundry.data.fields.SetField(new foundry.data.fields.StringField(), {}).toFormGroup({
-      label: game.i18n.localize("DND5E.CONDITIONS.RiderConditions.label"),
-      hint: game.i18n.localize("DND5E.CONDITIONS.RiderConditions.hint")
+      label: game.i18n.localize("ME5E.CONDITIONS.RiderConditions.label"),
+      hint: game.i18n.localize("ME5E.CONDITIONS.RiderConditions.hint")
     }, {
-      name: "flags.dnd5e.riders.statuses",
-      value: app.document.getFlag("dnd5e", "riders.statuses") ?? [],
+      name: "flags.me5e.riders.statuses",
+      value: app.document.getFlag("me5e", "riders.statuses") ?? [],
       options: CONFIG.statusEffects.map(se => ({ value: se.id, label: se.name })),
       disabled: !context.editable
     });
@@ -720,10 +720,10 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
     // Add tooltip with link to wiki for effects/enchantments
     const helpIconElement = document.createElement("i");
     helpIconElement.classList.add("fa-solid", "fa-circle-question");
-    const tooltipText = game.i18n.format("DND5E.ACTIVEEFFECT.AttributeKeyTooltip", {
+    const tooltipText = game.i18n.format("ME5E.ACTIVEEFFECT.AttributeKeyTooltip", {
       url: app.document.type === "enchantment"
-        ? "https://github.com/foundryvtt/dnd5e/wiki/Enchantment"
-        : "https://github.com/foundryvtt/dnd5e/wiki/Active-Effect-Guide"
+        ? "https://github.com/foundryvtt/me5e/wiki/Enchantment"
+        : "https://github.com/foundryvtt/me5e/wiki/Active-Effect-Guide"
     });
     Object.assign(helpIconElement.dataset, { tooltip: tooltipText, tooltipDirection: "RIGHT", locked: "" });
     const targetElement = html.querySelector("section:is([data-tab='effects'], [data-tab='changes']) .key");
@@ -758,7 +758,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
    * @returns {string}
    */
   static _getExhaustionImage(level) {
-    const { img } = CONFIG.DND5E.conditionTypes.exhaustion;
+    const { img } = CONFIG.ME5E.conditionTypes.exhaustion;
     const split = img.split(".");
     const ext = split.pop();
     const path = split.join(".");
@@ -797,7 +797,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
     event.stopPropagation();
     if ( event.button === 0 ) level++;
     else level--;
-    const max = CONFIG.DND5E.conditionTypes.exhaustion.levels;
+    const max = CONFIG.ME5E.conditionTypes.exhaustion.levels;
     actor.update({ "system.attributes.exhaustion": Math.clamp(level, 0, max) });
   }
 
@@ -818,24 +818,24 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
       return;
     }
     const choices = effects.reduce((acc, effect) => {
-      const data = effect.getFlag("dnd5e", "item");
-      acc[effect.id] = data?.name ?? actor.items.get(data?.id)?.name ?? game.i18n.localize("DND5E.ConcentratingItemless");
+      const data = effect.getFlag("me5e", "item");
+      acc[effect.id] = data?.name ?? actor.items.get(data?.id)?.name ?? game.i18n.localize("ME5E.ConcentratingItemless");
       return acc;
     }, {});
     const options = HandlebarsHelpers.selectOptions(choices, { hash: { sort: true } });
     const content = `
-    <p>${game.i18n.localize("DND5E.ConcentratingEndChoice")}</p>
+    <p>${game.i18n.localize("ME5E.ConcentratingEndChoice")}</p>
     <div class="form-group">
-      <label>${game.i18n.localize("DND5E.SOURCE.FIELDS.source.label")}</label>
+      <label>${game.i18n.localize("ME5E.SOURCE.FIELDS.source.label")}</label>
       <div class="form-fields">
         <select name="source">${options}</select>
       </div>
     </div>`;
     foundry.applications.api.Dialog.prompt({
       content,
-      window: { title: game.i18n.localize("DND5E.Concentration") },
+      window: { title: game.i18n.localize("ME5E.Concentration") },
       ok: {
-        label: game.i18n.localize("DND5E.Confirm"),
+        label: game.i18n.localize("ME5E.Confirm"),
         callback: (event, button, dialog) => {
           const source = new foundry.applications.ux.FormDataExtended(button.form).object.source;
           if ( source ) actor.endConcentration(source);
@@ -854,9 +854,9 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   addDependent(...dependent) {
     foundry.utils.logCompatibilityWarning(
       "Dependent documents are now tracked using the `dependentOn` flag on the document itself.",
-      { since: "DnD5e 5.2", until: "DnD5e 5.4", once: true }
+      { since: "ME5e 5.2", until: "ME5e 5.4", once: true }
     );
-    return Promise.all(dependent.map(d => d.setFlag("dnd5e", "dependentOn", this.uuid))).then(() => this);
+    return Promise.all(dependent.map(d => d.setFlag("me5e", "dependentOn", this.uuid))).then(() => this);
   }
 
   /* -------------------------------------------- */
@@ -868,7 +868,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
   getDependents() {
     const actor = this.parent instanceof Actor ? this.parent : this.parent?.parent;
     const item = this.parent instanceof Item ? this.parent : null;
-    return (this.getFlag("dnd5e", "dependents") || []).reduce((arr, { uuid }) => {
+    return (this.getFlag("me5e", "dependents") || []).reduce((arr, { uuid }) => {
       let doc;
       // TODO: Remove this special casing once https://github.com/foundryvtt/foundryvtt/issues/11214 is resolved
       if ( this.parent.pack && uuid.includes(this.parent.uuid) ) {
@@ -883,7 +883,7 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
           || ((actor && (actor === otherActor)) || (item && (item === otherItem)))) arr.push(doc);
       }
       return arr;
-    }, []).concat(dnd5e.registry.dependents.get(this));
+    }, []).concat(me5e.registry.dependents.get(this));
   }
 
   /* -------------------------------------------- */
@@ -915,22 +915,22 @@ export default class ActiveEffect5e extends DependentDocumentMixin(ActiveEffect)
    */
   async richTooltip(enrichmentOptions={}) {
     const properties = [];
-    if ( this.isSuppressed ) properties.push("DND5E.EffectType.Unavailable");
-    else if ( this.disabled ) properties.push("DND5E.EffectType.Inactive");
-    else if ( this.isTemporary ) properties.push("DND5E.EffectType.Temporary");
-    else properties.push("DND5E.EffectType.Passive");
-    if ( this.type === "enchantment" ) properties.push("DND5E.ENCHANTMENT.Label");
+    if ( this.isSuppressed ) properties.push("ME5E.EffectType.Unavailable");
+    else if ( this.disabled ) properties.push("ME5E.EffectType.Inactive");
+    else if ( this.isTemporary ) properties.push("ME5E.EffectType.Temporary");
+    else properties.push("ME5E.EffectType.Passive");
+    if ( this.type === "enchantment" ) properties.push("ME5E.ENCHANTMENT.Label");
 
     return {
       content: await foundry.applications.handlebars.renderTemplate(
-        "systems/dnd5e/templates/effects/parts/effect-tooltip.hbs", {
+        "systems/me5e/templates/effects/parts/effect-tooltip.hbs", {
           effect: this,
           description: await TextEditor.enrichHTML(this.description ?? "", { relativeTo: this, ...enrichmentOptions }),
           durationParts: this.duration.remaining ? this.duration.label.split(", ") : [],
           properties: properties.map(p => game.i18n.localize(p))
         }
       ),
-      classes: ["dnd5e2", "dnd5e-tooltip", "effect-tooltip", "themed", "theme-light"]
+      classes: ["me5e2", "me5e-tooltip", "effect-tooltip", "themed", "theme-light"]
     };
   }
 

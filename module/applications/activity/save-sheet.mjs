@@ -16,14 +16,14 @@ export default class SaveSheet extends ActivitySheet {
   static PARTS = {
     ...super.PARTS,
     effect: {
-      template: "systems/dnd5e/templates/activity/save-effect.hbs",
+      template: "systems/me5e/templates/activity/save-effect.hbs",
       templates: [
         ...super.PARTS.effect.templates,
-        "systems/dnd5e/templates/activity/parts/damage-part.hbs",
-        "systems/dnd5e/templates/activity/parts/damage-parts.hbs",
-        "systems/dnd5e/templates/activity/parts/save-damage.hbs",
-        "systems/dnd5e/templates/activity/parts/save-details.hbs",
-        "systems/dnd5e/templates/activity/parts/save-effect-settings.hbs"
+        "systems/me5e/templates/activity/parts/damage-part.hbs",
+        "systems/me5e/templates/activity/parts/damage-parts.hbs",
+        "systems/me5e/templates/activity/parts/save-damage.hbs",
+        "systems/me5e/templates/activity/parts/save-details.hbs",
+        "systems/me5e/templates/activity/parts/save-effect-settings.hbs"
       ]
     }
   };
@@ -34,7 +34,7 @@ export default class SaveSheet extends ActivitySheet {
 
   /** @override */
   _prepareAppliedEffectContext(context, effect) {
-    effect.additionalSettings = "systems/dnd5e/templates/activity/parts/save-effect-settings.hbs";
+    effect.additionalSettings = "systems/me5e/templates/activity/parts/save-effect-settings.hbs";
     return effect;
   }
 
@@ -44,21 +44,21 @@ export default class SaveSheet extends ActivitySheet {
   async _prepareEffectContext(context, options) {
     context = await super._prepareEffectContext(context, options);
 
-    context.abilityOptions = Object.entries(CONFIG.DND5E.abilities).map(([value, config]) => ({
+    context.abilityOptions = Object.entries(CONFIG.ME5E.abilities).map(([value, config]) => ({
       value, label: config.label
     }));
     context.calculationOptions = [
-      { value: "", label: game.i18n.localize("DND5E.SAVE.FIELDS.save.dc.CustomFormula") },
+      { value: "", label: game.i18n.localize("ME5E.SAVE.FIELDS.save.dc.CustomFormula") },
       { rule: true },
-      { value: "spellcasting", label: game.i18n.localize("DND5E.SpellAbility") },
-      ...Object.entries(CONFIG.DND5E.abilities).map(([value, config]) => ({
-        value, label: config.label, group: game.i18n.localize("DND5E.Abilities")
+      { value: "spellcasting", label: game.i18n.localize("ME5E.SpellAbility") },
+      ...Object.entries(CONFIG.ME5E.abilities).map(([value, config]) => ({
+        value, label: config.label, group: game.i18n.localize("ME5E.Abilities")
       }))
     ];
     context.onSaveOptions = [
-      { value: "none", label: game.i18n.localize("DND5E.SAVE.FIELDS.damage.onSave.None") },
-      { value: "half", label: game.i18n.localize("DND5E.SAVE.FIELDS.damage.onSave.Half") },
-      { value: "full", label: game.i18n.localize("DND5E.SAVE.FIELDS.damage.onSave.Full") }
+      { value: "none", label: game.i18n.localize("ME5E.SAVE.FIELDS.damage.onSave.None") },
+      { value: "half", label: game.i18n.localize("ME5E.SAVE.FIELDS.damage.onSave.Half") },
+      { value: "full", label: game.i18n.localize("ME5E.SAVE.FIELDS.damage.onSave.Full") }
     ];
 
     return context;

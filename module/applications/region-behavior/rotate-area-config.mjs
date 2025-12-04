@@ -18,7 +18,7 @@ export default class RotateAreaConfig extends foundry.applications.sheets.Region
   /** @override */
   static PARTS = {
     form: {
-      template: "systems/dnd5e/templates/region-behaviors/rotate-area-config.hbs",
+      template: "systems/me5e/templates/region-behaviors/rotate-area-config.hbs",
       scrollable: [""]
     },
     footer: {
@@ -109,7 +109,7 @@ export default class RotateAreaConfig extends foundry.applications.sheets.Region
   _prepareSubmitData(event, form, formData, updateData) {
     const submitData = super._prepareSubmitData(event, form, formData, updateData);
     if ( submitData.system?.regions?.ids?.includes(this.document.parent.id) ) {
-      throw new Error(game.i18n.localize("DND5E.REGIONBEHAVIORS.ROTATEAREA.Warning.RecursiveRegion"));
+      throw new Error(game.i18n.localize("ME5E.REGIONBEHAVIORS.ROTATEAREA.Warning.RecursiveRegion"));
     }
     return submitData;
   }

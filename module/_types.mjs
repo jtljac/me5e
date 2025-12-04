@@ -371,7 +371,7 @@
 /**
  * @typedef MovementTypeConfiguration
  * @property {string} label            Localized label for the movement type.
- * @property {string} [travel]         Travel type in `CONFIG.DND5E.travelTypes` to map this movement speed to. If not
+ * @property {string} [travel]         Travel type in `CONFIG.ME5E.travelTypes` to map this movement speed to. If not
  *                                     provided, then `land` is assumed.
  * @property {boolean} [walkFallback]  When this special movement type runs out, can the actor fall back to using their
  *                                     walk speed at 2x cost?
@@ -552,7 +552,7 @@
 /**
  * @typedef ToolConfiguration
  * @property {string} ability  Default ability used for the tool.
- * @property {string} id       UUID of reference tool or ID within pack defined by `DND5E.sourcePacks.ITEMS`.
+ * @property {string} id       UUID of reference tool or ID within pack defined by `ME5E.sourcePacks.ITEMS`.
  */
 
 /* -------------------------------------------- */
@@ -571,13 +571,13 @@
  * @property {string} [actorKeyPath]       If the trait doesn't directly map to an entry as `traits.[key]`, where is
  *                                         this trait's data stored on the actor?
  * @property {string} [configKey]          If the list of trait options doesn't match the name of the trait, where can
- *                                         the options be found within `CONFIG.DND5E`?
+ *                                         the options be found within `CONFIG.ME5E`?
  * @property {boolean|number} [dataType]   Type of data represented.
  * @property {string} [labelKeyPath]       If config is an enum of objects, where can the label be found?
  * @property {object} [subtypes]           Configuration for traits that take some sort of base item.
  * @property {string} [subtypes.keyPath]   Path to subtype value on base items, should match a category key.
  *                                         Deprecated in favor of the standardized `system.type.value`.
- * @property {string[]} [subtypes.ids]     Key for base item ID objects within `CONFIG.DND5E`.
+ * @property {string[]} [subtypes.ids]     Key for base item ID objects within `CONFIG.ME5E`.
  * @property {object} [children]           Mapping of category key to an object defining its children.
  * @property {boolean} [sortCategories]    Whether top-level categories should be sorted.
  * @property {boolean} [expertise]         Can an actor receive expertise in this trait?

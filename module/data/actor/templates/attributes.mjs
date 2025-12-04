@@ -23,9 +23,9 @@ export default class AttributesFields {
    */
   static get armorClass() {
     return {
-      calc: new StringField({ initial: "default", label: "DND5E.ArmorClassCalculation" }),
-      flat: new NumberField({ required: true, integer: true, min: 0, label: "DND5E.ArmorClassFlat" }),
-      formula: new FormulaField({ deterministic: true, label: "DND5E.ArmorClassFormula" })
+      calc: new StringField({ initial: "default", label: "ME5E.ArmorClassCalculation" }),
+      flat: new NumberField({ required: true, integer: true, min: 0, label: "ME5E.ArmorClassFlat" }),
+      formula: new FormulaField({ deterministic: true, label: "ME5E.ArmorClassFormula" })
     };
   }
 
@@ -36,13 +36,13 @@ export default class AttributesFields {
    */
   static get hitPoints() {
     return {
-      dt: new NumberField({ integer: true, min: 0, label: "DND5E.DamageThreshold" }),
-      max: new NumberField({ nullable: true, integer: true, min: 0, initial: null, label: "DND5E.HitPointsMax" }),
-      temp: new NumberField({ integer: true, initial: 0, min: 0, label: "DND5E.HitPointsTemp" }),
+      dt: new NumberField({ integer: true, min: 0, label: "ME5E.DamageThreshold" }),
+      max: new NumberField({ nullable: true, integer: true, min: 0, initial: null, label: "ME5E.HitPointsMax" }),
+      temp: new NumberField({ integer: true, initial: 0, min: 0, label: "ME5E.HitPointsTemp" }),
       tempmax: new NumberField({
-        integer: true, initial: 0, label: "DND5E.HitPointsTempMax", hint: "DND5E.HitPointsTempMaxHint"
+        integer: true, initial: 0, label: "ME5E.HitPointsTempMax", hint: "ME5E.HitPointsTempMaxHint"
       }),
-      value: new NumberField({ nullable: true, integer: true, min: 0, initial: null, label: "DND5E.HitPointsCurrent" })
+      value: new NumberField({ nullable: true, integer: true, min: 0, initial: null, label: "ME5E.HitPointsCurrent" })
     };
   }
 
@@ -54,11 +54,11 @@ export default class AttributesFields {
    */
   static get common() {
     return {
-      ac: new SchemaField(this.armorClass, { label: "DND5E.ArmorClass" }),
+      ac: new SchemaField(this.armorClass, { label: "ME5E.ArmorClass" }),
       init: new RollConfigField({
         ability: "",
-        bonus: new FormulaField({ required: true, label: "DND5E.InitiativeBonus" })
-      }, { label: "DND5E.Initiative" }),
+        bonus: new FormulaField({ required: true, label: "ME5E.InitiativeBonus" })
+      }, { label: "ME5E.Initiative" }),
       movement: new MovementField()
     };
   }
@@ -73,23 +73,23 @@ export default class AttributesFields {
     return {
       attunement: new SchemaField({
         max: new NumberField({
-          required: true, nullable: false, integer: true, min: 0, initial: 3, label: "DND5E.AttunementMax"
+          required: true, nullable: false, integer: true, min: 0, initial: 3, label: "ME5E.AttunementMax"
         })
-      }, { label: "DND5E.Attunement" }),
+      }, { label: "ME5E.Attunement" }),
       senses: new SensesField(),
-      spellcasting: new StringField({ required: true, blank: true, label: "DND5E.SpellAbility" }),
+      spellcasting: new StringField({ required: true, blank: true, label: "ME5E.SpellAbility" }),
       exhaustion: new NumberField({
-        required: true, nullable: false, integer: true, min: 0, initial: 0, label: "DND5E.Exhaustion"
+        required: true, nullable: false, integer: true, min: 0, initial: 0, label: "ME5E.Exhaustion"
       }),
       concentration: new RollConfigField({
         ability: "",
         bonuses: new SchemaField({
-          save: new FormulaField({ required: true, label: "DND5E.ConcentrationBonus" })
+          save: new FormulaField({ required: true, label: "ME5E.ConcentrationBonus" })
         }),
-        limit: new NumberField({ integer: true, min: 0, initial: 1, label: "DND5E.ConcentrationLimit" })
-      }, { label: "DND5E.Concentration" }),
+        limit: new NumberField({ integer: true, min: 0, initial: 1, label: "ME5E.ConcentrationLimit" })
+      }, { label: "ME5E.Concentration" }),
       loyalty: new SchemaField({
-        value: new NumberField({ integer: true, min: 0, max: 20, label: "DND5E.Loyalty" })
+        value: new NumberField({ integer: true, min: 0, max: 20, label: "ME5E.Loyalty" })
       })
     };
   }
@@ -148,16 +148,16 @@ export default class AttributesFields {
     const ac = this.attributes.ac;
 
     // Apply automatic migrations for older data structures
-    let cfg = CONFIG.DND5E.armorClasses[ac.calc];
+    let cfg = CONFIG.ME5E.armorClasses[ac.calc];
     if ( !cfg ) {
       ac.calc = "flat";
       if ( Number.isNumeric(ac.value) ) ac.flat = Number(ac.value);
-      cfg = CONFIG.DND5E.armorClasses.flat;
+      cfg = CONFIG.ME5E.armorClasses.flat;
     }
 
     // Identify Equipped Items
     const { armors, shields } = this.parent.itemTypes.equipment.reduce((obj, equip) => {
-      if ( !equip.system.equipped || !(equip.system.type.value in CONFIG.DND5E.armorTypes)) return obj;
+      if ( !equip.system.equipped || !(equip.system.type.value in CONFIG.ME5E.armorTypes)) return obj;
       if ( equip.system.type.value === "shield" ) obj.shields.push(equip);
       else obj.armors.push(equip);
       return obj;
@@ -168,7 +168,7 @@ export default class AttributesFields {
       AdvantageModeField.setMode(this, "skills.ste.roll.mode", -1);
     }
 
-    ac.label = !["custom", "flat"].includes(ac.calc) ? CONFIG.DND5E.armorClasses[ac.calc]?.label : null;
+    ac.label = !["custom", "flat"].includes(ac.calc) ? CONFIG.ME5E.armorClasses[ac.calc]?.label : null;
 
     // Determine base AC
     switch ( ac.calc ) {
@@ -187,7 +187,7 @@ export default class AttributesFields {
         let formula = ac.calc === "custom" ? ac.formula : cfg.formula;
         if ( armors.length ) {
           if ( armors.length > 1 ) this.parent._preparationWarnings.push({
-            message: game.i18n.localize("DND5E.WarnMultipleArmor"), type: "warning"
+            message: game.i18n.localize("ME5E.WarnMultipleArmor"), type: "warning"
           });
           const armorData = armors[0].system.armor;
           const isHeavy = armors[0].system.type.value === "heavy";
@@ -202,14 +202,14 @@ export default class AttributesFields {
         rollData.attributes.ac = ac;
         try {
           const replaced = replaceFormulaData(formula, rollData, {
-            actor: this, missing: null, property: game.i18n.localize("DND5E.ArmorClass")
+            actor: this, missing: null, property: game.i18n.localize("ME5E.ArmorClass")
           });
           ac.base = replaced ? new Roll(replaced).evaluateSync().total : 0;
         } catch(err) {
           this.parent._preparationWarnings.push({
-            message: game.i18n.format("DND5E.WarnBadACFormula", { formula }), link: "armor", type: "error"
+            message: game.i18n.format("ME5E.WarnBadACFormula", { formula }), link: "armor", type: "error"
           });
-          const replaced = Roll.replaceFormulaData(CONFIG.DND5E.armorClasses.default.formula, rollData);
+          const replaced = Roll.replaceFormulaData(CONFIG.ME5E.armorClasses.default.formula, rollData);
           ac.base = new Roll(replaced).evaluateSync().total;
         }
         break;
@@ -218,7 +218,7 @@ export default class AttributesFields {
     // Equipped Shield
     if ( shields.length ) {
       if ( shields.length > 1 ) this.parent._preparationWarnings.push({
-        message: game.i18n.localize("DND5E.WarnMultipleShields"), type: "warning"
+        message: game.i18n.localize("ME5E.WarnMultipleShields"), type: "warning"
       });
       ac.shield = shields[0].system.armor.value ?? 0;
       ac.equippedShield = shields[0];
@@ -242,7 +242,7 @@ export default class AttributesFields {
    */
   static prepareConcentration(rollData) {
     const { concentration } = this.attributes;
-    const abilityId = concentration.ability || CONFIG.DND5E.defaultAbilities.concentration;
+    const abilityId = concentration.ability || CONFIG.ME5E.defaultAbilities.concentration;
     const ability = this.abilities?.[abilityId] || {};
     const bonus = simplifyBonus(concentration.bonuses.save, rollData);
     concentration.save = (ability.save?.value ?? 0) + bonus;
@@ -258,11 +258,11 @@ export default class AttributesFields {
    * @param {Function} [options.validateItem]  Determine whether an item's weight should count toward encumbrance.
    */
   static prepareEncumbrance(rollData, { validateItem }={}) {
-    const config = CONFIG.DND5E.encumbrance;
+    const config = CONFIG.ME5E.encumbrance;
     const encumbrance = this.attributes.encumbrance ??= {};
-    const baseUnits = CONFIG.DND5E.encumbrance.baseUnits[this.parent.type]
-      ?? CONFIG.DND5E.encumbrance.baseUnits.default;
-    const unitSystem = game.settings.get("dnd5e", "metricWeightUnits") ? "metric" : "imperial";
+    const baseUnits = CONFIG.ME5E.encumbrance.baseUnits[this.parent.type]
+      ?? CONFIG.ME5E.encumbrance.baseUnits.default;
+    const unitSystem = game.settings.get("me5e", "metricWeightUnits") ? "metric" : "imperial";
     const { attributes } = this;
 
     // Get the total weight from items
@@ -272,7 +272,7 @@ export default class AttributesFields {
 
     // [Optional] add Currency Weight (for non-transformed actors)
     const currency = this.currency;
-    if ( game.settings.get("dnd5e", "currencyWeight") && currency ) {
+    if ( game.settings.get("me5e", "currencyWeight") && currency ) {
       const numCoins = Object.values(currency).reduce((val, denom) => val + Math.max(denom, 0), 0);
       const currencyPerWeight = config.currencyPerWeight[unitSystem];
       weight += convertWeight(
@@ -283,10 +283,10 @@ export default class AttributesFields {
     }
 
     // Determine the Encumbrance size class
-    const keys = Object.keys(CONFIG.DND5E.actorSizes);
+    const keys = Object.keys(CONFIG.ME5E.actorSizes);
     const index = keys.findIndex(k => k === this.traits.size);
-    const sizeConfig = CONFIG.DND5E.actorSizes[
-      keys[this.parent.flags.dnd5e?.powerfulBuild ? Math.min(index + 1, keys.length - 1) : index]
+    const sizeConfig = CONFIG.ME5E.actorSizes[
+      keys[this.parent.flags.me5e?.powerfulBuild ? Math.min(index + 1, keys.length - 1) : index]
     ];
     const sizeMod = sizeConfig?.capacityMultiplier ?? sizeConfig?.token ?? 1;
     let maximumMultiplier;
@@ -335,7 +335,7 @@ export default class AttributesFields {
    */
   static prepareExhaustionLevel() {
     const exhaustion = this.parent.effects.get(ActiveEffect5e.ID.EXHAUSTION);
-    const level = exhaustion?.getFlag("dnd5e", "exhaustionLevel");
+    const level = exhaustion?.getFlag("me5e", "exhaustionLevel");
     this.attributes.exhaustion = Number.isFinite(level) ? level : 0;
   }
 
@@ -370,16 +370,16 @@ export default class AttributesFields {
    */
   static prepareInitiative(rollData) {
     const init = this.attributes.init ??= {};
-    const flags = this.parent.flags.dnd5e ?? {};
+    const flags = this.parent.flags.me5e ?? {};
     const globalCheckBonus = simplifyBonus(this.bonuses?.abilities?.check, rollData);
 
     // Compute initiative modifier
-    const abilityId = init.ability || CONFIG.DND5E.defaultAbilities.initiative;
+    const abilityId = init.ability || CONFIG.ME5E.defaultAbilities.initiative;
     const ability = this.abilities?.[abilityId] || {};
     init.mod = ability.mod ?? 0;
 
     // Initiative proficiency
-    const isLegacy = game.settings.get("dnd5e", "rulesVersion") === "legacy";
+    const isLegacy = game.settings.get("me5e", "rulesVersion") === "legacy";
     const prof = this.attributes.prof ?? 0;
     const joat = flags.jackOfAllTrades && isLegacy;
     const ra = this.parent._isRemarkableAthlete(abilityId);
@@ -401,7 +401,7 @@ export default class AttributesFields {
     init.total = init.mod + initBonus + abilityBonus + globalCheckBonus + quality
       + (flags.initiativeAlert && isLegacy ? 5 : 0)
       + (Number.isNumeric(init.prof.term) ? init.prof.flat : 0);
-    init.score = CONFIG.DND5E.skillPassive.base + init.total + (init.roll.mode * CONFIG.DND5E.skillPassive.modifier);
+    init.score = CONFIG.ME5E.skillPassive.base + init.total + (init.roll.mode * CONFIG.ME5E.skillPassive.modifier);
   }
 
   /* -------------------------------------------- */
@@ -415,7 +415,7 @@ export default class AttributesFields {
     const statuses = this.parent.statuses;
     const noMovement = this.parent.hasConditionEffect("noMovement");
     const crawl = this.parent.hasConditionEffect("crawl");
-    for ( const type of Object.keys(CONFIG.DND5E.movementTypes) ) {
+    for ( const type of Object.keys(CONFIG.ME5E.movementTypes) ) {
       if ( noMovement || (crawl && (type !== "walk")) ) this.attributes.movement[type] = 0;
       else this.attributes.movement[type] = Math.max(0, simplifyBonus(this.attributes.movement[type], rollData));
       if ( type === "walk" ) this.attributes.movement.speed = this.attributes.movement.walk;
@@ -426,23 +426,23 @@ export default class AttributesFields {
     const heavilyEncumbered = statuses.has("heavilyEncumbered");
     const exceedingCarryingCapacity = statuses.has("exceedingCarryingCapacity");
     const units = this.attributes.movement.units ??= defaultUnits("length");
-    let reduction = game.settings.get("dnd5e", "rulesVersion") === "modern"
-      ? (this.attributes.exhaustion ?? 0) * (CONFIG.DND5E.conditionTypes.exhaustion?.reduction?.speed ?? 0) : 0;
-    reduction = convertLength(reduction, CONFIG.DND5E.defaultUnits.length.imperial, units);
+    let reduction = game.settings.get("me5e", "rulesVersion") === "modern"
+      ? (this.attributes.exhaustion ?? 0) * (CONFIG.ME5E.conditionTypes.exhaustion?.reduction?.speed ?? 0) : 0;
+    reduction = convertLength(reduction, CONFIG.ME5E.defaultUnits.length.imperial, units);
     const bonus = simplifyBonus(this.attributes.movement.bonus, rollData);
     this.attributes.movement.max = 0;
-    for ( const type of Object.keys(CONFIG.DND5E.movementTypes) ) {
+    for ( const type of Object.keys(CONFIG.ME5E.movementTypes) ) {
       let speed = Math.max(0, this.attributes.movement[type] - reduction);
       if ( speed ) {
         speed = Math.max(0, speed + bonus);
         if ( halfMovement ) speed *= 0.5;
         if ( heavilyEncumbered ) {
-          speed = Math.max(0, speed - (CONFIG.DND5E.encumbrance.speedReduction.heavilyEncumbered[units] ?? 0));
+          speed = Math.max(0, speed - (CONFIG.ME5E.encumbrance.speedReduction.heavilyEncumbered[units] ?? 0));
         } else if ( encumbered ) {
-          speed = Math.max(0, speed - (CONFIG.DND5E.encumbrance.speedReduction.encumbered[units] ?? 0));
+          speed = Math.max(0, speed - (CONFIG.ME5E.encumbrance.speedReduction.encumbered[units] ?? 0));
         }
         if ( exceedingCarryingCapacity ) {
-          speed = Math.min(speed, CONFIG.DND5E.encumbrance.speedReduction.exceedingCarryingCapacity[units] ?? 0);
+          speed = Math.min(speed, CONFIG.ME5E.encumbrance.speedReduction.exceedingCarryingCapacity[units] ?? 0);
         }
       }
       this.attributes.movement[type] = speed;
@@ -464,7 +464,7 @@ export default class AttributesFields {
    * @this {CharacterData|NPCData}
    */
   static prepareRace(race, { force=false }={}) {
-    for ( const key of Object.keys(CONFIG.DND5E.movementTypes) ) {
+    for ( const key of Object.keys(CONFIG.ME5E.movementTypes) ) {
       if ( !race.system.movement[key] || (!force && this.attributes.movement[key]) ) continue;
       this.attributes.movement.fromSpecies ??= {};
       this.attributes.movement[key] = this.attributes.movement.fromSpecies[key] = race.system.movement[key];
@@ -473,7 +473,7 @@ export default class AttributesFields {
     if ( force && race.system.movement.units ) this.attributes.movement.units = race.system.movement.units;
     else this.attributes.movement.units ??= race.system.movement.units;
 
-    for ( const key of Object.keys(CONFIG.DND5E.senses) ) {
+    for ( const key of Object.keys(CONFIG.ME5E.senses) ) {
       if ( !race.system.senses[key] || (!force && (this.attributes.senses[key] !== null)) ) continue;
       this.attributes.senses[key] = race.system.senses[key];
     }
@@ -491,7 +491,7 @@ export default class AttributesFields {
   static prepareSpellcastingAbility() {
     const ability = this.abilities?.[this.attributes.spellcasting];
     this.attributes.spell ??= {};
-    this.attributes.spell.abilityLabel = CONFIG.DND5E.abilities[this.attributes.spellcasting]?.label ?? "";
+    this.attributes.spell.abilityLabel = CONFIG.ME5E.abilities[this.attributes.spellcasting]?.label ?? "";
     this.attributes.spell.attack = ability ? ability.attack : this.attributes.prof;
     this.attributes.spell.dc = ability ? ability.dc : 8 + this.attributes.prof;
     this.attributes.spell.mod = ability ? ability.mod : 0;

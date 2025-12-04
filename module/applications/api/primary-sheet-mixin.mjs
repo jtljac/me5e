@@ -121,8 +121,8 @@ export default function PrimarySheetMixin(Base) {
         const toggle = document.createElement("slide-toggle");
         toggle.checked = this._mode === this.constructor.MODES.EDIT;
         toggle.classList.add("mode-slider");
-        toggle.dataset.tooltip = "DND5E.SheetModeEdit";
-        toggle.setAttribute("aria-label", game.i18n.localize("DND5E.SheetModeEdit"));
+        toggle.dataset.tooltip = "ME5E.SheetModeEdit";
+        toggle.setAttribute("aria-label", game.i18n.localize("ME5E.SheetModeEdit"));
         toggle.addEventListener("change", this._onChangeSheetMode.bind(this));
         toggle.addEventListener("dblclick", event => event.stopPropagation());
         toggle.addEventListener("pointerdown", event => event.stopPropagation());
@@ -147,7 +147,7 @@ export default function PrimarySheetMixin(Base) {
       elements.innerHTML = `
         <div class="source-book">
           <button type="button" class="unbutton control-button" data-action="showConfiguration" data-config="source"
-                  data-tooltip aria-label="${game.i18n.localize("DND5E.SOURCE.Action.Configure")}">
+                  data-tooltip aria-label="${game.i18n.localize("ME5E.SOURCE.Action.Configure")}">
             <i class="fas fa-cog" inert></i>
           </button>
           <span></span>
@@ -169,7 +169,7 @@ export default function PrimarySheetMixin(Base) {
       const editable = this.isEditable && (this._mode === this.constructor.MODES.EDIT);
       elements.querySelector("button")?.toggleAttribute("hidden", !editable);
       elements.querySelector("span").innerText = editable
-        ? (source.label || game.i18n.localize("DND5E.SOURCE.FIELDS.source.label"))
+        ? (source.label || game.i18n.localize("ME5E.SOURCE.FIELDS.source.label"))
         : source.label;
     }
 
@@ -194,14 +194,14 @@ export default function PrimarySheetMixin(Base) {
 
       /**
        * A hook event that fires during preparation of sheet parts.
-       * @function dnd5e.prepareSheetContext
+       * @function me5e.prepareSheetContext
        * @memberof hookEvents
        * @param {PrimarySheet5e} sheet  Sheet being rendered.
        * @param {string} partId         The ID of the part being prepared.
        * @param {object} context        Preparation context that should be mutated.
        * @param {object} options        Render options.
        */
-      Hooks.callAll("dnd5e.prepareSheetContext", this, partId, context, options);
+      Hooks.callAll("me5e.prepareSheetContext", this, partId, context, options);
 
       return context;
     }
@@ -323,7 +323,7 @@ export default function PrimarySheetMixin(Base) {
       element.dataset.tooltip = `
         <section class="loading" data-uuid="${uuid}"><i class="fas fa-spinner fa-spin-pulse"></i></section>
       `;
-      element.dataset.tooltipClass = "dnd5e2 dnd5e-tooltip item-tooltip themed theme-light";
+      element.dataset.tooltipClass = "me5e2 me5e-tooltip item-tooltip themed theme-light";
       element.dataset.tooltipDirection ??= "LEFT";
     }
 
@@ -372,7 +372,7 @@ export default function PrimarySheetMixin(Base) {
     async _onChangeSheetMode(event) {
       const { MODES } = this.constructor;
       const toggle = event.currentTarget;
-      const label = game.i18n.localize(`DND5E.SheetMode${toggle.checked ? "Play" : "Edit"}`);
+      const label = game.i18n.localize(`ME5E.SheetMode${toggle.checked ? "Play" : "Edit"}`);
       toggle.dataset.tooltip = label;
       toggle.setAttribute("aria-label", label);
       this._mode = toggle.checked ? MODES.EDIT : MODES.PLAY;

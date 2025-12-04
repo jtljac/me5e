@@ -44,15 +44,15 @@ export default class D20RollConfigurationDialog extends RollConfigurationDialog 
     context.buttons = {
       advantage: {
         default: defaultButton === "advantage",
-        label: game.i18n.localize("DND5E.Advantage")
+        label: game.i18n.localize("ME5E.Advantage")
       },
       normal: {
         default: !["advantage", "disadvantage"].includes(defaultButton),
-        label: game.i18n.localize("DND5E.Normal")
+        label: game.i18n.localize("ME5E.Normal")
       },
       disadvantage: {
         default: defaultButton === "disadvantage",
-        label: game.i18n.localize("DND5E.Disadvantage")
+        label: game.i18n.localize("ME5E.Disadvantage")
       }
     };
     return context;

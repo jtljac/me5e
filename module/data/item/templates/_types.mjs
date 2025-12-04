@@ -16,7 +16,7 @@
 
 /**
  * @typedef EquippableItemTemplateData
- * @property {string} attunement  Attunement information as defined in `DND5E.attunementTypes`.
+ * @property {string} attunement  Attunement information as defined in `ME5E.attunementTypes`.
  * @property {boolean} attuned    Is this item attuned on its owning actor?
  * @property {boolean} equipped   Is this item equipped on its owning actor?
  */
@@ -63,7 +63,7 @@
  * @property {object} price
  * @property {number} price.value         Item's cost in the specified denomination.
  * @property {string} price.denomination  Currency denomination used to determine price.
- * @property {string} rarity              Item rarity as defined in `DND5E.itemRarity`.
+ * @property {string} rarity              Item rarity as defined in `ME5E.itemRarity`.
  */
 
 /**

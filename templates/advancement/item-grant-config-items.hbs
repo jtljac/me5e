@@ -1,7 +1,7 @@
 <fieldset class="card items table">
-    <legend>{{ localize "DND5E.ADVANCEMENT.ItemGrant.FIELDS.items.label" }}</legend>
+    <legend>{{ localize "ME5E.ADVANCEMENT.ItemGrant.FIELDS.items.label" }}</legend>
     <div class="header">
-        <div class="item-optional">{{ localize "DND5E.ADVANCEMENT.ItemGrant.FIELDS.optional.label" }}</div>
+        <div class="item-optional">{{ localize "ME5E.ADVANCEMENT.ItemGrant.FIELDS.optional.label" }}</div>
         <div class="item-name name-header">{{ localize "DOCUMENT.Item" }}</div>
     </div>
     <ol class="items-list unlist">
@@ -12,13 +12,13 @@
                              input=@root.inputs.createCheckboxInput }}
             </div>
             <div class="item-name">
-                {{{ dnd5e-linkForUuid data.uuid renderBroken=true }}}
+                {{{ me5e-linkForUuid data.uuid renderBroken=true }}}
                 <input type="hidden" name="configuration.items.{{ @index }}.uuid" value="{{ data.uuid }}">
             </div>
             <div class="item-controls flexrow">
                 {{#if @root.editable}}
                 <a class="item-control item-action" data-action="deleteItem" data-tooltip
-                   aria-label="{{ localize 'DND5E.ItemDelete' }}">
+                   aria-label="{{ localize 'ME5E.ItemDelete' }}">
                     <i class="fas fa-trash" inert></i>
                 </a>
                 {{/if}}
@@ -29,8 +29,8 @@
 
     <div class="form-group">
         {{#if showContainerWarning}}
-        <p class="hint centered warning">{{ localize "DND5E.ADVANCEMENT.ItemGrant.Warning.Container" }}</p>
+        <p class="hint centered warning">{{ localize "ME5E.ADVANCEMENT.ItemGrant.Warning.Container" }}</p>
         {{/if}}
-        <p class="hint centered drop-area">{{ localize "DND5E.ADVANCEMENT.ItemGrant.DropHint" }}</p>
+        <p class="hint centered drop-area">{{ localize "ME5E.ADVANCEMENT.ItemGrant.DropHint" }}</p>
     </div>
 </fieldset>

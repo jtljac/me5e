@@ -51,7 +51,7 @@
             {{#if editable}}
             {{ formInput fields.quantity value=source.quantity }}
             {{else}}
-            <span class="value">{{ dnd5e-numberFormat system.quantity }}</span>
+            <span class="value">{{ me5e-numberFormat system.quantity }}</span>
             {{/if}}
         </div>
 
@@ -62,7 +62,7 @@
             {{ formInput fields.weight.fields.units value=source.weight.units choices=CONFIG.weightUnits
                          labelAttr="abbreviation" }}
             {{else}}
-            <span class="value">{{ dnd5e-numberFormat system.weight.value }}</span>
+            <span class="value">{{ me5e-numberFormat system.weight.value }}</span>
             <i class="fas fa-weight-hanging"
                aria-label="{{ lookup (lookup CONFIG.weightUnits system.weight.units) 'label' }}"></i>
             {{/if}}
@@ -76,7 +76,7 @@
             {{ formInput fields.price.fields.denomination value=source.price.denomination choices=CONFIG.currencies
                          labelAttr="abbreviation" }}
             {{else}}
-            <span class="value">{{ dnd5e-numberFormat system.price.value }}</span>
+            <span class="value">{{ me5e-numberFormat system.price.value }}</span>
             <i class="currency {{ system.price.denomination }}"
                aria-label="{{ lookup (lookup CONFIG.currencies system.price.denomination) 'label' }}"></i>
             {{/if}}
@@ -88,11 +88,11 @@
         {{!-- Facilities --}}
         {{#if (eq item.type "facility")}}
         <div class="quantity">
-            <span class="value">{{ localize "DND5E.FACILITY.Squares" squares=system.squares }}</span>
+            <span class="value">{{ localize "ME5E.FACILITY.Squares" squares=system.squares }}</span>
         </div>
         {{#if (eq system.type.value "basic")}}
         <div class="price">
-            <span class="value">{{ dnd5e-numberFormat system.price.value }}</span>
+            <span class="value">{{ me5e-numberFormat system.price.value }}</span>
             <i class="currency gp" aria-label="{{ CONFIG.currencies.gp.label }}"></i>
         </div>
         {{/if}}
@@ -102,14 +102,14 @@
         {{#if (eq item.type "spell")}}
         <div class="school" aria-label="{{ labels.school }}">
             {{#with (lookup @root.CONFIG.spellSchools system.school) as |schoolConfig|}}
-            <dnd5e-icon src="{{ schoolConfig.icon }}"></dnd5e-icon>
+            <me5e-icon src="{{ schoolConfig.icon }}"></me5e-icon>
             {{/with}}
         </div>
         {{/if}}
 
         {{!-- Level --}}
         {{#if (eq item.type "class")}}
-        <div class="level-badge badge" aria-label="{{ localize "DND5E.LevelNumber" level=system.levels }}">
+        <div class="level-badge badge" aria-label="{{ localize "ME5E.LevelNumber" level=system.levels }}">
             {{ system.levels }}
         </div>
         {{/if}}

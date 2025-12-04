@@ -1,5 +1,5 @@
 {
-"DOCUMENT.DND5E": {
+"DOCUMENT.ME5E": {
   "Activity": "Activity",
   "Advancement": "Advancement",
   "Warning": {
@@ -57,21 +57,21 @@
 "TYPES.Item.weaponPl": "Weapons",
 
 "TYPES.RegionBehavior": {
-  "dnd5e.difficultTerrain": "Difficult Terrain",
-  "dnd5e.rotateArea": "Rotate Area"
+  "me5e.difficultTerrain": "Difficult Terrain",
+  "me5e.rotateArea": "Rotate Area"
 },
 
-"DND5E.title": "Dungeon & Dragons Fifth Edition",
-"DND5E.AbbreviationCR": "CR",
-"DND5E.AbbreviationConc": "Conc.",
-"DND5E.AbbreviationDC": "DC",
-"DND5E.AbbreviationKg": "kg",
-"DND5E.AbbreviationLR": "LR",
-"DND5E.AbbreviationLevel": "Lvl",
-"DND5E.AbbreviationLbs": "lbs.",
-"DND5E.AbbreviationSR": "SR",
+"ME5E.title": "Dungeon & Dragons Fifth Edition",
+"ME5E.AbbreviationCR": "CR",
+"ME5E.AbbreviationConc": "Conc.",
+"ME5E.AbbreviationDC": "DC",
+"ME5E.AbbreviationKg": "kg",
+"ME5E.AbbreviationLR": "LR",
+"ME5E.AbbreviationLevel": "Lvl",
+"ME5E.AbbreviationLbs": "lbs.",
+"ME5E.AbbreviationSR": "SR",
 
-"DND5E.ABILITY": {
+"ME5E.ABILITY": {
   "Configure": {
     "CheckLabel": "{ability} Check",
     "SaveLabel": "{ability} Save",
@@ -90,66 +90,66 @@
   }
 },
 
-"DND5E.Ability": "Ability",
-"DND5E.Abilities": "Abilities",
-"DND5E.AbilityStr": "Strength",
-"DND5E.AbilityStrAbbr": "str",
-"DND5E.AbilityCon": "Constitution",
-"DND5E.AbilityConAbbr": "con",
-"DND5E.AbilityDex": "Dexterity",
-"DND5E.AbilityDexAbbr": "dex",
-"DND5E.AbilityInt": "Intelligence",
-"DND5E.AbilityIntAbbr": "int",
-"DND5E.AbilityWis": "Wisdom",
-"DND5E.AbilityWisAbbr": "wis",
-"DND5E.AbilityCha": "Charisma",
-"DND5E.AbilityChaAbbr": "cha",
-"DND5E.AbilityHon": "Honor",
-"DND5E.AbilityHonAbbr": "hon",
-"DND5E.AbilitySan": "Sanity",
-"DND5E.AbilitySanAbbr": "san",
-"DND5E.AbilityScore": "Ability Score",
-"DND5E.AbilityScoreShort": "Score",
-"DND5E.AbilityScorePl": "Ability Scores",
-"DND5E.AbilityScoreL": "{ability} Score",
-"DND5E.AbilityScoreMax": "Maximum Ability Score",
-"DND5E.AbilityScoreMaxShort": "Maximum",
-"DND5E.AbilityModifier": "Ability Modifier",
-"DND5E.AbilityModifierShort": "Mod",
-"DND5E.AbilityPromptText": "What type of {ability} check?",
-"DND5E.AbilityPromptTitle": "{ability} Ability Check",
-"DND5E.AbilityUseChargesLabel": "{value} Charges",
-"DND5E.AbilityUseConsumableLabel": "{max} per {per}",
-"DND5E.AbilityUseCast": "Cast Spell",
-"DND5E.AbilityUseUse": "Use Ability",
-"DND5E.AbilityUseConfig": "Usage Configuration",
-"DND5E.AbilityBonuses": "Ability Bonuses",
-"DND5E.AbilityConfigure": "Configure {ability}",
-"DND5E.AbilityConfigureTitle": "Configure {ability} Saving Throws and Checks",
-"DND5E.AbilitySaveConfigure": "{ability} Saving Throws",
-"DND5E.AbilityCheckConfigure": "{ability} Ability Checks",
-"DND5E.AbilityCheckConfigurationHint": "Configure check bonuses.",
-"DND5E.AbilityConfigurationHint": "Configure ability saving throw proficiency, saving throw bonuses, and check bonuses.",
-"DND5E.AbilityCheckBonus": "Check Bonus",
-"DND5E.AbilityCheckGlobalBonusHint": "This bonus applies to all ability checks made by this actor.",
-"DND5E.Action": "Action",
-"DND5E.ActionAbbr": "A",
-"DND5E.ActionPl": "Actions",
-"DND5E.ActionAbil": "Ability Check",
-"DND5E.ActionEnch": "Enchant",
-"DND5E.ActionHeal": "Heal",
-"DND5E.ActionMSAK": "Melee Spell Attack",
-"DND5E.ActionMWAK": "Melee Weapon Attack",
-"DND5E.ActionOther": "Other",
-"DND5E.ActionRSAK": "Ranged Spell Attack",
-"DND5E.ActionRWAK": "Ranged Weapon Attack",
-"DND5E.ActionSave": "Saving Throw",
-"DND5E.ActionSumm": "Summon",
-"DND5E.ActionUtil": "Utility",
-"DND5E.ActionWarningNoItem": "The requested item {item} no longer exists on Actor {name}",
-"DND5E.ActionWarningNoToken": "You must have one or more controlled Tokens in order to use this option.",
+"ME5E.Ability": "Ability",
+"ME5E.Abilities": "Abilities",
+"ME5E.AbilityStr": "Strength",
+"ME5E.AbilityStrAbbr": "str",
+"ME5E.AbilityCon": "Constitution",
+"ME5E.AbilityConAbbr": "con",
+"ME5E.AbilityDex": "Dexterity",
+"ME5E.AbilityDexAbbr": "dex",
+"ME5E.AbilityInt": "Intelligence",
+"ME5E.AbilityIntAbbr": "int",
+"ME5E.AbilityWis": "Wisdom",
+"ME5E.AbilityWisAbbr": "wis",
+"ME5E.AbilityCha": "Charisma",
+"ME5E.AbilityChaAbbr": "cha",
+"ME5E.AbilityHon": "Honor",
+"ME5E.AbilityHonAbbr": "hon",
+"ME5E.AbilitySan": "Sanity",
+"ME5E.AbilitySanAbbr": "san",
+"ME5E.AbilityScore": "Ability Score",
+"ME5E.AbilityScoreShort": "Score",
+"ME5E.AbilityScorePl": "Ability Scores",
+"ME5E.AbilityScoreL": "{ability} Score",
+"ME5E.AbilityScoreMax": "Maximum Ability Score",
+"ME5E.AbilityScoreMaxShort": "Maximum",
+"ME5E.AbilityModifier": "Ability Modifier",
+"ME5E.AbilityModifierShort": "Mod",
+"ME5E.AbilityPromptText": "What type of {ability} check?",
+"ME5E.AbilityPromptTitle": "{ability} Ability Check",
+"ME5E.AbilityUseChargesLabel": "{value} Charges",
+"ME5E.AbilityUseConsumableLabel": "{max} per {per}",
+"ME5E.AbilityUseCast": "Cast Spell",
+"ME5E.AbilityUseUse": "Use Ability",
+"ME5E.AbilityUseConfig": "Usage Configuration",
+"ME5E.AbilityBonuses": "Ability Bonuses",
+"ME5E.AbilityConfigure": "Configure {ability}",
+"ME5E.AbilityConfigureTitle": "Configure {ability} Saving Throws and Checks",
+"ME5E.AbilitySaveConfigure": "{ability} Saving Throws",
+"ME5E.AbilityCheckConfigure": "{ability} Ability Checks",
+"ME5E.AbilityCheckConfigurationHint": "Configure check bonuses.",
+"ME5E.AbilityConfigurationHint": "Configure ability saving throw proficiency, saving throw bonuses, and check bonuses.",
+"ME5E.AbilityCheckBonus": "Check Bonus",
+"ME5E.AbilityCheckGlobalBonusHint": "This bonus applies to all ability checks made by this actor.",
+"ME5E.Action": "Action",
+"ME5E.ActionAbbr": "A",
+"ME5E.ActionPl": "Actions",
+"ME5E.ActionAbil": "Ability Check",
+"ME5E.ActionEnch": "Enchant",
+"ME5E.ActionHeal": "Heal",
+"ME5E.ActionMSAK": "Melee Spell Attack",
+"ME5E.ActionMWAK": "Melee Weapon Attack",
+"ME5E.ActionOther": "Other",
+"ME5E.ActionRSAK": "Ranged Spell Attack",
+"ME5E.ActionRWAK": "Ranged Weapon Attack",
+"ME5E.ActionSave": "Saving Throw",
+"ME5E.ActionSumm": "Summon",
+"ME5E.ActionUtil": "Utility",
+"ME5E.ActionWarningNoItem": "The requested item {item} no longer exists on Actor {name}",
+"ME5E.ActionWarningNoToken": "You must have one or more controlled Tokens in order to use this option.",
 
-"DND5E.ACTIVATION": {
+"ME5E.ACTIVATION": {
   "FIELDS": {
     "activation": {
       "label": "Activation",
@@ -254,7 +254,7 @@
   }
 },
 
-"DND5E.ACTIVEEFFECT": {
+"ME5E.ACTIVEEFFECT": {
   "AttributeKeyTooltip": "For a list of common keys, see <a href=\"{url}\">the wiki</a>.",
   "FIELDS": {
     "statuses": {
@@ -264,7 +264,7 @@
   }
 },
 
-"DND5E.ACTIVITY": {
+"ME5E.ACTIVITY": {
   "Action": {
     "Create": "Create Activity",
     "Delete": "Delete Activity",
@@ -345,7 +345,7 @@
   }
 },
 
-"DND5E.ACTOR": {
+"ME5E.ACTOR": {
   "Warning": {
     "CreateActor": "You must have 'Create New Actors' permission in order to summon directly from a compendium.",
     "InvalidItem": "{itemType} items cannot be added to a {actorType}.",
@@ -354,14 +354,14 @@
   }
 },
 
-"DND5E.ActiveEffectOverrideWarning": "This value is being modified by an Active Effect and cannot be edited. Disable the effect to edit it.",
-"DND5E.Add": "Add",
-"DND5E.AdditionalControls": "Additional Controls",
-"DND5E.AdditionalSettings": "Additional Settings",
-"DND5E.AddEmbeddedItemPromptHint": "Do you want to add these items to your character sheet?",
-"DND5E.Advanced": "Advanced",
+"ME5E.ActiveEffectOverrideWarning": "This value is being modified by an Active Effect and cannot be edited. Disable the effect to edit it.",
+"ME5E.Add": "Add",
+"ME5E.AdditionalControls": "Additional Controls",
+"ME5E.AdditionalSettings": "Additional Settings",
+"ME5E.AddEmbeddedItemPromptHint": "Do you want to add these items to your character sheet?",
+"ME5E.Advanced": "Advanced",
 
-"DND5E.ADVANCEMENT": {
+"ME5E.ADVANCEMENT": {
   "AbilityScoreImprovement": {
     "Action": {
       "Select": "Select Feat"
@@ -757,64 +757,64 @@
   }
 },
 
-"DND5E.AdvancementChoices": "choices",
-"DND5E.AdvancementClassRestriction": "Class Restriction",
-"DND5E.AdvancementClassRestrictionNone": "All Classes",
-"DND5E.AdvancementClassRestrictionPrimary": "Original Class Only",
-"DND5E.AdvancementClassRestrictionSecondary": "Multiclass Only",
-"DND5E.AdvancementConfigurationActionDisable": "Disable Configuration",
-"DND5E.AdvancementConfigurationActionEnable": "Enable Configuration",
-"DND5E.AdvancementConfigurationModeDisabled": "Configuration Disabled",
-"DND5E.AdvancementConfigurationModeEnabled": "Configuration Enabled",
-"DND5E.AdvancementConfigureTitle": "Configure {item} Advancement",
-"DND5E.AdvancementConfigureAllowDrops": "Allow Drops",
-"DND5E.AdvancementConfigureAllowDropsHint": "Should players be able to drop their own choices into this advancement?",
-"DND5E.AdvancementConfigureDropAreaHint": "Drop Items here to add them to the pool from which a player can choose.",
-"DND5E.AdvancementConfiguredComplete": "Fully Configured",
-"DND5E.AdvancementConfiguredIncomplete": "Not Configured",
-"DND5E.AdvancementCustomIcon": "Custom Icon",
-"DND5E.AdvancementCustomTitle": "Custom Title",
-"DND5E.AdvancementDeleteConfirmationLabel": "Remove advancement changes",
-"DND5E.AdvancementDeleteConfirmationMessage": "Deleting this item will also delete all advancement choices made for it. These changes will be removed from your character as long as the checkbox below is checked.",
-"DND5E.AdvancementDeleteConfirmationTitle": "Confirm Deletion",
-"DND5E.AdvancementFlowDropAreaHint": "Drop an Item here to choose it.",
-"DND5E.AdvancementHint": "Hint",
-"DND5E.AdvancementItemTypeInvalidWarning": "{type} items cannot be added with this advancement type.",
-"DND5E.AdvancementLevelHeader": "Level {level}",
-"DND5E.AdvancementLevelAnyHeader": "Any Level",
-"DND5E.AdvancementLevelNoneHeader": "No Level",
-"DND5E.AdvancementLevelDownConfirmationMessage": "Leveling this class down will also undo all advancement choices made for it. These changes will be removed from your character as long as the checkbox below is checked.",
-"DND5E.AdvancementLevelDownConfirmationTitle": "Confirm Leveling Down",
-"DND5E.AdvancementModifyChoices": "Modify Choices",
-"DND5E.AdvancementSaveButton": "Save Advancement",
-"DND5E.AdvancementSelectionCreateButton": "Create Advancement",
-"DND5E.AdvancementSelectionTitle": "Select Advancement Type",
-"DND5E.AdvancementTitle": "Advancement",
-"DND5E.Advantage": "Advantage",
-"DND5E.AdvantageMode": "Advantage Mode",
-"DND5E.Age": "Age",
-"DND5E.Alignment": "Alignment",
-"DND5E.AlignmentCE": "Chaotic Evil",
-"DND5E.AlignmentCG": "Chaotic Good",
-"DND5E.AlignmentCN": "Chaotic Neutral",
-"DND5E.AlignmentLE": "Lawful Evil",
-"DND5E.AlignmentLG": "Lawful Good",
-"DND5E.AlignmentLN": "Lawful Neutral",
-"DND5E.AlignmentNE": "Neutral Evil",
-"DND5E.AlignmentNG": "Neutral Good",
-"DND5E.AlignmentTN": "True Neutral",
-"DND5E.Amount": "Amount",
-"DND5E.Appearance": "Appearance",
-"DND5E.Apply": "Apply",
-"DND5E.Attunement": "Attunement",
-"DND5E.AttunementMax": "Maximum Attuned Items",
-"DND5E.AttunementNone": "Attunement Not Required",
-"DND5E.AttunementOptional": "Optional Attunement",
-"DND5E.AttunementRequired": "Attunement Required",
-"DND5E.AttunementAttuned": "Attuned",
-"DND5E.AttunementOverride": "Override attunement",
-"DND5E.Attuned": "Attuned",
-"DND5E.AreaOfEffect": {
+"ME5E.AdvancementChoices": "choices",
+"ME5E.AdvancementClassRestriction": "Class Restriction",
+"ME5E.AdvancementClassRestrictionNone": "All Classes",
+"ME5E.AdvancementClassRestrictionPrimary": "Original Class Only",
+"ME5E.AdvancementClassRestrictionSecondary": "Multiclass Only",
+"ME5E.AdvancementConfigurationActionDisable": "Disable Configuration",
+"ME5E.AdvancementConfigurationActionEnable": "Enable Configuration",
+"ME5E.AdvancementConfigurationModeDisabled": "Configuration Disabled",
+"ME5E.AdvancementConfigurationModeEnabled": "Configuration Enabled",
+"ME5E.AdvancementConfigureTitle": "Configure {item} Advancement",
+"ME5E.AdvancementConfigureAllowDrops": "Allow Drops",
+"ME5E.AdvancementConfigureAllowDropsHint": "Should players be able to drop their own choices into this advancement?",
+"ME5E.AdvancementConfigureDropAreaHint": "Drop Items here to add them to the pool from which a player can choose.",
+"ME5E.AdvancementConfiguredComplete": "Fully Configured",
+"ME5E.AdvancementConfiguredIncomplete": "Not Configured",
+"ME5E.AdvancementCustomIcon": "Custom Icon",
+"ME5E.AdvancementCustomTitle": "Custom Title",
+"ME5E.AdvancementDeleteConfirmationLabel": "Remove advancement changes",
+"ME5E.AdvancementDeleteConfirmationMessage": "Deleting this item will also delete all advancement choices made for it. These changes will be removed from your character as long as the checkbox below is checked.",
+"ME5E.AdvancementDeleteConfirmationTitle": "Confirm Deletion",
+"ME5E.AdvancementFlowDropAreaHint": "Drop an Item here to choose it.",
+"ME5E.AdvancementHint": "Hint",
+"ME5E.AdvancementItemTypeInvalidWarning": "{type} items cannot be added with this advancement type.",
+"ME5E.AdvancementLevelHeader": "Level {level}",
+"ME5E.AdvancementLevelAnyHeader": "Any Level",
+"ME5E.AdvancementLevelNoneHeader": "No Level",
+"ME5E.AdvancementLevelDownConfirmationMessage": "Leveling this class down will also undo all advancement choices made for it. These changes will be removed from your character as long as the checkbox below is checked.",
+"ME5E.AdvancementLevelDownConfirmationTitle": "Confirm Leveling Down",
+"ME5E.AdvancementModifyChoices": "Modify Choices",
+"ME5E.AdvancementSaveButton": "Save Advancement",
+"ME5E.AdvancementSelectionCreateButton": "Create Advancement",
+"ME5E.AdvancementSelectionTitle": "Select Advancement Type",
+"ME5E.AdvancementTitle": "Advancement",
+"ME5E.Advantage": "Advantage",
+"ME5E.AdvantageMode": "Advantage Mode",
+"ME5E.Age": "Age",
+"ME5E.Alignment": "Alignment",
+"ME5E.AlignmentCE": "Chaotic Evil",
+"ME5E.AlignmentCG": "Chaotic Good",
+"ME5E.AlignmentCN": "Chaotic Neutral",
+"ME5E.AlignmentLE": "Lawful Evil",
+"ME5E.AlignmentLG": "Lawful Good",
+"ME5E.AlignmentLN": "Lawful Neutral",
+"ME5E.AlignmentNE": "Neutral Evil",
+"ME5E.AlignmentNG": "Neutral Good",
+"ME5E.AlignmentTN": "True Neutral",
+"ME5E.Amount": "Amount",
+"ME5E.Appearance": "Appearance",
+"ME5E.Apply": "Apply",
+"ME5E.Attunement": "Attunement",
+"ME5E.AttunementMax": "Maximum Attuned Items",
+"ME5E.AttunementNone": "Attunement Not Required",
+"ME5E.AttunementOptional": "Optional Attunement",
+"ME5E.AttunementRequired": "Attunement Required",
+"ME5E.AttunementAttuned": "Attuned",
+"ME5E.AttunementOverride": "Override attunement",
+"ME5E.Attuned": "Attuned",
+"ME5E.AreaOfEffect": {
   "Label": "Area of Effect",
   "Size": {
     "Label": "Size",
@@ -825,30 +825,30 @@
     "Width": "Width"
   }
 },
-"DND5E.Armor": "Armor",
-"DND5E.ArmorClass": "Armor Class",
-"DND5E.ArmorClassEquipment": "Equipped Armor",
-"DND5E.ArmorClassFlat": "Flat",
-"DND5E.ArmorClassUnarmored": "Unarmored",
-"DND5E.ArmorClassNatural": "Natural Armor",
-"DND5E.ArmorClassMage": "Mage Armor",
-"DND5E.ArmorClassMotionless": "Armor Class while Motionless",
-"DND5E.ArmorClassDraconic": "Draconic Resilience",
-"DND5E.ArmorClassUnarmoredMonk": "Unarmored Defense (Monk)",
-"DND5E.ArmorClassUnarmoredBarbarian": "Unarmored Defense (Barbarian)",
-"DND5E.ArmorClassUnarmoredBard": "Unarmored Defense (Bard)",
-"DND5E.ArmorClassCustom": "Custom Formula",
-"DND5E.ArmorConfig": "Configure Armor",
-"DND5E.ArmorConfigHint": "Fill in the above box to override automatically calculated armor class.",
-"DND5E.ArmorClassCalculation": "Calculation",
-"DND5E.ArmorClassFormula": "Formula",
-"DND5E.ArmorHeavyProficiency": "Heavy",
-"DND5E.ArmorLightProficiency": "Light",
-"DND5E.ArmorMediumProficiency": "Medium",
-"DND5E.ArmorValue": "Armor Value",
-"DND5E.AC": "AC",
+"ME5E.Armor": "Armor",
+"ME5E.ArmorClass": "Armor Class",
+"ME5E.ArmorClassEquipment": "Equipped Armor",
+"ME5E.ArmorClassFlat": "Flat",
+"ME5E.ArmorClassUnarmored": "Unarmored",
+"ME5E.ArmorClassNatural": "Natural Armor",
+"ME5E.ArmorClassMage": "Mage Armor",
+"ME5E.ArmorClassMotionless": "Armor Class while Motionless",
+"ME5E.ArmorClassDraconic": "Draconic Resilience",
+"ME5E.ArmorClassUnarmoredMonk": "Unarmored Defense (Monk)",
+"ME5E.ArmorClassUnarmoredBarbarian": "Unarmored Defense (Barbarian)",
+"ME5E.ArmorClassUnarmoredBard": "Unarmored Defense (Bard)",
+"ME5E.ArmorClassCustom": "Custom Formula",
+"ME5E.ArmorConfig": "Configure Armor",
+"ME5E.ArmorConfigHint": "Fill in the above box to override automatically calculated armor class.",
+"ME5E.ArmorClassCalculation": "Calculation",
+"ME5E.ArmorClassFormula": "Formula",
+"ME5E.ArmorHeavyProficiency": "Heavy",
+"ME5E.ArmorLightProficiency": "Light",
+"ME5E.ArmorMediumProficiency": "Medium",
+"ME5E.ArmorValue": "Armor Value",
+"ME5E.AC": "AC",
 
-"DND5E.ATTACK": {
+"ME5E.ATTACK": {
   "Attack": {
     "mwak": "Melee Attack",
     "rwak": "Ranged Attack"
@@ -940,16 +940,16 @@
   }
 },
 
-"DND5E.Attack": "Attack",
-"DND5E.AttackPl": "Attacks",
-"DND5E.AttackRoll": "Attack Roll",
-"DND5E.Attributes": "Attributes",
-"DND5E.AttrConcentration": {
+"ME5E.Attack": "Attack",
+"ME5E.AttackPl": "Attacks",
+"ME5E.AttackRoll": "Attack Roll",
+"ME5E.Attributes": "Attributes",
+"ME5E.AttrConcentration": {
   "Limit": "Limit"
 },
-"DND5E.Automatic": "Automatic",
-"DND5E.AutomaticValue": "Automatic ({value})",
-"DND5E.Award": {
+"ME5E.Automatic": "Automatic",
+"ME5E.AutomaticValue": "Automatic ({value})",
+"ME5E.Award": {
   "Title": "Distribute Award",
   "Action": "Award",
   "Distribution": {
@@ -962,11 +962,11 @@
   "NotGMError": "The /award command is only available to GMs.",
   "UnrecognizedWarning": "Unable to parse {commands}. The /award command should be used with XP & currencies values such as '/award 10gp 50xp'."
 },
-"DND5E.Background": "Background",
-"DND5E.BackgroundAdd": "Add Background",
-"DND5E.BackgroundName": "Background Name",
+"ME5E.Background": "Background",
+"ME5E.BackgroundAdd": "Add Background",
+"ME5E.BackgroundName": "Background Name",
 
-"DND5E.Bastion": {
+"ME5E.Bastion": {
   "Action": {
     "BastionTurn": "Advance Bastion Turn"
   },
@@ -1021,19 +1021,19 @@
   }
 },
 
-"DND5E.Biography": "Biography",
-"DND5E.BiographyPublic": "Public Biography",
-"DND5E.BiopgrahyPublicEdit": "Edit Public Biography",
-"DND5E.Bonds": "Bonds",
-"DND5E.Bonus": "Bonus",
-"DND5E.BonusAction": "Bonus Action",
-"DND5E.BonusActionAbbr": "BA",
-"DND5E.BonusAttack": "Attack Bonus",
-"DND5E.BonusDamage": "Damage Bonus",
-"DND5E.BonusSaveForm": "Update Bonuses",
-"DND5E.BonusTitle": "Configure Actor Bonuses",
+"ME5E.Biography": "Biography",
+"ME5E.BiographyPublic": "Public Biography",
+"ME5E.BiopgrahyPublicEdit": "Edit Public Biography",
+"ME5E.Bonds": "Bonds",
+"ME5E.Bonus": "Bonus",
+"ME5E.BonusAction": "Bonus Action",
+"ME5E.BonusActionAbbr": "BA",
+"ME5E.BonusAttack": "Attack Bonus",
+"ME5E.BonusDamage": "Damage Bonus",
+"ME5E.BonusSaveForm": "Update Bonuses",
+"ME5E.BonusTitle": "Configure Actor Bonuses",
 
-"DND5E.BONUSES": {
+"ME5E.BONUSES": {
   "FIELDS": {
     "bonuses": {
       "label": "Global Bonuses",
@@ -1096,7 +1096,7 @@
   }
 },
 
-"DND5E.CALENDAR": {
+"ME5E.CALENDAR": {
   "Action": {
     "AdvanceTime": "Advance by {amount}",
     "OpenCharacterSheet": "Open Character Sheet",
@@ -1318,7 +1318,7 @@
   }
 },
 
-"DND5E.CAST": {
+"ME5E.CAST": {
   "Action": {
     "RemoveSpell": "Remove Spell"
   },
@@ -1371,10 +1371,10 @@
   "Title": "Cast"
 },
 
-"DND5E.Casting": "Casting",
-"DND5E.Conditions": "Conditions",
+"ME5E.Casting": "Casting",
+"ME5E.Conditions": "Conditions",
 
-"DND5E.CONTAINER": {
+"ME5E.CONTAINER": {
   "Details": "Container Details",
   "FIELDS": {
     "capacity": {
@@ -1407,7 +1407,7 @@
   }
 },
 
-"DND5E.Controls": {
+"ME5E.Controls": {
   "Hint": "Enable various hints throughout the UI for certain mouse and keyboard controls.",
   "LeftClick": "Left Click",
   "LockHint": "Middle-click to lock",
@@ -1417,20 +1417,20 @@
     "FastForwardHint": "<kbd>Shift</kbd> + <left-click> the item to skip this dialog"
   }
 },
-"DND5E.Challenge": "Challenge",
-"DND5E.ChallengeRating": "Challenge Rating",
-"DND5E.Charged": "Charged",
-"DND5E.Charges": "Charges",
-"DND5E.ChatContextDamage": "Apply As Damage",
-"DND5E.ChatContextHealing": "Apply As Healing",
-"DND5E.ChatContextTempHP": "Apply As Temporary HP",
-"DND5E.ChatContextDoubleDamage": "Apply Double As Damage",
-"DND5E.ChatContextHalfDamage": "Apply Half As Damage",
-"DND5E.ChatContextSelectHit": "Select Hit Targets",
-"DND5E.ChatContextSelectMiss": "Select Missed Targets",
-"DND5E.ChatFlavor": "Chat Message Flavor",
+"ME5E.Challenge": "Challenge",
+"ME5E.ChallengeRating": "Challenge Rating",
+"ME5E.Charged": "Charged",
+"ME5E.Charges": "Charges",
+"ME5E.ChatContextDamage": "Apply As Damage",
+"ME5E.ChatContextHealing": "Apply As Healing",
+"ME5E.ChatContextTempHP": "Apply As Temporary HP",
+"ME5E.ChatContextDoubleDamage": "Apply Double As Damage",
+"ME5E.ChatContextHalfDamage": "Apply Half As Damage",
+"ME5E.ChatContextSelectHit": "Select Hit Targets",
+"ME5E.ChatContextSelectMiss": "Select Missed Targets",
+"ME5E.ChatFlavor": "Chat Message Flavor",
 
-"DND5E.CHATMESSAGE": {
+"ME5E.CHATMESSAGE": {
   "Activities": "Activities",
   "Deltas": {
     "Created": "Item Created",
@@ -1449,7 +1449,7 @@
   }
 },
 
-"DND5E.CHECK": {
+"ME5E.CHECK": {
   "FIELDS": {
     "check": {
       "label": "Check Details",
@@ -1479,9 +1479,9 @@
   "Title": "Check"
 },
 
-"DND5E.CheckBonus": "Check Bonus",
+"ME5E.CheckBonus": "Check Bonus",
 
-"DND5E.CLASS": {
+"ME5E.CLASS": {
   "Multiclass": {
     "Title": "Multiclassing"
   },
@@ -1515,32 +1515,32 @@
   }
 },
 
-"DND5E.ClassAdd": "Add Class",
-"DND5E.ClassIdentifier": "Class Identifier",
-"DND5E.ClassIdentifierHint": "This class's data will be accessible using <strong>@classes.{identifier}</strong> in roll formulas.",
-"DND5E.ClassLevels": "Class Levels",
-"DND5E.ClassMakeOriginal": "Original Class",
-"DND5E.ClassMakeOriginalHint": "First class taken by character used to determine certain class traits when multiclassing.",
-"DND5E.ClassName": "Class Name",
-"DND5E.ClassOriginal": "Original Class",
-"DND5E.ClassSaves": "Saving Throws",
-"DND5E.Confirm": "Confirm",
+"ME5E.ClassAdd": "Add Class",
+"ME5E.ClassIdentifier": "Class Identifier",
+"ME5E.ClassIdentifierHint": "This class's data will be accessible using <strong>@classes.{identifier}</strong> in roll formulas.",
+"ME5E.ClassLevels": "Class Levels",
+"ME5E.ClassMakeOriginal": "Original Class",
+"ME5E.ClassMakeOriginalHint": "First class taken by character used to determine certain class traits when multiclassing.",
+"ME5E.ClassName": "Class Name",
+"ME5E.ClassOriginal": "Original Class",
+"ME5E.ClassSaves": "Saving Throws",
+"ME5E.Confirm": "Confirm",
 
-"DND5E.COMBAT": {
+"ME5E.COMBAT": {
   "Group": {
     "ActiveCount": "{current} of {combatants}",
     "Title": "{name} Group"
   }
 },
 
-"DND5E.COMBATANT": {
+"ME5E.COMBATANT": {
   "Counted": {
     "one": "{number} combatant",
     "other": "{number} combatants"
   }
 },
 
-"DND5E.CompendiumBrowser": {
+"ME5E.CompendiumBrowser": {
   "Title": "Compendium Browser",
   "Action": {
     "Open": "Open Compendium Browser"
@@ -1594,98 +1594,98 @@
   },
   "Locked": "Locked"
 },
-"DND5E.ComponentMaterial": "Material",
-"DND5E.ComponentMaterialAbbr": "M",
-"DND5E.ComponentSomatic": "Somatic",
-"DND5E.ComponentSomaticAbbr": "S",
-"DND5E.ComponentVerbal": "Verbal",
-"DND5E.ComponentVerbalAbbr": "V",
-"DND5E.Components": "Components",
-"DND5E.Container": "Container",
-"DND5E.ContainerDeleteMessage": "This container will be permanently deleted and cannot be recovered and the {count} items contained within will be moved out.",
-"DND5E.ContainerDeleteContents": "Also delete all items within the container.",
-"DND5E.ContainerMaxDepth": "Containers cannot be nested more than {depth} levels deep.",
-"DND5E.ContainerRecursiveError": "Containers cannot contain themselves.",
-"DND5E.Contents": "Contents",
-"DND5E.ContextMenuActionEdit": "Edit",
-"DND5E.ContextMenuActionDuplicate": "Duplicate",
-"DND5E.ContextMenuActionDelete": "Delete",
-"DND5E.ContextMenuActionEquip": "Equip",
-"DND5E.ContextMenuActionUnequip": "Unequip",
-"DND5E.ContextMenuActionPrepare": "Prepare",
-"DND5E.ContextMenuActionExpendCharge": "Uncharge",
-"DND5E.ContextMenuActionCharge": "Charge",
-"DND5E.ContextMenuActionUnprepare": "Unprepare",
-"DND5E.ContextMenuActionAttune": "Attune",
-"DND5E.ContextMenuActionUnattune": "Unattune",
-"DND5E.ContextMenuActionEnable": "Enable",
-"DND5E.ContextMenuActionDisable": "Disable",
-"DND5E.ContextMenuActionView": "View",
-"DND5E.Contiguous": "Contiguous",
-"DND5E.ConBlinded": "Blinded",
-"DND5E.ConCharmed": "Charmed",
-"DND5E.ConDeafened": "Deafened",
-"DND5E.ConDiseased": "Diseased",
-"DND5E.CONDITIONS": {
+"ME5E.ComponentMaterial": "Material",
+"ME5E.ComponentMaterialAbbr": "M",
+"ME5E.ComponentSomatic": "Somatic",
+"ME5E.ComponentSomaticAbbr": "S",
+"ME5E.ComponentVerbal": "Verbal",
+"ME5E.ComponentVerbalAbbr": "V",
+"ME5E.Components": "Components",
+"ME5E.Container": "Container",
+"ME5E.ContainerDeleteMessage": "This container will be permanently deleted and cannot be recovered and the {count} items contained within will be moved out.",
+"ME5E.ContainerDeleteContents": "Also delete all items within the container.",
+"ME5E.ContainerMaxDepth": "Containers cannot be nested more than {depth} levels deep.",
+"ME5E.ContainerRecursiveError": "Containers cannot contain themselves.",
+"ME5E.Contents": "Contents",
+"ME5E.ContextMenuActionEdit": "Edit",
+"ME5E.ContextMenuActionDuplicate": "Duplicate",
+"ME5E.ContextMenuActionDelete": "Delete",
+"ME5E.ContextMenuActionEquip": "Equip",
+"ME5E.ContextMenuActionUnequip": "Unequip",
+"ME5E.ContextMenuActionPrepare": "Prepare",
+"ME5E.ContextMenuActionExpendCharge": "Uncharge",
+"ME5E.ContextMenuActionCharge": "Charge",
+"ME5E.ContextMenuActionUnprepare": "Unprepare",
+"ME5E.ContextMenuActionAttune": "Attune",
+"ME5E.ContextMenuActionUnattune": "Unattune",
+"ME5E.ContextMenuActionEnable": "Enable",
+"ME5E.ContextMenuActionDisable": "Disable",
+"ME5E.ContextMenuActionView": "View",
+"ME5E.Contiguous": "Contiguous",
+"ME5E.ConBlinded": "Blinded",
+"ME5E.ConCharmed": "Charmed",
+"ME5E.ConDeafened": "Deafened",
+"ME5E.ConDiseased": "Diseased",
+"ME5E.CONDITIONS": {
   "RiderConditions": {
     "label": "Separate Status Conditions",
     "hint": "When this Active Effect is applied, these additional status conditions will be applied separately."
   }
 },
-"DND5E.ConExhaustion": "Exhaustion",
-"DND5E.ConFrightened": "Frightened",
-"DND5E.ConGrappled": "Grappled",
-"DND5E.ConImm": "Condition Immunities",
-"DND5E.ConIncapacitated": "Incapacitated",
-"DND5E.ConInvisible": "Invisible",
-"DND5E.ConParalyzed": "Paralyzed",
-"DND5E.ConPetrified": "Petrified",
-"DND5E.ConPoisoned": "Poisoned",
-"DND5E.ConProne": "Prone",
-"DND5E.ConRestrained": "Restrained",
-"DND5E.ConStunned": "Stunned",
-"DND5E.ConUnconscious": "Unconscious",
-"DND5E.Concentration": "Concentration",
-"DND5E.ConcentrationAbbr": "C",
-"DND5E.ConcentrationBreak": "Break Concentration",
-"DND5E.ConcentrationBreakWarning": "Breaking concentration on an effect that is active on other creatures requires an active GM to be present.",
-"DND5E.ConcentrationBonus": "Concentration Bonus",
-"DND5E.ConcentrationDuration": "Concentration, up to {duration}",
-"DND5E.ConcentratingOn": "You are maintaining concentration on the effects of the '{name}' {type}.",
-"DND5E.ConcentratingEndChoice": "You are concentrating on effects from more than one source. Pick which effect to end.",
-"DND5E.ConcentratingMissingItem": "The effect that is concentrated on and to be replaced does not exist.",
-"DND5E.ConcentratingLimited": "You are not able to begin concentrating on an additional effect.",
-"DND5E.ConcentrationLimit": "Concentration Limit",
-"DND5E.ConcentratingEnd": "End Concentration",
-"DND5E.ConcentratingItemless": "Concentration With No Source",
-"DND5E.ConcentratingWarnLimit": "You cannot maintain concentration on more effects!",
-"DND5E.ConcentratingWarnLimitOptional": "You may end concentration on one of your maintained effects to use this item.",
-"DND5E.ConcentratingWarnLimitZero": "You are not able to maintain concentration on any effects!",
-"DND5E.ConcentrationConfigurationHint": "Configure concentration modifiers and bonuses which apply to this creature.",
-"DND5E.ConsumeTitle": "Resource Consumption",
-"DND5E.ConsumeAmount": "Consumption Amount",
-"DND5E.ConsumeHint": {
+"ME5E.ConExhaustion": "Exhaustion",
+"ME5E.ConFrightened": "Frightened",
+"ME5E.ConGrappled": "Grappled",
+"ME5E.ConImm": "Condition Immunities",
+"ME5E.ConIncapacitated": "Incapacitated",
+"ME5E.ConInvisible": "Invisible",
+"ME5E.ConParalyzed": "Paralyzed",
+"ME5E.ConPetrified": "Petrified",
+"ME5E.ConPoisoned": "Poisoned",
+"ME5E.ConProne": "Prone",
+"ME5E.ConRestrained": "Restrained",
+"ME5E.ConStunned": "Stunned",
+"ME5E.ConUnconscious": "Unconscious",
+"ME5E.Concentration": "Concentration",
+"ME5E.ConcentrationAbbr": "C",
+"ME5E.ConcentrationBreak": "Break Concentration",
+"ME5E.ConcentrationBreakWarning": "Breaking concentration on an effect that is active on other creatures requires an active GM to be present.",
+"ME5E.ConcentrationBonus": "Concentration Bonus",
+"ME5E.ConcentrationDuration": "Concentration, up to {duration}",
+"ME5E.ConcentratingOn": "You are maintaining concentration on the effects of the '{name}' {type}.",
+"ME5E.ConcentratingEndChoice": "You are concentrating on effects from more than one source. Pick which effect to end.",
+"ME5E.ConcentratingMissingItem": "The effect that is concentrated on and to be replaced does not exist.",
+"ME5E.ConcentratingLimited": "You are not able to begin concentrating on an additional effect.",
+"ME5E.ConcentrationLimit": "Concentration Limit",
+"ME5E.ConcentratingEnd": "End Concentration",
+"ME5E.ConcentratingItemless": "Concentration With No Source",
+"ME5E.ConcentratingWarnLimit": "You cannot maintain concentration on more effects!",
+"ME5E.ConcentratingWarnLimitOptional": "You may end concentration on one of your maintained effects to use this item.",
+"ME5E.ConcentratingWarnLimitZero": "You are not able to maintain concentration on any effects!",
+"ME5E.ConcentrationConfigurationHint": "Configure concentration modifiers and bonuses which apply to this creature.",
+"ME5E.ConsumeTitle": "Resource Consumption",
+"ME5E.ConsumeAmount": "Consumption Amount",
+"ME5E.ConsumeHint": {
   "Attribute": "Attribute to consume (e.g. currency.gp)",
   "Item": "UUID of target in compendium"
 },
-"DND5E.ConsumeTarget": "Consumption Target",
-"DND5E.ConsumeType": "Consumption Category",
-"DND5E.ConsumeAmmunition": "Ammunition",
-"DND5E.ConsumeAttribute": "Attribute",
-"DND5E.ConsumeHitDice": "Hit Dice",
-"DND5E.ConsumeHitDiceLargest": "Largest Available",
-"DND5E.ConsumeHitDiceLargestLong": "Largest Hit Dice Available",
-"DND5E.ConsumeHitDiceSmallest": "Smallest Available",
-"DND5E.ConsumeHitDiceSmallestLong": "Smallest Hit Dice Available",
-"DND5E.ConsumeMaterial": "Material",
-"DND5E.ConsumeCharges": "Item Uses",
-"DND5E.ConsumeResource": "Consume Resource?",
-"DND5E.ConsumeRecharge": "Consume Recharge?",
-"DND5E.ConsumeScaling": "Resource Scaling",
-"DND5E.ConsumeScalingLabel": "Use Resources",
-"DND5E.ConsumeScalingTooltip": "If checked, consuming additional resources will increase the level the spell is cast at.",
+"ME5E.ConsumeTarget": "Consumption Target",
+"ME5E.ConsumeType": "Consumption Category",
+"ME5E.ConsumeAmmunition": "Ammunition",
+"ME5E.ConsumeAttribute": "Attribute",
+"ME5E.ConsumeHitDice": "Hit Dice",
+"ME5E.ConsumeHitDiceLargest": "Largest Available",
+"ME5E.ConsumeHitDiceLargestLong": "Largest Hit Dice Available",
+"ME5E.ConsumeHitDiceSmallest": "Smallest Available",
+"ME5E.ConsumeHitDiceSmallestLong": "Smallest Hit Dice Available",
+"ME5E.ConsumeMaterial": "Material",
+"ME5E.ConsumeCharges": "Item Uses",
+"ME5E.ConsumeResource": "Consume Resource?",
+"ME5E.ConsumeRecharge": "Consume Recharge?",
+"ME5E.ConsumeScaling": "Resource Scaling",
+"ME5E.ConsumeScalingLabel": "Use Resources",
+"ME5E.ConsumeScalingTooltip": "If checked, consuming additional resources will increase the level the spell is cast at.",
 
-"DND5E.CONSUMABLE": {
+"ME5E.CONSUMABLE": {
   "FIELDS": {
     "damage": {
       "label": "Ammunition Damage",
@@ -1751,13 +1751,13 @@
   }
 },
 
-"DND5E.ConsumableUseWarnStart": "This consumable has",
-"DND5E.ConsumableUseWarnEnd": "of the current unit",
-"DND5E.ConsumableUnitWarn": "units remaining",
-"DND5E.ConsumableLastChargeWarn": "This is the last charge of this unit and consuming it will also reduce the item's quantity by 1",
-"DND5E.ConsumableWithoutCharges": "available units to use",
+"ME5E.ConsumableUseWarnStart": "This consumable has",
+"ME5E.ConsumableUseWarnEnd": "of the current unit",
+"ME5E.ConsumableUnitWarn": "units remaining",
+"ME5E.ConsumableLastChargeWarn": "This is the last charge of this unit and consuming it will also reduce the item's quantity by 1",
+"ME5E.ConsumableWithoutCharges": "available units to use",
 
-"DND5E.CONSUMPTION": {
+"ME5E.CONSUMPTION": {
   "FIELDS": {
     "consumption": {
       "label": "Consumption",
@@ -1904,69 +1904,69 @@
   }
 },
 
-"DND5E.Consumed": "Consumed",
-"DND5E.Copy": "Copy Text",
-"DND5E.Copied": "Copied {value}",
-"DND5E.Cover": "Cover",
-"DND5E.CoverHalf": "Half",
-"DND5E.CoverThreeQuarters": "Three Quarters",
-"DND5E.CoverTotal": "Total",
-"DND5E.Cost": "Cost",
-"DND5E.CostGP": "Cost (GP)",
-"DND5E.CreatureAberration": "Aberration",
-"DND5E.CreatureAberrationPl": "Aberrations",
-"DND5E.CreatureBeast": "Beast",
-"DND5E.CreatureBeastPl": "Beasts",
-"DND5E.CreatureCelestial": "Celestial",
-"DND5E.CreatureCelestialPl": "Celestials",
-"DND5E.CreatureConstruct": "Construct",
-"DND5E.CreatureConstructPl": "Constructs",
-"DND5E.CreatureDragon": "Dragon",
-"DND5E.CreatureDragonPl": "Dragons",
-"DND5E.CreatureElemental": "Elemental",
-"DND5E.CreatureElementalPl": "Elementals",
-"DND5E.CreatureFey": "Fey",
-"DND5E.CreatureFeyPl": "Fey",
-"DND5E.CreatureFiend": "Fiend",
-"DND5E.CreatureFiendPl": "Fiends",
-"DND5E.CreatureGiant": "Giant",
-"DND5E.CreatureGiantPl": "Giants",
-"DND5E.CreatureHumanoid": "Humanoid",
-"DND5E.CreatureHumanoidPl": "Humanoids",
-"DND5E.CreatureMonstrosity": "Monstrosity",
-"DND5E.CreatureMonstrosityPl": "Monstrosities",
-"DND5E.CreatureOoze": "Ooze",
-"DND5E.CreatureOozePl": "Oozes",
-"DND5E.CreaturePlant": "Plant",
-"DND5E.CreaturePlantPl": "Plants",
-"DND5E.CreatureType": "Creature Type",
-"DND5E.CreatureTypeTitle": "Configure Creature Type",
-"DND5E.CreatureSwarm": "Swarm",
-"DND5E.CreatureSwarmSize": "Swarm Size",
-"DND5E.CreatureSwarmPhrase": "Swarm of {size} {type}",
-"DND5E.CreatureTag": "{size} {type}, {alignment}",
-"DND5E.CreatureTypeConfig": "Configure Creature Type",
-"DND5E.CreatureTypeSelectorCustom": "Custom Type",
-"DND5E.CreatureTypeSelectorSubtype": "Subtype",
-"DND5E.CreatureUndead": "Undead",
-"DND5E.CreatureUndeadPl": "Undead",
-"DND5E.Crewed": "Crewed",
-"DND5E.Critical": "Critical",
-"DND5E.CriticalHit": "Critical Hit",
-"DND5E.PowerfulCritical": "Powerful Critical",
-"DND5E.CRLabel": "CR {cr}",
-"DND5E.Currency": "Currency",
-"DND5E.CurrencyAbbrCP": "cp",
-"DND5E.CurrencyAbbrEP": "ep",
-"DND5E.CurrencyAbbrGP": "gp",
-"DND5E.CurrencyAbbrPP": "pp",
-"DND5E.CurrencyAbbrSP": "sp",
-"DND5E.CurrencyCP": "Copper",
-"DND5E.CurrencyEP": "Electrum",
-"DND5E.CurrencyGP": "Gold",
-"DND5E.CurrencyPP": "Platinum",
-"DND5E.CurrencySP": "Silver",
-"DND5E.CurrencyManager": {
+"ME5E.Consumed": "Consumed",
+"ME5E.Copy": "Copy Text",
+"ME5E.Copied": "Copied {value}",
+"ME5E.Cover": "Cover",
+"ME5E.CoverHalf": "Half",
+"ME5E.CoverThreeQuarters": "Three Quarters",
+"ME5E.CoverTotal": "Total",
+"ME5E.Cost": "Cost",
+"ME5E.CostGP": "Cost (GP)",
+"ME5E.CreatureAberration": "Aberration",
+"ME5E.CreatureAberrationPl": "Aberrations",
+"ME5E.CreatureBeast": "Beast",
+"ME5E.CreatureBeastPl": "Beasts",
+"ME5E.CreatureCelestial": "Celestial",
+"ME5E.CreatureCelestialPl": "Celestials",
+"ME5E.CreatureConstruct": "Construct",
+"ME5E.CreatureConstructPl": "Constructs",
+"ME5E.CreatureDragon": "Dragon",
+"ME5E.CreatureDragonPl": "Dragons",
+"ME5E.CreatureElemental": "Elemental",
+"ME5E.CreatureElementalPl": "Elementals",
+"ME5E.CreatureFey": "Fey",
+"ME5E.CreatureFeyPl": "Fey",
+"ME5E.CreatureFiend": "Fiend",
+"ME5E.CreatureFiendPl": "Fiends",
+"ME5E.CreatureGiant": "Giant",
+"ME5E.CreatureGiantPl": "Giants",
+"ME5E.CreatureHumanoid": "Humanoid",
+"ME5E.CreatureHumanoidPl": "Humanoids",
+"ME5E.CreatureMonstrosity": "Monstrosity",
+"ME5E.CreatureMonstrosityPl": "Monstrosities",
+"ME5E.CreatureOoze": "Ooze",
+"ME5E.CreatureOozePl": "Oozes",
+"ME5E.CreaturePlant": "Plant",
+"ME5E.CreaturePlantPl": "Plants",
+"ME5E.CreatureType": "Creature Type",
+"ME5E.CreatureTypeTitle": "Configure Creature Type",
+"ME5E.CreatureSwarm": "Swarm",
+"ME5E.CreatureSwarmSize": "Swarm Size",
+"ME5E.CreatureSwarmPhrase": "Swarm of {size} {type}",
+"ME5E.CreatureTag": "{size} {type}, {alignment}",
+"ME5E.CreatureTypeConfig": "Configure Creature Type",
+"ME5E.CreatureTypeSelectorCustom": "Custom Type",
+"ME5E.CreatureTypeSelectorSubtype": "Subtype",
+"ME5E.CreatureUndead": "Undead",
+"ME5E.CreatureUndeadPl": "Undead",
+"ME5E.Crewed": "Crewed",
+"ME5E.Critical": "Critical",
+"ME5E.CriticalHit": "Critical Hit",
+"ME5E.PowerfulCritical": "Powerful Critical",
+"ME5E.CRLabel": "CR {cr}",
+"ME5E.Currency": "Currency",
+"ME5E.CurrencyAbbrCP": "cp",
+"ME5E.CurrencyAbbrEP": "ep",
+"ME5E.CurrencyAbbrGP": "gp",
+"ME5E.CurrencyAbbrPP": "pp",
+"ME5E.CurrencyAbbrSP": "sp",
+"ME5E.CurrencyCP": "Copper",
+"ME5E.CurrencyEP": "Electrum",
+"ME5E.CurrencyGP": "Gold",
+"ME5E.CurrencyPP": "Platinum",
+"ME5E.CurrencySP": "Silver",
+"ME5E.CurrencyManager": {
   "Title": "Manage Currency",
   "Convert": {
     "Label": "Convert",
@@ -1983,9 +1983,9 @@
     "Half": "Half"
   }
 },
-"DND5E.Current": "Current",
+"ME5E.Current": "Current",
 
-"DND5E.DAMAGE": {
+"ME5E.DAMAGE": {
   "FIELDS": {
     "damage": {
       "label": "Damage",
@@ -2069,14 +2069,14 @@
   "Title": "Damage"
 },
 
-"DND5E.DamImm": "Damage Immunities",
-"DND5E.DamMod": "Damage Modification",
-"DND5E.DamRes": "Damage Resistances",
-"DND5E.DamVuln": "Damage Vulnerabilities",
-"DND5E.Damage": "Damage",
-"DND5E.DamageAcid": "Acid",
-"DND5E.DamageAll": "All Damage",
-"DND5E.DamageApplication": {
+"ME5E.DamImm": "Damage Immunities",
+"ME5E.DamMod": "Damage Modification",
+"ME5E.DamRes": "Damage Resistances",
+"ME5E.DamVuln": "Damage Vulnerabilities",
+"ME5E.Damage": "Damage",
+"ME5E.DamageAcid": "Acid",
+"ME5E.DamageAll": "All Damage",
+"ME5E.DamageApplication": {
   "Change": {
     "Modification": "{type} Modification",
     "Immunity": "{type} Immunity",
@@ -2087,87 +2087,87 @@
   "Downgrading": "Downgrading {source} to Resistance",
   "Ignoring": "Ignoring {source}"
 },
-"DND5E.DamageBludgeoning": "Bludgeoning",
-"DND5E.DamageCold": "Cold",
-"DND5E.DamageFire": "Fire",
-"DND5E.DamageForce": "Force",
-"DND5E.DamageLightning": "Lightning",
-"DND5E.DamageModification": {
+"ME5E.DamageBludgeoning": "Bludgeoning",
+"ME5E.DamageCold": "Cold",
+"ME5E.DamageFire": "Fire",
+"ME5E.DamageForce": "Force",
+"ME5E.DamageLightning": "Lightning",
+"ME5E.DamageModification": {
   "Label": "Damage Modification",
   "Hint": "Formulas for amounts that will be added to typed damage applied to this actor. Negative values will reduce the damage taken.",
   "BypassHint": "These weapon properties will bypass damage modification for physical damage."
 },
-"DND5E.DamageNecrotic": "Necrotic",
-"DND5E.DamagePiercing": "Piercing",
-"DND5E.DamagePhysical": "Non-Magical Physical",
-"DND5E.DamagePhysicalBypass": "Physical Bypasses",
-"DND5E.DamagePhysicalBypassHint": "These weapon properties will bypass damage resistance for physical damage.",
-"DND5E.DamagePhysicalBypasses": "{damageTypes} from attacks that are not {bypassTypes}",
-"DND5E.DamagePhysicalBypassesShort": "Bypassed by {type} Sources",
-"DND5E.DamagePoison": "Poison",
-"DND5E.DamagePsychic": "Psychic",
-"DND5E.DamageRadiant": "Radiant",
-"DND5E.DamageRoll": "Damage Roll",
-"DND5E.DamageSlashing": "Slashing",
-"DND5E.DamageThreshold": "Damage Threshold",
-"DND5E.DamageThunder": "Thunder",
-"DND5E.DamageType": "Damage Type",
-"DND5E.DamageTypes": "Damage Types",
-"DND5E.Dawn": "Dawn",
-"DND5E.Day": "Day",
-"DND5E.DeathSave": "Death Saves",
-"DND5E.DeathSaveBonus": "Death Save Bonus",
-"DND5E.DeathSaveConfigure": "Configure Death Saves",
-"DND5E.DeathSaveCriticalSuccess": "{name} critically succeeded on a death saving throw and has regained 1 Hit Point!",
-"DND5E.DeathSaveHide": "Hide Death Saves",
-"DND5E.DeathSaveShow": "Show Death Saves",
-"DND5E.DeathSaveSuccess": "{name} has survived with 3 death save successes and is now stable!",
-"DND5E.DeathSaveSuccessLabel": "Death Save Success",
-"DND5E.DeathSaveSuccessLabelN.one": "1st death save success",
-"DND5E.DeathSaveSuccessLabelN.two": "2nd death save success",
-"DND5E.DeathSaveSuccessLabelN.few": "3rd death save success",
-"DND5E.DeathSaveSuccesses": "Successes",
-"DND5E.DeathSaveFailure": "{name} has died with 3 death save failures!",
-"DND5E.DeathSaveFailureLabel": "Death Save Failure",
-"DND5E.DeathSaveFailureLabelN.one": "1st death save failure",
-"DND5E.DeathSaveFailureLabelN.two": "2nd death save failure",
-"DND5E.DeathSaveFailureLabelN.few": "3rd death save failure",
-"DND5E.DeathSaveFailures": "Failures",
-"DND5E.DeathSaveRoll": "Roll a Death Saving Throw",
-"DND5E.DeathSavingThrow": "Death Saving Throw",
-"DND5E.DeathSaveUnnecessary": "You do not need to roll death saves because you have a positive number of hit points or have already reached 3 successes or failures.",
-"DND5E.Default": "Default",
-"DND5E.DefaultSpecific": "Default ({default})",
-"DND5E.DefaultAbilityCheck": "Default Ability Check",
-"DND5E.Denomination": "Denomination",
-"DND5E.Description": "Description",
-"DND5E.DescriptionChat": "Chat Description",
-"DND5E.DescriptionEdit": "Edit {description}",
-"DND5E.DescriptionSummary": "Summary Description",
-"DND5E.DescriptionUnidentified": "Unidentified Description",
-"DND5E.Details": "Details",
-"DND5E.DetailsEdit": "Edit Details",
-"DND5E.Die": "Die",
-"DND5E.Dimensions": "Dimensions",
-"DND5E.Disadvantage": "Disadvantage",
-"DND5E.Discord": "Discord",
-"DND5E.Disclaimer": "Disclaimer",
-"DND5E.DisplayCard": "Display in Chat",
-"DND5E.DistAny": "Any",
-"DND5E.DistFt": "Feet",
-"DND5E.DistFtAbbr": "ft",
-"DND5E.DistKm": "Kilometers",
-"DND5E.DistKmAbbr": "km",
-"DND5E.DistM": "Meters",
-"DND5E.DistMAbbr": "m",
-"DND5E.DistMi": "Miles",
-"DND5E.DistMiAbbr": "mi",
-"DND5E.DistSelf": "Self",
-"DND5E.DistTouch": "Touch",
-"DND5E.DocumentUseWarn": "You lack permission to use an item on this document.",
-"DND5E.DocumentViewWarn": "You lack permission to view this document.",
+"ME5E.DamageNecrotic": "Necrotic",
+"ME5E.DamagePiercing": "Piercing",
+"ME5E.DamagePhysical": "Non-Magical Physical",
+"ME5E.DamagePhysicalBypass": "Physical Bypasses",
+"ME5E.DamagePhysicalBypassHint": "These weapon properties will bypass damage resistance for physical damage.",
+"ME5E.DamagePhysicalBypasses": "{damageTypes} from attacks that are not {bypassTypes}",
+"ME5E.DamagePhysicalBypassesShort": "Bypassed by {type} Sources",
+"ME5E.DamagePoison": "Poison",
+"ME5E.DamagePsychic": "Psychic",
+"ME5E.DamageRadiant": "Radiant",
+"ME5E.DamageRoll": "Damage Roll",
+"ME5E.DamageSlashing": "Slashing",
+"ME5E.DamageThreshold": "Damage Threshold",
+"ME5E.DamageThunder": "Thunder",
+"ME5E.DamageType": "Damage Type",
+"ME5E.DamageTypes": "Damage Types",
+"ME5E.Dawn": "Dawn",
+"ME5E.Day": "Day",
+"ME5E.DeathSave": "Death Saves",
+"ME5E.DeathSaveBonus": "Death Save Bonus",
+"ME5E.DeathSaveConfigure": "Configure Death Saves",
+"ME5E.DeathSaveCriticalSuccess": "{name} critically succeeded on a death saving throw and has regained 1 Hit Point!",
+"ME5E.DeathSaveHide": "Hide Death Saves",
+"ME5E.DeathSaveShow": "Show Death Saves",
+"ME5E.DeathSaveSuccess": "{name} has survived with 3 death save successes and is now stable!",
+"ME5E.DeathSaveSuccessLabel": "Death Save Success",
+"ME5E.DeathSaveSuccessLabelN.one": "1st death save success",
+"ME5E.DeathSaveSuccessLabelN.two": "2nd death save success",
+"ME5E.DeathSaveSuccessLabelN.few": "3rd death save success",
+"ME5E.DeathSaveSuccesses": "Successes",
+"ME5E.DeathSaveFailure": "{name} has died with 3 death save failures!",
+"ME5E.DeathSaveFailureLabel": "Death Save Failure",
+"ME5E.DeathSaveFailureLabelN.one": "1st death save failure",
+"ME5E.DeathSaveFailureLabelN.two": "2nd death save failure",
+"ME5E.DeathSaveFailureLabelN.few": "3rd death save failure",
+"ME5E.DeathSaveFailures": "Failures",
+"ME5E.DeathSaveRoll": "Roll a Death Saving Throw",
+"ME5E.DeathSavingThrow": "Death Saving Throw",
+"ME5E.DeathSaveUnnecessary": "You do not need to roll death saves because you have a positive number of hit points or have already reached 3 successes or failures.",
+"ME5E.Default": "Default",
+"ME5E.DefaultSpecific": "Default ({default})",
+"ME5E.DefaultAbilityCheck": "Default Ability Check",
+"ME5E.Denomination": "Denomination",
+"ME5E.Description": "Description",
+"ME5E.DescriptionChat": "Chat Description",
+"ME5E.DescriptionEdit": "Edit {description}",
+"ME5E.DescriptionSummary": "Summary Description",
+"ME5E.DescriptionUnidentified": "Unidentified Description",
+"ME5E.Details": "Details",
+"ME5E.DetailsEdit": "Edit Details",
+"ME5E.Die": "Die",
+"ME5E.Dimensions": "Dimensions",
+"ME5E.Disadvantage": "Disadvantage",
+"ME5E.Discord": "Discord",
+"ME5E.Disclaimer": "Disclaimer",
+"ME5E.DisplayCard": "Display in Chat",
+"ME5E.DistAny": "Any",
+"ME5E.DistFt": "Feet",
+"ME5E.DistFtAbbr": "ft",
+"ME5E.DistKm": "Kilometers",
+"ME5E.DistKmAbbr": "km",
+"ME5E.DistM": "Meters",
+"ME5E.DistMAbbr": "m",
+"ME5E.DistMi": "Miles",
+"ME5E.DistMiAbbr": "mi",
+"ME5E.DistSelf": "Self",
+"ME5E.DistTouch": "Touch",
+"ME5E.DocumentUseWarn": "You lack permission to use an item on this document.",
+"ME5E.DocumentViewWarn": "You lack permission to view this document.",
 
-"DND5E.DURATION": {
+"ME5E.DURATION": {
   "FIELDS": {
     "duration": {
       "label": "Duration",
@@ -2195,16 +2195,16 @@
   }
 },
 
-"DND5E.Duration": "Duration",
-"DND5E.DurationPermanent": "Permanent",
-"DND5E.DurationTime": "Time",
-"DND5E.DurationType": "Duration Type",
-"DND5E.DurationUnits": "Duration Units",
-"DND5E.DurationValue": "Duration Value",
-"DND5E.Dusk": "Dusk",
-"DND5E.Effect": "Effect",
-"DND5E.Effects": "Effects",
-"DND5E.EFFECT": {
+"ME5E.Duration": "Duration",
+"ME5E.DurationPermanent": "Permanent",
+"ME5E.DurationTime": "Time",
+"ME5E.DurationType": "Duration Type",
+"ME5E.DurationUnits": "Duration Units",
+"ME5E.DurationValue": "Duration Value",
+"ME5E.Dusk": "Dusk",
+"ME5E.Effect": "Effect",
+"ME5E.Effects": "Effects",
+"ME5E.EFFECT": {
   "Action": {
     "Create": "Create Effect",
     "Delete": "Delete Effect",
@@ -2217,12 +2217,12 @@
     "Effect": "Enchantment Rider Effect"
   }
 },
-"DND5E.EffectsApplyTokens": "Apply to selected tokens",
-"DND5E.EffectApplyWarningConcentration": "Applying an effect that is being concentrated on by another character requires GM permissions.",
-"DND5E.EffectApplyWarningOwnership": "Effects cannot be applied to tokens you are not the owner of.",
-"DND5E.EffectsSearch": "Search effects",
+"ME5E.EffectsApplyTokens": "Apply to selected tokens",
+"ME5E.EffectApplyWarningConcentration": "Applying an effect that is being concentrated on by another character requires GM permissions.",
+"ME5E.EffectApplyWarningOwnership": "Effects cannot be applied to tokens you are not the owner of.",
+"ME5E.EffectsSearch": "Search effects",
 
-"DND5E.ENCHANT": {
+"ME5E.ENCHANT": {
   "FIELDS": {
     "effects.element": {
       "level": {
@@ -2311,7 +2311,7 @@
   }
 },
 
-"DND5E.ENCHANTMENT": {
+"ME5E.ENCHANTMENT": {
   "Action": {
     "Apply": "Apply Enchantment",
     "Disable": "Disable Enchantment",
@@ -2355,7 +2355,7 @@
   }
 },
 
-"DND5E.ENCOUNTER": {
+"ME5E.ENCOUNTER": {
   "Action": {
     "AddCreature": "Add Creature",
     "Award": "Award XP & Currency"
@@ -2372,9 +2372,9 @@
   }
 },
 
-"DND5E.Environment": "Environment",
+"ME5E.Environment": "Environment",
 
-"DND5E.EQUIPMENT": {
+"ME5E.EQUIPMENT": {
   "Type": {
     "Clothing": {
       "Label": "Clothing"
@@ -2400,18 +2400,18 @@
   }
 },
 
-"DND5E.EquipmentBonus": "Magical Bonus",
-"DND5E.EquipmentHeavy": "Heavy Armor",
-"DND5E.EquipmentLight": "Light Armor",
-"DND5E.EquipmentMedium": "Medium Armor",
-"DND5E.EquipmentNatural": "Natural Armor",
-"DND5E.EquipmentShield": "Shield",
-"DND5E.EquipmentShieldProficiency": "Shields",
-"DND5E.Equipped": "Equipped",
-"DND5E.Exhaustion": "Exhaustion",
-"DND5E.ExhaustionLevel": "Exhaustion Level {n}",
+"ME5E.EquipmentBonus": "Magical Bonus",
+"ME5E.EquipmentHeavy": "Heavy Armor",
+"ME5E.EquipmentLight": "Light Armor",
+"ME5E.EquipmentMedium": "Medium Armor",
+"ME5E.EquipmentNatural": "Natural Armor",
+"ME5E.EquipmentShield": "Shield",
+"ME5E.EquipmentShieldProficiency": "Shields",
+"ME5E.Equipped": "Equipped",
+"ME5E.Exhaustion": "Exhaustion",
+"ME5E.ExhaustionLevel": "Exhaustion Level {n}",
 
-"DND5E.ExperiencePoints": {
+"ME5E.ExperiencePoints": {
   "Abbreviation": "XP",
   "Boons": {
     "one": "{number} Boon",
@@ -2429,9 +2429,9 @@
   "Value": "XP Value"
 },
 
-"DND5E.Expertise": "Expertise",
+"ME5E.Expertise": "Expertise",
 
-"DND5E.FACILITY": {
+"ME5E.FACILITY": {
   "Action": {
     "DeleteDefender": "Delete Defender",
     "DeleteOccupant": "Delete Occupant",
@@ -2685,13 +2685,13 @@
   }
 },
 
-"DND5E.Favorite": "Favorite",
-"DND5E.FavoriteDrop": "Drop Favorite",
-"DND5E.FavoriteRemove": "Remove Favorite",
-"DND5E.Favorites": "Favorites",
-"DND5E.FeatureActionRecharge": "Action Recharge",
+"ME5E.Favorite": "Favorite",
+"ME5E.FavoriteDrop": "Drop Favorite",
+"ME5E.FavoriteRemove": "Remove Favorite",
+"ME5E.Favorites": "Favorites",
+"ME5E.FeatureActionRecharge": "Action Recharge",
 
-"DND5E.FEATURE": {
+"ME5E.FEATURE": {
   "FIELDS": {
     "cover": {
       "label": "Cover",
@@ -2709,7 +2709,7 @@
   }
 },
 
-"DND5E.Feature": {
+"ME5E.Feature": {
   "Background": "Background Feature",
   "Class": {
     "Label": "Class Feature",
@@ -2751,24 +2751,24 @@
     "Label": "Vehicle Feature"
   }
 },
-"DND5E.Focus": {
+"ME5E.Focus": {
   "Label": "Spellcasting Focus",
   "Arcane": "Arcane Focus",
   "Druidic": "Druidic Focus",
   "Holy": "Holy Focus"
 },
-"DND5E.Loot.Art": "Art Object",
-"DND5E.Loot.Gear": "Adventuring Gear",
-"DND5E.Loot.Gem": "Gemstone",
-"DND5E.Loot.Junk": "Junk",
-"DND5E.Loot.Material": "Material",
-"DND5E.Loot.Resource": "Resource",
-"DND5E.Loot.Trade": "Trade Good",
-"DND5E.Loot.Treasure": "Treasure",
-"DND5E.Flaws": "Flaws",
-"DND5E.FormulaCannotContainDiceError": "{name} formula cannot contain dice expressions.",
+"ME5E.Loot.Art": "Art Object",
+"ME5E.Loot.Gear": "Adventuring Gear",
+"ME5E.Loot.Gem": "Gemstone",
+"ME5E.Loot.Junk": "Junk",
+"ME5E.Loot.Material": "Material",
+"ME5E.Loot.Resource": "Resource",
+"ME5E.Loot.Trade": "Trade Good",
+"ME5E.Loot.Treasure": "Treasure",
+"ME5E.Flaws": "Flaws",
+"ME5E.FormulaCannotContainDiceError": "{name} formula cannot contain dice expressions.",
 
-"DND5E.FORWARD": {
+"ME5E.FORWARD": {
   "FIELDS": {
     "activity": {
       "label": "Triggered Activity"
@@ -2781,104 +2781,104 @@
   }
 },
 
-"DND5E.EffectCreate": "Create Effect",
-"DND5E.EffectToggle": "Toggle Effect",
-"DND5E.EffectEdit": "Edit Effect",
-"DND5E.EffectEnable": "Enable Effect",
-"DND5E.EffectDelete": "Delete Effect",
-"DND5E.EffectDisable": "Disable Effect",
-"DND5E.EffectTemporary": "Temporary Effects",
-"DND5E.EffectPassive": "Passive Effects",
-"DND5E.EffectInactive": "Inactive Effects",
-"DND5E.EffectNew": "New Effect",
-"DND5E.EffectType": {
+"ME5E.EffectCreate": "Create Effect",
+"ME5E.EffectToggle": "Toggle Effect",
+"ME5E.EffectEdit": "Edit Effect",
+"ME5E.EffectEnable": "Enable Effect",
+"ME5E.EffectDelete": "Delete Effect",
+"ME5E.EffectDisable": "Disable Effect",
+"ME5E.EffectTemporary": "Temporary Effects",
+"ME5E.EffectPassive": "Passive Effects",
+"ME5E.EffectInactive": "Inactive Effects",
+"ME5E.EffectNew": "New Effect",
+"ME5E.EffectType": {
   "Inactive": "Inactive",
   "Passive": "Passive",
   "Temporary": "Temporary",
   "Unavailable": "Unavailable"
 },
-"DND5E.EffectUnavailable": "Unavailable Effects",
-"DND5E.EffectUnavailableInfo": "Source item must be equipped or attuned to activate these",
-"DND5E.Encumbrance": "Encumbrance",
-"DND5E.Eyes": "Eyes",
-"DND5E.Faith": "Faith",
-"DND5E.FeatureActive": "Active Abilities",
-"DND5E.FeatureAdd": "Create Feature",
-"DND5E.FeatureAttack": "Feature Attack",
-"DND5E.FeaturePassive": "Passive Abilities",
-"DND5E.FeatureRechargeOn": "Recharge On",
-"DND5E.FeatureRechargeResult": "1d6 Result",
-"DND5E.FeatureSearch": "Search features",
-"DND5E.FeatureUsage": "Feature Usage",
-"DND5E.Features": "Features",
-"DND5E.FeaturesBackground": "Background Features",
-"DND5E.FeaturesClass": "{class} Features",
-"DND5E.FeaturesOther": "Other Features",
-"DND5E.Feats": "Feats",
-"DND5E.FeetAbbr": "ft.",
-"DND5E.Filter": "Filter",
-"DND5E.FilterClear": "Clear Filters",
-"DND5E.FilterGroupCategory": "Group by Category",
-"DND5E.FilterGroupOrigin": "Group by Origin",
-"DND5E.FilterGroupAction": "Group by Action",
-"DND5E.FilterNoSpells": "No spells found for this set of filters.",
-"DND5E.NoSpellLevels": "This character has no spellcaster levels, but you may add spells manually.",
+"ME5E.EffectUnavailable": "Unavailable Effects",
+"ME5E.EffectUnavailableInfo": "Source item must be equipped or attuned to activate these",
+"ME5E.Encumbrance": "Encumbrance",
+"ME5E.Eyes": "Eyes",
+"ME5E.Faith": "Faith",
+"ME5E.FeatureActive": "Active Abilities",
+"ME5E.FeatureAdd": "Create Feature",
+"ME5E.FeatureAttack": "Feature Attack",
+"ME5E.FeaturePassive": "Passive Abilities",
+"ME5E.FeatureRechargeOn": "Recharge On",
+"ME5E.FeatureRechargeResult": "1d6 Result",
+"ME5E.FeatureSearch": "Search features",
+"ME5E.FeatureUsage": "Feature Usage",
+"ME5E.Features": "Features",
+"ME5E.FeaturesBackground": "Background Features",
+"ME5E.FeaturesClass": "{class} Features",
+"ME5E.FeaturesOther": "Other Features",
+"ME5E.Feats": "Feats",
+"ME5E.FeetAbbr": "ft.",
+"ME5E.Filter": "Filter",
+"ME5E.FilterClear": "Clear Filters",
+"ME5E.FilterGroupCategory": "Group by Category",
+"ME5E.FilterGroupOrigin": "Group by Origin",
+"ME5E.FilterGroupAction": "Group by Action",
+"ME5E.FilterNoSpells": "No spells found for this set of filters.",
+"ME5E.NoSpellLevels": "This character has no spellcaster levels, but you may add spells manually.",
 
-"DND5E.FLAGS": {
+"ME5E.FLAGS": {
   "EnhancedDualWielding": {
     "Name": "Enhanced Dual Wielding",
     "Hint": "Allow bonus action extra attacks using any melee weapon without the Two-Handed property."
   }
 },
 
-"DND5E.FlagsInstructions": "Configure character features and traits which fine-tune behaviors of the D&D Fifth Edition system.",
-"DND5E.FlagsSave": "Update Special Traits",
-"DND5E.FlagsTitle": "Configure Special Traits",
-"DND5E.FlagsDiamondSoul": "Diamond Soul",
-"DND5E.FlagsDiamondSoulHint": "Gain proficiency to all saving throws.",
-"DND5E.FlagsPowerfulBuild": "Powerful Build",
-"DND5E.FlagsPowerfulBuildHint": "Provides increased carrying capacity.",
-"DND5E.FlagsElvenAccuracy": "Elven Accuracy",
-"DND5E.FlagsElvenAccuracyHint": "Roll an extra d20 with advantage to Dex, Int, Wis, or Cha.",
-"DND5E.FlagsHalflingLucky": "Halfling Lucky",
-"DND5E.FlagsHalflingLuckyHint": "Reroll ones when rolling d20 checks.",
-"DND5E.FlagsHalflingNimbleness": "Halfling Nimbleness",
-"DND5E.FlagsHalflingNimblenessHint": "Movement through larger creatures is not blocked.",
-"DND5E.FlagsAlert": "Alert Feat",
-"DND5E.FlagsAlertHint": "Proficient in Initiative rolls.",
-"DND5E.FlagsAlertHintLegacy": "Provides +5 to Initiative.",
-"DND5E.FlagsJOAT": "Jack of All Trades",
-"DND5E.FlagsJOATHint": "Half-Proficiency to Ability Checks in which you are not already Proficient.",
-"DND5E.FlagsObservant": "Observant Feat",
-"DND5E.FlagsObservantHint": "Provides a +5 to passive Perception and Investigation.",
-"DND5E.FlagsTavernBrawler": "Tavern Brawler Feat",
-"DND5E.FlagsTavernBrawlerHint": "Proficient with improvised weapons.",
-"DND5E.FlagsReliableTalent": "Reliable Talent",
-"DND5E.FlagsReliableTalentHint": "Rogues Reliable Talent Feature.",
-"DND5E.FlagsRemarkableAthlete": "Remarkable Athlete",
-"DND5E.FlagsRemarkableAthleteHint": "Half-Proficiency (rounded-up) to physical Ability Checks and Initiative.",
-"DND5E.FlagsWeaponCritThreshold": "Weapon Critical Hit Threshold",
-"DND5E.FlagsWeaponCritThresholdHint": "An expanded critical hit threshold for weapon attacks.",
-"DND5E.FlagsSpellCritThreshold": "Spell Critical Hit Threshold",
-"DND5E.FlagsSpellCritThresholdHint": "An expanded critical hit threshold for spell attacks.",
-"DND5E.FlagsMeleeCriticalDice": "Melee Critical Damage Dice",
-"DND5E.FlagsMeleeCriticalDiceHint": "A number of additional damage dice added to melee weapon critical hits.",
-"DND5E.FlagsToolExpertise": "Tool Expertise",
-"DND5E.FlagsToolExpertiseHint": "Doubles your proficiency bonus for any ability check you make that uses your proficiency with a tool.",
-"DND5E.Flat": "Flat",
-"DND5E.Formula": "Formula",
-"DND5E.FormulaMalformedError": "Problem preparing the {property} formula within {name}.",
-"DND5E.FormulaMissingReferenceWarn": "The {property} formula within {name} has references to missing data: {references}",
-"DND5E.Gear": "Gear",
-"DND5E.Gender": "Gender",
-"DND5E.GlobalBonus": "Global Bonus",
-"DND5E.GrantedAbilities": "Granted Abilities",
-"DND5E.GroupInventory": "Inventory",
-"DND5E.GroupHP": "Aggregate Hit Points",
-"DND5E.GroupSummary": "A group of {members}",
-"DND5E.GroupSummaryEmpty": "Empty group",
-"DND5E.GroupControls": "Controls",
-"DND5E.Group": {
+"ME5E.FlagsInstructions": "Configure character features and traits which fine-tune behaviors of the ME5e system.",
+"ME5E.FlagsSave": "Update Special Traits",
+"ME5E.FlagsTitle": "Configure Special Traits",
+"ME5E.FlagsDiamondSoul": "Diamond Soul",
+"ME5E.FlagsDiamondSoulHint": "Gain proficiency to all saving throws.",
+"ME5E.FlagsPowerfulBuild": "Powerful Build",
+"ME5E.FlagsPowerfulBuildHint": "Provides increased carrying capacity.",
+"ME5E.FlagsElvenAccuracy": "Elven Accuracy",
+"ME5E.FlagsElvenAccuracyHint": "Roll an extra d20 with advantage to Dex, Int, Wis, or Cha.",
+"ME5E.FlagsHalflingLucky": "Halfling Lucky",
+"ME5E.FlagsHalflingLuckyHint": "Reroll ones when rolling d20 checks.",
+"ME5E.FlagsHalflingNimbleness": "Halfling Nimbleness",
+"ME5E.FlagsHalflingNimblenessHint": "Movement through larger creatures is not blocked.",
+"ME5E.FlagsAlert": "Alert Feat",
+"ME5E.FlagsAlertHint": "Proficient in Initiative rolls.",
+"ME5E.FlagsAlertHintLegacy": "Provides +5 to Initiative.",
+"ME5E.FlagsJOAT": "Jack of All Trades",
+"ME5E.FlagsJOATHint": "Half-Proficiency to Ability Checks in which you are not already Proficient.",
+"ME5E.FlagsObservant": "Observant Feat",
+"ME5E.FlagsObservantHint": "Provides a +5 to passive Perception and Investigation.",
+"ME5E.FlagsTavernBrawler": "Tavern Brawler Feat",
+"ME5E.FlagsTavernBrawlerHint": "Proficient with improvised weapons.",
+"ME5E.FlagsReliableTalent": "Reliable Talent",
+"ME5E.FlagsReliableTalentHint": "Rogues Reliable Talent Feature.",
+"ME5E.FlagsRemarkableAthlete": "Remarkable Athlete",
+"ME5E.FlagsRemarkableAthleteHint": "Half-Proficiency (rounded-up) to physical Ability Checks and Initiative.",
+"ME5E.FlagsWeaponCritThreshold": "Weapon Critical Hit Threshold",
+"ME5E.FlagsWeaponCritThresholdHint": "An expanded critical hit threshold for weapon attacks.",
+"ME5E.FlagsSpellCritThreshold": "Spell Critical Hit Threshold",
+"ME5E.FlagsSpellCritThresholdHint": "An expanded critical hit threshold for spell attacks.",
+"ME5E.FlagsMeleeCriticalDice": "Melee Critical Damage Dice",
+"ME5E.FlagsMeleeCriticalDiceHint": "A number of additional damage dice added to melee weapon critical hits.",
+"ME5E.FlagsToolExpertise": "Tool Expertise",
+"ME5E.FlagsToolExpertiseHint": "Doubles your proficiency bonus for any ability check you make that uses your proficiency with a tool.",
+"ME5E.Flat": "Flat",
+"ME5E.Formula": "Formula",
+"ME5E.FormulaMalformedError": "Problem preparing the {property} formula within {name}.",
+"ME5E.FormulaMissingReferenceWarn": "The {property} formula within {name} has references to missing data: {references}",
+"ME5E.Gear": "Gear",
+"ME5E.Gender": "Gender",
+"ME5E.GlobalBonus": "Global Bonus",
+"ME5E.GrantedAbilities": "Granted Abilities",
+"ME5E.GroupInventory": "Inventory",
+"ME5E.GroupHP": "Aggregate Hit Points",
+"ME5E.GroupSummary": "A group of {members}",
+"ME5E.GroupSummaryEmpty": "Empty group",
+"ME5E.GroupControls": "Controls",
+"ME5E.Group": {
   "Action": {
     "ChangePace": "Change Pace",
     "Inventory": {
@@ -2930,7 +2930,7 @@
     "PlaceMembers": "Error placing tokens in scene."
   }
 },
-"DND5E.Habitat": {
+"ME5E.Habitat": {
   "Categories": {
     "Any": "Any",
     "Arctic": "Arctic",
@@ -2955,10 +2955,10 @@
   },
   "Subtype": "{type} ({subtype})"
 },
-"DND5E.Hair": "Hair",
-"DND5E.HalfProficient": "Half Proficient",
+"ME5E.Hair": "Hair",
+"ME5E.HalfProficient": "Half Proficient",
 
-"DND5E.HEAL": {
+"ME5E.HEAL": {
   "FIELDS": {
     "healing": {
       "label": "Healing",
@@ -3010,12 +3010,12 @@
   "Title": "Heal"
 },
 
-"DND5E.Healing": "Healing",
-"DND5E.HealingRoll": "Healing Roll",
-"DND5E.HealingTemp": "Temporary Hit Points",
-"DND5E.Height": "Height",
+"ME5E.Healing": "Healing",
+"ME5E.HealingRoll": "Healing Roll",
+"ME5E.HealingTemp": "Temporary Hit Points",
+"ME5E.Height": "Height",
 
-"DND5E.HITPOINTS": {
+"ME5E.HITPOINTS": {
   "Counted": {
     "one": "{number} hit point",
     "other": "{number} hit points"
@@ -3028,26 +3028,26 @@
   }
 },
 
-"DND5E.HitPoints": "Hit Points",
-"DND5E.HitPointsBonusLevel": "Per Level Bonus",
-"DND5E.HitPointsBonusOverall": "Overall Bonus",
-"DND5E.HitPointsConfig": "Configure Hit Points",
-"DND5E.HitPointsCurrent": "Current Hit Points",
-"DND5E.HitPointsMax": "Maximum Hit Points",
-"DND5E.HitPointsMin": "Minimum Hit Points",
-"DND5E.HitPointsOverride": "Maximum Override",
-"DND5E.HitPointsOverrideHint": "Override automatically calculated hit points, ignoring any HP from classes, bonuses, and ability modifier.",
-"DND5E.HitPointsTemp": "Temporary Hit Points",
-"DND5E.HitPointsTempShort": "Temporary HP",
-"DND5E.HitPointsTempMax": "Temporary Maximum",
-"DND5E.HitPointsTempMaxHint": "Temporary change to the maximum HP.",
-"DND5E.HitPointsTempMaxShort": "Temp Max HP",
-"DND5E.HP": "HP",
-"DND5E.HPFormula": "Health Formula",
-"DND5E.HPFormulaError": "The provided hit point formula could not be evaluated.",
-"DND5E.HPFormulaRollMessage": "Roll Hit Point Formula",
+"ME5E.HitPoints": "Hit Points",
+"ME5E.HitPointsBonusLevel": "Per Level Bonus",
+"ME5E.HitPointsBonusOverall": "Overall Bonus",
+"ME5E.HitPointsConfig": "Configure Hit Points",
+"ME5E.HitPointsCurrent": "Current Hit Points",
+"ME5E.HitPointsMax": "Maximum Hit Points",
+"ME5E.HitPointsMin": "Minimum Hit Points",
+"ME5E.HitPointsOverride": "Maximum Override",
+"ME5E.HitPointsOverrideHint": "Override automatically calculated hit points, ignoring any HP from classes, bonuses, and ability modifier.",
+"ME5E.HitPointsTemp": "Temporary Hit Points",
+"ME5E.HitPointsTempShort": "Temporary HP",
+"ME5E.HitPointsTempMax": "Temporary Maximum",
+"ME5E.HitPointsTempMaxHint": "Temporary change to the maximum HP.",
+"ME5E.HitPointsTempMaxShort": "Temp Max HP",
+"ME5E.HP": "HP",
+"ME5E.HPFormula": "Health Formula",
+"ME5E.HPFormulaError": "The provided hit point formula could not be evaluated.",
+"ME5E.HPFormulaRollMessage": "Roll Hit Point Formula",
 
-"DND5E.HITDICE": {
+"ME5E.HITDICE": {
   "Abbreviation": "HD",
   "Action": {
     "Decrease": "Decrease",
@@ -3061,114 +3061,114 @@
   }
 },
 
-"DND5E.HitDie": "Hit Die",
-"DND5E.HitDice": "Hit Dice",
-"DND5E.HitDiceConfig": "Adjust Hit Dice",
-"DND5E.HitDiceConfigHint": "Adjust remaining hit dice levels for each class.",
-"DND5E.HitDiceMax": "Maximum Hit Dice",
-"DND5E.HitDiceRemaining": "Remaining Hit Dice",
-"DND5E.HitDiceRoll": "Roll Hit Dice",
-"DND5E.HitDiceWarn": "{name} has no available {formula} Hit Dice remaining!",
-"DND5E.HitDiceNPCWarn": "{name} has no available Hit Dice remaining!",
-"DND5E.Ideals": "Ideals",
-"DND5E.Identified": "Identified",
-"DND5E.Identifier": "Identifier",
-"DND5E.IdentifierError": "An identifier can only contain letters (a-z), numbers (0-9), dashes (-), and underscores (_).",
-"DND5E.Identify": "Identify",
-"DND5E.Immunities": "Immunities",
-"DND5E.Initiative": "Initiative",
-"DND5E.InitiativeAbbr": "Init",
-"DND5E.InitiativeBonus": "Initiative Bonus",
-"DND5E.InitiativeRoll": "Initiative Roll",
-"DND5E.InitiativeConfig": "Configure Initiative",
-"DND5E.InitiativeConfigHint": "Configure initiative modifiers and bonuses which apply to this Actor.",
-"DND5E.Inspiration": "Inspiration",
-"DND5E.Inventory": "Inventory",
-"DND5E.InventorySearch": "Search inventory",
-"DND5E.Issues": "Issues",
-"DND5E.ItemActionType": "Action Type",
-"DND5E.ItemActivation": "Activation",
-"DND5E.ItemActivationCondition": "Activation Condition",
-"DND5E.ItemActivationCost": "Activation Cost",
-"DND5E.ItemActivationType": "Activation Type",
-"DND5E.ItemAmmoProperties": "Ammunition Properties",
-"DND5E.ItemAttackBonus": "Attack Roll Bonus",
-"DND5E.ItemAttackFlat": "Flat Bonus",
-"DND5E.ItemAttackFlatHint": "If checked, don't add proficiency, ability modifier, or any other bonuses to attack roll except what is included here.",
-"DND5E.ItemBackgroundDetails": "Background Details",
-"DND5E.ItemClassDetails": "Class Details",
-"DND5E.ItemConsumableActivation": "Consumable Activation",
-"DND5E.ItemConsumableUsage": "Consumable Usage",
-"DND5E.ItemConsumableDetails": "Consumable Details",
-"DND5E.ItemConsumableProperties": "Consumable Properties",
-"DND5E.ItemConsumableStatus": "Consumable Status",
-"DND5E.ItemConsumableSubtype": "{category} Type",
-"DND5E.ItemConsumableType": "Consumable Type",
-"DND5E.ItemCreate": "Create Item",
-"DND5E.ItemCritThreshold": "Critical Hit Threshold",
-"DND5E.ItemCritExtraDamage": "Extra Critical Hit Damage",
-"DND5E.ItemDelete": "Delete Item",
-"DND5E.ItemEdit": "Edit Item",
-"DND5E.ItemEquipmentAction": "Equipment Action",
-"DND5E.ItemEquipmentBase": "Base Equipment",
-"DND5E.ItemEquipmentDetails": "Equipment Details",
-"DND5E.ItemEquipmentDexMod": "Max. Dexterity Modifier",
-"DND5E.ItemEquipmentDexModAbbr": "Max Dex",
-"DND5E.ItemEquipmentProperties": "Equipment Properties",
-"DND5E.ItemEquipmentStatus": "Equipment Status",
-"DND5E.ItemEquipmentStealthDisav": "Imposes Stealth Disadvantage",
-"DND5E.ItemEquipmentType": "Equipment Type",
-"DND5E.ItemEquipmentUsage": "Equipment Usage",
-"DND5E.ItemFacilityDetails": "Facility Details",
-"DND5E.ItemFeatureDetails": "Feature Details",
-"DND5E.ItemFeatureProperties": "Feature Properties",
-"DND5E.ItemFeatureSubtype": "{category} Type",
-"DND5E.ItemFeatureType": "Feature Type",
-"DND5E.ItemLootDetails": "Loot Details",
-"DND5E.ItemLootProperties": "Loot Properties",
-"DND5E.ItemLootSubtype": "{category} Type",
-"DND5E.ItemLootType": "Loot Type",
-"DND5E.ItemName": "Item Name",
-"DND5E.ItemNew": "New {type}",
-"DND5E.ItemRarityCommon": "common",
-"DND5E.ItemRarityMundane": "mundane",
-"DND5E.ItemRarityUncommon": "uncommon",
-"DND5E.ItemRarityRare": "rare",
-"DND5E.ItemRarityVeryRare": "very rare",
-"DND5E.ItemRarityLegendary": "legendary",
-"DND5E.ItemRarityArtifact": "artifact",
-"DND5E.ItemRechargeCheck": "{name} recharge check - {result}",
-"DND5E.ItemRechargeFailure": "failure!",
-"DND5E.ItemRechargeSuccess": "success!",
-"DND5E.ItemRecoveryRoll": "{name} recovers {count} charges",
-"DND5E.ItemLossRoll": "{name} loses {count} charges",
-"DND5E.ItemRecoveryRollMax": "{name} recovers all charges",
-"DND5E.ItemRecoveryFormulaWarning": "Unable to recover uses for {name}. Invalid recovery formula '{formula}' ({uuid}).",
-"DND5E.ItemRequiredStr": "Required Strength",
-"DND5E.Items": "Items",
-"DND5E.ItemSiegeProperties": "Siege Properties",
-"DND5E.ItemSpeciesDetails": "Species Details",
-"DND5E.ItemSpeciesDetailsLegacy": "Race Details",
-"DND5E.ItemSubclassDetails": "Subclass Details",
-"DND5E.ItemToolBase": "Base Tool",
-"DND5E.ItemToolBonus": "Tool Bonus",
-"DND5E.ItemToolDetails": "Tool Details",
-"DND5E.ItemToolProficiency": "Tool Proficiency",
-"DND5E.ItemToolProperties": "Tool Properties",
-"DND5E.ItemToolStatus": "Tool Status",
-"DND5E.ItemToolType": "Tool Type",
-"DND5E.ItemToolUsage": "Tool Usage",
-"DND5E.ItemVehicleProperties": "Vehicle Properties",
-"DND5E.ItemView": "View Item",
-"DND5E.ItemWeaponAttack": "Weapon Attack",
-"DND5E.ItemWeaponBase": "Base Weapon",
-"DND5E.ItemWeaponDetails": "Weapon Details",
-"DND5E.ItemWeaponProperties": "Weapon Properties",
-"DND5E.ItemWeaponStatus": "Weapon Status",
-"DND5E.ItemWeaponType": "Weapon Type",
-"DND5E.ItemWeaponUsage": "Weapon Usage",
+"ME5E.HitDie": "Hit Die",
+"ME5E.HitDice": "Hit Dice",
+"ME5E.HitDiceConfig": "Adjust Hit Dice",
+"ME5E.HitDiceConfigHint": "Adjust remaining hit dice levels for each class.",
+"ME5E.HitDiceMax": "Maximum Hit Dice",
+"ME5E.HitDiceRemaining": "Remaining Hit Dice",
+"ME5E.HitDiceRoll": "Roll Hit Dice",
+"ME5E.HitDiceWarn": "{name} has no available {formula} Hit Dice remaining!",
+"ME5E.HitDiceNPCWarn": "{name} has no available Hit Dice remaining!",
+"ME5E.Ideals": "Ideals",
+"ME5E.Identified": "Identified",
+"ME5E.Identifier": "Identifier",
+"ME5E.IdentifierError": "An identifier can only contain letters (a-z), numbers (0-9), dashes (-), and underscores (_).",
+"ME5E.Identify": "Identify",
+"ME5E.Immunities": "Immunities",
+"ME5E.Initiative": "Initiative",
+"ME5E.InitiativeAbbr": "Init",
+"ME5E.InitiativeBonus": "Initiative Bonus",
+"ME5E.InitiativeRoll": "Initiative Roll",
+"ME5E.InitiativeConfig": "Configure Initiative",
+"ME5E.InitiativeConfigHint": "Configure initiative modifiers and bonuses which apply to this Actor.",
+"ME5E.Inspiration": "Inspiration",
+"ME5E.Inventory": "Inventory",
+"ME5E.InventorySearch": "Search inventory",
+"ME5E.Issues": "Issues",
+"ME5E.ItemActionType": "Action Type",
+"ME5E.ItemActivation": "Activation",
+"ME5E.ItemActivationCondition": "Activation Condition",
+"ME5E.ItemActivationCost": "Activation Cost",
+"ME5E.ItemActivationType": "Activation Type",
+"ME5E.ItemAmmoProperties": "Ammunition Properties",
+"ME5E.ItemAttackBonus": "Attack Roll Bonus",
+"ME5E.ItemAttackFlat": "Flat Bonus",
+"ME5E.ItemAttackFlatHint": "If checked, don't add proficiency, ability modifier, or any other bonuses to attack roll except what is included here.",
+"ME5E.ItemBackgroundDetails": "Background Details",
+"ME5E.ItemClassDetails": "Class Details",
+"ME5E.ItemConsumableActivation": "Consumable Activation",
+"ME5E.ItemConsumableUsage": "Consumable Usage",
+"ME5E.ItemConsumableDetails": "Consumable Details",
+"ME5E.ItemConsumableProperties": "Consumable Properties",
+"ME5E.ItemConsumableStatus": "Consumable Status",
+"ME5E.ItemConsumableSubtype": "{category} Type",
+"ME5E.ItemConsumableType": "Consumable Type",
+"ME5E.ItemCreate": "Create Item",
+"ME5E.ItemCritThreshold": "Critical Hit Threshold",
+"ME5E.ItemCritExtraDamage": "Extra Critical Hit Damage",
+"ME5E.ItemDelete": "Delete Item",
+"ME5E.ItemEdit": "Edit Item",
+"ME5E.ItemEquipmentAction": "Equipment Action",
+"ME5E.ItemEquipmentBase": "Base Equipment",
+"ME5E.ItemEquipmentDetails": "Equipment Details",
+"ME5E.ItemEquipmentDexMod": "Max. Dexterity Modifier",
+"ME5E.ItemEquipmentDexModAbbr": "Max Dex",
+"ME5E.ItemEquipmentProperties": "Equipment Properties",
+"ME5E.ItemEquipmentStatus": "Equipment Status",
+"ME5E.ItemEquipmentStealthDisav": "Imposes Stealth Disadvantage",
+"ME5E.ItemEquipmentType": "Equipment Type",
+"ME5E.ItemEquipmentUsage": "Equipment Usage",
+"ME5E.ItemFacilityDetails": "Facility Details",
+"ME5E.ItemFeatureDetails": "Feature Details",
+"ME5E.ItemFeatureProperties": "Feature Properties",
+"ME5E.ItemFeatureSubtype": "{category} Type",
+"ME5E.ItemFeatureType": "Feature Type",
+"ME5E.ItemLootDetails": "Loot Details",
+"ME5E.ItemLootProperties": "Loot Properties",
+"ME5E.ItemLootSubtype": "{category} Type",
+"ME5E.ItemLootType": "Loot Type",
+"ME5E.ItemName": "Item Name",
+"ME5E.ItemNew": "New {type}",
+"ME5E.ItemRarityCommon": "common",
+"ME5E.ItemRarityMundane": "mundane",
+"ME5E.ItemRarityUncommon": "uncommon",
+"ME5E.ItemRarityRare": "rare",
+"ME5E.ItemRarityVeryRare": "very rare",
+"ME5E.ItemRarityLegendary": "legendary",
+"ME5E.ItemRarityArtifact": "artifact",
+"ME5E.ItemRechargeCheck": "{name} recharge check - {result}",
+"ME5E.ItemRechargeFailure": "failure!",
+"ME5E.ItemRechargeSuccess": "success!",
+"ME5E.ItemRecoveryRoll": "{name} recovers {count} charges",
+"ME5E.ItemLossRoll": "{name} loses {count} charges",
+"ME5E.ItemRecoveryRollMax": "{name} recovers all charges",
+"ME5E.ItemRecoveryFormulaWarning": "Unable to recover uses for {name}. Invalid recovery formula '{formula}' ({uuid}).",
+"ME5E.ItemRequiredStr": "Required Strength",
+"ME5E.Items": "Items",
+"ME5E.ItemSiegeProperties": "Siege Properties",
+"ME5E.ItemSpeciesDetails": "Species Details",
+"ME5E.ItemSpeciesDetailsLegacy": "Race Details",
+"ME5E.ItemSubclassDetails": "Subclass Details",
+"ME5E.ItemToolBase": "Base Tool",
+"ME5E.ItemToolBonus": "Tool Bonus",
+"ME5E.ItemToolDetails": "Tool Details",
+"ME5E.ItemToolProficiency": "Tool Proficiency",
+"ME5E.ItemToolProperties": "Tool Properties",
+"ME5E.ItemToolStatus": "Tool Status",
+"ME5E.ItemToolType": "Tool Type",
+"ME5E.ItemToolUsage": "Tool Usage",
+"ME5E.ItemVehicleProperties": "Vehicle Properties",
+"ME5E.ItemView": "View Item",
+"ME5E.ItemWeaponAttack": "Weapon Attack",
+"ME5E.ItemWeaponBase": "Base Weapon",
+"ME5E.ItemWeaponDetails": "Weapon Details",
+"ME5E.ItemWeaponProperties": "Weapon Properties",
+"ME5E.ItemWeaponStatus": "Weapon Status",
+"ME5E.ItemWeaponType": "Weapon Type",
+"ME5E.ItemWeaponUsage": "Weapon Usage",
 
-"DND5E.ITEM": {
+"ME5E.ITEM": {
   "Category": {
     "Label": "Category",
     "Physical": "Physical"
@@ -3211,9 +3211,9 @@
   }
 },
 
-"DND5E.JackOfAllTrades": "Jack of all Trades",
+"ME5E.JackOfAllTrades": "Jack of all Trades",
 
-"DND5E.JOURNALENTRY": {
+"ME5E.JOURNALENTRY": {
   "Navigation": {
     "Next": "Next",
     "Previous": "Previous",
@@ -3221,7 +3221,7 @@
   }
 },
 
-"DND5E.LAIR": {
+"ME5E.LAIR": {
   "Label": "Lair",
   "Action": {
     "Label": "Lair Action",
@@ -3232,7 +3232,7 @@
   "Inside": "Inside Lair"
 },
 
-"DND5E.Language": {
+"ME5E.Language": {
   "All": "All Languages",
   "Label": "Language",
   "Category": {
@@ -3273,9 +3273,9 @@
     "Undercommon": "Undercommon"
   }
 },
-"DND5E.Languages": "Languages",
+"ME5E.Languages": "Languages",
 
-"DND5E.LegendaryAction": {
+"ME5E.LegendaryAction": {
   "Description": "Legendary Action Uses: {uses}. Immediately after another creature’s turn, the {name} can expend a use to take one of the following actions. The {name} regains all expended uses at the start of each of its turns.",
   "DescriptionLegacy": "The {name} can take {usesNamed}, choosing from the options below. Only one legendary action option can be used at a time and only at the end of another creature’s turn. The {name} regains spent legendary actions at the start of its turn.",
   "Label": "Legendary Action",
@@ -3292,7 +3292,7 @@
   "Spent": "Spent Legendary Actions"
 },
 
-"DND5E.LegendaryResistance": {
+"ME5E.LegendaryResistance": {
   "Action": {
     "Resist": "Legendary Resistance"
   },
@@ -3311,58 +3311,58 @@
   "Spent": "Spent Legendary Resistances"
 },
 
-"DND5E.Level": "Level",
-"DND5E.LevelAvg": "Avg. Level",
-"DND5E.LevelPl": "Levels",
-"DND5E.LevelActionDecrease": "Level Down",
-"DND5E.LevelActionIncrease": "Level Up",
-"DND5E.LevelCount": "{ordinal} Level",
-"DND5E.LevelLimit": {
+"ME5E.Level": "Level",
+"ME5E.LevelAvg": "Avg. Level",
+"ME5E.LevelPl": "Levels",
+"ME5E.LevelActionDecrease": "Level Down",
+"ME5E.LevelActionIncrease": "Level Up",
+"ME5E.LevelCount": "{ordinal} Level",
+"ME5E.LevelLimit": {
   "Label": "Level Limit",
   "Max": "Maximum Level",
   "Min": "Minimum Level"
 },
-"DND5E.LevelNumber": "Level {level}",
-"DND5E.LevelScaling": "Level Scaling",
-"DND5E.LimitedUses": "Limited Uses",
-"DND5E.LimitedUsesAvailable": "Remaining Uses",
-"DND5E.LimitedUsesMax": "Maximum Uses",
-"DND5E.LimitedUsesPer": "Use Recovery Mode",
-"DND5E.LimitedUsesPrompt": "Uses Prompt",
-"DND5E.LimitedUsesPromptTooltip": "If unchecked, the prompt to consume an available use will be suppressed.",
-"DND5E.Long": "Long",
-"DND5E.Loyalty": "Loyalty",
-"DND5E.MagicalBonus": "Magical Bonus",
-"DND5E.Materials": "Materials",
-"DND5E.Max": "Max",
-"DND5E.MaxCharacterLevelExceededWarn": "Character cannot be advanced past level {max}.",
-"DND5E.MaxClassLevelExceededWarn": "Class cannot be advanced past level {max}.",
-"DND5E.MaxClassLevelMinimumWarn": "Class must have at least one level.",
-"DND5E.Maximum": "Maximum",
-"DND5E.Minimum": "Minimum",
-"DND5E.Method": "Method",
-"DND5E.Modifier": "Modifier",
-"DND5E.ModuleArtConfigH": "Configure which module-provided art should be used.",
-"DND5E.ModuleArtConfigL": "Configure Art",
-"DND5E.ModuleArtConfigN": "Module-provided Art",
-"DND5E.ModuleArtConfigPortraits": "Portraits",
-"DND5E.ModuleArtConfigTokens": "Tokens",
-"DND5E.ModuleArtPriorityDecrease": "Decrease Priority",
-"DND5E.ModuleArtPriorityHint": "Use the arrows to adjust the priority of the art sources. When a single Actor has art provided from multiple sources, the one with the highest priority will be used.",
-"DND5E.ModuleArtPriorityIncrease": "Increase Priority",
-"DND5E.Multiple": "Multiple",
-"DND5E.Multiplier": "Multiplier",
-"DND5E.MythicActionLabel": "Mythic Action",
-"DND5E.Name": "Character Name",
-"DND5E.NameUnidentified": "Unidentified Name",
-"DND5E.NoCharges": "No Charges",
-"DND5E.None": "None",
-"DND5E.NoneActionLabel": "None",
-"DND5E.Normal": "Normal",
-"DND5E.NotProficient": "Not Proficient",
-"DND5E.Notes": "Notes",
+"ME5E.LevelNumber": "Level {level}",
+"ME5E.LevelScaling": "Level Scaling",
+"ME5E.LimitedUses": "Limited Uses",
+"ME5E.LimitedUsesAvailable": "Remaining Uses",
+"ME5E.LimitedUsesMax": "Maximum Uses",
+"ME5E.LimitedUsesPer": "Use Recovery Mode",
+"ME5E.LimitedUsesPrompt": "Uses Prompt",
+"ME5E.LimitedUsesPromptTooltip": "If unchecked, the prompt to consume an available use will be suppressed.",
+"ME5E.Long": "Long",
+"ME5E.Loyalty": "Loyalty",
+"ME5E.MagicalBonus": "Magical Bonus",
+"ME5E.Materials": "Materials",
+"ME5E.Max": "Max",
+"ME5E.MaxCharacterLevelExceededWarn": "Character cannot be advanced past level {max}.",
+"ME5E.MaxClassLevelExceededWarn": "Class cannot be advanced past level {max}.",
+"ME5E.MaxClassLevelMinimumWarn": "Class must have at least one level.",
+"ME5E.Maximum": "Maximum",
+"ME5E.Minimum": "Minimum",
+"ME5E.Method": "Method",
+"ME5E.Modifier": "Modifier",
+"ME5E.ModuleArtConfigH": "Configure which module-provided art should be used.",
+"ME5E.ModuleArtConfigL": "Configure Art",
+"ME5E.ModuleArtConfigN": "Module-provided Art",
+"ME5E.ModuleArtConfigPortraits": "Portraits",
+"ME5E.ModuleArtConfigTokens": "Tokens",
+"ME5E.ModuleArtPriorityDecrease": "Decrease Priority",
+"ME5E.ModuleArtPriorityHint": "Use the arrows to adjust the priority of the art sources. When a single Actor has art provided from multiple sources, the one with the highest priority will be used.",
+"ME5E.ModuleArtPriorityIncrease": "Increase Priority",
+"ME5E.Multiple": "Multiple",
+"ME5E.Multiplier": "Multiplier",
+"ME5E.MythicActionLabel": "Mythic Action",
+"ME5E.Name": "Character Name",
+"ME5E.NameUnidentified": "Unidentified Name",
+"ME5E.NoCharges": "No Charges",
+"ME5E.None": "None",
+"ME5E.NoneActionLabel": "None",
+"ME5E.Normal": "Normal",
+"ME5E.NotProficient": "Not Proficient",
+"ME5E.Notes": "Notes",
 
-"DND5E.NPC": {
+"ME5E.NPC": {
   "ActionCostCounted": {
     "other": "Costs {number} Actions"
   },
@@ -3397,7 +3397,7 @@
   }
 },
 
-"DND5E.NUMBER": {
+"ME5E.NUMBER": {
   "1": "one",
   "2": "two",
   "3": "three",
@@ -3409,25 +3409,25 @@
   "9": "nine"
 },
 
-"DND5E.Number": "Number",
-"DND5E.OtherFormula": "Other Formula",
+"ME5E.Number": "Number",
+"ME5E.OtherFormula": "Other Formula",
 
-"DND5E.ORDINAL": {
+"ME5E.ORDINAL": {
   "one": "{number}st",
   "two": "{number}nd",
   "few": "{number}rd",
   "other": "{number}th"
 },
 
-"DND5E.PactMagic": "Pact Magic",
-"DND5E.Passive": "Passive",
-"DND5E.PassivePerception": "Passive Perception",
-"DND5E.Period": "Period",
-"DND5E.PersonalityTraits": "Personality Traits",
-"DND5E.Portrait": "Portrait",
-"DND5E.Prepared": "Prepared",
-"DND5E.Preparation": "Preparation",
-"DND5E.Prerequisites": {
+"ME5E.PactMagic": "Pact Magic",
+"ME5E.Passive": "Passive",
+"ME5E.PassivePerception": "Passive Perception",
+"ME5E.Period": "Period",
+"ME5E.PersonalityTraits": "Personality Traits",
+"ME5E.Portrait": "Portrait",
+"ME5E.Prepared": "Prepared",
+"ME5E.Preparation": "Preparation",
+"ME5E.Prerequisites": {
   "Header": "Feature Prerequisites",
   "FIELDS": {
     "prerequisites": {
@@ -3453,28 +3453,28 @@
     "NotRepeatable": "must not have taken this before"
   }
 },
-"DND5E.Price": "Price",
-"DND5E.Proficiency": "Proficiency",
-"DND5E.ProficiencyBonus": "Proficiency Bonus",
-"DND5E.ProficiencyBonusAbbr": "PB",
-"DND5E.ProficiencyConfigurationHint": "Configure proficiency and bonuses.",
-"DND5E.ProficiencyConfigureTitle": "Configure {label}",
-"DND5E.ProficiencyLevel": "Proficiency Level",
-"DND5E.ProficiencyOther": "Other",
-"DND5E.Proficient": "Proficient",
-"DND5E.Properties": "Properties",
-"DND5E.PropertyBase": "Base",
-"DND5E.PropertyTotal": "Total",
-"DND5E.Public": "Public",
-"DND5E.Quality": "Quality",
-"DND5E.Quantity": "Quantity",
-"DND5E.QuantityAbbr": "Qty",
-"DND5E.QuantityFormula": "Quantity Formula",
-"DND5E.QuantityRoll": "Roll Quantities",
-"DND5E.RacialTraits": "Species Traits",
-"DND5E.RacialTraitsLegacy": "Racial Traits",
+"ME5E.Price": "Price",
+"ME5E.Proficiency": "Proficiency",
+"ME5E.ProficiencyBonus": "Proficiency Bonus",
+"ME5E.ProficiencyBonusAbbr": "PB",
+"ME5E.ProficiencyConfigurationHint": "Configure proficiency and bonuses.",
+"ME5E.ProficiencyConfigureTitle": "Configure {label}",
+"ME5E.ProficiencyLevel": "Proficiency Level",
+"ME5E.ProficiencyOther": "Other",
+"ME5E.Proficient": "Proficient",
+"ME5E.Properties": "Properties",
+"ME5E.PropertyBase": "Base",
+"ME5E.PropertyTotal": "Total",
+"ME5E.Public": "Public",
+"ME5E.Quality": "Quality",
+"ME5E.Quantity": "Quantity",
+"ME5E.QuantityAbbr": "Qty",
+"ME5E.QuantityFormula": "Quantity Formula",
+"ME5E.QuantityRoll": "Roll Quantities",
+"ME5E.RacialTraits": "Species Traits",
+"ME5E.RacialTraitsLegacy": "Racial Traits",
 
-"DND5E.RANGE": {
+"ME5E.RANGE": {
   "FIELDS": {
     "range": {
       "label": "Range",
@@ -3509,22 +3509,22 @@
   }
 },
 
-"DND5E.Range": "Range",
-"DND5E.RangeDistance": "Distance",
-"DND5E.RangeLong": "Long Range",
-"DND5E.RangeNormal": "Normal Range",
-"DND5E.RangeUnits": "Range Type or Units",
-"DND5E.Rarity": "Rarity",
-"DND5E.Reaction": "Reaction",
-"DND5E.ReactionAbbr": "R",
-"DND5E.ReactionPl": "Reactions",
-"DND5E.Recharge": "Recharge",
-"DND5E.RechargeLong": "Recharge after a Long Rest",
-"DND5E.RechargeShort": "Recharge after a Short or Long Rest",
-"DND5E.Recovery": "Recovery",
-"DND5E.RecoveryFormula": "Recovery Formula",
+"ME5E.Range": "Range",
+"ME5E.RangeDistance": "Distance",
+"ME5E.RangeLong": "Long Range",
+"ME5E.RangeNormal": "Normal Range",
+"ME5E.RangeUnits": "Range Type or Units",
+"ME5E.Rarity": "Rarity",
+"ME5E.Reaction": "Reaction",
+"ME5E.ReactionAbbr": "R",
+"ME5E.ReactionPl": "Reactions",
+"ME5E.Recharge": "Recharge",
+"ME5E.RechargeLong": "Recharge after a Long Rest",
+"ME5E.RechargeShort": "Recharge after a Short or Long Rest",
+"ME5E.Recovery": "Recovery",
+"ME5E.RecoveryFormula": "Recovery Formula",
 
-"DND5E.REGIONBEHAVIORS": {
+"ME5E.REGIONBEHAVIORS": {
   "DIFFICULTTERRAIN": {
     "FIELDS": {
       "ignoredDispositions": {
@@ -3630,19 +3630,19 @@
   }
 },
 
-"DND5E.Remaining": "Remaining",
-"DND5E.RequiredMaterials": "Required Materials",
-"DND5E.Requirements": "Requirements",
-"DND5E.Resistances": "Resistances",
-"DND5E.Resources": "Resources",
-"DND5E.ResourceLabel": "Label",
-"DND5E.ResourceMax": "Resource Maximum",
-"DND5E.ResourceValue": "Resource Value",
-"DND5E.ResourcePrimary": "Resource 1",
-"DND5E.ResourceSecondary": "Resource 2",
-"DND5E.ResourceTertiary": "Resource 3",
+"ME5E.Remaining": "Remaining",
+"ME5E.RequiredMaterials": "Required Materials",
+"ME5E.Requirements": "Requirements",
+"ME5E.Resistances": "Resistances",
+"ME5E.Resources": "Resources",
+"ME5E.ResourceLabel": "Label",
+"ME5E.ResourceMax": "Resource Maximum",
+"ME5E.ResourceValue": "Resource Value",
+"ME5E.ResourcePrimary": "Resource 1",
+"ME5E.ResourceSecondary": "Resource 2",
+"ME5E.ResourceTertiary": "Resource 3",
 
-"DND5E.REST": {
+"ME5E.REST": {
   "Configuration": "Rest Configuration",
   "HitDice": {
     "AutoSpend": {
@@ -3708,10 +3708,10 @@
   }
 },
 
-"DND5E.Ritual": "Ritual",
-"DND5E.RitualAbbr": "R",
+"ME5E.Ritual": "Ritual",
+"ME5E.RitualAbbr": "R",
 
-"DND5E.ROLL": {
+"ME5E.ROLL": {
   "Range": {
     "Label": "Roll Range",
     "Maximum": "Maximum Roll",
@@ -3721,16 +3721,16 @@
   "Status": "Status"
 },
 
-"DND5E.Roll": "Roll",
-"DND5E.RollConfiguration": {
+"ME5E.Roll": "Roll",
+"ME5E.RollConfiguration": {
   "Title": "Configure Roll",
   "Configuration": "Configuration",
   "Rolls": "Rolls"
 },
-"DND5E.RollExample": "e.g. 1d4",
-"DND5E.RollMode": "Roll Mode",
-"DND5E.RollSituationalBonus": "Situational Bonus?",
-"DND5E.Rule": {
+"ME5E.RollExample": "e.g. 1d4",
+"ME5E.RollMode": "Roll Mode",
+"ME5E.RollSituationalBonus": "Situational Bonus?",
+"ME5E.Rule": {
   "Tooltip": "Tooltip",
   "Type": {
     "Label": "Rule Type",
@@ -3739,7 +3739,7 @@
   }
 },
 
-"DND5E.MOVEMENT": {
+"ME5E.MOVEMENT": {
   "Action": {
     "Configure": "Configure Movement Speed"
   },
@@ -3772,9 +3772,9 @@
   }
 },
 
-"DND5E.Movement": "Movement",
+"ME5E.Movement": "Movement",
 
-"DND5E.SAVE": {
+"ME5E.SAVE": {
   "FIELDS": {
     "damage": {
       "label": "Save Damage",
@@ -3825,9 +3825,9 @@
   }
 },
 
-"DND5E.SaveBonus": "Saving Throw Bonus",
-"DND5E.SaveGlobalBonusHint": "This bonus applies to all saving throws made by this actor.",
-"DND5E.Scroll": {
+"ME5E.SaveBonus": "Saving Throw Bonus",
+"ME5E.SaveGlobalBonusHint": "This bonus applies to all saving throws made by this actor.",
+"ME5E.Scroll": {
   "CreateFrom": "Create Scroll from {spell}",
   "CreateScroll": "Create Scroll",
   "Details": "Scroll Details",
@@ -3841,18 +3841,18 @@
   "SaveDC": "Save DC",
   "Values": "Spell Values"
 },
-"DND5E.Senses": "Senses",
-"DND5E.SensesConfig": "Configure Senses",
-"DND5E.SensesConfigHint": "Configure any special sensory perception abilities that this actor possesses.",
-"DND5E.SenseDarkvision": "Darkvision",
-"DND5E.SenseBlindsight": "Blindsight",
-"DND5E.SenseTremorsense": "Tremorsense",
-"DND5E.SenseTruesight": "Truesight",
-"DND5E.SenseUnits": "Units",
-"DND5E.SenseSpecial": "Special Senses",
-"DND5E.Shape": "Shape",
+"ME5E.Senses": "Senses",
+"ME5E.SensesConfig": "Configure Senses",
+"ME5E.SensesConfigHint": "Configure any special sensory perception abilities that this actor possesses.",
+"ME5E.SenseDarkvision": "Darkvision",
+"ME5E.SenseBlindsight": "Blindsight",
+"ME5E.SenseTremorsense": "Tremorsense",
+"ME5E.SenseTruesight": "Truesight",
+"ME5E.SenseUnits": "Units",
+"ME5E.SenseSpecial": "Special Senses",
+"ME5E.Shape": "Shape",
 
-"DND5E.SheetClass": {
+"ME5E.SheetClass": {
   "Character": "Default 5e Character Sheet",
   "ClassSummary": "Default 5e Class Summary Sheet",
   "Container": "Default 5e Container Sheet",
@@ -3871,41 +3871,41 @@
   "Vehicle": "Default 5e Vehicle Sheet"
 },
 
-"DND5E.SheetModeEdit": "Edit",
-"DND5E.SheetModePlay": "Play",
-"DND5E.SavingThrow": "Saving Throw",
-"DND5E.SavingThrowDC": "DC {dc} {ability} Saving Throw",
-"DND5E.SavingThrowRoll": "Roll {ability} Saving Throw",
-"DND5E.SavingThrowShort": "Save",
-"DND5E.SaveDC": "DC {dc} {ability}",
-"DND5E.SavePromptTitle": "{ability} Saving Throw",
-"DND5E.ScalingFormula": "Scaling Formula",
-"DND5E.ScalingMode": "Scaling Mode",
-"DND5E.ScalingValue": "Scaling Value",
-"DND5E.School": "School",
-"DND5E.SchoolAbj": "Abjuration",
-"DND5E.SchoolCon": "Conjuration",
-"DND5E.SchoolDiv": "Divination",
-"DND5E.SchoolEnc": "Enchantment",
-"DND5E.SchoolEvo": "Evocation",
-"DND5E.SchoolIll": "Illusion",
-"DND5E.SchoolNec": "Necromancy",
-"DND5E.SchoolTrs": "Transmutation",
-"DND5E.Size": "Size",
-"DND5E.SizeGargantuan": "Gargantuan",
-"DND5E.SizeGargantuanAbbr": "Gt",
-"DND5E.SizeHuge": "Huge",
-"DND5E.SizeHugeAbbr": "Hg",
-"DND5E.SizeLarge": "Large",
-"DND5E.SizeLargeAbbr": "Lg",
-"DND5E.SizeMedium": "Medium",
-"DND5E.SizeMediumAbbr": "Md",
-"DND5E.SizeSmall": "Small",
-"DND5E.SizeSmallAbbr": "Sm",
-"DND5E.SizeTiny": "Tiny",
-"DND5E.SizeTinyAbbr": "Tn",
+"ME5E.SheetModeEdit": "Edit",
+"ME5E.SheetModePlay": "Play",
+"ME5E.SavingThrow": "Saving Throw",
+"ME5E.SavingThrowDC": "DC {dc} {ability} Saving Throw",
+"ME5E.SavingThrowRoll": "Roll {ability} Saving Throw",
+"ME5E.SavingThrowShort": "Save",
+"ME5E.SaveDC": "DC {dc} {ability}",
+"ME5E.SavePromptTitle": "{ability} Saving Throw",
+"ME5E.ScalingFormula": "Scaling Formula",
+"ME5E.ScalingMode": "Scaling Mode",
+"ME5E.ScalingValue": "Scaling Value",
+"ME5E.School": "School",
+"ME5E.SchoolAbj": "Abjuration",
+"ME5E.SchoolCon": "Conjuration",
+"ME5E.SchoolDiv": "Divination",
+"ME5E.SchoolEnc": "Enchantment",
+"ME5E.SchoolEvo": "Evocation",
+"ME5E.SchoolIll": "Illusion",
+"ME5E.SchoolNec": "Necromancy",
+"ME5E.SchoolTrs": "Transmutation",
+"ME5E.Size": "Size",
+"ME5E.SizeGargantuan": "Gargantuan",
+"ME5E.SizeGargantuanAbbr": "Gt",
+"ME5E.SizeHuge": "Huge",
+"ME5E.SizeHugeAbbr": "Hg",
+"ME5E.SizeLarge": "Large",
+"ME5E.SizeLargeAbbr": "Lg",
+"ME5E.SizeMedium": "Medium",
+"ME5E.SizeMediumAbbr": "Md",
+"ME5E.SizeSmall": "Small",
+"ME5E.SizeSmallAbbr": "Sm",
+"ME5E.SizeTiny": "Tiny",
+"ME5E.SizeTinyAbbr": "Tn",
 
-"DND5E.SKILL": {
+"ME5E.SKILL": {
   "SECTIONS": {
     "Details": "{label} Details",
     "Bonuses": {
@@ -3919,46 +3919,46 @@
   }
 },
 
-"DND5E.Skill": "Skill",
-"DND5E.Skills": "Skills",
-"DND5E.SkillAcr": "Acrobatics",
-"DND5E.SkillAni": "Animal Handling",
-"DND5E.SkillArc": "Arcana",
-"DND5E.SkillAth": "Athletics",
-"DND5E.SkillDec": "Deception",
-"DND5E.SkillHis": "History",
-"DND5E.SkillIns": "Insight",
-"DND5E.SkillInv": "Investigation",
-"DND5E.SkillItm": "Intimidation",
-"DND5E.SkillMed": "Medicine",
-"DND5E.SkillNat": "Nature",
-"DND5E.SkillPer": "Persuasion",
-"DND5E.SkillPrc": "Perception",
-"DND5E.SkillPrf": "Performance",
-"DND5E.SkillRel": "Religion",
-"DND5E.SkillSlt": "Sleight of Hand",
-"DND5E.SkillSte": "Stealth",
-"DND5E.SkillSur": "Survival",
-"DND5E.SkillRoll": "Roll {ability} ({skill}) Check",
-"DND5E.SkillTitle": "{ability} ({skill})",
-"DND5E.SkillPromptTitle": "{ability} ({skill}) Check",
-"DND5E.SkillConfigureTitle": "Configure {skill}",
-"DND5E.SkillConfigure": "Configure Skill",
-"DND5E.SkillsConfig": "Configure Skills",
-"DND5E.SkillBonuses": "Skill Bonuses",
-"DND5E.SkillBonusCheck": "Check Bonus",
-"DND5E.SkillBonusPassive": "Passive Bonus",
-"DND5E.SkillConfigurationHint": "Configure skill proficiency and bonuses.",
-"DND5E.SkillGlobalBonusCheckHint": "This bonus applies to all skill checks made by this actor.",
-"DND5E.SkillModifierHint": "{skill} Modifier",
-"DND5E.SkillPassiveHint": "Passive {skill}",
-"DND5E.SkillPassiveSpecificHint": "Passive {ability} ({skill})",
-"DND5E.SkillPassiveScore": "Passive {skill} Score",
-"DND5E.SkillPassives": "Skill Passives",
-"DND5E.Skin": "Skin",
-"DND5E.Skip": "Skip",
+"ME5E.Skill": "Skill",
+"ME5E.Skills": "Skills",
+"ME5E.SkillAcr": "Acrobatics",
+"ME5E.SkillAni": "Animal Handling",
+"ME5E.SkillArc": "Arcana",
+"ME5E.SkillAth": "Athletics",
+"ME5E.SkillDec": "Deception",
+"ME5E.SkillHis": "History",
+"ME5E.SkillIns": "Insight",
+"ME5E.SkillInv": "Investigation",
+"ME5E.SkillItm": "Intimidation",
+"ME5E.SkillMed": "Medicine",
+"ME5E.SkillNat": "Nature",
+"ME5E.SkillPer": "Persuasion",
+"ME5E.SkillPrc": "Perception",
+"ME5E.SkillPrf": "Performance",
+"ME5E.SkillRel": "Religion",
+"ME5E.SkillSlt": "Sleight of Hand",
+"ME5E.SkillSte": "Stealth",
+"ME5E.SkillSur": "Survival",
+"ME5E.SkillRoll": "Roll {ability} ({skill}) Check",
+"ME5E.SkillTitle": "{ability} ({skill})",
+"ME5E.SkillPromptTitle": "{ability} ({skill}) Check",
+"ME5E.SkillConfigureTitle": "Configure {skill}",
+"ME5E.SkillConfigure": "Configure Skill",
+"ME5E.SkillsConfig": "Configure Skills",
+"ME5E.SkillBonuses": "Skill Bonuses",
+"ME5E.SkillBonusCheck": "Check Bonus",
+"ME5E.SkillBonusPassive": "Passive Bonus",
+"ME5E.SkillConfigurationHint": "Configure skill proficiency and bonuses.",
+"ME5E.SkillGlobalBonusCheckHint": "This bonus applies to all skill checks made by this actor.",
+"ME5E.SkillModifierHint": "{skill} Modifier",
+"ME5E.SkillPassiveHint": "Passive {skill}",
+"ME5E.SkillPassiveSpecificHint": "Passive {ability} ({skill})",
+"ME5E.SkillPassiveScore": "Passive {skill} Score",
+"ME5E.SkillPassives": "Skill Passives",
+"ME5E.Skin": "Skin",
+"ME5E.Skip": "Skip",
 
-"DND5E.SOURCE": {
+"ME5E.SOURCE": {
   "FIELDS": {
     "source": {
       "label": "Source",
@@ -3994,10 +3994,10 @@
   }
 },
 
-"DND5E.Special": "Special",
-"DND5E.SpecialHint": "Special values separated by semi-colons.",
-"DND5E.SpecialTraits": "Special Traits",
-"DND5E.Species": {
+"ME5E.Special": "Special",
+"ME5E.SpecialHint": "Special values separated by semi-colons.",
+"ME5E.SpecialTraits": "Special Traits",
+"ME5E.Species": {
   "Label": "Species",
   "Add": "Add Species",
   "AddLegacy": "Add Race",
@@ -4005,23 +4005,23 @@
   "FeaturesLegacy": "Race Features",
   "Name": "Species Name"
 },
-"DND5E.Speed": "Speed",
-"DND5E.SpeedSpecial": "Special Movement",
-"DND5E.SpellAbility": "Spellcasting Ability",
-"DND5E.SpellAbilitySet": "Set as Primary Spellcasting Ability",
-"DND5E.SpellAdd": "Add Spell",
-"DND5E.SpellAttackBonus": "Spell Attack Bonus",
-"DND5E.SpellCantrip": "Cantrip",
-"DND5E.SpellCastConsume": "Consume Spell Slot?",
-"DND5E.SpellCastNoSlots": "You have no available {level} spell slots with which to cast {name}",
-"DND5E.SpellCastNoSlotsLeft": "You have no available spell slots with which to cast {name}!",
-"DND5E.SpellCastTime": "Casting Time",
-"DND5E.SpellCastUpcast": "Cast at Level",
-"DND5E.SpellcasterLevel": "Spellcaster Level",
-"DND5E.SpellCastingHeader": "Spell Casting",
-"DND5E.Spellcasting": "Spellcasting",
+"ME5E.Speed": "Speed",
+"ME5E.SpeedSpecial": "Special Movement",
+"ME5E.SpellAbility": "Spellcasting Ability",
+"ME5E.SpellAbilitySet": "Set as Primary Spellcasting Ability",
+"ME5E.SpellAdd": "Add Spell",
+"ME5E.SpellAttackBonus": "Spell Attack Bonus",
+"ME5E.SpellCantrip": "Cantrip",
+"ME5E.SpellCastConsume": "Consume Spell Slot?",
+"ME5E.SpellCastNoSlots": "You have no available {level} spell slots with which to cast {name}",
+"ME5E.SpellCastNoSlotsLeft": "You have no available spell slots with which to cast {name}!",
+"ME5E.SpellCastTime": "Casting Time",
+"ME5E.SpellCastUpcast": "Cast at Level",
+"ME5E.SpellcasterLevel": "Spellcaster Level",
+"ME5E.SpellCastingHeader": "Spell Casting",
+"ME5E.Spellcasting": "Spellcasting",
 
-"DND5E.SPELLCASTING": {
+"ME5E.SPELLCASTING": {
   "METHODS": {
     "AtWill": {
       "label": "At-Will"
@@ -4075,14 +4075,14 @@
   "Unlabeled": "Unlabeled Spellcasting"
 },
 
-"DND5E.SpellcastingClass": "{class} Spellcasting",
-"DND5E.SpellComponent": "Spell Component",
-"DND5E.SpellComponents": "Spell Components",
-"DND5E.SpellCreate": "Create Spell",
-"DND5E.SpellDC": "Spell DC",
-"DND5E.SpellDetails": "Spell Details",
-"DND5E.SpellEffects": "Spell Effects",
-"DND5E.SpellHeader": {
+"ME5E.SpellcastingClass": "{class} Spellcasting",
+"ME5E.SpellComponent": "Spell Component",
+"ME5E.SpellComponents": "Spell Components",
+"ME5E.SpellCreate": "Create Spell",
+"ME5E.SpellDC": "Spell DC",
+"ME5E.SpellDetails": "Spell Details",
+"ME5E.SpellEffects": "Spell Effects",
+"ME5E.SpellHeader": {
   "Formula": "Formula",
   "Range": "Range",
   "Roll": "Roll",
@@ -4090,70 +4090,70 @@
   "Target": "Target",
   "Time": "Time"
 },
-"DND5E.SpellLevel": "Spell Level",
-"DND5E.SpellLevels": "Spell Levels",
-"DND5E.SpellLevel0": "Cantrip",
-"DND5E.SpellLevel1": "1st Level",
-"DND5E.SpellLevel2": "2nd Level",
-"DND5E.SpellLevel3": "3rd Level",
-"DND5E.SpellLevel4": "4th Level",
-"DND5E.SpellLevel5": "5th Level",
-"DND5E.SpellLevel6": "6th Level",
-"DND5E.SpellLevel7": "7th Level",
-"DND5E.SpellLevel8": "8th Level",
-"DND5E.SpellLevel9": "9th Level",
-"DND5E.SpellLevelSpell": "{level} ({n} Slots)",
-"DND5E.SpellLevelPact": "Pact Slot [Level {level}] ({n} Slots)",
-"DND5E.SpellMaterials": "Spellcasting Materials",
-"DND5E.SpellMaterialsConsumed": "Consume Materials",
-"DND5E.SpellMaterialsCost": "Material Cost",
-"DND5E.SpellMaterialsDescription": "Material Description",
-"DND5E.SpellMaterialsSupply": "Material Supply",
-"DND5E.SpellName": "Spell Name",
-"DND5E.SpellNone": "None",
-"DND5E.SpellPrepAtWill": "At-Will",
-"DND5E.SpellPrepInnate": "Innate Spellcasting",
-"DND5E.SpellPrepRitual": "Ritual Only",
-"DND5E.SpellPrepPrepared": "Prepared",
-"DND5E.SpellPrepAlways": "Always Prepared",
-"DND5E.SpellPreparation": {
+"ME5E.SpellLevel": "Spell Level",
+"ME5E.SpellLevels": "Spell Levels",
+"ME5E.SpellLevel0": "Cantrip",
+"ME5E.SpellLevel1": "1st Level",
+"ME5E.SpellLevel2": "2nd Level",
+"ME5E.SpellLevel3": "3rd Level",
+"ME5E.SpellLevel4": "4th Level",
+"ME5E.SpellLevel5": "5th Level",
+"ME5E.SpellLevel6": "6th Level",
+"ME5E.SpellLevel7": "7th Level",
+"ME5E.SpellLevel8": "8th Level",
+"ME5E.SpellLevel9": "9th Level",
+"ME5E.SpellLevelSpell": "{level} ({n} Slots)",
+"ME5E.SpellLevelPact": "Pact Slot [Level {level}] ({n} Slots)",
+"ME5E.SpellMaterials": "Spellcasting Materials",
+"ME5E.SpellMaterialsConsumed": "Consume Materials",
+"ME5E.SpellMaterialsCost": "Material Cost",
+"ME5E.SpellMaterialsDescription": "Material Description",
+"ME5E.SpellMaterialsSupply": "Material Supply",
+"ME5E.SpellName": "Spell Name",
+"ME5E.SpellNone": "None",
+"ME5E.SpellPrepAtWill": "At-Will",
+"ME5E.SpellPrepInnate": "Innate Spellcasting",
+"ME5E.SpellPrepRitual": "Ritual Only",
+"ME5E.SpellPrepPrepared": "Prepared",
+"ME5E.SpellPrepAlways": "Always Prepared",
+"ME5E.SpellPreparation": {
   "Label": "Spell Preparation",
   "Formula": "Preparation Formula",
   "Method": "Spellcasting Method"
 },
-"DND5E.SpellSourceClass": "Source Class",
-"DND5E.SpellPrepared": "Prepared",
-"DND5E.SpellProgArt": "Artificer",
-"DND5E.SpellProgAvailable": "Available slots",
-"DND5E.SpellProgFull": "Full Caster",
-"DND5E.SpellProgHalf": "Half Caster",
-"DND5E.SpellProgLeveled": "Leveled Magic",
-"DND5E.SpellProgOverride": "Override slots",
-"DND5E.SpellProgPact": "Pact Magic",
-"DND5E.SpellProgThird": "Third Caster",
-"DND5E.SpellProgression": "Spell Progression",
-"DND5E.SpellsSearch": "Search spells",
-"DND5E.SpellSchool": "Spell School",
-"DND5E.SpellScroll": "Spell Scroll",
-"DND5E.SpellSlotExpended": "Expended Spell Slot",
-"DND5E.SpellSlotN.one": "{n}st spell slot",
-"DND5E.SpellSlotN.two": "{n}nd spell slot",
-"DND5E.SpellSlotN.few": "{n}rd spell slot",
-"DND5E.SpellSlotN.other": "{n}th spell slot",
-"DND5E.SpellSlotTemporary": "Temporary Spell Slot",
-"DND5E.SpellSlotsN.one": "{n}st Level Slots",
-"DND5E.SpellSlotsN.two": "{n}nd Level Slots",
-"DND5E.SpellSlotsN.few": "{n}rd Level Slots",
-"DND5E.SpellSlotsN.other": "{n}th Level Slots",
-"DND5E.SpellSlotsPact": "Pact Slots",
-"DND5E.SpellSlotsConfig": "Configure Spell Slots",
-"DND5E.SpellTag": "Spell Tag",
-"DND5E.SpellTarget": "Spell Target",
-"DND5E.SpellUnprepared": "Unprepared",
-"DND5E.SpellUsage": "Spell Usage",
-"DND5E.Spellbook": "Spellbook",
-"DND5E.Spent": "Spent",
-"DND5E.StartingEquipment": {
+"ME5E.SpellSourceClass": "Source Class",
+"ME5E.SpellPrepared": "Prepared",
+"ME5E.SpellProgArt": "Artificer",
+"ME5E.SpellProgAvailable": "Available slots",
+"ME5E.SpellProgFull": "Full Caster",
+"ME5E.SpellProgHalf": "Half Caster",
+"ME5E.SpellProgLeveled": "Leveled Magic",
+"ME5E.SpellProgOverride": "Override slots",
+"ME5E.SpellProgPact": "Pact Magic",
+"ME5E.SpellProgThird": "Third Caster",
+"ME5E.SpellProgression": "Spell Progression",
+"ME5E.SpellsSearch": "Search spells",
+"ME5E.SpellSchool": "Spell School",
+"ME5E.SpellScroll": "Spell Scroll",
+"ME5E.SpellSlotExpended": "Expended Spell Slot",
+"ME5E.SpellSlotN.one": "{n}st spell slot",
+"ME5E.SpellSlotN.two": "{n}nd spell slot",
+"ME5E.SpellSlotN.few": "{n}rd spell slot",
+"ME5E.SpellSlotN.other": "{n}th spell slot",
+"ME5E.SpellSlotTemporary": "Temporary Spell Slot",
+"ME5E.SpellSlotsN.one": "{n}st Level Slots",
+"ME5E.SpellSlotsN.two": "{n}nd Level Slots",
+"ME5E.SpellSlotsN.few": "{n}rd Level Slots",
+"ME5E.SpellSlotsN.other": "{n}th Level Slots",
+"ME5E.SpellSlotsPact": "Pact Slots",
+"ME5E.SpellSlotsConfig": "Configure Spell Slots",
+"ME5E.SpellTag": "Spell Tag",
+"ME5E.SpellTarget": "Spell Target",
+"ME5E.SpellUnprepared": "Unprepared",
+"ME5E.SpellUsage": "Spell Usage",
+"ME5E.Spellbook": "Spellbook",
+"ME5E.Spent": "Spent",
+"ME5E.StartingEquipment": {
   "Title": "Starting Equipment",
   "Action": {
     "AddEntry": "Add Entry",
@@ -4186,16 +4186,16 @@
     "Hint": "Formula in GP that can be used in place of starting equipment."
   }
 },
-"DND5E.SubclassAdd": "Add Subclass",
-"DND5E.SubclassIdentifierHint": "This identifier should match the identifier on the parent class to ensure they are properly linked.",
-"DND5E.SubclassAssignmentError": "{class} already has a subclass. Remove the existing '{subclass}' subclass before adding a new one.",
-"DND5E.SubclassDuplicateError": "A subclass with the identifier {identifier} already exists on this actor.",
-"DND5E.SubclassMismatchWarn": "{name} subclass has no matching class with identifier '{class}'.",
-"DND5E.SubclassName": "Subclass Name",
-"DND5E.Subtype": "Subtype",
-"DND5E.Summary": "Summary",
+"ME5E.SubclassAdd": "Add Subclass",
+"ME5E.SubclassIdentifierHint": "This identifier should match the identifier on the parent class to ensure they are properly linked.",
+"ME5E.SubclassAssignmentError": "{class} already has a subclass. Remove the existing '{subclass}' subclass before adding a new one.",
+"ME5E.SubclassDuplicateError": "A subclass with the identifier {identifier} already exists on this actor.",
+"ME5E.SubclassMismatchWarn": "{name} subclass has no matching class with identifier '{class}'.",
+"ME5E.SubclassName": "Subclass Name",
+"ME5E.Subtype": "Subtype",
+"ME5E.Summary": "Summary",
 
-"DND5E.SUMMON": {
+"ME5E.SUMMON": {
   "FIELDS": {
     "bonuses": {
       "ac": {
@@ -4343,13 +4343,13 @@
   }
 },
 
-"DND5E.Summoning": {
+"ME5E.Summoning": {
   "Label": "Summoning"
 },
-"DND5E.Supply": "Supply",
-"DND5E.Suppressed": "Suppressed",
+"ME5E.Supply": "Supply",
+"ME5E.Suppressed": "Suppressed",
 
-"DND5E.TARGET": {
+"ME5E.TARGET": {
   "Action": {
     "PlaceTemplate": "Place Measured Template"
   },
@@ -4576,43 +4576,43 @@
   }
 },
 
-"DND5E.Target": "Target",
-"DND5E.TargetPl": "Targets",
-"DND5E.TargetType": "Target Type",
-"DND5E.TargetTypeArea": "Area",
-"DND5E.TargetTypeIndividual": "Individual",
-"DND5E.TargetUnits": "Area of Effect Units",
-"DND5E.TargetValue": "Target Length or Count",
-"DND5E.TargetWidth": "Line Width",
-"DND5E.TemplatePrompt": "Template Prompt",
-"DND5E.TemplatePromptTooltip": "If unchecked, the prompt for placing a Measured Template will be suppressed.",
-"DND5E.Temp": "Temp",
-"DND5E.Threshold": "Threshold",
-"DND5E.TimeDay": "Days",
-"DND5E.TimeDayAbbr": "d",
-"DND5E.TimeDisp": "Until Dispelled",
-"DND5E.TimeDispTrig": "Until Dispelled or Triggered",
-"DND5E.TimeHour": "Hours",
-"DND5E.TimeHourAbbr": "h",
-"DND5E.TimeInst": "Instantaneous",
-"DND5E.TimeMinute": "Minutes",
-"DND5E.TimeMinuteAbbr": "m",
-"DND5E.TimeMonth": "Months",
-"DND5E.TimePerm": "Permanent",
-"DND5E.TimeRound": "Rounds",
-"DND5E.TimeTurn": "Turns",
-"DND5E.TimeYear": "Years",
-"DND5E.TMP": "TMP",
-"DND5E.ToHit": "To Hit",
-"DND5E.Tokens": {
+"ME5E.Target": "Target",
+"ME5E.TargetPl": "Targets",
+"ME5E.TargetType": "Target Type",
+"ME5E.TargetTypeArea": "Area",
+"ME5E.TargetTypeIndividual": "Individual",
+"ME5E.TargetUnits": "Area of Effect Units",
+"ME5E.TargetValue": "Target Length or Count",
+"ME5E.TargetWidth": "Line Width",
+"ME5E.TemplatePrompt": "Template Prompt",
+"ME5E.TemplatePromptTooltip": "If unchecked, the prompt for placing a Measured Template will be suppressed.",
+"ME5E.Temp": "Temp",
+"ME5E.Threshold": "Threshold",
+"ME5E.TimeDay": "Days",
+"ME5E.TimeDayAbbr": "d",
+"ME5E.TimeDisp": "Until Dispelled",
+"ME5E.TimeDispTrig": "Until Dispelled or Triggered",
+"ME5E.TimeHour": "Hours",
+"ME5E.TimeHourAbbr": "h",
+"ME5E.TimeInst": "Instantaneous",
+"ME5E.TimeMinute": "Minutes",
+"ME5E.TimeMinuteAbbr": "m",
+"ME5E.TimeMonth": "Months",
+"ME5E.TimePerm": "Permanent",
+"ME5E.TimeRound": "Rounds",
+"ME5E.TimeTurn": "Turns",
+"ME5E.TimeYear": "Years",
+"ME5E.TMP": "TMP",
+"ME5E.ToHit": "To Hit",
+"ME5E.Tokens": {
   "NoneSelected": "No Tokens Selected",
   "NoneTargeted": "No Tokens Targeted",
   "Selected": "Selected",
   "Targeted": "Targeted"
 },
-"DND5E.ToggleDescription": "Toggle Description",
+"ME5E.ToggleDescription": "Toggle Description",
 
-"DND5E.TOOL": {
+"ME5E.TOOL": {
   "SECTIONS": {
     "Details": "{label} Details",
     "Bonuses": {
@@ -4626,63 +4626,63 @@
   }
 },
 
-"DND5E.ToolArtisans": "Artisan's Tools",
-"DND5E.ToolBonuses": "Tool Bonuses",
-"DND5E.ToolCheck": "Tool Check",
-"DND5E.ToolConfigure": "Configure Tool Proficiency",
-"DND5E.ToolDisguiseKit": "Disguise Kit",
-"DND5E.ToolForgeryKit": "Forgery Kit",
-"DND5E.ToolGamingSet": "Gaming Set",
-"DND5E.ToolHerbalismKit": "Herbalism Kit",
-"DND5E.ToolMusicalInstrument": "Musical Instrument",
-"DND5E.ToolNavigators": "Navigator's Tools",
-"DND5E.ToolPoisonersKit": "Poisoner's Kit",
-"DND5E.ToolPromptTitle": "{tool} Check",
-"DND5E.ToolThieves": "Thieves' Tools",
-"DND5E.ToolVehicle": "Vehicles",
-"DND5E.TraitAll": "All {category}",
-"DND5E.TraitArmorPlural.one": "Armor Training",
-"DND5E.TraitArmorPlural.other": "Armor Training",
-"DND5E.TraitArmorProf": "Armor Training",
-"DND5E.TraitArmorLegacyPlural.one": "Armor Proficiency",
-"DND5E.TraitArmorLegacyPlural.other": "Armor Proficiencies",
-"DND5E.TraitArmorLegacyProf": "Armor Proficiencies",
-"DND5E.TraitCIPlural.one": "Condition Immunity",
-"DND5E.TraitCIPlural.other": "Condition Immunities",
-"DND5E.TraitConfig": "Configure {trait}",
-"DND5E.TraitConfigChooseAnyCounted": "any {count} {type}",
-"DND5E.TraitConfigChooseAnyUncounted": "any {type}",
-"DND5E.TraitConfigChooseList": "{count} from {list}",
-"DND5E.TraitConfigChooseOther": "{count} other {type}",
-"DND5E.TraitConfigChooseWrapper": "Choose {choices}",
-"DND5E.TraitDIPlural.one": "Damage Immunity",
-"DND5E.TraitDIPlural.other": "Damage Immunities",
-"DND5E.TraitDMPlural.one": "Damage Modification",
-"DND5E.TraitDMPlural.other": "Damage Modifications",
-"DND5E.TraitDRPlural.one": "Damage Resistance",
-"DND5E.TraitDRPlural.other": "Damage Resistances",
-"DND5E.TraitDVPlural.one": "Damage Vulnerability",
-"DND5E.TraitDVPlural.other": "Damage Vulnerabilities",
-"DND5E.TraitGenericPlural.one": "Trait",
-"DND5E.TraitGenericPlural.other": "Traits",
-"DND5E.TraitLanguagesPlural.one": "Language",
-"DND5E.TraitLanguagesPlural.other": "Languages",
-"DND5E.TraitSave": "Update",
-"DND5E.TraitSavesPlural.one": "Saving Throw Proficiency",
-"DND5E.TraitSavesPlural.other": "Saving Throw Proficiencies",
-"DND5E.TraitSelectorSpecial": "Special (Split with Semi-Colon)",
-"DND5E.TraitSkillsPlural.one": "Skill Proficiency",
-"DND5E.TraitSkillsPlural.other": "Skill Proficiencies",
-"DND5E.TraitToolPlural.one": "Tool Proficiency",
-"DND5E.TraitToolPlural.other": "Tool Proficiencies",
-"DND5E.TraitToolProf": "Tool Proficiencies",
-"DND5E.TraitWeaponPlural.one": "Weapon Proficiency",
-"DND5E.TraitWeaponPlural.other": "Weapon Proficiencies",
-"DND5E.TraitWeaponProf": "Weapon Proficiencies",
-"DND5E.Traits": "Traits",
-"DND5E.TraitsChosen": "Chosen Traits",
+"ME5E.ToolArtisans": "Artisan's Tools",
+"ME5E.ToolBonuses": "Tool Bonuses",
+"ME5E.ToolCheck": "Tool Check",
+"ME5E.ToolConfigure": "Configure Tool Proficiency",
+"ME5E.ToolDisguiseKit": "Disguise Kit",
+"ME5E.ToolForgeryKit": "Forgery Kit",
+"ME5E.ToolGamingSet": "Gaming Set",
+"ME5E.ToolHerbalismKit": "Herbalism Kit",
+"ME5E.ToolMusicalInstrument": "Musical Instrument",
+"ME5E.ToolNavigators": "Navigator's Tools",
+"ME5E.ToolPoisonersKit": "Poisoner's Kit",
+"ME5E.ToolPromptTitle": "{tool} Check",
+"ME5E.ToolThieves": "Thieves' Tools",
+"ME5E.ToolVehicle": "Vehicles",
+"ME5E.TraitAll": "All {category}",
+"ME5E.TraitArmorPlural.one": "Armor Training",
+"ME5E.TraitArmorPlural.other": "Armor Training",
+"ME5E.TraitArmorProf": "Armor Training",
+"ME5E.TraitArmorLegacyPlural.one": "Armor Proficiency",
+"ME5E.TraitArmorLegacyPlural.other": "Armor Proficiencies",
+"ME5E.TraitArmorLegacyProf": "Armor Proficiencies",
+"ME5E.TraitCIPlural.one": "Condition Immunity",
+"ME5E.TraitCIPlural.other": "Condition Immunities",
+"ME5E.TraitConfig": "Configure {trait}",
+"ME5E.TraitConfigChooseAnyCounted": "any {count} {type}",
+"ME5E.TraitConfigChooseAnyUncounted": "any {type}",
+"ME5E.TraitConfigChooseList": "{count} from {list}",
+"ME5E.TraitConfigChooseOther": "{count} other {type}",
+"ME5E.TraitConfigChooseWrapper": "Choose {choices}",
+"ME5E.TraitDIPlural.one": "Damage Immunity",
+"ME5E.TraitDIPlural.other": "Damage Immunities",
+"ME5E.TraitDMPlural.one": "Damage Modification",
+"ME5E.TraitDMPlural.other": "Damage Modifications",
+"ME5E.TraitDRPlural.one": "Damage Resistance",
+"ME5E.TraitDRPlural.other": "Damage Resistances",
+"ME5E.TraitDVPlural.one": "Damage Vulnerability",
+"ME5E.TraitDVPlural.other": "Damage Vulnerabilities",
+"ME5E.TraitGenericPlural.one": "Trait",
+"ME5E.TraitGenericPlural.other": "Traits",
+"ME5E.TraitLanguagesPlural.one": "Language",
+"ME5E.TraitLanguagesPlural.other": "Languages",
+"ME5E.TraitSave": "Update",
+"ME5E.TraitSavesPlural.one": "Saving Throw Proficiency",
+"ME5E.TraitSavesPlural.other": "Saving Throw Proficiencies",
+"ME5E.TraitSelectorSpecial": "Special (Split with Semi-Colon)",
+"ME5E.TraitSkillsPlural.one": "Skill Proficiency",
+"ME5E.TraitSkillsPlural.other": "Skill Proficiencies",
+"ME5E.TraitToolPlural.one": "Tool Proficiency",
+"ME5E.TraitToolPlural.other": "Tool Proficiencies",
+"ME5E.TraitToolProf": "Tool Proficiencies",
+"ME5E.TraitWeaponPlural.one": "Weapon Proficiency",
+"ME5E.TraitWeaponPlural.other": "Weapon Proficiencies",
+"ME5E.TraitWeaponProf": "Weapon Proficiencies",
+"ME5E.Traits": "Traits",
+"ME5E.TraitsChosen": "Chosen Traits",
 
-"DND5E.TRANSFORM": {
+"ME5E.TRANSFORM": {
   "Action": {
     "Restore": "Restore Transformation",
     "Transform": "Transform"
@@ -4916,7 +4916,7 @@
   }
 },
 
-"DND5E.TRAVEL": {
+"ME5E.TRAVEL": {
   "FIELDS": {
     "pace": {
       "label": "Pace"
@@ -4948,7 +4948,7 @@
   }
 },
 
-"DND5E.Treasure": {
+"ME5E.Treasure": {
   "Categories": {
     "Any": "Any",
     "Arcana": "Arcana",
@@ -4963,17 +4963,17 @@
     "Title": "Configure Treasure"
   }
 },
-"DND5E.Trigger": "Trigger",
-"DND5E.Type": "Type",
-"DND5E.Uncrewed": "Uncrewed",
-"DND5E.Unequipped": "Not Equipped",
-"DND5E.Unidentified.DefaultName": "Unidentified {name}",
-"DND5E.Unidentified.Notice": "You must identify this item to learn its details.",
-"DND5E.Unidentified.Title": "Unidentified",
-"DND5E.Unidentified.Value": "???",
-"DND5E.Unit": "Unit",
+"ME5E.Trigger": "Trigger",
+"ME5E.Type": "Type",
+"ME5E.Uncrewed": "Uncrewed",
+"ME5E.Unequipped": "Not Equipped",
+"ME5E.Unidentified.DefaultName": "Unidentified {name}",
+"ME5E.Unidentified.Notice": "You must identify this item to learn its details.",
+"ME5E.Unidentified.Title": "Unidentified",
+"ME5E.Unidentified.Value": "???",
+"ME5E.Unit": "Unit",
 
-"DND5E.UNITS": {
+"ME5E.UNITS": {
   "DISTANCE": {
     "Foot": {
       "Label": "Feet",
@@ -5120,10 +5120,10 @@
   }
 },
 
-"DND5E.Unknown": "Unknown",
-"DND5E.Unlimited": "Unlimited",
+"ME5E.Unknown": "Unknown",
+"ME5E.Unlimited": "Unlimited",
 
-"DND5E.USAGE": {
+"ME5E.USAGE": {
   "SECTION": {
     "Consumption": "Consumption",
     "Creation": "Creation",
@@ -5131,19 +5131,19 @@
   }
 },
 
-"DND5E.Usage": "Usage",
-"DND5E.Use": "Use",
-"DND5E.UseItem": "Use {item}",
-"DND5E.Uses": "Uses",
-"DND5E.UsesAvailable": "Available Uses",
-"DND5E.UsesMax": "Maximum Uses",
-"DND5E.UsesPeriod": "Recovery Period",
-"DND5E.UsesPeriods": {
+"ME5E.Usage": "Usage",
+"ME5E.Use": "Use",
+"ME5E.UseItem": "Use {item}",
+"ME5E.Uses": "Uses",
+"ME5E.UsesAvailable": "Available Uses",
+"ME5E.UsesMax": "Maximum Uses",
+"ME5E.UsesPeriod": "Recovery Period",
+"ME5E.UsesPeriods": {
   "Charges": "Charges",
   "ChargesAbbreviation": "Charges"
 },
 
-"DND5E.USES": {
+"ME5E.USES": {
   "FIELDS": {
     "uses": {
       "label": "Uses",
@@ -5229,7 +5229,7 @@
   }
 },
 
-"DND5E.UTILITY": {
+"ME5E.UTILITY": {
   "FIELDS": {
     "roll": {
       "label": "Roll",
@@ -5255,9 +5255,9 @@
   "Title": "Use"
 },
 
-"DND5E.Value": "Value",
+"ME5E.Value": "Value",
 
-"DND5E.VEHICLE": {
+"ME5E.VEHICLE": {
   "Action": {
     "Create": {
       "Equipment": "Create Equipment",
@@ -5420,17 +5420,17 @@
   }
 },
 
-"DND5E.Vehicle": "Vehicle",
-"DND5E.Versatile": "Versatile",
-"DND5E.VersatileDamage": "Versatile Damage",
-"DND5E.VsDC": "vs DC.",
-"DND5E.Vulnerabilities": "Vulnerabilities",
-"DND5E.WarnBadACFormula": "The provided AC formula \"{formula}\" could not be evaluated.",
-"DND5E.WarnCantAddMultipleAdvancements": "It is not currently possible to add multiple items with advancements to an actor at the same time. Please add them individually.",
-"DND5E.WarnMultipleArmor": "More than one suit of armor equipped, AC calculation may be incorrect.",
-"DND5E.WarnMultipleShields": "More than one shield equipped, AC calculation may be incorrect.",
+"ME5E.Vehicle": "Vehicle",
+"ME5E.Versatile": "Versatile",
+"ME5E.VersatileDamage": "Versatile Damage",
+"ME5E.VsDC": "vs DC.",
+"ME5E.Vulnerabilities": "Vulnerabilities",
+"ME5E.WarnBadACFormula": "The provided AC formula \"{formula}\" could not be evaluated.",
+"ME5E.WarnCantAddMultipleAdvancements": "It is not currently possible to add multiple items with advancements to an actor at the same time. Please add them individually.",
+"ME5E.WarnMultipleArmor": "More than one suit of armor equipped, AC calculation may be incorrect.",
+"ME5E.WarnMultipleShields": "More than one shield equipped, AC calculation may be incorrect.",
 
-"DND5E.WEAPON": {
+"ME5E.WEAPON": {
   "FIELDS": {
     "ammunition": {
       "type": {
@@ -5464,26 +5464,26 @@
   }
 },
 
-"DND5E.WeaponCategory": "{category} Weapon",
-"DND5E.WeaponImprov": "Improvised",
-"DND5E.WeaponMartialM": "Martial Melee",
-"DND5E.WeaponMartialProficiency": "Martial",
-"DND5E.WeaponMartialR": "Martial Ranged",
-"DND5E.WeaponNatural": "Natural",
-"DND5E.WeaponSiege": "Siege Weapon",
-"DND5E.WeaponSimpleM": "Simple Melee",
-"DND5E.WeaponSimpleProficiency": "Simple",
-"DND5E.WeaponSimpleR": "Simple Ranged",
-"DND5E.Weight": "Weight",
-"DND5E.WhisperedTo": "Whispered to",
-"DND5E.Wiki": "Wiki",
-"DND5E.available": "available",
-"DND5E.description": "A system for playing the fifth edition of the worlds most popular roleplaying game in the Foundry Virtual Tabletop environment.",
-"DND5E.of": "of",
-"DND5E.per": "per",
-"DND5E.spell": "spell",
+"ME5E.WeaponCategory": "{category} Weapon",
+"ME5E.WeaponImprov": "Improvised",
+"ME5E.WeaponMartialM": "Martial Melee",
+"ME5E.WeaponMartialProficiency": "Martial",
+"ME5E.WeaponMartialR": "Martial Ranged",
+"ME5E.WeaponNatural": "Natural",
+"ME5E.WeaponSiege": "Siege Weapon",
+"ME5E.WeaponSimpleM": "Simple Melee",
+"ME5E.WeaponSimpleProficiency": "Simple",
+"ME5E.WeaponSimpleR": "Simple Ranged",
+"ME5E.Weight": "Weight",
+"ME5E.WhisperedTo": "Whispered to",
+"ME5E.Wiki": "Wiki",
+"ME5E.available": "available",
+"ME5E.description": "A system for playing the Mass Effect total conversion of DnD5e in the Foundry Virtual Tabletop environment.",
+"ME5E.of": "of",
+"ME5E.per": "per",
+"ME5E.spell": "spell",
 
-"EDITOR.DND5E.Inline": {
+"EDITOR.ME5E.Inline": {
   "ApplyStatus": "Apply Status to Selected Tokens",
   "AttackExtended": "<em>{type}</em>: {parts}",
   "AttackLong": "{formula} to hit",
@@ -5515,7 +5515,7 @@
   }
 },
 
-"EFFECT.DND5E": {
+"EFFECT.ME5E": {
   "StatusBleeding": "Bleeding",
   "StatusBloodied": "Bloodied",
   "StatusBurning": "Burning",
@@ -5551,7 +5551,7 @@
 "TYPES.JournalEntryPage.rule": "Rule",
 "TYPES.JournalEntryPage.spells": "Spell List",
 "TYPES.JournalEntryPage.subclass": "Subclass Summary",
-"JOURNALENTRYPAGE.DND5E": {
+"JOURNALENTRYPAGE.ME5E": {
   "Class": {
     "FIELDS": {
       "description": {
@@ -5670,20 +5670,20 @@
   }
 },
 
-"KEYBINDINGS.DND5E.DragCopy": "Force Copy when Dragging Document",
-"KEYBINDINGS.DND5E.DragMove": "Force Move when Dragging Document",
-"KEYBINDINGS.DND5E.SkipDialogNormal": "Skip Dialog",
-"KEYBINDINGS.DND5E.SkipDialogAdvantage": "Skip Dialog (roll with Advantage/Critical)",
-"KEYBINDINGS.DND5E.SkipDialogDisadvantage": "Skip Dialog (roll with Disadvantage/Non-Critical)",
+"KEYBINDINGS.ME5E.DragCopy": "Force Copy when Dragging Document",
+"KEYBINDINGS.ME5E.DragMove": "Force Move when Dragging Document",
+"KEYBINDINGS.ME5E.SkipDialogNormal": "Skip Dialog",
+"KEYBINDINGS.ME5E.SkipDialogAdvantage": "Skip Dialog (roll with Advantage/Critical)",
+"KEYBINDINGS.ME5E.SkipDialogDisadvantage": "Skip Dialog (roll with Disadvantage/Non-Critical)",
 
 "MACRO.5eMissingTargetWarn": "Your controlled actor '{actor}' does not have an {type} with name '{name}'.",
 "MACRO.5eMultipleTargetsWarn": "Your controlled actor '{actor}' has more than one {type} with name '{name}'. The first match will be chosen.",
 "MACRO.5eNoActorSelected": "No selected or assigned actor could be found to target with macro.",
 "MACRO.5eUnownedWarn": "You can only create macro buttons for owned Items",
 
-"MIGRATION.5eBegin": "Applying D&D 5e System Migration for version {version}. Please be patient and do not close your game or shut down your server.",
-"MIGRATION.5eComplete": "D&D 5e System Migration to version {version} completed!",
-"MIGRATION.5eVersionTooOldWarning": "Your D&D 5e system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.",
+"MIGRATION.5eBegin": "Applying ME5e System Migration for version {version}. Please be patient and do not close your game or shut down your server.",
+"MIGRATION.5eComplete": "ME5e System Migration to version {version} completed!",
+"MIGRATION.5eVersionTooOldWarning": "Your ME5e system data is from too old a Foundry version and cannot be reliably migrated to the latest version. The process will be attempted, but errors may occur.",
 
 "SETTINGS.5eAutoCollapseCardL": "Automatically collapse Item Card descriptions in the Chat Log",
 "SETTINGS.5eAutoCollapseCardN": "Collapse Item Cards in Chat",
@@ -5695,7 +5695,7 @@
 "SETTINGS.5eNoConcentrationL": "Disable the system's automated tracking of concentration.",
 "SETTINGS.5eGridAlignedSquareTemplatesL": "When square templates are created as the result of casting a spell or using an item, they will be locked to the grid alignment and unable to be rotated.",
 "SETTINGS.5eGridAlignedSquareTemplatesN": "Grid-Aligned Square Templates",
-"SETTINGS.DND5E": {
+"SETTINGS.ME5E": {
   "AUTOMATION": {
     "Movement": {
       "Name": "Movement Automation",
@@ -5884,7 +5884,7 @@
   }
 },
 
-"SHEETS.DND5E": {
+"SHEETS.ME5E": {
   "THEME": {
     "Label": "Theme",
     "Automatic": "Automatic",

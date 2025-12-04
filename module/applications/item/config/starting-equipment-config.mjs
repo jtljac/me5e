@@ -22,7 +22,7 @@ export default class StartingEquipmentConfig extends DocumentSheet5e {
   /** @override */
   static PARTS = {
     config: {
-      template: "systems/dnd5e/templates/apps/starting-equipment-config.hbs"
+      template: "systems/me5e/templates/apps/starting-equipment-config.hbs"
     }
   };
 
@@ -32,7 +32,7 @@ export default class StartingEquipmentConfig extends DocumentSheet5e {
 
   /** @override */
   get title() {
-    return game.i18n.localize("DND5E.StartingEquipment.Action.Configure");
+    return game.i18n.localize("ME5E.StartingEquipment.Action.Configure");
   }
 
   /* -------------------------------------------- */
@@ -187,7 +187,7 @@ export default class StartingEquipmentConfig extends DocumentSheet5e {
 
     // Validate that this is a physical item
     if ( !item.system.constructor._schemaTemplates?.includes(PhysicalItemTemplate) ) {
-      ui.notifications.error(game.i18n.format("DND5E.StartingEquipment.Warning.ItemTypeInvalid", {
+      ui.notifications.error(game.i18n.format("ME5E.StartingEquipment.Warning.ItemTypeInvalid", {
         type: game.i18n.localize(CONFIG.Item.typeLabels[item.type])
       }));
       return null;
@@ -239,7 +239,7 @@ export default class StartingEquipmentConfig extends DocumentSheet5e {
         if ( dragEntry.children.some(c => c.type in EquipmentEntryData.GROUPING_TYPES) ) depth += 1;
       }
       if ( depth > 3 ) {
-        ui.notifications.warn("DND5E.StartingEquipment.Warning.Depth", { localize: true });
+        ui.notifications.warn("ME5E.StartingEquipment.Warning.Depth", { localize: true });
         return;
       }
       updateData = { [`startingEquipment.${dragEntry._id}.group`]: dropEntry._id };

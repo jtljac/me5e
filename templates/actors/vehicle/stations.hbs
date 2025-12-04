@@ -13,7 +13,7 @@
 
     {{!-- Features --}}
     {{#if features}}
-    {{> "systems/dnd5e/templates/inventory/inventory.hbs" sections=features }}
+    {{> "systems/me5e/templates/inventory/inventory.hbs" sections=features }}
     {{/if}}
 
     {{!-- Draft Animals --}}
@@ -40,7 +40,7 @@
             {{#if @root.editable}}
             <div class="controls">
                 <button type="button" class="config-button unbutton" data-action="removeMember" data-tooltip
-                        aria-label="{{ localize "DND5E.Group.Action.Remove" }}">
+                        aria-label="{{ localize "ME5E.Group.Action.Remove" }}">
                     <i class="fa-solid fa-square-xmark" inert></i>
                 </button>
             </div>
@@ -55,7 +55,7 @@
     {{#if itemCategories.stations.length}}
     <ol class="unlist stations">
         {{#each itemCategories.stations as |item|}}
-        {{#dnd5e-itemContext item as |ctx|}}
+        {{#me5e-itemContext item as |ctx|}}
         <li class="station draggable" data-item-id="{{ item.id }}" data-uuid="{{ item.uuid }}">
 
             {{!-- Header --}}
@@ -84,7 +84,7 @@
             <div class="hp bars {{ @root.rollableClass }}" data-action="toggleEditInline">
 
                 <div class="hp-bar bar">
-                    <label>{{ localize "DND5E.HP" }}</label>
+                    <label>{{ localize "ME5E.HP" }}</label>
                     <div class="meter hit-points progress" role="meter" aria-valuemin="0" aria-valuenow="{{ value }}"
                          aria-valuemax="{{ max }}" style="--bar-percentage: {{ pct }}%"></div>
                     <div class="values">
@@ -108,7 +108,7 @@
             <div class="uses bars {{ @root.rollableClass }}" data-action="toggleEditInline">
 
                 <div class="uses-bar bar">
-                    <label>{{ localize "DND5E.Uses" }}</label>
+                    <label>{{ localize "ME5E.Uses" }}</label>
                     <div class="meter uses progress" role="meter" aria-valuemin="0" aria-valuenow="{{ value }}"
                          aria-valuemax="{{ max }}" style="--bar-percentage: {{ pct }}%"></div>
                     <div class="values">
@@ -128,7 +128,7 @@
             {{#if item.system.speed.value}}
             {{#with item.system.speed}}
             <div class="speed">
-                <strong>{{ localize "DND5E.VEHICLE.MOUNTABLE.FIELDS.speed.value.label" }}:</strong>
+                <strong>{{ localize "ME5E.VEHICLE.MOUNTABLE.FIELDS.speed.value.label" }}:</strong>
                 <span class="value">{{ value }} {{ units }}</span>
                 {{#if conditions}}<em>({{ conditions }})</em>{{/if}}
             </div>
@@ -144,7 +144,7 @@
                     {{#if actor}}<img src="{{ actor.img }}" alt="{{ actor.name }}">{{/if}}
                     {{#if (and @root.editable actor)}}
                     <a class="deletion-control" data-action="uncrew"
-                       aria-label="{{ localize "DND5E.VEHICLE.Action.Uncrew" }}">
+                       aria-label="{{ localize "ME5E.VEHICLE.Action.Uncrew" }}">
                         <i class="fa-solid fa-circle-xmark"></i>
                     </a>
                     {{/if}}
@@ -154,7 +154,7 @@
             {{/if}}
 
         </li>
-        {{/dnd5e-itemContext}}
+        {{/me5e-itemContext}}
         {{/each}}
     </ol>
     {{/if}}
@@ -163,16 +163,16 @@
     {{#if @root.editable}}
     <div class="drop-areas">
         <div class="drop-area drop-area-lg interactive roboto-upper" data-action="createItem" data-type="feat">
-            {{ localize "DND5E.VEHICLE.Action.Create.Feature" }}
+            {{ localize "ME5E.VEHICLE.Action.Create.Feature" }}
         </div>
         <div class="drop-area drop-area-lg interactive roboto-upper" data-action="createItem" data-type="equipment">
-            {{ localize "DND5E.VEHICLE.Action.Create.Equipment" }}
+            {{ localize "ME5E.VEHICLE.Action.Create.Equipment" }}
         </div>
         <div class="drop-area drop-area-lg interactive roboto-upper" data-action="createItem" data-type="weapon">
-            {{ localize "DND5E.VEHICLE.Action.Create.Weapon" }}
+            {{ localize "ME5E.VEHICLE.Action.Create.Weapon" }}
         </div>
         <div class="drop-area drop-area-lg interactive roboto-upper" data-action="browseActors">
-            {{ localize "DND5E.VEHICLE.Action.Drop.Animal" }}
+            {{ localize "ME5E.VEHICLE.Action.Drop.Animal" }}
         </div>
     </div>
     {{/if}}
@@ -182,8 +182,8 @@
 {{#*inline ".header"}}
 <div class="header">
     <div></div><div></div><div></div>
-    <div class="roboto-upper">{{ localize "DND5E.AbilityModifierShort" }}</div>
-    <div class="roboto-upper">{{ localize "DND5E.SavingThrowShort" }}</div>
+    <div class="roboto-upper">{{ localize "ME5E.AbilityModifierShort" }}</div>
+    <div class="roboto-upper">{{ localize "ME5E.SavingThrowShort" }}</div>
     <div></div>
 </div>
 {{/inline}}
@@ -210,19 +210,19 @@
 
     {{!-- Modifier --}}
     <a class="modifier {{ @root.rollableClass }}" data-action="roll" data-type="ability">
-        {{ dnd5e-formatModifier mod }}
+        {{ me5e-formatModifier mod }}
     </a>
 
     {{!-- Saving Throw --}}
     <a class="saving-throw {{ @root.rollableClass }}" data-action="roll" data-type="ability">
-        {{ dnd5e-formatModifier save.value }}
+        {{ me5e-formatModifier save.value }}
     </a>
 
     {{!-- Controls --}}
     <div class="config">
         {{#if @root.editable}}
         <button type="button" class="config-button unbutton" data-action="showConfiguration" data-config="ability"
-                data-tooltip aria-label="{{ localize "DND5E.AbilityConfigure" ability=label }}">
+                data-tooltip aria-label="{{ localize "ME5E.AbilityConfigure" ability=label }}">
             <i class="fa-solid fa-cog" inert></i>
         </button>
         {{/if}}

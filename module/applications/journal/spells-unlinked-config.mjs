@@ -22,10 +22,10 @@ export default class SpellsUnlinkedConfig extends DocumentSheet5e {
   /** @override */
   static PARTS = {
     spell: {
-      template: "systems/dnd5e/templates/journal/spell/unlinked-spell.hbs"
+      template: "systems/me5e/templates/journal/spell/unlinked-spell.hbs"
     },
     source: {
-      template: "systems/dnd5e/templates/journal/spell/unlinked-source.hbs"
+      template: "systems/me5e/templates/journal/spell/unlinked-source.hbs"
     }
   };
 
@@ -35,7 +35,7 @@ export default class SpellsUnlinkedConfig extends DocumentSheet5e {
 
   /** @inheritDoc */
   get title() {
-    return game.i18n.localize("JOURNALENTRYPAGE.DND5E.SpellList.UnlinkedSpells.Configuration");
+    return game.i18n.localize("JOURNALENTRYPAGE.ME5E.SpellList.UnlinkedSpells.Configuration");
   }
 
   /* -------------------------------------------- */
@@ -48,8 +48,8 @@ export default class SpellsUnlinkedConfig extends DocumentSheet5e {
       ...await super._prepareContext(options),
       ...this.document.system.unlinkedSpells.find(u => u._id === this.options.unlinkedId),
       fields: this.document.system.schema.fields.unlinkedSpells.element.fields,
-      spellLevelOptions: Object.entries(CONFIG.DND5E.spellLevels).map(([value, label]) => ({ value, label })),
-      spellSchoolOptions: Object.entries(CONFIG.DND5E.spellSchools).map(([value, { label }]) => ({ value, label }))
+      spellLevelOptions: Object.entries(CONFIG.ME5E.spellLevels).map(([value, label]) => ({ value, label })),
+      spellSchoolOptions: Object.entries(CONFIG.ME5E.spellSchools).map(([value, { label }]) => ({ value, label }))
     };
     return context;
   }

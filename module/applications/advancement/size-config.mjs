@@ -18,7 +18,7 @@ export default class SizeConfig extends AdvancementConfig {
   static PARTS = {
     ...super.PARTS,
     details: {
-      template: "systems/dnd5e/templates/advancement/size-config-details.hbs"
+      template: "systems/me5e/templates/advancement/size-config-details.hbs"
     }
   };
 
@@ -34,7 +34,7 @@ export default class SizeConfig extends AdvancementConfig {
         hint: this.advancement.automaticHint
       },
       showLevelSelector: false,
-      sizes: Object.entries(CONFIG.DND5E.actorSizes).reduce((obj, [key, { label }]) => {
+      sizes: Object.entries(CONFIG.ME5E.actorSizes).reduce((obj, [key, { label }]) => {
         obj[key] = {
           field: new BooleanField({ label }),
           input: context.inputs.createCheckboxInput,

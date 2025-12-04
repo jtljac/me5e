@@ -1,7 +1,7 @@
 <section class="tab {{ tab.cssClass }}" data-group="primary" data-tab="transfer">
     <section class="currency">
-        <button type="button" data-action="setAll">{{ localize "DND5E.CurrencyManager.Transfer.All" }}</button>
-        <button type="button" data-action="setHalf">{{ localize "DND5E.CurrencyManager.Transfer.Half" }}</button>
+        <button type="button" data-action="setAll">{{ localize "ME5E.CurrencyManager.Transfer.All" }}</button>
+        <button type="button" data-action="setHalf">{{ localize "ME5E.CurrencyManager.Transfer.Half" }}</button>
         {{#each currency}}
         <label>
             {{#with (lookup @root.CONFIG.currencies @key) as |currency|}}
@@ -14,15 +14,15 @@
     <div class="destinations">
         {{#each destinations}}
         <label>
-            <dnd5e-checkbox name="destination.{{ doc.id }}"></dnd5e-checkbox>
+            <me5e-checkbox name="destination.{{ doc.id }}"></me5e-checkbox>
             {{{ icon }}} {{ doc.name }}
         </label>
         {{else}}
-        <p class="no-destinations">{{ localize "DND5E.Award.NoDestinations" }}</p>
+        <p class="no-destinations">{{ localize "ME5E.Award.NoDestinations" }}</p>
         {{/each}}
     </div>
     <button type="submit" name="transfer" disabled>
         <i class="fa-solid fa-reply-all fa-flip-horizontal" inert></i>
-        {{ localize "DND5E.CurrencyManager.Transfer.Action" }}
+        {{ localize "ME5E.CurrencyManager.Transfer.Action" }}
     </button>
 </section>

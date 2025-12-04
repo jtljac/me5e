@@ -22,8 +22,8 @@ export default class Token5e extends foundry.canvas.placeables.Token {
   findMovementPath(waypoints, options) {
 
     // Normal behavior if token blocking is disabled or this actor is not a creature or cannot block
-    if ( (game.settings.get("dnd5e", "movementAutomation") !== "full") || !this.document.actor?.system.isCreature
-      || this.document.actor.statuses.intersects(CONFIG.DND5E.neverBlockStatuses) ) {
+    if ( (game.settings.get("me5e", "movementAutomation") !== "full") || !this.document.actor?.system.isCreature
+      || this.document.actor.statuses.intersects(CONFIG.ME5E.neverBlockStatuses) ) {
       return super.findMovementPath(waypoints, options);
     }
 
@@ -52,7 +52,7 @@ export default class Token5e extends foundry.canvas.placeables.Token {
   /** @inheritDoc */
   _getMovementCostFunction(options) {
     const costFunction = super._getMovementCostFunction(options);
-    if ( game.settings.get("dnd5e", "movementAutomation") === "none" ) return costFunction;
+    if ( game.settings.get("me5e", "movementAutomation") === "none" ) return costFunction;
 
     const ignoredDifficultTerrain = this.actor?.system.attributes?.movement?.ignoredDifficultTerrain ?? new Set();
     const ignoreDifficult = ["all", "nonmagical"].some(i => ignoredDifficultTerrain.has(i));
@@ -80,9 +80,9 @@ export default class Token5e extends foundry.canvas.placeables.Token {
   constrainMovementPath(waypoints, options) {
     let { preview=false, ignoreTokens=false } = options; // Custom constrain option to ignore tokens
 
-    ignoreTokens ||= game.settings.get("dnd5e", "movementAutomation") !== "full";
+    ignoreTokens ||= game.settings.get("me5e", "movementAutomation") !== "full";
     ignoreTokens ||= !this.actor?.system.isCreature;
-    ignoreTokens ||= this.actor?.statuses?.intersects(CONFIG.DND5E.neverBlockStatuses);
+    ignoreTokens ||= this.actor?.statuses?.intersects(CONFIG.ME5E.neverBlockStatuses);
 
     // Ignore tokens if path contains resize
     ignoreTokens ||= waypoints.some(w => (w.width !== waypoints[0].width) || (w.height !== waypoints[0].height));
@@ -167,11 +167,11 @@ export default class Token5e extends foundry.canvas.placeables.Token {
     // Allocate percentages of the total
     const tempPct = Math.clamp(temp, 0, displayMax) / displayMax;
     const colorPct = Math.clamp(value, 0, effectiveMax) / displayMax;
-    const hpColor = dnd5e.documents.Actor5e.getHPColor(value, effectiveMax);
+    const hpColor = me5e.documents.Actor5e.getHPColor(value, effectiveMax);
 
     // Determine colors to use
     const blk = 0x000000;
-    const c = CONFIG.DND5E.tokenHPColors;
+    const c = CONFIG.ME5E.tokenHPColors;
 
     // Determine the container size (logic borrowed from core)
     let s = canvas.dimensions.uiScale;

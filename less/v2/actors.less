@@ -1,4 +1,4 @@
-.dnd5e2.sheet.actor {
+.me5e2.sheet.actor {
   --underlay-barbarian: url("ui/official/classes/barbarian.webp");
   --underlay-bard: url("ui/official/classes/bard.webp");
   --underlay-cleric: url("ui/official/classes/cleric.webp");
@@ -35,7 +35,7 @@
   /* ---------------------------------- */
 
   nav.tabs {
-    top: calc(var(--dnd5e-sheet-header-height) + 1rem);
+    top: calc(var(--me5e-sheet-header-height) + 1rem);
   }
 
   /* ---------------------------------- */
@@ -45,7 +45,7 @@
   &:not(.minimized) .window-header .header-elements {
     flex: none;
     color: var(--color-text-primary);
-    font-family: var(--dnd5e-font-roboto-condensed);
+    font-family: var(--me5e-font-roboto-condensed);
     display: flex;
     align-items: center;
     line-height: 1;
@@ -99,8 +99,8 @@
     padding: 0 4px;
 
     &:hover {
-      border-color: var(--dnd5e-color-gold);
-      box-shadow: 0 0 6px var(--dnd5e-color-gold);
+      border-color: var(--me5e-color-gold);
+      box-shadow: 0 0 6px var(--me5e-color-gold);
       text-shadow: none;
     }
   }
@@ -113,7 +113,7 @@
   }
 
   .slide-toggle.header-interactable {
-    font-family: var(--dnd5e-font-roboto-condensed);
+    font-family: var(--me5e-font-roboto-condensed);
     height: var(--form-field-height);
     margin-bottom: 8px;
 
@@ -135,17 +135,17 @@
     .initiative {
       width: 44px;
       height: 44px;
-      background: var(--dnd5e-color-gold) url("../../icons/svg/d20-black.svg") center / contain;
+      background: var(--me5e-color-gold) url("../../icons/svg/d20-black.svg") center / contain;
       display: grid;
       place-content: center;
       font-weight: bold;
-      font-family: var(--dnd5e-font-roboto);
+      font-family: var(--me5e-font-roboto);
       font-size: var(--font-size-18);
-      text-shadow: 0 0 4px var(--dnd5e-color-gold);
+      text-shadow: 0 0 4px var(--me5e-color-gold);
       cursor: var(--cursor-pointer);
       border-radius: 100%;
       color: var(--color-text-light-0);
-      border: 2px solid var(--dnd5e-color-gold);
+      border: 2px solid var(--me5e-color-gold);
       clip-path: polygon(48.5% 0, 91% 25%, 92% 75%, 49% 100%, 6% 75%, 7% 25%);
 
       .config-button {
@@ -160,8 +160,8 @@
       height: var(--size);
       position: absolute;
       inset: auto auto calc((var(--size) / 3) * -1) calc(50% - var(--size) / 2);
-      background: var(--dnd5e-color-gold);
-      color: var(--dnd5e-color-black);
+      background: var(--me5e-color-gold);
+      color: var(--me5e-color-black);
       font-weight: bold;
       display: grid;
       place-content: center;
@@ -215,13 +215,13 @@
     .label {
       text-transform: uppercase;
       font-size: var(--font-size-11);
-      color: var(--dnd5e-color-gold);
+      color: var(--me5e-color-gold);
       font-weight: bold;
     }
 
     .mod {
       font-weight: bold;
-      color: var(--dnd5e-ability-mod-color);
+      color: var(--me5e-ability-mod-color);
       font-size: var(--font-size-16);
       padding: 3px 0;
     }
@@ -246,7 +246,7 @@
       flex: 0 0 25px;
       text-transform: uppercase;
       font-weight: bold;
-      color: var(--dnd5e-color-gold);
+      color: var(--me5e-color-gold);
       text-align: center;
       font-size: var(--font-size-11);
     }
@@ -256,9 +256,9 @@
       flex: 1;
       height: 8px;
 
-      &.hit-points::before { background: linear-gradient(to right, var(--dnd5e-color-hp-1) 0%, var(--dnd5e-color-hp-2) 100%); }
-      &.hit-dice::before { background: linear-gradient(to right, var(--dnd5e-color-hd-1) 0%, var(--dnd5e-color-hd-2) 100%); }
-      &.uses::before { background: linear-gradient(to right, #023491 0%, var(--dnd5e-color-blue) 100%,); }
+      &.hit-points::before { background: linear-gradient(to right, var(--me5e-color-hp-1) 0%, var(--me5e-color-hp-2) 100%); }
+      &.hit-dice::before { background: linear-gradient(to right, var(--me5e-color-hd-1) 0%, var(--me5e-color-hd-2) 100%); }
+      &.uses::before { background: linear-gradient(to right, #023491 0%, var(--me5e-color-blue) 100%,); }
     }
 
     .values {
@@ -275,7 +275,7 @@
       font-size: var(--font-size-16);
 
       .progress::before {
-        background: linear-gradient(to right, var(--dnd5e-color-hp-1) 0%, var(--dnd5e-color-hp-2) 100%);
+        background: linear-gradient(to right, var(--me5e-color-hp-1) 0%, var(--me5e-color-hp-2) 100%);
         border-inline-end: none;
       }
       .temp-positive .label :is(.max, .bonus) { color: color-mix(in oklab, currentcolor, blue 25%); }
@@ -287,7 +287,7 @@
       font-size: var(--font-size-14);
 
       &.progress::before {
-        background: linear-gradient(to right, var(--dnd5e-color-hd-1) 0%, var(--dnd5e-color-hd-2) 100%);
+        background: linear-gradient(to right, var(--me5e-color-hd-1) 0%, var(--me5e-color-hd-2) 100%);
         border-inline-end: none;
       }
     }
@@ -296,7 +296,7 @@
       &.progress::before, .progress::before {
         block-size: unset;
         clip-path: unset;
-        box-shadow: inset 0 1px 0 1px var(--dnd5e-highlight-40);
+        box-shadow: inset 0 1px 0 1px var(--me5e-highlight-40);
         inset: 1px auto 1px 1px;
         inline-size: calc(var(--bar-percentage) - 2px);
         border-radius: 2px;
@@ -313,7 +313,7 @@
         background: none;
         color: var(--color-text-light-0);
 
-        &:hover, &:focus { box-shadow: 0 0 8px var(--dnd5e-color-gold); }
+        &:hover, &:focus { box-shadow: 0 0 8px var(--me5e-color-gold); }
       }
 
       > div { height: 100%; }
@@ -331,9 +331,9 @@
       > .tmp {
         flex: none;
         width: 50px;
-        border-inline-start: 1px dashed var(--dnd5e-color-gold);
+        border-inline-start: 1px dashed var(--me5e-color-gold);
 
-        > input { color: var(--dnd5e-color-blue); }
+        > input { color: var(--me5e-color-blue); }
       }
     }
   }
@@ -373,7 +373,7 @@
           flex: 0 0 32px;
           width: 32px;
           height: 32px;
-          &:hover { box-shadow: 0 0 12px var(--dnd5e-color-gold); }
+          &:hover { box-shadow: 0 0 12px var(--me5e-color-gold); }
         }
 
         > .controls {
@@ -383,7 +383,7 @@
           gap: .375rem;
 
           > .item-control {
-            color: var(--dnd5e-color-red);
+            color: var(--me5e-color-red);
             align-items: start;
             width: 32px;
             height: 32px;
@@ -397,7 +397,7 @@
           display: flex;
           align-items: center;
           justify-content: center;
-          color: var(--dnd5e-color-card);
+          color: var(--me5e-color-card);
           font-size: var(--font-size-20);
           position: relative;
           z-index: 1;
@@ -408,14 +408,14 @@
 
       .level {
         > span, > select {
-          font-family: var(--dnd5e-font-roboto-slab);
+          font-family: var(--me5e-font-roboto-slab);
           font-size: var(--font-size-20);
           font-weight: bold;
         }
 
         > span {
-          text-shadow: 0 0 12px var(--dnd5e-shadow-15);
-          color: var(--dnd5e-color-gold);
+          text-shadow: 0 0 12px var(--me5e-shadow-15);
+          color: var(--me5e-color-gold);
         }
 
         > select {
@@ -427,7 +427,7 @@
           background: none;
 
           option {
-            font-family: var(--dnd5e-font-roboto);
+            font-family: var(--me5e-font-roboto);
             font-size: var(--font-size-13);
           }
         }
@@ -462,12 +462,12 @@
     inset: 0 auto 0 var(--sidebar-size);
     width: 16px;
     padding: 0;
-    color: var(--dnd5e-color-gold);
+    color: var(--me5e-color-gold);
     transition: left 450ms ease;
 
     &:hover, &:focus-visible {
       box-shadow: none;
-      background: var(--dnd5e-background-5);
+      background: var(--me5e-background-5);
     }
   }
 
@@ -487,7 +487,7 @@
   /* ---------------------------------- */
 
   .card.spellcasting .header {
-    background: linear-gradient(to right, var(--dnd5e-color-sc-1), var(--dnd5e-color-sc-2));
+    background: linear-gradient(to right, var(--me5e-color-sc-1), var(--me5e-color-sc-2));
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -517,10 +517,10 @@
         max-width: 78px;
         max-height: 78px;
         aspect-ratio: 1;
-        border: var(--dnd5e-border-gold);
+        border: var(--me5e-border-gold);
         border-radius: 4px;
-        box-shadow: 0 0 6px var(--dnd5e-shadow-45);
-        background-color: var(--dnd5e-background-alt-1);
+        box-shadow: 0 0 6px var(--me5e-shadow-45);
+        background-color: var(--me5e-background-alt-1);
 
         a {
           display: flex;
@@ -560,14 +560,14 @@
   /* ---------------------------------- */
 
   .textbox textarea {
-    font-family: var(--dnd5e-font-roboto);
+    font-family: var(--me5e-font-roboto);
     font-size: var(--font-size-12);
     padding: .375rem;
     width: 100%;
     height: 60px;
     scrollbar-width: thin;
-    scrollbar-color: var(--dnd5e-color-scrollbar) transparent;
-    background: var(--dnd5e-background-5);
+    scrollbar-color: var(--me5e-color-scrollbar) transparent;
+    background: var(--me5e-background-5);
 
     &::-webkit-scrollbar-track {
       box-shadow: none;
@@ -576,7 +576,7 @@
 
     &::-webkit-scrollbar-thumb {
       border: none;
-      background: var(--dnd5e-color-scrollbar);
+      background: var(--me5e-color-scrollbar);
     }
   }
 
@@ -606,7 +606,7 @@
         content: "";
         position: absolute;
         inset: 0;
-        background: var(--underlay, var(--underlay-npc-humanoid, var(--dnd5e-color-card))) top center / cover;
+        background: var(--underlay, var(--underlay-npc-humanoid, var(--me5e-color-card))) top center / cover;
         mask-image: linear-gradient(155deg, transparent 35%, black);
         opacity: var(--group-underlay-opacity);
         filter: var(--group-underlay-filter);
@@ -636,8 +636,8 @@
       padding-inline: 8px;
 
       [data-action=removeMember] {
-        background: var(--dnd5e-background-card);
-        color: var(--dnd5e-color-red);
+        background: var(--me5e-background-card);
+        color: var(--me5e-color-red);
         width: 16px;
         height: 15px;
         font-size: 19px;
@@ -670,12 +670,12 @@
     margin: 0;
     outline: none;
     padding: 4px 8px;
-    font-family: var(--dnd5e-font-roboto-condensed);
+    font-family: var(--me5e-font-roboto-condensed);
 
     li {
       padding: 6px 8px;
-      border-bottom: 1px dotted var(--dnd5e-color-gold);
-      border-bottom: var(--dnd5e-border-separator-warning);
+      border-bottom: 1px dotted var(--me5e-color-gold);
+      border-bottom: var(--me5e-border-separator-warning);
       &:last-child { border: none; }
 
       a:hover {
@@ -734,5 +734,5 @@
 
 .actors-sidebar .primary-party .entry-name::after {
   content: " ✦";
-  color: var(--dnd5e-color-blue);
+  color: var(--me5e-color-blue);
 }

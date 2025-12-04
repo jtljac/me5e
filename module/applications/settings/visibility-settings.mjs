@@ -7,7 +7,7 @@ export default class VisibilitySettingsConfig extends BaseSettingsConfig {
   /** @override */
   static DEFAULT_OPTIONS = {
     window: {
-      title: "SETTINGS.DND5E.VISIBILITY.Label"
+      title: "SETTINGS.ME5E.VISIBILITY.Label"
     }
   };
 

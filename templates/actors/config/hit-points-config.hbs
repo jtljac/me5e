@@ -1,7 +1,7 @@
 <section class="flexcol">
-    <div class="final-value">{{ dnd5e-numberFormat data.value }} / {{ dnd5e-numberFormat data.effectiveMax }}</div>
+    <div class="final-value">{{ me5e-numberFormat data.value }} / {{ me5e-numberFormat data.effectiveMax }}</div>
     <fieldset class="card">
-        <legend>{{ localize "DND5E.HitPointsMax" }}</legend>
+        <legend>{{ localize "ME5E.HitPointsMax" }}</legend>
         {{#if showCalculation}}
         {{#if showMaxInCalculation}}
         {{ formField fields.max value=source.max localize=true }}
@@ -15,7 +15,7 @@
         <div class="form-group">
             <label>{{{ anchor }}}</label>
             <div class="form-fields">
-                {{{ dnd5e-numberParts total signDisplay="always" }}}
+                {{{ me5e-numberParts total signDisplay="always" }}}
             </div>
         </div>
         {{/each}}
@@ -23,7 +23,7 @@
         <div class="form-group">
             <label>{{ ability.name }}</label>
             <div class="form-fields">
-                {{{ dnd5e-numberParts ability.mod signDisplay="always" }}}
+                {{{ me5e-numberParts ability.mod signDisplay="always" }}}
                 {{{ @root.levelMultiplier }}}
             </div>
         </div>
@@ -52,7 +52,7 @@
             <div class="form-fields">
                 {{ formInput fields.formula value=source.formula }}
                 <button type="button" class="unbutton" data-action="roll" data-tooltip
-                        aria-label="{{ localize 'DND5E.Roll' }}">
+                        aria-label="{{ localize 'ME5E.Roll' }}">
                     <i class="fa-solid fa-dice-d20" inert></i>
                 </button>
             </div>
@@ -60,13 +60,13 @@
         {{/if}}
     </fieldset>
     <fieldset class="card">
-        <legend>{{ localize "DND5E.HitPointsCurrent" }}</legend>
+        <legend>{{ localize "ME5E.HitPointsCurrent" }}</legend>
         {{ formField fields.value value=source.value localize=true }}
         {{ formField fields.temp value=source.temp localize=true }}
     </fieldset>
     {{#if otherFields.length }}
     <fieldset class="card">
-        <legend>{{ localize "DND5E.HITPOINTS.Other.label" }}</legend>
+        <legend>{{ localize "ME5E.HITPOINTS.Other.label" }}</legend>
         {{#each otherFields}}
         {{ formField field value=value localize=true placeholder="—" }}
         {{/each}}

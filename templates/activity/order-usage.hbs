@@ -9,7 +9,7 @@
     {{#if build}}
     {{#with build}}
     <fieldset>
-        <legend>{{ localize "DND5E.FACILITY.Orders.build.inf" }}</legend>
+        <legend>{{ localize "ME5E.FACILITY.Orders.build.inf" }}</legend>
 
         {{!-- Size --}}
         {{ formField field name=name value=value choices=choices labelAttr="label" blank=false localize=true }}
@@ -30,7 +30,7 @@
                     {{{ value.contentLink }}}
                     <div class="list-controls flexrow">
                         <button type="button" class="unbutton control-button" data-action="removeCraft"
-                                data-tooltip aria-label="{{ localize "DND5E.FACILITY.Action.RemoveCraft" }}">
+                                data-tooltip aria-label="{{ localize "ME5E.FACILITY.Action.RemoveCraft" }}">
                             <i class="fas fa-trash"></i>
                         </button>
                     </div>
@@ -59,7 +59,7 @@
     {{#if trade}}
     {{#with trade}}
     <fieldset>
-        <legend>{{ localize "DND5E.FACILITY.Orders.trade.inf" }}</legend>
+        <legend>{{ localize "ME5E.FACILITY.Orders.trade.inf" }}</legend>
 
         {{#if stocked}}
 
@@ -99,7 +99,7 @@
                 <img src="{{ img }}" alt="{{ name }}">
                 {{#if removable}}
                 <a class="deletion-control" data-action="deleteOccupant"
-                   data-tooltip aria-label="{{ localize "DND5E.FACILITY.Action.DeleteOccupant" }}">
+                   data-tooltip aria-label="{{ localize "ME5E.FACILITY.Action.DeleteOccupant" }}">
                     <i class="fas fa-circle-xmark"></i>
                 </a>
                 <input type="hidden" name="trade.creatures.buy.{{ @key }}" value="{{ uuid }}">
@@ -125,7 +125,7 @@
     {{#if costs}}
     {{#with costs}}
     <fieldset>
-        <legend>{{ localize "DND5E.FACILITY.Costs.Label" }}</legend>
+        <legend>{{ localize "ME5E.FACILITY.Costs.Label" }}</legend>
 
         {{!-- Days --}}
         {{ formField days.field name=days.name value=days.value localize=true }}

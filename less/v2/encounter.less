@@ -2,17 +2,17 @@
 /*  Basic Structure                             */
 /* -------------------------------------------- */
 
-.dnd5e2.sheet.actor.encounter {
+.me5e2.sheet.actor.encounter {
 
   /* -------------------------------------------- */
   /*  Outer Window                                */
   /* -------------------------------------------- */
 
-  --dnd5e-sheet-header-height: 170px;
+  --me5e-sheet-header-height: 170px;
 
   &:not(.minimized)::before {
-    content: var(--dnd5e-encounter-header-content, none);
-    background: var(--dnd5e-encounter-header-image) no-repeat top center / cover;
+    content: var(--me5e-encounter-header-content, none);
+    background: var(--me5e-encounter-header-image) no-repeat top center / cover;
     position: absolute;
     inset: 0 0 auto 0;
     height: 150px;
@@ -76,7 +76,7 @@
       --input-background-color: var(--npc-header-input-background);
       text-align: center;
       font-size: var(--font-size-32);
-      font-family: var(--dnd5e-font-modesto);
+      font-family: var(--me5e-font-modesto);
       font-weight: bold;
     }
   }
@@ -105,7 +105,7 @@
   .sheet-tabs { margin-top: 8px; }
 
   .tab {
-    max-height: ~"calc(min(max(70vh, 1000px), 95vh) - var(--dnd5e-sheet-header-height))";
+    max-height: ~"calc(min(max(70vh, 1000px), 95vh) - var(--me5e-sheet-header-height))";
     overflow: hidden auto;
     scrollbar-gutter: stable;
     padding: 16px 4px 8px 16px;
@@ -155,16 +155,16 @@
       justify-content: center;
 
       > div {
-        --input-text-color: var(--dnd5e-color-gold);
+        --input-text-color: var(--me5e-color-gold);
         border-radius: 4px;
-        background: var(--dnd5e-color-black);
-        color: var(--dnd5e-color-gold);
+        background: var(--me5e-color-black);
+        color: var(--me5e-color-gold);
         padding: 8px;
         transition: all 250ms ease;
 
         label { font-weight: bold; }
         &.editable {
-          &:hover, &:focus-within { box-shadow: 0 0 6px var(--dnd5e-color-gold); }
+          &:hover, &:focus-within { box-shadow: 0 0 6px var(--me5e-color-gold); }
         }
 
         input {
@@ -197,14 +197,14 @@
       flex: 0 0 var(--slot-size);
       height: var(--slot-size);
       width: var(--slot-size);
-      border: var(--dnd5e-slot-border);
+      border: var(--me5e-slot-border);
       border-radius: 3px;
       overflow: hidden;
-      background: var(--dnd5e-background-card);
-      box-shadow: inset 0 0 3px var(--dnd5e-shadow-45);
+      background: var(--me5e-background-card);
+      box-shadow: inset 0 0 3px var(--me5e-shadow-45);
       text-align: center;
       line-height: 34px;
-      font-family: var(--dnd5e-font-roboto-condensed);
+      font-family: var(--me5e-font-roboto-condensed);
       font-weight: bold;
       font-size: var(--font-size-20);
 
@@ -233,9 +233,9 @@
       gap: 6px;
 
       .difficulty {
-        border: var(--dnd5e-border-gold);
+        border: var(--me5e-border-gold);
         border-radius: 3px;
-        box-shadow: 0 0 6px var(--dnd5e-shadow-45);
+        box-shadow: 0 0 6px var(--me5e-shadow-45);
         flex: 1;
       }
 

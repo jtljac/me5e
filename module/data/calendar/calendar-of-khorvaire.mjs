@@ -12,7 +12,7 @@ export class CalendarKhorvaire extends CalendarData5e {
   /** @inheritDoc */
   static formatMonthDay(calendar, components, options) {
     return CalendarKhorvaire.formatLocalized(
-      "DND5E.CALENDAR.Khorvaire.Formatters.DayMonth", calendar, components, options
+      "ME5E.CALENDAR.Khorvaire.Formatters.DayMonth", calendar, components, options
     );
   }
 
@@ -21,7 +21,7 @@ export class CalendarKhorvaire extends CalendarData5e {
   /** @inheritDoc */
   static formatMonthDayYear(calendar, components, options) {
     return CalendarKhorvaire.formatLocalized(
-      "DND5E.CALENDAR.Khorvaire.Formatters.DayMonthYear", calendar, components, options
+      "ME5E.CALENDAR.Khorvaire.Formatters.DayMonthYear", calendar, components, options
     );
   }
 }
@@ -37,64 +37,64 @@ export const CALENDAR_OF_KHORVAIRE = {
   months: {
     values: [
       {
-        name: "DND5E.CALENDAR.Khorvaire.Month.Zarantyr",
+        name: "ME5E.CALENDAR.Khorvaire.Month.Zarantyr",
         ordinal: 1, days: 28
       },
       {
-        name: "DND5E.CALENDAR.Khorvaire.Month.Olarune",
+        name: "ME5E.CALENDAR.Khorvaire.Month.Olarune",
         ordinal: 2, days: 28
       },
       {
-        name: "DND5E.CALENDAR.Khorvaire.Month.Therendor",
+        name: "ME5E.CALENDAR.Khorvaire.Month.Therendor",
         ordinal: 3, days: 28
       },
       {
-        name: "DND5E.CALENDAR.Khorvaire.Month.Eyre",
+        name: "ME5E.CALENDAR.Khorvaire.Month.Eyre",
         ordinal: 4, days: 28
       },
       {
-        name: "DND5E.CALENDAR.Khorvaire.Month.Dravago",
+        name: "ME5E.CALENDAR.Khorvaire.Month.Dravago",
         ordinal: 5, days: 28
       },
       {
-        name: "DND5E.CALENDAR.Khorvaire.Month.Nymm",
+        name: "ME5E.CALENDAR.Khorvaire.Month.Nymm",
         ordinal: 6, days: 28
       },
       {
-        name: "DND5E.CALENDAR.Khorvaire.Month.Lharvion",
+        name: "ME5E.CALENDAR.Khorvaire.Month.Lharvion",
         ordinal: 7, days: 28
       },
       {
-        name: "DND5E.CALENDAR.Khorvaire.Month.Barrakas",
+        name: "ME5E.CALENDAR.Khorvaire.Month.Barrakas",
         ordinal: 8, days: 28
       },
       {
-        name: "DND5E.CALENDAR.Khorvaire.Month.Rhaan",
+        name: "ME5E.CALENDAR.Khorvaire.Month.Rhaan",
         ordinal: 9, days: 28
       },
       {
-        name: "DND5E.CALENDAR.Khorvaire.Month.Sypheros",
+        name: "ME5E.CALENDAR.Khorvaire.Month.Sypheros",
         ordinal: 10, days: 28
       },
       {
-        name: "DND5E.CALENDAR.Khorvaire.Month.Aryth",
+        name: "ME5E.CALENDAR.Khorvaire.Month.Aryth",
         ordinal: 11, days: 28
       },
       {
-        name: "DND5E.CALENDAR.Khorvaire.Month.Vult",
+        name: "ME5E.CALENDAR.Khorvaire.Month.Vult",
         ordinal: 12, days: 28
       }
     ]
   },
   days: {
     values: [
-      { name: "DND5E.CALENDAR.Khorvaire.Day.Sul", ordinal: 1 },
-      { name: "DND5E.CALENDAR.Khorvaire.Day.Mol", ordinal: 2 },
-      { name: "DND5E.CALENDAR.Khorvaire.Day.Zol", ordinal: 3 },
-      { name: "DND5E.CALENDAR.Khorvaire.Day.Wir", ordinal: 4 },
-      { name: "DND5E.CALENDAR.Khorvaire.Day.Zor", ordinal: 5 },
-      { name: "DND5E.CALENDAR.Khorvaire.Day.Far", ordinal: 6 },
-      { name: "DND5E.CALENDAR.Khorvaire.Day.Sar", ordinal: 7 }
+      { name: "ME5E.CALENDAR.Khorvaire.Day.Sul", ordinal: 1 },
+      { name: "ME5E.CALENDAR.Khorvaire.Day.Mol", ordinal: 2 },
+      { name: "ME5E.CALENDAR.Khorvaire.Day.Zol", ordinal: 3 },
+      { name: "ME5E.CALENDAR.Khorvaire.Day.Wir", ordinal: 4 },
+      { name: "ME5E.CALENDAR.Khorvaire.Day.Zor", ordinal: 5 },
+      { name: "ME5E.CALENDAR.Khorvaire.Day.Far", ordinal: 6 },
+      { name: "ME5E.CALENDAR.Khorvaire.Day.Sar", ordinal: 7 }
     ],
     daysPerYear: 336,
     hoursPerDay: 24,
@@ -103,10 +103,10 @@ export const CALENDAR_OF_KHORVAIRE = {
   },
   seasons: {
     values: [
-      { name: "DND5E.CALENDAR.Khorvaire.Season.Spring", monthStart: 3,  monthEnd: 5 }, // Therendor–Dravago
-      { name: "DND5E.CALENDAR.Khorvaire.Season.Summer", monthStart: 6, monthEnd: 8 }, // Nymm–Barrakas
-      { name: "DND5E.CALENDAR.Khorvaire.Season.Autumn", monthStart: 9, monthEnd: 11 }, // Rhaan–Aryth
-      { name: "DND5E.CALENDAR.Khorvaire.Season.Winter", monthStart: 12, monthEnd: 2 } // Vult–Olarune
+      { name: "ME5E.CALENDAR.Khorvaire.Season.Spring", monthStart: 3,  monthEnd: 5 }, // Therendor–Dravago
+      { name: "ME5E.CALENDAR.Khorvaire.Season.Summer", monthStart: 6, monthEnd: 8 }, // Nymm–Barrakas
+      { name: "ME5E.CALENDAR.Khorvaire.Season.Autumn", monthStart: 9, monthEnd: 11 }, // Rhaan–Aryth
+      { name: "ME5E.CALENDAR.Khorvaire.Season.Winter", monthStart: 12, monthEnd: 2 } // Vult–Olarune
     ]
   }
 };

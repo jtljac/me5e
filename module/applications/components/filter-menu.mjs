@@ -24,7 +24,7 @@ export default class FilterMenu extends foundry.applications.ux.ContextMenu {
   /** @inheritDoc */
   async render(target, options={}) {
     await super.render(target, options);
-    this.element.classList.add("dnd5e2");
+    this.element.classList.add("me5e2");
     const controls = options.event?.currentTarget;
     if ( !(controls instanceof ItemListControlsElement) ) return;
     this.#renderEntries(controls);

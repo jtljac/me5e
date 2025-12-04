@@ -21,18 +21,18 @@
     {{!-- Ideals, Bonds, Flaws, Personality Traits, & Appearance --}}
     <div class="middle">
         <div class="left">
-            {{~> "dnd5e.biography-textbox" name="system.details.ideal" value=system.details.ideal label="DND5E.Ideals"
+            {{~> "me5e.biography-textbox" name="system.details.ideal" value=system.details.ideal label="ME5E.Ideals"
                 icon="fas fa-seedling" class="textbox-half" ~}}
-            {{~> "dnd5e.biography-textbox" name="system.details.bond" value=system.details.bond label="DND5E.Bonds"
+            {{~> "me5e.biography-textbox" name="system.details.bond" value=system.details.bond label="ME5E.Bonds"
                 icon="fas fa-link" class="textbox-half" ~}}
-            {{~> "dnd5e.biography-textbox" name="system.details.flaw" value=system.details.flaw label="DND5E.Flaws"
+            {{~> "me5e.biography-textbox" name="system.details.flaw" value=system.details.flaw label="ME5E.Flaws"
                 icon="fas fa-heart-crack" class="textbox-half" ~}}
         </div>
         <div class="right">
-            {{~> "dnd5e.biography-textbox" name="system.details.trait" value=system.details.trait
-                label="DND5E.PersonalityTraits" icon="fas fa-puzzle-piece" class="textbox-half" ~}}
-            {{~> "dnd5e.biography-textbox" name="system.details.appearance" value=system.details.appearance
-                label="DND5E.Appearance" icon="fas fa-image-portrait" class="textbox-half" ~}}
+            {{~> "me5e.biography-textbox" name="system.details.trait" value=system.details.trait
+                label="ME5E.PersonalityTraits" icon="fas fa-puzzle-piece" class="textbox-half" ~}}
+            {{~> "me5e.biography-textbox" name="system.details.appearance" value=system.details.appearance
+                label="ME5E.Appearance" icon="fas fa-image-portrait" class="textbox-half" ~}}
         </div>
     </div>
 
@@ -40,8 +40,8 @@
     <div class="bottom" data-target="system.details.biography.value">
         <h3 class="icon">
             <i class="fas fa-feather"></i>
-            <dnd5e-icon src="systems/dnd5e/icons/svg/ink-pot.svg"></dnd5e-icon>
-            <span class="roboto-upper">{{ localize "DND5E.Biography" }}</span>
+            <me5e-icon src="systems/me5e/icons/svg/ink-pot.svg"></me5e-icon>
+            <span class="roboto-upper">{{ localize "ME5E.Biography" }}</span>
         </h3>
         {{#if editable}}
         <prose-mirror name="system.details.biography.value" value="{{ source.details.biography.value }}"

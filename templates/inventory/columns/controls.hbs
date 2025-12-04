@@ -4,14 +4,14 @@
     {{#if @root.editable}}
     {{!-- Editing --}}
     <button type="button" class="unbutton config-button item-control item-action" data-action="edit"
-            data-tooltip aria-label="{{ localize "DND5E.ItemEdit" }}">
+            data-tooltip aria-label="{{ localize "ME5E.ItemEdit" }}">
         <i class="fa-solid fa-pen-to-square" inert></i>
     </button>
 
     {{#if item.canDelete}}
     {{!-- Deleting --}}
     <button type="button" class="unbutton config-button item-control item-action" data-action="delete"
-            data-tooltip aria-label="{{ localize "DND5E.ItemDelete" }}">
+            data-tooltip aria-label="{{ localize "ME5E.ItemDelete" }}">
         <i class="fa-solid fa-trash" inert></i>
     </button>
     {{/if}}
@@ -49,13 +49,13 @@
 
     {{!-- Expand/Collapse --}}
     <button type="button" class="unbutton config-button item-control item-action always-interactive"
-            data-toggle-description data-action="toggleExpand" aria-label="{{ localize "DND5E.ToggleDescription" }}">
+            data-toggle-description data-action="toggleExpand" aria-label="{{ localize "ME5E.ToggleDescription" }}">
         <i class="fa-solid fa-{{ ifThen ctx.isExpanded "compress" "expand" }}" inert></i>
     </button>
 
     {{!-- Context Menu --}}
     <button type="button" class="unbutton config-button item-control always-interactive" data-context-menu
-            aria-label="{{ localize "DND5E.AdditionalControls" }}">
+            aria-label="{{ localize "ME5E.AdditionalControls" }}">
         <i class="fa-solid fa-ellipsis-vertical" inert></i>
     </button>
     {{/if}}

@@ -2,13 +2,13 @@
 /*  Basic Structure                   */
 /* ---------------------------------- */
 
-.dnd5e2.sheet.actor.npc {
-  --dnd5e-sheet-header-height: 68px;
-  --dnd5e-sheet-sidebar-width: 180px;
+.me5e2.sheet.actor.npc {
+  --me5e-sheet-header-height: 68px;
+  --me5e-sheet-sidebar-width: 180px;
 
   &:not(.minimized)::before {
-    content: var(--dnd5e-npc-header-content, none);
-    background: var(--dnd5e-npc-header-image) no-repeat top center / cover;
+    content: var(--me5e-npc-header-content, none);
+    background: var(--me5e-npc-header-image) no-repeat top center / cover;
     position: absolute;
     inset: 0 0 auto 0;
     height: 300px;
@@ -45,10 +45,10 @@
     align-items: stretch;
     z-index: 1;
 
-    > .left { flex: 0 0 var(--dnd5e-sheet-sidebar-width); }
+    > .left { flex: 0 0 var(--me5e-sheet-sidebar-width); }
 
     input {
-      --input-background-color: var(--dnd5e-background-5);
+      --input-background-color: var(--me5e-background-5);
       background: var(--input-background-color);
     }
 
@@ -58,15 +58,15 @@
 
       &:not(.token) {
         border-radius: 100%;
-        border: 1px solid var(--dnd5e-color-black);
+        border: 1px solid var(--me5e-color-black);
       }
 
       > img, > video {
-        width: var(--dnd5e-sheet-sidebar-width);
-        height: var(--dnd5e-sheet-sidebar-width);
+        width: var(--me5e-sheet-sidebar-width);
+        height: var(--me5e-sheet-sidebar-width);
         border-radius: 100%;
-        border: 6px solid var(--dnd5e-color-gold);
-        box-shadow: 0 0 6px var(--dnd5e-color-black);
+        border: 6px solid var(--me5e-color-gold);
+        box-shadow: 0 0 6px var(--me5e-color-black);
         overflow: hidden;
         object-fit: cover;
         object-position: top;
@@ -97,7 +97,7 @@
           width: 42px;
           height: 48px;
           clip-path: polygon(0 0, 38px 0, 38px 100%, 0 100%);
-          --icon-fill: var(--dnd5e-color-gold);
+          --icon-fill: var(--me5e-color-gold);
           --icon-size: 42px;
 
           &:hover {
@@ -108,7 +108,7 @@
         }
 
         .results {
-          background: var(--dnd5e-color-black);
+          background: var(--me5e-color-black);
           position: relative;
           border-radius: 0 4px 4px 0;
           display: flex;
@@ -132,10 +132,10 @@
 
           .success {
             color: #009b01;
-            input { border-right: 1px dashed var(--dnd5e-color-gold); }
+            input { border-right: 1px dashed var(--me5e-color-gold); }
           }
 
-          .failure { color: var(--dnd5e-color-red); }
+          .failure { color: var(--me5e-color-red); }
 
           > div {
             display: flex;
@@ -149,7 +149,7 @@
               font-size: var(--size);
               top: calc(100% - var(--size) / 2);
               left: calc(50% - var(--size) / 2);
-              background: var(--dnd5e-color-black);
+              background: var(--me5e-color-black);
               border-radius: 100%;
             }
           }
@@ -158,7 +158,7 @@
             content: "";
             position: absolute;
             inset: 2px;
-            border: 1px solid var(--dnd5e-color-gold);
+            border: 1px solid var(--me5e-color-gold);
             border-radius: 3px;
             pointer-events: none;
           }
@@ -217,7 +217,7 @@
     /* Name */
     .document-name {
       font-size: var(--font-size-28);
-      font-family: var(--dnd5e-font-modesto);
+      font-family: var(--me5e-font-modesto);
       font-weight: bold;
     }
 
@@ -225,7 +225,7 @@
     .labels {
       display: flex;
       gap: 4px;
-      font-family: var(--dnd5e-font-roboto-condensed);
+      font-family: var(--me5e-font-roboto-condensed);
 
       li + li::before { content: "•"; }
       li:has(> span:empty) { display: none; }
@@ -235,7 +235,7 @@
     .proficiency {
       text-align: right;
       .sign { color: var(--color-text-tertiary); }
-      > span { font-family: var(--dnd5e-font-roboto-condensed); }
+      > span { font-family: var(--me5e-font-roboto-condensed); }
     }
 
     /* Resting & Special Traits */
@@ -249,7 +249,7 @@
     .ability-scores {
       display: flex;
       padding: 10px 0;
-      font-family: var(--dnd5e-font-roboto);
+      font-family: var(--me5e-font-roboto);
       position: relative;
       box-shadow: none;
 
@@ -259,7 +259,7 @@
         inset: 0 0 0 0;
         pointer-events: none;
         border-radius: 4px;
-        box-shadow: 0 0 6px var(--dnd5e-shadow-45);
+        box-shadow: 0 0 6px var(--me5e-shadow-45);
       }
 
       .ability-score {
@@ -268,7 +268,7 @@
         flex-direction: column;
         align-items: center;
         padding: 0 4px;
-        border-right: var(--dnd5e-border-separator-heavy);
+        border-right: var(--me5e-border-separator-heavy);
 
         &:last-child { border: none; }
         > * { position: relative; }
@@ -290,14 +290,14 @@
         top: calc(100% + 10px);
         margin: auto;
         width: 80%;
-        background: var(--dnd5e-background-card);
+        background: var(--me5e-background-card);
         border-radius: 0 0 3px 3px;
-        border: var(--dnd5e-border-gold);
+        border: var(--me5e-border-gold);
         padding: 4px;
         display: flex;
         align-items: center;
         justify-content: space-between;
-        box-shadow: 0 0 4px var(--dnd5e-shadow-45);
+        box-shadow: 0 0 4px var(--me5e-shadow-45);
         clip-path: polygon(-5% 0, 105% 0, 105% 105%, -5% 105%);
         font-weight: bold;
 
@@ -332,7 +332,7 @@
 
         > input, > span.value {
           font-weight: bold;
-          font-family: var(--dnd5e-font-roboto-slab);
+          font-family: var(--me5e-font-roboto-slab);
           font-size: var(--font-size-16);
           text-align: center;
         }
@@ -357,12 +357,12 @@
 
         &:hover, &:focus {
           box-shadow: none;
-          filter: grayscale(1) drop-shadow(0 0 6px var(--dnd5e-color-gold));
+          filter: grayscale(1) drop-shadow(0 0 6px var(--me5e-color-gold));
         }
 
         &.filled {
           filter: none;
-          &:is(:hover, :focus) { filter: drop-shadow(0 0 6px var(--dnd5e-color-gold)); }
+          &:is(:hover, :focus) { filter: drop-shadow(0 0 6px var(--me5e-color-gold)); }
         }
       }
 
@@ -434,10 +434,10 @@
         }
 
         &.split > div {
-          &.temp input { color: var(--dnd5e-color-blue); }
-          &.tempmax input { color: var(--dnd5e-color-purple); }
+          &.temp input { color: var(--me5e-color-blue); }
+          &.tempmax input { color: var(--me5e-color-purple); }
           input::placeholder { text-transform: uppercase; }
-          &:last-child { border-inline-start: 1px dashed var(--dnd5e-color-gold); }
+          &:last-child { border-inline-start: 1px dashed var(--me5e-color-gold); }
         }
       }
 
@@ -456,11 +456,11 @@
     position: relative;
     overflow: hidden auto;
     scrollbar-gutter: stable;
-    scrollbar-color: var(--dnd5e-color-gold) transparent;
+    scrollbar-color: var(--me5e-color-gold) transparent;
 
     .main-content {
       --sidebar-padding: 8px;
-      --sidebar-size: calc(var(--dnd5e-sheet-sidebar-width) + var(--sidebar-padding));
+      --sidebar-size: calc(var(--me5e-sheet-sidebar-width) + var(--sidebar-padding));
       padding: 0 0 0 var(--sidebar-padding);
       display: flex;
       position: absolute;
@@ -470,7 +470,7 @@
       /* Sidebar */
       .sidebar {
         padding-top: 12px;
-        flex: 0 0 var(--dnd5e-sheet-sidebar-width);
+        flex: 0 0 var(--me5e-sheet-sidebar-width);
         display: flex;
         flex-direction: column;
         gap: 16px;
@@ -525,18 +525,18 @@
       /* Spells */
       .spellcasting.card {
         input {
-          background: var(--dnd5e-background-5);
+          background: var(--me5e-background-5);
           border: 1px solid transparent;
           transition: all 250ms ease;
           text-align: center;
           font-weight: bold;
-          font-family: var(--dnd5e-font-roboto-slab);
+          font-family: var(--me5e-font-roboto-slab);
           font-size: var(--font-size-16);
           height: 22px;
 
           &:hover, &:focus {
-            border: 1px solid var(--dnd5e-color-gold);
-            box-shadow: 0 0 6px var(--dnd5e-color-gold);
+            border: 1px solid var(--me5e-color-gold);
+            box-shadow: 0 0 6px var(--me5e-color-gold);
           }
         }
       }

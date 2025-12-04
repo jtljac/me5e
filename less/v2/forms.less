@@ -1,4 +1,4 @@
-.dnd5e2 {
+.me5e2 {
   /* Reset button & input styles */
   input.uninput, button.unbutton {
     --border: none;
@@ -47,12 +47,12 @@
     --button-focus-outline-color: none;
     --button-text-color: var(--color-text-primary);
     --button-hover-text-color: var(--color-text-primary);
-    --button-background-color: var(--dnd5e-background-card);
+    --button-background-color: var(--me5e-background-card);
     --button-hover-background-color: var(--button-background-color);
     font-size: var(--font-size-13);
     text-transform: uppercase;
     padding: 3px;
-    box-shadow: 0 0 8px var(--dnd5e-shadow-15);
+    box-shadow: 0 0 8px var(--me5e-shadow-15);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -60,7 +60,7 @@
     min-height: unset;
 
     &:not(.icon) {
-      font-family: var(--dnd5e-font-roboto);
+      font-family: var(--me5e-font-roboto);
       font-weight: bold;
     }
     &:disabled {
@@ -78,13 +78,13 @@
     height: 13px;
     border-radius: 100%;
     background: none;
-    box-shadow: inset 0 0 6px var(--dnd5e-shadow-45);
+    box-shadow: inset 0 0 6px var(--me5e-shadow-45);
     padding: 3px;
     display: grid;
     border: none;
     justify-content: unset;
 
-    &:hover { filter: drop-shadow(0 0 6px var(--dnd5e-color-gold)); }
+    &:hover { filter: drop-shadow(0 0 6px var(--me5e-color-gold)); }
 
     &[aria-pressed="true"]::before {
       content: "";
@@ -97,8 +97,8 @@
   }
 
   .split-button {
-    --control-hover-border-color: var(--dnd5e-color-gold);
-    --control-active-border-color: var(--dnd5e-color-gold);
+    --control-hover-border-color: var(--me5e-color-gold);
+    --control-active-border-color: var(--me5e-color-gold);
 
     .split-control {
       --button-border-color: var(--control-border-color);
@@ -121,7 +121,7 @@
       }
 
       &:hover {
-        box-shadow: 0 0 6px var(--dnd5e-color-gold);
+        box-shadow: 0 0 6px var(--me5e-color-gold);
         + .split-control { border-inline-start-color: var(--control-hover-border-color); }
       }
 
@@ -172,15 +172,15 @@
     }
 
     input[type="text"], input[type="number"], input[type="search"], input[type="file"] {
-      --input-background-color: var(--dnd5e-background-parchment);
-      border: 2px solid var(--dnd5e-color-gold);
+      --input-background-color: var(--me5e-background-parchment);
+      border: 2px solid var(--me5e-color-gold);
       border-radius: 8px;
       padding: .5rem;
       font-size: var(--font-size-14);
       height: unset;
       width: 100%;
 
-      &:focus { box-shadow: 0 0 6px var(--dnd5e-color-gold); }
+      &:focus { box-shadow: 0 0 6px var(--me5e-color-gold); }
     }
 
     input[type="number"] {
@@ -207,7 +207,7 @@
     align-items: center;
     gap: 4px;
 
-    &:has(input[type=checkbox]:disabled, dnd5e-checkbox[disabled]) { cursor: var(--cursor-default); }
+    &:has(input[type=checkbox]:disabled, me5e-checkbox[disabled]) { cursor: var(--cursor-default); }
     > span { line-height: calc(var(--form-field-height) + 1px); }
   }
 
@@ -233,7 +233,7 @@
         font-weight: bold;
         height: 13px;
 
-        dnd5e-checkbox { margin-bottom: 1px; }
+        me5e-checkbox { margin-bottom: 1px; }
       }
     }
 
@@ -248,7 +248,7 @@
       &:not(:has(legend)) { padding-block-start: 10px; }
 
       > legend {
-        background: var(--dnd5e-background-card);
+        background: var(--me5e-background-card);
         position: relative;
         border-radius: 2px;
         padding: 2px 6px 0;
@@ -258,14 +258,14 @@
           position: absolute;
           inset: 0;
           border-radius: 2px;
-          box-shadow: 0 0 6px var(--dnd5e-shadow-45);
-          outline: var(--dnd5e-border-gold);
+          box-shadow: 0 0 6px var(--me5e-shadow-45);
+          outline: var(--me5e-border-gold);
           z-index: -1;
         }
       }
 
       > .header {
-        font-family: var(--dnd5e-font-roboto-slab);
+        font-family: var(--me5e-font-roboto-slab);
         font-variant: all-small-caps;
         font-size: var(--font-size-12);
         font-weight: bold;
@@ -287,7 +287,7 @@
     margin: 0;
 
     > label {
-      font-family: var(--dnd5e-font-roboto-slab);
+      font-family: var(--me5e-font-roboto-slab);
       font-weight: bold;
       font-size: var(--font-size-12);
     }
@@ -301,7 +301,7 @@
       > * { flex: unset; }
 
       > label {
-        font-family: var(--dnd5e-font-roboto);
+        font-family: var(--me5e-font-roboto);
         text-transform: uppercase;
         font-size: var(--font-size-10);
         font-weight: bold;
@@ -396,7 +396,7 @@
         margin: 0 6px;
       }
 
-      multi-select .tags.input-element-tags .tag { background: var(--dnd5e-background-parchment); }
+      multi-select .tags.input-element-tags .tag { background: var(--me5e-background-parchment); }
     }
 
     &.split-group.full-width > .form-fields {
@@ -407,7 +407,7 @@
     /* Full-Width Groups */
     &.full-width {
       padding: 6px;
-      box-shadow: 0 0 6px var(--dnd5e-shadow-15);
+      box-shadow: 0 0 6px var(--me5e-shadow-15);
 
       & + .full-width { margin-top: 2px; }
     }
@@ -440,7 +440,7 @@
     &:enabled {
       &:focus-visible, &:hover {
         border-color: var(--input-hover-border-color);
-        box-shadow: 0 0 6px var(--dnd5e-color-gold);
+        box-shadow: 0 0 6px var(--me5e-color-gold);
       }
     }
 
@@ -470,7 +470,7 @@
     margin-top: 4px;
   }
 
-  option, optgroup { --color-select-option-bg: var(--dnd5e-background-parchment); }
+  option, optgroup { --color-select-option-bg: var(--me5e-background-parchment); }
   input[type=number] { text-align: center; }
 
   select {
@@ -481,7 +481,7 @@
   :is(document-tags, multi-select) .tags.input-element-tags .tag {
     cursor: var(--cursor-pointer);
     font-size: var(--font-size-10);
-    border: var(--dnd5e-border-gold);
+    border: var(--me5e-border-gold);
     border: 1px solid var(--multi-select-tag-border);
     background: var(--multi-select-tag-background);
     border-radius: 3px;
@@ -500,7 +500,7 @@
 
   :is(file-picker, document-tags) > button {
     height: var(--form-field-height);
-    border: var(--dnd5e-border-gold);
+    border: var(--me5e-border-gold);
   }
 
   /* Numeric Range Fields */
@@ -513,16 +513,16 @@
 
   range-picker {
     input[type="range"] {
-      --range-thumb-background-color: var(--dnd5e-color-card);
-      --range-thumb-border-color: var(--dnd5e-color-gold);
+      --range-thumb-background-color: var(--me5e-color-card);
+      --range-thumb-border-color: var(--me5e-color-gold);
       --range-track-border-color: transparent;
       border: none;
 
       &:not([disabled]) {
         &:hover, &:focus-visible {
-          --range-track-border-color: var(--dnd5e-color-gold);
-          &::-moz-range-track { box-shadow: 0 0 6px var(--dnd5e-color-gold); }
-          &::-webkit-slider-runnable-track { box-shadow: 0 0 6px var(--dnd5e-color-gold); }
+          --range-track-border-color: var(--me5e-color-gold);
+          &::-moz-range-track { box-shadow: 0 0 6px var(--me5e-color-gold); }
+          &::-webkit-slider-runnable-track { box-shadow: 0 0 6px var(--me5e-color-gold); }
         }
       }
 
@@ -533,7 +533,7 @@
 
       .range-thumb() {
         border-radius: 100%;
-        box-shadow: 0 0 3px var(--dnd5e-shadow-45);
+        box-shadow: 0 0 3px var(--me5e-shadow-45);
       }
 
       .range-track() {
@@ -550,8 +550,8 @@
 
   /* Checkboxes */
   input[type=checkbox] {
-    --checkbox-background-color: var(--dnd5e-color-gold);
-    --checkbox-checked-color: var(--dnd5e-color-gold);
+    --checkbox-background-color: var(--me5e-color-gold);
+    --checkbox-checked-color: var(--me5e-color-gold);
   }
 
   /* Radio Buttons */
@@ -564,11 +564,11 @@
     &::before, &::after { content: unset; }
   }
 
-  .form-fields > dnd5e-checkbox { flex: none; }
+  .form-fields > me5e-checkbox { flex: none; }
 
   .form-group.checkbox > label, label.checkbox {
     font-weight: normal;
-    font-family: var(--dnd5e-font-roboto);
+    font-family: var(--me5e-font-roboto);
     font-size: var(--font-size-11);
   }
 
@@ -633,8 +633,8 @@
 
     .pip {
       --pip-size: 16px;
-      background: var(--dnd5e-background-alt-1);
-      border: 2px solid var(--dnd5e-color-gold);
+      background: var(--me5e-background-alt-1);
+      border: 2px solid var(--me5e-color-gold);
       border-radius: 100%;
       width: var(--pip-size);
       height: var(--pip-size);
@@ -642,23 +642,23 @@
       place-content: center;
       font-weight: bold;
       font-size: var(--font-size-18);
-      box-shadow: 0 0 6px var(--dnd5e-shadow-45);
+      box-shadow: 0 0 6px var(--me5e-shadow-45);
       margin: 0;
 
-      &.filled { background: var(--dnd5e-color-gold); }
+      &.filled { background: var(--me5e-color-gold); }
 
       &:not(:disabled):is(:hover, :focus) {
-        box-shadow: 0 0 6px var(--dnd5e-color-gold);
-        background: var(--dnd5e-background-alt-1);
-        &.filled { background: var(--dnd5e-color-gold); }
+        box-shadow: 0 0 6px var(--me5e-color-gold);
+        background: var(--me5e-background-alt-1);
+        &.filled { background: var(--me5e-color-gold); }
       }
     }
   }
 }
 
 /* App V2 Standard Form */
-.dnd5e2 .standard-form,
-.dnd5e2.standard-form {
+.me5e2 .standard-form,
+.me5e2.standard-form {
   --color-form-label: var(--color-text-primary);
   --color-form-label-hover: var(--color-form-label);
   --input-height: 26px;
@@ -692,4 +692,4 @@
   }
 }
 
-.application .flexrow > dnd5e-checkbox { flex: 0; }
+.application .flexrow > me5e-checkbox { flex: 0; }

@@ -1,25 +1,25 @@
 <fieldset class="card items table">
-    <legend>{{ localize "DND5E.ADVANCEMENT.Migration.Selection" }}</legend>
+    <legend>{{ localize "ME5E.ADVANCEMENT.Migration.Selection" }}</legend>
     <div class="form-group hint">
-        <p class="hint">{{ localize "DND5E.ADVANCEMENT.Migration.Hint" name=item.name }}</p>
+        <p class="hint">{{ localize "ME5E.ADVANCEMENT.Migration.Hint" name=item.name }}</p>
     </div>
     <div class="header">
-        <div class="item-name">{{ localize "DND5E.AdvancementTitle" }}</div>
-        <div class="item-controls">{{ localize "DND5E.Add" }}</div>
+        <div class="item-name">{{ localize "ME5E.AdvancementTitle" }}</div>
+        <div class="item-controls">{{ localize "ME5E.Add" }}</div>
     </div>
     <ol class="items-list unlist">
         {{#each advancements}}
         <li class="advancement-item item flexrow">
             <div class="item-name flexrow">
                 {{#if svg}}
-                <dnd5e-icon src="{{ icon }}"></dnd5e-icon>
+                <me5e-icon src="{{ icon }}"></me5e-icon>
                 {{else}}
                 <img class="gold-icon" src="{{ icon }}" alt="{{ title }}">
                 {{/if}}
                 <span class="name">{{ title }}</span>
             </div>
             <div class="item-controls flexrow">
-                <dnd5e-checkbox name="{{ id }}" checked></dnd5e-checkbox>
+                <me5e-checkbox name="{{ id }}" checked></me5e-checkbox>
             </div>
             {{#if summary}}
             <div class="item-summary">

@@ -69,7 +69,7 @@
 
 /**
  * @typedef {D20RollProcessConfiguration} AbilityRollProcessConfiguration
- * @property {string} [ability]  ID of the ability to roll as found in `CONFIG.DND5E.abilities`.
+ * @property {string} [ability]  ID of the ability to roll as found in `CONFIG.ME5E.abilities`.
  */
 
 /**

@@ -77,7 +77,7 @@ export default class SpellConfigurationData extends foundry.abstract.DataModel {
     if ( this.method ) {
       foundry.utils.setProperty(itemData, "system.method", this.method);
       foundry.utils.setProperty(itemData, "system.prepared", this.prepared);
-      const model = CONFIG.DND5E.spellcasting[this.method];
+      const model = CONFIG.ME5E.spellcasting[this.method];
       const hasClass = (this.item?.type === "class") || (this.item?.type === "subclass");
 
       // Set source class.
@@ -92,7 +92,7 @@ export default class SpellConfigurationData extends foundry.abstract.DataModel {
       itemData.system.uses.recovery ??= [];
       itemData.system.uses.recovery.push({ period: this.uses.per, type: "recoverAll" });
 
-      const spellcasting = CONFIG.DND5E.spellcasting[itemData.system.method];
+      const spellcasting = CONFIG.ME5E.spellcasting[itemData.system.method];
       const createForwardActivity = !this.uses.requireSlot && spellcasting?.slots;
 
       for ( const activity of Object.values(itemData.system.activities ?? {}) ) {
@@ -104,8 +104,8 @@ export default class SpellConfigurationData extends foundry.abstract.DataModel {
             _id: foundry.utils.randomID(),
             type: "forward",
             name: `${activity.name ?? game.i18n.localize(
-              CONFIG.DND5E.activityTypes[activity.type]?.documentClass.metadata.title
-            )} (${game.i18n.localize("DND5E.ADVANCEMENT.SPELLCONFIG.FreeCasting").toLowerCase()})`,
+              CONFIG.ME5E.activityTypes[activity.type]?.documentClass.metadata.title
+            )} (${game.i18n.localize("ME5E.ADVANCEMENT.SPELLCONFIG.FreeCasting").toLowerCase()})`,
             sort: (activity.sort ?? 0) + 1,
             activity: {
               id: activity._id

@@ -21,7 +21,7 @@
 /**
  * @typedef {RuleJournalPageSystemData}
  * @property {string} tooltip  Content to display in tooltip in place of page's text content.
- * @property {string} type     Type of rule represented. Should match an entry defined in `CONFIG.DND5E.ruleTypes`.
+ * @property {string} type     Type of rule represented. Should match an entry defined in `CONFIG.ME5E.ruleTypes`.
  */
 
 /**

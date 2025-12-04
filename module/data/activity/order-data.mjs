@@ -32,6 +32,6 @@ export default class BaseOrderActivityData extends BaseActivityData {
   /** @inheritDoc */
   prepareData() {
     super.prepareData();
-    this.img = CONFIG.DND5E.facilities.orders[this.order]?.icon || this.metadata?.img;
+    this.img = CONFIG.ME5E.facilities.orders[this.order]?.icon || this.metadata?.img;
   }
 }

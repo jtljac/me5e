@@ -2,7 +2,7 @@
     <div class="vitals card" {{#if underlay}}style="--underlay: {{ underlay }}"{{/if}}>
         {{#if isPrimaryVehicle}}
         <i class="fa-duotone fa-solid fa-circle-star primary-vehicle" data-tooltip
-           aria-label="{{ localize "DND5E.Group.Vehicle.Primary.label" }}"></i>
+           aria-label="{{ localize "ME5E.Group.Vehicle.Primary.label" }}"></i>
         {{/if}}
         <div class="portrait">
             {{#if portrait.isVideo}}
@@ -20,7 +20,7 @@
             {{#with system.attributes.hp}}
             {{#if max}}
             <div class="hp-bar bar">
-                <label>{{ localize "DND5E.HP" }}</label>
+                <label>{{ localize "ME5E.HP" }}</label>
                 <div class="meter hit-points progress" role="meter" aria-valuemin="0"
                      aria-valuenow="{{ value }}" aria-valuemax="{{ max }}"
                      style="--bar-percentage: {{ pct }}%"></div>
@@ -36,7 +36,7 @@
             {{/with}}
             {{#with system.attributes.hd}}
             <div class="hd-bar bar">
-                <label>{{ localize "DND5E.HITDICE.Abbreviation" }}</label>
+                <label>{{ localize "ME5E.HITDICE.Abbreviation" }}</label>
                 <div class="meter hit-dice progress" role="meter" aria-valuemin="0"
                      aria-valuenow="{{ value }}" aria-valuemax="{{ max }}"
                      style="--bar-percentage: {{ pct }}%"></div>
@@ -64,7 +64,7 @@
         <div class="classes controls">
             {{#if @root.editable}}
             <button type="button" class="config-button unbutton" data-action="removeMember" data-tooltip
-                    aria-label="{{ localize "DND5E.Group.Action.Remove" }}">
+                    aria-label="{{ localize "ME5E.Group.Action.Remove" }}">
                 <i class="fa-solid fa-square-xmark" inert></i>
             </button>
             {{else}}
@@ -86,16 +86,16 @@
         {{else}}
         <div class="info">
             <div>
-                <i class="fa-solid fa-shield" data-tooltip aria-label="{{ localize "DND5E.ArmorClass" }}"></i>
+                <i class="fa-solid fa-shield" data-tooltip aria-label="{{ localize "ME5E.ArmorClass" }}"></i>
                 <span class="value">{{ system.attributes.ac.value }}</span>
             </div>
             <div>
-                <i class="fa-solid fa-shoe-prints" data-tooltip aria-label="{{ localize "DND5E.Speed" }}"></i>
+                <i class="fa-solid fa-shoe-prints" data-tooltip aria-label="{{ localize "ME5E.Speed" }}"></i>
                 <span class="value">
                     {{ system.attributes.movement.walk }}
                     {{#if system.attributes.movement.slowed}}
                     <i class="fa-solid fa-triangle-exclamation" data-tooltip
-                       aria-label="{{ localize "DND5E.TRAVEL.Slowed.Member" }}"></i>
+                       aria-label="{{ localize "ME5E.TRAVEL.Slowed.Member" }}"></i>
                     {{/if}}
                 </span>
             </div>
@@ -107,7 +107,7 @@
                     <i class="fa-solid fa-eye" inert></i>
                 </a>
                 <div class="skill">
-                    <span class="roll">{{ dnd5e-formatModifier skills.prc.total }}</span>
+                    <span class="roll">{{ me5e-formatModifier skills.prc.total }}</span>
                     <span class="passive">({{ skills.prc.passive }})</span>
                 </div>
             </div>
@@ -117,7 +117,7 @@
                     <i class="fa-solid fa-hood-cloak" inert></i>
                 </a>
                 <div class="skill">
-                    <span class="roll">{{ dnd5e-formatModifier skills.ste.total }}</span>
+                    <span class="roll">{{ me5e-formatModifier skills.ste.total }}</span>
                     <span class="passive">({{ skills.ste.passive }})</span>
                 </div>
             </div>
@@ -127,7 +127,7 @@
                     <i class="fa-solid fa-bow-arrow" inert></i>
                 </a>
                 <div class="skill">
-                    <span class="roll">{{ dnd5e-formatModifier skills.sur.total }}</span>
+                    <span class="roll">{{ me5e-formatModifier skills.sur.total }}</span>
                     <span class="passive">({{ skills.sur.passive }})</span>
                 </div>
             </div>

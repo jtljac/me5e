@@ -91,16 +91,16 @@ export default function TargetedApplicationMixin(Base) {
       this.targetSourceControl.classList.add("target-source-control");
       this.targetSourceControl.innerHTML = `
         <button type="button" class="unbutton" data-mode="targeted" aria-pressed="false">
-          <i class="fa-solid fa-bullseye" inert></i> ${game.i18n.localize("DND5E.Tokens.Targeted")}
+          <i class="fa-solid fa-bullseye" inert></i> ${game.i18n.localize("ME5E.Tokens.Targeted")}
         </button>
         <button type="button" class="unbutton" data-mode="selected" aria-pressed="false">
-          <i class="fa-solid fa-expand" inert></i> ${game.i18n.localize("DND5E.Tokens.Selected")}
+          <i class="fa-solid fa-expand" inert></i> ${game.i18n.localize("ME5E.Tokens.Selected")}
         </button>
       `;
       this.targetSourceControl.querySelectorAll("button").forEach(b =>
         b.addEventListener("click", this._onChangeTargetMode.bind(this))
       );
-      if ( !this.chatMessage?.getFlag("dnd5e", "targets")?.length ) this.targetSourceControl.hidden = true;
+      if ( !this.chatMessage?.getFlag("me5e", "targets")?.length ) this.targetSourceControl.hidden = true;
 
       this.targetList = document.createElement("ul");
       this.targetList.classList.add("targets", "unlist");
@@ -118,7 +118,7 @@ export default function TargetedApplicationMixin(Base) {
       const targetedTokens = new Map();
       switch ( this.targetingMode ) {
         case "targeted":
-          this.chatMessage?.getFlag("dnd5e", "targets")?.forEach(t => targetedTokens.set(t.uuid, t.name));
+          this.chatMessage?.getFlag("me5e", "targets")?.forEach(t => targetedTokens.set(t.uuid, t.name));
           break;
         case "selected":
           canvas.tokens?.controlled?.forEach(t => {
@@ -133,7 +133,7 @@ export default function TargetedApplicationMixin(Base) {
       else {
         const li = document.createElement("li");
         li.classList.add("none");
-        li.innerText = game.i18n.localize(`DND5E.Tokens.None${this.targetingMode.capitalize()}`);
+        li.innerText = game.i18n.localize(`ME5E.Tokens.None${this.targetingMode.capitalize()}`);
         this.targetList.replaceChildren(li);
       }
     }

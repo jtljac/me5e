@@ -1,21 +1,21 @@
 /* ------------------------------------------- */
 /* Inline Rich Text Formatting Utility Classes */
 /* ------------------------------------------- */
-:is(.dnd5e, .dnd5e2, .dnd5e2-journal) {
+:is(.me5e, .me5e2, .me5e2-journal) {
 
   /* Positioning */
   .float-left {
     float: left;
     clear: left;
     margin-right: 0.5em;
-    max-width: var(--dnd5e-block-float-max);
+    max-width: var(--me5e-block-float-max);
   }
 
   .float-right {
     float: right;
     clear: right;
     margin-left: 0.5em;
-    max-width: var(--dnd5e-block-float-max);
+    max-width: var(--me5e-block-float-max);
   }
 
   .float-clear { clear: both; }
@@ -23,22 +23,22 @@
 
   /* Sizing */
   .size-four {
-    --local-width: calc(4 * var(--dnd5e-block-width-base));
+    --local-width: calc(4 * var(--me5e-block-width-base));
     width: var(--local-width);
   }
 
   .size-three {
-    --local-width: calc(3 * var(--dnd5e-block-width-base));
+    --local-width: calc(3 * var(--me5e-block-width-base));
     width: var(--local-width);
   }
 
   .size-two {
-    --local-width: calc(2 * var(--dnd5e-block-width-base));
+    --local-width: calc(2 * var(--me5e-block-width-base));
     width: var(--local-width);
   }
 
   .size-one {
-    --local-width: var(--dnd5e-block-width-base);
+    --local-width: var(--me5e-block-width-base);
     width: var(--local-width);
   }
 
@@ -74,30 +74,30 @@
       border: none;
       font-variant: small-caps;
       font-weight: bold;
-      font-family: var(--dnd5e-block-header-font);
+      font-family: var(--me5e-block-header-font);
     }
   }
 
   /* Notable Callout */
   .notable {
-    background: var(--dnd5e-block-background);
+    background: var(--me5e-block-background);
     margin: 1.4em;
     padding: 1.4em;
     border-width: 3px 1px;
     border-style: solid;
-    border-color: var(--dnd5e-block-border-color);
-    filter: drop-shadow(0 5px 8px var(--dnd5e-shadow-15));
+    border-color: var(--me5e-block-border-color);
+    filter: drop-shadow(0 5px 8px var(--me5e-shadow-15));
 
     &::before,
     &::after {
       content: "";
-      background: var(--dnd5e-notable-decor);
+      background: var(--me5e-notable-decor);
       height: 11px;
       position: absolute;
       left: 0;
       right: 0;
       z-index: -1;
-      filter: var(--dnd5e-notable-filter, none);
+      filter: var(--me5e-notable-filter, none);
     }
 
     &::before { top: -13px; }
@@ -119,9 +119,9 @@
     position: relative;
     margin: 1.5em 1em;
     padding: 1em 1.5em;
-    background: var(--dnd5e-block-background);
-    border-left: 1px solid var(--dnd5e-block-border-color);
-    border-right: 1px solid var(--dnd5e-block-border-color);
+    background: var(--me5e-block-background);
+    border-left: 1px solid var(--me5e-block-border-color);
+    border-right: 1px solid var(--me5e-block-border-color);
     text-align: justify;
 
     /* Adding dots to corner of block */
@@ -132,7 +132,7 @@
       content: "";
       display: block;
       position: absolute;
-      background-color: var(--dnd5e-block-border-color);
+      background-color: var(--me5e-block-border-color);
       border-radius: 100%;
       width: var(--dot-size);
       height: var(--dot-size);
@@ -163,9 +163,9 @@
   :is(.quest, .advice) {
     --img-size: 64px;
     position: relative;
-    background: var(--dnd5e-block-background);
-    border: 2px solid var(--dnd5e-block-border-color);
-    box-shadow: 1px 3px 5px var(--dnd5e-shadow-15);
+    background: var(--me5e-block-background);
+    border: 2px solid var(--me5e-block-border-color);
+    box-shadow: 1px 3px 5px var(--me5e-shadow-15);
     margin: 1rem 1rem 1rem calc(var(--img-size) / 2);
     padding: 0.75rem 0.75rem 0.75rem calc(var(--img-size) / 2 + 0.75rem);
 
@@ -187,9 +187,9 @@
 
         &.round {
           border-radius: 100%;
-          background: var(--dnd5e-background-alt-1);
-          border: 4px solid var(--dnd5e-block-border-color);
-          box-shadow: 0 0 4px var(--dnd5e-shadow-45);
+          background: var(--me5e-background-alt-1);
+          border: 4px solid var(--me5e-block-border-color);
+          box-shadow: 0 0 4px var(--me5e-shadow-45);
         }
       }
     }

@@ -12,8 +12,8 @@
 
             {{!-- Initiative Modifier --}}
             <div class="initiative {{#unless editable}}{{ rollableClass }}{{/unless}}"
-                {{~#if editable}} data-tooltip aria-label="{{ localize 'DND5E.InitiativeConfig' }}"
-                {{~else}} aria-label="{{ localize 'DND5E.Initiative' }}" data-action="roll"
+                {{~#if editable}} data-tooltip aria-label="{{ localize 'ME5E.InitiativeConfig' }}"
+                {{~else}} aria-label="{{ localize 'ME5E.Initiative' }}" data-action="roll"
                  data-type="initiative"{{/if}}>
                 {{#if editable}}
                 <button type="button" class="config-button unbutton" data-action="showConfiguration"
@@ -21,7 +21,7 @@
                     <i class="fas fa-cog" inert></i>
                 </button>
                 {{else}}
-                <span>{{ dnd5e-numberFormat system.attributes.init.total signDisplay="always" }}</span>
+                <span>{{ me5e-numberFormat system.attributes.init.total signDisplay="always" }}</span>
                 {{/if}}
             </div>
 
@@ -30,7 +30,7 @@
 
         {{!-- Quality --}}
         {{#if options.showQuality}}
-        <div class="loyalty-badge badge" aria-label="{{ localize "DND5E.Quality" }}"
+        <div class="loyalty-badge badge" aria-label="{{ localize "ME5E.Quality" }}"
              {{#unless editable}}data-tooltip{{/unless}}>
             {{#if editable}}
             <input type="text" class="uninput" name="system.attributes.quality.value" inputmode="numeric"
@@ -73,14 +73,14 @@
 
     {{!-- Display Options --}}
     {{#if editable}}
-    {{> ".option" name="flags.dnd5e.showVehicleAbilities" value=options.showAbilities
-        label="DND5E.VEHICLE.Option.Abilities" }}
-    {{> ".option" name="flags.dnd5e.showVehicleInitiative" value=options.showInitiative
-        label="DND5E.VEHICLE.Option.Initiative" }}
-    {{> ".option" name="flags.dnd5e.showVehicleQuality" value=options.showQuality
-        label="DND5E.VEHICLE.Option.Quality" }}
+    {{> ".option" name="flags.me5e.showVehicleAbilities" value=options.showAbilities
+        label="ME5E.VEHICLE.Option.Abilities" }}
+    {{> ".option" name="flags.me5e.showVehicleInitiative" value=options.showInitiative
+        label="ME5E.VEHICLE.Option.Initiative" }}
+    {{> ".option" name="flags.me5e.showVehicleQuality" value=options.showQuality
+        label="ME5E.VEHICLE.Option.Quality" }}
     {{> ".option" name="system.attributes.actions.stations" value=source.attributes.actions.stations
-        label="DND5E.VEHICLE.FIELDS.attributes.actions.stations.label" }}
+        label="ME5E.VEHICLE.FIELDS.attributes.actions.stations.label" }}
     {{/if}}
 
     {{!-- Actions --}}
@@ -89,7 +89,7 @@
     <div class="pills-group empty edit-inline">
         <h3 class="icon">
             <i class="fa-solid fa-bolt fa-fw" inert></i>
-            <span class="roboto-upper">{{ localize "DND5E.VEHICLE.FIELDS.attributes.actions.label" }}</span>
+            <span class="roboto-upper">{{ localize "ME5E.VEHICLE.FIELDS.attributes.actions.label" }}</span>
             {{ formInput fields.attributes.fields.actions.fields.max value=source.attributes.actions.max
                          placeholder="0" type="number" }}
         </h3>
@@ -98,21 +98,21 @@
     <div class="pills-group">
         <h3 class="icon">
             <i class="fa-solid fa-sliders fa-fw" inert></i>
-            <span class="roboto-upper">{{ localize "DND5E.VEHICLE.FIELDS.attributes.actions.thresholds.label" }}</span>
+            <span class="roboto-upper">{{ localize "ME5E.VEHICLE.FIELDS.attributes.actions.thresholds.label" }}</span>
         </h3>
         <div class="form-fields">
             <span class="separator">&lt;</span>
             <input type="number" min="0" step="1" name="system.attributes.actions.thresholds.0"
                    value="{{ source.attributes.actions.thresholds.[0] }}"
-                   aria-label="{{ localize "DND5E.VEHICLE.FIELDS.attributes.actions.thresholds.min.label" }}">
+                   aria-label="{{ localize "ME5E.VEHICLE.FIELDS.attributes.actions.thresholds.min.label" }}">
             <span class="separator">&lt;</span>
             <input type="number" min="0" step="1" name="system.attributes.actions.thresholds.1"
                    value="{{ source.attributes.actions.thresholds.[1] }}"
-                   aria-label="{{ localize "DND5E.VEHICLE.FIELDS.attributes.actions.thresholds.mid.label" }}">
+                   aria-label="{{ localize "ME5E.VEHICLE.FIELDS.attributes.actions.thresholds.mid.label" }}">
             <span class="separator">&lt;</span>
             <input type="number" min="0" step="1" name="system.attributes.actions.thresholds.2"
                    value="{{ source.attributes.actions.thresholds.[2] }}"
-                   aria-label="{{ localize "DND5E.VEHICLE.FIELDS.attributes.actions.thresholds.full.label" }}">
+                   aria-label="{{ localize "ME5E.VEHICLE.FIELDS.attributes.actions.thresholds.full.label" }}">
         </div>
     </div>
 
@@ -123,10 +123,10 @@
     <div class="pills-group {{#unless properties.hp.length}}empty{{/unless}}">
         <h3 class="icon {{#unless editable}}{{ rollableClass }}{{/unless}}" data-action="toggleEditInline">
             <i class="fa-solid fa-heart fa-fw" inert></i>
-            <span class="roboto-upper">{{ localize "DND5E.HitPoints" }}</span>
+            <span class="roboto-upper">{{ localize "ME5E.HitPoints" }}</span>
             {{#if editable}}
             <button type="button" class="config-button unbutton" data-action="showConfiguration"
-                    data-config="hitPoints" data-tooltip aria-label="{{ localize "DND5E.HitPointsConfig" }}">
+                    data-config="hitPoints" data-tooltip aria-label="{{ localize "ME5E.HitPointsConfig" }}">
                 <i class="fa-solid fa-cog" inert></i>
             </button>
             {{else}}
@@ -153,26 +153,26 @@
 
     {{!-- Armor Class --}}
     {{#if (or editable system.attributes.ac.value)}}
-    {{> "systems/dnd5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-shield" label="DND5E.ArmorClass"
-        configAction="armorClass" configLabel="DND5E.ArmorConfig" data=system.attributes.ac }}
+    {{> "systems/me5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-shield" label="ME5E.ArmorClass"
+        configAction="armorClass" configLabel="ME5E.ArmorConfig" data=system.attributes.ac }}
     {{/if}}
 
     {{!-- Speed --}}
     {{#if showCombatSpeed}}
-    {{> "systems/dnd5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-shoe-prints"
-        label="DND5E.Speed" configAction="movement" configLabel="DND5E.MOVEMENT.Action.Configure" unitsConfig=CONFIG.movementUnits formatted=(dnd5e-formatLength system.attributes.movement.max
+    {{> "systems/me5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-shoe-prints"
+        label="ME5E.Speed" configAction="movement" configLabel="ME5E.MOVEMENT.Action.Configure" unitsConfig=CONFIG.movementUnits formatted=(me5e-formatLength system.attributes.movement.max
         unit=system.attributes.movement.units parts=true) }}
     {{/if}}
     {{#if showTravelSpeed}}
-    {{> "systems/dnd5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-sailboat"
-        label="DND5E.TRAVEL.Speed" configAction="movement" configLabel="DND5E.MOVEMENT.Action.Configure"
-        unitsConfig=CONFIG.travelUnits formatted=(dnd5e-formatTravelSpeed system.attributes.travel.speeds.max
+    {{> "systems/me5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-sailboat"
+        label="ME5E.TRAVEL.Speed" configAction="movement" configLabel="ME5E.MOVEMENT.Action.Configure"
+        unitsConfig=CONFIG.travelUnits formatted=(me5e-formatTravelSpeed system.attributes.travel.speeds.max
         unit=system.attributes.travel.units period="hour" parts=true) }}
     {{/if}}
     {{#if showTravelPace}}
-    {{> "systems/dnd5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-sun"
-        label="DND5E.TRAVEL.Label" configAction="movement" configLabel="DND5E.MOVEMENT.Action.Configure"
-        unitsConfig=CONFIG.travelUnits formatted=(dnd5e-formatTravelSpeed system.attributes.travel.paces.max
+    {{> "systems/me5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-sun"
+        label="ME5E.TRAVEL.Label" configAction="movement" configLabel="ME5E.MOVEMENT.Action.Configure"
+        unitsConfig=CONFIG.travelUnits formatted=(me5e-formatTravelSpeed system.attributes.travel.paces.max
         unit=system.attributes.travel.units period="day" parts=true) }}
     {{/if}}
 
@@ -181,7 +181,7 @@
     <div class="pills-group empty edit-inline units">
         <h3 class="icon cost">
             <i class="fa-solid fa-coins fa-fw" inert></i>
-            <span class="roboto-upper">{{ localize "DND5E.Cost" }}</span>
+            <span class="roboto-upper">{{ localize "ME5E.Cost" }}</span>
             {{#if editable}}
             {{ formInput fields.attributes.fields.price.fields.value value=source.attributes.price.value
                          placeholder="—" }}
@@ -189,7 +189,7 @@
                          choices=CONFIG.currencies labelAttr="abbreviation" }}
             {{else}}
             <span class="counter">
-                <span class="value">{{ dnd5e-numberFormat system.attributes.price.value }}</span>
+                <span class="value">{{ me5e-numberFormat system.attributes.price.value }}</span>
                 <i class="currency {{ system.attributes.price.denomination }}"
                    aria-label="{{ lookup (lookup CONFIG.currencies system.attributes.price.denomination) "label" }}"></i>
             </span>
@@ -202,7 +202,7 @@
     <div class="pills-group empty edit-inline">
         <h3 class="icon">
             <i class="fa-solid fa-ruler-combined fa-fw" inert></i>
-            <span class="roboto-upper">{{ localize "DND5E.Size" }}</span>
+            <span class="roboto-upper">{{ localize "ME5E.Size" }}</span>
             {{#if editable}}
             {{ formInput fields.traits.fields.size value=source.traits.size choices=CONFIG.actorSizes
                          labelAttr="label" }}
@@ -214,70 +214,70 @@
 
     {{!-- Weight --}}
     {{#if (or editable system.traits.weight.value) }}
-    {{> "systems/dnd5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-weight-hanging"
-        label="DND5E.Weight" fields=fields.traits.fields.weight.fields source=source.traits.weight
-        unitsConfig=CONFIG.weightUnits formatted=(dnd5e-formatWeight
+    {{> "systems/me5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-weight-hanging"
+        label="ME5E.Weight" fields=fields.traits.fields.weight.fields source=source.traits.weight
+        unitsConfig=CONFIG.weightUnits formatted=(me5e-formatWeight
         system.traits.weight.value unit=system.traits.weight.units parts=true) }}
     {{/if}}
 
     {{!-- Keel --}}
     {{#if (or editable system.traits.keel.value) }}
-    {{> "systems/dnd5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-ruler-horizontal"
-        label="DND5E.VEHICLE.FIELDS.traits.keel.value.label" fields=fields.traits.fields.keel.fields
-        source=source.traits.keel unitsConfig=CONFIG.movementUnits formatted=(dnd5e-formatLength
+    {{> "systems/me5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-ruler-horizontal"
+        label="ME5E.VEHICLE.FIELDS.traits.keel.value.label" fields=fields.traits.fields.keel.fields
+        source=source.traits.keel unitsConfig=CONFIG.movementUnits formatted=(me5e-formatLength
         system.traits.keel.value unit=system.traits.keel.units parts=true) }}
     {{/if}}
 
     {{!-- Beam --}}
     {{#if (or editable system.traits.beam.value) }}
-    {{> "systems/dnd5e/templates/actors/parts/actor-trait-line.hbs"
+    {{> "systems/me5e/templates/actors/parts/actor-trait-line.hbs"
         icon="fa-solid fa-arrows-left-right fa-rotate-by"
-        label="DND5E.VEHICLE.FIELDS.traits.beam.value.label" fields=fields.traits.fields.beam.fields
-        source=source.traits.beam unitsConfig=CONFIG.movementUnits formatted=(dnd5e-formatLength
+        label="ME5E.VEHICLE.FIELDS.traits.beam.value.label" fields=fields.traits.fields.beam.fields
+        source=source.traits.beam unitsConfig=CONFIG.movementUnits formatted=(me5e-formatLength
         system.traits.beam.value unit=system.traits.beam.units parts=true) }}
     {{/if}}
 
     {{!-- Cargo --}}
     {{#if (or editable system.attributes.capacity.cargo.value)}}
-    {{> "systems/dnd5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-box"
-        label="DND5E.VEHICLE.FIELDS.attributes.capacity.cargo.value.label"
+    {{> "systems/me5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-box"
+        label="ME5E.VEHICLE.FIELDS.attributes.capacity.cargo.value.label"
         fields=fields.attributes.fields.capacity.fields.cargo.fields unitsConfig=CONFIG.weightUnits
-        source=source.attributes.capacity.cargo formatted=(dnd5e-formatWeight
+        source=source.attributes.capacity.cargo formatted=(me5e-formatWeight
         system.attributes.capacity.cargo.value unit=system.attributes.capacity.cargo.units parts=true) }}
     {{/if}}
 
     {{!-- Crew --}}
     {{#if (or editable system.crew.max)}}
-    {{> "systems/dnd5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-people-carry-box"
-        label="DND5E.VEHICLE.FIELDS.crew.max.label" field=fields.crew.fields.max
+    {{> "systems/me5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-people-carry-box"
+        label="ME5E.VEHICLE.FIELDS.crew.max.label" field=fields.crew.fields.max
         source=source.crew.max value=system.crew.max }}
     {{/if}}
 
     {{!-- Passengers --}}
     {{#if (or editable system.passengers.max)}}
-    {{> "systems/dnd5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-people-group"
-        label="DND5E.VEHICLE.FIELDS.passengers.max.label" field=fields.passengers.fields.max
+    {{> "systems/me5e/templates/actors/parts/actor-trait-line.hbs" icon="fa-solid fa-people-group"
+        label="ME5E.VEHICLE.FIELDS.passengers.max.label" field=fields.passengers.fields.max
         source=source.passengers.max value=system.passengers.max }}
     {{/if}}
 
     {{!-- Resistances --}}
-    {{> "systems/dnd5e/templates/actors/parts/actor-trait-pills.hbs" values=traits.dr key="dr" color="green"
-        icon="fa-solid fa-shield-halved" label="DND5E.Resistances" }}
+    {{> "systems/me5e/templates/actors/parts/actor-trait-pills.hbs" values=traits.dr key="dr" color="green"
+        icon="fa-solid fa-shield-halved" label="ME5E.Resistances" }}
 
     {{!-- Immunities --}}
     {{#if editable}}
-    {{> "systems/dnd5e/templates/actors/parts/actor-trait-pills.hbs" values=traits.di key="di" color="green"
-        icon="fa-solid fa-shield" label="DND5E.DamImm" }}
+    {{> "systems/me5e/templates/actors/parts/actor-trait-pills.hbs" values=traits.di key="di" color="green"
+        icon="fa-solid fa-shield" label="ME5E.DamImm" }}
     {{else}}
-    {{> "systems/dnd5e/templates/actors/parts/actor-trait-pills.hbs" values=traits.di key="di" color="green"
-        icon="fa-solid fa-shield" label="DND5E.Immunities" }}
+    {{> "systems/me5e/templates/actors/parts/actor-trait-pills.hbs" values=traits.di key="di" color="green"
+        icon="fa-solid fa-shield" label="ME5E.Immunities" }}
     {{/if}}
-    {{> "systems/dnd5e/templates/actors/parts/actor-trait-pills.hbs" values=traits.ci key="ci" color="green"
-        svg="rosa-shield" label="DND5E.ConImm" }}
+    {{> "systems/me5e/templates/actors/parts/actor-trait-pills.hbs" values=traits.ci key="ci" color="green"
+        svg="rosa-shield" label="ME5E.ConImm" }}
 
     {{!-- Vulnerabilities --}}
-    {{> "systems/dnd5e/templates/actors/parts/actor-trait-pills.hbs" values=traits.dv key="dv" color="maroon"
-        icon="fa-solid fa-heart-crack" label="DND5E.Vulnerabilities" }}
+    {{> "systems/me5e/templates/actors/parts/actor-trait-pills.hbs" values=traits.dv key="dv" color="maroon"
+        icon="fa-solid fa-heart-crack" label="ME5E.Vulnerabilities" }}
 
 </aside>
 

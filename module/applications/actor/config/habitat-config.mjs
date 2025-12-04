@@ -12,7 +12,7 @@ export default class HabitatConfig extends BaseConfigSheet {
   /** @override */
   static PARTS = {
     config: {
-      template: "systems/dnd5e/templates/actors/config/habitat-config.hbs"
+      template: "systems/me5e/templates/actors/config/habitat-config.hbs"
     }
   };
 
@@ -22,7 +22,7 @@ export default class HabitatConfig extends BaseConfigSheet {
 
   /** @override */
   get title() {
-    return game.i18n.localize("DND5E.Habitat.Configuration.Title");
+    return game.i18n.localize("ME5E.Habitat.Configuration.Title");
   }
 
   /* -------------------------------------------- */
@@ -32,7 +32,7 @@ export default class HabitatConfig extends BaseConfigSheet {
   /** @inheritDoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
-    const config = CONFIG.DND5E.habitats;
+    const config = CONFIG.ME5E.habitats;
     const { details } = this.document.system._source;
     const value = Object.fromEntries(details.habitat.value.map(({ type, subtype }) => [type, { type, subtype }]));
     const any = "any" in value;

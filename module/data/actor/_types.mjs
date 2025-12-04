@@ -201,7 +201,7 @@
  * @property {number} crew.max                         The maximum crew complement the vehicle supports.
  * @property {string[]} crew.value                     The crew roster.
  * @property {DetailsCommonData} details
- * @property {string} details.type                     The type of vehicle as defined in DND5E.vehicleTypes.
+ * @property {string} details.type                     The type of vehicle as defined in ME5E.vehicleTypes.
  * @property {object} draft
  * @property {string[]} draft.value                    The draft animals pulling the vehicle.
  * @property {object} passengers

@@ -10,7 +10,7 @@
 {{#*inline ".tool-list"}}
 <ol class="unlist trait-list">
     {{#if (and children topLevel (not otherGroup))}}
-    {{> ".tool-entry" label=(localize "DND5E.TraitAll" category=label) children=false }}
+    {{> ".tool-entry" label=(localize "ME5E.TraitAll" category=label) children=false }}
     {{/if}}
     {{#each choices}}{{> ".tool-entry" }}{{/each}}
 </ol>
@@ -25,8 +25,8 @@
     {{> ".tool-list" choices=children topLevel=false }}
     {{/if}}
     {{#if hasEntry}}
-    <div class="bonus">{{ dnd5e-formatModifier total }}</div>
-    <a class="config-button" data-action="configure" data-tooltip aria-label="{{ localize "DND5E.ToolConfigure" }}">
+    <div class="bonus">{{ me5e-formatModifier total }}</div>
+    <a class="config-button" data-action="configure" data-tooltip aria-label="{{ localize "ME5E.ToolConfigure" }}">
         <i class="fa-solid fa-cog" inert></i>
     </a>
     {{/if}}

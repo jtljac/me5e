@@ -16,11 +16,11 @@ export default class HealSheet extends ActivitySheet {
   static PARTS = {
     ...super.PARTS,
     effect: {
-      template: "systems/dnd5e/templates/activity/heal-effect.hbs",
+      template: "systems/me5e/templates/activity/heal-effect.hbs",
       templates: [
         ...super.PARTS.effect.templates,
-        "systems/dnd5e/templates/activity/parts/damage-part.hbs",
-        "systems/dnd5e/templates/activity/parts/heal-healing.hbs"
+        "systems/me5e/templates/activity/parts/damage-part.hbs",
+        "systems/me5e/templates/activity/parts/heal-healing.hbs"
       ]
     }
   };
@@ -32,13 +32,13 @@ export default class HealSheet extends ActivitySheet {
   /** @inheritDoc */
   async _prepareEffectContext(context, options) {
     context = await super._prepareEffectContext(context, options);
-    context.typeOptions = Object.entries(CONFIG.DND5E.healingTypes).map(([value, config]) => ({
+    context.typeOptions = Object.entries(CONFIG.ME5E.healingTypes).map(([value, config]) => ({
       value, label: config.label, selected: context.activity.healing.types.has(value)
     }));
     const scaleKey = (this.item.type === "spell" && this.item.system.level === 0) ? "labelCantrip" : "label";
     context.scalingOptions = [
-      { value: "", label: game.i18n.localize("DND5E.DAMAGE.Scaling.None") },
-      ...Object.entries(CONFIG.DND5E.damageScalingModes).map(([value, { [scaleKey]: label }]) => ({ value, label }))
+      { value: "", label: game.i18n.localize("ME5E.DAMAGE.Scaling.None") },
+      ...Object.entries(CONFIG.ME5E.damageScalingModes).map(([value, { [scaleKey]: label }]) => ({ value, label }))
     ];
     return context;
   }

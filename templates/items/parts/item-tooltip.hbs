@@ -3,7 +3,7 @@
         {{#if school}}
         <div class="school">
             {{#with (lookup @root.config.spellSchools school) as |schoolConfig|}}
-            <dnd5e-icon src="{{ schoolConfig.icon }}"></dnd5e-icon>
+            <me5e-icon src="{{ schoolConfig.icon }}"></me5e-icon>
             {{/with}}
         </div>
         {{/if}}
@@ -18,7 +18,7 @@
             <div class="price">
                 {{#if price}}
                 <i class="currency {{ price.denomination }}"></i>
-                <span>{{ dnd5e-numberFormat price.value }}</span>
+                <span>{{ me5e-numberFormat price.value }}</span>
                 {{/if}}
             </div>
 
@@ -27,7 +27,7 @@
                 <span class="value">{{ uses.value }}</span>
                 <span class="separator">&sol;</span>
                 <span class="max">{{ uses.max }}</span>
-                <span>{{ localize "DND5E.Charges" }}</span>
+                <span>{{ localize "ME5E.Charges" }}</span>
                 {{/if}}
             </div>
             <div class="weight">
@@ -39,7 +39,7 @@
         </div>
     </section>
     {{#if isSpell}}
-        {{> "dnd5e.spell-block" }}
+        {{> "me5e.spell-block" }}
     {{/if}}
     <section class="description">{{{ description.value }}}</section>
     <ul class="pills">
@@ -51,8 +51,8 @@
     </ul>
     {{#if controlHints}}
     <div class="control-hint lock-hint">
-        <img src="systems/dnd5e/icons/svg/mouse-middle.svg" alt="{{ localize "DND5E.Controls.MiddleClick" }}">
-        <span>{{ localize "DND5E.Controls.LockHint" }}</span>
+        <img src="systems/me5e/icons/svg/mouse-middle.svg" alt="{{ localize "ME5E.Controls.MiddleClick" }}">
+        <span>{{ localize "ME5E.Controls.LockHint" }}</span>
     </div>
     {{/if}}
 </section>

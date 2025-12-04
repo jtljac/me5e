@@ -50,7 +50,7 @@ export default class MultiActorSheet extends BaseActorSheet {
       secrets: this.actor.isOwner, relativeTo: this.actor, rollData: context.rollData
     };
     context.enriched = {
-      label: "DND5E.Description",
+      label: "ME5E.Description",
       summary: await CONFIG.ux.TextEditor.enrichHTML(summary, enrichmentOptions),
       full: await CONFIG.ux.TextEditor.enrichHTML(full, enrichmentOptions)
     };
@@ -85,7 +85,7 @@ export default class MultiActorSheet extends BaseActorSheet {
    * @protected
    */
   async _prepareMemberPortrait(actor, context) {
-    const showTokenPortrait = this.actor.getFlag("dnd5e", "showTokenPortrait");
+    const showTokenPortrait = this.actor.getFlag("me5e", "showTokenPortrait");
     const token = actor.isToken ? actor.token : actor.prototypeToken;
     const defaults = Actor.implementation.getDefaultArtwork(actor._source);
     let src = showTokenPortrait ? token.texture.src : actor.img;
@@ -142,7 +142,7 @@ export default class MultiActorSheet extends BaseActorSheet {
       }
       return true;
     });
-    if ( foundNonPhysical ) ui.notifications.warn("DND5E.Group.Warning.PhysicalItemOnly", { localize: true });
+    if ( foundNonPhysical ) ui.notifications.warn("ME5E.Group.Warning.PhysicalItemOnly", { localize: true });
     return super._onDropCreateItems(event, items, behavior);
   }
 
@@ -194,11 +194,11 @@ export default class MultiActorSheet extends BaseActorSheet {
    */
   _getEntryContextOptions() {
     return [{
-      name: "DND5E.Group.Action.View",
+      name: "ME5E.Group.Action.View",
       icon: '<i class="fa-solid fa-eye"></i>',
       callback: async li => (await fromUuid(li.dataset.uuid))?.sheet.render(true)
     }, {
-      name: "DND5E.Group.Action.Remove",
+      name: "ME5E.Group.Action.Remove",
       icon: '<i class="fa-solid fa-xmark"></i>',
       callback: async li => this.actor.system.removeMember(await fromUuid(li.dataset.uuid))
     }];
@@ -215,18 +215,18 @@ export default class MultiActorSheet extends BaseActorSheet {
    */
   static addDocumentSheetConfigOptions(app, html) {
     const { document: doc } = app.options;
-    const showTokenPortrait = doc.getFlag("dnd5e", "showTokenPortrait");
+    const showTokenPortrait = doc.getFlag("me5e", "showTokenPortrait");
     const artOptions = {
-      false: game.i18n.localize("DND5E.Group.Config.Art.portraits"),
-      true: game.i18n.localize("DND5E.Group.Config.Art.tokens")
+      false: game.i18n.localize("ME5E.Group.Config.Art.portraits"),
+      true: game.i18n.localize("ME5E.Group.Config.Art.tokens")
     };
     const fieldset = document.createElement("fieldset");
     fieldset.innerHTML = `
-      <legend>${game.i18n.localize("DND5E.Group.Config.Legend")}</legend>
+      <legend>${game.i18n.localize("ME5E.Group.Config.Legend")}</legend>
       <div class="form-group">
-        <label>${game.i18n.localize("DND5E.Group.Config.Art.Label")}</label>
+        <label>${game.i18n.localize("ME5E.Group.Config.Art.Label")}</label>
         <div class="form-fields">
-          <select name="flags.dnd5e.showTokenPortrait" data-dtype="Boolean">
+          <select name="flags.me5e.showTokenPortrait" data-dtype="Boolean">
             ${foundry.applications.handlebars.selectOptions(artOptions, { hash: { selected: showTokenPortrait } })}
           </select>
         </div>

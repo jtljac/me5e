@@ -16,7 +16,7 @@ export default class UtilitySheet extends ActivitySheet {
   static PARTS = {
     ...super.PARTS,
     effect: {
-      template: "systems/dnd5e/templates/activity/utility-effect.hbs",
+      template: "systems/me5e/templates/activity/utility-effect.hbs",
       templates: super.PARTS.effect.templates
     }
   };

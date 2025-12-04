@@ -32,11 +32,11 @@ export default class JournalSpellListPageSheet extends JournalEntryPageHandlebar
     header: super.EDIT_PARTS.header,
     config: {
       classes: ["standard-form"],
-      template: "systems/dnd5e/templates/journal/spell/config.hbs"
+      template: "systems/me5e/templates/journal/spell/config.hbs"
     },
     list: {
       classes: ["right", "spell-list"],
-      template: "systems/dnd5e/templates/journal/spell/list.hbs"
+      template: "systems/me5e/templates/journal/spell/list.hbs"
     }
   };
 
@@ -46,7 +46,7 @@ export default class JournalSpellListPageSheet extends JournalEntryPageHandlebar
   static VIEW_PARTS = {
     content: {
       root: true,
-      template: "systems/dnd5e/templates/journal/spell/view.hbs"
+      template: "systems/me5e/templates/journal/spell/view.hbs"
     }
   };
 
@@ -57,7 +57,7 @@ export default class JournalSpellListPageSheet extends JournalEntryPageHandlebar
    * @type {Record<string, string>}
    */
   static get GROUPING_MODES() {
-    return dnd5e.dataModels.journal.SpellListJournalPageData.GROUPING_MODES;
+    return me5e.dataModels.journal.SpellListJournalPageData.GROUPING_MODES;
   }
 
   /* -------------------------------------------- */
@@ -76,7 +76,7 @@ export default class JournalSpellListPageSheet extends JournalEntryPageHandlebar
   _configureRenderParts(options) {
     const parts = super._configureRenderParts(options);
     if ( ("content" in parts) && this.options.displayAsTable ) {
-      parts.content.template = "systems/dnd5e/templates/journal/spell/table.hbs";
+      parts.content.template = "systems/me5e/templates/journal/spell/table.hbs";
     }
     return parts;
   }
@@ -121,7 +121,7 @@ export default class JournalSpellListPageSheet extends JournalEntryPageHandlebar
   /** @inheritDoc */
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
-    context.CONFIG = CONFIG.DND5E;
+    context.CONFIG = CONFIG.ME5E;
     context.system = context.document.system;
     context.embedRendering = this.options.embedRendering ?? false;
 
@@ -145,11 +145,11 @@ export default class JournalSpellListPageSheet extends JournalEntryPageHandlebar
       switch ( context.grouping ) {
         case "level":
           const level = spell.system.level;
-          section = context.sections[level] ??= { header: CONFIG.DND5E.spellLevels[level], spells: [] };
+          section = context.sections[level] ??= { header: CONFIG.ME5E.spellLevels[level], spells: [] };
           break;
         case "school":
           const school = spell.system.school;
-          section = context.sections[school] ??= { header: CONFIG.DND5E.spellSchools[school]?.label, spells: [] };
+          section = context.sections[school] ??= { header: CONFIG.ME5E.spellSchools[school]?.label, spells: [] };
           break;
         case "alphabetical":
           const letter = spell.name.slice(0, 1).toLowerCase();

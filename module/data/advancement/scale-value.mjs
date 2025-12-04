@@ -24,7 +24,7 @@ export class ScaleValueConfigurationData extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /** @override */
-  static LOCALIZATION_PREFIXES = ["DND5E.ADVANCEMENT.ScaleValue"];
+  static LOCALIZATION_PREFIXES = ["ME5E.ADVANCEMENT.ScaleValue"];
 
   /* -------------------------------------------- */
 
@@ -96,7 +96,7 @@ export class ScaleValueType extends foundry.abstract.DataModel {
   /* -------------------------------------------- */
 
   /** @override */
-  static LOCALIZATION_PREFIXES = ["DND5E.ADVANCEMENT.ScaleValue.Type.String"];
+  static LOCALIZATION_PREFIXES = ["ME5E.ADVANCEMENT.ScaleValue.Type.String"];
 
   /* -------------------------------------------- */
 
@@ -115,9 +115,9 @@ export class ScaleValueType extends foundry.abstract.DataModel {
    */
   static get metadata() {
     return {
-      label: "DND5E.ADVANCEMENT.ScaleValue.Type.String.Label",
-      hint: "DND5E.ADVANCEMENT.ScaleValue.Type.String.Hint",
-      identifier: "DND5E.ADVANCEMENT.ScaleValue.Type.String.Identifier",
+      label: "ME5E.ADVANCEMENT.ScaleValue.Type.String.Label",
+      hint: "ME5E.ADVANCEMENT.ScaleValue.Type.String.Hint",
+      identifier: "ME5E.ADVANCEMENT.ScaleValue.Type.String.Identifier",
       isNumeric: false
     };
   }
@@ -225,8 +225,8 @@ export class ScaleValueTypeNumber extends ScaleValueType {
   /** @inheritDoc */
   static get metadata() {
     return foundry.utils.mergeObject(super.metadata, {
-      label: "DND5E.ADVANCEMENT.ScaleValue.Type.Number.Label",
-      hint: "DND5E.ADVANCEMENT.ScaleValue.Type.Number.Hint",
+      label: "ME5E.ADVANCEMENT.ScaleValue.Type.Number.Label",
+      hint: "ME5E.ADVANCEMENT.ScaleValue.Type.Number.Hint",
       isNumeric: true
     });
   }
@@ -254,7 +254,7 @@ export class ScaleValueTypeCR extends ScaleValueTypeNumber {
   /* -------------------------------------------- */
 
   /** @override */
-  static LOCALIZATION_PREFIXES = ["DND5E.ADVANCEMENT.ScaleValue.Type.CR"];
+  static LOCALIZATION_PREFIXES = ["ME5E.ADVANCEMENT.ScaleValue.Type.CR"];
 
   /* -------------------------------------------- */
 
@@ -271,8 +271,8 @@ export class ScaleValueTypeCR extends ScaleValueTypeNumber {
   /** @inheritDoc */
   static get metadata() {
     return foundry.utils.mergeObject(super.metadata, {
-      label: "DND5E.ADVANCEMENT.ScaleValue.Type.CR.Label",
-      hint: "DND5E.ADVANCEMENT.ScaleValue.Type.CR.Hint"
+      label: "ME5E.ADVANCEMENT.ScaleValue.Type.CR.Label",
+      hint: "ME5E.ADVANCEMENT.ScaleValue.Type.CR.Hint"
     });
   }
 
@@ -304,7 +304,7 @@ export class ScaleValueTypeDice extends ScaleValueType {
   /* -------------------------------------------- */
 
   /** @override */
-  static LOCALIZATION_PREFIXES = ["DND5E.ADVANCEMENT.ScaleValue.Type.Dice"];
+  static LOCALIZATION_PREFIXES = ["ME5E.ADVANCEMENT.ScaleValue.Type.Dice"];
 
   /* -------------------------------------------- */
 
@@ -322,9 +322,9 @@ export class ScaleValueTypeDice extends ScaleValueType {
   /** @inheritDoc */
   static get metadata() {
     return foundry.utils.mergeObject(super.metadata, {
-      label: "DND5E.ADVANCEMENT.ScaleValue.Type.Dice.Label",
-      hint: "DND5E.ADVANCEMENT.ScaleValue.Type.Dice.Hint",
-      identifier: "DND5E.ADVANCEMENT.ScaleValue.Type.Dice.Identifier"
+      label: "ME5E.ADVANCEMENT.ScaleValue.Type.Dice.Label",
+      hint: "ME5E.ADVANCEMENT.ScaleValue.Type.Dice.Hint",
+      identifier: "ME5E.ADVANCEMENT.ScaleValue.Type.Dice.Identifier"
     });
   }
 
@@ -375,7 +375,7 @@ export class ScaleValueTypeDice extends ScaleValueType {
   get mods() {
     if ( !this.modifiers ) return "";
     return this.modifiers.reduce((acc, mod) => {
-      return acc + (dnd5e.utils.isValidDieModifier(mod) ? mod : "");
+      return acc + (me5e.utils.isValidDieModifier(mod) ? mod : "");
     }, "");
   }
 
@@ -437,8 +437,8 @@ export class ScaleValueTypeDistance extends ScaleValueTypeNumber {
   /** @inheritDoc */
   static get metadata() {
     return foundry.utils.mergeObject(super.metadata, {
-      label: "DND5E.ADVANCEMENT.ScaleValue.Type.Distance.Label",
-      hint: "DND5E.ADVANCEMENT.ScaleValue.Type.Distance.Hint"
+      label: "ME5E.ADVANCEMENT.ScaleValue.Type.Distance.Label",
+      hint: "ME5E.ADVANCEMENT.ScaleValue.Type.Distance.Hint"
     });
   }
 

@@ -43,7 +43,7 @@ export default class AbilityTemplate extends foundry.canvas.placeables.MeasuredT
    */
   static fromActivity(activity, options={}) {
     const target = activity.target?.template ?? {};
-    const templateShape = dnd5e.config.areaTargetTypes[target.type]?.template;
+    const templateShape = me5e.config.areaTargetTypes[target.type]?.template;
     if ( !templateShape ) return null;
 
     // Prepare template data
@@ -56,7 +56,7 @@ export default class AbilityTemplate extends foundry.canvas.placeables.MeasuredT
       x: 0,
       y: 0,
       fillColor: game.user.color,
-      flags: { dnd5e: {
+      flags: { me5e: {
         dimensions: {
           size: target.size,
           width: target.width,
@@ -76,7 +76,7 @@ export default class AbilityTemplate extends foundry.canvas.placeables.MeasuredT
         break;
       case "rect": // 5e rectangular AoEs are always cubes
         templateData.width = target.size;
-        if ( game.settings.get("dnd5e", "gridAlignedSquareTemplates") ) {
+        if ( game.settings.get("me5e", "gridAlignedSquareTemplates") ) {
           templateData.distance = Math.hypot(target.size, target.size);
           templateData.direction = 45;
         } else {
@@ -93,13 +93,13 @@ export default class AbilityTemplate extends foundry.canvas.placeables.MeasuredT
 
     /**
      * A hook event that fires before a template is created for an Activity.
-     * @function dnd5e.preCreateActivityTemplate
+     * @function me5e.preCreateActivityTemplate
      * @memberof hookEvents
      * @param {Activity} activity    Activity for which the template is being placed.
      * @param {object} templateData  Data used to create the new template.
      * @returns {boolean}            Explicitly return `false` to prevent the template from being placed.
      */
-    if ( Hooks.call("dnd5e.preCreateActivityTemplate", activity, templateData) === false ) return null;
+    if ( Hooks.call("me5e.preCreateActivityTemplate", activity, templateData) === false ) return null;
 
     // Construct the templates from activity data
     const cls = CONFIG.MeasuredTemplate.documentClass;
@@ -114,12 +114,12 @@ export default class AbilityTemplate extends foundry.canvas.placeables.MeasuredT
 
     /**
      * A hook event that fires after a template are created for an Activity.
-     * @function dnd5e.createActivityTemplate
+     * @function me5e.createActivityTemplate
      * @memberof hookEvents
      * @param {Activity} activity            Activity for which the template is being placed.
      * @param {AbilityTemplate[]} templates  The templates being placed.
      */
-    Hooks.callAll("dnd5e.createActivityTemplate", activity, created);
+    Hooks.callAll("me5e.createActivityTemplate", activity, created);
 
     return created;
   }
@@ -206,8 +206,8 @@ export default class AbilityTemplate extends foundry.canvas.placeables.MeasuredT
     const updates = this.getSnappedPosition(center);
 
     // Adjust template size to take hovered token into account if `adjustedSize` is set
-    const baseDistance = this.document.flags.dnd5e?.dimensions?.size;
-    if ( this.document.flags.dnd5e?.dimensions?.adjustedSize && baseDistance ) {
+    const baseDistance = this.document.flags.me5e?.dimensions?.size;
+    if ( this.document.flags.me5e?.dimensions?.adjustedSize && baseDistance ) {
       const rectangle = new PIXI.Rectangle(center.x, center.y, 1, 1);
       const hoveredToken = canvas.tokens.quadtree.getObjects(rectangle, {
         collisionTest: ({ t }) => t.visible && !t.document.isSecret }).first();

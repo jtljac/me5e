@@ -13,7 +13,7 @@ export default class ActivitiesElement extends (foundry.applications.elements.Ad
     }
 
     new ContextMenu5e(this, "[data-activity-id]", [], {
-      onOpen: target => dnd5e.documents.activity.UtilityActivity.onContextMenu(this.document, target), jQuery: false
+      onOpen: target => me5e.documents.activity.UtilityActivity.onContextMenu(this.document, target), jQuery: false
     });
   }
 
@@ -25,7 +25,7 @@ export default class ActivitiesElement extends (foundry.applications.elements.Ad
    * The HTML tag named used by this element.
    * @type {string}
    */
-  static tagName = "dnd5e-activities";
+  static tagName = "me5e-activities";
 
   /* -------------------------------------------- */
 

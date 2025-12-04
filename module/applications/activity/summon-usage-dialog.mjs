@@ -13,7 +13,7 @@ export default class SummonUsageDialog extends ActivityUsageDialog {
   static PARTS = {
     ...super.PARTS,
     creation: {
-      template: "systems/dnd5e/templates/activity/summon-usage-creation.hbs"
+      template: "systems/me5e/templates/activity/summon-usage-creation.hbs"
     }
   };
 
@@ -32,7 +32,7 @@ export default class SummonUsageDialog extends ActivityUsageDialog {
       context.summonsFields = [];
 
       if ( !foundry.utils.hasProperty(this.options.display, "create.summons") ) context.summonsFields.push({
-        field: new BooleanField({ label: game.i18n.localize("DND5E.SUMMON.Action.Place") }),
+        field: new BooleanField({ label: game.i18n.localize("ME5E.SUMMON.Action.Place") }),
         name: "create.summons",
         value: this.config.create?.summons,
         input: context.inputs.createCheckboxInput
@@ -49,7 +49,7 @@ export default class SummonUsageDialog extends ActivityUsageDialog {
           }
           context.summonsFields.push({
             field: new StringField({
-              required: true, blank: false, label: game.i18n.localize("DND5E.SUMMON.Profile.Label")
+              required: true, blank: false, label: game.i18n.localize("ME5E.SUMMON.Profile.Label")
             }),
             name: "summons.profile",
             value: this.config.summons?.profile,
@@ -58,20 +58,20 @@ export default class SummonUsageDialog extends ActivityUsageDialog {
         } else context.summonsProfile = profiles[0]._id;
 
         if ( this.activity.creatureSizes.size > 1 ) context.summonsFields.push({
-          field: new StringField({ label: game.i18n.localize("DND5E.Size") }),
+          field: new StringField({ label: game.i18n.localize("ME5E.Size") }),
           name: "summons.creatureSize",
           value: this.config.summons?.creatureSize,
           options: Array.from(this.activity.creatureSizes)
-            .map(value => ({ value, label: CONFIG.DND5E.actorSizes[value]?.label }))
+            .map(value => ({ value, label: CONFIG.ME5E.actorSizes[value]?.label }))
             .filter(k => k)
         });
 
         if ( this.activity.creatureTypes.size > 1 ) context.summonsFields.push({
-          field: new StringField({ label: game.i18n.localize("DND5E.CreatureType") }),
+          field: new StringField({ label: game.i18n.localize("ME5E.CreatureType") }),
           name: "summons.creatureType",
           value: this.config.summons?.creatureType,
           options: Array.from(this.activity.creatureTypes)
-            .map(value => ({ value, label: CONFIG.DND5E.creatureTypes[value]?.label }))
+            .map(value => ({ value, label: CONFIG.ME5E.creatureTypes[value]?.label }))
             .filter(k => k)
         });
       }
@@ -95,7 +95,7 @@ export default class SummonUsageDialog extends ActivityUsageDialog {
       switch ( this.activity.summon.mode ) {
         case "cr":
           const cr = simplifyBonus(profile.cr, rollData);
-          label = game.i18n.format("DND5E.SUMMON.Profile.ChallengeRatingLabel", { cr: formatCR(cr) });
+          label = game.i18n.format("ME5E.SUMMON.Profile.ChallengeRatingLabel", { cr: formatCR(cr) });
           break;
         default:
           const doc = fromUuidSync(profile.uuid);

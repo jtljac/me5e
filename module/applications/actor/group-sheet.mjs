@@ -27,32 +27,32 @@ export default class GroupActorSheet extends MultiActorSheet {
   /** @override */
   static PARTS = {
     header: {
-      template: "systems/dnd5e/templates/actors/group/header.hbs"
+      template: "systems/me5e/templates/actors/group/header.hbs"
     },
     members: {
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/group/members.hbs",
-      templates: ["systems/dnd5e/templates/actors/group/member.hbs"],
+      template: "systems/me5e/templates/actors/group/members.hbs",
+      templates: ["systems/me5e/templates/actors/group/member.hbs"],
       scrollable: [""]
     },
     inventory: {
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/group/inventory.hbs",
+      template: "systems/me5e/templates/actors/group/inventory.hbs",
       templates: [
-        "systems/dnd5e/templates/inventory/inventory.hbs", "systems/dnd5e/templates/inventory/activity.hbs",
-        "systems/dnd5e/templates/inventory/containers.hbs", "systems/dnd5e/templates/inventory/encumbrance.hbs"
+        "systems/me5e/templates/inventory/inventory.hbs", "systems/me5e/templates/inventory/activity.hbs",
+        "systems/me5e/templates/inventory/containers.hbs", "systems/me5e/templates/inventory/encumbrance.hbs"
       ],
       scrollable: [".sidebar", ".body"]
     },
     biography: {
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/group/biography.hbs",
+      template: "systems/me5e/templates/actors/group/biography.hbs",
       scrollable: [""]
     },
     tabs: {
       id: "tabs",
       classes: ["tabs-right"],
-      template: "systems/dnd5e/templates/shared/sidebar-tabs.hbs"
+      template: "systems/me5e/templates/shared/sidebar-tabs.hbs"
     }
   };
 
@@ -60,9 +60,9 @@ export default class GroupActorSheet extends MultiActorSheet {
 
   /** @override */
   static TABS = [
-    { tab: "members", label: "DND5E.Group.Member.other", icon: "fa-solid fa-users"},
-    { tab: "inventory", label: "DND5E.Inventory", svg: "systems/dnd5e/icons/svg/backpack.svg" },
-    { tab: "biography", label: "DND5E.Biography", icon: "fa-solid fa-feather" }
+    { tab: "members", label: "ME5E.Group.Member.other", icon: "fa-solid fa-users"},
+    { tab: "inventory", label: "ME5E.Inventory", svg: "systems/me5e/icons/svg/backpack.svg" },
+    { tab: "biography", label: "ME5E.Biography", icon: "fa-solid fa-feather" }
   ];
 
   /* -------------------------------------------- */
@@ -71,7 +71,7 @@ export default class GroupActorSheet extends MultiActorSheet {
 
   /** @inheritDoc */
   get inventorySource() {
-    const inventorySource = this.actor.getFlag("dnd5e", "inventorySource") ?? "group";
+    const inventorySource = this.actor.getFlag("me5e", "inventorySource") ?? "group";
     const { primaryVehicle } = this.actor.system;
     if ( (inventorySource === "vehicle") && primaryVehicle?.isOwner ) return primaryVehicle;
     return super.inventorySource;
@@ -103,7 +103,7 @@ export default class GroupActorSheet extends MultiActorSheet {
    * @protected
    */
   async _prepareHeaderContext(context, options) {
-    context.showXP = game.settings.get("dnd5e", "levelingMode") !== "noxp";
+    context.showXP = game.settings.get("me5e", "levelingMode") !== "noxp";
     context.travelPace = this.actor.system.getTravelPace();
     return context;
   }
@@ -204,12 +204,12 @@ export default class GroupActorSheet extends MultiActorSheet {
     button.innerHTML = `
       <button type="button" class="always-interactive split-control" data-action="toggleInventory"
               data-inventory="group" aria-pressed="${groupInventory}" data-tooltip
-              aria-label="${game.i18n.localize("DND5E.Group.Action.Inventory.Group")}">
+              aria-label="${game.i18n.localize("ME5E.Group.Action.Inventory.Group")}">
         <i class="fa-solid fa-list-ul fa-fw" inert></i>
       </button>
       <button type="button" class="always-interactive split-control" data-action="toggleInventory"
               data-inventory="vehicle" aria-pressed="${!groupInventory}" data-tooltip
-              aria-label="${game.i18n.localize("DND5E.Group.Action.Inventory.Vehicle")}">
+              aria-label="${game.i18n.localize("ME5E.Group.Action.Inventory.Vehicle")}">
         <i class="fa-solid fa-wagon-covered fa-fw" inert></i>
       </button>
     `;
@@ -248,9 +248,9 @@ export default class GroupActorSheet extends MultiActorSheet {
       ? await actor.system.getEncumbrance()
       : actor.system.attributes.encumbrance;
     const { pct, max, value } = encumbrance;
-    const defaultUnits = CONFIG.DND5E.encumbrance.baseUnits.default;
-    const baseUnits = CONFIG.DND5E.encumbrance.baseUnits[actor.type] ?? defaultUnits;
-    const systemUnits = game.settings.get("dnd5e", "metricWeightUnits") ? "metric" : "imperial";
+    const defaultUnits = CONFIG.ME5E.encumbrance.baseUnits.default;
+    const baseUnits = CONFIG.ME5E.encumbrance.baseUnits[actor.type] ?? defaultUnits;
+    const systemUnits = game.settings.get("me5e", "metricWeightUnits") ? "metric" : "imperial";
     context.encumbrance = {
       pct,
       max: convertWeight(max, baseUnits[systemUnits], defaultUnits[systemUnits]),
@@ -270,9 +270,9 @@ export default class GroupActorSheet extends MultiActorSheet {
     context.skills = Object.fromEntries(Object.entries(actor.system.skills ?? {}).map(([key, skill]) => {
       const { ability, passive, total } = skill;
       const css = [actor.isOwner ? "rollable" : "", "skill"].filterJoin(" ");
-      const label = game.i18n.format(actor.isOwner ? "DND5E.SkillRoll" : "DND5E.SkillTitle", {
-        ability: CONFIG.DND5E.abilities[ability]?.label,
-        skill: CONFIG.DND5E.skills[key]?.label
+      const label = game.i18n.format(actor.isOwner ? "ME5E.SkillRoll" : "ME5E.SkillTitle", {
+        ability: CONFIG.ME5E.abilities[ability]?.label,
+        skill: CONFIG.ME5E.skills[key]?.label
       });
       return [key, { css, label, passive, total }];
     }));
@@ -307,10 +307,10 @@ export default class GroupActorSheet extends MultiActorSheet {
     context.isPrimaryVehicle = this.actor.system.primaryVehicle === actor;
     const { attributes } = actor.system;
     context.properties = [];
-    if ( attributes.ac.value ) context.properties.push({ label: "DND5E.AC", value: attributes.ac.value });
-    if ( attributes.hp.dt ) context.properties.push({ label: "DND5E.HITPOINTS.DT.abbr", value: attributes.hp.dt });
+    if ( attributes.ac.value ) context.properties.push({ label: "ME5E.AC", value: attributes.ac.value });
+    if ( attributes.hp.dt ) context.properties.push({ label: "ME5E.HITPOINTS.DT.abbr", value: attributes.hp.dt });
     const speed = attributes.travel.paces.max;
-    if ( Number.isFinite(speed) ) context.properties.push({ label: "DND5E.Speed", value: speed });
+    if ( Number.isFinite(speed) ) context.properties.push({ label: "ME5E.Speed", value: speed });
   }
 
   /* -------------------------------------------- */
@@ -353,7 +353,7 @@ export default class GroupActorSheet extends MultiActorSheet {
    */
   static #onAward() {
     new Award({
-      award: { savedDestinations: this.actor.getFlag("dnd5e", "awardDestinations") },
+      award: { savedDestinations: this.actor.getFlag("me5e", "awardDestinations") },
       origin: this.actor
     }).render({ force: true });
   }
@@ -379,7 +379,7 @@ export default class GroupActorSheet extends MultiActorSheet {
   static #onChangePace(event, target) {
     const increment = Number(target.dataset.increment);
     if ( Number.isNaN(increment) ) return;
-    const paces = Object.keys(CONFIG.DND5E.travelPace);
+    const paces = Object.keys(CONFIG.ME5E.travelPace);
     const current = paces.indexOf(this.actor.system._source.attributes.travel.pace);
     const next = (((current + increment) % paces.length) + paces.length) % paces.length;
     this.actor.update({ "system.attributes.travel.pace": paces[next] });
@@ -431,7 +431,7 @@ export default class GroupActorSheet extends MultiActorSheet {
    */
   static #onToggleInventory(event, target) {
     const { inventory } = target.dataset;
-    this.actor.setFlag("dnd5e", "inventorySource", inventory);
+    this.actor.setFlag("me5e", "inventorySource", inventory);
   }
 
   /* -------------------------------------------- */
@@ -441,7 +441,7 @@ export default class GroupActorSheet extends MultiActorSheet {
   /** @inheritDoc */
   _getEntryContextOptions() {
     return super._getEntryContextOptions().concat([{
-      name: "DND5E.Group.Action.SetPrimaryVehicle",
+      name: "ME5E.Group.Action.SetPrimaryVehicle",
       icon: '<i class="fa-solid fa-star"></i>',
       group: "state",
       condition: li => {
@@ -450,7 +450,7 @@ export default class GroupActorSheet extends MultiActorSheet {
       },
       callback: async li => this.actor.update({ "system.primaryVehicle": (await fromUuid(li.dataset.uuid))?.id })
     }, {
-      name: "DND5E.Group.Action.UnsetPrimaryVehicle",
+      name: "ME5E.Group.Action.UnsetPrimaryVehicle",
       icon: '<i class="fa-regular fa-star"></i>',
       group: "state",
       condition: li => this.actor.system.primaryVehicle?.uuid === li.dataset.uuid,

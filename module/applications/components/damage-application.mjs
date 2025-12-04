@@ -94,14 +94,14 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
       div.innerHTML = `
         <label class="roboto-upper">
           <i class="fa-solid fa-heart-crack"></i>
-          <span>${game.i18n.localize("DND5E.Apply")}</span>
+          <span>${game.i18n.localize("ME5E.Apply")}</span>
           <i class="fa-solid fa-caret-down"></i>
         </label>
         <div class="collapsible-content">
           <div class="wrapper">
             <button class="apply-damage" type="button" data-action="applyDamage">
               <i class="fa-solid fa-reply-all fa-flip-horizontal" inert></i>
-              ${game.i18n.localize("DND5E.Apply")}
+              ${game.i18n.localize("ME5E.Apply")}
             </button>
           </div>
         </div>
@@ -131,7 +131,7 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
     for ( const [change, values] of Object.entries(active) ) {
       if ( foundry.utils.getType(values) !== "Set" ) continue;
       for ( const type of values ) {
-        const config = CONFIG.DND5E.damageTypes[type] ?? CONFIG.DND5E.healingTypes[type];
+        const config = CONFIG.ME5E.damageTypes[type] ?? CONFIG.ME5E.healingTypes[type];
         if ( !config ) continue;
         const data = { type, change, icon: config.icon };
         types.push(data);
@@ -151,7 +151,7 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
       <div class="calculated damage">
         ${total}
       </div>
-      <div class="calculated temp" data-tooltip="DND5E.HitPointsTemp">
+      <div class="calculated temp" data-tooltip="ME5E.HitPointsTemp">
         ${temp}
       </div>
       <menu class="damage-multipliers unlist"></menu>
@@ -228,7 +228,7 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
     return `
       <button class="change-source unbutton" type="button" data-type="${type}" data-change="${change}"
               data-tooltip aria-label="${label}" aria-pressed="${pressed}">
-        <dnd5e-icon src="${icon}" inert></dnd5e-icon>
+        <me5e-icon src="${icon}" inert></me5e-icon>
         <i class="fa-solid fa-slash" inert></i>
         <i class="fa-solid fa-arrow-turn-down" inert></i>
       </button>
@@ -249,11 +249,11 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
     if ( (options.ignore?.[change] === true) || options.ignore?.[change]?.has?.(type) ) mode = "ignore";
     else if ( (change === "immunity") && options.downgrade?.has(type) ) mode = "downgrade";
 
-    let label = game.i18n.format(`DND5E.DamageApplication.Change.${change.capitalize()}`, {
-      type: CONFIG.DND5E.damageTypes[type]?.label ?? CONFIG.DND5E.healingTypes[type]?.label
+    let label = game.i18n.format(`ME5E.DamageApplication.Change.${change.capitalize()}`, {
+      type: CONFIG.ME5E.damageTypes[type]?.label ?? CONFIG.ME5E.healingTypes[type]?.label
     });
-    if ( mode === "ignore" ) label = game.i18n.format("DND5E.DamageApplication.Ignoring", { source: label });
-    if ( mode === "downgrade" ) label = game.i18n.format("DND5E.DamageApplication.Downgrading", { source: label });
+    if ( mode === "ignore" ) label = game.i18n.format("ME5E.DamageApplication.Ignoring", { source: label });
+    if ( mode === "downgrade" ) label = game.i18n.format("ME5E.DamageApplication.Downgrading", { source: label });
 
     return { label, pressed: mode === "active" ? "false" : mode === "ignore" ? "true" : "mixed" };
   }
@@ -271,7 +271,7 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
     const calculatedDamage = entry.querySelector(".calculated.damage");
     calculatedDamage.innerText = formatNumber(-total, { signDisplay: "exceptZero" });
     calculatedDamage.classList.toggle("healing", total < 0);
-    calculatedDamage.dataset.tooltip = `DND5E.${total < 0 ? "Healing" : "Damage"}`;
+    calculatedDamage.dataset.tooltip = `ME5E.${total < 0 ? "Healing" : "Damage"}`;
     calculatedDamage.hidden = !total && !!temp;
     const calculatedTemp = entry.querySelector(".calculated.temp");
     calculatedTemp.innerText = temp;
@@ -288,7 +288,7 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
     if ( thresholdButton && !active.threshold ) thresholdButton.remove();
     else if ( !thresholdButton && active.threshold ) {
       const button = this.getChangeSourceButton({
-        change: "threshold", icon: "systems/dnd5e/icons/svg/damage/threshold.svg", type: "threshold"
+        change: "threshold", icon: "systems/me5e/icons/svg/damage/threshold.svg", type: "threshold"
       }, this.getTargetOptions(entry.dataset.uuid));
       entry.querySelector(".subtitle").insertAdjacentHTML("beforeend", button);
     }
@@ -317,7 +317,7 @@ export default class DamageApplicationElement extends TargetedApplicationMixin(C
       const options = this.getTargetOptions(target.dataset.targetUuid);
       await token?.applyDamage(this.damages, { ...options, isDelta: true });
     }
-    if ( game.settings.get("dnd5e", "autoCollapseChatTrays") !== "manual" ) {
+    if ( game.settings.get("me5e", "autoCollapseChatTrays") !== "manual" ) {
       this.open = false;
     }
   }

@@ -28,15 +28,15 @@ export default class CalendarHUD extends BaseCalendarHUD {
   static PARTS = {
     startButtons: {
       classes: ["calendar-buttons"],
-      template: "systems/dnd5e/templates/apps/calendar-buttons.hbs"
+      template: "systems/me5e/templates/apps/calendar-buttons.hbs"
     },
     core: {
       classes: ["calendar-core"],
-      template: "systems/dnd5e/templates/apps/calendar-core.hbs"
+      template: "systems/me5e/templates/apps/calendar-core.hbs"
     },
     endButtons: {
       classes: ["calendar-buttons"],
-      template: "systems/dnd5e/templates/apps/calendar-buttons.hbs"
+      template: "systems/me5e/templates/apps/calendar-buttons.hbs"
     }
   };
 
@@ -91,13 +91,13 @@ export default class CalendarHUD extends BaseCalendarHUD {
         dataset: defaultTime,
         icon: "fa-solid fa-angles-left",
         position: "start",
-        tooltip: game.i18n.format("DND5E.CALENDAR.Action.ReverseTime", { amount: defaultAmount }),
+        tooltip: game.i18n.format("ME5E.CALENDAR.Action.ReverseTime", { amount: defaultAmount }),
         visible: game.user.isGM,
         additional: CalendarHUD.TIME_CONTROL_VALUES.map(({ value, unit }) => ({
           action: "reverse",
           dataset: { value, unit },
           label: `-${formatTime(value, unit, { unitDisplay: "narrow" })}`,
-          tooltip: game.i18n.format("DND5E.CALENDAR.Action.ReverseTime", {
+          tooltip: game.i18n.format("ME5E.CALENDAR.Action.ReverseTime", {
             amount: formatTime(value, unit).titleCase()
           })
         }))
@@ -106,14 +106,14 @@ export default class CalendarHUD extends BaseCalendarHUD {
         action: "setDate",
         icon: "fa-solid fa-calendar-days",
         position: "start",
-        tooltip: game.i18n.localize("DND5E.CALENDAR.Action.SetDate"),
+        tooltip: game.i18n.localize("ME5E.CALENDAR.Action.SetDate"),
         visible: game.user.isGM
       },
       {
         action: "openCharacterSheet",
         icon: "fa-solid fa-user",
         position: "start",
-        tooltip: game.i18n.localize("DND5E.CALENDAR.Action.OpenCharacterSheet"),
+        tooltip: game.i18n.localize("ME5E.CALENDAR.Action.OpenCharacterSheet"),
         visible: !!game.user.character
       },
       {
@@ -121,13 +121,13 @@ export default class CalendarHUD extends BaseCalendarHUD {
         dataset: defaultTime,
         icon: "fa-solid fa-angles-right",
         position: "end",
-        tooltip: game.i18n.format("DND5E.CALENDAR.Action.AdvanceTime", { amount: defaultAmount }),
+        tooltip: game.i18n.format("ME5E.CALENDAR.Action.AdvanceTime", { amount: defaultAmount }),
         visible: game.user.isGM,
         additional: CalendarHUD.TIME_CONTROL_VALUES.map(({ value, unit }) => ({
           action: "advance",
           dataset: { value, unit },
           label: `+${formatTime(value, unit, { unitDisplay: "narrow" })}`,
-          tooltip: game.i18n.format("DND5E.CALENDAR.Action.AdvanceTime", {
+          tooltip: game.i18n.format("ME5E.CALENDAR.Action.AdvanceTime", {
             amount: formatTime(value, unit).titleCase()
           })
         }))
@@ -136,7 +136,7 @@ export default class CalendarHUD extends BaseCalendarHUD {
         action: "openPartySheet",
         icon: "fa-solid fa-users",
         position: "end",
-        tooltip: game.i18n.localize("DND5E.CALENDAR.Action.OpenPartySheet"),
+        tooltip: game.i18n.localize("ME5E.CALENDAR.Action.OpenPartySheet"),
         visible: game.actors.party?.testUserPermission(game.user, CONST.DOCUMENT_OWNERSHIP_LEVELS.LIMITED)
       }
     ];
@@ -162,7 +162,7 @@ export default class CalendarHUD extends BaseCalendarHUD {
     /**
      * A hook event that fires when preparing the buttons displayed around the calendar HUD. Buttons in each list
      * are sorted with those closest to the center first.
-     * @function dnd5e.prepareCalendarButtons
+     * @function me5e.prepareCalendarButtons
      * @memberof hookEvents
      * @param {CalendarHUD} app              The Calendar HUD application being rendered.
      * @param {CalendarHUDButton[]} buttons  Buttons displayed around the calendar UI.
@@ -170,7 +170,7 @@ export default class CalendarHUD extends BaseCalendarHUD {
     const controls = this._doEvent(this._getCalendarButtons, {
       async: false,
       debugText: "Calendar Control Buttons",
-      hookName: "dnd5e.prepareCalendarButtons",
+      hookName: "me5e.prepareCalendarButtons",
       hookResponse: true,
       parentClassHooks: false
     });
@@ -209,12 +209,12 @@ export default class CalendarHUD extends BaseCalendarHUD {
    * @param {CalendarTimeDeltas} [deltas={}]  Information on the time change deltas.
    */
   async renderCore(deltas={}) {
-    const prefs = game.settings.get("dnd5e", "calendarPreferences");
-    const dateFormatter = CONFIG.DND5E.calendar.formatters.find(f => f.value === prefs.formatters.date);
+    const prefs = game.settings.get("me5e", "calendarPreferences");
+    const dateFormatter = CONFIG.ME5E.calendar.formatters.find(f => f.value === prefs.formatters.date);
     this.element.querySelector(".calendar-date").innerText = dateFormatter ? game.time.calendar.format(
       game.time.components, dateFormatter.formatter
     ) : "";
-    const timeFormatter = CONFIG.DND5E.calendar.formatters.find(f => f.value === prefs.formatters.time);
+    const timeFormatter = CONFIG.ME5E.calendar.formatters.find(f => f.value === prefs.formatters.time);
     this.element.querySelector(".calendar-time").innerText = timeFormatter ? game.time.calendar.format(
       game.time.components, timeFormatter.formatter
     ) : "";
@@ -302,6 +302,6 @@ export default class CalendarHUD extends BaseCalendarHUD {
 
   /** @override */
   static onUpdateWorldTime(worldTime, deltaTime, options, userId) {
-    if ( this.shouldDisplay ) dnd5e.ui.calendar?.renderCore(options.dnd5e?.deltas);
+    if ( this.shouldDisplay ) me5e.ui.calendar?.renderCore(options.me5e?.deltas);
   }
 }

@@ -17,7 +17,7 @@ export default class DamagesConfig extends TraitsConfig {
   /** @override */
   static PARTS = {
     traits: {
-      template: "systems/dnd5e/templates/actors/config/damages-config.hbs"
+      template: "systems/me5e/templates/actors/config/damages-config.hbs"
     }
   };
 
@@ -27,7 +27,7 @@ export default class DamagesConfig extends TraitsConfig {
 
   /** @override */
   get otherLabel() {
-    return game.i18n.localize("DND5E.DamageTypes");
+    return game.i18n.localize("ME5E.DamageTypes");
   }
 
   /* -------------------------------------------- */
@@ -37,7 +37,7 @@ export default class DamagesConfig extends TraitsConfig {
   /** @inheritDoc */
   async _preparePartContext(partId, context, options) {
     context = await super._preparePartContext(partId, context, options);
-    context.bypasses = new SelectChoices(Object.entries(CONFIG.DND5E.itemProperties).reduce((obj, [k, v]) => {
+    context.bypasses = new SelectChoices(Object.entries(CONFIG.ME5E.itemProperties).reduce((obj, [k, v]) => {
       if ( v.isPhysical ) obj[k] = {
         label: v.label,
         chosen: context.data.bypasses.includes(k),
@@ -48,12 +48,12 @@ export default class DamagesConfig extends TraitsConfig {
     context.value = {};
     if ( this.options.trait === "dm" ) {
       context.choices.forEach((key, data) => data.chosen = context.data.amount[key] ?? "");
-      context.bypassHint = "DND5E.DamageModification.BypassHint";
-      context.hint = "DND5E.DamageModification.Hint";
+      context.bypassHint = "ME5E.DamageModification.BypassHint";
+      context.hint = "ME5E.DamageModification.Hint";
       context.value.field = new FormulaField({ determinstic: true });
       context.value.key = "amount";
     } else {
-      context.bypassHint = "DND5E.DamagePhysicalBypassHint";
+      context.bypassHint = "ME5E.DamagePhysicalBypassHint";
       context.value.field = context.checkbox;
       context.value.input = context.inputs.createCheckboxInput;
       context.value.key = "value";
@@ -66,7 +66,7 @@ export default class DamagesConfig extends TraitsConfig {
   /** @inheritDoc */
   _processChoice(data, key, choice, categoryChosen=false) {
     super._processChoice(data, key, choice, categoryChosen);
-    const config = CONFIG.DND5E.damageTypes[key];
+    const config = CONFIG.ME5E.damageTypes[key];
     if ( config ) choice.icon = { src: config.icon, svg: config.icon.endsWith(".svg") };
   }
 

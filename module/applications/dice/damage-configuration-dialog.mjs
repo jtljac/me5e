@@ -20,7 +20,7 @@ export default class DamageRollConfigurationDialog extends RollConfigurationDial
   static PARTS = {
     ...super.PARTS,
     formulas: {
-      template: "systems/dnd5e/templates/dice/damage-formulas.hbs"
+      template: "systems/me5e/templates/dice/damage-formulas.hbs"
     }
   };
 
@@ -43,12 +43,12 @@ export default class DamageRollConfigurationDialog extends RollConfigurationDial
       critical: {
         default: defaultCritical,
         icon: '<i class="fa-solid fa-bomb" inert></i>',
-        label: game.i18n.localize("DND5E.CriticalHit")
+        label: game.i18n.localize("ME5E.CriticalHit")
       },
       normal: {
         default: !defaultCritical,
         icon: '<i class="fa-solid fa-dice" inert></i>',
-        label: game.i18n.localize(allowCritical ? "DND5E.Normal" : "DND5E.Roll")
+        label: game.i18n.localize(allowCritical ? "ME5E.Normal" : "ME5E.Roll")
       }
     };
     if ( !allowCritical ) delete context.buttons.critical;
@@ -60,7 +60,7 @@ export default class DamageRollConfigurationDialog extends RollConfigurationDial
   /** @inheritDoc */
   async _prepareFormulasContext(context, options) {
     context = await super._prepareFormulasContext(context, options);
-    const allTypes = foundry.utils.mergeObject(CONFIG.DND5E.damageTypes, CONFIG.DND5E.healingTypes, { inplace: false });
+    const allTypes = foundry.utils.mergeObject(CONFIG.ME5E.damageTypes, CONFIG.ME5E.healingTypes, { inplace: false });
     context.rolls = context.rolls.map(({ roll }) => ({
       roll,
       damageConfig: allTypes[roll.options.type] ?? allTypes[roll.options.types?.[0]],

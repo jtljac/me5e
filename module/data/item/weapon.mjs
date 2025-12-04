@@ -47,7 +47,7 @@ export default class WeaponData extends ItemDataModel.mixin(
   /* -------------------------------------------- */
 
   /** @override */
-  static LOCALIZATION_PREFIXES = ["DND5E.WEAPON", "DND5E.VEHICLE.MOUNTABLE", "DND5E.RANGE", "DND5E.SOURCE"];
+  static LOCALIZATION_PREFIXES = ["ME5E.WEAPON", "ME5E.VEHICLE.MOUNTABLE", "ME5E.RANGE", "ME5E.SOURCE"];
 
   /* -------------------------------------------- */
 
@@ -64,11 +64,11 @@ export default class WeaponData extends ItemDataModel.mixin(
         base: new DamageField(),
         versatile: new DamageField()
       }),
-      magicalBonus: new NumberField({ min: 0, integer: true, label: "DND5E.MagicalBonus" }),
+      magicalBonus: new NumberField({ min: 0, integer: true, label: "ME5E.MagicalBonus" }),
       mastery: new StringField(),
-      properties: new SetField(new StringField(), { label: "DND5E.ItemWeaponProperties" }),
+      properties: new SetField(new StringField(), { label: "ME5E.ItemWeaponProperties" }),
       proficient: new NumberField({
-        required: true, min: 0, max: 1, integer: true, initial: null, label: "DND5E.ProficiencyLevel"
+        required: true, min: 0, max: 1, integer: true, initial: null, label: "ME5E.ProficiencyLevel"
       }),
       range: new SchemaField({
         value: new NumberField({ min: 0 }),
@@ -76,7 +76,7 @@ export default class WeaponData extends ItemDataModel.mixin(
         reach: new NumberField({ min: 0 }),
         units: new StringField({ required: true, blank: false, initial: () => defaultUnits("length") })
       }),
-      type: new ItemTypeField({ value: "simpleM", subtype: false }, {label: "DND5E.ItemWeaponType"})
+      type: new ItemTypeField({ value: "simpleM", subtype: false }, {label: "ME5E.ItemWeaponType"})
     });
   }
 
@@ -94,18 +94,18 @@ export default class WeaponData extends ItemDataModel.mixin(
   static get compendiumBrowserFilters() {
     return new Map([
       ["type", {
-        label: "DND5E.ItemWeaponType",
+        label: "ME5E.ItemWeaponType",
         type: "set",
         config: {
-          choices: CONFIG.DND5E.weaponTypes,
+          choices: CONFIG.ME5E.weaponTypes,
           keyPath: "system.type.value"
         }
       }],
       ["mastery", {
-        label: "DND5E.WEAPON.Mastery.Label",
+        label: "ME5E.WEAPON.Mastery.Label",
         type: "set",
         config: {
-          choices: CONFIG.DND5E.weaponMasteries,
+          choices: CONFIG.ME5E.weaponMasteries,
           keyPath: "system.mastery"
         }
       }],
@@ -160,7 +160,7 @@ export default class WeaponData extends ItemDataModel.mixin(
    * @type {"weapon"|"unarmed"}
    */
   get attackClassification() {
-    return CONFIG.DND5E.weaponClassificationMap[this.type.value] ?? "weapon";
+    return CONFIG.ME5E.weaponClassificationMap[this.type.value] ?? "weapon";
   }
 
   /* -------------------------------------------- */
@@ -173,38 +173,38 @@ export default class WeaponData extends ItemDataModel.mixin(
     if ( !(this.properties.has("thr") && (this.attackType === "ranged")) ) {
       // Weapons without the "Two-Handed" property or with the "Versatile" property will have One-Handed attack
       if ( this.isVersatile || !this.properties.has("two") ) modes.push({
-        value: "oneHanded", label: CONFIG.DND5E.attackModes.oneHanded.label
+        value: "oneHanded", label: CONFIG.ME5E.attackModes.oneHanded.label
       });
 
       // Weapons with the "Two-Handed" property or with the "Versatile" property will have Two-Handed attack
       if ( this.isVersatile || this.properties.has("two") ) modes.push({
-        value: "twoHanded", label: CONFIG.DND5E.attackModes.twoHanded.label
+        value: "twoHanded", label: CONFIG.ME5E.attackModes.twoHanded.label
       });
     }
 
-    const isLight = this.properties.has("lgt") || (this.parent.actor?.getFlag("dnd5e", "enhancedDualWielding")
+    const isLight = this.properties.has("lgt") || (this.parent.actor?.getFlag("me5e", "enhancedDualWielding")
       && ((this.attackType === "melee") && !this.properties.has("two")));
 
     // Weapons with the "Light" property will have Offhand attack
     // If player has the "Enhanced Dual Wielding" flag, then allow any melee weapon without the "Two-Handed" property
     if ( isLight ) modes.push({
-      value: "offhand", label: CONFIG.DND5E.attackModes.offhand.label
+      value: "offhand", label: CONFIG.ME5E.attackModes.offhand.label
     });
 
     // Weapons with the "Thrown" property will have Thrown attack
     if ( this.properties.has("thr") ) {
       if ( modes.length ) modes.push({ rule: true });
-      modes.push({ value: "thrown", label: CONFIG.DND5E.attackModes.thrown.label });
+      modes.push({ value: "thrown", label: CONFIG.ME5E.attackModes.thrown.label });
 
       // Weapons with the "Thrown" & "Light" properties will have an Offhand Throw attack
       if ( isLight ) modes.push({
-        value: "thrown-offhand", label: CONFIG.DND5E.attackModes["thrown-offhand"].label
+        value: "thrown-offhand", label: CONFIG.ME5E.attackModes["thrown-offhand"].label
       });
     }
 
     else if ( !this.attackType && ((this.range.value ?? 0) > (this.range.reach ?? 0)) ) {
       if ( modes.length ) modes.push({ rule: true });
-      modes.push({ value: "ranged", label: CONFIG.DND5E.attackModes.ranged.label });
+      modes.push({ value: "ranged", label: CONFIG.ME5E.attackModes.ranged.label });
     }
 
     return modes;
@@ -217,15 +217,15 @@ export default class WeaponData extends ItemDataModel.mixin(
    * @type {"melee"|"ranged"|null}
    */
   get attackType() {
-    return CONFIG.DND5E.weaponTypeMap[this.type.value] ?? null;
+    return CONFIG.ME5E.weaponTypeMap[this.type.value] ?? null;
   }
 
   /* -------------------------------------------- */
 
   /** @override */
   get availableAbilities() {
-    const melee = CONFIG.DND5E.defaultAbilities.meleeAttack;
-    const ranged = CONFIG.DND5E.defaultAbilities.rangedAttack;
+    const melee = CONFIG.ME5E.defaultAbilities.meleeAttack;
+    const ranged = CONFIG.ME5E.defaultAbilities.rangedAttack;
     if ( this.properties.has("fin") || (this.type.value === "natural") ) return new Set([melee, ranged]);
     if ( !this.attackType ) return null;
     return new Set([this.attackType === "melee" ? melee : ranged]);
@@ -240,7 +240,7 @@ export default class WeaponData extends ItemDataModel.mixin(
   get chatProperties() {
     return [
       this.type.label,
-      CONFIG.DND5E.weaponMasteries[this.mastery]?.label,
+      CONFIG.ME5E.weaponMasteries[this.mastery]?.label,
       this.isMountable ? (this.parent.labels?.armor ?? null) : null
     ];
   }
@@ -274,7 +274,7 @@ export default class WeaponData extends ItemDataModel.mixin(
 
   /** @override */
   get criticalThreshold() {
-    return this.parent?.actor?.flags.dnd5e?.weaponCriticalThreshold ?? Infinity;
+    return this.parent?.actor?.flags.me5e?.weaponCriticalThreshold ?? Infinity;
   }
 
   /* -------------------------------------------- */
@@ -303,7 +303,7 @@ export default class WeaponData extends ItemDataModel.mixin(
 
   /** @override */
   static get itemCategories() {
-    return CONFIG.DND5E.weaponTypes;
+    return CONFIG.ME5E.weaponTypes;
   }
 
   /* -------------------------------------------- */
@@ -329,11 +329,11 @@ export default class WeaponData extends ItemDataModel.mixin(
     const extras = [];
     for ( const mastery of this.parent.actor.system.traits.weaponProf.mastery.bonus ?? [] ) {
       if ( mastery === this.mastery ) continue;
-      extras.push({ value: mastery, label: CONFIG.DND5E.weaponMasteries[mastery]?.label ?? mastery });
+      extras.push({ value: mastery, label: CONFIG.ME5E.weaponMasteries[mastery]?.label ?? mastery });
     }
     return [{
       value: this.mastery,
-      label: CONFIG.DND5E.weaponMasteries[this.mastery]?.label ?? this.mastery,
+      label: CONFIG.ME5E.weaponMasteries[this.mastery]?.label ?? this.mastery,
       rule: !!extras.length
     }, ...extras];
   }
@@ -359,11 +359,11 @@ export default class WeaponData extends ItemDataModel.mixin(
     const actor = this.parent.actor;
     if ( !actor ) return 0;
     if ( actor.type === "npc" ) return 1; // NPCs are always considered proficient with any weapon in their stat block.
-    const config = CONFIG.DND5E.weaponProficienciesMap;
+    const config = CONFIG.ME5E.weaponProficienciesMap;
     const itemProf = config[this.type.value];
     const actorProfs = actor.system.traits?.weaponProf?.value ?? new Set();
     const natural = this.type.value === "natural";
-    const improvised = (this.type.value === "improv") && !!actor.getFlag("dnd5e", "tavernBrawlerFeat");
+    const improvised = (this.type.value === "improv") && !!actor.getFlag("me5e", "tavernBrawlerFeat");
     const isProficient = natural || improvised || actorProfs.has(itemProf) || actorProfs.has(this.type.baseItem);
     return Number(isProficient);
   }
@@ -372,7 +372,7 @@ export default class WeaponData extends ItemDataModel.mixin(
 
   /** @inheritDoc */
   get tooltipSubtitle() {
-    return [...super.tooltipSubtitle, CONFIG.DND5E.weaponMasteries[this.mastery]?.label];
+    return [...super.tooltipSubtitle, CONFIG.ME5E.weaponMasteries[this.mastery]?.label];
   }
 
   /* -------------------------------------------- */
@@ -453,7 +453,7 @@ export default class WeaponData extends ItemDataModel.mixin(
   static #migrateReach(source) {
     if ( !source.properties || !source.range?.value || !source.type?.value
       || (source.range?.reach !== undefined) ) return;
-    if ( (CONFIG.DND5E.weaponTypeMap[source.type.value] !== "melee") || source.properties.includes("thr") ) return;
+    if ( (CONFIG.ME5E.weaponTypeMap[source.type.value] !== "melee") || source.properties.includes("thr") ) return;
     // Range of `0` or greater than `10` is always included, and so is range longer than `5` without reach property
     if ( (source.range.value === 0) || (source.range.value > 10)
       || (!source.properties.includes("rch") && (source.range.value > 5)) ) {
@@ -473,14 +473,14 @@ export default class WeaponData extends ItemDataModel.mixin(
     this.prepareIdentifiable();
     this.preparePhysicalData();
     this.prepareMountableData();
-    this.type.label = CONFIG.DND5E.weaponTypes[this.type.value] ?? game.i18n.localize(CONFIG.Item.typeLabels.weapon);
-    this.type.identifier = CONFIG.DND5E.weaponIds[this.type.baseItem];
+    this.type.label = CONFIG.ME5E.weaponTypes[this.type.value] ?? game.i18n.localize(CONFIG.Item.typeLabels.weapon);
+    this.type.identifier = CONFIG.ME5E.weaponIds[this.type.baseItem];
 
     const labels = this.parent.labels ??= {};
-    labels.armor = this.armor.value ? `${this.armor.value} ${game.i18n.localize("DND5E.AC")}` : "";
+    labels.armor = this.armor.value ? `${this.armor.value} ${game.i18n.localize("ME5E.AC")}` : "";
     labels.damage = this.damage.base.formula;
     labels.damageTypes = game.i18n.getListFormatter({ style: "narrow" }).format(
-      Array.from(this.damage.base.types).map(t => CONFIG.DND5E.damageTypes[t]?.label).filter(t => t)
+      Array.from(this.damage.base.types).map(t => CONFIG.ME5E.damageTypes[t]?.label).filter(t => t)
     );
 
     if ( this.attackType === "ranged" ) this.range.reach = null;
@@ -501,7 +501,7 @@ export default class WeaponData extends ItemDataModel.mixin(
     units ??= defaultUnits("length");
     if ( this.hasRange ) labels.range = !long || (long === value) ? formatLength(value, units)
       : `${formatNumber(value)}/${formatLength(long, units)}`;
-    if ( reach ) labels.reach = game.i18n.format("DND5E.RANGE.Formatted.Reach", { reach: formatLength(reach, units) });
+    if ( reach ) labels.reach = game.i18n.format("ME5E.RANGE.Formatted.Reach", { reach: formatLength(reach, units) });
   }
 
   /* -------------------------------------------- */
@@ -509,7 +509,7 @@ export default class WeaponData extends ItemDataModel.mixin(
   /** @inheritDoc */
   async getFavoriteData() {
     return foundry.utils.mergeObject(await super.getFavoriteData(), {
-      subtitle: CONFIG.DND5E.itemActionTypes[this.activities.contents[0]?.actionType],
+      subtitle: CONFIG.ME5E.itemActionTypes[this.activities.contents[0]?.actionType],
       modifier: this.parent.labels.modifier,
       range: this.range
     });
@@ -526,26 +526,26 @@ export default class WeaponData extends ItemDataModel.mixin(
     ];
 
     context.info = [{
-      label: "DND5E.ToHit",
+      label: "ME5E.ToHit",
       classes: "info-lg",
-      value: dnd5e.utils.formatModifier(parseInt(this.parent.labels.modifier))
+      value: me5e.utils.formatModifier(parseInt(this.parent.labels.modifier))
     }];
     if ( this.parent.labels.damages?.length ) {
-      const config = { ...CONFIG.DND5E.damageTypes, ...CONFIG.DND5E.healingTypes };
+      const config = { ...CONFIG.ME5E.damageTypes, ...CONFIG.ME5E.healingTypes };
       context.info.push({ value: this.parent.labels.damages.reduce((str, { formula, damageType, firstDamage }) => {
         if ( !firstDamage ) return str;
         const type = config[damageType];
         return `${str}
           <span class="formula">${formula}</span>
           ${type ? `<span class="damage-type" data-tooltip aria-label="${type.label}">
-            <dnd5e-icon src="${type.icon}"></dnd5e-icon>
+            <me5e-icon src="${type.icon}"></me5e-icon>
           </span>` : ""}
         `;
       }, ""), classes: "info-grid damage" });
     }
 
-    context.parts = ["dnd5e.details-weapon", "dnd5e.field-uses"];
-    context.damageTypes = Object.entries(CONFIG.DND5E.damageTypes).map(([value, { label }]) => {
+    context.parts = ["me5e.details-weapon", "me5e.field-uses"];
+    context.damageTypes = Object.entries(CONFIG.ME5E.damageTypes).map(([value, { label }]) => {
       return {
         value, label,
         selected: context.source.damage.base.types.includes?.(value) ?? context.source.damage.base.types.has(value)
@@ -554,7 +554,7 @@ export default class WeaponData extends ItemDataModel.mixin(
     const makeDenominationOptions = placeholder => [
       { value: "", label: placeholder ? `d${placeholder}` : "" },
       { rule: true },
-      ...CONFIG.DND5E.dieSteps.map(value => ({ value, label: `d${value}` }))
+      ...CONFIG.ME5E.dieSteps.map(value => ({ value, label: `d${value}` }))
     ];
     context.denominationOptions = {
       base: makeDenominationOptions(),
@@ -572,7 +572,7 @@ export default class WeaponData extends ItemDataModel.mixin(
     await this.preCreateEquipped(data, options, user);
     if ( this.activities.size ) return;
 
-    const activityData = new CONFIG.DND5E.activityTypes.attack.documentClass({}, { parent: this.parent }).toObject();
+    const activityData = new CONFIG.ME5E.activityTypes.attack.documentClass({}, { parent: this.parent }).toObject();
     this.parent.updateSource({ [`system.activities.${activityData._id}`]: activityData });
   }
 

@@ -19,7 +19,7 @@ export default class MovementSensesConfig extends BaseConfigSheet {
   /** @override */
   static PARTS = {
     config: {
-      template: "systems/dnd5e/templates/shared/config/movement-senses-config.hbs"
+      template: "systems/me5e/templates/shared/config/movement-senses-config.hbs"
     }
   };
 
@@ -41,7 +41,7 @@ export default class MovementSensesConfig extends BaseConfigSheet {
 
   /** @override */
   get title() {
-    return game.i18n.localize(this.options.type === "movement" ? "DND5E.Movement" : "DND5E.Senses");
+    return game.i18n.localize(this.options.type === "movement" ? "ME5E.Movement" : "ME5E.Senses");
   }
 
   /* -------------------------------------------- */
@@ -51,8 +51,8 @@ export default class MovementSensesConfig extends BaseConfigSheet {
    * @type {string}
    */
   get types() {
-    if ( this.options.type === "senses" ) return Object.keys(CONFIG.DND5E.senses);
-    return Object.keys(CONFIG.DND5E.movementTypes);
+    if ( this.options.type === "senses" ) return Object.keys(CONFIG.ME5E.senses);
+    return Object.keys(CONFIG.ME5E.movementTypes);
   }
 
   /* -------------------------------------------- */
@@ -84,13 +84,13 @@ export default class MovementSensesConfig extends BaseConfigSheet {
         placeholder: placeholderData?.[key] ?? ""
       }));
 
-      context.unitsOptions = Object.entries(CONFIG.DND5E.movementUnits).map(([value, { label }]) => ({ value, label }));
+      context.unitsOptions = Object.entries(CONFIG.ME5E.movementUnits).map(([value, { label }]) => ({ value, label }));
       context.unitsOptions.blank = false;
       if ( (this.document.type === "character") || ((this.document.type === "npc") && placeholderData) ) {
-        const automaticUnit = CONFIG.DND5E.movementUnits[placeholderData?.units ?? defaultUnits("length")]?.label ?? "";
+        const automaticUnit = CONFIG.ME5E.movementUnits[placeholderData?.units ?? defaultUnits("length")]?.label ?? "";
         context.unitsOptions.blank = true;
         context.unitsOptions.unshift(
-          { value: "", label: game.i18n.format("DND5E.AutomaticValue", { value: automaticUnit.toLowerCase() }) },
+          { value: "", label: game.i18n.format("ME5E.AutomaticValue", { value: automaticUnit.toLowerCase() }) },
           { rule: true }
         );
       }
@@ -126,11 +126,11 @@ export default class MovementSensesConfig extends BaseConfigSheet {
       field: context.fields.ignoredDifficultTerrain,
       value: context.data.ignoredDifficultTerrain,
       options: [
-        { value: "all", label: game.i18n.localize("DND5E.REGIONBEHAVIORS.DIFFICULTTERRAIN.Type.All") },
-        { value: "magical", label: game.i18n.localize("DND5E.REGIONBEHAVIORS.DIFFICULTTERRAIN.Type.Magical") },
-        { value: "nonmagical", label: game.i18n.localize("DND5E.REGIONBEHAVIORS.DIFFICULTTERRAIN.Type.Nonmagical") },
+        { value: "all", label: game.i18n.localize("ME5E.REGIONBEHAVIORS.DIFFICULTTERRAIN.Type.All") },
+        { value: "magical", label: game.i18n.localize("ME5E.REGIONBEHAVIORS.DIFFICULTTERRAIN.Type.Magical") },
+        { value: "nonmagical", label: game.i18n.localize("ME5E.REGIONBEHAVIORS.DIFFICULTTERRAIN.Type.Nonmagical") },
         { rule: true },
-        ...Object.entries(CONFIG.DND5E.difficultTerrainTypes).map(([value, { label }]) => ({ value, label }))
+        ...Object.entries(CONFIG.ME5E.difficultTerrainTypes).map(([value, { label }]) => ({ value, label }))
       ],
       localize: true
     });
@@ -153,9 +153,9 @@ export default class MovementSensesConfig extends BaseConfigSheet {
       data,
       extras: [],
       fields: this.document.system.schema.getField(keyPath).fields,
-      unitsOptions: Object.entries(CONFIG.DND5E.travelUnits).map(([value, { label }]) => ({ value, label }))
+      unitsOptions: Object.entries(CONFIG.ME5E.travelUnits).map(([value, { label }]) => ({ value, label }))
     };
-    context.travel.types = Object.entries(CONFIG.DND5E.travelTypes).map(([key, config]) => ({
+    context.travel.types = Object.entries(CONFIG.ME5E.travelTypes).map(([key, config]) => ({
       label: config.label,
       pace: {
         field: context.travel.fields.paces.model,
@@ -173,7 +173,7 @@ export default class MovementSensesConfig extends BaseConfigSheet {
     if ( context.travel.fields.pace ) context.travel.extras.push({
       field: context.travel.fields.pace,
       localize: true,
-      options: Object.entries(CONFIG.DND5E.travelPace).map(([value, { label }]) => ({ value, label })),
+      options: Object.entries(CONFIG.ME5E.travelPace).map(([value, { label }]) => ({ value, label })),
       value: data.pace
     });
     if ( context.travel.fields.time ) context.travel.extras.push({
@@ -181,6 +181,6 @@ export default class MovementSensesConfig extends BaseConfigSheet {
       localize: true,
       value: data.time
     });
-    if ( context.fields ) context.legend = game.i18n.localize("DND5E.MOVEMENT.Speed");
+    if ( context.fields ) context.legend = game.i18n.localize("ME5E.MOVEMENT.Speed");
   }
 }

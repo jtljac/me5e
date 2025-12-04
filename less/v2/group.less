@@ -2,12 +2,12 @@
 /*  Basic Structure                   */
 /* ---------------------------------- */
 
-.dnd5e2.sheet.actor.group {
-  --dnd5e-sheet-header-height: calc(var(--header-height) + 164px);
+.me5e2.sheet.actor.group {
+  --me5e-sheet-header-height: calc(var(--header-height) + 164px);
 
   &:not(.minimized)::before {
-    content: var(--dnd5e-group-header-content, none);
-    background: var(--dnd5e-group-header-image) no-repeat bottom center / cover;
+    content: var(--me5e-group-header-content, none);
+    background: var(--me5e-group-header-image) no-repeat bottom center / cover;
     position: absolute;
     inset: 0 0 auto 0;
     height: 255px;
@@ -79,7 +79,7 @@
     .document-name {
       --input-background-color: var(--npc-header-input-background);
       font-size: var(--font-size-46);
-      font-family: var(--dnd5e-font-modesto);
+      font-family: var(--me5e-font-modesto);
       font-weight: bold;
       text-align: center;
     }
@@ -144,8 +144,8 @@
       &.xp .value { font-size: var(--font-size-14); }
 
       input {
-        --input-background-color: var(--dnd5e-background-5);
-        font-family: var(--dnd5e-font-roboto);
+        --input-background-color: var(--me5e-background-5);
+        font-family: var(--me5e-font-roboto);
         font-weight: normal;
         height: unset;
         font-size: var(--font-size-12);
@@ -223,7 +223,7 @@
       }
 
       .name {
-        font-family: var(--dnd5e-font-roboto-slab);
+        font-family: var(--me5e-font-roboto-slab);
         font-weight: bold;
         font-size: var(--font-size-14);
 
@@ -238,12 +238,12 @@
           width: 24px;
           height: 24px;
           border-radius: 4px;
-          border: var(--dnd5e-border-gold);
-          box-shadow: 0 0 6px var(--dnd5e-shadow-45);
+          border: var(--me5e-border-gold);
+          box-shadow: 0 0 6px var(--me5e-shadow-45);
           cursor: var(--cursor-pointer);
           transition: all 250ms ease;
 
-          &:hover { box-shadow: 0 0 6px var(--dnd5e-color-gold); }
+          &:hover { box-shadow: 0 0 6px var(--me5e-color-gold); }
         }
       }
 
@@ -263,14 +263,14 @@
         font-size: var(--font-size-18);
         --fa-primary-color: black;
         --fa-secondary-opacity: 1;
-        --fa-secondary-color: var(--dnd5e-color-gold);
+        --fa-secondary-color: var(--me5e-color-gold);
       }
     }
 
     div.stats {
       display: flex;
       justify-content: center;
-      border: var(--dnd5e-border-gold);
+      border: var(--me5e-border-gold);
       border-radius: 4px;
       padding-block: 8px;
 
@@ -289,7 +289,7 @@
         &:first-child {
           flex: 2;
           gap: 8px;
-          border-right: var(--dnd5e-border-gold);
+          border-right: var(--me5e-border-gold);
         }
 
         &:last-child { flex: 3; }
@@ -311,7 +311,7 @@
         .value { font-size: var(--font-size-16); }
 
         .value, .skill {
-          font-family: var(--dnd5e-font-roboto-slab);
+          font-family: var(--me5e-font-roboto-slab);
           font-weight: bold;
         }
 
@@ -377,7 +377,7 @@
         gap: 4px;
 
         .name {
-          font-family: var(--dnd5e-font-roboto-condensed);
+          font-family: var(--me5e-font-roboto-condensed);
           font-size: var(--font-size-12);
           font-weight: bold;
         }
@@ -406,7 +406,7 @@
           height: 100%;
           object-fit: cover;
           object-position: top center;
-          background: var(--dnd5e-background-alt-1);
+          background: var(--me5e-background-alt-1);
         }
       }
     }
@@ -445,7 +445,7 @@
 /*  Biography                         */
 /* ---------------------------------- */
 
-.dnd5e2.sheet.actor {
+.me5e2.sheet.actor {
   &.group, &.encounter {
     .tab[data-tab=biography], .tab[data-tab=description] {
       padding-block: 8px;
@@ -485,7 +485,7 @@
 /*  Limited                                     */
 /* -------------------------------------------- */
 
-.dnd5e2.sheet.actor {
+.me5e2.sheet.actor {
   &.group.limited {
     &:not(.minimized, .minimizing, .maximizing) {
       min-width: 600px;

@@ -26,7 +26,7 @@ export default class FacilityData extends ItemDataModel.mixin(ActivitiesTemplate
   /* -------------------------------------------- */
 
   /** @override */
-  static LOCALIZATION_PREFIXES = ["DND5E.FACILITY", "DND5E.SOURCE"];
+  static LOCALIZATION_PREFIXES = ["ME5E.FACILITY", "ME5E.SOURCE"];
 
   /* -------------------------------------------- */
 
@@ -86,23 +86,23 @@ export default class FacilityData extends ItemDataModel.mixin(ActivitiesTemplate
 
   /** @override */
   static get compendiumBrowserFilters() {
-    const { basic, special } = CONFIG.DND5E.facilities.advancement;
+    const { basic, special } = CONFIG.ME5E.facilities.advancement;
     const min = Math.min(...Object.keys(basic), ...Object.keys(special));
     return new Map([
       ["level", {
-        label: "DND5E.FACILITY.FIELDS.level.label",
+        label: "ME5E.FACILITY.FIELDS.level.label",
         type: "range",
         config: {
           keyPath: "system.level",
           min,
-          max: CONFIG.DND5E.maxLevel
+          max: CONFIG.ME5E.maxLevel
         }
       }],
       ["type", {
-        label: "DND5E.FACILITY.FIELDS.type.value.label",
+        label: "ME5E.FACILITY.FIELDS.type.value.label",
         type: "set",
         config: {
-          choices: Object.fromEntries(Object.entries(CONFIG.DND5E.facilities.types).map(([k, v]) => [k, v.label])),
+          choices: Object.fromEntries(Object.entries(CONFIG.ME5E.facilities.types).map(([k, v]) => [k, v.label])),
           keyPath: "system.type.value"
         }
       }]
@@ -123,8 +123,8 @@ export default class FacilityData extends ItemDataModel.mixin(ActivitiesTemplate
     const activity = new OrderActivity({
       order,
       _id: staticID(id),
-      name: game.i18n.format("DND5E.FACILITY.Order.Issue", {
-        order: game.i18n.localize(`DND5E.FACILITY.Orders.${order}.inf`)
+      name: game.i18n.format("ME5E.FACILITY.Order.Issue", {
+        order: game.i18n.localize(`ME5E.FACILITY.Orders.${order}.inf`)
       })
     }, { parent: this.parent });
     this.activities.set(activity.id, activity);
@@ -140,12 +140,12 @@ export default class FacilityData extends ItemDataModel.mixin(ActivitiesTemplate
     else this.building.built = true;
 
     // Activities
-    if ( (this.type.value === "special") && this.order ) this._createOrderActivity("dnd5eFacOrder", this.order);
-    if ( this.enlargeable ) this._createOrderActivity("dnd5eFacEnlarge", "enlarge");
-    if ( !this.building.built ) this._createOrderActivity("dnd5eFacBuild", "build");
+    if ( (this.type.value === "special") && this.order ) this._createOrderActivity("me5eFacOrder", this.order);
+    if ( this.enlargeable ) this._createOrderActivity("me5eFacEnlarge", "enlarge");
+    if ( !this.building.built ) this._createOrderActivity("me5eFacBuild", "build");
 
     // TODO: Allow order activities to be user-creatable and configurable to avoid having to hard-code this.
-    if ( this.type.subtype === "garden" ) this._createOrderActivity("dnd5eFacChange", "change");
+    if ( this.type.subtype === "garden" ) this._createOrderActivity("me5eFacChange", "change");
   }
 
   /* -------------------------------------------- */
@@ -156,17 +156,17 @@ export default class FacilityData extends ItemDataModel.mixin(ActivitiesTemplate
     this.prepareDescriptionData();
 
     // Type
-    const config = CONFIG.DND5E.facilities.types[this.type.value];
+    const config = CONFIG.ME5E.facilities.types[this.type.value];
     this.type.label = config?.subtypes?.[this.type.subtype] ?? config?.label;
 
     // Price
     if ( this.type.value === "basic" ) {
-      const { value, days } = CONFIG.DND5E.facilities.sizes[this.size];
+      const { value, days } = CONFIG.ME5E.facilities.sizes[this.size];
       this.price = { value, days, denomination: "gp" };
     }
 
     // Squares
-    this.squares = CONFIG.DND5E.facilities.sizes[this.size].squares;
+    this.squares = CONFIG.ME5E.facilities.sizes[this.size].squares;
 
     // Progress
     if ( this.progress.max ) {
@@ -184,7 +184,7 @@ export default class FacilityData extends ItemDataModel.mixin(ActivitiesTemplate
 
     // Labels
     const labels = this.parent.labels ??= {};
-    if ( this.order ) labels.order = game.i18n.localize(`DND5E.FACILITY.Orders.${this.order}.present`);
+    if ( this.order ) labels.order = game.i18n.localize(`ME5E.FACILITY.Orders.${this.order}.present`);
   }
 
   /* -------------------------------------------- */
@@ -201,12 +201,12 @@ export default class FacilityData extends ItemDataModel.mixin(ActivitiesTemplate
     context.singleDescription = true;
     context.subtitles = [
       { label: this.type.label },
-      { label: CONFIG.DND5E.facilities.sizes[this.size].label }
+      { label: CONFIG.ME5E.facilities.sizes[this.size].label }
     ];
 
-    context.parts = ["dnd5e.details-facility"];
-    context.facilitySubtypes = CONFIG.DND5E.facilities.types[this.type.value]?.subtypes ?? {};
-    context.orders = Object.entries(CONFIG.DND5E.facilities.orders).reduce((obj, [value, config]) => {
+    context.parts = ["me5e.details-facility"];
+    context.facilitySubtypes = CONFIG.ME5E.facilities.types[this.type.value]?.subtypes ?? {};
+    context.orders = Object.entries(CONFIG.ME5E.facilities.orders).reduce((obj, [value, config]) => {
       const { label, basic, hidden } = config;
       if ( hidden ) return obj;
       // TODO: More hard-coding that we can potentially avoid.
@@ -249,7 +249,7 @@ export default class FacilityData extends ItemDataModel.mixin(ActivitiesTemplate
     if ( (await super._preCreate(data, options, user)) === false ) return false;
     const actor = this.parent?.parent;
     if ( !actor ) return;
-    const { basic } = CONFIG.DND5E.facilities.advancement;
+    const { basic } = CONFIG.ME5E.facilities.advancement;
     const [, available = 0] = Object.entries(basic).reverse()
       .find(([level]) => level <= actor.system.details.level) ?? [];
     const existing = actor.itemTypes.facility.filter(f => f.system.type.value === "basic").length;

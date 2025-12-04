@@ -21,7 +21,7 @@ export default class TraitsConfig extends BaseConfigSheet {
   /** @override */
   static PARTS = {
     traits: {
-      template: "systems/dnd5e/templates/actors/config/traits-config.hbs"
+      template: "systems/me5e/templates/actors/config/traits-config.hbs"
     }
   };
 
@@ -41,7 +41,7 @@ export default class TraitsConfig extends BaseConfigSheet {
    * @type {string}
    */
   get otherLabel() {
-    return game.i18n.localize("DND5E.ProficiencyOther");
+    return game.i18n.localize("ME5E.ProficiencyOther");
   }
 
   /* -------------------------------------------- */
@@ -51,8 +51,8 @@ export default class TraitsConfig extends BaseConfigSheet {
   /** @inheritDoc */
   _initializeApplicationOptions(options) {
     options = super._initializeApplicationOptions(options);
-    if ( !CONFIG.DND5E.traits[options.trait] ) throw new Error(
-      `Cannot instantiate TraitsConfig with a trait not defined in CONFIG.DND5E.traits: ${options.trait}.`
+    if ( !CONFIG.ME5E.traits[options.trait] ) throw new Error(
+      `Cannot instantiate TraitsConfig with a trait not defined in CONFIG.ME5E.traits: ${options.trait}.`
     );
     options.uniqueId = `${options.trait}-${options.document.uuid}`.replace(/\./g, "-");
     return options;
@@ -130,7 +130,7 @@ export default class TraitsConfig extends BaseConfigSheet {
   /** @inheritDoc */
   _processFormData(event, form, formData) {
     const submitData = super._processFormData(event, form, formData);
-    if ( !CONFIG.DND5E.traits[this.options.trait].dataType ) {
+    if ( !CONFIG.ME5E.traits[this.options.trait].dataType ) {
       this._filterData(submitData, `${Trait.actorKeyPath(this.options.trait)}.value`);
     }
     return submitData;

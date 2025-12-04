@@ -18,7 +18,7 @@ export default class ArmorClassConfig extends BaseConfigSheet {
   /** @override */
   static PARTS = {
     config: {
-      template: "systems/dnd5e/templates/actors/config/armor-class-config.hbs"
+      template: "systems/me5e/templates/actors/config/armor-class-config.hbs"
     }
   };
 
@@ -28,7 +28,7 @@ export default class ArmorClassConfig extends BaseConfigSheet {
 
   /** @override */
   get title() {
-    return game.i18n.localize("DND5E.ArmorClass");
+    return game.i18n.localize("ME5E.ArmorClass");
   }
 
   /* -------------------------------------------- */
@@ -42,14 +42,14 @@ export default class ArmorClassConfig extends BaseConfigSheet {
     context.fields = this.document.system.schema.fields.attributes.fields.ac.fields;
     context.source = this.document.system._source.attributes.ac;
 
-    context.calculationOptions = Object.entries(CONFIG.DND5E.armorClasses).reduce((arr, [value, config]) => {
+    context.calculationOptions = Object.entries(CONFIG.ME5E.armorClasses).reduce((arr, [value, config]) => {
       if ( value === "custom" ) arr.push({ rule: true });
       arr.push({ value, label: config.label });
       if ( value === "natural" ) arr.push({ rule: true });
       return arr;
     }, []);
 
-    const config = CONFIG.DND5E.armorClasses[context.source.calc];
+    const config = CONFIG.ME5E.armorClasses[context.source.calc];
     context.formula = {
       disabled: context.source.calc !== "custom",
       showFlat: ["flat", "natural"].includes(context.source.calc),

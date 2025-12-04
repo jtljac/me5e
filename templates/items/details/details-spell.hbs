@@ -1,5 +1,5 @@
 <fieldset>
-    <legend>{{ localize "DND5E.SpellDetails" }}</legend>
+    <legend>{{ localize "ME5E.SpellDetails" }}</legend>
 
     {{!-- Spell Level --}}
     {{ formField fields.level value=source.level choices=CONFIG.spellLevels localize=true rootId=partId }}
@@ -9,23 +9,23 @@
                  localize=true rootId=partId }}
 
     {{!-- Spell Components --}}
-    {{ formField fields.properties options=properties.options label="DND5E.SpellComponents" localize=true
+    {{ formField fields.properties options=properties.options label="ME5E.SpellComponents" localize=true
                  input=inputs.createMultiCheckboxInput stacked=true classes="checkbox-grid checkbox-grid-3" }}
 
     {{!-- Material Components --}}
     {{#if properties.object.material}}
     <div class="form-group split-group">
-        <label>{{ localize "DND5E.SpellMaterials" }}</label>
+        <label>{{ localize "ME5E.SpellMaterials" }}</label>
         <div class="form-fields">
 
             {{!-- Material Supply --}}
-            {{ formField fields.materials.fields.supply value=source.materials.supply label="DND5E.Supply" localize=true
+            {{ formField fields.materials.fields.supply value=source.materials.supply label="ME5E.Supply" localize=true
                          classes="label-top" placeholder="0" rootId=partId }}
 
             {{!-- Material Cost --}}
             <div class="form-group label-top">
-                <label class="label-icon currency gp" aria-label="{{ localize "DND5E.CostGP" }}">
-                    {{ localize "DND5E.Cost" }}
+                <label class="label-icon currency gp" aria-label="{{ localize "ME5E.CostGP" }}">
+                    {{ localize "ME5E.Cost" }}
                 </label>
                 <div class="form-fields">
                     {{ formInput fields.materials.fields.cost value=source.materials.cost placeholder="—"
@@ -34,7 +34,7 @@
             </div>
 
             {{!-- Material Consumption --}}
-            {{ formField fields.materials.fields.consumed value=source.materials.consumed label="DND5E.Consumed"
+            {{ formField fields.materials.fields.consumed value=source.materials.consumed label="ME5E.Consumed"
                          localize=true input=inputs.createCheckboxInput classes="checkbox" rootId=partId }}
         </div>
 
@@ -46,17 +46,17 @@
 
     {{!-- Spellcasting --}}
     <div class="form-group">
-        <label>{{ localize "DND5E.SpellPreparation.Method" }}</label>
+        <label>{{ localize "ME5E.SpellPreparation.Method" }}</label>
         <div class="form-fields">
 
             {{!-- Method --}}
-            {{ formField fields.method value=source.method options=spellcastingMethods label="DND5E.Method"
+            {{ formField fields.method value=source.method options=spellcastingMethods label="ME5E.Method"
                          classes="label-top" localize=true rootId=partId }}
 
             {{!-- Prepared --}}
             {{#if canPrepare}}
             {{ formField fields.prepared value=source.prepared choices=CONFIG.spellPreparationStates labelAttr="label"
-                         valueAttr="value" label="DND5E.Preparation" classes="label-top" localize=true rootId=partId }}
+                         valueAttr="value" label="ME5E.Preparation" classes="label-top" localize=true rootId=partId }}
             {{/if}}
         </div>
     </div>
@@ -72,20 +72,20 @@
 </fieldset>
 
 <fieldset>
-    <legend>{{ localize "DND5E.Casting" }}</legend>
+    <legend>{{ localize "ME5E.Casting" }}</legend>
 
     {{!-- Activation --}}
-    {{> "dnd5e.field-activation" activation=system.activation fields=fields.activation.fields data=source.activation
-        activationTypes=activationTypes inputs=inputs label="DND5E.SpellCastTime" }}
+    {{> "me5e.field-activation" activation=system.activation fields=fields.activation.fields data=source.activation
+        activationTypes=activationTypes inputs=inputs label="ME5E.SpellCastTime" }}
 
     {{!-- Range --}}
-    {{> "dnd5e.field-range" range=system.range fields=fields.range.fields data=source.range rangeTypes=rangeTypes
+    {{> "me5e.field-range" range=system.range fields=fields.range.fields data=source.range rangeTypes=rangeTypes
         inputs=inputs }}
 
     {{!-- Duration --}}
-    {{> "dnd5e.field-duration" duration=system.duration fields=fields.duration.fields data=source.duration
+    {{> "me5e.field-duration" duration=system.duration fields=fields.duration.fields data=source.duration
         durationUnits=durationUnits inputs=inputs }}
 </fieldset>
 
-{{> "dnd5e.field-targets" target=system.target fields=fields.target.fields data=source.target inputs=inputs
+{{> "me5e.field-targets" target=system.target fields=fields.target.fields data=source.target inputs=inputs
     disabled=false }}

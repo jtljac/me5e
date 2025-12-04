@@ -24,7 +24,7 @@ export default class RaceData extends ItemDataModel.mixin(AdvancementTemplate, I
   /* -------------------------------------------- */
 
   /** @override */
-  static LOCALIZATION_PREFIXES = ["DND5E.SOURCE"];
+  static LOCALIZATION_PREFIXES = ["ME5E.SOURCE"];
 
   /* -------------------------------------------- */
 
@@ -50,7 +50,7 @@ export default class RaceData extends ItemDataModel.mixin(AdvancementTemplate, I
   static get compendiumBrowserFilters() {
     return new Map([
       ["hasDarkvision", {
-        label: "DND5E.CompendiumBrowser.Filters.HasDarkvision",
+        label: "ME5E.CompendiumBrowser.Filters.HasDarkvision",
         type: "boolean",
         createFilter: (filters, value, def) => {
           if ( value === 0 ) return;
@@ -72,7 +72,7 @@ export default class RaceData extends ItemDataModel.mixin(AdvancementTemplate, I
    */
   get movementLabels() {
     const units = this.movement.units || defaultUnits("length");
-    return Object.entries(CONFIG.DND5E.movementTypes).reduce((obj, [k, { label }]) => {
+    return Object.entries(CONFIG.ME5E.movementTypes).reduce((obj, [k, { label }]) => {
       const value = this.movement[k];
       if ( value ) obj[k] = `${label} ${formatLength(value, units)}`;
       return obj;
@@ -87,7 +87,7 @@ export default class RaceData extends ItemDataModel.mixin(AdvancementTemplate, I
    */
   get sensesLabels() {
     const units = this.senses.units || defaultUnits("length");
-    return Object.entries(CONFIG.DND5E.senses).reduce((arr, [k, label]) => {
+    return Object.entries(CONFIG.ME5E.senses).reduce((arr, [k, label]) => {
       const value = this.senses[k];
       if ( value ) arr.push(`${label} ${formatLength(value, units)}`);
       return arr;
@@ -121,20 +121,20 @@ export default class RaceData extends ItemDataModel.mixin(AdvancementTemplate, I
     context.subtitles = [{ label: game.i18n.localize(CONFIG.Item.typeLabels.race) }];
     context.singleDescription = true;
 
-    context.parts = ["dnd5e.details-species"];
+    context.parts = ["me5e.details-species"];
     context.info = [{
-      label: "DND5E.CreatureType",
+      label: "ME5E.CreatureType",
       classes: "info-sm",
       value: this.typeLabel,
       config: "type",
-      tooltip: "DND5E.CreatureTypeTitle"
+      tooltip: "ME5E.CreatureTypeTitle"
     },
     {
-      label: "DND5E.Movement",
+      label: "ME5E.Movement",
       classes: "info-sm info-grid",
       config: "movement",
-      tooltip: "DND5E.MOVEMENT.Action.Configure",
-      value: Object.entries(CONFIG.DND5E.movementTypes).reduce((str, [k, { label }]) => {
+      tooltip: "ME5E.MOVEMENT.Action.Configure",
+      value: Object.entries(CONFIG.ME5E.movementTypes).reduce((str, [k, { label }]) => {
         const value = this.movement[k];
         if ( !value ) return str;
         return `${str}
@@ -144,11 +144,11 @@ export default class RaceData extends ItemDataModel.mixin(AdvancementTemplate, I
       }, "")
     },
     {
-      label: "DND5E.Senses",
+      label: "ME5E.Senses",
       classes: "info-sm info-grid",
       config: "senses",
-      tooltip: "DND5E.SensesConfig",
-      value: Object.entries(CONFIG.DND5E.senses).reduce((str, [k, label]) => {
+      tooltip: "ME5E.SensesConfig",
+      value: Object.entries(CONFIG.ME5E.senses).reduce((str, [k, label]) => {
         const value = this.senses[k];
         if ( !value ) return str;
         return `${str}
@@ -165,7 +165,7 @@ export default class RaceData extends ItemDataModel.mixin(AdvancementTemplate, I
 
   /** @override */
   _advancementToCreate(options) {
-    if ( game.settings.get("dnd5e", "rulesVersion") === "legacy" ) return [
+    if ( game.settings.get("me5e", "rulesVersion") === "legacy" ) return [
       { type: "AbilityScoreImprovement" },
       { type: "Size" },
       { type: "Trait", configuration: { grants: ["languages:standard:common"] } }

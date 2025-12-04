@@ -201,7 +201,7 @@ export default class PseudoDocumentSheet extends Application5e {
   _prepareSubmitData(event, formData) {
     const submitData = foundry.utils.expandObject(formData.object);
     // Workaround for https://github.com/foundryvtt/foundryvtt/issues/11610
-    this.element.querySelectorAll("fieldset legend :is(input, select, dnd5e-checkbox)").forEach(input => {
+    this.element.querySelectorAll("fieldset legend :is(input, select, me5e-checkbox)").forEach(input => {
       foundry.utils.setProperty(submitData, input.name, input.value);
     });
     return submitData;

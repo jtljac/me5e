@@ -14,7 +14,7 @@ export default class EnchantmentField extends EmbeddedDataField {
   constructor(options={}) {
     foundry.utils.logCompatibilityWarning(
       "The `EnchantmentField` field has been deprecated in favor of the Enchant activity.",
-      { since: "DnD5e 5.2", until: "DnD5e 5.3", once: true }
+      { since: "ME5e 5.2", until: "ME5e 5.3", once: true }
     );
     super(EnchantmentData, foundry.utils.mergeObject({ required: false, nullable: true, initial: null }, options));
   }
@@ -47,7 +47,7 @@ export class EnchantmentData extends foundry.abstract.DataModel {
   constructor(...args) {
     foundry.utils.logCompatibilityWarning(
       "The `EnchantmentData` data model has been deprecated in favor of the Enchant activity.",
-      { since: "DnD5e 5.2", until: "DnD5e 5.3", once: true }
+      { since: "ME5e 5.2", until: "ME5e 5.3", once: true }
     );
     super(...args);
   }
@@ -76,8 +76,8 @@ export class EnchantmentData extends foundry.abstract.DataModel {
 export class EnchantmentError extends Error {
   constructor(...args) {
     foundry.utils.logCompatibilityWarning(
-      "`dnd5e.dataModels.item.EnchantmentError` has been replaced with `dnd5e.documents.activity.EnchantmentError.",
-      { since: "DnD5e 5.2", until: "DnD5e 5.3", once: true }
+      "`me5e.dataModels.item.EnchantmentError` has been replaced with `me5e.documents.activity.EnchantmentError.",
+      { since: "ME5e 5.2", until: "ME5e 5.3", once: true }
     );
     super(...args);
     this.name = "EnchantmentError";

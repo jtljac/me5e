@@ -5,7 +5,7 @@
         {{#if label}}<h3 class="sabers roboto-upper">{{ localize label }}</h3>{{/if}}
         <menu class="members {{#if hasStats}}stats{{/if}}">
             {{#each members}}
-            {{> "systems/dnd5e/templates/actors/group/member.hbs" section=.. }}
+            {{> "systems/me5e/templates/actors/group/member.hbs" section=.. }}
             {{/each}}
         </menu>
     </section>

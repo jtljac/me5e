@@ -8,9 +8,9 @@ export default class TokenLayer5e extends foundry.canvas.layers.TokenLayer {
    * @returns {boolean} Whether the moving token should be blocked
    */
   isOccupiedGridSpaceBlocking(gridSpace, token, { preview=false }={}) {
-    const tokenSize = CONFIG.DND5E.actorSizes[token.actor?.system.traits.size]?.numerical ?? 2;
-    const modernRules = game.settings.get("dnd5e", "rulesVersion") === "modern";
-    const halflingNimbleness = token.actor?.getFlag("dnd5e", "halflingNimbleness");
+    const tokenSize = CONFIG.ME5E.actorSizes[token.actor?.system.traits.size]?.numerical ?? 2;
+    const modernRules = game.settings.get("me5e", "rulesVersion") === "modern";
+    const halflingNimbleness = token.actor?.getFlag("me5e", "halflingNimbleness");
     const found = this.#getRelevantOccupyingTokens(gridSpace, token, { preview }).filter(t => {
       // Only creatures block movement.
       if ( !t.actor?.system.isCreature ) return false;
@@ -19,10 +19,10 @@ export default class TokenLayer5e extends foundry.canvas.layers.TokenLayer {
       if ( token.document.disposition === t.document.disposition ) return false;
 
       // If creature has any statuses that should never block movement, don't block movement
-      if ( t.actor.statuses.intersects(CONFIG.DND5E.neverBlockStatuses) ) return false;
+      if ( t.actor.statuses.intersects(CONFIG.ME5E.neverBlockStatuses) ) return false;
 
       const size = t.actor.system.details?.type?.swarm || t.actor.system.traits?.size;
-      const occupiedSize = CONFIG.DND5E.actorSizes[size]?.numerical ?? 2;
+      const occupiedSize = CONFIG.ME5E.actorSizes[size]?.numerical ?? 2;
       // In modern rules, Tiny creatures can be moved through
       if ( modernRules && (occupiedSize === 0) ) return false;
 
@@ -36,7 +36,7 @@ export default class TokenLayer5e extends foundry.canvas.layers.TokenLayer {
     /**
      * Hook event that fires when determining whether a grid space is occupied by a token which should block movement
      * for a provided token.
-     * @function dnd5e.determineOccupiedGridSpaceBlocking
+     * @function me5e.determineOccupiedGridSpaceBlocking
      * @memberof hookEvents
      * @param {GridOffset3D} gridSpace  The grid space being checked.
      * @param {Token5e} token           The token being moved.
@@ -44,7 +44,7 @@ export default class TokenLayer5e extends foundry.canvas.layers.TokenLayer {
      * @param {boolean} options.preview Whether the movement in question is previewed.
      * @param {Set<Token5e>} found      The found set of tokens which would block movement. *Will be mutated.*
      */
-    Hooks.callAll("dnd5e.determineOccupiedGridSpaceBlocking", gridSpace, token, { preview }, found);
+    Hooks.callAll("me5e.determineOccupiedGridSpaceBlocking", gridSpace, token, { preview }, found);
     return found.size > 0;
   }
 
@@ -60,7 +60,7 @@ export default class TokenLayer5e extends foundry.canvas.layers.TokenLayer {
    * @returns {boolean} Whether the moving token should suffer difficult terrain
    */
   isOccupiedGridSpaceDifficult(gridSpace, token, { preview=false }={}) {
-    const modernRules = game.settings.get("dnd5e", "rulesVersion") === "modern";
+    const modernRules = game.settings.get("me5e", "rulesVersion") === "modern";
     const found = this.#getRelevantOccupyingTokens(gridSpace, token, { preview }).filter(t => {
       // Only consider creatures as difficult terrain for now.
       if ( !t.actor?.system.isCreature ) return false;
@@ -69,7 +69,7 @@ export default class TokenLayer5e extends foundry.canvas.layers.TokenLayer {
 
       // In modern rules, friendly tokens are not difficult terrain
       if ( modernRules && friendlyToken ) return false;
-      const occupiedSize = CONFIG.DND5E.actorSizes[t.actor?.system.traits.size]?.numerical ?? 2;
+      const occupiedSize = CONFIG.ME5E.actorSizes[t.actor?.system.traits.size]?.numerical ?? 2;
 
       // In modern rules, Tiny creatures are not difficult terrain
       if ( modernRules && (occupiedSize === 0) ) return false;
@@ -81,7 +81,7 @@ export default class TokenLayer5e extends foundry.canvas.layers.TokenLayer {
     /**
      * Hook event that fires when determining whether a grid space is occupied by a token which should cause difficult
      * terrain for a provided token.
-     * @function dnd5e.determineOccupiedGridSpaceDifficult
+     * @function me5e.determineOccupiedGridSpaceDifficult
      * @memberof hookEvents
      * @param {GridOffset3D} gridSpace  The grid space being checked.
      * @param {Token5e} token           The token being moved.
@@ -89,7 +89,7 @@ export default class TokenLayer5e extends foundry.canvas.layers.TokenLayer {
      * @param {boolean} options.preview Whether the movement in question is previewed.
      * @param {Set<Token5e>} found      The found set of tokens which would cause difficult terrain. *Will be mutated.*
      */
-    Hooks.callAll("dnd5e.determineOccupiedGridSpaceDifficult", gridSpace, token, { preview }, found);
+    Hooks.callAll("me5e.determineOccupiedGridSpaceDifficult", gridSpace, token, { preview }, found);
     return found.size > 0;
   }
 

@@ -17,7 +17,7 @@ export default class DeathConfig extends BaseConfigSheet {
   /** @override */
   static PARTS = {
     config: {
-      template: "systems/dnd5e/templates/actors/config/death-config.hbs"
+      template: "systems/me5e/templates/actors/config/death-config.hbs"
     }
   };
 
@@ -27,7 +27,7 @@ export default class DeathConfig extends BaseConfigSheet {
 
   /** @override */
   get title() {
-    return game.i18n.localize("DND5E.DeathSaveConfigure");
+    return game.i18n.localize("ME5E.DeathSaveConfigure");
   }
 
   /* -------------------------------------------- */

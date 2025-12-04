@@ -189,7 +189,7 @@ export default class CalendarData5e extends foundry.data.CalendarData {
     let formatter = "Mid";
     if ( seasonPercent <= 0.33 ) formatter = "Early";
     else if ( seasonPercent >= 0.66 ) formatter = "Late";
-    return game.i18n.format(`DND5E.CALENDAR.Formatters.ApproximateDate.${formatter}Season`, {
+    return game.i18n.format(`ME5E.CALENDAR.Formatters.ApproximateDate.${formatter}Season`, {
       season: game.i18n.localize(season.name)
     });
   }
@@ -217,7 +217,7 @@ export default class CalendarData5e extends foundry.data.CalendarData {
     else if ( (day > 0.5) && (day <= 0.85) ) formatter = "Afternoon";
     else if ( (day > 0.85) && (night < 0) ) formatter = "Evening";
     else formatter = "Night";
-    return game.i18n.localize(`DND5E.CALENDAR.Formatters.ApproximateTime.${formatter}`);
+    return game.i18n.localize(`ME5E.CALENDAR.Formatters.ApproximateTime.${formatter}`);
   }
 
   /* -------------------------------------------- */
@@ -231,7 +231,7 @@ export default class CalendarData5e extends foundry.data.CalendarData {
    */
   static formatHoursMinutes(calendar, components, options) {
     return CalendarData5e.formatLocalized(
-      "DND5E.CALENDAR.Formatters.HoursMinutes.Format", calendar, components, options
+      "ME5E.CALENDAR.Formatters.HoursMinutes.Format", calendar, components, options
     );
   }
 
@@ -246,7 +246,7 @@ export default class CalendarData5e extends foundry.data.CalendarData {
    */
   static formatHoursMinutesSeconds(calendar, components, options) {
     return CalendarData5e.formatLocalized(
-      "DND5E.CALENDAR.Formatters.HoursMinutesSeconds.Format", calendar, components, options
+      "ME5E.CALENDAR.Formatters.HoursMinutesSeconds.Format", calendar, components, options
     );
   }
 
@@ -275,7 +275,7 @@ export default class CalendarData5e extends foundry.data.CalendarData {
    */
   static formatMonthDay(calendar, components, options) {
     return CalendarData5e.formatLocalized(
-      "DND5E.CALENDAR.Formatters.MonthDay.Format", calendar, components, options
+      "ME5E.CALENDAR.Formatters.MonthDay.Format", calendar, components, options
     );
   }
 
@@ -290,7 +290,7 @@ export default class CalendarData5e extends foundry.data.CalendarData {
    */
   static formatMonthDayYear(calendar, components, options) {
     return CalendarData5e.formatLocalized(
-      "DND5E.CALENDAR.Formatters.MonthDayYear.Format", calendar, components, options
+      "ME5E.CALENDAR.Formatters.MonthDayYear.Format", calendar, components, options
     );
   }
 
@@ -317,7 +317,7 @@ export default class CalendarData5e extends foundry.data.CalendarData {
     };
 
     const days = nowTime.day - previousTime.day;
-    foundry.utils.setProperty(options, "dnd5e.deltas", {
+    foundry.utils.setProperty(options, "me5e.deltas", {
       midnights: days,
       middays: days + passedHour(game.time.calendar.days.hoursPerDay / 2),
       sunrises: ("sunrise" in game.time.calendar) ? days + passedHour(game.time.calendar.sunrise(nowTime)) : null,

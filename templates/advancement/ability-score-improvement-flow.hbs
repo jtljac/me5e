@@ -7,7 +7,7 @@
         {{#unless staticIncrease}}
         <label>
             {{#if lockImprovement}}
-            {{ localize "DND5E.ADVANCEMENT.AbilityScoreImprovement.LockedHint" }}
+            {{ localize "ME5E.ADVANCEMENT.AbilityScoreImprovement.LockedHint" }}
             {{else}}
             {{ pointsRemaining }}
             {{#if advancement.configuration.cap}}<p class="cap">{{ pointCap }}</p>{{/if}}
@@ -15,14 +15,14 @@
         </label>
         {{/unless}}
         {{#each abilities}}
-        {{> "dnd5e.advancement-ability-score-control" this canAdjust=(not @root.staticIncrease) }}
+        {{> "me5e.advancement-ability-score-control" this canAdjust=(not @root.staticIncrease) }}
         {{/each}}
     </ul>
     {{/if}}
 
     {{#if advancement.allowFeat}}
     <div class="feat-section flexcol">
-        {{#if showImprovement}}<h3>{{ localize "DND5E.Feature.Feat.Label" }}</h3>{{/if}}
+        {{#if showImprovement}}<h3>{{ localize "ME5E.Feature.Feat.Label" }}</h3>{{/if}}
 
         {{#with recommendation}}
         <div class="pill-lg {{#if locked}}locked{{/if}}" data-uuid="{{ uuid }}">
@@ -30,20 +30,20 @@
             <div class="name-stacked">
                 <div class="title">{{ localize name }}</div>
             </div>
-            <dnd5e-checkbox class="item-control" name="recommendation-selected" {{ checked checked }}
-                            {{ disabled locked }}></dnd5e-checkbox>
+            <me5e-checkbox class="item-control" name="recommendation-selected" {{ checked checked }}
+                            {{ disabled locked }}></me5e-checkbox>
         </div>
         {{/with}}
 
         {{#if showASIFeat}}
         <div class="pill-lg {{#if lockImprovement}}locked{{/if}}">
             <img class="gold-icon" src="icons/skills/melee/weapons-crossed-swords-white-blue.webp"
-                 alt="{{ localize 'DND5E.ADVANCEMENT.AbilityScoreImprovement.Feat.ASIName' }}">
+                 alt="{{ localize 'ME5E.ADVANCEMENT.AbilityScoreImprovement.Feat.ASIName' }}">
             <div class="name-stacked">
-                <div class="title">{{ localize "DND5E.ADVANCEMENT.AbilityScoreImprovement.Feat.ASIName" }}</div>
+                <div class="title">{{ localize "ME5E.ADVANCEMENT.AbilityScoreImprovement.Feat.ASIName" }}</div>
             </div>
-            <dnd5e-checkbox class="item-control" name="asi-selected" {{ checked feat.isASI }}
-                            {{ disabled lockImprovement }}></dnd5e-checkbox>
+            <me5e-checkbox class="item-control" name="asi-selected" {{ checked feat.isASI }}
+                            {{ disabled lockImprovement }}></me5e-checkbox>
         </div>
         {{/if}}
 
@@ -56,11 +56,11 @@
                 <div class="title">{{ feat.name }}</div>
             </div>
             <button type="button" class="unbutton control-button item-control" data-action="delete"
-                    data-tooltip aria-label="{{ localize 'DND5E.ItemDelete' }}">
+                    data-tooltip aria-label="{{ localize 'ME5E.ItemDelete' }}">
                 <i class="fas fa-trash" inert></i>
             </button>
             {{else}}
-            {{ localize "DND5E.ADVANCEMENT.AbilityScoreImprovement.Action.Select" }}
+            {{ localize "ME5E.ADVANCEMENT.AbilityScoreImprovement.Action.Select" }}
             {{/if}}
         </div>
         {{/unless}}

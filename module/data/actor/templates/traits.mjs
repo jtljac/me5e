@@ -20,17 +20,17 @@ export default class TraitsField {
    */
   static get common() {
     return {
-      size: new StringField({ required: true, initial: "med", label: "DND5E.Size" }),
-      di: new DamageTraitField({}, { label: "DND5E.DamImm" }),
-      dr: new DamageTraitField({}, { label: "DND5E.DamRes" }),
-      dv: new DamageTraitField({}, { label: "DND5E.DamVuln" }),
+      size: new StringField({ required: true, initial: "med", label: "ME5E.Size" }),
+      di: new DamageTraitField({}, { label: "ME5E.DamImm" }),
+      dr: new DamageTraitField({}, { label: "ME5E.DamRes" }),
+      dv: new DamageTraitField({}, { label: "ME5E.DamVuln" }),
       dm: new SchemaField({
-        amount: new MappingField(new FormulaField({ deterministic: true }), { label: "DND5E.DamMod" }),
+        amount: new MappingField(new FormulaField({ deterministic: true }), { label: "ME5E.DamMod" }),
         bypasses: new SetField(new StringField(), {
-          label: "DND5E.DamagePhysicalBypass", hint: "DND5E.DamagePhysicalBypassHint"
+          label: "ME5E.DamagePhysicalBypass", hint: "ME5E.DamagePhysicalBypassHint"
         })
       }),
-      ci: new SimpleTraitField({}, { label: "DND5E.ConImm" })
+      ci: new SimpleTraitField({}, { label: "ME5E.ConImm" })
     };
   }
 
@@ -47,7 +47,7 @@ export default class TraitsField {
           units: new StringField({ initial: () => defaultUnits("length") }),
           value: new NumberField({ required: true, min: 0 })
         }))
-      }, { label: "DND5E.Languages" })
+      }, { label: "ME5E.Languages" })
     };
   }
 
@@ -63,7 +63,7 @@ export default class TraitsField {
     const languages = this.traits.languages;
     const labels = languages.labels = { languages: [], ranged: [] };
 
-    if ( languages.value.has("ALL") ) labels.languages.push(game.i18n.localize("DND5E.Language.All"));
+    if ( languages.value.has("ALL") ) labels.languages.push(game.i18n.localize("ME5E.Language.All"));
     else {
       const processCategory = (key, data, group) => {
         // If key is within languages, don't bother with children
@@ -83,7 +83,7 @@ export default class TraitsField {
         else if ( data.children ) Object.entries(data.children).forEach(([k, d]) => processCategory(k, d));
       };
 
-      for ( const [key, data] of Object.entries(CONFIG.DND5E.languages) ) {
+      for ( const [key, data] of Object.entries(CONFIG.ME5E.languages) ) {
         if ( data.children ) Object.entries(data.children).forEach(([k, d]) => processCategory(k, d));
         else processCategory(key, data);
       }
@@ -91,7 +91,7 @@ export default class TraitsField {
 
     labels.languages.push(...splitSemicolons(languages.custom));
 
-    for ( const [key, { label }] of Object.entries(CONFIG.DND5E.communicationTypes) ) {
+    for ( const [key, { label }] of Object.entries(CONFIG.ME5E.communicationTypes) ) {
       const data = languages.communication?.[key];
       if ( !data?.value ) continue;
       labels.ranged.push(`${label} ${formatLength(data.value, data.units)}`);
@@ -110,8 +110,8 @@ export default class TraitsField {
 
     // Apply petrified condition
     if ( this.parent.hasConditionEffect("petrification") ) {
-      this.traits.dr.custom = game.i18n.localize("DND5E.DamageAll");
-      Object.keys(CONFIG.DND5E.damageTypes).forEach(type => this.traits.dr.value.add(type));
+      this.traits.dr.custom = game.i18n.localize("ME5E.DamageAll");
+      Object.keys(CONFIG.ME5E.damageTypes).forEach(type => this.traits.dr.value.add(type));
       this.traits.dr.bypasses.clear();
       this.traits.di.value.add("poison");
       this.traits.ci.value.add("poisoned");

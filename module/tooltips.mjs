@@ -75,7 +75,7 @@ export default class Tooltips5e {
     // Sheet-specific tooltips
     if ( loading?.dataset.uuid ) {
       const doc = await fromUuid(loading.dataset.uuid);
-      if ( doc instanceof dnd5e.documents.Actor5e ) return this._onHoverActor(doc);
+      if ( doc instanceof me5e.documents.Actor5e ) return this._onHoverActor(doc);
       return this._onHoverContentLink(doc);
     }
 
@@ -130,7 +130,7 @@ export default class Tooltips5e {
    * @protected
    */
   async _onHoverPassiveLanguage(language) {
-    const label = CONFIG.DND5E.enrichmentLookup.languages[language];
+    const label = CONFIG.ME5E.enrichmentLookup.languages[language];
     this._onHoverPassive({ label }, actor => {
       if ( !actor.system.traits?.languages?.value ) return false;
       return { status: actor.system.traits.languages.value.has(language) ? "success" : "failure" };
@@ -148,16 +148,16 @@ export default class Tooltips5e {
    * @protected
    */
   async _onHoverPassiveCheck(skill, ability, dc) {
-    const skillConfig = CONFIG.DND5E.skills[skill];
-    const abilityConfig = CONFIG.DND5E.abilities[ability ?? skillConfig.ability];
+    const skillConfig = CONFIG.ME5E.skills[skill];
+    const abilityConfig = CONFIG.ME5E.abilities[ability ?? skillConfig.ability];
 
     let label;
     if ( skillConfig ) {
-      label = game.i18n.format("DND5E.SkillPassiveSpecificHint", { skill: skillConfig.label, ability: abilityConfig.label });
+      label = game.i18n.format("ME5E.SkillPassiveSpecificHint", { skill: skillConfig.label, ability: abilityConfig.label });
     } else {
       // If no skill was provided, we're doing a passive ability check.
       // This isn't technically a thing in the rules, but we can support it anyway if people want to use it.
-      label = game.i18n.format("DND5E.SkillPassiveHint", { skill: abilityConfig.label });
+      label = game.i18n.format("ME5E.SkillPassiveHint", { skill: abilityConfig.label });
     }
 
     this._onHoverPassive({ label }, actor => {
@@ -211,10 +211,10 @@ export default class Tooltips5e {
       if ( ctx ) context.party.push({ name: member.actor.name, img: member.actor.img, ...ctx });
     }
 
-    this.tooltip.classList.add("dnd5e-tooltip", "passive-tooltip", "dnd5e2", "themed", "theme-light");
+    this.tooltip.classList.add("me5e-tooltip", "passive-tooltip", "me5e2", "themed", "theme-light");
     this.tooltip.classList.remove("theme-dark");
     this.tooltip.innerHTML = await foundry.applications.handlebars.renderTemplate(
-      "systems/dnd5e/templates/journal/passive-tooltip.hbs", context
+      "systems/me5e/templates/journal/passive-tooltip.hbs", context
     );
     game.tooltip._setAnchor(TooltipManager.TOOLTIP_DIRECTIONS.DOWN);
   }

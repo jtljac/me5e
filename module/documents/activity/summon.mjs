@@ -21,7 +21,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  static LOCALIZATION_PREFIXES = [...super.LOCALIZATION_PREFIXES, "DND5E.SUMMON"];
+  static LOCALIZATION_PREFIXES = [...super.LOCALIZATION_PREFIXES, "ME5E.SUMMON"];
 
   /* -------------------------------------------- */
 
@@ -29,9 +29,9 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
   static metadata = Object.freeze(
     foundry.utils.mergeObject(super.metadata, {
       type: "summon",
-      img: "systems/dnd5e/icons/svg/activity/summon.svg",
-      title: "DND5E.SUMMON.Title",
-      hint: "DND5E.SUMMON.Hint",
+      img: "systems/me5e/icons/svg/activity/summon.svg",
+      title: "ME5E.SUMMON.Title",
+      hint: "ME5E.SUMMON.Hint",
       sheetClass: SummonSheet,
       usage: {
         actions: {
@@ -51,7 +51,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
    * @type {boolean}
    */
   get canSummon() {
-    return game.user.can("TOKEN_CREATE") && (game.user.isGM || game.settings.get("dnd5e", "allowSummoning"));
+    return game.user.can("TOKEN_CREATE") && (game.user.isGM || game.settings.get("me5e", "allowSummoning"));
   }
 
   /* -------------------------------------------- */
@@ -78,7 +78,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
   /** @inheritDoc */
   _finalizeMessageConfig(usageConfig, messageConfig, results) {
     super._finalizeMessageConfig(usageConfig, messageConfig, results);
-    delete messageConfig.data.flags?.dnd5e?.use?.effects;
+    delete messageConfig.data.flags?.me5e?.use?.effects;
   }
 
   /* -------------------------------------------- */
@@ -87,7 +87,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
   _usageChatButtons(message) {
     if ( !this.availableProfiles.length ) return super._usageChatButtons(message);
     return [{
-      label: game.i18n.localize("DND5E.SUMMON.Action.Summon"),
+      label: game.i18n.localize("ME5E.SUMMON.Action.Summon"),
       icon: '<i class="fa-solid fa-spaghetti-monster-flying" inert></i>',
       dataset: {
         action: "placeSummons"
@@ -132,30 +132,30 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
 
     const profile = this.profiles.find(p => p._id === options?.profile);
     if ( !profile ) throw new Error(
-      game.i18n.format("DND5E.SUMMON.Warning.NoProfile", { profileId: options.profile, item: this.item.name })
+      game.i18n.format("ME5E.SUMMON.Warning.NoProfile", { profileId: options.profile, item: this.item.name })
     );
 
     /**
      * A hook event that fires before summoning is performed.
-     * @function dnd5e.preSummon
+     * @function me5e.preSummon
      * @memberof hookEvents
      * @param {SummonActivity} activity         The activity that is performing the summoning.
      * @param {SummonsProfile} profile          Profile used for summoning.
      * @param {SummoningConfiguration} options  Additional summoning options.
      * @returns {boolean}                       Explicitly return `false` to prevent summoning.
      */
-    if ( Hooks.call("dnd5e.preSummon", this, profile, options) === false ) return;
+    if ( Hooks.call("me5e.preSummon", this, profile, options) === false ) return;
 
     // Fetch the actor that will be summoned
     const summonUuid = this.summon.mode === "cr" ? await this.queryActor(profile) : profile.uuid;
     if ( !summonUuid ) return;
-    const actor = await dnd5e.documents.Actor5e.fetchExisting(summonUuid, {
-      origin: { key: "flags.dnd5e.summon.origin", value: this.item?.uuid }
+    const actor = await me5e.documents.Actor5e.fetchExisting(summonUuid, {
+      origin: { key: "flags.me5e.summon.origin", value: this.item?.uuid }
     });
 
     // Verify ownership of actor
     if ( !actor.isOwner ) {
-      throw new Error(game.i18n.format("DND5E.SUMMON.Warning.NoOwnership", { actor: actor.name }));
+      throw new Error(game.i18n.format("ME5E.SUMMON.Warning.NoOwnership", { actor: actor.name }));
     }
 
     const tokensData = [];
@@ -176,7 +176,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
         /**
          * A hook event that fires before a specific token is summoned. After placement has been determined but before
          * the final token data is constructed.
-         * @function dnd5e.preSummonToken
+         * @function me5e.preSummonToken
          * @memberof hookEvents
          * @param {SummonActivity} activity         The activity that is performing the summoning.
          * @param {SummonsProfile} profile          Profile used for summoning.
@@ -184,21 +184,21 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
          * @param {SummoningConfiguration} options  Additional summoning options.
          * @returns {boolean}                       Explicitly return `false` to prevent this token from being summoned.
          */
-        if ( Hooks.call("dnd5e.preSummonToken", this, profile, tokenUpdateData, options) === false ) continue;
+        if ( Hooks.call("me5e.preSummonToken", this, profile, tokenUpdateData, options) === false ) continue;
 
         // Create a token document and apply updates
         const tokenData = await this.getTokenData(tokenUpdateData);
 
         /**
          * A hook event that fires after token creation data is prepared, but before summoning occurs.
-         * @function dnd5e.summonToken
+         * @function me5e.summonToken
          * @memberof hookEvents
          * @param {SummonActivity} activity         The activity that is performing the summoning.
          * @param {SummonsProfile} profile          Profile used for summoning.
          * @param {object} tokenData                Data for creating a token.
          * @param {SummoningConfiguration} options  Additional summoning options.
          */
-        Hooks.callAll("dnd5e.summonToken", this, profile, tokenData, options);
+        Hooks.callAll("me5e.summonToken", this, profile, tokenData, options);
 
         tokensData.push(tokenData);
       }
@@ -207,19 +207,19 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
     }
 
     const createdTokens = await canvas.scene.createEmbeddedDocuments("Token", tokensData, {
-      dnd5e: { autoRollNPCHP: "no" }
+      me5e: { autoRollNPCHP: "no" }
     });
 
     /**
      * A hook event that fires when summoning is complete.
-     * @function dnd5e.postSummon
+     * @function me5e.postSummon
      * @memberof hookEvents
      * @param {SummonActivity} activity         The activity that is performing the summoning.
      * @param {SummonsProfile} profile          Profile used for summoning.
      * @param {Token5e[]} tokens                Tokens that have been created.
      * @param {SummoningConfiguration} options  Additional summoning options.
      */
-    Hooks.callAll("dnd5e.postSummon", this, profile, createdTokens, options);
+    Hooks.callAll("me5e.postSummon", this, profile, createdTokens, options);
 
     return createdTokens;
   }
@@ -263,7 +263,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
     const prof = rollData.attributes?.prof ?? 0;
 
     // Add flags
-    actorUpdates["flags.dnd5e.summon"] = {
+    actorUpdates["flags.me5e.summon"] = {
       level: this.relevantLevel,
       mod: rollData.mod,
       origin: this.item.uuid,
@@ -274,7 +274,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
     // Match proficiency
     if ( this.match.proficiency ) {
       const proficiencyEffect = new ActiveEffect({
-        _id: staticID("dnd5eMatchProficiency"),
+        _id: staticID("me5eMatchProficiency"),
         changes: [{
           key: "system.attributes.prof",
           mode: CONST.ACTIVE_EFFECT_MODES.OVERRIDE,
@@ -282,7 +282,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
         }],
         disabled: false,
         icon: "icons/skills/targeting/crosshair-bars-yellow.webp",
-        name: game.i18n.localize("DND5E.SUMMON.FIELDS.match.proficiency.label")
+        name: game.i18n.localize("ME5E.SUMMON.FIELDS.match.proficiency.label")
       });
       actorUpdates.effects.push(proficiencyEffect.toObject());
     }
@@ -302,7 +302,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
           actorUpdates["system.attributes.ac.flat"] = (actor.system.attributes.ac.flat ?? 0) + acBonus.total;
         } else {
           actorUpdates.effects.push((new ActiveEffect({
-            _id: staticID("dnd5eACBonus"),
+            _id: staticID("me5eACBonus"),
             changes: [{
               key: "system.attributes.ac.bonus",
               mode: CONST.ACTIVE_EFFECT_MODES.ADD,
@@ -310,7 +310,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
             }],
             disabled: false,
             icon: "icons/magic/defensive/shield-barrier-blue.webp",
-            name: game.i18n.localize("DND5E.SUMMON.FIELDS.bonuses.ac.label")
+            name: game.i18n.localize("ME5E.SUMMON.FIELDS.bonuses.ac.label")
           })).toObject());
         }
       }
@@ -322,7 +322,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
       await hdBonus.evaluate();
       if ( hdBonus.total ) {
         actorUpdates.effects.push((new ActiveEffect({
-          _id: staticID("dnd5eHDBonus"),
+          _id: staticID("me5eHDBonus"),
           changes: [{
             key: "system.attributes.hd.max",
             mode: CONST.ACTIVE_EFFECT_MODES.ADD,
@@ -330,7 +330,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
           }],
           disabled: false,
           icon: "icons/sundries/gaming/dice-runed-brown.webp",
-          name: game.i18n.localize("DND5E.SUMMON.FIELDS.bonuses.hd.label")
+          name: game.i18n.localize("ME5E.SUMMON.FIELDS.bonuses.hd.label")
         })).toObject());
       }
     }
@@ -347,7 +347,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
         // Helper function for modifying max HP ('bonuses.overall' or 'max')
         const maxHpEffect = hpField => {
           return (new ActiveEffect({
-            _id: staticID("dnd5eHPBonus"),
+            _id: staticID("me5eHPBonus"),
             changes: [{
               key: `system.attributes.hp.${hpField}`,
               mode: CONST.ACTIVE_EFFECT_MODES.ADD,
@@ -355,7 +355,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
             }],
             disabled: false,
             icon: "icons/magic/life/heart-glowing-red.webp",
-            name: game.i18n.localize("DND5E.SUMMON.FIELDS.bonuses.hp.label")
+            name: game.i18n.localize("ME5E.SUMMON.FIELDS.bonuses.hp.label")
           })).toObject();
         };
 
@@ -377,7 +377,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
     // Change creature size
     if ( this.creatureSizes.size ) {
       const size = this.creatureSizes.has(options.creatureSize) ? options.creatureSize : this.creatureSizes.first();
-      const config = CONFIG.DND5E.actorSizes[size];
+      const config = CONFIG.ME5E.actorSizes[size];
       if ( config ) {
         actorUpdates["system.traits.size"] = size;
         tokenUpdates.width = config.token ?? 1;
@@ -456,11 +456,11 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
 
       if ( changes.length ) {
         const effect = (new ActiveEffect({
-          _id: staticID("dnd5eItemChanges"),
+          _id: staticID("me5eItemChanges"),
           changes,
           disabled: false,
           icon: "icons/skills/melee/strike-slashes-orange.webp",
-          name: game.i18n.localize("DND5E.SUMMON.ItemChanges.Label"),
+          name: game.i18n.localize("ME5E.SUMMON.ItemChanges.Label"),
           origin: this.uuid,
           type: "enchantment"
         })).toObject();
@@ -487,7 +487,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
     // Ensure the token matches the final size
     if ( this.creatureSizes.size ) {
       const size = this.creatureSizes.has(options.creatureSize) ? options.creatureSize : this.creatureSizes.first();
-      const config = CONFIG.DND5E.actorSizes[size];
+      const config = CONFIG.ME5E.actorSizes[size];
       if ( config ) token = token.clone({ width: config.token ?? 1, height: config.token ?? 1 });
     }
 
@@ -510,7 +510,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
     if ( actor.prototypeToken.randomImg && !game.user.can("FILES_BROWSE") ) {
       tokenUpdates.texture ??= {};
       tokenUpdates.texture.src ??= actor.img;
-      ui.notifications.warn("DND5E.SUMMON.Warning.Wildcard", { localize: true });
+      ui.notifications.warn("ME5E.SUMMON.Warning.Wildcard", { localize: true });
     }
 
     delete placement.prototypeToken;
@@ -570,7 +570,7 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
         await SummonUsageDialog.create(this, config, {
           button: {
             icon: "fa-solid fa-spaghetti-monster-flying",
-            label: "DND5E.SUMMON.Action.Summon"
+            label: "ME5E.SUMMON.Action.Summon"
           },
           display: {
             all: false,
@@ -600,9 +600,9 @@ export default class SummonActivity extends ActivityMixin(BaseSummonActivityData
    */
   fetchActor(uuid) {
     foundry.utils.logCompatibilityWarning("SummonActivity#fetchActor is deprecated. "
-      + "Please use Actor5e.fetchExisting instead.", { since: "DnD5e 5.1", until: "DnD5e 5.3" });
-    return dnd5e.documents.Actor5e.fetchExisting(uuid, {
-      origin: { key: "flags.dnd5e.summon.origin", value: this.item?.uuid }
+      + "Please use Actor5e.fetchExisting instead.", { since: "ME5e 5.1", until: "ME5e 5.3" });
+    return me5e.documents.Actor5e.fetchExisting(uuid, {
+      origin: { key: "flags.me5e.summon.origin", value: this.item?.uuid }
     });
   }
 }

@@ -1,7 +1,7 @@
 <{{ elements.effects }} class="effects-element">
 
     {{!-- Searching --}}
-    <item-list-controls for="effects" label="{{ localize "DND5E.EffectsSearch" }}" sort="a"
+    <item-list-controls for="effects" label="{{ localize "ME5E.EffectsSearch" }}" sort="a"
                         collection="effects"></item-list-controls>
 
     {{!-- Effects List --}}
@@ -14,7 +14,7 @@
             {{!-- Section Header --}}
             <div class="items-header header {{#if disabled}}disabled{{/if}}">
                 <h3 class="item-name effect-name">{{ localize label }}</h3>
-                <div class="item-header effect-source">{{ localize "DND5E.SOURCE.FIELDS.source.label" }}</div>
+                <div class="item-header effect-source">{{ localize "ME5E.SOURCE.FIELDS.source.label" }}</div>
                 <div class="item-header item-controls effect-controls">
                     {{#if info}}
                     <a class="info-control" data-tooltip aria-label="{{ info }}">
@@ -69,7 +69,7 @@
         <div class="items-section card">
 
             <div class="items-header header">
-                <h3 class="item-name">{{ localize "DND5E.Conditions" }}</h3>
+                <h3 class="item-name">{{ localize "ME5E.Conditions" }}</h3>
             </div>
 
             <ul class="conditions-list unlist">
@@ -78,7 +78,7 @@
                     data-action="toggleCondition" data-uuid="{{ reference }}" data-condition-id="{{ id }}"
                     data-tooltip="<section class=&quot;loading&quot;><i class=&quot;fas fa-spinner fa-spin-pulse&quot;></i></section>">
                     <div class="icon">
-                        <dnd5e-icon src="{{ img }}"></dnd5e-icon>
+                        <me5e-icon src="{{ img }}"></me5e-icon>
                     </div>
                     <div class="name-stacked">
                         <span class="title">{{ name }}</span>
@@ -132,20 +132,20 @@
     {{#if @root.editable}}
     {{!-- Editing --}}
     <a class="effect-control item-control" data-action="edit" data-tooltip
-       aria-label="{{ localize "DND5E.EffectEdit" }}">
+       aria-label="{{ localize "ME5E.EffectEdit" }}">
         <i class="fa-solid fa-pen-to-square"></i>
     </a>
 
     {{!-- Deleting --}}
     <a class="effect-control item-control" data-action="delete" data-tooltip
-       aria-label="{{ localize "DND5E.EffectDelete" }}">
+       aria-label="{{ localize "ME5E.EffectDelete" }}">
         <i class="fa-solid fa-trash"></i>
     </a>
 
     {{else if toggleable}}
     {{!-- Toggling --}}
     <a class="effect-control item-control {{#unless disabled}}active{{/unless}}" data-action="toggle" data-tooltip
-       aria-label="{{ localize (ifThen disabled "DND5E.EffectEnabled" "DND5E.EffectDisable") }}">
+       aria-label="{{ localize (ifThen disabled "ME5E.EffectEnabled" "ME5E.EffectDisable") }}">
         <i class="fa-solid fa-toggle-{{ ifThen disabled "off" "on" }}"></i>
     </a>
 
@@ -153,7 +153,7 @@
 
     {{!-- Context Menu --}}
     <a class="effect-control item-control always-interactive" data-context-menu
-       aria-label="{{ localize "DND5E.AdditionalControls" }}">
+       aria-label="{{ localize "ME5E.AdditionalControls" }}">
         <i class="fa-solid fa-ellipsis-vertical"></i>
     </a>
 

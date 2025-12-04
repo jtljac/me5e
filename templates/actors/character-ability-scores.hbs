@@ -19,12 +19,12 @@
         <div class="mod">
             {{#if @root.editable}}
             <button type="button" class="config-button unbutton" data-action="showConfiguration" data-config="ability"
-                    data-tooltip="{{ localize 'DND5E.AbilityConfigure' ability=label }}"
-                    aria-label="{{ localize 'DND5E.AbilityConfigure' ability=label }}">
+                    data-tooltip="{{ localize 'ME5E.AbilityConfigure' ability=label }}"
+                    aria-label="{{ localize 'ME5E.AbilityConfigure' ability=label }}">
                 <i class="fas fa-cog" inert></i>
             </button>
             {{else}}
-            {{ dnd5e-formatModifier mod }}
+            {{ me5e-formatModifier mod }}
             {{/if}}
         </div>
         <div class="score">

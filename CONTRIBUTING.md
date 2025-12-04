@@ -175,7 +175,7 @@ assets will not be created.
   be changing version numbers in the url to match the release version.
 
 ```text
-https://github.com/foundryvtt/dnd5e/releases/download/release-1.6.3/me5e-1.6.3.zip
+https://github.com/foundryvtt/me5e/releases/download/release-1.6.3/me5e-1.6.3.zip
                                                      └─ Tag Name ──┘    └─ V ─┘ (version)
 ```
 

@@ -14,7 +14,7 @@ export default class AbilityConfig extends BaseProficiencyConfig {
   /** @override */
   static PARTS = {
     config: {
-      template: "systems/dnd5e/templates/actors/config/ability-config.hbs"
+      template: "systems/me5e/templates/actors/config/ability-config.hbs"
     }
   };
 
@@ -24,7 +24,7 @@ export default class AbilityConfig extends BaseProficiencyConfig {
 
   /** @override */
   get propertyConfig() {
-    return CONFIG.DND5E.abilities[this.options.key];
+    return CONFIG.ME5E.abilities[this.options.key];
   }
 
   /* -------------------------------------------- */
@@ -35,11 +35,11 @@ export default class AbilityConfig extends BaseProficiencyConfig {
   async _preparePartContext(partId, context, options) {
     context = await super._preparePartContext(partId, context, options);
     context.proficiencyOptions = [
-      { value: 0, label: CONFIG.DND5E.proficiencyLevels[0] },
-      { value: 1, label: CONFIG.DND5E.proficiencyLevels[1] }
+      { value: 0, label: CONFIG.ME5E.proficiencyLevels[0] },
+      { value: 1, label: CONFIG.ME5E.proficiencyLevels[1] }
     ];
-    context.checkLabel = game.i18n.format("DND5E.ABILITY.Configure.CheckLabel", { ability: context.label });
-    context.saveLabel = game.i18n.format("DND5E.ABILITY.Configure.SaveLabel", { ability: context.label });
+    context.checkLabel = game.i18n.format("ME5E.ABILITY.Configure.CheckLabel", { ability: context.label });
+    context.saveLabel = game.i18n.format("ME5E.ABILITY.Configure.SaveLabel", { ability: context.label });
     return context;
   }
 }

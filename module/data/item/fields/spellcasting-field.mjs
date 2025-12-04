@@ -13,16 +13,16 @@ export default class SpellcastingField extends SchemaField {
         required: true,
         initial: "none",
         blank: false,
-        label: "DND5E.SpellProgression"
+        label: "ME5E.SpellProgression"
       }),
-      ability: new StringField({ label: "DND5E.SpellAbility" }),
+      ability: new StringField({ label: "ME5E.SpellAbility" }),
       preparation: new SchemaField({
-        formula: new FormulaField({ label: "DND5E.SpellPreparation.Formula" })
+        formula: new FormulaField({ label: "ME5E.SpellPreparation.Formula" })
       }),
       ...fields
     };
     Object.entries(fields).forEach(([k, v]) => !v ? delete fields[k] : null);
-    super(fields, { label: "DND5E.Spellcasting", ...options });
+    super(fields, { label: "ME5E.Spellcasting", ...options });
   }
 
   /* -------------------------------------------- */
@@ -38,8 +38,8 @@ export default class SpellcastingField extends SchemaField {
     this.spellcasting.preparation.max = simplifyBonus(this.spellcasting.preparation.formula, rollData);
 
     // Temp method for determining spellcasting type until this data is available directly using advancement
-    this.spellcasting.type = CONFIG.DND5E.spellProgression[this.spellcasting.progression]?.type;
-    this.spellcasting.slots = CONFIG.DND5E.spellcasting[this.spellcasting.type]?.slots;
+    this.spellcasting.type = CONFIG.ME5E.spellProgression[this.spellcasting.progression]?.type;
+    this.spellcasting.slots = CONFIG.ME5E.spellcasting[this.spellcasting.type]?.slots;
 
     const actor = this.parent.actor;
     if ( !actor ) return;

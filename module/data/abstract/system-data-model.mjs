@@ -111,7 +111,7 @@ export default class SystemDataModel extends foundry.abstract.TypeDataModel {
     const schema = {};
     for ( const template of this._schemaTemplates ) {
       if ( !template.defineSchema ) {
-        throw new Error(`Invalid dnd5e template mixin ${template} defined on class ${this.constructor}`);
+        throw new Error(`Invalid me5e template mixin ${template} defined on class ${this.constructor}`);
       }
       this.mergeSchema(schema, template.defineSchema());
     }
@@ -190,7 +190,7 @@ export default class SystemDataModel extends foundry.abstract.TypeDataModel {
     const actor = this.parent.actor;
     if ( (actor?.type !== "character") || !this.metadata?.singleton ) return;
     if ( actor.itemTypes[data.type]?.length ) {
-      ui.notifications.error("DND5E.ACTOR.Warning.Singleton", {
+      ui.notifications.error("ME5E.ACTOR.Warning.Singleton", {
         format: {
           itemType: game.i18n.localize(CONFIG.Item.typeLabels[data.type]),
           actorType: game.i18n.localize(CONFIG.Actor.typeLabels[actor.type])

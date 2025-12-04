@@ -126,7 +126,7 @@ slide-toggle {
 /*  Icon                              */
 /* ---------------------------------- */
 
-dnd5e-icon.fa-fw {
+me5e-icon.fa-fw {
   --icon-width: 1.25em;
 }
 
@@ -134,13 +134,13 @@ dnd5e-icon.fa-fw {
 /*  Item List Controls                */
 /* ---------------------------------- */
 
-.dnd5e2 item-list-controls search, .dnd5e2 .filter-element search {
+.me5e2 item-list-controls search, .me5e2 .filter-element search {
   display: flex;
   align-items: center;
   border-radius: 4px;
-  background: var(--dnd5e-background-card);
-  box-shadow: 0 0 6px var(--dnd5e-shadow-45);
-  border: var(--dnd5e-border-gold);
+  background: var(--me5e-background-card);
+  box-shadow: 0 0 6px var(--me5e-shadow-45);
+  border: var(--me5e-border-gold);
   padding-right: .25rem;
   position: relative;
 
@@ -152,12 +152,12 @@ dnd5e-icon.fa-fw {
     font-size: var(--font-size-13);
     height: unset;
     line-height: 1;
-    font-family: var(--dnd5e-font-roboto);
+    font-family: var(--me5e-font-roboto);
     outline: none;
 
     &:hover, &:focus-visible {
       outline: none;
-      box-shadow: 0 0 12px var(--dnd5e-color-gold);
+      box-shadow: 0 0 12px var(--me5e-color-gold);
     }
   }
 
@@ -185,7 +185,7 @@ dnd5e-icon.fa-fw {
 
     &.active {
       color: var(--filter-control-active-color);
-      &[data-action=filter] { color: var(--dnd5e-color-red); }
+      &[data-action=filter] { color: var(--me5e-color-red); }
     }
 
     &:hover:not(.disabled) { text-shadow: 0 0 8px var(--color-shadow-primary); }
@@ -197,9 +197,9 @@ dnd5e-icon.fa-fw {
   }
 
   .filter-control.filter {
-    border-right: var(--dnd5e-border-separator-faint);
+    border-right: var(--me5e-border-separator-faint);
     padding-right: .625rem;
-    &:hover { border-right: var(--dnd5e-border-separator-faint); }
+    &:hover { border-right: var(--me5e-border-separator-faint); }
   }
 
   .filter-control[data-action="sort"] { padding-left: .625rem; }
@@ -209,7 +209,7 @@ dnd5e-icon.fa-fw {
 /*  Multi Select                      */
 /* ---------------------------------- */
 
-.dnd5e multi-select .tags {
+.me5e multi-select .tags {
   flex-wrap: wrap;
   .tag { cursor: var(--cursor-pointer); }
 }
@@ -236,7 +236,7 @@ section.secret > button.reveal {
   border-style: solid;
   text-transform: uppercase;
   font-weight: bold;
-  font-family: var(--dnd5e-font-roboto);
+  font-family: var(--me5e-font-roboto);
 }
 
 /* -------------------------------------------- */

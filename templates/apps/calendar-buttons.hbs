@@ -16,10 +16,10 @@
 </menu>
 
 {{#*inline ".button"}}
-<button type="button" {{~#if action}} data-action="{{ action }}"{{/if}} {{ dnd5e-dataset dataset }}
+<button type="button" {{~#if action}} data-action="{{ action }}"{{/if}} {{ me5e-dataset dataset }}
         data-index="{{ index }}" {{~#if tooltip}} data-tooltip aria-label="{{ tooltip }}"
         data-tooltip-direction="{{ tooltipDirection }}"{{/if}}>
-    {{#if icon}}{{ dnd5e-icon icon }}{{/if}}
+    {{#if icon}}{{ me5e-icon icon }}{{/if}}
     {{#if label}}{{ label }}{{/if}}
 </button>
 {{/inline}}

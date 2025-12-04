@@ -12,7 +12,7 @@ export default class TransformUsageDialog extends ActivityUsageDialog {
   static PARTS = {
     ...super.PARTS,
     creation: {
-      template: "systems/dnd5e/templates/activity/transform-usage-creation.hbs"
+      template: "systems/me5e/templates/activity/transform-usage-creation.hbs"
     }
   };
 
@@ -33,7 +33,7 @@ export default class TransformUsageDialog extends ActivityUsageDialog {
       context.hasCreation = true;
       context.transformFields = [{
         field: new StringField({
-          required: true, blank: false, label: game.i18n.localize("DND5E.TRANSFORM.Profile.Label")
+          required: true, blank: false, label: game.i18n.localize("ME5E.TRANSFORM.Profile.Label")
         }),
         name: "transform.profile",
         value: this.config.transform?.profile,
@@ -59,7 +59,7 @@ export default class TransformUsageDialog extends ActivityUsageDialog {
     switch ( this.activity.transform.mode ) {
       case "cr":
         const cr = simplifyBonus(profile.cr, rollData);
-        return game.i18n.format("DND5E.TRANSFORM.Profile.ChallengeRatingLabel", { cr: formatCR(cr) });
+        return game.i18n.format("ME5E.TRANSFORM.Profile.ChallengeRatingLabel", { cr: formatCR(cr) });
       default:
         const doc = fromUuidSync(profile.uuid);
         if ( doc ) return doc.name;

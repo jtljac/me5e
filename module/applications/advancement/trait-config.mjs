@@ -34,23 +34,23 @@ export default class TraitConfig extends AdvancementConfig {
   static PARTS = {
     config: {
       container: { classes: ["column-container"], id: "column-left" },
-      template: "systems/dnd5e/templates/advancement/advancement-controls-section.hbs"
+      template: "systems/me5e/templates/advancement/advancement-controls-section.hbs"
     },
     details: {
       container: { classes: ["column-container"], id: "column-left" },
-      template: "systems/dnd5e/templates/advancement/trait-config-details.hbs"
+      template: "systems/me5e/templates/advancement/trait-config-details.hbs"
     },
     guaranteed: {
       container: { classes: ["column-container"], id: "column-left" },
-      template: "systems/dnd5e/templates/advancement/trait-config-guaranteed.hbs"
+      template: "systems/me5e/templates/advancement/trait-config-guaranteed.hbs"
     },
     choices: {
       container: { classes: ["column-container"], id: "column-left" },
-      template: "systems/dnd5e/templates/advancement/trait-config-choices.hbs"
+      template: "systems/me5e/templates/advancement/trait-config-choices.hbs"
     },
     traits: {
       container: { classes: ["column-container"], id: "column-right" },
-      template: "systems/dnd5e/templates/advancement/trait-config-traits.hbs"
+      template: "systems/me5e/templates/advancement/trait-config-traits.hbs"
     }
   };
 
@@ -121,12 +121,12 @@ export default class TraitConfig extends AdvancementConfig {
 
     const rep = this.advancement.representedTraits();
     context.disableAllowReplacements = rep.size > 1;
-    const traitConfig = rep.size === 1 ? CONFIG.DND5E.traits[rep.first()] : null;
+    const traitConfig = rep.size === 1 ? CONFIG.ME5E.traits[rep.first()] : null;
     if ( traitConfig ) {
       context.default.title = traitConfig.labels.title;
       context.default.icon = traitConfig.icon;
     } else {
-      context.default.title = game.i18n.localize("DND5E.TraitGenericPlural.other");
+      context.default.title = game.i18n.localize("ME5E.TraitGenericPlural.other");
       context.default.icon = this.advancement.constructor.metadata.icon;
     }
     context.default.hint = Trait.localizedList({ grants: this.config.grants, choices: this.config.choices });
@@ -136,11 +136,11 @@ export default class TraitConfig extends AdvancementConfig {
       input: context.inputs.createCheckboxInput,
       options: await Trait.choices(this.trait, { chosen, prefixed: true, any: this.selected !== -1 }),
       selected: this.trait,
-      selectedHeader: `${CONFIG.DND5E.traits[this.trait].labels.localization}.other`,
+      selectedHeader: `${CONFIG.ME5E.traits[this.trait].labels.localization}.other`,
       typeField: new StringField({
-        required: true, blank: false, label: game.i18n.localize("DND5E.ADVANCEMENT.Trait.TraitType")
+        required: true, blank: false, label: game.i18n.localize("ME5E.ADVANCEMENT.Trait.TraitType")
       }),
-      typeOptions: Object.entries(CONFIG.DND5E.traits)
+      typeOptions: Object.entries(CONFIG.ME5E.traits)
         .filter(([, config]) => ((this.config.mode === "default") || (this.config.mode === "mastery"
           ? config.mastery : config.expertise)) && (config.dataType !== Number))
         .map(([value, config]) => ({ value, label: config.labels.title }))
@@ -152,8 +152,8 @@ export default class TraitConfig extends AdvancementConfig {
     }
 
     context.mode = {
-      hint: CONFIG.DND5E.traitModes[this.advancement.configuration.mode].hint,
-      options: Object.entries(CONFIG.DND5E.traitModes).map(([value, { label }]) => ({ value, label }))
+      hint: CONFIG.ME5E.traitModes[this.advancement.configuration.mode].hint,
+      options: Object.entries(CONFIG.ME5E.traitModes).map(([value, { label }]) => ({ value, label }))
     };
 
     return context;
@@ -167,10 +167,10 @@ export default class TraitConfig extends AdvancementConfig {
   _onRender(context, options) {
     super._onRender(context, options);
     // Handle selecting & disabling category children when a category is selected
-    for ( const checkbox of this.element.querySelectorAll(".trait-list dnd5e-checkbox[checked]") ) {
+    for ( const checkbox of this.element.querySelectorAll(".trait-list me5e-checkbox[checked]") ) {
       const toCheck = (checkbox.name.endsWith("*") || checkbox.name.endsWith("ALL"))
-        ? checkbox.closest("ol").querySelectorAll(`dnd5e-checkbox:not([name="${checkbox.name}"])`)
-        : checkbox.closest("li").querySelector("ol")?.querySelectorAll("dnd5e-checkbox");
+        ? checkbox.closest("ol").querySelectorAll(`me5e-checkbox:not([name="${checkbox.name}"])`)
+        : checkbox.closest("li").querySelector("ol")?.querySelectorAll("me5e-checkbox");
       toCheck?.forEach(i => i.checked = i.disabled = true);
     }
   }
@@ -230,7 +230,7 @@ export default class TraitConfig extends AdvancementConfig {
       && (event.target.value !== "default")
       && (event.target.value !== this.config.mode) ) {
       const checkKey = event.target.value === "mastery" ? "mastery" : "expertise";
-      const validTraitTypes = filteredKeys(CONFIG.DND5E.traits, c => c[checkKey]);
+      const validTraitTypes = filteredKeys(CONFIG.ME5E.traits, c => c[checkKey]);
       if ( !validTraitTypes.includes(this.trait) ) this.trait = validTraitTypes[0];
     }
 
@@ -275,7 +275,7 @@ export default class TraitConfig extends AdvancementConfig {
     // If one of the expertise modes is selected, filter out any traits that are not of a valid type
     if ( (configuration.mode ?? this.config.mode) !== "default" ) {
       const checkKey = (configuration.mode ?? this.config.mode) === "mastery" ? "mastery" : "expertise";
-      const validTraitTypes = filteredKeys(CONFIG.DND5E.traits, c => c[checkKey]);
+      const validTraitTypes = filteredKeys(CONFIG.ME5E.traits, c => c[checkKey]);
       configuration.grants = configuration.grants.filter(k => validTraitTypes.some(t => k.startsWith(t)));
       configuration.choices.forEach(c => c.pool = c.pool?.filter(k => validTraitTypes.some(t => k.startsWith(t))));
     }

@@ -8,7 +8,7 @@ export default class ItemGrantFlow extends AdvancementFlow {
   /** @inheritDoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      template: "systems/dnd5e/templates/advancement/item-grant-flow.hbs"
+      template: "systems/me5e/templates/advancement/item-grant-flow.hbs"
     });
   }
 
@@ -20,7 +20,7 @@ export default class ItemGrantFlow extends AdvancementFlow {
    */
   async getContext() {
     const config = this.advancement.configuration;
-    const added = this.retainedData?.items.map(i => foundry.utils.getProperty(i, "flags.dnd5e.sourceId"))
+    const added = this.retainedData?.items.map(i => foundry.utils.getProperty(i, "flags.me5e.sourceId"))
       ?? this.advancement.value.added;
     const checked = new Set(Object.values(added ?? {}));
     return {
@@ -53,7 +53,7 @@ export default class ItemGrantFlow extends AdvancementFlow {
     const config = this.advancement.configuration;
     return {
       options: config.spell?.ability.size > 1 ? config.spell.ability.reduce((obj, k) => {
-        obj[k] = CONFIG.DND5E.abilities[k]?.label;
+        obj[k] = CONFIG.ME5E.abilities[k]?.label;
         return obj;
       }, {}) : null,
       selected: this.ability ?? this.retainedData?.ability ?? this.advancement.value.ability
@@ -88,7 +88,7 @@ export default class ItemGrantFlow extends AdvancementFlow {
   /** @inheritDoc */
   async _updateObject(event, formData) {
     const retainedData = this.retainedData?.items.reduce((obj, i) => {
-      obj[foundry.utils.getProperty(i, "flags.dnd5e.sourceId")] = i;
+      obj[foundry.utils.getProperty(i, "flags.me5e.sourceId")] = i;
       return obj;
     }, {});
     await this.advancement.apply(this.level, formData, retainedData);

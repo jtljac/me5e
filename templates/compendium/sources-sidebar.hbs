@@ -1,8 +1,8 @@
 {{#*inline ".package"}}
 
 <li {{#if active}}class="active"{{/if}} data-package-id="{{ id }}" data-filter="{{ filter }}">
-    <dnd5e-checkbox name="{{ id }}" {{ checked checked }} {{#if indeterminate}}indeterminate{{/if}}
-                    data-type="package"></dnd5e-checkbox>
+    <me5e-checkbox name="{{ id }}" {{ checked checked }} {{#if indeterminate}}indeterminate{{/if}}
+                    data-type="package"></me5e-checkbox>
     <div class="package" data-action="selectPackage">
         <span class="title">{{ title }}</span>
         <span class="value">{{ count }}</span>
@@ -12,13 +12,13 @@
 {{/inline}}
 
 <section class="sidebar filter-element">
-    <search aria-label="{{ localize "DND5E.CompendiumBrowser.Sources.FilterPackages" }}">
-        <input type="text" name="filter" placeholder="{{ localize "DND5E.CompendiumBrowser.Sources.FilterPackages" }}"
+    <search aria-label="{{ localize "ME5E.CompendiumBrowser.Sources.FilterPackages" }}">
+        <input type="text" name="filter" placeholder="{{ localize "ME5E.CompendiumBrowser.Sources.FilterPackages" }}"
                value="{{ filter }}">
         <ul class="unlist controls">
             <li>
                 <button type="button" class="unbutton filter-control" data-action="clearFilter"
-                        data-tooltip aria-label="{{ localize "DND5E.FilterClear" }}">
+                        data-tooltip aria-label="{{ localize "ME5E.FilterClear" }}">
                     <i class="fas fa-xmark"></i>
                 </button>
             </li>

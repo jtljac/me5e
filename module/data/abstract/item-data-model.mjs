@@ -23,7 +23,7 @@ export default class ItemDataModel extends SystemDataModel {
    * The handlebars template for rendering item tooltips.
    * @type {string}
    */
-  static ITEM_TOOLTIP_TEMPLATE = "systems/dnd5e/templates/items/parts/item-tooltip.hbs";
+  static ITEM_TOOLTIP_TEMPLATE = "systems/me5e/templates/items/parts/item-tooltip.hbs";
 
   /* -------------------------------------------- */
   /*  Properties                                  */
@@ -57,7 +57,7 @@ export default class ItemDataModel extends SystemDataModel {
    * @type {Item5e|void}
    */
   get advancementRootItem() {
-    return this.parent?.actor?.items.get(this.parent.getFlag("dnd5e", "advancementRoot")?.split(".")?.[0]);
+    return this.parent?.actor?.items.get(this.parent.getFlag("me5e", "advancementRoot")?.split(".")?.[0]);
   }
 
   /* -------------------------------------------- */
@@ -145,7 +145,7 @@ export default class ItemDataModel extends SystemDataModel {
   prepareBaseData() {
     if ( this.parent.isEmbedded && this.parent.actor?.items.has(this.parent.id) ) {
       this.parent.actor.identifiedItems?.set(this.parent.identifier, this.parent);
-      const sourceId = this.parent._stats.compendiumSource ?? this.parent.flags.dnd5e?.sourceId;
+      const sourceId = this.parent._stats.compendiumSource ?? this.parent.flags.me5e?.sourceId;
       if ( sourceId ) this.parent.actor.sourcedItems?.set(sourceId, this.parent);
     }
   }
@@ -176,7 +176,7 @@ export default class ItemDataModel extends SystemDataModel {
       content: await foundry.applications.handlebars.renderTemplate(
         this.constructor.ITEM_TOOLTIP_TEMPLATE, await this.getCardData(enrichmentOptions)
       ),
-      classes: ["dnd5e2", "dnd5e-tooltip", "item-tooltip", "themed", "theme-light"]
+      classes: ["me5e2", "me5e-tooltip", "item-tooltip", "themed", "theme-light"]
     };
   }
 
@@ -202,8 +202,8 @@ export default class ItemDataModel extends SystemDataModel {
 
     const context = {
       name, type, img, price, weight, uses, school, materials,
-      config: CONFIG.DND5E,
-      controlHints: game.settings.get("dnd5e", "controlHints"),
+      config: CONFIG.ME5E,
+      controlHints: game.settings.get("me5e", "controlHints"),
       labels: foundry.utils.deepClone((activity ?? this.parent).labels),
       tags: this.parent.labels?.components?.tags,
       subtitle: this.tooltipSubtitle.filterJoin(" • "),
@@ -214,7 +214,7 @@ export default class ItemDataModel extends SystemDataModel {
         chat: await TextEditor.enrichHTML(chat ?? "", {
           rollData, relativeTo: this.parent, ...enrichmentOptions
         }),
-        concealed: game.user.isGM && game.settings.get("dnd5e", "concealItemDescriptions") && !description.chat
+        concealed: game.user.isGM && game.settings.get("me5e", "concealItemDescriptions") && !description.chat
       }
     };
 
@@ -250,7 +250,7 @@ export default class ItemDataModel extends SystemDataModel {
 
     // Mundane Items
     if ( !this.properties.has("mgc") || !rarity ) {
-      const { mundane } = CONFIG.DND5E.crafting;
+      const { mundane } = CONFIG.ME5E.crafting;
       const valueInGP = price.valueInGP ?? 0;
       return { days: Math.ceil(valueInGP * mundane.days), gold: Math.floor(valueInGP * mundane.gold) };
     }
@@ -265,7 +265,7 @@ export default class ItemDataModel extends SystemDataModel {
       }
     }
 
-    const { magic } = CONFIG.DND5E.crafting;
+    const { magic } = CONFIG.ME5E.crafting;
     if ( !(rarity in magic) ) return { days, gold };
     const costs = magic[rarity];
     return { days: days + costs.days, gold: gold + costs.gold };

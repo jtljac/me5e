@@ -1,9 +1,9 @@
 <section class="tab activity-{{ tab.id }} {{ tab.cssClass }}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
     <fieldset>
         <legend>
-            <span>{{ localize "DND5E.TRANSFORM.FIELDS.profiles.label" }}</span>
+            <span>{{ localize "ME5E.TRANSFORM.FIELDS.profiles.label" }}</span>
             <button type="button" class="unbutton control-button" data-action="addProfile"
-                    data-tooltip aria-label="{{ localize "DND5E.TRANSFORM.Profile.Action.Create" }}">
+                    data-tooltip aria-label="{{ localize "ME5E.TRANSFORM.Profile.Action.Create" }}">
                 <i class="fas fa-plus" inert></i>
             </button>
         </legend>
@@ -17,7 +17,7 @@
             </li>
             {{else}}
             <li class="empty">
-                {{{ localize "DND5E.TRANSFORM.Profile.Empty" }}}
+                {{{ localize "ME5E.TRANSFORM.Profile.Empty" }}}
             </li>
             {{/each}}
         </ul>
@@ -31,17 +31,17 @@
             {{!-- CR --}}
             {{#if (eq @root.source.transform.mode "cr")}}
             {{ formField fields.cr name=(concat prefix "cr") value=data.cr localize=true hint=false classes="label-top"
-                         label="DND5E.TRANSFORM.FIELDS.profiles.element.cr.abbr" rootId=@root.partId }}
+                         label="ME5E.TRANSFORM.FIELDS.profiles.element.cr.abbr" rootId=@root.partId }}
 
             {{else if document}}
 
             {{!-- UUID --}}
-            {{{ dnd5e-linkForUuid data.uuid }}}
+            {{{ me5e-linkForUuid data.uuid }}}
 
             {{else~}}
 
             {{!-- Drop Area --}}
-            <div class="drop-area">{{ localize "DND5E.TRANSFORM.Profile.DropHint" }}</div>
+            <div class="drop-area">{{ localize "ME5E.TRANSFORM.Profile.DropHint" }}</div>
 
             {{/if}}
 
@@ -51,7 +51,7 @@
 
             {{!-- Delete --}}
             <button type="button" class="unbutton control-button" data-action="deleteProfile"
-                    data-tooltip aria-label="{{ localize "DND5E.TRANSFORM.Profile.Action.Delete" }}">
+                    data-tooltip aria-label="{{ localize "ME5E.TRANSFORM.Profile.Action.Delete" }}">
                 <i class="fas fa-minus" inert></i>
             </button>
         </div>
@@ -61,7 +61,7 @@
     <div class="additional-tray collapsible {{ collapsed }}" data-action="toggleCollapsed">
         <label class="roboto-upper">
             <i class="fa-solid fa-gears" inert></i>
-            <span>{{ localize "DND5E.AdditionalSettings" }}</span>
+            <span>{{ localize "ME5E.AdditionalSettings" }}</span>
             <i class="fa-solid fa-caret-down" inert></i>
         </label>
         <div class="collapsible-content">
@@ -75,17 +75,17 @@
                              options=@root.movementTypeOptions rootId=@root.partId }}
                 {{/if}}
                 <div class="form-group">
-                    <label>{{ localize "DND5E.TRANSFORM.FIELDS.profiles.element.level.label" }}</label>
+                    <label>{{ localize "ME5E.TRANSFORM.FIELDS.profiles.element.level.label" }}</label>
                     <div class="form-fields range-fields">
                         {{ formInput fields.level.fields.min name=(concat prefix "level.min") value=data.level.min
-                                     placeholder="0" ariaLabel=(localize "DND5E.LevelLimit.Min")
+                                     placeholder="0" ariaLabel=(localize "ME5E.LevelLimit.Min")
                                      input=@root.inputs.createNumberInput }}
-                        <dnd5e-icon src="systems/dnd5e/icons/svg/range-connector.svg" class="sep"></dnd5e-icon>
+                        <me5e-icon src="systems/me5e/icons/svg/range-connector.svg" class="sep"></me5e-icon>
                         {{ formInput fields.level.fields.max name=(concat prefix "level.max") value=data.level.max
-                                     placeholder="∞" ariaLabel=(localize "DND5E.LevelLimit.Max")
+                                     placeholder="∞" ariaLabel=(localize "ME5E.LevelLimit.Max")
                                      input=@root.inputs.createNumberInput }}
                     </div>
-                    <p class="hint">{{ localize "DND5E.TRANSFORM.FIELDS.profiles.element.level.hint" }}</p>
+                    <p class="hint">{{ localize "ME5E.TRANSFORM.FIELDS.profiles.element.level.hint" }}</p>
                 </div>
             </div>
         </div>

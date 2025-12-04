@@ -12,7 +12,7 @@
  * @typedef ClassItemSystemData
  * @property {object} hd                           Object describing hit dice properties.
  * @property {string} hd.additional                Additional hit dice beyond the level of the class.
- * @property {string} hd.denomination              Denomination of hit dice available as defined in `DND5E.hitDieTypes`.
+ * @property {string} hd.denomination              Denomination of hit dice available as defined in `ME5E.hitDieTypes`.
  * @property {number} hd.spent                     Number of hit dice consumed.
  * @property {number} levels                       Current number of levels in this class.
  * @property {object} primaryAbility
@@ -160,7 +160,7 @@
  * @property {string} ability                      Default ability when this tool is being used.
  * @property {string} bonus                        Bonus formula added to tool rolls.
  * @property {string} chatFlavor                   Additional text added to chat when this tool is used.
- * @property {number} proficient                   Level of proficiency as defined in `DND5E.proficiencyLevels`.
+ * @property {number} proficient                   Level of proficiency as defined in `ME5E.proficiencyLevels`.
  * @property {Set<string>} properties              Tool properties.
  * @property {Omit<ItemTypeData, "subtype">} type  Tool type and base item.
  */

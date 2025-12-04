@@ -9,17 +9,17 @@
     <div class="top flexrow">
 
         {{#if (or editable system.details.ideal)}}
-        {{~> "dnd5e.biography-textbox" name="system.details.ideal" value=system.details.ideal label="DND5E.Ideals"
+        {{~> "me5e.biography-textbox" name="system.details.ideal" value=system.details.ideal label="ME5E.Ideals"
             icon="fas fa-seedling" ~}}
         {{/if}}
 
         {{#if (or editable system.details.bond)}}
-        {{~> "dnd5e.biography-textbox" name="system.details.bond" value=system.details.bond label="DND5E.Bonds"
+        {{~> "me5e.biography-textbox" name="system.details.bond" value=system.details.bond label="ME5E.Bonds"
             icon="fas fa-link" ~}}
         {{/if}}
 
         {{#if (or editable system.details.flaw)}}
-        {{~> "dnd5e.biography-textbox" name="system.details.flaw" value=system.details.flaw label="DND5E.Flaws"
+        {{~> "me5e.biography-textbox" name="system.details.flaw" value=system.details.flaw label="ME5E.Flaws"
             icon="fas fa-heart-crack" ~}}
         {{/if}}
 
@@ -31,11 +31,11 @@
         <h3 class="icon">
             <button type="button" class="control-button editor-edit unbutton" data-action="editDescription"
                     data-target="system.details.biography.public"
-                    aria-label="{{ localize 'DND5E.BiographyPublicEdit' }}">
+                    aria-label="{{ localize 'ME5E.BiographyPublicEdit' }}">
                 <i class="fas fa-feather" inert></i>
             </button>
-            <dnd5e-icon src="systems/dnd5e/icons/svg/ink-pot.svg"></dnd5e-icon>
-            <span class="roboto-upper">{{ localize "DND5E.Public" }}</span>
+            <me5e-icon src="systems/me5e/icons/svg/ink-pot.svg"></me5e-icon>
+            <span class="roboto-upper">{{ localize "ME5E.Public" }}</span>
         </h3>
 
         <div class="editor">
@@ -49,11 +49,11 @@
 
         <h3 class="icon">
             <button type="button" class="control-button editor-edit unbutton" data-action="editDescription"
-                    data-target="system.details.biography.value" aria-label="{{ localize 'DND5E.DetailsEdit' }}">
+                    data-target="system.details.biography.value" aria-label="{{ localize 'ME5E.DetailsEdit' }}">
                 <i class="fas fa-feather" inert></i>
             </button>
-            <dnd5e-icon src="systems/dnd5e/icons/svg/ink-pot.svg"></dnd5e-icon>
-            <span class="roboto-upper">{{ localize "DND5E.Details" }}</span>
+            <me5e-icon src="systems/me5e/icons/svg/ink-pot.svg"></me5e-icon>
+            <span class="roboto-upper">{{ localize "ME5E.Details" }}</span>
         </h3>
 
         <div class="editor">

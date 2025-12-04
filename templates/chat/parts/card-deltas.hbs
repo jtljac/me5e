@@ -1,5 +1,5 @@
 <section class="deltas">
-    <strong class="roboto-condensed-upper">{{ localize "DND5E.CHATMESSAGE.Deltas.Recovery" }}</strong>
+    <strong class="roboto-condensed-upper">{{ localize "ME5E.CHATMESSAGE.Deltas.Recovery" }}</strong>
     <ul class="unlist">
         {{#each deltas}}
         <li class="delta delta-{{ type }} operation-{{ operation }}">
@@ -12,10 +12,10 @@
                 {{ delta }}
                 {{else if (eq operation "create")}}
                 <i class="fa-regular fa-square-plus" data-tooltip
-                   aria-label="{{ localize 'DND5E.CHATMESSAGE.Deltas.Created' }}"></i>
+                   aria-label="{{ localize 'ME5E.CHATMESSAGE.Deltas.Created' }}"></i>
                 {{else if (eq operation "delete")}}
                 <i class="fa-regular fa-square-minus" data-tooltip
-                   aria-label="{{ localize 'DND5E.CHATMESSAGE.Deltas.Deleted' }}"></i>
+                   aria-label="{{ localize 'ME5E.CHATMESSAGE.Deltas.Deleted' }}"></i>
                 {{/if}}
             </span>
         </li>

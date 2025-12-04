@@ -19,10 +19,10 @@ export default class ItemDescriptionTemplate extends SystemDataModel {
   static defineSchema() {
     return {
       description: new SchemaField({
-        value: new HTMLField({ required: true, nullable: true, label: "DND5E.Description" }),
-        chat: new HTMLField({ required: true, nullable: true, label: "DND5E.DescriptionChat" })
+        value: new HTMLField({ required: true, nullable: true, label: "ME5E.Description" }),
+        chat: new HTMLField({ required: true, nullable: true, label: "ME5E.DescriptionChat" })
       }),
-      identifier: new IdentifierField({ required: true, label: "DND5E.Identifier" }),
+      identifier: new IdentifierField({ required: true, label: "ME5E.Identifier" }),
       source: new SourceField()
     };
   }
@@ -36,7 +36,7 @@ export default class ItemDescriptionTemplate extends SystemDataModel {
    * @returns {Set<string>}
    */
   get validProperties() {
-    return new Set(CONFIG.DND5E.validProperties[this.parent.type] ?? []);
+    return new Set(CONFIG.ME5E.validProperties[this.parent.type] ?? []);
   }
 
   /* -------------------------------------------- */
@@ -69,7 +69,7 @@ export default class ItemDescriptionTemplate extends SystemDataModel {
    * Prepare the source label.
    */
   prepareDescriptionData() {
-    const uuid = this.parent.flags.dnd5e?.sourceId ?? this.parent._stats?.compendiumSource ?? this.parent.uuid;
+    const uuid = this.parent.flags.me5e?.sourceId ?? this.parent._stats?.compendiumSource ?? this.parent.uuid;
     SourceField.prepareData.call(this.source, uuid);
   }
 
@@ -84,11 +84,11 @@ export default class ItemDescriptionTemplate extends SystemDataModel {
    */
   static compendiumBrowserPropertiesFilter(type) {
     return {
-      label: "DND5E.Properties",
+      label: "ME5E.Properties",
       type: "set",
       config: {
-        choices: Object.entries(CONFIG.DND5E.itemProperties).reduce((obj, [k, v]) => {
-          if ( CONFIG.DND5E.validProperties[type]?.has(k) ) obj[k] = v;
+        choices: Object.entries(CONFIG.ME5E.itemProperties).reduce((obj, [k, v]) => {
+          if ( CONFIG.ME5E.validProperties[type]?.has(k) ) obj[k] = v;
           return obj;
         }, {}),
         keyPath: "system.properties",

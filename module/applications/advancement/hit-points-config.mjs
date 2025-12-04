@@ -15,7 +15,7 @@ export default class HitPointsConfig extends AdvancementConfig {
   static PARTS = {
     ...super.PARTS,
     hitPoints: {
-      template: "systems/dnd5e/templates/advancement/hit-points-config.hbs"
+      template: "systems/me5e/templates/advancement/hit-points-config.hbs"
     }
   };
 

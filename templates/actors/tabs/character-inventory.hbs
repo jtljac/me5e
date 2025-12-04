@@ -5,19 +5,19 @@
 
         {{!-- Encumbrance --}}
         <div class="encumbrance card">
-            {{> "systems/dnd5e/templates/inventory/encumbrance.hbs" encumbrance=system.attributes.encumbrance
+            {{> "systems/me5e/templates/inventory/encumbrance.hbs" encumbrance=system.attributes.encumbrance
                 hasBreakpoints=true }}
             <div class="info">
                 <div class="strength">
-                    <span class="label">{{ localize "DND5E.AbilityStr" }}</span>
+                    <span class="label">{{ localize "ME5E.AbilityStr" }}</span>
                     <span class="value">{{ system.abilities.str.value }}</span>
                 </div>
                 <div class="size">
-                    <span class="label">{{ localize "DND5E.Size" }}</span>
+                    <span class="label">{{ localize "ME5E.Size" }}</span>
                     <span class="value" aria-label="{{ size.label }}">{{ size.abbr }}</span>
                 </div>
                 <div class="multiplier">
-                    <span class="label">{{ localize "DND5E.Multiplier" }}</span>
+                    <span class="label">{{ localize "ME5E.Multiplier" }}</span>
                     <span class="value">
                         <span class="sign">&times;</span>
                         {{ size.mod }}
@@ -27,9 +27,9 @@
         </div>
 
         {{!-- Containers --}}
-        {{> "systems/dnd5e/templates/inventory/containers.hbs" }}
+        {{> "systems/me5e/templates/inventory/containers.hbs" }}
 
     </div>
 
-    {{> "systems/dnd5e/templates/inventory/inventory.hbs" }}
+    {{> "systems/me5e/templates/inventory/inventory.hbs" }}
 </section>

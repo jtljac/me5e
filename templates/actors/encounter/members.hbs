@@ -14,14 +14,14 @@
                 <div class="subtitle">{{ subtitle }}</div>
             </div>
             {{#unless @root.editable}}
-            <div class="cr-badge badge" data-tooltip aria-label="{{ localize "DND5E.CRLabel" cr=cr }}">
-                {{ dnd5e-formatCR cr }}
+            <div class="cr-badge badge" data-tooltip aria-label="{{ localize "ME5E.CRLabel" cr=cr }}">
+                {{ me5e-formatCR cr }}
             </div>
             {{/unless}}
             {{#if showFormula}}
             <div class="formula">
                 <div {{#if @root.editable}}class="editable"{{/if}}>
-                    <label aria-label="{{ localize "DND5E.QuantityFormula" }}">&lambda;</label>
+                    <label aria-label="{{ localize "ME5E.QuantityFormula" }}">&lambda;</label>
                     {{#if @root.editable}}
                     <input type="text" class="uninput" data-name="quantity.formula" value="{{ quantity.formula }}">
                     {{else}}
@@ -38,7 +38,7 @@
                     <i class="fa-solid fa-minus" inert></i>
                 </button>
                 <input type="text" class="slot uninput" inputmode="numeric" pattern="^[+=\-]?\d*" placeholder="—"
-                       data-dtype="Number" data-name="quantity.value" aria-label="{{ localize "DND5E.Quantity" }}"
+                       data-dtype="Number" data-name="quantity.value" aria-label="{{ localize "ME5E.Quantity" }}"
                        value="{{ quantity.value }}" min="0">
                 <button type="button" class="control-button adjustment-button unbutton" data-action="increase"
                         data-property="system.quantity.value">
@@ -52,7 +52,7 @@
             <div class="controls">
                 {{#if @root.editable}}
                 <button type="button" class="config-button unbutton" data-action="removeMember" data-tooltip
-                        aria-label="{{ localize "DND5E.Group.Action.Remove" }}">
+                        aria-label="{{ localize "ME5E.Group.Action.Remove" }}">
                     <i class="fa-solid fa-square-xmark" inert></i>
                 </button>
                 {{/if}}
@@ -69,7 +69,7 @@
 
     {{#if (or editable (not members.length))}}
     <div class="pill-lg roboto-upper empty" data-action="browse">
-        {{ localize "DND5E.ENCOUNTER.Action.AddCreature" }}
+        {{ localize "ME5E.ENCOUNTER.Action.AddCreature" }}
     </div>
     {{/if}}
 
@@ -81,8 +81,8 @@
                  style="--bar-percentage: {{ pct }}%; --breakpoint-low: {{ stops.low }}%; --breakpoint-high: {{ stops.high }}%;">
                 <div class="label">
                     <span class="value">
-                        {{ localize "DND5E.ExperiencePoints.Abbreviation" }}
-                        {{ dnd5e-numberFormat value }}
+                        {{ localize "ME5E.ExperiencePoints.Abbreviation" }}
+                        {{ me5e-numberFormat value }}
                     </span>
                 </div>
                 {{#if stops.low}}

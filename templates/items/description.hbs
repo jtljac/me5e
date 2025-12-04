@@ -8,7 +8,7 @@
     {{else}}
 
     {{#if (eq item.type "spell")}}
-        {{> "dnd5e.spell-block" activation=system.activation fullWidth=true }}
+        {{> "me5e.spell-block" activation=system.activation fullWidth=true }}
     {{/if}}
 
     {{#if info}}
@@ -49,18 +49,18 @@
         {{#if (or isIdentified user.isGM)}}
 
             {{!-- All users see the main, identified description --}}
-            {{> ".description" collapsible=item.isOwner label="DND5E.Description" target="system.description.value"
+            {{> ".description" collapsible=item.isOwner label="ME5E.Description" target="system.description.value"
                 enriched=enriched.description }}
 
             {{!-- Only GM users are able to see and edit the unidentified description --}}
             {{#if (and isIdentifiable user.isGM)}}
-            {{> ".description" collapsible=true label="DND5E.DescriptionUnidentified"
+            {{> ".description" collapsible=true label="ME5E.DescriptionUnidentified"
                 target="system.unidentified.description" enriched=enriched.unidentified }}
             {{/if}}
 
             {{!-- Owners can see and edit the chat description. It is only visible to non-owners if not blank. --}}
             {{#if (or item.isOwner system.description.chat)}}
-            {{> ".description" collapsible=item.isOwner label="DND5E.DescriptionChat" target="system.description.chat"
+            {{> ".description" collapsible=item.isOwner label="ME5E.DescriptionChat" target="system.description.chat"
                 enriched=enriched.chat }}
             {{/if}}
 
@@ -68,7 +68,7 @@
 
         {{!-- When unidentified, non-GM users can only see and edit the unidentified description --}}
         {{#if (or item.isOwner system.unidentified.description)}}
-        {{> ".description" collapsible=false label="DND5E.Description" target="system.unidentified.description"
+        {{> ".description" collapsible=false label="ME5E.Description" target="system.unidentified.description"
             enriched=enriched.unidentified }}
         {{/if}}
 
@@ -100,7 +100,7 @@
         <span>{{ localize label }}</span>
         {{#unless @root.locked}}
         <button type="button" class="unbutton control-button always-interactive" data-action="editDescription"
-                aria-label="{{ localize 'DND5E.DescriptionEdit' description=(localize label) }}"
+                aria-label="{{ localize 'ME5E.DescriptionEdit' description=(localize label) }}"
                 data-target="{{ target }}">
             <i class="fas fa-feather" inert></i>
         </button>

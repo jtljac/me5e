@@ -67,16 +67,16 @@ export default class AdvancementMigrationDialog extends Dialog5e {
           action: "complete",
           default: true,
           icon: "fa-solid fa-check",
-          label: game.i18n.localize("DND5E.ADVANCEMENT.Migration.Action.Confirm")
+          label: game.i18n.localize("ME5E.ADVANCEMENT.Migration.Action.Confirm")
         }
       ],
       content: await foundry.applications.handlebars.renderTemplate(
-        "systems/dnd5e/templates/advancement/advancement-migration-dialog.hbs",
+        "systems/me5e/templates/advancement/advancement-migration-dialog.hbs",
         { item, advancements: advancementContext }
       ),
       rejectClose: false,
       window: {
-        title: game.i18n.localize("DND5E.ADVANCEMENT.Migration.Title"),
+        title: game.i18n.localize("ME5E.ADVANCEMENT.Migration.Title"),
         subtitle: item.name
       }
     });

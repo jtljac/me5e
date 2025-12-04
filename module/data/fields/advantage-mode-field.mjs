@@ -11,7 +11,7 @@ export default class AdvantageModeField extends foundry.data.fields.NumberField 
     return foundry.utils.mergeObject(super._defaults, {
       choices: AdvantageModeField.#values,
       initial: 0,
-      label: "DND5E.AdvantageMode"
+      label: "ME5E.AdvantageMode"
     });
   }
 

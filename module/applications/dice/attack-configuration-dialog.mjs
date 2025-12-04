@@ -24,9 +24,9 @@ export default class AttackRollConfigurationDialog extends D20RollConfigurationD
   async _prepareConfigurationContext(context, options) {
     context = await super._prepareConfigurationContext(context, options);
     const optionsFields = [
-      { key: "attackMode", label: "DND5E.ATTACK.Mode.Label", options: this.options.attackModeOptions },
-      { key: "ammunition", label: "DND5E.CONSUMABLE.Type.Ammunition.Label", options: this.options.ammunitionOptions },
-      { key: "mastery", label: "DND5E.WEAPON.Mastery.Label", options: this.options.masteryOptions }
+      { key: "attackMode", label: "ME5E.ATTACK.Mode.Label", options: this.options.attackModeOptions },
+      { key: "ammunition", label: "ME5E.CONSUMABLE.Type.Ammunition.Label", options: this.options.ammunitionOptions },
+      { key: "mastery", label: "ME5E.WEAPON.Mastery.Label", options: this.options.masteryOptions }
     ];
     context.fields = [
       ...optionsFields.map(({ key, label, options }) => options.length ? {

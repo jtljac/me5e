@@ -2,7 +2,7 @@
     <label>{{ label }}</label>
     {{#if canAdjust}}
     <button class="unbutton control-button minus" type="button" {{~#if canDecrease}}data-action="decrease"{{else}} disabled{{/if}}
-       data-tooltip aria-label="{{ localize 'DND5E.ADVANCEMENT.AbilityScoreImprovement.FIELDS.points.decrease' }}">
+       data-tooltip aria-label="{{ localize 'ME5E.ADVANCEMENT.AbilityScoreImprovement.FIELDS.points.decrease' }}">
         <i class="fas fa-minus" inert></i>
     </button>
     {{/if}}
@@ -11,7 +11,7 @@
            {{#if isLocked}}readonly aria-readonly="true"{{/if}} {{ disabled isDisabled }}>
     {{#if canAdjust}}
     <button class="unbutton control-button plus" type="button" {{~#if canIncrease}} data-action="increase"{{else}} disabled{{/if}}
-       data-tooltip aria-label="{{ localize 'DND5E.ADVANCEMENT.AbilityScoreImprovement.FIELDS.points.increase' }}">
+       data-tooltip aria-label="{{ localize 'ME5E.ADVANCEMENT.AbilityScoreImprovement.FIELDS.points.increase' }}">
         <i class="fas fa-plus" inert></i>
     </button>
     {{/if}}
@@ -29,7 +29,7 @@
         {{#if delta}}{{ delta }}{{else}}&nbsp;{{/if}}
         {{#if isLocked}}
         <i class="fa-solid fa-lock" data-tooltip
-           aria-label="{{ localize 'DND5E.ADVANCEMENT.AbilityScoreImprovement.FIELDS.fixed.label' }}"></i>
+           aria-label="{{ localize 'ME5E.ADVANCEMENT.AbilityScoreImprovement.FIELDS.fixed.label' }}"></i>
         {{/if}}
     </div>
     {{/if}}

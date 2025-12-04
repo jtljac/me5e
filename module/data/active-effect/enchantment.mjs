@@ -93,7 +93,7 @@ export default class EnchantmentData extends foundry.abstract.TypeDataModel {
       case "system.preparation.mode":
         foundry.utils.logCompatibilityWarning("system.preparation.mode is deprecated. Please instead use "
           + "system.method to set the spellcasting method, or system.prepared to set the preparation state.",
-        { since: "DnD5e 5.1", until: "DnD5e 5.4", once: true });
+        { since: "ME5e 5.1", until: "ME5e 5.4", once: true });
         change.key = "system.method";
         if ( change.value === "always" ) {
           change.key = "system.prepared";
@@ -104,7 +104,7 @@ export default class EnchantmentData extends foundry.abstract.TypeDataModel {
       /** @deprecated since 5.1 */
       case "system.preparation.prepared":
         foundry.utils.logCompatibilityWarning("system.preparation.prepared is deprecated. "
-          + "Please use system.prepared instead.", { since: "DnD5e 5.1", until: "DnD5e 5.4", once: true });
+          + "Please use system.prepared instead.", { since: "ME5e 5.1", until: "ME5e 5.4", once: true });
         change.key = "system.prepared";
         break;
     }

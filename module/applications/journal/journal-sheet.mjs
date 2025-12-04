@@ -20,7 +20,7 @@ export default class JournalSheet5e extends foundry.appv1.sheets.JournalSheet {
   /** @inheritDoc */
   static get defaultOptions() {
     const options = super.defaultOptions;
-    options.classes.push("dnd5e2-journal", "dnd5e2-journal-legacy");
+    options.classes.push("me5e2-journal", "me5e2-journal-legacy");
     return options;
   }
 

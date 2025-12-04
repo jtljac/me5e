@@ -25,7 +25,7 @@ export default class VehicleData extends CommonTemplate {
   /* -------------------------------------------- */
 
   /** @override */
-  static LOCALIZATION_PREFIXES = ["DND5E.SOURCE"];
+  static LOCALIZATION_PREFIXES = ["ME5E.SOURCE"];
 
   /* -------------------------------------------- */
 
@@ -41,69 +41,69 @@ export default class VehicleData extends CommonTemplate {
         ...AttributesFields.common,
         ac: new SchemaField({
           ...AttributesFields.armorClass,
-          calc: new StringField({ initial: "flat", label: "DND5E.ArmorClassCalculation" })
-        }, { label: "DND5E.ArmorClass" }),
+          calc: new StringField({ initial: "flat", label: "ME5E.ArmorClassCalculation" })
+        }, { label: "ME5E.ArmorClass" }),
         hp: new SchemaField({
           ...AttributesFields.hitPoints,
           mt: new NumberField({
-            required: true, integer: true, min: 0, label: "DND5E.VEHICLE.Mishap.Threshold.label"
+            required: true, integer: true, min: 0, label: "ME5E.VEHICLE.Mishap.Threshold.label"
           })
-        }, { label: "DND5E.HitPoints" }),
+        }, { label: "ME5E.HitPoints" }),
         actions: new SchemaField({
           max: new NumberField({
             required: true, nullable: false, integer: true, initial: 3, min: 0, max: 3,
-            label: "DND5E.VEHICLE.FIELDS.attributes.actions.max.label"
+            label: "ME5E.VEHICLE.FIELDS.attributes.actions.max.label"
           }),
           spent: new NumberField({
             required: true, nullable: false, integer: true, initial: 0, min: 0, max: 3,
-            label: "DND5E.VEHICLE.FIELDS.attributes.actions.spent.label"
+            label: "ME5E.VEHICLE.FIELDS.attributes.actions.spent.label"
           }),
           stations: new BooleanField({
-            required: true, initial: true, label: "DND5E.VEHICLE.FIELDS.attributes.actions.stations.label"
+            required: true, initial: true, label: "ME5E.VEHICLE.FIELDS.attributes.actions.stations.label"
           }),
           thresholds: new SchemaField({
             2: new NumberField({
               required: true, integer: true, min: 0,
-              label: "DND5E.VEHICLE.FIELDS.attributes.actions.thresholds.full.label"
+              label: "ME5E.VEHICLE.FIELDS.attributes.actions.thresholds.full.label"
             }),
             1: new NumberField({
               required: true, integer: true, min: 0,
-              label: "DND5E.VEHICLE.FIELDS.attributes.actions.thresholds.mid.label"
+              label: "ME5E.VEHICLE.FIELDS.attributes.actions.thresholds.mid.label"
             }),
             0: new NumberField({
               required: true, integer: true, min: 0,
-              label: "DND5E.VEHICLE.FIELDS.attributes.actions.thresholds.min.label"
+              label: "ME5E.VEHICLE.FIELDS.attributes.actions.thresholds.min.label"
             })
-          }, { label: "DND5E.VEHICLE.FIELDS.attributes.actions.thresholds.label" })
-        }, { label: "DND5E.VEHICLE.FIELDS.attributes.actions.label" }),
+          }, { label: "ME5E.VEHICLE.FIELDS.attributes.actions.thresholds.label" })
+        }, { label: "ME5E.VEHICLE.FIELDS.attributes.actions.label" }),
         capacity: new SchemaField({
           cargo: new SchemaField({
-            value: new NumberField({ min: 0, label: "DND5E.VEHICLE.FIELDS.attributes.capacity.cargo.value.label" }),
+            value: new NumberField({ min: 0, label: "ME5E.VEHICLE.FIELDS.attributes.capacity.cargo.value.label" }),
             units: new StringField({
-              required: true, blank: false, label: "DND5E.UNITS.WEIGHT.Label", initial: () => defaultUnits("weight")
+              required: true, blank: false, label: "ME5E.UNITS.WEIGHT.Label", initial: () => defaultUnits("weight")
             })
-          }, { label: "DND5E.VEHICLE.FIELDS.attributes.capacity.cargo.value.label" }),
-          creature: new StringField({ required: true, label: "DND5E.VehicleCreatureCapacity" }) // FIXME: Leave in the model until we decide how to migrate it.
-        }, { label: "DND5E.VEHICLE.FIELDS.attributes.capacity.label" }),
+          }, { label: "ME5E.VEHICLE.FIELDS.attributes.capacity.cargo.value.label" }),
+          creature: new StringField({ required: true, label: "ME5E.VehicleCreatureCapacity" }) // FIXME: Leave in the model until we decide how to migrate it.
+        }, { label: "ME5E.VEHICLE.FIELDS.attributes.capacity.label" }),
         price: new SchemaField({
-          value: new NumberField({ initial: null, min: 0, label: "DND5E.Price" }),
-          denomination: new StringField({ required: true, blank: false, initial: "gp", label: "DND5E.Currency" })
-        }, { label: "DND5E.Price" }),
+          value: new NumberField({ initial: null, min: 0, label: "ME5E.Price" }),
+          denomination: new StringField({ required: true, blank: false, initial: "gp", label: "ME5E.Currency" })
+        }, { label: "ME5E.Price" }),
         quality: new SchemaField({
           value: new NumberField({ required: true, nullable: false, integer: true, min: -10, max: 10, initial: 4 })
         }),
         travel: new TravelField({ pace: false, }, {
-          initialTime: () => CONFIG.DND5E.travelTimes.vehicle, initialUnits: () => defaultUnits("travel")
+          initialTime: () => CONFIG.ME5E.travelTimes.vehicle, initialUnits: () => defaultUnits("travel")
         })
-      }, { label: "DND5E.Attributes" }),
+      }, { label: "ME5E.Attributes" }),
       crew: new SchemaField({
         max: new NumberField({ min: 0, integer: true }),
         value: new ArrayField(new DocumentUUIDField({ type: "Actor" }))
       }),
       details: new SchemaField({
         ...DetailsFields.common,
-        type: new StringField({ required: true, blank: false, initial: "water", label: "DND5E.VEHICLE.Type.label" })
-      }, { label: "DND5E.Details" }),
+        type: new StringField({ required: true, blank: false, initial: "water", label: "ME5E.VEHICLE.Type.label" })
+      }, { label: "ME5E.Details" }),
       draft: new SchemaField({
         value: new ArrayField(new DocumentUUIDField({ type: "Actor" }))
       }),
@@ -114,27 +114,27 @@ export default class VehicleData extends CommonTemplate {
       source: new SourceField(),
       traits: new SchemaField({
         ...TraitsFields.common,
-        size: new StringField({ required: true, blank: false, initial: "lg", label: "DND5E.Size" }),
+        size: new StringField({ required: true, blank: false, initial: "lg", label: "ME5E.Size" }),
         weight: new SchemaField({
-          value: new NumberField({ min: 0, label: "DND5E.Weight" }),
+          value: new NumberField({ min: 0, label: "ME5E.Weight" }),
           units: new StringField({
-            required: true, blank: false, label: "DND5E.UNITS.WEIGHT.Label", initial: () => defaultUnits("weight")
+            required: true, blank: false, label: "ME5E.UNITS.WEIGHT.Label", initial: () => defaultUnits("weight")
           })
-        }, { label: "DND5E.Weight" }),
+        }, { label: "ME5E.Weight" }),
         keel: new SchemaField({
-          value: new NumberField({ min: 0, label: "DND5E.VEHICLE.FIELDS.traits.keel.value.label" }),
+          value: new NumberField({ min: 0, label: "ME5E.VEHICLE.FIELDS.traits.keel.value.label" }),
           units: new StringField({
-            required: true, blank: false, label: "DND5E.UNITS.DISTANCE.Label", initial: () => defaultUnits("length")
+            required: true, blank: false, label: "ME5E.UNITS.DISTANCE.Label", initial: () => defaultUnits("length")
           })
         }),
         beam: new SchemaField({
-          value: new NumberField({ min: 0, label: "DND5E.VEHICLE.FIELDS.traits.beam.value.label" }),
+          value: new NumberField({ min: 0, label: "ME5E.VEHICLE.FIELDS.traits.beam.value.label" }),
           units: new StringField({
-            required: true, blank: false, label: "DND5E.UNITS.DISTANCE.Label", initial: () => defaultUnits("length")
+            required: true, blank: false, label: "ME5E.UNITS.DISTANCE.Label", initial: () => defaultUnits("length")
           })
         }),
-        dimensions: new StringField({ required: true, label: "DND5E.Dimensions" }) // FIXME: Leave in the model until we decide how to migrate it.
-      }, { label: "DND5E.Traits" }),
+        dimensions: new StringField({ required: true, label: "ME5E.Dimensions" }) // FIXME: Leave in the model until we decide how to migrate it.
+      }, { label: "ME5E.Traits" }),
       cargo: new SchemaField({ // FIXME: Leave in the model until we decide how to migrate it.
         crew: new ArrayField(makePassengerData()),
         passengers: new ArrayField(makePassengerData())
@@ -199,7 +199,7 @@ export default class VehicleData extends CommonTemplate {
     else if ( movement?.units === "km" ) newUnits = "kph";
     if ( !vehicleType || !movement || !newUnits || !("walk" in movement) || source.attributes?.travel ) return;
     let max = 0;
-    for ( const p in CONFIG.DND5E.movementTypes ) {
+    for ( const p in CONFIG.ME5E.movementTypes ) {
       if ( movement[p] > max ) max = movement[p];
       delete movement[p];
     }
@@ -339,8 +339,8 @@ export default class VehicleData extends CommonTemplate {
   async getEncumbrance() {
     const encumbrance = foundry.utils.deepClone(this.attributes.encumbrance);
     if ( Number.isFinite(encumbrance.max) || !this.draft.value.length ) return encumbrance; // Encumbrance already calculated.
-    const { baseUnits, draftMultiplier } = CONFIG.DND5E.encumbrance;
-    const unitSystem = game.settings.get("dnd5e", "metricWeightUnits") ? "metric" : "imperial";
+    const { baseUnits, draftMultiplier } = CONFIG.ME5E.encumbrance;
+    const unitSystem = game.settings.get("me5e", "metricWeightUnits") ? "metric" : "imperial";
     const units = baseUnits.default[unitSystem];
     encumbrance.max = (await Promise.all(this.draft.value.map(fromUuid))).reduce((n, actor) => {
       const capacity = actor.system.attributes?.encumbrance?.max || 0;

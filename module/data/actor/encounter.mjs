@@ -19,10 +19,10 @@ export default class EncounterData extends GroupTemplate {
       members: new ArrayField(new SchemaField({
         uuid: new DocumentUUIDField({ type: "Actor" }),
         quantity: new SchemaField({
-          value: new NumberField({ initial: 1, integer: true, min: 0, label: "DND5E.Quantity" }),
-          formula: new FormulaField({ label: "DND5E.QuantityFormula" })
+          value: new NumberField({ initial: 1, integer: true, min: 0, label: "ME5E.Quantity" }),
+          formula: new FormulaField({ label: "ME5E.QuantityFormula" })
         })
-      }), { label: "DND5E.GroupMembers" })
+      }), { label: "ME5E.GroupMembers" })
     });
   }
 
@@ -106,7 +106,7 @@ export default class EncounterData extends GroupTemplate {
     if ( party?.type !== "group" ) return null;
     const xp = await this.getXPValue();
     const { creatures, level } = party.system;
-    const [low, med] = (CONFIG.DND5E.ENCOUNTER_DIFFICULTY[level] ?? []).map(t => t * creatures.length);
+    const [low, med] = (CONFIG.ME5E.ENCOUNTER_DIFFICULTY[level] ?? []).map(t => t * creatures.length);
     if ( !low ) return null;
     if ( xp <= low ) return "low";
     else if ( xp <= med ) return "moderate";
@@ -149,7 +149,7 @@ export default class EncounterData extends GroupTemplate {
   /** @override */
   async getPlaceableMembers() {
     return (await Promise.all((await this.getMembers()).map(async member => {
-      member.actor = await dnd5e.documents.Actor5e.fetchExisting(member.actor.uuid);
+      member.actor = await me5e.documents.Actor5e.fetchExisting(member.actor.uuid);
       if ( (member.quantity.value === null) && member.quantity.formula ) {
         const roll = new Roll(member.quantity.formula);
         await roll.evaluate();

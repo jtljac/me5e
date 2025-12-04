@@ -8,7 +8,7 @@ export default class ScaleValueFlow extends AdvancementFlow {
   /** @inheritDoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      template: "systems/dnd5e/templates/advancement/scale-value-flow.hbs"
+      template: "systems/me5e/templates/advancement/scale-value-flow.hbs"
     });
   }
 

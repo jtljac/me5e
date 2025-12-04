@@ -28,7 +28,7 @@ export default class EffectsElement extends (foundry.applications.elements.Adopt
       const effect = this.getEffect(element.dataset);
       if ( !effect ) return;
       ui.context.menuItems = this._getContextOptions(effect);
-      Hooks.call("dnd5e.getActiveEffectContextOptions", effect, ui.context.menuItems);
+      Hooks.call("me5e.getActiveEffectContextOptions", effect, ui.context.menuItems);
     }, jQuery: false });
   }
 
@@ -40,7 +40,7 @@ export default class EffectsElement extends (foundry.applications.elements.Adopt
    * The HTML tag named used by this element.
    * @type {string}
    */
-  static tagName = "dnd5e-effects";
+  static tagName = "me5e-effects";
 
   /* -------------------------------------------- */
 
@@ -83,43 +83,43 @@ export default class EffectsElement extends (foundry.applications.elements.Adopt
     const categories = {
       enchantment: {
         type: "enchantment",
-        label: game.i18n.localize("DND5E.ENCHANTMENT.Category.General"),
+        label: game.i18n.localize("ME5E.ENCHANTMENT.Category.General"),
         effects: [],
         isEnchantment: true
       },
       temporary: {
         type: "temporary",
-        label: game.i18n.localize("DND5E.EffectTemporary"),
+        label: game.i18n.localize("ME5E.EffectTemporary"),
         effects: []
       },
       enchantmentActive: {
         type: "activeEnchantment",
-        label: game.i18n.localize("DND5E.ENCHANTMENT.Category.Active"),
+        label: game.i18n.localize("ME5E.ENCHANTMENT.Category.Active"),
         effects: [],
         isEnchantment: true
       },
       passive: {
         type: "passive",
-        label: game.i18n.localize("DND5E.EffectPassive"),
+        label: game.i18n.localize("ME5E.EffectPassive"),
         effects: []
       },
       enchantmentInactive: {
         type: "inactiveEnchantment",
-        label: game.i18n.localize("DND5E.ENCHANTMENT.Category.Inactive"),
+        label: game.i18n.localize("ME5E.ENCHANTMENT.Category.Inactive"),
         effects: [],
         isEnchantment: true
       },
       inactive: {
         type: "inactive",
-        label: game.i18n.localize("DND5E.EffectInactive"),
+        label: game.i18n.localize("ME5E.EffectInactive"),
         effects: []
       },
       suppressed: {
         type: "suppressed",
-        label: game.i18n.localize("DND5E.EffectUnavailable"),
+        label: game.i18n.localize("ME5E.EffectUnavailable"),
         effects: [],
         disabled: true,
-        info: [game.i18n.localize("DND5E.EffectUnavailableInfo")]
+        info: [game.i18n.localize("ME5E.EffectUnavailableInfo")]
       }
     };
 
@@ -144,7 +144,7 @@ export default class EffectsElement extends (foundry.applications.elements.Adopt
     categories.suppressed.hidden = !categories.suppressed.effects.length;
 
     for ( const category of Object.values(categories) ) {
-      category.localizationPrefix = category.isEnchantment ? "DND5E.ENCHANTMENT.Action." : "DND5E.Effect";
+      category.localizationPrefix = category.isEnchantment ? "ME5E.ENCHANTMENT.Action." : "ME5E.Effect";
     }
 
     return categories;
@@ -164,33 +164,33 @@ export default class EffectsElement extends (foundry.applications.elements.Adopt
     const isConcentrationEffect = (this.document instanceof Actor5e) && this.app._concentration?.effects.has(effect);
     const options = [
       {
-        name: "DND5E.ContextMenuActionEdit",
+        name: "ME5E.ContextMenuActionEdit",
         icon: "<i class='fas fa-edit fa-fw'></i>",
         condition: () => effect.isOwner,
         callback: li => this._onAction(li, "edit")
       },
       {
-        name: "DND5E.ContextMenuActionDuplicate",
+        name: "ME5E.ContextMenuActionDuplicate",
         icon: "<i class='fas fa-copy fa-fw'></i>",
         condition: () => effect.isOwner,
         callback: li => this._onAction(li, "duplicate")
       },
       {
-        name: "DND5E.ContextMenuActionDelete",
+        name: "ME5E.ContextMenuActionDelete",
         icon: "<i class='fas fa-trash fa-fw'></i>",
         condition: () => effect.isOwner && !isConcentrationEffect,
         callback: li => this._onAction(li, "delete")
       },
       {
-        name: effect.disabled ? "DND5E.ContextMenuActionEnable" : "DND5E.ContextMenuActionDisable",
+        name: effect.disabled ? "ME5E.ContextMenuActionEnable" : "ME5E.ContextMenuActionDisable",
         icon: effect.disabled ? "<i class='fas fa-check fa-fw'></i>" : "<i class='fas fa-times fa-fw'></i>",
         group: "state",
         condition: () => effect.isOwner && !isConcentrationEffect,
         callback: li => this._onAction(li, "toggle")
       },
       {
-        name: "DND5E.ConcentrationBreak",
-        icon: '<dnd5e-icon src="systems/dnd5e/icons/svg/break-concentration.svg"></dnd5e-icon>',
+        name: "ME5E.ConcentrationBreak",
+        icon: '<me5e-icon src="systems/me5e/icons/svg/break-concentration.svg"></me5e-icon>',
         condition: () => isConcentrationEffect,
         callback: () => this.document.endConcentration(effect),
         group: "state"
@@ -202,7 +202,7 @@ export default class EffectsElement extends (foundry.applications.elements.Adopt
       const uuid = effect.getRelativeUUID(this.document);
       const isFavorited = this.document.system.hasFavorite(uuid);
       options.push({
-        name: isFavorited ? "DND5E.FavoriteRemove" : "DND5E.Favorite",
+        name: isFavorited ? "ME5E.FavoriteRemove" : "ME5E.Favorite",
         icon: "<i class='fas fa-bookmark fa-fw'></i>",
         condition: () => effect.isOwner,
         callback: li => this._onAction(li, isFavorited ? "unfavorite" : "favorite"),
@@ -266,7 +266,7 @@ export default class EffectsElement extends (foundry.applications.elements.Adopt
    * @protected
    */
   async _onToggleCondition(conditionId) {
-    const existing = this.document.effects.get(staticID(`dnd5e${conditionId}`));
+    const existing = this.document.effects.get(staticID(`me5e${conditionId}`));
     if ( existing ) return existing.delete();
     const effect = await ActiveEffect.implementation.fromStatusEffect(conditionId);
     return ActiveEffect.implementation.create(effect, { parent: this.document, keepId: true });
@@ -285,7 +285,7 @@ export default class EffectsElement extends (foundry.applications.elements.Adopt
     const isEnchantment = li.dataset.effectType.startsWith("enchantment");
     return this.document.createEmbeddedDocuments("ActiveEffect", [{
       type: isEnchantment ? "enchantment" : "base",
-      name: isActor ? game.i18n.localize("DND5E.EffectNew") : this.document.name,
+      name: isActor ? game.i18n.localize("ME5E.EffectNew") : this.document.name,
       icon: isActor ? "icons/svg/aura.svg" : this.document.img,
       origin: isEnchantment ? undefined : this.document.uuid,
       "duration.rounds": li.dataset.effectType === "temporary" ? 1 : undefined,
@@ -305,7 +305,7 @@ export default class EffectsElement extends (foundry.applications.elements.Adopt
     const doc = await fromUuid(uuid);
     if ( !doc ) return;
     if ( !doc.testUserPermission(game.user, "LIMITED") ) {
-      ui.notifications.warn("DND5E.DocumentViewWarn", { localize: true });
+      ui.notifications.warn("ME5E.DocumentViewWarn", { localize: true });
       return;
     }
     doc.sheet.render(true);

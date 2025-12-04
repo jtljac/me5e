@@ -39,9 +39,9 @@ export default class VehicleActorSheet extends BaseActorSheet {
    * @type {Record<number, string>}
    */
   static COVER = {
-    .5: "EFFECT.DND5E.StatusHalfCover",
-    .75: "EFFECT.DND5E.StatusThreeQuartersCover",
-    1: "EFFECT.DND5E.StatusTotalCover"
+    .5: "EFFECT.ME5E.StatusHalfCover",
+    .75: "EFFECT.ME5E.StatusThreeQuartersCover",
+    1: "EFFECT.ME5E.StatusTotalCover"
   };
 
   /* -------------------------------------------- */
@@ -49,47 +49,47 @@ export default class VehicleActorSheet extends BaseActorSheet {
   /** @override */
   static PARTS = {
     sidebarCollapser: {
-      template: "systems/dnd5e/templates/actors/parts/sidebar-collapser.hbs"
+      template: "systems/me5e/templates/actors/parts/sidebar-collapser.hbs"
     },
     sidebar: {
-      template: "systems/dnd5e/templates/actors/vehicle/sidebar.hbs",
+      template: "systems/me5e/templates/actors/vehicle/sidebar.hbs",
       templates: [
-        "systems/dnd5e/templates/actors/parts/actor-trait-line.hbs",
-        "systems/dnd5e/templates/actors/parts/actor-trait-pills.hbs"
+        "systems/me5e/templates/actors/parts/actor-trait-line.hbs",
+        "systems/me5e/templates/actors/parts/actor-trait-pills.hbs"
       ],
       scrollable: [""]
     },
     stations: {
-      template: "systems/dnd5e/templates/actors/vehicle/stations.hbs",
-      templates: ["systems/dnd5e/templates/inventory/inventory.hbs", "systems/dnd5e/templates/inventory/activity.hbs"],
+      template: "systems/me5e/templates/actors/vehicle/stations.hbs",
+      templates: ["systems/me5e/templates/inventory/inventory.hbs", "systems/me5e/templates/inventory/activity.hbs"],
       scrollable: [""]
     },
     tabs: {
-      template: "systems/dnd5e/templates/shared/horizontal-tabs.hbs",
+      template: "systems/me5e/templates/shared/horizontal-tabs.hbs",
       templates: ["templates/generic/tab-navigation.hbs"]
     },
     inventory: {
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/tabs/actor-inventory.hbs",
+      template: "systems/me5e/templates/actors/tabs/actor-inventory.hbs",
       templates: [
-        "systems/dnd5e/templates/inventory/inventory.hbs", "systems/dnd5e/templates/inventory/activity.hbs",
-        "systems/dnd5e/templates/inventory/containers.hbs", "systems/dnd5e/templates/inventory/encumbrance.hbs"
+        "systems/me5e/templates/inventory/inventory.hbs", "systems/me5e/templates/inventory/activity.hbs",
+        "systems/me5e/templates/inventory/containers.hbs", "systems/me5e/templates/inventory/encumbrance.hbs"
       ],
       scrollable: [""]
     },
     crew: {
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/vehicle/crew.hbs",
+      template: "systems/me5e/templates/actors/vehicle/crew.hbs",
       scrollable: [""]
     },
     effects: {
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/tabs/actor-effects.hbs",
+      template: "systems/me5e/templates/actors/tabs/actor-effects.hbs",
       scrollable: [""]
     },
     description: {
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/vehicle/description.hbs",
+      template: "systems/me5e/templates/actors/vehicle/description.hbs",
       scrollable: [""]
     }
   };
@@ -98,10 +98,10 @@ export default class VehicleActorSheet extends BaseActorSheet {
 
   /** @override */
   static TABS = [
-    { tab: "inventory", label: "DND5E.VEHICLE.Tabs.Cargo" },
-    { tab: "crew", label: "DND5E.VEHICLE.Tabs.CrewPassengers", condition: this.vehicleHasCrew },
-    { tab: "effects", label: "DND5E.Effects" },
-    { tab: "description", label: "DND5E.Description" }
+    { tab: "inventory", label: "ME5E.VEHICLE.Tabs.Cargo" },
+    { tab: "crew", label: "ME5E.VEHICLE.Tabs.CrewPassengers", condition: this.vehicleHasCrew },
+    { tab: "effects", label: "ME5E.Effects" },
+    { tab: "description", label: "ME5E.Description" }
   ];
 
   /* -------------------------------------------- */
@@ -133,9 +133,9 @@ export default class VehicleActorSheet extends BaseActorSheet {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     context.options = {
-      showAbilities: this.actor.getFlag("dnd5e", "showVehicleAbilities"),
-      showInitiative: this.actor.getFlag("dnd5e", "showVehicleInitiative"),
-      showQuality: this.actor.getFlag("dnd5e", "showVehicleQuality")
+      showAbilities: this.actor.getFlag("me5e", "showVehicleAbilities"),
+      showInitiative: this.actor.getFlag("me5e", "showVehicleInitiative"),
+      showQuality: this.actor.getFlag("me5e", "showVehicleQuality")
     };
     return context;
   }
@@ -241,9 +241,9 @@ export default class VehicleActorSheet extends BaseActorSheet {
     context.traits = this._prepareTraits(context);
     context.properties ??= {};
     context.properties.hp = [];
-    if ( attributes.hp.dt ) context.properties.hp.push({ label: "DND5E.HITPOINTS.DT.abbr", value: attributes.hp.dt });
+    if ( attributes.hp.dt ) context.properties.hp.push({ label: "ME5E.HITPOINTS.DT.abbr", value: attributes.hp.dt });
     if ( attributes.hp.mt ) context.properties.hp.push({
-      label: "DND5E.VEHICLE.Mishap.label", value: attributes.hp.mt
+      label: "ME5E.VEHICLE.Mishap.label", value: attributes.hp.mt
     });
     if ( !actions.stations && actions.max ) {
       const plurals = getPluralRules({ type: "ordinal" });
@@ -254,7 +254,7 @@ export default class VehicleActorSheet extends BaseActorSheet {
         return {
           filled,
           n: actions.max - n,
-          label: game.i18n.format(`DND5E.VEHICLE.Actions.Ordinal.${plurals.select(n)}`, { n }),
+          label: game.i18n.format(`ME5E.VEHICLE.Actions.Ordinal.${plurals.select(n)}`, { n }),
           classes: classes.join(" ")
         };
       });
@@ -279,8 +279,8 @@ export default class VehicleActorSheet extends BaseActorSheet {
     const Inventory = customElements.get(this.options.elements.inventory);
     const columns = Inventory.mapColumns(["uses", "controls"]);
     const sections = Object.fromEntries(["features", "bonus", "reaction"].map((id, i) => {
-      const { header } = CONFIG.DND5E.activityActivationTypes[id] ?? {};
-      const label = id === "features" ? "DND5E.Features" : header;
+      const { header } = CONFIG.ME5E.activityActivationTypes[id] ?? {};
+      const label = id === "features" ? "ME5E.Features" : header;
       return [id, { columns, id, label, order: (i + 1) * 100, items: [], minWidth: 170 }];
     }));
     context.itemCategories.features?.forEach(i => {
@@ -317,15 +317,15 @@ export default class VehicleActorSheet extends BaseActorSheet {
    * @protected
    */
   async _prepareDraftAnimals() {
-    const { baseUnits, draftMultiplier } = CONFIG.DND5E.encumbrance;
-    const unitSystem = game.settings.get("dnd5e", "metricWeightUnits") ? "metric" : "imperial";
+    const { baseUnits, draftMultiplier } = CONFIG.ME5E.encumbrance;
+    const unitSystem = game.settings.get("me5e", "metricWeightUnits") ? "metric" : "imperial";
     const units = baseUnits.default[unitSystem];
     return Promise.all(this.actor.system.draft.value.map(async uuid => {
       const actor = await fromUuid(uuid);
       const { system } = actor;
       const capacity = (actor.system.attributes?.encumbrance?.max || 0) * draftMultiplier;
       const subtitle = [
-        CONFIG.DND5E.actorSizes[system.traits?.size]?.label,
+        CONFIG.ME5E.actorSizes[system.traits?.size]?.label,
         system.details?.type?.label,
         capacity ? formatWeight(capacity, units) : null
       ].filterJoin(" • ");
@@ -355,8 +355,8 @@ export default class VehicleActorSheet extends BaseActorSheet {
     const { armor, cover, crew, hp } = item.system;
     const subtitles = [];
     if ( COVER[cover] ) subtitles.push(game.i18n.localize(COVER[cover]));
-    if ( armor?.value ) subtitles.push(`${game.i18n.localize("DND5E.AC")} ${armor.value}`);
-    if ( hp?.dt ) subtitles.push(`${game.i18n.localize("DND5E.HITPOINTS.DT.abbr")} ${hp.dt}`);
+    if ( armor?.value ) subtitles.push(`${game.i18n.localize("ME5E.AC")} ${armor.value}`);
+    if ( hp?.dt ) subtitles.push(`${game.i18n.localize("ME5E.HITPOINTS.DT.abbr")} ${hp.dt}`);
     if ( subtitles.length ) ctx.subtitle = subtitles.join(" • ");
     if ( item.type === "weapon" ) {
       const enrichmentOptions = { secrets: item.isOwner, relativeTo: item, rollData: item.getRollData() };
@@ -404,7 +404,7 @@ export default class VehicleActorSheet extends BaseActorSheet {
       || context.itemCategories.features?.length
       || context.itemCategories.stations?.length
       || context.system.draft.value.length
-      || this.actor.getFlag("dnd5e", "showVehicleAbilities");
+      || this.actor.getFlag("me5e", "showVehicleAbilities");
     this.element.classList.toggle("has-stations", !!hasStations);
   }
 
@@ -673,10 +673,10 @@ export default class VehicleActorSheet extends BaseActorSheet {
       const { img, name, system } = actor;
       const cr = system.details?.cr ?? system.details?.level;
       const subtitle = [
-        CONFIG.DND5E.actorSizes[system.traits?.size]?.label,
+        CONFIG.ME5E.actorSizes[system.traits?.size]?.label,
         system.details?.type?.label,
-        system.details?.cr ? game.i18n.format("DND5E.CRLabel", { cr: formatCR(system.details.cr) }) : null,
-        system.details?.level ? game.i18n.format("DND5E.LevelNumber", { level: system.details.level }) : null
+        system.details?.cr ? game.i18n.format("ME5E.CRLabel", { cr: formatCR(system.details.cr) }) : null,
+        system.details?.level ? game.i18n.format("ME5E.LevelNumber", { level: system.details.level }) : null
       ].filterJoin(" • ");
       return { uuid, quantity, actor: { cr, img, name, subtitle }, diff: (counts?.[uuid] ?? 0) - quantity };
     });

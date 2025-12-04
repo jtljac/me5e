@@ -20,11 +20,11 @@ export default class AbilityScoreImprovementConfig extends AdvancementConfig {
   static PARTS = {
     ...super.PARTS,
     details: {
-      template: "systems/dnd5e/templates/advancement/ability-score-improvement-config-details.hbs"
+      template: "systems/me5e/templates/advancement/ability-score-improvement-config-details.hbs"
     },
     scores: {
-      template: "systems/dnd5e/templates/advancement/ability-score-improvement-config-scores.hbs",
-      templates: ["systems/dnd5e/templates/advancement/parts/advancement-ability-score-control-v2.hbs"]
+      template: "systems/me5e/templates/advancement/ability-score-improvement-config-scores.hbs",
+      templates: ["systems/me5e/templates/advancement/parts/advancement-ability-score-control-v2.hbs"]
     }
   };
 
@@ -36,7 +36,7 @@ export default class AbilityScoreImprovementConfig extends AdvancementConfig {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
 
-    context.abilities = Object.entries(CONFIG.DND5E.abilities).reduce((obj, [key, data]) => {
+    context.abilities = Object.entries(CONFIG.ME5E.abilities).reduce((obj, [key, data]) => {
       if ( !this.advancement.canImprove(key) ) return obj;
       const fixed = this.advancement.configuration.fixed[key] ?? 0;
       const locked = this.advancement.configuration.locked.has(key);
@@ -46,7 +46,7 @@ export default class AbilityScoreImprovementConfig extends AdvancementConfig {
         label: data.label,
         locked: {
           value: locked,
-          hint: `DND5E.ADVANCEMENT.AbilityScoreImprovement.FIELDS.locked.${locked ? "locked" : "unlocked"}`
+          hint: `ME5E.ADVANCEMENT.AbilityScoreImprovement.FIELDS.locked.${locked ? "locked" : "unlocked"}`
         },
         value: fixed,
         canIncrease: true,
@@ -58,7 +58,7 @@ export default class AbilityScoreImprovementConfig extends AdvancementConfig {
     context.points = {
       key: "points",
       name: "configuration.points",
-      label: game.i18n.localize("DND5E.ADVANCEMENT.AbilityScoreImprovement.FIELDS.points.label"),
+      label: game.i18n.localize("ME5E.ADVANCEMENT.AbilityScoreImprovement.FIELDS.points.label"),
       min: 0,
       value: this.advancement.configuration.points,
       canIncrease: true,

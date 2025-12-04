@@ -10,7 +10,7 @@ export default class ContainerSheet extends ItemSheet5e {
   /** @override */
   static DEFAULT_OPTIONS = {
     elements: {
-      inventory: "dnd5e-inventory"
+      inventory: "me5e-inventory"
     }
   };
 
@@ -20,9 +20,9 @@ export default class ContainerSheet extends ItemSheet5e {
   static PARTS = {
     ...super.PARTS,
     contents: {
-      template: "systems/dnd5e/templates/items/contents.hbs",
+      template: "systems/me5e/templates/items/contents.hbs",
       templates: [
-        "systems/dnd5e/templates/inventory/inventory.hbs", "systems/dnd5e/templates/inventory/encumbrance.hbs"
+        "systems/me5e/templates/inventory/inventory.hbs", "systems/me5e/templates/inventory/encumbrance.hbs"
       ],
       scrollable: [""]
     }
@@ -32,7 +32,7 @@ export default class ContainerSheet extends ItemSheet5e {
 
   /** @override */
   static TABS = [
-    { tab: "contents", label: "DND5E.ITEM.SECTIONS.Contents" },
+    { tab: "contents", label: "ME5E.ITEM.SECTIONS.Contents" },
     ...super.TABS
   ];
 
@@ -170,7 +170,7 @@ export default class ContainerSheet extends ItemSheet5e {
     const data = foundry.applications.ux.TextEditor.implementation.getDragEventData(event);
     if ( !["Item", "Folder"].includes(data.type) ) return super._onDrop(event, data);
 
-    if ( Hooks.call("dnd5e.dropItemSheetData", this.item, this, data) === false ) return;
+    if ( Hooks.call("me5e.dropItemSheetData", this.item, this, data) === false ) return;
 
     if ( data.type === "Folder" ) return this._onDropFolder(event, data);
     return this._onDropItem(event, data);
@@ -205,7 +205,7 @@ export default class ContainerSheet extends ItemSheet5e {
     items = items.filter(i => i && !containers.has(i.system.container));
 
     // Display recursive warning, but continue with any remaining items
-    if ( recursiveWarning ) ui.notifications.warn("DND5E.ContainerRecursiveError", { localize: true });
+    if ( recursiveWarning ) ui.notifications.warn("ME5E.ContainerRecursiveError", { localize: true });
     if ( !items.length ) return [];
 
     // Create any remaining items
@@ -239,7 +239,7 @@ export default class ContainerSheet extends ItemSheet5e {
     // Prevent dropping containers within themselves
     const parentContainers = await this.item.system.allContainers();
     if ( (this.item.uuid === item.uuid) || parentContainers.includes(item) ) {
-      ui.notifications.error("DND5E.ContainerRecursiveError", { localize: true });
+      ui.notifications.error("ME5E.ContainerRecursiveError", { localize: true });
       return;
     }
 
@@ -386,14 +386,14 @@ export default class ContainerSheet extends ItemSheet5e {
 
     /**
      * A hook event that fires when a sheet filters an item.
-     * @function dnd5e.filterItem
+     * @function me5e.filterItem
      * @memberof hookEvents
      * @param {BaseActorSheet|ContainerSheet} sheet     The sheet the item is being rendered on.
      * @param {Item5e} item                             The item being filtered.
      * @param {Set<string>} filters                     Filters applied to the Item.
      * @returns {false|void} Return false to hide the item, otherwise other filters will continue to apply.
      */
-    if ( Hooks.call("dnd5e.filterItem", this, item, filters) === false ) return false;
+    if ( Hooks.call("me5e.filterItem", this, item, filters) === false ) return false;
   }
 
   /* -------------------------------------------- */

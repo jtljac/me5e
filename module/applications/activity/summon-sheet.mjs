@@ -20,11 +20,11 @@ export default class SummonSheet extends ActivitySheet {
   static PARTS = {
     ...super.PARTS,
     effect: {
-      template: "systems/dnd5e/templates/activity/summon-effect.hbs",
+      template: "systems/me5e/templates/activity/summon-effect.hbs",
       templates: [
         ...super.PARTS.effect.templates,
-        "systems/dnd5e/templates/activity/parts/summon-changes.hbs",
-        "systems/dnd5e/templates/activity/parts/summon-profiles.hbs"
+        "systems/me5e/templates/activity/parts/summon-changes.hbs",
+        "systems/me5e/templates/activity/parts/summon-profiles.hbs"
       ]
     }
   };
@@ -54,24 +54,24 @@ export default class SummonSheet extends ActivitySheet {
     context.abilityOptions = [
       {
         value: "", rule: true,
-        label: game.i18n.format("DND5E.DefaultSpecific", {
-          default: this.activity.isSpell ? game.i18n.localize("DND5E.Spellcasting").toLowerCase()
-            : CONFIG.DND5E.abilities[this.activity.ability]?.label.toLowerCase()
-              ?? game.i18n.localize("DND5E.None").toLowerCase()
+        label: game.i18n.format("ME5E.DefaultSpecific", {
+          default: this.activity.isSpell ? game.i18n.localize("ME5E.Spellcasting").toLowerCase()
+            : CONFIG.ME5E.abilities[this.activity.ability]?.label.toLowerCase()
+              ?? game.i18n.localize("ME5E.None").toLowerCase()
         })
       },
-      ...Object.entries(CONFIG.DND5E.abilities).map(([value, { label }]) => ({ value, label }))
+      ...Object.entries(CONFIG.ME5E.abilities).map(([value, { label }]) => ({ value, label }))
     ];
-    context.creatureSizeOptions = Object.entries(CONFIG.DND5E.actorSizes).map(([value, config]) => ({
+    context.creatureSizeOptions = Object.entries(CONFIG.ME5E.actorSizes).map(([value, config]) => ({
       value, label: config.label, selected: this.activity.creatureSizes.has(value)
     }));
-    context.creatureTypeOptions = Object.entries(CONFIG.DND5E.creatureTypes).map(([value, config]) => ({
+    context.creatureTypeOptions = Object.entries(CONFIG.ME5E.creatureTypes).map(([value, config]) => ({
       value, label: config.label, selected: this.activity.creatureTypes.has(value)
     }));
 
     context.profileModes = [
-      { value: "", label: game.i18n.localize("DND5E.SUMMON.FIELDS.summon.mode.Direct") },
-      { value: "cr", label: game.i18n.localize("DND5E.SUMMON.FIELDS.summon.mode.CR") }
+      { value: "", label: game.i18n.localize("ME5E.SUMMON.FIELDS.summon.mode.Direct") },
+      { value: "cr", label: game.i18n.localize("ME5E.SUMMON.FIELDS.summon.mode.CR") }
     ];
     context.profiles = this.activity.profiles.map((data, index) => ({
       data, index,
@@ -109,16 +109,16 @@ export default class SummonSheet extends ActivitySheet {
   /** @inheritDoc */
   _getTabs() {
     const tabs = super._getTabs();
-    tabs.effect.label = "DND5E.SUMMON.SECTIONS.Summoning";
+    tabs.effect.label = "ME5E.SUMMON.SECTIONS.Summoning";
     tabs.effect.icon = "fa-solid fa-spaghetti-monster-flying";
     tabs.effect.tabs = this._markTabs({
       profiles: {
         id: "profiles", group: "effect", icon: "fa-solid fa-address-card",
-        label: "DND5E.SUMMON.SECTIONS.Profiles"
+        label: "ME5E.SUMMON.SECTIONS.Profiles"
       },
       changes: {
         id: "changes", group: "effect", icon: "fa-solid fa-sliders",
-        label: "DND5E.SUMMON.SECTIONS.Changes"
+        label: "ME5E.SUMMON.SECTIONS.Changes"
       }
     });
     return tabs;

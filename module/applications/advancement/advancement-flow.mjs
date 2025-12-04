@@ -48,7 +48,7 @@ export default class AdvancementFlow extends FormApplication {
   /** @inheritDoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      template: "systems/dnd5e/templates/advancement/advancement-flow.hbs",
+      template: "systems/me5e/templates/advancement/advancement-flow.hbs",
       popOut: false
     });
   }
@@ -56,7 +56,7 @@ export default class AdvancementFlow extends FormApplication {
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  static _customElements = super._customElements.concat(["dnd5e-checkbox"]);
+  static _customElements = super._customElements.concat(["me5e-checkbox"]);
 
   /* -------------------------------------------- */
 

@@ -120,9 +120,9 @@ export class DamageData extends foundry.abstract.DataModel {
    * @returns {number|null}
    */
   steppedDenomination(steps=1) {
-    return CONFIG.DND5E.dieSteps[Math.min(
-      CONFIG.DND5E.dieSteps.indexOf(this.denomination) + steps,
-      CONFIG.DND5E.dieSteps.length - 1
+    return CONFIG.ME5E.dieSteps[Math.min(
+      CONFIG.ME5E.dieSteps.indexOf(this.denomination) + steps,
+      CONFIG.ME5E.dieSteps.length - 1
     )] ?? null;
   }
 }

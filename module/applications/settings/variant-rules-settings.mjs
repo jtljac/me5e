@@ -7,7 +7,7 @@ export default class VariantRulesSettingsConfig extends BaseSettingsConfig {
   /** @override */
   static DEFAULT_OPTIONS = {
     window: {
-      title: "SETTINGS.DND5E.VARIANT.Label"
+      title: "SETTINGS.ME5E.VARIANT.Label"
     }
   };
 
@@ -16,13 +16,13 @@ export default class VariantRulesSettingsConfig extends BaseSettingsConfig {
   /** @override */
   static PARTS = {
     general: {
-      template: "systems/dnd5e/templates/settings/base-config.hbs"
+      template: "systems/me5e/templates/settings/base-config.hbs"
     },
     encumbrance: {
-      template: "systems/dnd5e/templates/settings/base-config.hbs"
+      template: "systems/me5e/templates/settings/base-config.hbs"
     },
     abilities: {
-      template: "systems/dnd5e/templates/settings/base-config.hbs"
+      template: "systems/me5e/templates/settings/base-config.hbs"
     },
     footer: {
       template: "templates/generic/form-footer.hbs"
@@ -39,26 +39,26 @@ export default class VariantRulesSettingsConfig extends BaseSettingsConfig {
     switch ( partId ) {
       case "general":
         context.fields = [
-          game.settings.get("dnd5e", "rulesVersion") === "legacy" ? this.createSettingField("allowFeats") : null,
+          game.settings.get("me5e", "rulesVersion") === "legacy" ? this.createSettingField("allowFeats") : null,
           this.createSettingField("restVariant"),
           this.createSettingField("proficiencyModifier"),
           this.createSettingField("levelingMode")
         ].filter(_ => _);
-        context.legend = game.i18n.localize("SETTINGS.DND5E.General");
+        context.legend = game.i18n.localize("SETTINGS.ME5E.General");
         break;
       case "encumbrance":
         context.fields = [
           this.createSettingField("encumbrance"),
           this.createSettingField("currencyWeight")
         ];
-        context.legend = game.i18n.localize("DND5E.Encumbrance");
+        context.legend = game.i18n.localize("ME5E.Encumbrance");
         break;
       case "abilities":
         context.fields = [
           this.createSettingField("honorScore"),
           this.createSettingField("sanityScore")
         ];
-        context.legend = game.i18n.localize("DND5E.Abilities");
+        context.legend = game.i18n.localize("ME5E.Abilities");
         break;
     }
     return context;

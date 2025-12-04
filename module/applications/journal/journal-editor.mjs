@@ -14,7 +14,7 @@ export default class JournalEditor extends DocumentSheet5e {
 
   /** @override */
   static DEFAULT_OPTIONS = {
-    classes: ["journal-editor", "dnd5e2-journal", "titlebar", "dialog-lg"],
+    classes: ["journal-editor", "me5e2-journal", "titlebar", "dialog-lg"],
     window: {
       resizable: true
     },
@@ -34,7 +34,7 @@ export default class JournalEditor extends DocumentSheet5e {
   /** @override */
   static PARTS = {
     editor: {
-      template: "systems/dnd5e/templates/journal/journal-editor.hbs"
+      template: "systems/me5e/templates/journal/journal-editor.hbs"
     }
   };
 

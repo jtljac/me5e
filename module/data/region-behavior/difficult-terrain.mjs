@@ -12,7 +12,7 @@ const { BooleanField, NumberField, SetField, StringField } = foundry.data.fields
 export default class DifficultTerrainRegionBehaviorType extends foundry.data.regionBehaviors.RegionBehaviorType {
 
   /** @override */
-  static LOCALIZATION_PREFIXES = ["DND5E.REGIONBEHAVIORS.DIFFICULTTERRAIN"];
+  static LOCALIZATION_PREFIXES = ["ME5E.REGIONBEHAVIORS.DIFFICULTTERRAIN"];
 
   /* ---------------------------------------- */
 

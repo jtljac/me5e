@@ -35,8 +35,8 @@ export default class AdvancementConfig extends FormApplication {
   /** @inheritDoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      classes: ["dnd5e", "advancement", "dialog"],
-      template: "systems/dnd5e/templates/advancement/advancement-config.hbs",
+      classes: ["me5e", "advancement", "dialog"],
+      template: "systems/me5e/templates/advancement/advancement-config.hbs",
       width: 400,
       height: "auto",
       submitOnChange: true,
@@ -60,7 +60,7 @@ export default class AdvancementConfig extends FormApplication {
   /** @inheritDoc */
   get title() {
     const type = this.advancement.constructor.metadata.title;
-    return `${game.i18n.format("DND5E.AdvancementConfigureTitle", { item: this.item.name })}: ${type}`;
+    return `${game.i18n.format("ME5E.AdvancementConfigureTitle", { item: this.item.name })}: ${type}`;
   }
 
   /* -------------------------------------------- */
@@ -75,12 +75,12 @@ export default class AdvancementConfig extends FormApplication {
 
   /** @inheritDoc */
   getData() {
-    const levels = Object.fromEntries(Array.fromRange(CONFIG.DND5E.maxLevel + 1).map(l => [l, l]));
+    const levels = Object.fromEntries(Array.fromRange(CONFIG.ME5E.maxLevel + 1).map(l => [l, l]));
     if ( ["class", "subclass"].includes(this.item.type) ) delete levels[0];
-    else levels[0] = game.i18n.localize("DND5E.AdvancementLevelAnyHeader");
+    else levels[0] = game.i18n.localize("ME5E.AdvancementLevelAnyHeader");
     const context = {
       appId: this.id,
-      CONFIG: CONFIG.DND5E,
+      CONFIG: CONFIG.ME5E,
       ...this.advancement.toObject(false),
       src: this.advancement._source,
       source: this.advancement._source,
@@ -91,9 +91,9 @@ export default class AdvancementConfig extends FormApplication {
       },
       levels,
       classRestrictionOptions: [
-        { value: "", label: game.i18n.localize("DND5E.AdvancementClassRestrictionNone") },
-        { value: "primary", label: game.i18n.localize("DND5E.AdvancementClassRestrictionPrimary") },
-        { value: "secondary", label: game.i18n.localize("DND5E.AdvancementClassRestrictionSecondary") }
+        { value: "", label: game.i18n.localize("ME5E.AdvancementClassRestrictionNone") },
+        { value: "primary", label: game.i18n.localize("ME5E.AdvancementClassRestrictionPrimary") },
+        { value: "secondary", label: game.i18n.localize("ME5E.AdvancementClassRestrictionSecondary") }
       ],
       showClassRestrictions: this.item.type === "class",
       showLevelSelector: !this.advancement.constructor.metadata.multiLevel
@@ -218,13 +218,13 @@ export default class AdvancementConfig extends FormApplication {
 
     // Abort if this uuid is the parent item
     if ( item.uuid === this.item.uuid ) {
-      ui.notifications.error("DND5E.ADVANCEMENT.ItemGrant.Warning.Recursive", {localize: true});
+      ui.notifications.error("ME5E.ADVANCEMENT.ItemGrant.Warning.Recursive", {localize: true});
       return null;
     }
 
     // Abort if this uuid exists already
     if ( existingItems.find(i => i.uuid === item.uuid) ) {
-      ui.notifications.warn("DND5E.ADVANCEMENT.ItemGrant.Warning.Duplicate", {localize: true});
+      ui.notifications.warn("ME5E.ADVANCEMENT.ItemGrant.Warning.Duplicate", {localize: true});
       return null;
     }
 

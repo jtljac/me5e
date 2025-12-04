@@ -34,11 +34,11 @@ export default function ActivityMixin(Base) {
      */
     static metadata = Object.freeze({
       name: "Activity",
-      label: "DOCUMENT.DND5E.Activity",
+      label: "DOCUMENT.ME5E.Activity",
       sheetClass: ActivitySheet,
       usage: {
         actions: {},
-        chatCard: "systems/dnd5e/templates/chat/activity-card.hbs",
+        chatCard: "systems/me5e/templates/chat/activity-card.hbs",
         dialog: ActivityUsageDialog
       }
     });
@@ -52,12 +52,12 @@ export default function ActivityMixin(Base) {
       foundry.helpers.Localization.localizeDataModel(this);
       const fields = this.schema.fields;
       if ( fields.damage?.fields.parts ) {
-        localizeSchema(fields.damage.fields.parts.element, ["DND5E.DAMAGE.FIELDS.damage.parts"]);
+        localizeSchema(fields.damage.fields.parts.element, ["ME5E.DAMAGE.FIELDS.damage.parts"]);
       }
       if ( fields.consumption ) {
-        localizeSchema(fields.consumption.fields.targets.element, ["DND5E.CONSUMPTION.FIELDS.consumption.targets"]);
+        localizeSchema(fields.consumption.fields.targets.element, ["ME5E.CONSUMPTION.FIELDS.consumption.targets"]);
       }
-      if ( fields.uses ) localizeSchema(fields.uses.fields.recovery.element, ["DND5E.USES.FIELDS.uses.recovery"]);
+      if ( fields.uses ) localizeSchema(fields.uses.fields.recovery.element, ["ME5E.USES.FIELDS.uses.recovery"]);
     }
 
     /* -------------------------------------------- */
@@ -82,7 +82,7 @@ export default function ActivityMixin(Base) {
      * @type {boolean}
      */
     get canConfigure() {
-      if ( CONFIG.DND5E.activityTypes[this.type]?.configurable === false ) return false;
+      if ( CONFIG.ME5E.activityTypes[this.type]?.configurable === false ) return false;
       if ( this.visibility?.requireIdentification && !this.item.system.identified && !game.user.isGM ) return false;
       if ( this.dependentOrigin?.active === false ) return false;
       return true;
@@ -113,7 +113,7 @@ export default function ActivityMixin(Base) {
      * @type {string}
      */
     get damageFlavor() {
-      return game.i18n.localize("DND5E.DamageRoll");
+      return game.i18n.localize("ME5E.DamageRoll");
     }
 
     /* -------------------------------------------- */
@@ -123,7 +123,7 @@ export default function ActivityMixin(Base) {
      * @type {ActiveEffect5e|null}
      */
     get dependentOrigin() {
-      return this.item.effects.get(this.flags?.dnd5e?.dependentOn) ?? null;
+      return this.item.effects.get(this.flags?.me5e?.dependentOn) ?? null;
     }
 
     /* -------------------------------------------- */
@@ -157,7 +157,7 @@ export default function ActivityMixin(Base) {
      * @type {Set<string>}
      */
     get validConsumptionTypes() {
-      const types = new Set(Object.keys(CONFIG.DND5E.activityConsumptionTypes));
+      const types = new Set(Object.keys(CONFIG.ME5E.activityConsumptionTypes));
       if ( this.isSpell ) types.delete("spellSlots");
       return types;
     }
@@ -176,11 +176,11 @@ export default function ActivityMixin(Base) {
     async use(usage={}, dialog={}, message={}) {
       if ( !this.item.isEmbedded || this.item.pack ) return;
       if ( !this.item.isOwner ) {
-        ui.notifications.error("DND5E.DocumentUseWarn", { localize: true });
+        ui.notifications.error("ME5E.DocumentUseWarn", { localize: true });
         return;
       }
       if ( !this.canUse ) {
-        ui.notifications.error("DND5E.ACTIVITY.Warning.UsageNotAllowed", { localize: true });
+        ui.notifications.error("ME5E.ACTIVITY.Warning.UsageNotAllowed", { localize: true });
         return;
       }
 
@@ -199,7 +199,7 @@ export default function ActivityMixin(Base) {
         create: true,
         data: {
           flags: {
-            dnd5e: {
+            me5e: {
               ...this.messageFlags,
               messageType: "usage"
             }
@@ -210,7 +210,7 @@ export default function ActivityMixin(Base) {
 
       /**
        * A hook event that fires before an activity usage is configured.
-       * @function dnd5e.preUseActivity
+       * @function me5e.preUseActivity
        * @memberof hookEvents
        * @param {Activity} activity                           Activity being used.
        * @param {ActivityUseConfiguration} usageConfig        Configuration info for the activation.
@@ -218,7 +218,7 @@ export default function ActivityMixin(Base) {
        * @param {ActivityMessageConfiguration} messageConfig  Configuration info for the created chat message.
        * @returns {boolean}  Explicitly return `false` to prevent activity from being used.
        */
-      if ( Hooks.call("dnd5e.preUseActivity", activity, usageConfig, dialogConfig, messageConfig) === false ) return;
+      if ( Hooks.call("me5e.preUseActivity", activity, usageConfig, dialogConfig, messageConfig) === false ) return;
 
       // Display configuration window if necessary
       if ( dialogConfig.configure && activity._requiresConfigurationDialog(usageConfig) ) {
@@ -240,11 +240,11 @@ export default function ActivityMixin(Base) {
 
       // Create concentration effect & end previous effects
       if ( usageConfig.concentration?.begin ) {
-        const effect = await item.actor.beginConcentrating(activity, { "flags.dnd5e.scaling": usageConfig.scaling });
+        const effect = await item.actor.beginConcentrating(activity, { "flags.me5e.scaling": usageConfig.scaling });
         if ( effect ) {
           results.effects ??= [];
           results.effects.push(effect);
-          foundry.utils.setProperty(messageConfig.data, "flags.dnd5e.use.concentrationId", effect.id);
+          foundry.utils.setProperty(messageConfig.data, "flags.me5e.use.concentrationId", effect.id);
         }
         if ( usageConfig.concentration?.end ) {
           const deleted = await item.actor.endConcentration(usageConfig.concentration.end);
@@ -261,21 +261,21 @@ export default function ActivityMixin(Base) {
 
       /**
        * A hook event that fires when an activity is activated.
-       * @function dnd5e.postUseActivity
+       * @function me5e.postUseActivity
        * @memberof hookEvents
        * @param {Activity} activity                     Activity being activated.
        * @param {ActivityUseConfiguration} usageConfig  Configuration data for the activation.
        * @param {ActivityUsageResults} results          Final details on the activation.
        * @returns {boolean}  Explicitly return `false` to prevent any subsequent actions from being triggered.
        */
-      if ( Hooks.call("dnd5e.postUseActivity", activity, usageConfig, results) === false ) return results;
+      if ( Hooks.call("me5e.postUseActivity", activity, usageConfig, results) === false ) return results;
 
       // Trigger any primary action provided by this activity
       if ( usageConfig.subsequentActions !== false ) {
-        const deltas = results.message?.flags?.dnd5e?.use?.consumed
-          ?? results.message?.data?.flags?.dnd5e?.use?.consumed;
+        const deltas = results.message?.flags?.me5e?.use?.consumed
+          ?? results.message?.data?.flags?.me5e?.use?.consumed;
         const consumed = this.createConsumedFlag(this.actor, deltas);
-        if ( consumed ) item.updateSource({ "flags.dnd5e.consumed": consumed });
+        if ( consumed ) item.updateSource({ "flags.me5e.consumed": consumed });
         activity._triggerSubsequentActions(usageConfig, results);
       }
 
@@ -293,14 +293,14 @@ export default function ActivityMixin(Base) {
     async consume(usageConfig, messageConfig) {
       /**
        * A hook event that fires before an item's resource consumption is calculated.
-       * @function dnd5e.preActivityConsumption
+       * @function me5e.preActivityConsumption
        * @memberof hookEvents
        * @param {Activity} activity                           Activity being activated.
        * @param {ActivityUseConfiguration} usageConfig        Configuration data for the activation.
        * @param {ActivityMessageConfiguration} messageConfig  Configuration info for the created chat message.
        * @returns {boolean}  Explicitly return `false` to prevent activity from being activated.
        */
-      if ( Hooks.call("dnd5e.preActivityConsumption", this, usageConfig, messageConfig) === false ) return false;
+      if ( Hooks.call("me5e.preActivityConsumption", this, usageConfig, messageConfig) === false ) return false;
 
       const updates = await this._prepareUsageUpdates(usageConfig);
       if ( !updates ) return false;
@@ -308,7 +308,7 @@ export default function ActivityMixin(Base) {
       /**
        * A hook event that fires after an item's resource consumption is calculated, but before any updates are
        * performed.
-       * @function dnd5e.activityConsumption
+       * @function me5e.activityConsumption
        * @memberof hookEvents
        * @param {Activity} activity                           Activity being activated.
        * @param {ActivityUseConfiguration} usageConfig        Configuration data for the activation.
@@ -316,19 +316,19 @@ export default function ActivityMixin(Base) {
        * @param {ActivityUsageUpdates} updates                Updates to apply to the actor and other documents.
        * @returns {boolean}  Explicitly return `false` to prevent activity from being activated.
        */
-      if ( Hooks.call("dnd5e.activityConsumption", this, usageConfig, messageConfig, updates) === false ) return false;
+      if ( Hooks.call("me5e.activityConsumption", this, usageConfig, messageConfig, updates) === false ) return false;
 
       const consumed = await this.#applyUsageUpdates(updates);
       if ( !foundry.utils.isEmpty(consumed) ) {
-        foundry.utils.setProperty(messageConfig, "data.flags.dnd5e.use.consumed", consumed);
+        foundry.utils.setProperty(messageConfig, "data.flags.me5e.use.consumed", consumed);
       }
       if ( usageConfig.cause?.activity ) {
-        foundry.utils.setProperty(messageConfig, "data.flags.dnd5e.use.cause", usageConfig.cause.activity);
+        foundry.utils.setProperty(messageConfig, "data.flags.me5e.use.cause", usageConfig.cause.activity);
       }
 
       /**
        * A hook event that fires after an item's resource consumption is calculated and applied.
-       * @function dnd5e.postActivityConsumption
+       * @function me5e.postActivityConsumption
        * @memberof hookEvents
        * @param {Activity} activity                           Activity being activated.
        * @param {ActivityUseConfiguration} usageConfig        Configuration data for the activation.
@@ -336,7 +336,7 @@ export default function ActivityMixin(Base) {
        * @param {ActivityUsageUpdates} updates                Applied updates to the actor and other documents.
        * @returns {boolean}  Explicitly return `false` to prevent activity from being activated.
        */
-      if ( Hooks.call("dnd5e.postActivityConsumption", this, usageConfig, messageConfig, updates) === false ) return false;
+      if ( Hooks.call("me5e.postActivityConsumption", this, usageConfig, messageConfig, updates) === false ) return false;
 
       return updates;
     }
@@ -424,7 +424,7 @@ export default function ActivityMixin(Base) {
 
       const ignoreLinkedConsumption = this.isSpell && !this.consumption.spellSlot;
       if ( config.consume !== false ) {
-        const activationConfig = CONFIG.DND5E.activityActivationTypes[this.activation.type] ?? {};
+        const activationConfig = CONFIG.ME5E.activityActivationTypes[this.activation.type] ?? {};
         const hasActionConsumption = activationConfig.consume
           && (activationConfig.consume.canConsume?.(this) !== false);
         const hasResourceConsumption = this.consumption.targets.length > 0;
@@ -440,7 +440,7 @@ export default function ActivityMixin(Base) {
           || (!linked && hasSpellSlotConsumption);
       }
 
-      const levelingFlag = this.item.getFlag("dnd5e", "spellLevel");
+      const levelingFlag = this.item.getFlag("me5e", "spellLevel");
       if ( levelingFlag ) {
         // Handle fixed scaling from spell scrolls
         config.scaling = false;
@@ -456,7 +456,7 @@ export default function ActivityMixin(Base) {
 
         if ( this.requiresSpellSlot ) {
           const { level, method } = this.item.system;
-          const model = CONFIG.DND5E.spellcasting[method];
+          const model = CONFIG.ME5E.spellcasting[method];
           config.spell ??= {};
           config.spell.slot ??= linked?.spell?.level
             ? `spell${linked.spell.level}`
@@ -467,13 +467,13 @@ export default function ActivityMixin(Base) {
         config.scaling ??= 0;
       }
 
-      if ( this.requiresConcentration && !game.settings.get("dnd5e", "disableConcentration") ) {
+      if ( this.requiresConcentration && !game.settings.get("me5e", "disableConcentration") ) {
         config.concentration ??= {};
         config.concentration.begin ??= true;
         const { effects } = this.actor.concentration;
         const limit = this.actor.system.attributes?.concentration?.limit ?? 0;
         if ( limit && (limit <= effects.size) ) config.concentration.end ??= effects.find(e => {
-          const data = e.flags.dnd5e?.item?.data ?? {};
+          const data = e.flags.me5e?.item?.data ?? {};
           return (data === this.id) || (data._id === this.id);
         })?.id ?? effects.first()?.id ?? null;
       }
@@ -497,22 +497,22 @@ export default function ActivityMixin(Base) {
      * @protected
      */
     async _prepareUsageScaling(usageConfig, messageConfig, item) {
-      const levelingFlag = this.item.getFlag("dnd5e", "spellLevel");
+      const levelingFlag = this.item.getFlag("me5e", "spellLevel");
       if ( levelingFlag ) {
         usageConfig.scaling = Math.max(0, levelingFlag.value - levelingFlag.base);
       } else if ( this.isSpell ) {
         const level = this.actor.system.spells?.[usageConfig.spell?.slot]?.level;
         if ( level ) {
           usageConfig.scaling = level - item.system.level;
-          foundry.utils.setProperty(messageConfig, "data.flags.dnd5e.use.spellLevel", level);
+          foundry.utils.setProperty(messageConfig, "data.flags.me5e.use.spellLevel", level);
         }
       }
 
       if ( usageConfig.scaling ) {
-        foundry.utils.setProperty(messageConfig, "data.flags.dnd5e.scaling", usageConfig.scaling);
-        if ( usageConfig.scaling !== item.flags.dnd5e?.scaling ) {
+        foundry.utils.setProperty(messageConfig, "data.flags.me5e.scaling", usageConfig.scaling);
+        if ( usageConfig.scaling !== item.flags.me5e?.scaling ) {
           item.actor._embeddedPreparation = true;
-          item.updateSource({ "flags.dnd5e.scaling": usageConfig.scaling });
+          item.updateSource({ "flags.me5e.scaling": usageConfig.scaling });
           delete item.actor._embeddedPreparation;
           item.prepareFinalAttributes();
         }
@@ -536,7 +536,7 @@ export default function ActivityMixin(Base) {
       const errors = [];
 
       // Handle auto consumption.
-      const activationConfig = CONFIG.DND5E.activityActivationTypes[this.activation.type];
+      const activationConfig = CONFIG.ME5E.activityActivationTypes[this.activation.type];
       if ( ((config.consume === true) || config.consume.action) && activationConfig?.consume ) {
         const { property } = activationConfig.consume;
         const valueProperty = `${property}.value`;
@@ -547,8 +547,8 @@ export default function ActivityMixin(Base) {
         const current = foundry.utils.getProperty(this.actor.system, property);
         if ( current && !containsConsumption ) {
           let message;
-          if ( current.value < 1 ) message = "DND5E.ACTIVATION.Warning.NoActions";
-          else if ( count > current.value ) message = "DND5E.ACTIVATION.Warning.NotEnoughActions";
+          if ( current.value < 1 ) message = "ME5E.ACTIVATION.Warning.NoActions";
+          else if ( count > current.value ) message = "ME5E.ACTIVATION.Warning.NotEnoughActions";
           if ( message ) {
             const err = new ConsumptionError(game.i18n.format(message, {
               type: activationConfig.label,
@@ -598,7 +598,7 @@ export default function ActivityMixin(Base) {
             const otherLinkedActivity = linkedActivity.type === "forward"
               ? linkedActivity.item.system.activities.get(linkedActivity.activity.id) : linkedActivity;
             if ( updates.delete.includes(linkedActivity.item.id)
-              && (this.item.getFlag("dnd5e", "cachedFor") === otherLinkedActivity?.relativeUUID) ) {
+              && (this.item.getFlag("me5e", "cachedFor") === otherLinkedActivity?.relativeUUID) ) {
               updates.delete.push(this.item.id);
             }
           } else if ( results?.length ) {
@@ -610,7 +610,7 @@ export default function ActivityMixin(Base) {
       // Handle spell slot consumption
       else if ( ((config.consume === true) || config.consume.spellSlot)
         && this.requiresSpellSlot && this.consumption.spellSlot ) {
-        const spellcasting = CONFIG.DND5E.spellcasting[this.item.system.method];
+        const spellcasting = CONFIG.ME5E.spellcasting[this.item.system.method];
         const effectiveLevel = this.item.system.level + (config.scaling ?? 0);
         const slot = config.spell?.slot ?? spellcasting?.getSpellSlotKey(effectiveLevel) ?? this.item.system.method;
         const slotData = this.actor.system.spells?.[slot];
@@ -619,7 +619,7 @@ export default function ActivityMixin(Base) {
             const newValue = Math.max(slotData.value - 1, 0);
             foundry.utils.mergeObject(updates.actor, { [`system.spells.${slot}.value`]: newValue });
           } else {
-            const err = new ConsumptionError(game.i18n.format("DND5E.SpellCastNoSlots", {
+            const err = new ConsumptionError(game.i18n.format("ME5E.SpellCastNoSlots", {
               name: this.item.name, level: slotData.label
             }));
             errors.push(err);
@@ -634,13 +634,13 @@ export default function ActivityMixin(Base) {
         if ( config.concentration.end ) {
           const replacedEffect = effects.find(i => i.id === config.concentration.end);
           if ( !replacedEffect ) errors.push(
-            new ConsumptionError(game.i18n.localize("DND5E.ConcentratingMissingItem"))
+            new ConsumptionError(game.i18n.localize("ME5E.ConcentratingMissingItem"))
           );
         }
 
         // Cannot begin more concentrations than the limit
         else if ( effects.size >= this.actor.system.attributes?.concentration?.limit ) errors.push(
-          new ConsumptionError(game.i18n.localize("DND5E.ConcentratingLimited"))
+          new ConsumptionError(game.i18n.localize("ME5E.ConcentratingLimited"))
         );
       }
 
@@ -679,17 +679,17 @@ export default function ActivityMixin(Base) {
       const properties = [...(data.tags ?? []), ...(data.properties ?? [])];
       const supplements = [];
       if ( this.activation.condition ) {
-        supplements.push(`<strong>${game.i18n.localize("DND5E.Trigger")}</strong> ${this.activation.condition}`);
+        supplements.push(`<strong>${game.i18n.localize("ME5E.Trigger")}</strong> ${this.activation.condition}`);
       }
       if ( data.materials?.value ) {
-        supplements.push(`<strong>${game.i18n.localize("DND5E.Materials")}</strong> ${data.materials.value}`);
+        supplements.push(`<strong>${game.i18n.localize("ME5E.Materials")}</strong> ${data.materials.value}`);
       }
       const buttons = this._usageChatButtons(message);
 
       // Include spell level in the subtitle.
       if ( this.item.type === "spell" ) {
-        const spellLevel = foundry.utils.getProperty(message, "data.flags.dnd5e.use.spellLevel");
-        const { spellLevels, spellSchools } = CONFIG.DND5E;
+        const spellLevel = foundry.utils.getProperty(message, "data.flags.me5e.use.spellLevel");
+        const { spellLevels, spellSchools } = CONFIG.ME5E;
         data.subtitle = [spellLevels[spellLevel], spellSchools[this.item.system.school]?.label].filterJoin(" &bull; ");
       }
 
@@ -718,7 +718,7 @@ export default function ActivityMixin(Base) {
     _finalizeMessageConfig(usageConfig, messageConfig, results) {
       messageConfig.data.rolls = (messageConfig.data.rolls ?? []).concat(results.updates.rolls);
       const effects = this.applicableEffects?.map(e => e.id);
-      if ( effects ) foundry.utils.setProperty(messageConfig.data, "flags.dnd5e.use.effects", effects);
+      if ( effects ) foundry.utils.setProperty(messageConfig.data, "flags.me5e.use.effects", effects);
     }
 
     /* -------------------------------------------- */
@@ -733,7 +733,7 @@ export default function ActivityMixin(Base) {
       const buttons = [];
 
       if ( this.target?.template?.type ) buttons.push({
-        label: game.i18n.localize("DND5E.TARGET.Action.PlaceTemplate"),
+        label: game.i18n.localize("ME5E.TARGET.Action.PlaceTemplate"),
         icon: '<i class="fas fa-bullseye" inert></i>',
         dataset: {
           action: "placeTemplate"
@@ -741,13 +741,13 @@ export default function ActivityMixin(Base) {
       });
 
       if ( message.hasConsumption ) buttons.push({
-        label: game.i18n.localize("DND5E.CONSUMPTION.Action.ConsumeResource"),
+        label: game.i18n.localize("ME5E.CONSUMPTION.Action.ConsumeResource"),
         icon: '<i class="fa-solid fa-cubes-stacked" inert></i>',
         dataset: {
           action: "consumeResource"
         }
       }, {
-        label: game.i18n.localize("DND5E.CONSUMPTION.Action.RefundResource"),
+        label: game.i18n.localize("ME5E.CONSUMPTION.Action.RefundResource"),
         icon: '<i class="fa-solid fa-clock-rotate-left"></i>',
         dataset: {
           action: "refundResource"
@@ -766,7 +766,7 @@ export default function ActivityMixin(Base) {
      * @returns {boolean}
      */
     shouldHideChatButton(button, message) {
-      const flag = message.getFlag("dnd5e", "use.consumed");
+      const flag = message.getFlag("me5e", "use.consumed");
       switch ( button.dataset.action ) {
         case "consumeResource": return !!flag;
         case "refundResource": return !flag;
@@ -796,24 +796,24 @@ export default function ActivityMixin(Base) {
 
       /**
        * A hook event that fires before an activity usage card is created.
-       * @function dnd5e.preCreateUsageMessage
+       * @function me5e.preCreateUsageMessage
        * @memberof hookEvents
        * @param {Activity} activity                     Activity for which the card will be created.
        * @param {ActivityMessageConfiguration} message  Configuration info for the created message.
        */
-      Hooks.callAll("dnd5e.preCreateUsageMessage", this, messageConfig);
+      Hooks.callAll("me5e.preCreateUsageMessage", this, messageConfig);
 
       ChatMessage.applyRollMode(messageConfig.data, messageConfig.rollMode);
       const card = messageConfig.create === false ? messageConfig.data : await ChatMessage.create(messageConfig.data);
 
       /**
        * A hook event that fires after an activity usage card is created.
-       * @function dnd5e.postCreateUsageMessage
+       * @function me5e.postCreateUsageMessage
        * @memberof hookEvents
        * @param {Activity} activity          Activity for which the card was created.
        * @param {ChatMessage5e|object} card  Created card or configuration data if not created.
        */
-      Hooks.callAll("dnd5e.postCreateUsageMessage", this, card);
+      Hooks.callAll("me5e.postCreateUsageMessage", this, card);
 
       return card;
     }
@@ -876,7 +876,7 @@ export default function ActivityMixin(Base) {
         data: {
           flavor: `${this.item.name} - ${this.damageFlavor}`,
           flags: {
-            dnd5e: {
+            me5e: {
               ...this.messageFlags,
               messageType: "roll",
               roll: { type: "damage" }
@@ -896,19 +896,19 @@ export default function ActivityMixin(Base) {
       }, {});
       if ( canUpdate && !foundry.utils.isEmpty(lastDamageTypes)
         && (this.actor && this.actor.items.has(this.item.id)) ) {
-        await this.item.setFlag("dnd5e", `last.${this.id}.damageType`, lastDamageTypes);
+        await this.item.setFlag("me5e", `last.${this.id}.damageType`, lastDamageTypes);
       }
 
       /**
        * A hook event that fires after damage has been rolled.
-       * @function dnd5e.rollDamage
+       * @function me5e.rollDamage
        * @memberof hookEvents
        * @param {DamageRoll[]} rolls       The resulting rolls.
        * @param {object} [data]
        * @param {Activity} [data.subject]  The activity that performed the roll.
        */
-      Hooks.callAll("dnd5e.rollDamage", rolls, { subject: this });
-      Hooks.callAll("dnd5e.rollDamageV2", rolls, { subject: this });
+      Hooks.callAll("me5e.rollDamage", rolls, { subject: this });
+      Hooks.callAll("me5e.rollDamageV2", rolls, { subject: this });
 
       return rolls;
     }
@@ -941,11 +941,11 @@ export default function ActivityMixin(Base) {
 
       if ( this.item.isOwner && !compendiumLocked ) {
         entries.push({
-          name: "DND5E.ContextMenuActionEdit",
+          name: "ME5E.ContextMenuActionEdit",
           icon: '<i class="fas fa-pen-to-square fa-fw"></i>',
           callback: () => this.sheet.render({ force: true })
         }, {
-          name: "DND5E.ContextMenuActionDuplicate",
+          name: "ME5E.ContextMenuActionDuplicate",
           icon: '<i class="fas fa-copy fa-fw"></i>',
           callback: () => {
             const createData = this.toObject();
@@ -953,13 +953,13 @@ export default function ActivityMixin(Base) {
             this.item.createActivity(createData.type, createData, { renderSheet: false });
           }
         }, {
-          name: "DND5E.ContextMenuActionDelete",
+          name: "ME5E.ContextMenuActionDelete",
           icon: '<i class="fas fa-trash fa-fw"></i>',
           callback: () => this.deleteDialog()
         });
       } else {
         entries.push({
-          name: "DND5E.ContextMenuActionView",
+          name: "ME5E.ContextMenuActionView",
           icon: '<i class="fas fa-eye fa-fw"></i>',
           callback: () => this.sheet.render({ force: true })
         });
@@ -969,7 +969,7 @@ export default function ActivityMixin(Base) {
         const uuid = `${this.item.getRelativeUUID(this.actor)}.Activity.${this.id}`;
         const isFavorited = this.actor.system.hasFavorite(uuid);
         entries.push({
-          name: isFavorited ? "DND5E.FavoriteRemove" : "DND5E.Favorite",
+          name: isFavorited ? "ME5E.FavoriteRemove" : "ME5E.Favorite",
           icon: '<i class="fas fa-bookmark fa-fw"></i>',
           condition: () => this.item.isOwner && !compendiumLocked,
           callback: () => {
@@ -992,10 +992,10 @@ export default function ActivityMixin(Base) {
      * @param {ChatMessage5e} message  Message associated with the activation.
      */
     async #onChatAction(event, target, message) {
-      const consumed = this.createConsumedFlag(message.getAssociatedActor(), message.getFlag("dnd5e", "use.consumed"));
-      const scaling = message.getFlag("dnd5e", "scaling") ?? 0;
+      const consumed = this.createConsumedFlag(message.getAssociatedActor(), message.getFlag("me5e", "use.consumed"));
+      const scaling = message.getFlag("me5e", "scaling") ?? 0;
       const item = (consumed || scaling) ? this.item.clone({
-        "flags.dnd5e": { consumed, scaling }
+        "flags.me5e": { consumed, scaling }
       }, { keepId: true }) : this.item;
       const activity = item.system.activities.get(this.id);
 
@@ -1042,13 +1042,13 @@ export default function ActivityMixin(Base) {
 
       /**
        * A hook even that fires when the context menu for an Activity is opened.
-       * @function dnd5e.getItemActivityContext
+       * @function me5e.getItemActivityContext
        * @memberof hookEvents
        * @param {Activity} activity             The Activity.
        * @param {HTMLElement} target            The element that menu was triggered on.
        * @param {ContextMenuEntry[]} menuItems  The context menu entries.
        */
-      Hooks.callAll("dnd5e.getItemActivityContext", activity, target, menuItems);
+      Hooks.callAll("me5e.getItemActivityContext", activity, target, menuItems);
       ui.context.menuItems = menuItems;
     }
 
@@ -1062,9 +1062,9 @@ export default function ActivityMixin(Base) {
      */
     async #consumeResource(event, target, message) {
       const messageConfig = {};
-      const scaling = message.getFlag("dnd5e", "scaling");
+      const scaling = message.getFlag("me5e", "scaling");
       const usageConfig = { consume: true, event, scaling };
-      const linkedActivity = this.getLinkedActivity(message.getFlag("dnd5e", "use.cause"));
+      const linkedActivity = this.getLinkedActivity(message.getFlag("me5e", "use.cause"));
       if ( linkedActivity ) usageConfig.cause = {
         activity: linkedActivity.relativeUUID, resources: linkedActivity.consumption.targets.length > 0
       };
@@ -1081,10 +1081,10 @@ export default function ActivityMixin(Base) {
      * @param {ChatMessage5e} message  Message associated with the activation.
      */
     async #refundResource(event, target, message) {
-      const consumed = message.getFlag("dnd5e", "use.consumed");
+      const consumed = message.getFlag("me5e", "use.consumed");
       if ( !foundry.utils.isEmpty(consumed) ) {
         await this.refund(consumed);
-        await message.unsetFlag("dnd5e", "use.consumed");
+        await message.unsetFlag("me5e", "use.consumed");
       }
     }
 
@@ -1103,7 +1103,7 @@ export default function ActivityMixin(Base) {
         }
       } catch(err) {
         Hooks.onError("Activity#placeTemplate", err, {
-          msg: game.i18n.localize("DND5E.TARGET.Warning.PlaceTemplate"),
+          msg: game.i18n.localize("ME5E.TARGET.Warning.PlaceTemplate"),
           log: "error",
           notify: "error"
         });
@@ -1159,7 +1159,7 @@ export default function ActivityMixin(Base) {
      */
     getLinkedActivity(relativeUUID) {
       if ( !this.actor ) return null;
-      relativeUUID ??= this.item.getFlag("dnd5e", "cachedFor");
+      relativeUUID ??= this.item.getFlag("me5e", "cachedFor");
       return fromUuidSync(relativeUUID, { relative: this.actor, strict: false });
     }
 
@@ -1175,7 +1175,7 @@ export default function ActivityMixin(Base) {
     getRollData(options) {
       const rollData = this.item.getRollData(options);
       rollData.activity = { ...this };
-      rollData.consumed = this.item.flags.dnd5e?.consumed;
+      rollData.consumed = this.item.flags.me5e?.consumed;
       rollData.mod = this.actor?.system.abilities?.[this.ability]?.mod ?? 0;
       return rollData;
     }
@@ -1224,7 +1224,7 @@ export default function ActivityMixin(Base) {
 
     /** @override */
     static _createDialogTypes(parent) {
-      return Object.entries(CONFIG.DND5E.activityTypes)
+      return Object.entries(CONFIG.ME5E.activityTypes)
         .filter(([, c]) => (c.configurable !== false) && c.documentClass.availableForItem(parent))
         .map(([k]) => k);
     }

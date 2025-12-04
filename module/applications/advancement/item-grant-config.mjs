@@ -16,13 +16,13 @@ export default class ItemGrantConfig extends AdvancementConfig {
   static PARTS = {
     ...super.PARTS,
     details: {
-      template: "systems/dnd5e/templates/advancement/item-grant-config-details.hbs"
+      template: "systems/me5e/templates/advancement/item-grant-config-details.hbs"
     },
     spellConfig: {
-      template: "systems/dnd5e/templates/advancement/advancement-spell-config-section.hbs"
+      template: "systems/me5e/templates/advancement/advancement-spell-config-section.hbs"
     },
     items: {
-      template: "systems/dnd5e/templates/advancement/item-grant-config-items.hbs"
+      template: "systems/me5e/templates/advancement/item-grant-config-items.hbs"
     }
   };
 
@@ -40,18 +40,18 @@ export default class ItemGrantConfig extends AdvancementConfig {
       index: fromUuidSync(data.uuid)
     }));
 
-    context.abilityOptions = Object.entries(CONFIG.DND5E.abilities).map(([value, { label }]) => ({ value, label }));
+    context.abilityOptions = Object.entries(CONFIG.ME5E.abilities).map(([value, { label }]) => ({ value, label }));
     context.showContainerWarning = context.items.some(i => i.index?.type === "container");
     context.showSpellConfig = context.items.some(i => i.index?.type === "spell");
 
     const { spell } = this.advancement.configuration;
-    const model = CONFIG.DND5E.spellcasting[spell?.method];
+    const model = CONFIG.ME5E.spellcasting[spell?.method];
     context.showRequireSpellSlot = !spell?.method || model?.slots;
     context.canPrepare = model?.prepares;
-    context.spellcastingMethods = Object.values(CONFIG.DND5E.spellcasting).map(({ key, label }) => {
+    context.spellcastingMethods = Object.values(CONFIG.ME5E.spellcasting).map(({ key, label }) => {
       return { label, value: key };
     });
-    if ( spell?.method && !(spell.method in CONFIG.DND5E.spellcasting) ) {
+    if ( spell?.method && !(spell.method in CONFIG.ME5E.spellcasting) ) {
       context.spellcastingMethods.push({ label: spell.method, value: spell.method });
     }
 

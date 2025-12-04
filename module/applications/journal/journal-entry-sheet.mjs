@@ -4,7 +4,7 @@
 export default class JournalEntrySheet5e extends foundry.applications.sheets.journal.JournalEntrySheet {
   /** @override */
   static DEFAULT_OPTIONS = {
-    classes: ["dnd5e2", "dnd5e2-journal", "titlebar"]
+    classes: ["me5e2", "me5e2-journal", "titlebar"]
   };
 
   /* -------------------------------------------- */
@@ -40,13 +40,13 @@ export default class JournalEntrySheet5e extends foundry.applications.sheets.jou
   /* -------------------------------------------- */
 
   /**
-   * Append the dnd5e system styling classes to journal pages inside system journal sheets.
+   * Append the me5e system styling classes to journal pages inside system journal sheets.
    * @param {JournalEntryPageSheet} page  The page application.
    * @param {HTMLElement} element         The page application's rendered element.
    */
   static onRenderJournalPageSheet(page, element) {
     if ( page.document.parent?.sheet instanceof JournalEntrySheet5e ) {
-      element.classList.add("dnd5e2", "dnd5e2-journal", "titlebar", "dialog-lg");
+      element.classList.add("me5e2", "me5e2-journal", "titlebar", "dialog-lg");
     }
   }
 
@@ -95,7 +95,7 @@ export default class JournalEntrySheet5e extends foundry.applications.sheets.jou
    * @internal
    */
   static async _injectNavigation(entry, html) {
-    const nav = entry.getFlag("dnd5e", "navigation");
+    const nav = entry.getFlag("me5e", "navigation");
     if ( !nav ) return;
     const getDocument = id => entry.pack ? entry.collection.getDocument(id) : entry.collection.get(id);
     const previous = nav.previous ? await getDocument(nav.previous) : null;
@@ -130,7 +130,7 @@ export default class JournalEntrySheet5e extends foundry.applications.sheets.jou
       anchor.dataset.tooltipDirection = dir === "prev" ? "LEFT" : "RIGHT";
     }
     const i18n = { prev: "Previous", next: "Next", up: "Up" };
-    Object.assign(anchor.dataset, { link: "", tooltip: `DND5E.JOURNALENTRY.Navigation.${i18n[dir]}`, uuid: doc.uuid });
+    Object.assign(anchor.dataset, { link: "", tooltip: `ME5E.JOURNALENTRY.Navigation.${i18n[dir]}`, uuid: doc.uuid });
     anchor.append(doc.name);
     li.append(anchor);
     return li;

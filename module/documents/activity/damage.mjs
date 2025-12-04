@@ -11,7 +11,7 @@ export default class DamageActivity extends ActivityMixin(BaseDamageActivityData
   /* -------------------------------------------- */
 
   /** @inheritDoc */
-  static LOCALIZATION_PREFIXES = [...super.LOCALIZATION_PREFIXES, "DND5E.DAMAGE"];
+  static LOCALIZATION_PREFIXES = [...super.LOCALIZATION_PREFIXES, "ME5E.DAMAGE"];
 
   /* -------------------------------------------- */
 
@@ -19,9 +19,9 @@ export default class DamageActivity extends ActivityMixin(BaseDamageActivityData
   static metadata = Object.freeze(
     foundry.utils.mergeObject(super.metadata, {
       type: "damage",
-      img: "systems/dnd5e/icons/svg/activity/damage.svg",
-      title: "DND5E.DAMAGE.Title",
-      hint: "DND5E.DAMAGE.Hint",
+      img: "systems/me5e/icons/svg/activity/damage.svg",
+      title: "ME5E.DAMAGE.Title",
+      hint: "ME5E.DAMAGE.Hint",
       sheetClass: DamageSheet,
       usage: {
         actions: {
@@ -39,7 +39,7 @@ export default class DamageActivity extends ActivityMixin(BaseDamageActivityData
   _usageChatButtons(message) {
     if ( !this.damage.parts.length ) return super._usageChatButtons(message);
     return [{
-      label: game.i18n.localize("DND5E.Damage"),
+      label: game.i18n.localize("ME5E.Damage"),
       icon: '<i class="fa-solid fa-burst" inert></i>',
       dataset: {
         action: "rollDamage"
@@ -51,7 +51,7 @@ export default class DamageActivity extends ActivityMixin(BaseDamageActivityData
 
   /** @override */
   async _triggerSubsequentActions(config, results) {
-    this.rollDamage({ event: config.event }, {}, { data: { "flags.dnd5e.originatingMessage": results.message?.id } });
+    this.rollDamage({ event: config.event }, {}, { data: { "flags.me5e.originatingMessage": results.message?.id } });
   }
 
   /* -------------------------------------------- */

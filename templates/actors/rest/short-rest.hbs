@@ -1,32 +1,32 @@
 <section class="flexcol">
     <div class="note info">
-        {{ localize (ifThen isGroup "DND5E.REST.Short.Hint.Group" "DND5E.REST.Short.Hint.Normal") }}
+        {{ localize (ifThen isGroup "ME5E.REST.Short.Hint.Group" "ME5E.REST.Short.Hint.Normal") }}
     </div>
 
     {{#if fields.length}}
     <fieldset>
-        <legend>{{ localize "DND5E.REST.Configuration" }}</legend>
-        {{> "dnd5e.fieldlist" fields }}
+        <legend>{{ localize "ME5E.REST.Configuration" }}</legend>
+        {{> "me5e.fieldlist" fields }}
     </fieldset>
     {{/if}}
 
     {{#if hitPoints.length}}
     <fieldset>
-        <legend>{{ localize "DND5E.HitPoints" }}</legend>
-        {{> "dnd5e.fieldlist" hitPoints }}
+        <legend>{{ localize "ME5E.HitPoints" }}</legend>
+        {{> "me5e.fieldlist" hitPoints }}
     </fieldset>
     {{/if}}
 
     {{#if hitDice}}
     {{#if hitDice.canRoll}}
     <fieldset>
-        <legend>{{ localize "DND5E.HitDice" }}</legend>
+        <legend>{{ localize "ME5E.HitDice" }}</legend>
         <div class="form-fields">
             <select name="denom">
                 {{ selectOptions hitDice.options selected=hitDice.denomination }}
             </select>
             <button type="button" class="dice-button" data-action="rollHitDie" data-tooltip
-                    aria-label="{{ localize 'DND5E.Roll' }}">
+                    aria-label="{{ localize 'ME5E.Roll' }}">
                 <i class="fa-solid fa-dice-d20" inert></i>
             </button>
         </div>
@@ -34,12 +34,12 @@
     </fieldset>
     {{else}}
     <div class="note warn">
-        {{ localize "DND5E.REST.HitDice.None" }}
+        {{ localize "ME5E.REST.HitDice.None" }}
     </div>
     {{/if}}
     {{/if}}
 
     {{#if request}}
-    {{> "systems/dnd5e/templates/actors/rest/rest-request.hbs" }}
+    {{> "systems/me5e/templates/actors/rest/rest-request.hbs" }}
     {{/if}}
 </section>

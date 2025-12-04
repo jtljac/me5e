@@ -2,14 +2,14 @@
 <div class="pills-group {{#unless values.length}}empty{{/unless}}">
     <h3 class="icon">
         {{#if icon}}<i class="{{ icon }}"></i>
-        {{~else if svg}}<dnd5e-icon src="systems/dnd5e/icons/svg/{{ svg }}.svg"></dnd5e-icon>{{/if}}
+        {{~else if svg}}<me5e-icon src="systems/me5e/icons/svg/{{ svg }}.svg"></me5e-icon>{{/if}}
         <span class="roboto-upper">{{ localize label }}</span>
         {{#if @root.editable}}
         <button type="button" class="config-button unbutton"
                 {{~#if configAction}} data-action="showConfiguration" data-config="{{ configAction }}"
                 {{~else}} data-action="showConfiguration" data-trait="{{ key }}"{{/if}}
-                data-tooltip="{{ localize 'DND5E.TraitConfig' trait=(localize label) }}"
-                aria-label="{{ localize 'DND5E.TraitConfig' trait=(localize label) }}">
+                data-tooltip="{{ localize 'ME5E.TraitConfig' trait=(localize label) }}"
+                aria-label="{{ localize 'ME5E.TraitConfig' trait=(localize label) }}">
             <i class="fas fa-cog" inert></i>
         </button>
         {{/if}}
@@ -23,7 +23,7 @@
             <span class="label">{{ label }}</span>
             {{#if value}}
             <span class="separator">&vert;</span>
-            <span class="value">{{ dnd5e-numberFormat value }}</span>
+            <span class="value">{{ me5e-numberFormat value }}</span>
             {{/if}}
         </li>
         {{/each}}

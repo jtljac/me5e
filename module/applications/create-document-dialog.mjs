@@ -26,7 +26,7 @@ export default class CreateDocumentDialog extends Dialog5e {
   static PARTS = {
     ...super.PARTS,
     content: {
-      template: "systems/dnd5e/templates/apps/document-create.hbs"
+      template: "systems/me5e/templates/apps/document-create.hbs"
     }
   };
 
@@ -138,8 +138,8 @@ export default class CreateDocumentDialog extends Dialog5e {
    * @param {FormDataExtended} formData  Data from the dialog.
    */
   static async #handleFormSubmission(event, form, formData) {
-    if ( !form.checkValidity() ) throw new Error(game.i18n.format("DOCUMENT.DND5E.Warning.SelectType", {
-      name: game.i18n.localize(documentType.metadata.label ?? `DOCUMENT.DND5E.${documentType.documentName}`)
+    if ( !form.checkValidity() ) throw new Error(game.i18n.format("DOCUMENT.ME5E.Warning.SelectType", {
+      name: game.i18n.localize(documentType.metadata.label ?? `DOCUMENT.ME5E.${documentType.documentName}`)
     }));
     foundry.utils.mergeObject(this.options.createData, formData.object);
     this.#submitted = true;
@@ -160,7 +160,7 @@ export default class CreateDocumentDialog extends Dialog5e {
    * @returns {Promise<Document>}
    */
   static async prompt(documentType, data={}, { folders, types, ...createOptions }={}, { ok={}, ...config }={}) {
-    const label = game.i18n.localize(documentType.metadata.label ?? `DOCUMENT.DND5E.${documentType.documentName}`);
+    const label = game.i18n.localize(documentType.metadata.label ?? `DOCUMENT.ME5E.${documentType.documentName}`);
     const title = game.i18n.format("DOCUMENT.Create", { type: label });
 
     foundry.utils.mergeObject(config, {
@@ -182,7 +182,7 @@ export default class CreateDocumentDialog extends Dialog5e {
       if ( !createData.name?.trim() ) createData.name = documentType.defaultName?.({
         type: createData.type, parent: createOptions.parent, pack: createOptions.pack
       });
-      // TODO: Temp patch until advancement data is migrated (https://github.com/foundryvtt/dnd5e/issues/5782)
+      // TODO: Temp patch until advancement data is migrated (https://github.com/foundryvtt/me5e/issues/5782)
       else if ( documentType.documentName === "Advancement" ) createData.title = createData.name;
 
       createOptions.renderSheet ??= true;

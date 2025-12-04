@@ -19,7 +19,7 @@ const { Ray } = foundry.canvas.geometry;
 export default class RotateAreaRegionBehaviorType extends foundry.data.regionBehaviors.RegionBehaviorType {
 
   /** @override */
-  static LOCALIZATION_PREFIXES = ["DND5E.REGIONBEHAVIORS.ROTATEAREA"];
+  static LOCALIZATION_PREFIXES = ["ME5E.REGIONBEHAVIORS.ROTATEAREA"];
 
   /* ---------------------------------------- */
 
@@ -69,10 +69,10 @@ export default class RotateAreaRegionBehaviorType extends foundry.data.regionBeh
    * @type {Record<RotateAreaDirectionMode, string>}
    */
   static DIRECTION_MODES = Object.seal({
-    cw: "DND5E.REGIONBEHAVIORS.ROTATEAREA.DirectionMode.Clockwise",
-    ccw: "DND5E.REGIONBEHAVIORS.ROTATEAREA.DirectionMode.CounterClockwise",
-    short: "DND5E.REGIONBEHAVIORS.ROTATEAREA.DirectionMode.Shortest",
-    long: "DND5E.REGIONBEHAVIORS.ROTATEAREA.DirectionMode.Longest"
+    cw: "ME5E.REGIONBEHAVIORS.ROTATEAREA.DirectionMode.Clockwise",
+    ccw: "ME5E.REGIONBEHAVIORS.ROTATEAREA.DirectionMode.CounterClockwise",
+    short: "ME5E.REGIONBEHAVIORS.ROTATEAREA.DirectionMode.Shortest",
+    long: "ME5E.REGIONBEHAVIORS.ROTATEAREA.DirectionMode.Longest"
   });
 
   /* ---------------------------------------- */
@@ -82,8 +82,8 @@ export default class RotateAreaRegionBehaviorType extends foundry.data.regionBeh
    * @type {Record<RotateAreaSpeedMode, string>}
    */
   static SPEED_MODES = Object.seal({
-    fixed: "DND5E.REGIONBEHAVIORS.ROTATEAREA.SpeedMode.Fixed",
-    variable: "DND5E.REGIONBEHAVIORS.ROTATEAREA.SpeedMode.Variable"
+    fixed: "ME5E.REGIONBEHAVIORS.ROTATEAREA.SpeedMode.Fixed",
+    variable: "ME5E.REGIONBEHAVIORS.ROTATEAREA.SpeedMode.Variable"
   });
 
   /* ---------------------------------------- */
@@ -167,7 +167,7 @@ export default class RotateAreaRegionBehaviorType extends foundry.data.regionBeh
     // Update status to indicate rotation is occurring and trigger visible animation
     await this.parent.update(
       { "system.status": { angle: targetAngle, position, rotating: true } },
-      { dnd5e: { rotateArea: { angle, duration, pivot } } }
+      { me5e: { rotateArea: { angle, duration, pivot } } }
     );
 
     // Wait for the visible animation to complete before performing document updates
@@ -370,7 +370,7 @@ export default class RotateAreaRegionBehaviorType extends foundry.data.regionBeh
    * @param {object} options
    */
   async updateRotatateArea(changes, options) {
-    const animationDetails = foundry.utils.getProperty(options, "dnd5e.rotateArea");
+    const animationDetails = foundry.utils.getProperty(options, "me5e.rotateArea");
     if ( animationDetails && (canvas.scene === this.scene) ) {
       const { angle, duration, pivot } = animationDetails;
       this.#animateRotation(angle, pivot, duration);

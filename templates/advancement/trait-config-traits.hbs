@@ -1,5 +1,5 @@
 <fieldset class="card traits">
-    <legend>{{ localize "DND5E.ADVANCEMENT.Trait.FIELDS.choices.FIELDS.pool.label" }}</legend>
+    <legend>{{ localize "ME5E.ADVANCEMENT.Trait.FIELDS.choices.FIELDS.pool.label" }}</legend>
     <div class="form-group split-group">
         <div class="form-fields">
             {{#if count}}
@@ -10,6 +10,6 @@
         </div>
     </div>
 
-    {{> "dnd5e.traits-list" choices=trait.options keyPath="configuration.checked." topLevel=true
+    {{> "me5e.traits-list" choices=trait.options keyPath="configuration.checked." topLevel=true
                             field=trait.field input=trait.input }}
 </fieldset>

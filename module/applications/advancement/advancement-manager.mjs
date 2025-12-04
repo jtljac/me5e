@@ -33,7 +33,7 @@ export default class AdvancementManager extends Application5e {
     classes: ["advancement", "manager", "themed", "theme-light"], // TODO: Remove when flows converted to App V2.
     window: {
       icon: "fa-solid fa-forward",
-      title: "DND5E.ADVANCEMENT.Manager.Title.Default"
+      title: "ME5E.ADVANCEMENT.Manager.Title.Default"
     },
     actions: {
       complete: AdvancementManager.#process,
@@ -53,7 +53,7 @@ export default class AdvancementManager extends Application5e {
   /** @override */
   static PARTS = {
     manager: {
-      template: "systems/dnd5e/templates/advancement/advancement-manager.hbs"
+      template: "systems/me5e/templates/advancement/advancement-manager.hbs"
     }
   };
 
@@ -96,12 +96,12 @@ export default class AdvancementManager extends Application5e {
     // Class/Subclass level
     let level = this.step.flow.level;
     if ( this.step.class && ["class", "subclass"].includes(item.type) ) level = this.step.class.level;
-    if ( level ) parts.push(game.i18n.format("DND5E.AdvancementLevelHeader", { level }));
+    if ( level ) parts.push(game.i18n.format("ME5E.AdvancementLevelHeader", { level }));
 
     // Step Count
     const visibleSteps = this.steps.filter(s => !s.automatic);
     const visibleIndex = visibleSteps.indexOf(this.step);
-    if ( visibleIndex >= 0 ) parts.push(game.i18n.format("DND5E.ADVANCEMENT.Manager.Steps", {
+    if ( visibleIndex >= 0 ) parts.push(game.i18n.format("ME5E.ADVANCEMENT.Manager.Steps", {
       current: visibleIndex + 1,
       total: visibleSteps.length
     }));
@@ -495,7 +495,7 @@ export default class AdvancementManager extends Application5e {
       actor: this.clone,
       // Keep styles from non-converted flow applications functioning
       // Should be removed when V1 of `AdvancementFlow` is deprecated
-      flowClasses: this.step.flow instanceof Application ? "dnd5e advancement flow" : "",
+      flowClasses: this.step.flow instanceof Application ? "me5e advancement flow" : "",
       flowId: this.step.flow.id,
       steps: {
         current: visibleIndex + 1,
@@ -522,11 +522,11 @@ export default class AdvancementManager extends Application5e {
 
     /**
      * A hook event that fires when an AdvancementManager is about to be processed.
-     * @function dnd5e.preAdvancementManagerRender
+     * @function me5e.preAdvancementManagerRender
      * @memberof hookEvents
      * @param {AdvancementManager} advancementManager The advancement manager about to be rendered
      */
-    const allowed = Hooks.call("dnd5e.preAdvancementManagerRender", this);
+    const allowed = Hooks.call("me5e.preAdvancementManagerRender", this);
 
     // Abort if not allowed
     if ( allowed === false ) return this;
@@ -567,15 +567,15 @@ export default class AdvancementManager extends Application5e {
     if ( !options.skipConfirmation ) {
       return new foundry.applications.api.Dialog({
         window: {
-          title: `${game.i18n.localize("DND5E.ADVANCEMENT.Manager.ClosePrompt.Title")}: ${this.actor.name}`
+          title: `${game.i18n.localize("ME5E.ADVANCEMENT.Manager.ClosePrompt.Title")}: ${this.actor.name}`
         },
         position: { width: 400 },
-        content: game.i18n.localize("DND5E.ADVANCEMENT.Manager.ClosePrompt.Message"),
+        content: game.i18n.localize("ME5E.ADVANCEMENT.Manager.ClosePrompt.Message"),
         buttons: [
           {
             action: "stop",
             icon: "fas fa-times",
-            label: game.i18n.localize("DND5E.ADVANCEMENT.Manager.ClosePrompt.Action.Stop"),
+            label: game.i18n.localize("ME5E.ADVANCEMENT.Manager.ClosePrompt.Action.Stop"),
             default: true,
             callback: () => {
               this.#visualizer?.close();
@@ -585,7 +585,7 @@ export default class AdvancementManager extends Application5e {
           {
             action: "continue",
             icon: "fas fa-chevron-right",
-            label: game.i18n.localize("DND5E.ADVANCEMENT.Manager.ClosePrompt.Action.Continue")
+            label: game.i18n.localize("ME5E.ADVANCEMENT.Manager.ClosePrompt.Action.Continue")
           }
         ]
       }).render({ force: true });
@@ -647,7 +647,7 @@ export default class AdvancementManager extends Application5e {
         // Apply changes based on step type
         if ( (type === "delete") && this.step.item ) {
           if ( this.step.flow?.retainedData?.retainedItems ) {
-            this.step.flow.retainedData.retainedItems[this.step.item.flags.dnd5e?.sourceId] = this.step.item.toObject();
+            this.step.flow.retainedData.retainedItems[this.step.item.flags.me5e?.sourceId] = this.step.item.toObject();
           }
           this.clone.items.delete(this.step.item.id);
         } else if ( (type === "delete") && this.step.advancement ) {
@@ -824,8 +824,8 @@ export default class AdvancementManager extends Application5e {
    */
   async #restart(event) {
     const restart = await foundry.applications.api.Dialog.confirm({
-      window: { title: game.i18n.localize("DND5E.ADVANCEMENT.Manager.RestartPrompt.Title") },
-      content: `<p>${game.i18n.localize("DND5E.ADVANCEMENT.Manager.RestartPrompt.Message")}</p>`
+      window: { title: game.i18n.localize("ME5E.ADVANCEMENT.Manager.RestartPrompt.Title") },
+      content: `<p>${game.i18n.localize("ME5E.ADVANCEMENT.Manager.RestartPrompt.Message")}</p>`
     });
     if ( !restart ) return;
     // While there is still a renderable step.
@@ -861,7 +861,7 @@ export default class AdvancementManager extends Application5e {
     /**
      * A hook event that fires at the final stage of a character's advancement process, before actor and item updates
      * are applied.
-     * @function dnd5e.preAdvancementManagerComplete
+     * @function me5e.preAdvancementManagerComplete
      * @memberof hookEvents
      * @param {AdvancementManager} advancementManager  The advancement manager.
      * @param {object} actorUpdates                    Updates to the actor.
@@ -869,7 +869,7 @@ export default class AdvancementManager extends Application5e {
      * @param {object[]} toUpdate                      Items that will be updated on the actor.
      * @param {string[]} toDelete                      IDs of items that will be deleted on the actor.
      */
-    if ( Hooks.call("dnd5e.preAdvancementManagerComplete", this, updates, toCreate, toUpdate, toDelete) === false ) {
+    if ( Hooks.call("me5e.preAdvancementManagerComplete", this, updates, toCreate, toUpdate, toDelete) === false ) {
       log("AdvancementManager completion was prevented by the 'preAdvancementManagerComplete' hook.");
       return this.close({ skipConfirmation: true });
     }
@@ -884,11 +884,11 @@ export default class AdvancementManager extends Application5e {
 
     /**
      * A hook event that fires when an AdvancementManager is done modifying an actor.
-     * @function dnd5e.advancementManagerComplete
+     * @function me5e.advancementManagerComplete
      * @memberof hookEvents
      * @param {AdvancementManager} advancementManager The advancement manager that just completed
      */
-    Hooks.callAll("dnd5e.advancementManagerComplete", this);
+    Hooks.callAll("me5e.advancementManagerComplete", this);
 
     // Close prompt
     return this.close({ skipConfirmation: true });
@@ -921,7 +921,7 @@ class AdvancementVisualizer extends Application5e {
   /** @override */
   static PARTS = {
     steps: {
-      template: "systems/dnd5e/templates/advancement/advancement-visualizer.hbs"
+      template: "systems/me5e/templates/advancement/advancement-visualizer.hbs"
     }
   };
 

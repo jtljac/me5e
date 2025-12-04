@@ -24,7 +24,7 @@ export default class CurrencyManager extends Application5e {
     },
     tag: "form",
     window: {
-      title: "DND5E.CurrencyManager.Title"
+      title: "ME5E.CurrencyManager.Title"
     }
   };
 
@@ -36,10 +36,10 @@ export default class CurrencyManager extends Application5e {
       template: "templates/generic/tab-navigation.hbs"
     },
     convert: {
-      template: "systems/dnd5e/templates/apps/currency-manager-convert.hbs"
+      template: "systems/me5e/templates/apps/currency-manager-convert.hbs"
     },
     transfer: {
-      template: "systems/dnd5e/templates/apps/currency-manager-transfer.hbs"
+      template: "systems/me5e/templates/apps/currency-manager-transfer.hbs"
     }
   };
 
@@ -118,13 +118,13 @@ export default class CurrencyManager extends Application5e {
     return {
       convert: {
         id: "convert", group: "primary", icon: "fa-solid fa-arrow-up-short-wide",
-        label: "DND5E.CurrencyManager.Convert.Label",
+        label: "ME5E.CurrencyManager.Convert.Label",
         active: this.tabGroups.primary === "convert",
         cssClass: this.tabGroups.primary === "convert" ? "active" : ""
       },
       transfer: {
         id: "transfer", group: "primary", icon: "fa-solid fa-reply-all fa-flip-horizontal",
-        label: "DND5E.CurrencyManager.Transfer.Label",
+        label: "ME5E.CurrencyManager.Transfer.Label",
         active: this.tabGroups.primary === "transfer",
         cssClass: this.tabGroups.primary === "transfer" ? "active" : ""
       }
@@ -204,14 +204,14 @@ export default class CurrencyManager extends Application5e {
 
   /**
    * Convert all carried currency to the highest possible denomination using configured conversion rates.
-   * See CONFIG.DND5E.currencies for configuration.
+   * See CONFIG.ME5E.currencies for configuration.
    * @param {Actor5e|Item5e} doc  Actor or container item to convert.
    * @returns {Promise<Actor5e|Item5e>}
    */
   static convertCurrency(doc) {
     const currency = foundry.utils.deepClone(doc.system.currency);
 
-    const currencies = Object.entries(CONFIG.DND5E.currencies)
+    const currencies = Object.entries(CONFIG.ME5E.currencies)
       .filter(([, c]) => c.conversion)
       .sort((a, b) => a[1].conversion - b[1].conversion);
 
@@ -250,7 +250,7 @@ export default class CurrencyManager extends Application5e {
     if ( amount <= 0 ) return;
     // eslint-disable-next-line no-unused-vars
     const { item, remainder, ...updates } = this.getActorCurrencyUpdates(actor, amount, denomination, options);
-    if ( remainder ) throw new Error(game.i18n.format("DND5E.CurrencyManager.Error.InsufficientFunds", {
+    if ( remainder ) throw new Error(game.i18n.format("ME5E.CurrencyManager.Error.InsufficientFunds", {
       denomination,
       amount: new Intl.NumberFormat(game.i18n.lang).format(amount),
       name: actor.name
@@ -276,10 +276,10 @@ export default class CurrencyManager extends Application5e {
     const updates = { system: { currency: { ...currency } }, remainder: amount, item: [] };
     if ( amount <= 0 ) return updates;
 
-    const currencies = Object.entries(CONFIG.DND5E.currencies).map(([denom, { conversion }]) => {
+    const currencies = Object.entries(CONFIG.ME5E.currencies).map(([denom, { conversion }]) => {
       return [denom, conversion];
     }).sort(([, a], [, b]) => priority === "high" ? a - b : b - a);
-    const baseConversion = CONFIG.DND5E.currencies[denomination].conversion;
+    const baseConversion = CONFIG.ME5E.currencies[denomination].conversion;
 
     if ( exact ) currencies.unshift([denomination, baseConversion]);
     for ( const [denom, conversion] of currencies ) {

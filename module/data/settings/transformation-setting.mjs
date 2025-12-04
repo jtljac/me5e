@@ -15,7 +15,7 @@ const { BooleanField, SetField, StringField } = foundry.data.fields;
 export default class TransformationSetting extends foundry.abstract.DataModel {
 
   /** @override */
-  static LOCALIZATION_PREFIXES = ["DND5E.TRANSFORM.Setting"];
+  static LOCALIZATION_PREFIXES = ["ME5E.TRANSFORM.Setting"];
 
   /* -------------------------------------------- */
 
@@ -50,7 +50,7 @@ export default class TransformationSetting extends foundry.abstract.DataModel {
    * @returns {string[]}
    */
   static #initial(category) {
-    return Object.entries(CONFIG.DND5E.transformation[category])
+    return Object.entries(CONFIG.ME5E.transformation[category])
       .filter(([, config]) => config.default)
       .map(([key]) => key);
   }
@@ -69,8 +69,8 @@ export default class TransformationSetting extends foundry.abstract.DataModel {
   createFormCategories({ host, prefix="" }={}) {
     const disabledFields = TransformationSetting.BOOLEAN_CATEGORIES.reduce((fields, cat) => {
       for ( const value of this[cat] ) {
-        for ( const disable of CONFIG.DND5E.transformation[cat][value]?.disables ?? [] ) {
-          if ( disable.includes("*") ) Object.keys(CONFIG.DND5E.transformation[disable.replace(".*", "")] ?? {})
+        for ( const disable of CONFIG.ME5E.transformation[cat][value]?.disables ?? [] ) {
+          if ( disable.includes("*") ) Object.keys(CONFIG.ME5E.transformation[disable.replace(".*", "")] ?? {})
             .filter(k => k !== value).forEach(k => fields.add(`${cat}.${k}`));
           else fields.add(disable);
         }
@@ -85,11 +85,11 @@ export default class TransformationSetting extends foundry.abstract.DataModel {
 
     return TransformationSetting.BOOLEAN_CATEGORIES.map(cat => ({
       category: cat,
-      title: `DND5E.TRANSFORM.Setting.FIELDS.${cat}.label`,
-      hint: game.i18n.has(`DND5E.TRANSFORM.Setting.FIELDS.${cat}.hint`)
-        ? `DND5E.TRANSFORM.Setting.FIELDS.${cat}.hint` : "",
+      title: `ME5E.TRANSFORM.Setting.FIELDS.${cat}.label`,
+      hint: game.i18n.has(`ME5E.TRANSFORM.Setting.FIELDS.${cat}.hint`)
+        ? `ME5E.TRANSFORM.Setting.FIELDS.${cat}.hint` : "",
       settings: [
-        ...Object.entries(CONFIG.DND5E.transformation[cat]).map(([name, config]) => ({
+        ...Object.entries(CONFIG.ME5E.transformation[cat]).map(([name, config]) => ({
           field: new BooleanField({ label: config.label, hint: config.hint }),
           disabled: disabledFields.has(`${cat}.${name}`),
           input: createCheckboxInput,
@@ -119,7 +119,7 @@ export default class TransformationSetting extends foundry.abstract.DataModel {
       input: field instanceof BooleanField ? createCheckboxInput : undefined,
       value: this[name]
     };
-    if ( name === "spellLists" ) descriptor.options = dnd5e.registry.spellLists.options.filter(o => {
+    if ( name === "spellLists" ) descriptor.options = me5e.registry.spellLists.options.filter(o => {
       if ( !host ) return true;
       const [type, identifier] = o.value.split(":");
       return host.identifiedItems.get(identifier, type)?.size > 0;

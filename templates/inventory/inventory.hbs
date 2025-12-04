@@ -5,7 +5,7 @@
     <section class="currency">
         {{#unless @root.locked}}
         <button type="button" class="item-action unbutton always-interactive" data-action="currency"
-                aria-label="{{ localize "DND5E.CurrencyManager.Title" }}">
+                aria-label="{{ localize "ME5E.CurrencyManager.Title" }}">
             <i class="fa-solid fa-coins" inert></i>
         </button>
         {{/unless}}
@@ -32,7 +32,7 @@
             {{#if listControls.filters.length}}
             <datalist data-list="filters">
                 {{#each listControls.filters}}
-                <option value="{{ key }}" {{ dnd5e-dataset dataset }}>{{ localize label }}</option>
+                <option value="{{ key }}" {{ me5e-dataset dataset }}>{{ localize label }}</option>
                 {{/each}}
             </datalist>
             {{/if}}
@@ -40,7 +40,7 @@
             {{#if listControls.sorting.length}}
             <datalist data-list="sort">
                 {{#each listControls.sorting}}
-                <option value="{{ key }}" {{ dnd5e-dataset dataset }}>{{ localize label }}</option>
+                <option value="{{ key }}" {{ me5e-dataset dataset }}>{{ localize label }}</option>
                 {{/each}}
             </datalist>
             {{/if}}
@@ -48,7 +48,7 @@
             {{#if listControls.grouping.length}}
             <datalist data-list="group">
                 {{#each listControls.grouping}}
-                <option value="{{ key }}" {{ dnd5e-dataset dataset }}>{{ localize label }}</option>
+                <option value="{{ key }}" {{ me5e-dataset dataset }}>{{ localize label }}</option>
                 {{/each}}
             </datalist>
             {{/if}}
@@ -64,7 +64,7 @@
 
         {{!-- Sections / Categories --}}
         {{#each sections}}
-        <div class="items-section card" {{ dnd5e-dataset dataset }}>
+        <div class="items-section card" {{ me5e-dataset dataset }}>
 
             {{!-- Section Header --}}
             <div class="items-header header {{~#if draggable}} draggable{{/if}}">
@@ -80,11 +80,11 @@
             {{!-- Section Contents --}}
             <ol class="item-list unlist">
                 {{~#each items as |item|}}
-                {{#dnd5e-itemContext item as |ctx|}}
+                {{#me5e-itemContext item as |ctx|}}
 
                 <li class="item collapsible {{#unless ctx.isExpanded}}collapsed{{/unless}}" data-uuid="{{ item.uuid }}"
                     data-item-id="{{ item.id }}" data-entry-id="{{ item.id }}" data-item-name="{{ item.name }}"
-                    {{ dnd5e-dataset ctx.dataset }}>
+                    {{ me5e-dataset ctx.dataset }}>
 
                     {{!-- Row Summary --}}
                     <div class="item-row draggable">
@@ -95,7 +95,7 @@
 
                             {{#if ctx.concentration}}
                             <i class="concentration fa-solid fa-arrow-rotate-left fa-spin fa-spin-reverse"
-                               aria-label="{{ localize "DND5E.Concentration" }}"></i>
+                               aria-label="{{ localize "ME5E.Concentration" }}"></i>
                             {{/if}}
 
                             <img class="item-image gold-icon" src="{{ item.img }}" alt="{{ item.name }}"
@@ -113,7 +113,7 @@
                                 {{#each item.labels.components.all}}
                                 {{#if tag}}
                                 <span aria-label="{{ label }}">
-                                    <dnd5e-icon src="{{ icon }}"></dnd5e-icon>
+                                    <me5e-icon src="{{ icon }}"></me5e-icon>
                                 </span>
                                 {{/if}}
                                 {{/each}}
@@ -121,7 +121,7 @@
                                 {{#each item.labels.properties}}
                                 {{#if icon}}
                                 <span aria-label="{{ label }}">
-                                    <dnd5e-icon src="{{ icon }}"></dnd5e-icon>
+                                    <me5e-icon src="{{ icon }}"></me5e-icon>
                                 </span>
                                 {{/if}}
                                 {{/each}}
@@ -153,7 +153,7 @@
                             {{#if ctx.activities.length}}
                             <ol class="activities unlist">
                                 {{#each ctx.activities}}
-                                {{> "systems/dnd5e/templates/inventory/activity.hbs" columns=../../columns
+                                {{> "systems/me5e/templates/inventory/activity.hbs" columns=../../columns
                                     item=../item }}
                                 {{/each}}
                             </ol>
@@ -161,7 +161,7 @@
 
                             {{!-- Item Description --}}
                             {{#if ctx.isExpanded}}
-                            {{> "dnd5e.item-summary" ctx.expanded }}
+                            {{> "me5e.item-summary" ctx.expanded }}
                             {{/if}}
 
                         </div>
@@ -169,7 +169,7 @@
 
                 </li>
 
-                {{/dnd5e-itemContext}}
+                {{/me5e-itemContext}}
                 {{/each~}}
             </ol>
 
@@ -182,7 +182,7 @@
     {{#if encumbrance}}
     <div class="bottom">
         <div class="encumbrance">
-            {{> "systems/dnd5e/templates/inventory/encumbrance.hbs" hasBreakpoints=true }}
+            {{> "systems/me5e/templates/inventory/encumbrance.hbs" hasBreakpoints=true }}
         </div>
     </div>
     {{/if}}

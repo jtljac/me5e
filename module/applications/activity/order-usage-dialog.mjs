@@ -17,7 +17,7 @@ export default class OrderUsageDialog extends ActivityUsageDialog {
   /** @override */
   static PARTS = {
     order: {
-      template: "systems/dnd5e/templates/activity/order-usage.hbs"
+      template: "systems/me5e/templates/activity/order-usage.hbs"
     },
     footer: {
       template: "templates/generic/form-footer.hbs"
@@ -36,8 +36,8 @@ export default class OrderUsageDialog extends ActivityUsageDialog {
    */
   _prepareBuildContext(context, options) {
     context.build = {
-      choices: CONFIG.DND5E.facilities.sizes,
-      field: new StringField({ nullable: false, blank: false, label: "DND5E.FACILITY.FIELDS.size.label" }),
+      choices: CONFIG.ME5E.facilities.sizes,
+      field: new StringField({ nullable: false, blank: false, label: "ME5E.FACILITY.FIELDS.size.label" }),
       name: "building.size",
       value: this.config.building?.size ?? "cramped"
     };
@@ -54,15 +54,15 @@ export default class OrderUsageDialog extends ActivityUsageDialog {
    * @protected
    */
   _prepareCostsContext(context, { days, gold }) {
-    const { duration } = game.settings.get("dnd5e", "bastionConfiguration");
+    const { duration } = game.settings.get("me5e", "bastionConfiguration");
     context.costs = {
       days: {
-        field: new NumberField({ nullable: true, integer: true, min: 0, label: "DND5E.TimeDay" }),
+        field: new NumberField({ nullable: true, integer: true, min: 0, label: "ME5E.TimeDay" }),
         name: "costs.days",
         value: this.config.costs?.days ?? days ?? duration
       },
       gold: {
-        field: new NumberField({ nullable: true, integer: true, min: 0, label: "DND5E.CurrencyGP" }),
+        field: new NumberField({ nullable: true, integer: true, min: 0, label: "ME5E.CurrencyGP" }),
         name: "costs.gold",
         value: this.config.costs?.gold ?? gold ?? 0
       }
@@ -80,7 +80,7 @@ export default class OrderUsageDialog extends ActivityUsageDialog {
   async _prepareCraftContext(context, options) {
     const { craft } = this.item.system;
     context.craft = {
-      legend: game.i18n.localize(`DND5E.FACILITY.Orders.${this.activity.order}.present`),
+      legend: game.i18n.localize(`ME5E.FACILITY.Orders.${this.activity.order}.present`),
       item: {
         field: new DocumentUUIDField(),
         name: "craft.item",
@@ -99,8 +99,8 @@ export default class OrderUsageDialog extends ActivityUsageDialog {
     } else {
       context.craft.baseItem = {
         field: new BooleanField({
-          label: "DND5E.FACILITY.Craft.BaseItem.Label",
-          hint: "DND5E.FACILITY.Craft.BaseItem.Hint"
+          label: "ME5E.FACILITY.Craft.BaseItem.Label",
+          hint: "ME5E.FACILITY.Craft.BaseItem.Hint"
         }),
         name: "craft.buyBaseItem",
         value: this.config.craft?.buyBaseItem ?? false
@@ -127,7 +127,7 @@ export default class OrderUsageDialog extends ActivityUsageDialog {
    * @protected
    */
   _prepareEnlargeContext(context, options) {
-    const sizes = Object.entries(CONFIG.DND5E.facilities.sizes).sort((a, b) => a.value - b.value);
+    const sizes = Object.entries(CONFIG.ME5E.facilities.sizes).sort((a, b) => a.value - b.value);
     const index = sizes.findIndex(([size]) => size === this.item.system.size);
     const [, current] = sizes[index];
     const [, target] = sizes[index + 1];
@@ -148,7 +148,7 @@ export default class OrderUsageDialog extends ActivityUsageDialog {
       action: "use",
       type: "button",
       icon: "fas fa-hand-point-right",
-      label: "DND5E.FACILITY.Order.Execute"
+      label: "ME5E.FACILITY.Order.Execute"
     }];
     return context;
   }
@@ -169,19 +169,19 @@ export default class OrderUsageDialog extends ActivityUsageDialog {
     }
 
     if ( this.activity.order === "build" ) {
-      const { days, value: gold } = CONFIG.DND5E.facilities.sizes.cramped;
+      const { days, value: gold } = CONFIG.ME5E.facilities.sizes.cramped;
       this._prepareBuildContext(context, options);
       this._prepareCostsContext(context, { ...options, days, gold });
       return;
     }
 
-    let { duration } = game.settings.get("dnd5e", "bastionConfiguration");
+    let { duration } = game.settings.get("me5e", "bastionConfiguration");
     if ( (this.activity.order === "craft") || (this.activity.order === "harvest") ) {
       await this._prepareCraftContext(context, options);
     }
     else if ( this.activity.order === "trade" ) await this._prepareTradeContext(context, options);
     else {
-      const config = CONFIG.DND5E.facilities.orders[this.activity.order];
+      const config = CONFIG.ME5E.facilities.orders[this.activity.order];
       if ( config?.duration ) duration = config.duration;
     }
 
@@ -213,8 +213,8 @@ export default class OrderUsageDialog extends ActivityUsageDialog {
       context.trade = {
         stocked: {
           field: new BooleanField({
-            label: "DND5E.FACILITY.Trade.Stocked.Label",
-            hint: "DND5E.FACILITY.Trade.Stocked.Hint"
+            label: "ME5E.FACILITY.Trade.Stocked.Label",
+            hint: "ME5E.FACILITY.Trade.Stocked.Hint"
           }),
           name: "trade.stock.stocked",
           value: this.config.trade?.stock?.stocked ?? false
@@ -224,7 +224,7 @@ export default class OrderUsageDialog extends ActivityUsageDialog {
       const isSelling = this.config.trade?.sell ?? false;
       context.trade = {
         sell: {
-          field: new BooleanField({ label: "DND5E.FACILITY.Trade.Sell.Label" }),
+          field: new BooleanField({ label: "ME5E.FACILITY.Trade.Sell.Label" }),
           name: "trade.sell",
           value: isSelling
         }
@@ -232,7 +232,7 @@ export default class OrderUsageDialog extends ActivityUsageDialog {
 
       if ( trade.stock.max ) {
         const max = isSelling ? trade.stock.value || 0 : trade.stock.max - (trade.stock.value ?? 0);
-        const label = `DND5E.FACILITY.Trade.Stock.${isSelling ? "Sell" : "Buy"}`;
+        const label = `ME5E.FACILITY.Trade.Stock.${isSelling ? "Sell" : "Buy"}`;
         context.trade.stock = {
           field: new NumberField({ label, max, min: 0, step: 1, nullable: false }),
           name: "trade.stock.value",
@@ -259,12 +259,12 @@ export default class OrderUsageDialog extends ActivityUsageDialog {
         }));
         context.trade.creatures = {
           buy, sell,
-          hint: "DND5E.FACILITY.Trade.Creatures.Buy",
+          hint: "ME5E.FACILITY.Trade.Creatures.Buy",
           price: {
             field: new NumberField({
               nullable: false, min: 0, integer: true,
-              label: "DND5E.FACILITY.Trade.Price.Label",
-              hint: "DND5E.FACILITY.Trade.Price.Hint"
+              label: "ME5E.FACILITY.Trade.Price.Label",
+              hint: "ME5E.FACILITY.Trade.Price.Hint"
             }),
             name: "trade.creatures.price",
             value: this.config.trade?.creatures?.price ?? 0
@@ -315,7 +315,7 @@ export default class OrderUsageDialog extends ActivityUsageDialog {
    */
   _prepareBuildData(submitData) {
     if ( (this.config.building?.size ?? "cramped") !== submitData.building?.size ) {
-      const { days, value: gold } = CONFIG.DND5E.facilities.sizes[submitData.building.size];
+      const { days, value: gold } = CONFIG.ME5E.facilities.sizes[submitData.building.size];
       Object.assign(submitData.costs, { days, gold });
     }
   }

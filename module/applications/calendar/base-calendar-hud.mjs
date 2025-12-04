@@ -26,8 +26,8 @@ export default class BaseCalendarHUD extends Application5e {
    * @type {boolean}
    */
   static get shouldDisplay() {
-    return (game.settings.get("dnd5e", "calendarConfig")?.enabled || false)
-      && (game.settings.get("dnd5e", "calendarPreferences")?.visible || false);
+    return (game.settings.get("me5e", "calendarConfig")?.enabled || false)
+      && (game.settings.get("me5e", "calendarPreferences")?.visible || false);
   }
 
   /* -------------------------------------------- */
@@ -98,6 +98,6 @@ export default class BaseCalendarHUD extends Application5e {
    * @param {string} userId
    */
   static onUpdateWorldTime(worldTime, deltaTime, options, userId) {
-    if ( this.shouldDisplay ) dnd5e.ui.calendar?.render();
+    if ( this.shouldDisplay ) me5e.ui.calendar?.render();
   }
 }

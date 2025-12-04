@@ -15,7 +15,7 @@ export default class LanguagesConfig extends TraitsConfig {
   /** @override */
   static PARTS = {
     traits: {
-      template: "systems/dnd5e/templates/actors/config/languages-config.hbs"
+      template: "systems/me5e/templates/actors/config/languages-config.hbs"
     }
   };
 
@@ -25,7 +25,7 @@ export default class LanguagesConfig extends TraitsConfig {
 
   /** @override */
   get title() {
-    return game.i18n.localize("DND5E.Languages");
+    return game.i18n.localize("ME5E.Languages");
   }
 
   /* -------------------------------------------- */
@@ -36,8 +36,8 @@ export default class LanguagesConfig extends TraitsConfig {
   async _preparePartContext(partId, context, options) {
     context = await super._preparePartContext(partId, context, options);
 
-    const unitOptions = Object.entries(CONFIG.DND5E.movementUnits).map(([value, { label }]) => ({ value, label }));
-    context.communication = Object.entries(CONFIG.DND5E.communicationTypes).map(([key, { label }]) => ({
+    const unitOptions = Object.entries(CONFIG.ME5E.movementUnits).map(([value, { label }]) => ({ value, label }));
+    context.communication = Object.entries(CONFIG.ME5E.communicationTypes).map(([key, { label }]) => ({
       label, unitOptions,
       data: context.data.communication[key],
       fields: context.fields.communication.model.fields,

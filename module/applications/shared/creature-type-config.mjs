@@ -19,7 +19,7 @@ export default class CreatureTypeConfig extends BaseConfigSheet {
   /** @override */
   static PARTS = {
     config: {
-      template: "systems/dnd5e/templates/shared/config/creature-type-config.hbs"
+      template: "systems/me5e/templates/shared/config/creature-type-config.hbs"
     }
   };
 
@@ -29,7 +29,7 @@ export default class CreatureTypeConfig extends BaseConfigSheet {
 
   /** @override */
   get title() {
-    return game.i18n.localize("DND5E.CreatureType");
+    return game.i18n.localize("ME5E.CreatureType");
   }
 
   /* -------------------------------------------- */
@@ -58,9 +58,9 @@ export default class CreatureTypeConfig extends BaseConfigSheet {
 
     context.swarmOptions = [
       { value: "", label: "" },
-      ...Object.entries(CONFIG.DND5E.actorSizes).map(([value, { label }]) => ({ value, label })).reverse()
+      ...Object.entries(CONFIG.ME5E.actorSizes).map(([value, { label }]) => ({ value, label })).reverse()
     ];
-    context.typeOptions = Object.entries(CONFIG.DND5E.creatureTypes)
+    context.typeOptions = Object.entries(CONFIG.ME5E.creatureTypes)
       .map(([value, { label }]) => ({ value, label, selected: context.data.value === value }));
     if ( context.fields.custom ) context.custom = {
       enabled: true,

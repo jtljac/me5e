@@ -18,7 +18,7 @@ export default class SubclassFlow extends AdvancementFlow {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       dragDrop: [{ dropSelector: "form" }],
-      template: "systems/dnd5e/templates/advancement/subclass-flow.hbs"
+      template: "systems/me5e/templates/advancement/subclass-flow.hbs"
     });
   }
 
@@ -27,7 +27,7 @@ export default class SubclassFlow extends AdvancementFlow {
   /** @inheritDoc */
   async retainData(data) {
     await super.retainData(data);
-    const uuid = foundry.utils.getProperty(data, "flags.dnd5e.sourceId");
+    const uuid = foundry.utils.getProperty(data, "flags.me5e.sourceId");
     if ( uuid ) this.subclass = await fromUuid(uuid);
   }
 
@@ -115,7 +115,7 @@ export default class SubclassFlow extends AdvancementFlow {
 
     // Ensure the dropped item is a subclass
     if ( item.type !== "subclass" ) {
-      ui.notifications.warn("DND5E.ADVANCEMENT.Subclass.Warning.InvalidType", { localize: true });
+      ui.notifications.warn("ME5E.ADVANCEMENT.Subclass.Warning.InvalidType", { localize: true });
       return;
     }
 

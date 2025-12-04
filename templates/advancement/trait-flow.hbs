@@ -16,7 +16,7 @@
             {{/if}}
             {{else if (and this.showSelector @root.available.choices)}}
             <select name="added">
-                {{dnd5e-groupedSelectOptions @root.available.choices blank=@root.available.label}}
+                {{me5e-groupedSelectOptions @root.available.choices blank=@root.available.label}}
             </select>
             {{/if}}
         </li>

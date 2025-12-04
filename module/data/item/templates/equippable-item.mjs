@@ -16,9 +16,9 @@ export default class EquippableItemTemplate extends SystemDataModel {
   /** @inheritDoc */
   static defineSchema() {
     return {
-      attunement: new StringField({required: true, label: "DND5E.Attunement"}),
-      attuned: new BooleanField({label: "DND5E.Attuned"}),
-      equipped: new BooleanField({required: true, label: "DND5E.Equipped"})
+      attunement: new StringField({required: true, label: "ME5E.Attunement"}),
+      attuned: new BooleanField({label: "ME5E.Attuned"}),
+      equipped: new BooleanField({required: true, label: "ME5E.Equipped"})
     };
   }
 
@@ -30,7 +30,7 @@ export default class EquippableItemTemplate extends SystemDataModel {
    */
   static get compendiumBrowserAttunementFilter() {
     return {
-      label: "DND5E.Attunement",
+      label: "ME5E.Attunement",
       type: "boolean",
       createFilter: (filters, value, def) => {
         if ( value === 0 ) return;
@@ -61,10 +61,10 @@ export default class EquippableItemTemplate extends SystemDataModel {
    */
   get equippableItemCardProperties() {
     return [
-      this.attuned ? game.i18n.localize("DND5E.AttunementAttuned")
-        : CONFIG.DND5E.attunementTypes[this.attunement] ?? null,
-      game.i18n.localize(this.equipped ? "DND5E.Equipped" : "DND5E.Unequipped"),
-      ("proficient" in this) ? CONFIG.DND5E.proficiencyLevels[this.prof?.multiplier || 0] : null
+      this.attuned ? game.i18n.localize("ME5E.AttunementAttuned")
+        : CONFIG.ME5E.attunementTypes[this.attunement] ?? null,
+      game.i18n.localize(this.equipped ? "ME5E.Equipped" : "ME5E.Unequipped"),
+      ("proficient" in this) ? CONFIG.ME5E.proficiencyLevels[this.prof?.multiplier || 0] : null
     ];
   }
 

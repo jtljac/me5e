@@ -1,10 +1,10 @@
 <section class="tab activity-{{ tab.id }} {{ tab.cssClass }}" data-tab="{{ tab.id }}" data-group="{{ tab.group }}">
     <fieldset>
         <legend>
-            <span>{{ localize "DND5E.ENCHANT.FIELDS.enchant.label" }}</span>
+            <span>{{ localize "ME5E.ENCHANT.FIELDS.enchant.label" }}</span>
             <button type="button" class="unbutton control-button" data-action="addEffect"
-                    data-tooltip="DND5E.ENCHANT.Enchantment.Action.Create"
-                    aria-label="{{ localize "DND5E.ENCHANT.Enchantment.Action.Create" }}">
+                    data-tooltip="ME5E.ENCHANT.Enchantment.Action.Create"
+                    aria-label="{{ localize "ME5E.ENCHANT.Enchantment.Action.Create" }}">
                 <i class="fas fa-plus"></i>
             </button>
         </legend>
@@ -18,7 +18,7 @@
             </li>
             {{else}}
             <li class="empty">
-                {{{ localize "DND5E.ENCHANT.Enchantment.Empty" }}}
+                {{{ localize "ME5E.ENCHANT.Enchantment.Empty" }}}
             </li>
             {{/each}}
         </ul>
@@ -31,11 +31,11 @@
     {{{ contentLink }}}
     <div class="list-controls flexrow">
         <button type="button" class="unbutton control-button" data-action="dissociateEffect"
-                data-tooltip aria-label="{{ localize 'DND5E.EFFECT.Action.Dissociate' }}">
+                data-tooltip aria-label="{{ localize 'ME5E.EFFECT.Action.Dissociate' }}">
             <i class="fa-solid fa-minus" inert></i>
         </button>
         <button type="button" class="unbutton control-button" data-action="deleteEffect"
-                data-tooltip aria-label="{{ localize 'DND5E.ENCHANT.Enchantment.Action.Delete' }}">
+                data-tooltip aria-label="{{ localize 'ME5E.ENCHANT.Enchantment.Action.Delete' }}">
             <i class="fa-solid fa-trash" inert></i>
         </button>
     </div>
@@ -44,22 +44,22 @@
 <div class="additional-tray collapsible {{ collapsed }}" data-action="toggleCollapsed">
     <label class="roboto-upper">
         <i class="fa-solid fa-gears" inert></i>
-        <span>{{ localize "DND5E.AdditionalSettings" }}</span>
+        <span>{{ localize "ME5E.AdditionalSettings" }}</span>
         <i class="fas fa-caret-down" inert></i>
     </label>
     <div class="collapsible-content">
         <div class="wrapper">
             <div class="form-group">
-                <label>{{ localize "DND5E.ENCHANT.FIELDS.effects.element.level.label" }}</label>
+                <label>{{ localize "ME5E.ENCHANT.FIELDS.effects.element.level.label" }}</label>
                 <div class="form-fields range-fields">
                     {{ formInput fields.level.fields.min name=(concat prefix "level.min") value=data.level.min
-                                 placeholder="0" ariaLabel=(localize "DND5E.LevelLimit.Min")
+                                 placeholder="0" ariaLabel=(localize "ME5E.LevelLimit.Min")
                                  input=@root.inputs.createNumberInput }}
-                    <dnd5e-icon src="systems/dnd5e/icons/svg/range-connector.svg" class="sep"></dnd5e-icon>
+                    <me5e-icon src="systems/me5e/icons/svg/range-connector.svg" class="sep"></me5e-icon>
                     {{ formInput fields.level.fields.max name=(concat prefix "level.max") value=data.level.max
-                                 placeholder="∞" ariaLabel=(localize "DND5E.LevelLimit.Max") }}
+                                 placeholder="∞" ariaLabel=(localize "ME5E.LevelLimit.Max") }}
                 </div>
-                <p class="hint">{{ localize "DND5E.ENCHANT.FIELDS.effects.element.level.hint" }}</p>
+                <p class="hint">{{ localize "ME5E.ENCHANT.FIELDS.effects.element.level.hint" }}</p>
             </div>
             {{#with fields.riders.fields as |fields|}}
             {{ formField fields.activity name=(concat ../prefix "riders.activity") options=../activityOptions

@@ -53,7 +53,7 @@ export default class ItemChoiceFlow extends ItemGrantFlow {
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
       dragDrop: [{ dropSelector: ".drop-target" }],
-      template: "systems/dnd5e/templates/advancement/item-choice-flow.hbs"
+      template: "systems/me5e/templates/advancement/item-choice-flow.hbs"
     });
   }
 
@@ -63,7 +63,7 @@ export default class ItemChoiceFlow extends ItemGrantFlow {
   async retainData(data) {
     await super.retainData(data);
     this.replacement = data.replaced?.original;
-    this.selected = new Set(data.items.map(i => foundry.utils.getProperty(i, "flags.dnd5e.sourceId")));
+    this.selected = new Set(data.items.map(i => foundry.utils.getProperty(i, "flags.me5e.sourceId")));
   }
 
   /* -------------------------------------------- */
@@ -76,7 +76,7 @@ export default class ItemChoiceFlow extends ItemGrantFlow {
     if ( !this.dropped ) {
       this.dropped = [];
       for ( const data of this.retainedData?.items ?? [] ) {
-        const uuid = foundry.utils.getProperty(data, "flags.dnd5e.sourceId");
+        const uuid = foundry.utils.getProperty(data, "flags.me5e.sourceId");
         if ( this.pool.find(i => uuid === i?.uuid) ) continue;
         const item = await fromUuid(uuid);
         item.dropped = true;
@@ -153,14 +153,14 @@ export default class ItemChoiceFlow extends ItemGrantFlow {
     if ( this.advancement.configuration.type ) {
       let type = game.i18n.localize(CONFIG.Item.typeLabels[this.advancement.configuration.type]);
       if ( (this.advancement.configuration.type === "feat") && this.advancement.configuration.restriction.type ) {
-        const typeConfig = CONFIG.DND5E.featureTypes[this.advancement.configuration.restriction.type];
+        const typeConfig = CONFIG.ME5E.featureTypes[this.advancement.configuration.restriction.type];
         const subtype = typeConfig.subtypes?.[this.advancement.configuration.restriction.subtype];
         if ( subtype ) type = subtype;
         else type = typeConfig.label;
       }
-      context.selectLabel = game.i18n.format("DND5E.ADVANCEMENT.ItemChoice.Action.SelectSpecific", { type });
+      context.selectLabel = game.i18n.format("ME5E.ADVANCEMENT.ItemChoice.Action.SelectSpecific", { type });
     } else {
-      context.selectLabel = game.i18n.localize("DND5E.ADVANCEMENT.ItemChoice.Action.SelectGeneric");
+      context.selectLabel = game.i18n.localize("ME5E.ADVANCEMENT.ItemChoice.Action.SelectGeneric");
     }
 
     return context;
@@ -191,7 +191,7 @@ export default class ItemChoiceFlow extends ItemGrantFlow {
     if ( config.choices[this.level].replacement && this.advancement.actor.items.has(this.replacement) ) max++;
     const current = this.selected.size;
     if ( current >= max ) {
-      ui.notifications.warn("DND5E.ADVANCEMENT.ItemChoice.Warning.MaxSelected", { localize: true });
+      ui.notifications.warn("ME5E.ADVANCEMENT.ItemChoice.Warning.MaxSelected", { localize: true });
       return;
     }
 
@@ -201,7 +201,7 @@ export default class ItemChoiceFlow extends ItemGrantFlow {
     if ( config.type ) {
       filters.locked.types = new Set([config.type]);
       if ( (config.type === "feat") && config.restriction.type ) {
-        const typeConfig = CONFIG.DND5E.featureTypes[config.restriction.type];
+        const typeConfig = CONFIG.ME5E.featureTypes[config.restriction.type];
         const subtype = typeConfig.subtypes?.[config.restriction.subtype];
         filters.locked.additional.category = { [config.restriction.type]: 1 };
         if ( subtype ) filters.locked.additional.subtype = { [config.restriction.subtype]: 1 };
@@ -249,7 +249,7 @@ export default class ItemChoiceFlow extends ItemGrantFlow {
 
   /** @inheritDoc */
   async _onChangeInput(event) {
-    if ( event.target.tagName === "DND5E-CHECKBOX" ) {
+    if ( event.target.tagName === "ME5E-CHECKBOX" ) {
       if ( event.target.checked ) this.selected.add(event.target.name);
       else this.selected.delete(event.target.name);
     }
@@ -311,8 +311,8 @@ export default class ItemChoiceFlow extends ItemGrantFlow {
     if ( (this.advancement.configuration.type === "spell") && spellLevel === "available" ) {
       const maxSlot = this._maxSpellSlotLevel();
       if ( item.system.level > maxSlot ) {
-        ui.notifications.error(game.i18n.format("DND5E.ADVANCEMENT.ItemChoice.Warning.SpellLevelAvailable", {
-          level: CONFIG.DND5E.spellLevels[maxSlot]
+        ui.notifications.error(game.i18n.format("ME5E.ADVANCEMENT.ItemChoice.Warning.SpellLevelAvailable", {
+          level: CONFIG.ME5E.spellLevels[maxSlot]
         }));
         return null;
       }
@@ -343,8 +343,8 @@ export default class ItemChoiceFlow extends ItemGrantFlow {
 
     // For advancements on classes or subclasses, use the largest slot available for that class
     if ( spellcasting?.type ) {
-      const progression = Object.fromEntries(Object.keys(CONFIG.DND5E.spellcasting).map(k => [k, 0]));
-      const maxSpellLevel = Object.keys(CONFIG.DND5E.spellLevels).length - 1;
+      const progression = Object.fromEntries(Object.keys(CONFIG.ME5E.spellcasting).map(k => [k, 0]));
+      const maxSpellLevel = Object.keys(CONFIG.ME5E.spellLevels).length - 1;
       spells = Object.fromEntries(Array.fromRange(maxSpellLevel, 1).map(l => [`spell${l}`, {}]));
       Actor5e.computeClassProgression(progression, this.advancement.item, { spellcasting });
       Actor5e.prepareSpellcastingSlots(spells, spellcasting.type, progression);

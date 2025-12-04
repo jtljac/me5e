@@ -12,7 +12,7 @@ const { ArrayField, ForeignDocumentField, NumberField, SchemaField } = foundry.d
  */
 
 /**
- * A data model and API layer which handles the schema and functionality of "group" type Actors in the dnd5e system.
+ * A data model and API layer which handles the schema and functionality of "group" type Actors in the me5e system.
  * @extends {GroupTemplate<GroupActorSystemData>}
  * @mixes GroupActorSystemData
  */
@@ -22,17 +22,17 @@ export default class GroupData extends GroupTemplate {
     return this.mergeSchema(super.defineSchema(), {
       attributes: new SchemaField({
         travel: new TravelField({}, {
-          initialTime: () => CONFIG.DND5E.travelTimes.group, initialUnits: () => defaultUnits("travel")
+          initialTime: () => CONFIG.ME5E.travelTimes.group, initialUnits: () => defaultUnits("travel")
         })
-      }, { label: "DND5E.Attributes" }),
+      }, { label: "ME5E.Attributes" }),
       details: new SchemaField({
         xp: new SchemaField({
-          value: new NumberField({ integer: true, min: 0, label: "DND5E.ExperiencePoints.Current" })
-        }, { label: "DND5E.ExperiencePoints.Label" })
-      }, { label: "DND5E.Details" }),
+          value: new NumberField({ integer: true, min: 0, label: "ME5E.ExperiencePoints.Current" })
+        }, { label: "ME5E.ExperiencePoints.Label" })
+      }, { label: "ME5E.Details" }),
       members: new ArrayField(new SchemaField({
         actor: new ForeignDocumentField(foundry.documents.BaseActor)
-      }), { label: "DND5E.GroupMembers" }),
+      }), { label: "ME5E.GroupMembers" }),
       primaryVehicle: new ForeignDocumentField(foundry.documents.BaseActor)
     });
   }
@@ -127,7 +127,7 @@ export default class GroupData extends GroupTemplate {
     const travel = source.attributes.travel ?? {};
     travel.paces ??= {};
     let { pace, units, ...paces } = source.attributes.movement;
-    const config = CONFIG.DND5E.movementUnits[units];
+    const config = CONFIG.ME5E.movementUnits[units];
     const finalUnit = config?.type === "metric" ? "kph" : "mph";
     const perRound = config?.travelResolution === "round";
     Object.keys(paces).forEach(k => {
@@ -224,14 +224,14 @@ export default class GroupData extends GroupTemplate {
     const slowed = this.members.some(({ actor }) => {
       return actor?.system.isCreature && actor?.system.attributes?.movement?.slowed;
     });
-    const travelPaces = Object.keys(CONFIG.DND5E.travelPace);
+    const travelPaces = Object.keys(CONFIG.ME5E.travelPace);
     const slow = travelPaces.indexOf("slow");
     if ( slowed && (travelPaces.indexOf(pace) > slow) ) pace = "slow";
     const { travel: vehicleTravel } = this.primaryVehicle?.system.attributes ?? {};
     const paces = { ...(vehicleTravel?.paces ?? this.attributes.travel.paces) };
     if ( (slowed && !this.primaryVehicle) || (this.primaryVehicle?.system.details.type === "land") ) {
       const { units } = vehicleTravel ?? this.attributes.travel;
-      const unitConfig = CONFIG.DND5E.travelUnits[units];
+      const unitConfig = CONFIG.ME5E.travelUnits[units];
       for ( const [k, v] of Object.entries(vehicleTravel?.paces ?? this.attributes.travel.prePace) ) {
         paces[k] = TravelField.applyPaceMultiplier(v, pace, unitConfig.type);
       }
@@ -240,7 +240,7 @@ export default class GroupData extends GroupTemplate {
       pace: {
         slowed,
         available: !this.primaryVehicle || (this.primaryVehicle.system.details.type === "land"),
-        label: CONFIG.DND5E.travelPace[pace]?.label,
+        label: CONFIG.ME5E.travelPace[pace]?.label,
         value: pace
       },
       paces: { ...paces }
@@ -278,17 +278,17 @@ export default class GroupData extends GroupTemplate {
    */
   async rollSkill(config) {
     if ( !config.skill ) return;
-    const skillConfig = CONFIG.DND5E.skills[config.skill];
+    const skillConfig = CONFIG.ME5E.skills[config.skill];
     const ability = config.ability ?? skillConfig?.ability ?? "";
     const skillLabel = skillConfig?.label ?? "";
-    const abilityLabel = CONFIG.DND5E.abilities[ability]?.label ?? "";
+    const abilityLabel = CONFIG.ME5E.abilities[ability]?.label ?? "";
     await foundry.documents.ChatMessage.implementation.create({
-      flavor: game.i18n.format("DND5E.SkillPromptTitle", { skill: skillLabel, ability: abilityLabel }),
+      flavor: game.i18n.format("ME5E.SkillPromptTitle", { skill: skillLabel, ability: abilityLabel }),
       speaker: ChatMessage.getSpeaker({ actor: this.parent, alias: this.parent.name }),
       system: {
         button: {
           icon: "fa-solid fa-dice-d20",
-          label: game.i18n.localize("DND5E.SkillRoll", { skill: skillLabel, ability: abilityLabel })
+          label: game.i18n.localize("ME5E.SkillRoll", { skill: skillLabel, ability: abilityLabel })
         },
         data: { ...config },
         handler: "skill",
@@ -319,7 +319,7 @@ export default class GroupData extends GroupTemplate {
 
     // Create a rest chat message
     if ( !config.autoRest ) {
-      const restConfig = CONFIG.DND5E.restTypes[config.type];
+      const restConfig = CONFIG.ME5E.restTypes[config.type];
       const messageData = {
         flavor: this.parent.createRestFlavor(config),
         speaker: ChatMessage.getSpeaker({ actor: this.parent, alias: this.parent.name }),
@@ -357,15 +357,15 @@ export default class GroupData extends GroupTemplate {
 
     /**
      * A hook event that fires when the rest process is completed for a group.
-     * @function dnd5e.groupRestCompleted
+     * @function me5e.groupRestCompleted
      * @memberof hookEvents
      * @param {Actor5e} group                         The group that just completed resting.
      * @param {Map<Actor5e, RestResult|null>} result  Details on the rests completed.
      */
-    Hooks.callAll("dnd5e.groupRestCompleted", this.parent, results);
+    Hooks.callAll("me5e.groupRestCompleted", this.parent, results);
 
-    if ( config.advanceBastionTurn && game.user.isGM && game.settings.get("dnd5e", "bastionConfiguration").enabled ) {
-      await dnd5e.bastion.advanceAllBastions();
+    if ( config.advanceBastionTurn && game.user.isGM && game.settings.get("me5e", "bastionConfiguration").enabled ) {
+      await me5e.bastion.advanceAllBastions();
     }
 
     return false;
@@ -381,7 +381,7 @@ export default class GroupData extends GroupTemplate {
 export class GroupActor extends GroupData {
   constructor(...args) {
     foundry.utils.logCompatibilityWarning("GroupActor is deprecated. Please use GroupData instead.", {
-      since: "DnD5e 5.1", until: "DnD5e 5.3"
+      since: "ME5e 5.1", until: "ME5e 5.3"
     });
     super(...args);
   }

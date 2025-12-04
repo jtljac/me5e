@@ -33,26 +33,26 @@ export default class EncounterActorSheet extends MultiActorSheet {
   /** @override */
   static PARTS = {
     header: {
-      template: "systems/dnd5e/templates/actors/encounter/header.hbs"
+      template: "systems/me5e/templates/actors/encounter/header.hbs"
     },
     tabs: {
-      template: "systems/dnd5e/templates/shared/horizontal-tabs.hbs",
+      template: "systems/me5e/templates/shared/horizontal-tabs.hbs",
       templates: ["templates/generic/tab-navigation.hbs"]
     },
     members: {
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/encounter/members.hbs",
+      template: "systems/me5e/templates/actors/encounter/members.hbs",
       scrollable: [""]
     },
     inventory: {
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/tabs/actor-inventory.hbs",
-      templates: ["systems/dnd5e/templates/inventory/inventory.hbs"],
+      template: "systems/me5e/templates/actors/tabs/actor-inventory.hbs",
+      templates: ["systems/me5e/templates/inventory/inventory.hbs"],
       scrollable: [""]
     },
     description: {
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/group/biography.hbs",
+      template: "systems/me5e/templates/actors/group/biography.hbs",
       scrollable: [""]
     }
   };
@@ -61,9 +61,9 @@ export default class EncounterActorSheet extends MultiActorSheet {
 
   /** @override */
   static TABS = [
-    { tab: "members", label: "DND5E.ENCOUNTER.Tab.Members" },
-    { tab: "inventory", label: "DND5E.ENCOUNTER.Tab.Loot" },
-    { tab: "description", label: "DND5E.ENCOUNTER.Tab.Description" }
+    { tab: "members", label: "ME5E.ENCOUNTER.Tab.Members" },
+    { tab: "inventory", label: "ME5E.ENCOUNTER.Tab.Loot" },
+    { tab: "description", label: "ME5E.ENCOUNTER.Tab.Description" }
   ];
 
   /* -------------------------------------------- */
@@ -89,7 +89,7 @@ export default class EncounterActorSheet extends MultiActorSheet {
   async _prepareHeaderContext(context, options) {
     const difficulty = await this.actor.system.getDifficulty();
     context.subtitles = [];
-    if ( difficulty ) context.subtitles.push(game.i18n.localize(`DND5E.ENCOUNTER.Difficulty.${difficulty}`));
+    if ( difficulty ) context.subtitles.push(game.i18n.localize(`ME5E.ENCOUNTER.Difficulty.${difficulty}`));
     return context;
   }
 
@@ -103,7 +103,7 @@ export default class EncounterActorSheet extends MultiActorSheet {
       .filter(model => "inventorySection" in model)
       .map(model => {
         const section = model.inventorySection;
-        if ( foundry.utils.isSubclass(model, dnd5e.dataModels.item.ContainerData) ) return section;
+        if ( foundry.utils.isSubclass(model, me5e.dataModels.item.ContainerData) ) return section;
         return { ...section, columns: ["price", "weight", "quantity", "controls"] };
       });
     inventory.push(foundry.utils.deepClone(Inventory.SECTIONS.contents));
@@ -131,9 +131,9 @@ export default class EncounterActorSheet extends MultiActorSheet {
       const member = { index, name, quantity, uuid };
       member.cr = system.details.cr;
       member.subtitle = [
-        CONFIG.DND5E.actorSizes[system.traits.size]?.label,
+        CONFIG.ME5E.actorSizes[system.traits.size]?.label,
         system.details.type.label,
-        game.i18n.format("DND5E.ExperiencePoints.Format", { value: formatter.format(system.details.xp.value) })
+        game.i18n.format("ME5E.ExperiencePoints.Format", { value: formatter.format(system.details.xp.value) })
       ].filterJoin(" • ");
       member.underlay = `var(--underlay-npc-${system.details.type.value})`;
       member.showFormula = context.editable || (quantity.formula && (quantity.value === null));
@@ -147,7 +147,7 @@ export default class EncounterActorSheet extends MultiActorSheet {
     // Difficulty
     const { party } = game.actors;
     const { creatures, level } = party?.system ?? {};
-    const [low, med, high] = (CONFIG.DND5E.ENCOUNTER_DIFFICULTY[level] ?? []).map(t => t * creatures.length);
+    const [low, med, high] = (CONFIG.ME5E.ENCOUNTER_DIFFICULTY[level] ?? []).map(t => t * creatures.length);
     const xp = await this.actor.system.getXPValue();
 
     context.difficulty = {
@@ -233,7 +233,7 @@ export default class EncounterActorSheet extends MultiActorSheet {
     new Award({
       award: {
         currency: { ...this.actor.system.currency },
-        savedDestinations: this.actor.getFlag("dnd5e", "awardDestinations"),
+        savedDestinations: this.actor.getFlag("me5e", "awardDestinations"),
         xp: await this.actor.system.getXPValue()
       }
     }).render({ force: true });

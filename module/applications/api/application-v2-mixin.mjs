@@ -20,7 +20,7 @@ export default function ApplicationV2Mixin(Base) {
       actions: {
         toggleCollapsed: BaseApplication5e.#toggleCollapsed
       },
-      classes: ["dnd5e2"],
+      classes: ["me5e2"],
       window: {
         subtitle: ""
       }
@@ -110,8 +110,8 @@ export default function ApplicationV2Mixin(Base) {
     /** @inheritDoc */
     async _prepareContext(options) {
       const context = await super._prepareContext(options);
-      context.CONFIG = CONFIG.DND5E;
-      context.inputs = { ...foundry.applications.fields, ...dnd5e.applications.fields };
+      context.CONFIG = CONFIG.ME5E;
+      context.inputs = { ...foundry.applications.fields, ...me5e.applications.fields };
       return context;
     }
 
@@ -163,7 +163,7 @@ export default function ApplicationV2Mixin(Base) {
       // Icon
       if ( (options.window?.icon ?? "").includes(".") ) {
         const icon = frame.querySelector(".window-icon");
-        const newIcon = document.createElement(options.window.icon?.endsWith(".svg") ? "dnd5e-icon" : "img");
+        const newIcon = document.createElement(options.window.icon?.endsWith(".svg") ? "me5e-icon" : "img");
         newIcon.classList.add("window-icon");
         newIcon.src = options.window.icon;
         icon.replaceWith(newIcon);
@@ -202,7 +202,7 @@ export default function ApplicationV2Mixin(Base) {
       super._onRender(context, options);
 
       this.element.querySelectorAll("[data-context-menu]").forEach(control =>
-        control.addEventListener("click", dnd5e.applications.ContextMenu5e.triggerEvent)
+        control.addEventListener("click", me5e.applications.ContextMenu5e.triggerEvent)
       );
 
       // Allow multi-select tags to be removed when the whole tag is clicked.
@@ -232,7 +232,7 @@ export default function ApplicationV2Mixin(Base) {
      */
     _disableFields() {
       const selector = `.window-content :is(${[
-        "INPUT", "SELECT", "TEXTAREA", "BUTTON", "DND5E-CHECKBOX", "COLOR-PICKER", "DOCUMENT-TAGS",
+        "INPUT", "SELECT", "TEXTAREA", "BUTTON", "ME5E-CHECKBOX", "COLOR-PICKER", "DOCUMENT-TAGS",
         "FILE-PICKER", "HUE-SLIDER", "MULTI-SELECT", "PROSE-MIRROR", "RANGE-PICKER", "STRING-TAGS"
       ].join(", ")}):not(.always-interactive)`;
       for ( const element of this.element.querySelectorAll(selector) ) {

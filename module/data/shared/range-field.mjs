@@ -28,9 +28,9 @@ export default class RangeField extends SchemaField {
    * @param {object} [labels]  Object in which to insert generated labels.
    */
   static prepareData(rollData, labels) {
-    this.range.scalar = this.range.units in CONFIG.DND5E.movementUnits;
+    this.range.scalar = this.range.units in CONFIG.ME5E.movementUnits;
     if ( this.range.scalar ) {
-      prepareFormulaValue(this, "range.value", "DND5E.RANGE.FIELDS.range.value.label", rollData);
+      prepareFormulaValue(this, "range.value", "ME5E.RANGE.FIELDS.range.value.label", rollData);
     } else this.range.value = null;
 
     if ( labels && this.range.units ) {
@@ -38,8 +38,8 @@ export default class RangeField extends SchemaField {
         labels.range = formatLength(this.range.value, this.range.units);
         labels.rangeParts = formatLength(this.range.value, this.range.units, { parts: true });
       } else if ( !this.range.scalar ) {
-        labels.range = CONFIG.DND5E.distanceUnits[this.range.units];
+        labels.range = CONFIG.ME5E.distanceUnits[this.range.units];
       }
-    } else if ( labels ) labels.range = game.i18n.localize("DND5E.DistSelf");
+    } else if ( labels ) labels.range = game.i18n.localize("ME5E.DistSelf");
   }
 }

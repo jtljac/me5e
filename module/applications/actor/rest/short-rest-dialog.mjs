@@ -13,7 +13,7 @@ export default class ShortRestDialog extends BaseRestDialog {
       rollHitDie: ShortRestDialog.#rollHitDie
     },
     window: {
-      title: "DND5E.REST.Short.Label"
+      title: "ME5E.REST.Short.Label"
     }
   };
 
@@ -23,7 +23,7 @@ export default class ShortRestDialog extends BaseRestDialog {
   static PARTS = {
     ...super.PARTS,
     content: {
-      template: "systems/dnd5e/templates/actors/rest/short-rest.hbs"
+      template: "systems/me5e/templates/actors/rest/short-rest.hbs"
     }
   };
 
@@ -45,8 +45,8 @@ export default class ShortRestDialog extends BaseRestDialog {
   async _prepareContext(options) {
     const context = await super._prepareContext(options);
     context.autoRoll = new BooleanField({
-      label: game.i18n.localize("DND5E.REST.HitDice.AutoSpend.Label"),
-      hint: game.i18n.localize("DND5E.REST.HitDice.AutoSpend.Hint")
+      label: game.i18n.localize("ME5E.REST.HitDice.AutoSpend.Label"),
+      hint: game.i18n.localize("ME5E.REST.HitDice.AutoSpend.Hint")
     });
 
     if ( this.actor.type === "npc" ) {
@@ -56,7 +56,7 @@ export default class ShortRestDialog extends BaseRestDialog {
         denomination: `d${hd.denomination}`,
         options: [{
           value: `d${hd.denomination}`,
-          label: `d${hd.denomination} (${game.i18n.format("DND5E.HITDICE.Available", { number: hd.value })})`
+          label: `d${hd.denomination} (${game.i18n.format("ME5E.HITDICE.Available", { number: hd.value })})`
         }]
       };
     }
@@ -65,7 +65,7 @@ export default class ShortRestDialog extends BaseRestDialog {
       context.hitDice = {
         canRoll: this.actor.system.attributes.hd.value > 0,
         options: Object.entries(this.actor.system.attributes.hd.bySize).map(([value, number]) => ({
-          value, label: `${value} (${game.i18n.format("DND5E.HITDICE.Available", { number })})`, number
+          value, label: `${value} (${game.i18n.format("ME5E.HITDICE.Available", { number })})`, number
         }))
       };
       context.denomination = (this.actor.system.attributes.hd.bySize[this.#denom] > 0)

@@ -7,11 +7,11 @@
         <filigree-box class="skills">
             <h3>
                 <i class="fas fa-briefcase" inert></i>
-                <span class="roboto-upper">{{ localize "DND5E.Skills" }}</span>
+                <span class="roboto-upper">{{ localize "ME5E.Skills" }}</span>
             </h3>
             <ul>
                 {{#each skills}}
-                {{> ".skill-prof" path=(concat "system.skills." key) config="DND5E.SkillConfigure"
+                {{> ".skill-prof" path=(concat "system.skills." key) config="ME5E.SkillConfigure"
                     type="skill" hasPassive=true roll="skill-name" }}
                 {{/each}}
             </ul>
@@ -22,8 +22,8 @@
             {{#if editable}}
             <button type="button" class="trait-selector config-button unbutton" data-action="showConfiguration"
                     data-trait="tool"
-                    data-tooltip="{{ localize 'DND5E.TraitConfig' trait=(localize 'DND5E.TraitToolProf') }}"
-                    aria-label="{{ localize 'DND5E.TraitConfig' trait=(localize 'DND5E.TraitToolProf') }}">
+                    data-tooltip="{{ localize 'ME5E.TraitConfig' trait=(localize 'ME5E.TraitToolProf') }}"
+                    aria-label="{{ localize 'ME5E.TraitConfig' trait=(localize 'ME5E.TraitToolProf') }}">
                 <i class="fas fa-cog" inert></i>
             </button>
             {{/if}}
@@ -33,7 +33,7 @@
             </h3>
             <ul>
                 {{#each tools}}
-                {{> ".skill-prof" path=(concat "system.tools." key) config="DND5E.ToolConfigure"
+                {{> ".skill-prof" path=(concat "system.tools." key) config="ME5E.ToolConfigure"
                     type="tool" hasPassive=false roll="tool-name" }}
                 {{/each}}
             </ul>
@@ -51,12 +51,12 @@
             <filigree-box class="saves">
                 <h3>
                     <i class="fas fa-shield-heart" inert></i>
-                    <span class="roboto-upper">{{ localize "DND5E.ClassSaves" }}</span>
+                    <span class="roboto-upper">{{ localize "ME5E.ClassSaves" }}</span>
                 </h3>
                 <ul>
                     {{#each saves}}
                     {{> ".ability-prof" path=(concat "system.abilities." @key)
-                        config=(localize "DND5E.AbilityConfigure" ability=label) }}
+                        config=(localize "ME5E.AbilityConfigure" ability=label) }}
                     {{/each}}
                 </ul>
             </filigree-box>
@@ -74,8 +74,8 @@
                     </div>
                     {{#if (and @root.editable @root.species)}}
                     <button type="button" class="config-button unbutton" data-action="showConfiguration"
-                            data-config="creatureType" data-tooltip="DND5E.CreatureTypeConfig"
-                            aria-label="{{ localize 'DND5E.CreatureTypeConfig' }}">
+                            data-config="creatureType" data-tooltip="ME5E.CreatureTypeConfig"
+                            aria-label="{{ localize 'ME5E.CreatureTypeConfig' }}">
                         <i class="fas fa-cog" inert></i>
                     </button>
                     {{/if}}
@@ -84,7 +84,7 @@
                 {{#if species}}
                 <div class="draggable pill-lg texture race item-tooltip" data-action="showDocument"
                      data-item-id="{{ species.id }}" data-uuid="{{ species.uuid }}"
-                     aria-label="{{ localize (ifThen actor.isOwner 'DND5E.ItemEdit' 'DND5E.ItemView') }}">
+                     aria-label="{{ localize (ifThen actor.isOwner 'ME5E.ItemEdit' 'ME5E.ItemView') }}">
                     {{#if species.img}}
                     <img class="gold-icon" src="{{ species.img }}" alt="{{ species.name }}">
                     {{/if}}
@@ -100,7 +100,7 @@
                     </div>
                     {{#if editable}}
                     <button type="button" class="config-button unbutton" data-action="deleteDocument"
-                            data-tooltip="DND5E.ItemDelete" aria-label="{{ localize 'DND5E.ItemDelete' }}"
+                            data-tooltip="ME5E.ItemDelete" aria-label="{{ localize 'ME5E.ItemDelete' }}"
                             data-tooltip-class data-tooltip-direction>
                         <i class="fas fa-trash" inert></i>
                     </button>
@@ -108,13 +108,13 @@
                 </div>
                 {{else if actor.isOwner}}
                 <div class="pill-lg empty roboto-upper" data-action="findItem" data-item-type="race">
-                    {{ localize "DND5E.Species.Add" }}
+                    {{ localize "ME5E.Species.Add" }}
                 </div>
                 {{/if}}
                 {{#if background}}
                 <div class="draggable pill-lg texture background item-tooltip" data-action="showDocument"
                      data-item-id="{{ background.id }}" data-uuid="{{ background.uuid }}"
-                     aria-label="{{ localize (ifThen actor.isOwner DND5E.ItemEdit DND5E.ItemView) }}">
+                     aria-label="{{ localize (ifThen actor.isOwner ME5E.ItemEdit ME5E.ItemView) }}">
                     {{#if background.img}}
                     <img class="gold-icon" src="{{ background.img }}" alt="{{ background.name }}">
                     {{/if}}
@@ -123,7 +123,7 @@
                     </div>
                     {{#if editable}}
                     <button type="button" class="config-button unbutton" data-action="deleteDocument"
-                            data-tooltip="DND5E.ItemDelete" aria-label="{{ localize 'DND5E.ItemDelete' }}"
+                            data-tooltip="ME5E.ItemDelete" aria-label="{{ localize 'ME5E.ItemDelete' }}"
                             data-tooltip-class data-tooltip-direction>
                         <i class="fas fa-trash" inert></i>
                     </button>
@@ -131,7 +131,7 @@
                 </div>
                 {{else if actor.isOwner}}
                 <div class="pill-lg empty roboto-upper" data-action="findItem" data-item-type="background">
-                    {{ localize "DND5E.BackgroundAdd" }}
+                    {{ localize "ME5E.BackgroundAdd" }}
                 </div>
                 {{/if}}
             </div>
@@ -140,42 +140,42 @@
 
         {{!-- Senses --}}
         {{#if (or editable senses)}}
-        {{> "dnd5e.actor-trait-pills" values=senses key="senses" icon="fas fa-eye"
-            label="DND5E.Senses" configAction="senses" }}
+        {{> "me5e.actor-trait-pills" values=senses key="senses" icon="fas fa-eye"
+            label="ME5E.Senses" configAction="senses" }}
         {{/if}}
 
         {{!-- Resistances --}}
-        {{> "dnd5e.actor-trait-pills" values=traits.dr key="dr" color="green" icon="fas fa-shield-halved"
-            label="DND5E.Resistances" }}
+        {{> "me5e.actor-trait-pills" values=traits.dr key="dr" color="green" icon="fas fa-shield-halved"
+            label="ME5E.Resistances" }}
 
         {{!-- Immunities --}}
         {{#if editable}}
-            {{> "dnd5e.actor-trait-pills" values=traits.di key="di" color="green" icon="fas fa-shield"
-                label="DND5E.DamImm" }}
+            {{> "me5e.actor-trait-pills" values=traits.di key="di" color="green" icon="fas fa-shield"
+                label="ME5E.DamImm" }}
         {{else}}
-            {{> "dnd5e.actor-trait-pills" values=traits.di key="di" color="green" icon="fas fa-shield"
-                label="DND5E.Immunities" }}
+            {{> "me5e.actor-trait-pills" values=traits.di key="di" color="green" icon="fas fa-shield"
+                label="ME5E.Immunities" }}
         {{/if}}
-        {{> "dnd5e.actor-trait-pills" values=traits.ci key="ci" color="green" svg="rosa-shield" label="DND5E.ConImm" }}
+        {{> "me5e.actor-trait-pills" values=traits.ci key="ci" color="green" svg="rosa-shield" label="ME5E.ConImm" }}
 
         {{!-- Vulnerabilities --}}
-        {{> "dnd5e.actor-trait-pills" values=traits.dv key="dv" color="maroon" icon="fas fa-heart-crack"
-            label="DND5E.Vulnerabilities" }}
+        {{> "me5e.actor-trait-pills" values=traits.dv key="dv" color="maroon" icon="fas fa-heart-crack"
+            label="ME5E.Vulnerabilities" }}
 
         {{!-- Damage Modification --}}
-        {{> "dnd5e.actor-trait-pills" values=traits.dm key="dm" icon="fas fa-heart-circle-plus"
-            label="DND5E.DamageModification.Label" }}
+        {{> "me5e.actor-trait-pills" values=traits.dm key="dm" icon="fas fa-heart-circle-plus"
+            label="ME5E.DamageModification.Label" }}
 
         {{!-- Armor --}}
-        {{> "dnd5e.actor-trait-pills" values=traits.armor key="armor" svg="checked-shield" label="DND5E.Armor" }}
+        {{> "me5e.actor-trait-pills" values=traits.armor key="armor" svg="checked-shield" label="ME5E.Armor" }}
 
         {{!-- Weapons --}}
-        {{> "dnd5e.actor-trait-pills" values=traits.weapon key="weapon" svg="trait-weapon-proficiencies"
+        {{> "me5e.actor-trait-pills" values=traits.weapon key="weapon" svg="trait-weapon-proficiencies"
             label="TYPES.Item.weaponPl" }}
 
         {{!-- Languages --}}
-        {{> "dnd5e.actor-trait-pills" values=traits.languages key="languages" icon="fas fa-flag"
-            label="DND5E.Languages" }}
+        {{> "me5e.actor-trait-pills" values=traits.languages key="languages" icon="fas fa-flag"
+            label="ME5E.Languages" }}
 
     </div>
 </section>
@@ -195,7 +195,7 @@
     <a class="draggable name {{ @root.rollableClass }} {{ roll }}" data-action="roll" data-type="{{ type }}">
         {{ label }}
     </a>
-    <div class="bonus">{{ dnd5e-formatModifier total }}</div>
+    <div class="bonus">{{ me5e-formatModifier total }}</div>
     {{#if @root.editable}}
     <button type="button" class="config-button unbutton" data-action="showConfiguration" data-config="{{ type }}"
             data-tooltip="{{ config }}" aria-label="{{ localize config }}">
@@ -210,7 +210,7 @@
 {{#*inline ".ability-prof"}}
 <li data-ability="{{ @key }}" class="{{ class }}">
     {{#if isConcentration}}
-    <dnd5e-icon src="systems/dnd5e/icons/svg/statuses/concentrating.svg"></dnd5e-icon>
+    <me5e-icon src="systems/me5e/icons/svg/statuses/concentrating.svg"></me5e-icon>
     {{else}}
     <proficiency-cycle type="ability" name="{{ path }}.proficient" data-tooltip aria-label="{{ hover }}"
                        value="{{#if @root.editable}}{{ source.proficient }}{{else}}{{ proficient }}{{/if}}"
@@ -218,7 +218,7 @@
     {{/if}}
     <a class="name saving-throw full {{ @root.rollableClass }}" data-action="roll" data-type="ability">{{ label }}</a>
     <a class="name saving-throw abbr {{ @root.rollableClass }}" data-action="roll" data-type="ability">{{ abbr }}</a>
-    <div class="bonus">{{ dnd5e-formatModifier save.value }}</div>
+    <div class="bonus">{{ me5e-formatModifier save.value }}</div>
     {{#if @root.editable}}
     <button type="button" class="config-button unbutton" data-action="showConfiguration" data-config="ability"
             data-tooltip aria-label="{{ config }}">

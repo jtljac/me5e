@@ -21,7 +21,7 @@ export default class TraitFlow extends AdvancementFlow {
   /** @inheritDoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      template: "systems/dnd5e/templates/advancement/trait-flow.hbs"
+      template: "systems/me5e/templates/advancement/trait-flow.hbs"
     });
   }
 
@@ -32,7 +32,7 @@ export default class TraitFlow extends AdvancementFlow {
    * @type {TraitConfiguration}
    */
   get traitConfig() {
-    return CONFIG.DND5E.traits[this.advancement.configuration.type];
+    return CONFIG.ME5E.traits[this.advancement.configuration.type];
   }
 
   /* -------------------------------------------- */

@@ -36,7 +36,7 @@ export default class JournalClassPageSheet extends JournalEntryPageHandlebarsShe
     header: super.EDIT_PARTS.header,
     config: {
       classes: ["standard-form"],
-      template: "systems/dnd5e/templates/journal/page-{type}-edit.hbs"
+      template: "systems/me5e/templates/journal/page-{type}-edit.hbs"
     }
   };
 
@@ -46,7 +46,7 @@ export default class JournalClassPageSheet extends JournalEntryPageHandlebarsShe
   static VIEW_PARTS = {
     content: {
       root: true,
-      template: "systems/dnd5e/templates/journal/page-{type}-view.hbs"
+      template: "systems/me5e/templates/journal/page-{type}-view.hbs"
     }
   };
 
@@ -93,10 +93,10 @@ export default class JournalClassPageSheet extends JournalEntryPageHandlebarsShe
     context.systemFields = this.document.system.schema.fields;
 
     context.styleOptions = [
-      { value: "", label: game.i18n.localize("JOURNALENTRYPAGE.DND5E.Class.Style.Inferred") },
+      { value: "", label: game.i18n.localize("JOURNALENTRYPAGE.ME5E.Class.Style.Inferred") },
       { rule: true },
-      { value: "2024", label: game.i18n.localize("JOURNALENTRYPAGE.DND5E.Class.Style.Modern") },
-      { value: "2014", label: game.i18n.localize("JOURNALENTRYPAGE.DND5E.Class.Style.Legacy") }
+      { value: "2024", label: game.i18n.localize("JOURNALENTRYPAGE.ME5E.Class.Style.Modern") },
+      { value: "2014", label: game.i18n.localize("JOURNALENTRYPAGE.ME5E.Class.Style.Legacy") }
     ];
 
     context.title = {
@@ -136,7 +136,7 @@ export default class JournalClassPageSheet extends JournalEntryPageHandlebarsShe
     if ( linked.system.primaryAbility ) {
       context.primaryAbility = game.i18n.getListFormatter(
         { type: linked.system.primaryAbility.all ? "conjunction" : "disjunction" }
-      ).format(Array.from(linked.system.primaryAbility.value).map(v => CONFIG.DND5E.abilities[v]?.label));
+      ).format(Array.from(linked.system.primaryAbility.value).map(v => CONFIG.ME5E.abilities[v]?.label));
     }
 
     return context;
@@ -226,9 +226,9 @@ export default class JournalClassPageSheet extends JournalEntryPageHandlebarsShe
     const scaleValues = (item.advancement.byType.ScaleValue ?? []);
     const spellProgression = await this._getSpellProgression(item);
 
-    const headers = [[{content: game.i18n.localize("DND5E.Level")}]];
-    if ( item.type === "class" ) headers[0].push({content: game.i18n.localize("DND5E.ProficiencyBonus")});
-    if ( hasFeatures ) headers[0].push({content: game.i18n.localize("DND5E.Features")});
+    const headers = [[{content: game.i18n.localize("ME5E.Level")}]];
+    if ( item.type === "class" ) headers[0].push({content: game.i18n.localize("ME5E.ProficiencyBonus")});
+    if ( hasFeatures ) headers[0].push({content: game.i18n.localize("ME5E.Features")});
     headers[0].push(...scaleValues.map(a => ({content: a.title})));
     if ( spellProgression?.headers?.length > 1 ) {
       headers[0].forEach(h => h.rowSpan = 2);
@@ -251,7 +251,7 @@ export default class JournalClassPageSheet extends JournalEntryPageHandlebarsShe
     };
 
     const rows = [];
-    for ( const level of Array.fromRange((CONFIG.DND5E.maxLevel - (initialLevel - 1)), initialLevel) ) {
+    for ( const level of Array.fromRange((CONFIG.ME5E.maxLevel - (initialLevel - 1)), initialLevel) ) {
       let features = [];
       for ( const advancement of item.advancement.byLevel[level] ) {
         switch ( advancement.constructor.typeName ) {
@@ -302,7 +302,7 @@ export default class JournalClassPageSheet extends JournalEntryPageHandlebarsShe
     const spellcasting = foundry.utils.deepClone(item.spellcasting);
     if ( !spellcasting || (spellcasting.progression === "none") ) return null;
 
-    const spellcastingModel = CONFIG.DND5E.spellcasting[spellcasting.type];
+    const spellcastingModel = CONFIG.ME5E.spellcasting[spellcasting.type];
     const table = {};
 
     if ( spellcastingModel?.isSingleLevel ) {
@@ -310,14 +310,14 @@ export default class JournalClassPageSheet extends JournalEntryPageHandlebarsShe
       const spells = { [spellSlotKey]: {} };
 
       table.headers = [[
-        { content: game.i18n.localize("JOURNALENTRYPAGE.DND5E.Class.SpellSlots") },
-        { content: game.i18n.localize("JOURNALENTRYPAGE.DND5E.Class.SpellSlotLevel") }
+        { content: game.i18n.localize("JOURNALENTRYPAGE.ME5E.Class.SpellSlots") },
+        { content: game.i18n.localize("JOURNALENTRYPAGE.ME5E.Class.SpellSlotLevel") }
       ]];
       table.cols = [{class: "spellcasting", span: 2}];
 
       // Loop through each level, gathering "Spell Slots" & "Slot Level" for each one
       table.rows = [];
-      for ( const level of Array.fromRange(CONFIG.DND5E.maxLevel, 1) ) {
+      for ( const level of Array.fromRange(CONFIG.ME5E.maxLevel, 1) ) {
         const progression = { [spellSlotKey]: 0 };
         spellcasting.levels = level;
         Actor5e.computeClassProgression(progression, item, { spellcasting });
@@ -328,14 +328,14 @@ export default class JournalClassPageSheet extends JournalEntryPageHandlebarsShe
         ] : null);
       }
     } else if ( spellcastingModel?.slots ) {
-      const maxSpellLevel = Object.keys(CONFIG.DND5E.spellLevels).length - 1;
+      const maxSpellLevel = Object.keys(CONFIG.ME5E.spellLevels).length - 1;
       const spells = Object.fromEntries(Array.fromRange(maxSpellLevel, 1).map(l => {
         return [spellcastingModel.getSpellSlotKey(l), {}];
       }));
 
       let largestSlot;
       table.rows = [];
-      for ( const level of Array.fromRange(CONFIG.DND5E.maxLevel, 1).reverse() ) {
+      for ( const level of Array.fromRange(CONFIG.ME5E.maxLevel, 1).reverse() ) {
         const progression = { [spellcasting.type]: 0 };
         spellcasting.levels = level;
         Actor5e.computeClassProgression(progression, item, { spellcasting });
@@ -357,7 +357,7 @@ export default class JournalClassPageSheet extends JournalEntryPageHandlebarsShe
 
       // Prepare headers & columns
       table.headers = [
-        [{content: game.i18n.localize("JOURNALENTRYPAGE.DND5E.Class.SpellSlotsPerSpellLevel"), colSpan: largestSlot}],
+        [{content: game.i18n.localize("JOURNALENTRYPAGE.ME5E.Class.SpellSlotsPerSpellLevel"), colSpan: largestSlot}],
         Array.fromRange(largestSlot, 1).map(spellLevel => ({content: spellLevel.ordinalString()}))
       ];
       table.cols = [{class: "spellcasting", span: largestSlot}];
@@ -366,14 +366,14 @@ export default class JournalClassPageSheet extends JournalEntryPageHandlebarsShe
 
     /**
      * A hook event that fires to generate the table for spellcasting types.
-     * The actual hook names include the spellcasting type (e.g. `dnd5e.buildPsionicSpellcastingTable`).
+     * The actual hook names include the spellcasting type (e.g. `me5e.buildPsionicSpellcastingTable`).
      * @param {object} table                          Table definition being built. *Will be mutated.*
      * @param {Item5e} item                           Class for which the spellcasting table is being built.
      * @param {SpellcastingDescription} spellcasting  Spellcasting descriptive object.
-     * @function dnd5e.buildSpellcastingTable
+     * @function me5e.buildSpellcastingTable
      * @memberof hookEvents
      */
-    Hooks.callAll(`dnd5e.build${spellcasting.type.capitalize()}SpellcastingTable`, table, item, spellcasting);
+    Hooks.callAll(`me5e.build${spellcasting.type.capitalize()}SpellcastingTable`, table, item, spellcasting);
 
     return foundry.utils.isEmpty(table) ? null : table;
   }
@@ -390,8 +390,8 @@ export default class JournalClassPageSheet extends JournalEntryPageHandlebarsShe
    */
   async _getOptionalTable(item, { modernStyle }) {
     const headers = [[
-      { content: game.i18n.localize("DND5E.Level") },
-      { content: game.i18n.localize("DND5E.Features") }
+      { content: game.i18n.localize("ME5E.Level") },
+      { content: game.i18n.localize("ME5E.Features") }
     ]];
 
     const cols = [
@@ -406,7 +406,7 @@ export default class JournalClassPageSheet extends JournalEntryPageHandlebarsShe
     };
 
     const rows = [];
-    for ( const level of Array.fromRange(CONFIG.DND5E.maxLevel, 1) ) {
+    for ( const level of Array.fromRange(CONFIG.ME5E.maxLevel, 1) ) {
       let features = [];
       for ( const advancement of item.advancement.byLevel[level] ) {
         switch ( advancement.constructor.typeName ) {
@@ -448,7 +448,7 @@ export default class JournalClassPageSheet extends JournalEntryPageHandlebarsShe
       if ( document?.type !== "feat" ) return null;
       return {
         document, level,
-        name: modernStyle ? game.i18n.format("JOURNALENTRYPAGE.DND5E.Class.Features.Name", {
+        name: modernStyle ? game.i18n.format("JOURNALENTRYPAGE.ME5E.Class.Features.Name", {
           name: document.name, level: formatNumber(level)
         }) : document.name,
         description: await TextEditor.enrichHTML(document.system.description.value, {
@@ -471,22 +471,22 @@ export default class JournalClassPageSheet extends JournalEntryPageHandlebarsShe
     }, { levels: [], boons: [] });
     if ( asi.levels.length ) {
       const [firstLevel, ...otherLevels] = asi.levels.sort((a, b) => a - b);
-      const name = game.i18n.localize("DND5E.ADVANCEMENT.AbilityScoreImprovement.Journal.Name");
+      const name = game.i18n.localize("ME5E.ADVANCEMENT.AbilityScoreImprovement.Journal.Name");
       features.push({
         description: game.i18n.format(
-          `DND5E.ADVANCEMENT.AbilityScoreImprovement.Journal.Description${modernStyle ? "Modern" : "Legacy"}`,
+          `ME5E.ADVANCEMENT.AbilityScoreImprovement.Journal.Description${modernStyle ? "Modern" : "Legacy"}`,
           {
             class: item.name,
             firstLevel: formatNumber(firstLevel),
             firstLevelOrdinal: formatNumber(firstLevel, { ordinal: true }),
-            maxAbilityScore: formatNumber(CONFIG.DND5E.maxAbilityScore),
+            maxAbilityScore: formatNumber(CONFIG.ME5E.maxAbilityScore),
             otherLevels: game.i18n.getListFormatter({ style: "long" }).format(otherLevels.map(l => formatNumber(l))),
             otherLevelsOrdinal: game.i18n.getListFormatter({ style: "long" })
               .format(otherLevels.map(l => formatNumber(l, { ordinal: true })))
           }
         ),
         level: asi.levels[0],
-        name: modernStyle ? game.i18n.format("JOURNALENTRYPAGE.DND5E.Class.Features.Name", {
+        name: modernStyle ? game.i18n.format("JOURNALENTRYPAGE.ME5E.Class.Features.Name", {
           name: name, level: formatNumber(firstLevel)
         }) : name
       });
@@ -495,11 +495,11 @@ export default class JournalClassPageSheet extends JournalEntryPageHandlebarsShe
       const recommendation = await fromUuid(advancement.configuration.recommendation);
       features.push({
         description: game.i18n.format(
-          `DND5E.ADVANCEMENT.AbilityScoreImprovement.Journal.DescriptionEpic${recommendation ? "Recommendation" : ""}`,
+          `ME5E.ADVANCEMENT.AbilityScoreImprovement.Journal.DescriptionEpic${recommendation ? "Recommendation" : ""}`,
           { recommendation: recommendation?.toAnchor().outerHTML }
         ),
         level: advancement.level,
-        name: game.i18n.format("JOURNALENTRYPAGE.DND5E.Class.Features.Name", {
+        name: game.i18n.format("JOURNALENTRYPAGE.ME5E.Class.Features.Name", {
           name: advancement._defaultTitle, level: formatNumber(advancement.level)
         })
       });

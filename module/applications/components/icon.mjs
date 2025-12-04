@@ -19,7 +19,7 @@ export default class IconElement extends AdoptedStyleSheetMixin(MaybeAdoptable) 
    * The HTML tag named used by this element.
    * @type {string}
    */
-  static tagName = "dnd5e-icon";
+  static tagName = "me5e-icon";
 
   /* -------------------------------------------- */
 

@@ -26,7 +26,7 @@ function _innerLabel(data, config) {
 /**
  * Get the schema fields for this trait on the actor.
  * @param {Actor5e} actor  Actor for which to get the fields.
- * @param {string} trait   Trait as defined in `CONFIG.DND5E.traits`.
+ * @param {string} trait   Trait as defined in `CONFIG.ME5E.traits`.
  * @returns {object|void}
  */
 export function actorFields(actor, trait) {
@@ -40,11 +40,11 @@ export function actorFields(actor, trait) {
 
 /**
  * Get the key path to the specified trait on an actor.
- * @param {string} trait  Trait as defined in `CONFIG.DND5E.traits`.
+ * @param {string} trait  Trait as defined in `CONFIG.ME5E.traits`.
  * @returns {string}      Key path to this trait's object within an actor's system data.
  */
 export function actorKeyPath(trait) {
-  const traitConfig = CONFIG.DND5E.traits[trait];
+  const traitConfig = CONFIG.ME5E.traits[trait];
   if ( traitConfig.actorKeyPath ) return traitConfig.actorKeyPath;
   return `system.traits.${trait}`;
 }
@@ -54,7 +54,7 @@ export function actorKeyPath(trait) {
 /**
  * Get the current trait values for the provided actor.
  * @param {Actor5e} actor  Actor from which to retrieve the values.
- * @param {string} trait   Trait as defined in `CONFIG.DND5E.traits`.
+ * @param {string} trait   Trait as defined in `CONFIG.ME5E.traits`.
  * @returns {Object<number>}
  */
 export async function actorValues(actor, trait) {
@@ -89,14 +89,14 @@ export async function actorValues(actor, trait) {
 /**
  * Calculate the change key path for a provided trait key.
  * @param {string} key      Key for a trait to set.
- * @param {string} [trait]  Trait as defined in `CONFIG.DND5E.traits`, only needed if key isn't prefixed.
+ * @param {string} [trait]  Trait as defined in `CONFIG.ME5E.traits`, only needed if key isn't prefixed.
  * @returns {string|void}
  */
 export function changeKeyPath(key, trait) {
   const split = key.split(":");
   if ( !trait ) trait = split.shift();
 
-  const traitConfig = CONFIG.DND5E.traits[trait];
+  const traitConfig = CONFIG.ME5E.traits[trait];
   if ( !traitConfig ) return;
 
   let keyPath = actorKeyPath(trait);
@@ -116,18 +116,18 @@ export function changeKeyPath(key, trait) {
 
 /**
  * Build up a trait structure containing all of the children gathered from config & base items.
- * @param {string} trait       Trait as defined in `CONFIG.DND5E.traits`.
+ * @param {string} trait       Trait as defined in `CONFIG.ME5E.traits`.
  * @returns {Promise<object>}  Object with trait categories and children.
  */
 export async function categories(trait) {
-  const traitConfig = CONFIG.DND5E.traits[trait];
-  const config = foundry.utils.deepClone(CONFIG.DND5E[traitConfig.configKey ?? trait]);
+  const traitConfig = CONFIG.ME5E.traits[trait];
+  const config = foundry.utils.deepClone(CONFIG.ME5E[traitConfig.configKey ?? trait]);
 
   for ( const key of Object.keys(config) ) {
     if ( foundry.utils.getType(config[key]) !== "Object" ) config[key] = { label: config[key] };
     if ( traitConfig.children?.[key] ) {
       const children = config[key].children ??= {};
-      for ( const [childKey, value] of Object.entries(CONFIG.DND5E[traitConfig.children[key]]) ) {
+      for ( const [childKey, value] of Object.entries(CONFIG.ME5E[traitConfig.children[key]]) ) {
         if ( foundry.utils.getType(value) !== "Object" ) children[childKey] = { label: value };
         else children[childKey] = { ...value };
       }
@@ -135,11 +135,11 @@ export async function categories(trait) {
   }
 
   if ( traitConfig.subtypes ) {
-    const map = CONFIG.DND5E[`${trait}ProficienciesMap`];
+    const map = CONFIG.ME5E[`${trait}ProficienciesMap`];
 
     // Merge all ID lists together
     const ids = traitConfig.subtypes.ids.reduce((obj, key) => {
-      foundry.utils.mergeObject(obj, CONFIG.DND5E[key] ?? {});
+      foundry.utils.mergeObject(obj, CONFIG.ME5E[key] ?? {});
       return obj;
     }, {});
 
@@ -176,7 +176,7 @@ export async function categories(trait) {
 
 /**
  * Get a list of choices for a specific trait.
- * @param {string} trait                      Trait as defined in `CONFIG.DND5E.traits`.
+ * @param {string} trait                      Trait as defined in `CONFIG.ME5E.traits`.
  * @param {object} [options={}]
  * @param {Set<string>} [options.chosen=[]]   Optional list of keys to be marked as chosen.
  * @param {boolean} [options.prefixed=false]  Should keys be prefixed with trait type?
@@ -184,7 +184,7 @@ export async function categories(trait) {
  * @returns {Promise<SelectChoices>}          Object mapping proficiency ids to choice objects.
  */
 export async function choices(trait, { chosen=new Set(), prefixed=false, any=false }={}) {
-  const traitConfig = CONFIG.DND5E.traits[trait];
+  const traitConfig = CONFIG.ME5E.traits[trait];
   if ( !traitConfig ) return new SelectChoices();
   if ( foundry.utils.getType(chosen) === "Array" ) chosen = new Set(chosen);
   const categoryData = await categories(trait);
@@ -259,7 +259,7 @@ export async function mixedChoices(keys) {
 /**
  * Fetch an item for the provided ID. If the provided ID contains a compendium pack name
  * it will be fetched from that pack, otherwise it will be fetched from the compendium defined
- * in `DND5E.sourcePacks.ITEMS`.
+ * in `ME5E.sourcePacks.ITEMS`.
  * @param {string} identifier            Simple ID or compendium name and ID separated by a dot.
  * @param {object} [options]
  * @param {boolean} [options.indexOnly]  If set to true, only the index data will be fetched (will never return
@@ -314,7 +314,7 @@ export function getBaseItem(identifier, { indexOnly=false, fullItem=false }={}) 
  */
 export function getBaseItemUUID(identifier) {
   if ( identifier.startsWith("Compendium.") ) return identifier;
-  let pack = CONFIG.DND5E.sourcePacks.ITEMS;
+  let pack = CONFIG.ME5E.sourcePacks.ITEMS;
   let [scope, collection, id] = identifier.split(".");
   if ( scope && collection ) pack = `${scope}.${collection}`;
   if ( !id ) id = identifier;
@@ -330,7 +330,7 @@ export function getBaseItemUUID(identifier) {
  */
 export function traitIndexFields() {
   const fields = ["system.type.value"];
-  for ( const traitConfig of Object.values(CONFIG.DND5E.traits) ) {
+  for ( const traitConfig of Object.values(CONFIG.ME5E.traits) ) {
     if ( !traitConfig.subtypes ) continue;
     fields.push(`system.${traitConfig.subtypes.keyPath}`);
   }
@@ -343,15 +343,15 @@ export function traitIndexFields() {
 
 /**
  * Get the localized label for a specific trait type.
- * @param {string} trait    Trait as defined in `CONFIG.DND5E.traits`.
+ * @param {string} trait    Trait as defined in `CONFIG.ME5E.traits`.
  * @param {number} [count]  Count used to determine pluralization. If no count is provided, will default to
  *                          the 'other' pluralization.
  * @returns {string}        Localized label.
  */
 export function traitLabel(trait, count) {
-  const traitConfig = CONFIG.DND5E.traits[trait];
+  const traitConfig = CONFIG.ME5E.traits[trait];
   const pluralRule = (count !== undefined) ? new Intl.PluralRules(game.i18n.lang).select(count) : "other";
-  if ( !traitConfig ) return game.i18n.localize(`DND5E.TraitGenericPlural.${pluralRule}`);
+  if ( !traitConfig ) return game.i18n.localize(`ME5E.TraitGenericPlural.${pluralRule}`);
   return game.i18n.localize(`${traitConfig.labels.localization}.${pluralRule}`);
 }
 
@@ -363,7 +363,7 @@ export function traitLabel(trait, count) {
  * @param {string} key              Key for which to generate the label.
  * @param {object} [config={}]
  * @param {number} [config.count]   Number to display, only if a wildcard is used as final part of key.
- * @param {string} [config.trait]   Trait as defined in `CONFIG.DND5E.traits` if not using a prefixed key.
+ * @param {string} [config.trait]   Trait as defined in `CONFIG.ME5E.traits` if not using a prefixed key.
  * @param {boolean} [config.final]  Is this the final in a list?
  * @returns {string}                Retrieved label.
  *
@@ -408,9 +408,9 @@ export function keyLabel(key, config={}) {
   const pluralRules = new Intl.PluralRules(game.i18n.lang);
 
   if ( !trait ) trait = parts.shift();
-  const traitConfig = CONFIG.DND5E.traits[trait];
+  const traitConfig = CONFIG.ME5E.traits[trait];
   if ( !traitConfig ) return key;
-  const traitData = CONFIG.DND5E[traitConfig.configKey ?? trait] ?? {};
+  const traitData = CONFIG.ME5E[traitConfig.configKey ?? trait] ?? {};
   let categoryLabel = game.i18n.localize(`${traitConfig.labels.localization}.${
     pluralRules.select(count ?? 1)}`);
 
@@ -432,7 +432,7 @@ export function keyLabel(key, config={}) {
       } while ( parts.length );
       type = _innerLabel(category, traitConfig);
     } else type = categoryLabel.toLowerCase();
-    const localization = `DND5E.TraitConfigChoose${final ? "Other" : `Any${count ? "Counted" : "Uncounted"}`}`;
+    const localization = `ME5E.TraitConfigChoose${final ? "Other" : `Any${count ? "Counted" : "Uncounted"}`}`;
     return game.i18n.format(localization, { count: count ?? 1, type });
   }
 
@@ -443,13 +443,13 @@ export function keyLabel(key, config={}) {
 
     // Child (e.g. "Land Vehicle")
     for ( const childrenKey of Object.values(traitConfig.children ?? {}) ) {
-      const childLabel = CONFIG.DND5E[childrenKey]?.[lastKey];
+      const childLabel = CONFIG.ME5E[childrenKey]?.[lastKey];
       if ( childLabel ) return childLabel;
     }
 
     // Base item (e.g. "Shortsword")
     for ( const idsKey of traitConfig.subtypes?.ids ?? [] ) {
-      let baseItemId = CONFIG.DND5E[idsKey]?.[lastKey];
+      let baseItemId = CONFIG.ME5E[idsKey]?.[lastKey];
       if ( !baseItemId ) continue;
       if ( foundry.utils.getType(baseItemId) === "Object" ) baseItemId = baseItemId.id;
       const index = getBaseItem(baseItemId, { indexOnly: true });
@@ -527,7 +527,7 @@ export function choiceLabel(choice, { only=false, final=false }={}) {
 
   // Select from a list of options (e.g. "2 from Thieves' Tools or any skill proficiency")
   const choices = Array.from(choice.pool).map(key => keyLabel(key)).filter(_ => _);
-  return game.i18n.format("DND5E.TraitConfigChooseList", {
+  return game.i18n.format("ME5E.TraitConfigChooseList", {
     count: choice.count,
     list: listFormatter.format(choices)
   });
@@ -564,7 +564,7 @@ export function localizedList({ grants=new Set(), choices=[] }) {
 
   const listFormatter = new Intl.ListFormat(game.i18n.lang, { style: "long", type: "conjunction" });
   if ( !sections.length || grants.size ) return listFormatter.format(sections.filter(_ => _));
-  return game.i18n.format("DND5E.TraitConfigChooseWrapper", {
+  return game.i18n.format("ME5E.TraitConfigChooseWrapper", {
     choices: listFormatter.format(sections)
   });
 }

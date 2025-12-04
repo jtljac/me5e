@@ -2,12 +2,12 @@
 /*  Basic Structure                             */
 /* -------------------------------------------- */
 
-.dnd5e2.sheet.actor.vehicle {
-  --dnd5e-sheet-sidebar-width: 180px;
+.me5e2.sheet.actor.vehicle {
+  --me5e-sheet-sidebar-width: 180px;
 
   &:not(.minimized)::before {
-    content: var(--dnd5e-vehicle-header-content, none);
-    background: var(--dnd5e-vehicle-header-image) no-repeat bottom center / cover;
+    content: var(--me5e-vehicle-header-content, none);
+    background: var(--me5e-vehicle-header-image) no-repeat bottom center / cover;
     position: absolute;
     inset: 0 0 auto 0;
     height: 300px;
@@ -26,7 +26,7 @@
   .window-content {
     --sidebar-padding: 8px;
     --sidebar-margin: 8px;
-    --sidebar-size: calc(var(--dnd5e-sheet-sidebar-width) + var(--sidebar-padding) * 2);
+    --sidebar-size: calc(var(--me5e-sheet-sidebar-width) + var(--sidebar-padding) * 2);
     --stations-size: 332px;
     display: grid;
     grid-template:
@@ -82,7 +82,7 @@
       --input-background-color: var(--npc-header-input-background);
       text-align: center;
       font-size: var(--font-size-24);
-      font-family: var(--dnd5e-font-modesto);
+      font-family: var(--me5e-font-modesto);
       font-weight: bold;
     }
 
@@ -116,7 +116,7 @@
       select {
         padding: 4px;
         background: var(--npc-header-input-background);
-        font-family: var(--dnd5e-font-roboto-condensed);
+        font-family: var(--me5e-font-roboto-condensed);
       }
     }
 
@@ -132,7 +132,7 @@
         > i, > span { font-size: var(--font-size-11); }
 
         .counter {
-          font-family: var(--dnd5e-font-roboto);
+          font-family: var(--me5e-font-roboto);
           font-weight: normal;
         }
 
@@ -143,7 +143,7 @@
           text-align: center;
           padding: 0;
           margin-left: auto;
-          font-family: var(--dnd5e-font-roboto);
+          font-family: var(--me5e-font-roboto);
           font-weight: normal;
 
           &.value { flex: 0 0 55px; }
@@ -156,7 +156,7 @@
 
       &.edit-inline {
 
-        .value { font-family: var(--dnd5e-font-roboto); }
+        .value { font-family: var(--me5e-font-roboto); }
         h3 > span:first-of-type { flex: 0 0 45px; }
         input, select { font-size: var(--font-size-11); }
 
@@ -320,10 +320,10 @@
         display: flex;
         flex-direction: column;
         gap: 4px;
-        border: var(--dnd5e-border-gold);
-        background: var(--dnd5e-background-card);
+        border: var(--me5e-border-gold);
+        background: var(--me5e-background-card);
         border-radius: 5px;
-        box-shadow: 0 0 6px var(--dnd5e-shadow-15);
+        box-shadow: 0 0 6px var(--me5e-shadow-15);
         position: relative;
         padding: 8px;
 
@@ -338,7 +338,7 @@
           transform: scaleX(-1);
           opacity: .75;
           mask-image: linear-gradient(190deg, transparent 15%, black);
-          mix-blend-mode: var(--dnd5e-vehicle-station-blend-mode);
+          mix-blend-mode: var(--me5e-vehicle-station-blend-mode);
           border-radius: 4px;
         }
       }
@@ -431,12 +431,12 @@
     }
 
     .crew-area {
-      border: var(--dnd5e-border-gold);
+      border: var(--me5e-border-gold);
       border-radius: 4px;
       padding: 8px;
 
       header {
-        color: var(--dnd5e-color-gold);
+        color: var(--me5e-color-gold);
         text-align: center;
         margin-bottom: 4px;
 
@@ -453,7 +453,7 @@
         gap: 8px;
         align-items: center;
         padding-block: 4px;
-        border-bottom: 1px dotted var(--dnd5e-color-gold);
+        border-bottom: 1px dotted var(--me5e-color-gold);
 
         &:last-child {
           padding-bottom: 0;
@@ -541,8 +541,8 @@
       .abilities .score {
         transition: all 250ms ease;
         &:hover, &:focus-within {
-          border-color: var(--dnd5e-color-gold);
-          box-shadow: 0 0 6px var(--dnd5e-color-gold);
+          border-color: var(--me5e-color-gold);
+          box-shadow: 0 0 6px var(--me5e-color-gold);
         }
       }
     }

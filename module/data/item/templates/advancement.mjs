@@ -16,7 +16,7 @@ export default class AdvancementTemplate extends SystemDataModel {
   /** @inheritDoc */
   static defineSchema() {
     return {
-      advancement: new ArrayField(new AdvancementField(), { label: "DND5E.AdvancementTitle" })
+      advancement: new ArrayField(new AdvancementField(), { label: "ME5E.AdvancementTitle" })
     };
   }
 
@@ -35,7 +35,7 @@ export default class AdvancementTemplate extends SystemDataModel {
     if ( toCreate.length ) this.parent.updateSource({
       "system.advancement": toCreate.map(c => {
         const baseData = foundry.utils.deepClone(c);
-        const config = CONFIG.DND5E.advancementTypes[c.type];
+        const config = CONFIG.ME5E.advancementTypes[c.type];
         const cls = config.documentClass ?? config;
         const advancement = new cls(c, { parent: this.parent });
         if ( advancement._preCreate(baseData) === false ) return null;

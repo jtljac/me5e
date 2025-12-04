@@ -51,7 +51,7 @@ export default class BaseAttackActivityData extends BaseActivityData {
   get ability() {
     if ( this.attack.ability === "none" ) return null;
     if ( this.attack.ability === "spellcasting" ) return this.spellcastingAbility;
-    if ( this.attack.ability in CONFIG.DND5E.abilities ) return this.attack.ability;
+    if ( this.attack.ability in CONFIG.ME5E.abilities ) return this.attack.ability;
 
     const availableAbilities = this.availableAbilities;
     if ( !availableAbilities?.size ) return null;
@@ -109,8 +109,8 @@ export default class BaseAttackActivityData extends BaseActivityData {
     );
 
     // Weapon & unarmed attacks uses melee or ranged ability depending on type, or both if actor is an NPC
-    const melee = CONFIG.DND5E.defaultAbilities.meleeAttack;
-    const ranged = CONFIG.DND5E.defaultAbilities.rangedAttack;
+    const melee = CONFIG.ME5E.defaultAbilities.meleeAttack;
+    const ranged = CONFIG.ME5E.defaultAbilities.rangedAttack;
     return new Set([this.attack.type.value === "melee" ? melee : ranged]);
   }
 
@@ -228,21 +228,21 @@ export default class BaseAttackActivityData extends BaseActivityData {
     let attackModeLabel;
     if ( attackMode ) {
       const key = attackMode.split("-").map(s => s.capitalize()).join("");
-      attackModeLabel = game.i18n.localize(`DND5E.ATTACK.Mode.${key}`);
+      attackModeLabel = game.i18n.localize(`ME5E.ATTACK.Mode.${key}`);
     }
     const actionType = this.getActionType(attackMode);
-    let actionTypeLabel = game.i18n.localize(`DND5E.Action${actionType.toUpperCase()}`);
-    const isLegacy = game.settings.get("dnd5e", "rulesVersion") === "legacy";
+    let actionTypeLabel = game.i18n.localize(`ME5E.Action${actionType.toUpperCase()}`);
+    const isLegacy = game.settings.get("me5e", "rulesVersion") === "legacy";
     const isUnarmed = this.attack.type.classification === "unarmed";
-    if ( isUnarmed ) attackModeLabel = game.i18n.localize("DND5E.ATTACK.Classification.Unarmed");
+    if ( isUnarmed ) attackModeLabel = game.i18n.localize("ME5E.ATTACK.Classification.Unarmed");
     const isSpell = (actionType === "rsak") || (actionType === "msak");
     if ( isLegacy || isSpell ) return [actionTypeLabel, attackModeLabel].filterJoin(" • ");
-    actionTypeLabel = game.i18n.localize(`DND5E.ATTACK.Attack.${actionType}`);
+    actionTypeLabel = game.i18n.localize(`ME5E.ATTACK.Attack.${actionType}`);
     if ( isUnarmed ) return [actionTypeLabel, attackModeLabel].filterJoin(" • ");
-    const weaponType = CONFIG.DND5E.weaponTypeMap[this.item.system.type?.value];
+    const weaponType = CONFIG.ME5E.weaponTypeMap[this.item.system.type?.value];
     const weaponTypeLabel = weaponType
-      ? game.i18n.localize(`DND5E.ATTACK.Weapon.${weaponType.capitalize()}`)
-      : CONFIG.DND5E.weaponTypes[this.item.system.type?.value];
+      ? game.i18n.localize(`ME5E.ATTACK.Weapon.${weaponType.capitalize()}`)
+      : CONFIG.ME5E.weaponTypes[this.item.system.type?.value];
     return [actionTypeLabel, weaponTypeLabel, attackModeLabel].filterJoin(" • ");
   }
 
@@ -291,7 +291,7 @@ export default class BaseAttackActivityData extends BaseActivityData {
     // Handle ammunition
     const ammo = config.ammunition?.system;
     if ( ammo ) {
-      const properties = Array.from(ammo.properties).filter(p => CONFIG.DND5E.itemProperties[p]?.isPhysical);
+      const properties = Array.from(ammo.properties).filter(p => CONFIG.ME5E.itemProperties[p]?.isPhysical);
       if ( this.item.system.properties?.has("mgc") && !properties.includes("mgc") ) properties.push("mgc");
 
       // Add any new physical properties from the ammunition to the damage properties
@@ -345,7 +345,7 @@ export default class BaseAttackActivityData extends BaseActivityData {
     if ( this.validAttackTypes.has("melee") ) {
       let { reach, units } = this.item.system.range;
       if ( !reach ) reach = convertLength(5, "ft", units);
-      parts.push(game.i18n.format("DND5E.RANGE.Formatted.Reach", {
+      parts.push(game.i18n.format("ME5E.RANGE.Formatted.Reach", {
         reach: formatLength(reach, units, { strict: false })
       }));
     }
@@ -359,7 +359,7 @@ export default class BaseAttackActivityData extends BaseActivityData {
         range = !long || (long === value) ? formatLength(value, units)
           : `${formatNumber(value)}/${formatLength(long, units)}`;
       }
-      if ( range ) parts.push(game.i18n.format("DND5E.RANGE.Formatted.Range", { range }));
+      if ( range ) parts.push(game.i18n.format("ME5E.RANGE.Formatted.Range", { range }));
     }
 
     return game.i18n.getListFormatter({ type: "disjunction" }).format(parts.filter(_ => _));
@@ -405,7 +405,7 @@ export default class BaseAttackActivityData extends BaseActivityData {
       }
     }
 
-    const criticalBonusDice = this.actor?.getFlag("dnd5e", "meleeCriticalDamageDice") ?? 0;
+    const criticalBonusDice = this.actor?.getFlag("me5e", "meleeCriticalDamageDice") ?? 0;
     if ( (this.getActionType(rollConfig.attackMode) === "mwak") && (parseInt(criticalBonusDice) !== 0) ) {
       foundry.utils.setProperty(roll, "options.critical.bonusDice", criticalBonusDice);
     }

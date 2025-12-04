@@ -3,15 +3,15 @@
     {{!-- Group Actions --}}
     <div class="sheet-header-buttons">
         <button type="button" class="gold-button" data-action="placeMembers" data-tooltip
-                aria-label="{{ localize "DND5E.Group.PlaceMembers" }}">
+                aria-label="{{ localize "ME5E.Group.PlaceMembers" }}">
             <i class="fa-solid fa-location-dot" inert></i>
         </button>
         <button type="button" class="short-rest gold-button" data-action="rest" data-type="short" data-tooltip
-                aria-label="{{ localize 'DND5E.REST.Short.Label' }}">
+                aria-label="{{ localize 'ME5E.REST.Short.Label' }}">
             <i class="fas fa-utensils" inert></i>
         </button>
         <button type="button" class="long-rest gold-button" data-action="rest" data-type="long" data-tooltip
-                aria-label="{{ localize 'DND5E.REST.Long.Label' }}">
+                aria-label="{{ localize 'ME5E.REST.Long.Label' }}">
             <i class="fas fa-campground" inert></i>
         </button>
     </div>
@@ -43,45 +43,45 @@
             {{#with travelPace}}
             <div class="movement card">
                 <div class="header travel-pace">
-                    <h3>{{ localize "DND5E.TRAVEL.Label" }}</h3>
+                    <h3>{{ localize "ME5E.TRAVEL.Label" }}</h3>
                     {{#if @root.editable}}
                     <button type="button" class="config-button unbutton" data-action="showConfiguration"
-                            data-config="movement" data-tooltip aria-label="{{ localize "DND5E.MOVEMENT.Action.Configure" }}">
+                            data-config="movement" data-tooltip aria-label="{{ localize "ME5E.MOVEMENT.Action.Configure" }}">
                         <i class="fa-solid fa-cog" inert></i>
                     </button>
                     {{else if pace.available}}
                     <button type="button" class="unbutton config-button {{#if pace.slowed}}suppressed{{/if}}"
                             data-action="changePace" data-increment="-1" data-tooltip
-                            aria-label="{{ localize "DND5E.Group.Action.ChangePace" }}">
+                            aria-label="{{ localize "ME5E.Group.Action.ChangePace" }}">
                         <i class="fa-solid fa-chevron-left" inert></i>
                     </button>
-                    <span class="pace subtitle" {{#if pace.slowed}}data-tooltip="DND5E.TRAVEL.Slowed.Group"{{/if}}>
+                    <span class="pace subtitle" {{#if pace.slowed}}data-tooltip="ME5E.TRAVEL.Slowed.Group"{{/if}}>
                         {{ pace.label }}
                     </span>
                     <button type="button" class="unbutton config-button {{#if pace.slowed}}suppressed{{/if}}"
                             data-action="changePace" data-increment="1" data-tooltip
-                            aria-label="{{ localize "DND5E.Group.Action.ChangePace" }}">
+                            aria-label="{{ localize "ME5E.Group.Action.ChangePace" }}">
                         <i class="fa-solid fa-chevron-right" inert></i>
                     </button>
                     {{/if}}
                 </div>
                 <div class="info">
                     <div>
-                        <span class="label">{{ localize "DND5E.TRAVEL.Type.Land" }}</span>
+                        <span class="label">{{ localize "ME5E.TRAVEL.Type.Land" }}</span>
                         <span class="value">
-                            {{ dnd5e-numberFormat paces.land blank="—" }}
+                            {{ me5e-numberFormat paces.land blank="—" }}
                         </span>
                     </div>
                     <div>
-                        <span class="label">{{ localize "DND5E.TRAVEL.Type.Water" }}</span>
+                        <span class="label">{{ localize "ME5E.TRAVEL.Type.Water" }}</span>
                         <span class="value">
-                            {{ dnd5e-numberFormat paces.water blank="—" }}
+                            {{ me5e-numberFormat paces.water blank="—" }}
                         </span>
                     </div>
                     <div>
-                        <span class="label">{{ localize "DND5E.TRAVEL.Type.Air" }}</span>
+                        <span class="label">{{ localize "ME5E.TRAVEL.Type.Air" }}</span>
                         <span class="value">
-                            {{ dnd5e-numberFormat paces.air blank="—" }}
+                            {{ me5e-numberFormat paces.air blank="—" }}
                         </span>
                     </div>
                 </div>
@@ -91,23 +91,23 @@
             {{!-- XP --}}
             <div class="xp card">
                 <div class="header">
-                    <h3>{{ localize "DND5E.AdvancementTitle" }}</h3>
+                    <h3>{{ localize "ME5E.AdvancementTitle" }}</h3>
                     <button type="button" class="config-button unbutton" data-action="award" data-tooltip
-                            {{#if showXP}}aria-label="{{ localize "DND5E.Group.Distribute.xp" }}"
-                            {{else}}aria-label="{{ localize "DND5E.Group.Distribute.noxp" }}"{{/if}}>
+                            {{#if showXP}}aria-label="{{ localize "ME5E.Group.Distribute.xp" }}"
+                            {{else}}aria-label="{{ localize "ME5E.Group.Distribute.noxp" }}"{{/if}}>
                         <i class="fa-solid fa-trophy" inert></i>
                     </button>
                 </div>
                 <div class="info">
                     {{#if showXP}}
                     <div>
-                        <span class="label">{{ localize "DND5E.ExperiencePoints.Pool" }}</span>
+                        <span class="label">{{ localize "ME5E.ExperiencePoints.Pool" }}</span>
                         <span class="value">
                             {{#if editable}}
                             {{ formInput fields.details.fields.xp.fields.value value=source.details.xp.value }}
                             {{else}}
                             {{#if system.details.xp.value}}
-                            {{ dnd5e-numberFormat system.details.xp.value }}
+                            {{ me5e-numberFormat system.details.xp.value }}
                             {{else}}
                             &mdash;
                             {{/if}}
@@ -116,8 +116,8 @@
                     </div>
                     {{/if}}
                     <div>
-                        <span class="label">{{ localize "DND5E.LevelAvg" }}</span>
-                        <span class="value">{{ dnd5e-numberFormat system.level blank="—" useGrouping=false }}</span>
+                        <span class="label">{{ localize "ME5E.LevelAvg" }}</span>
+                        <span class="value">{{ me5e-numberFormat system.level blank="—" useGrouping=false }}</span>
                     </div>
                 </div>
             </div>

@@ -16,7 +16,7 @@ export default class SpellSlotsConfig extends BaseConfigSheet {
   /** @override */
   static PARTS = {
     config: {
-      template: "systems/dnd5e/templates/actors/config/spell-slots-config.hbs"
+      template: "systems/me5e/templates/actors/config/spell-slots-config.hbs"
     }
   };
 
@@ -26,7 +26,7 @@ export default class SpellSlotsConfig extends BaseConfigSheet {
 
   /** @override */
   get title() {
-    return game.i18n.localize("DND5E.SpellSlotsConfig");
+    return game.i18n.localize("ME5E.SpellSlotsConfig");
   }
 
   /* -------------------------------------------- */
@@ -39,7 +39,7 @@ export default class SpellSlotsConfig extends BaseConfigSheet {
 
     const { spells } = this.document.system;
     const source = this.document._source.system.spells;
-    const maxLevel = Object.keys(CONFIG.DND5E.spellLevels).length - 1;
+    const maxLevel = Object.keys(CONFIG.ME5E.spellLevels).length - 1;
     const spellcastingMethods = new Set([
       "spell",
       ...Object.values(this.document.spellcastingClasses).map(cls => {
@@ -48,7 +48,7 @@ export default class SpellSlotsConfig extends BaseConfigSheet {
       ...this.document.itemTypes.spell.map(s => s.system.method)
     ]);
 
-    const models = Object.entries(CONFIG.DND5E.spellcasting).sort(([a]) => a === "spell" ? -1 : 0);
+    const models = Object.entries(CONFIG.ME5E.spellcasting).sort(([a]) => a === "spell" ? -1 : 0);
     context.overrides = models.reduce((arr, [method, model]) => {
       if ( !model.slots ) return arr;
       for ( let i = model.isSingleLevel ? maxLevel : 1; i <= maxLevel; i++ ) {
@@ -58,7 +58,7 @@ export default class SpellSlotsConfig extends BaseConfigSheet {
         arr.push({
           value,
           label: model.isSingleLevel
-            ? game.i18n.localize(`DND5E.SPELLCASTING.METHODS.${method.capitalize()}.abbr`)
+            ? game.i18n.localize(`ME5E.SPELLCASTING.METHODS.${method.capitalize()}.abbr`)
             : model.getLabel({ level: i }),
           name: `system.spells.${key}.override`,
           placeholder: spells[key]?.max ?? 0

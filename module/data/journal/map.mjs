@@ -40,8 +40,8 @@ export default class MapLocationJournalPageData extends foundry.abstract.TypeDat
   getControlIcon(options) {
     if ( !this.code ) return;
     const { icon: IconClass, ...style } = foundry.utils.mergeObject(
-      CONFIG.DND5E.mapLocationMarker.default,
-      CONFIG.DND5E.mapLocationMarker[this.parent.getFlag("dnd5e", "mapMarkerStyle")] ?? {},
+      CONFIG.ME5E.mapLocationMarker.default,
+      CONFIG.ME5E.mapLocationMarker[this.parent.getFlag("me5e", "mapMarkerStyle")] ?? {},
       {inplace: false}
     );
     return new IconClass({code: this.code, ...options, ...style});

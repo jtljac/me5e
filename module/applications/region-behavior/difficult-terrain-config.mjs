@@ -12,7 +12,7 @@ export default class DifficultTerrainConfig extends foundry.applications.sheets.
     for ( const fieldset of fieldsets ) {
       const typesField = fieldset.fields.find(f => f.field.name === "types")?.field;
       if ( typesField ) {
-        typesField.element.choices = CONFIG.DND5E.difficultTerrainTypes;
+        typesField.element.choices = CONFIG.ME5E.difficultTerrainTypes;
         break;
       }
     }

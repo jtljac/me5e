@@ -24,15 +24,15 @@
 
     {{!-- Rolls --}}
     <fieldset class="card">
-        <legend>{{ localize "DND5E.ROLL.Section" label=label }}</legend>
+        <legend>{{ localize "ME5E.ROLL.Section" label=label }}</legend>
         <div class="form-group split-group">
-            <label>{{ localize "DND5E.ROLL.Range.Label" }}</label>
+            <label>{{ localize "ME5E.ROLL.Range.Label" }}</label>
             <div class="form-fields">
                 {{ formField fields.roll.fields.min name=(concat prefix "roll.min") value=data.roll.min
-                             placeholder="1" type="number" localize=true label=(localize "DND5E.Minimum")
+                             placeholder="1" type="number" localize=true label=(localize "ME5E.Minimum")
                              hint=false classes="label-top" rootId=partId }}
                 {{ formField fields.roll.fields.max name=(concat prefix "roll.max") value=data.roll.max
-                             placeholder="20" type="number" localize=true label=(localize "DND5E.Maximum")
+                             placeholder="20" type="number" localize=true label=(localize "ME5E.Maximum")
                              hint=false classes="label-top" rootId=partId }}
             </div>
         </div>

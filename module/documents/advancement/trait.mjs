@@ -25,9 +25,9 @@ export default class TraitAdvancement extends Advancement {
       },
       order: 30,
       icon: "icons/sundries/scrolls/scroll-yellow-teal.webp",
-      typeIcon: "systems/dnd5e/icons/svg/trait.svg",
-      title: game.i18n.localize("DND5E.ADVANCEMENT.Trait.Title"),
-      hint: game.i18n.localize("DND5E.ADVANCEMENT.Trait.Hint"),
+      typeIcon: "systems/me5e/icons/svg/trait.svg",
+      title: game.i18n.localize("ME5E.ADVANCEMENT.Trait.Title"),
+      hint: game.i18n.localize("ME5E.ADVANCEMENT.Trait.Hint"),
       apps: {
         config: TraitConfig,
         flow: TraitFlow
@@ -44,7 +44,7 @@ export default class TraitAdvancement extends Advancement {
     super.localize();
     localizeSchema(
       this.metadata.dataModels.configuration.schema.fields.choices.element,
-      ["DND5E.ADVANCEMENT.Trait.FIELDS.choices"]
+      ["ME5E.ADVANCEMENT.Trait.FIELDS.choices"]
     );
   }
 
@@ -69,7 +69,7 @@ export default class TraitAdvancement extends Advancement {
    */
   prepareData() {
     const rep = this.representedTraits();
-    const traitConfig = rep.size === 1 ? CONFIG.DND5E.traits[rep.first()] : null;
+    const traitConfig = rep.size === 1 ? CONFIG.ME5E.traits[rep.first()] : null;
     this.title = this.title || traitConfig?.labels.title || this._defaultTitle;
     this.icon = this.icon || traitConfig?.icon || this._defaultIcon;
   }
@@ -87,8 +87,8 @@ export default class TraitAdvancement extends Advancement {
 
   /** @inheritDoc */
   sortingValueForLevel(levels) {
-    const traitOrder = Object.keys(CONFIG.DND5E.traits).findIndex(k => k === this.representedTraits().first());
-    const modeOrder = Object.keys(CONFIG.DND5E.traitModes).findIndex(k => k === this.configuration.mode);
+    const traitOrder = Object.keys(CONFIG.ME5E.traits).findIndex(k => k === this.representedTraits().first());
+    const modeOrder = Object.keys(CONFIG.ME5E.traitModes).findIndex(k => k === this.configuration.mode);
     const order = traitOrder + (modeOrder * 100);
     return `${this.constructor.metadata.order.paddedString(4)} ${order.paddedString(4)} ${this.titleForLevel(levels)}`;
   }
@@ -132,7 +132,7 @@ export default class TraitAdvancement extends Advancement {
 
       if ( key.startsWith("tool") ) {
         const toolId = key.split(":").pop();
-        const ability = CONFIG.DND5E.tools[toolId]?.ability;
+        const ability = CONFIG.ME5E.tools[toolId]?.ability;
         const kp = `system.tools.${toolId}.ability`;
         if ( ability && !foundry.utils.hasProperty(this.actor, kp) ) updates[kp] = ability;
       }
@@ -205,8 +205,8 @@ export default class TraitAdvancement extends Advancement {
 
     // If "default" mode is selected, return all traits
     // If any other mode is selected, only return traits that support expertise or mastery
-    const traitTypes = this.configuration.mode === "default" ? Object.keys(CONFIG.DND5E.traits).filter(k => k !== "dm")
-      : filteredKeys(CONFIG.DND5E.traits, t => t[this.configuration.mode === "mastery" ? "mastery" : "expertise"]);
+    const traitTypes = this.configuration.mode === "default" ? Object.keys(CONFIG.ME5E.traits).filter(k => k !== "dm")
+      : filteredKeys(CONFIG.ME5E.traits, t => t[this.configuration.mode === "mastery" ? "mastery" : "expertise"]);
 
     for ( const trait of traitTypes ) {
       const actorValues = await Trait.actorValues(this.actor, trait);
@@ -277,7 +277,7 @@ export default class TraitAdvancement extends Advancement {
       const rep = this.representedTraits();
       if ( rep.size === 1 ) return {
         choices: choices.filter(this.representedTraits().map(t => `${t}:*`), { inplace: false }),
-        label: game.i18n.format("DND5E.ADVANCEMENT.Trait.ChoicesRemaining", {
+        label: game.i18n.format("ME5E.ADVANCEMENT.Trait.ChoicesRemaining", {
           count: unfilteredLength,
           type: Trait.traitLabel(rep.first(), unfilteredLength)
         })
@@ -299,7 +299,7 @@ export default class TraitAdvancement extends Advancement {
     const rep = this.representedTraits(available.map(a => a.choices.asSet()));
     return {
       choices,
-      label: game.i18n.format("DND5E.ADVANCEMENT.Trait.ChoicesRemaining", {
+      label: game.i18n.format("ME5E.ADVANCEMENT.Trait.ChoicesRemaining", {
         count: available.length,
         type: Trait.traitLabel(rep.size === 1 ? rep.first() : null, available.length)
       })

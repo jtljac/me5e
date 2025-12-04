@@ -39,7 +39,7 @@ export default class ContainerData extends ItemDataModel.mixin(
   /* -------------------------------------------- */
 
   /** @override */
-  static LOCALIZATION_PREFIXES = ["DND5E.CONTAINER", "DND5E.SOURCE"];
+  static LOCALIZATION_PREFIXES = ["ME5E.CONTAINER", "ME5E.SOURCE"];
 
   /* -------------------------------------------- */
 
@@ -236,11 +236,11 @@ export default class ContainerData extends ItemDataModel.mixin(
     if ( this.capacity.count ) {
       context.value = await this.contentsCount;
       context.max = this.capacity.count;
-      context.units = game.i18n.localize("DND5E.Items");
+      context.units = game.i18n.localize("ME5E.Items");
     } else if ( this.capacity.weight.value ) {
       context.value = await this.contentsWeight;
       context.max = this.capacity.weight.value;
-      context.units = CONFIG.DND5E.weightUnits[this.capacity.weight.units]?.label ?? "";
+      context.units = CONFIG.ME5E.weightUnits[this.capacity.weight.units]?.label ?? "";
     }
     context.value = context.value.toNearest(0.1);
     context.pct = Math.clamp(context.max ? (context.value / context.max) * 100 : 0, 0, 100);
@@ -266,7 +266,7 @@ export default class ContainerData extends ItemDataModel.mixin(
    */
   static _migrateWeightlessData(source) {
     if ( foundry.utils.getProperty(source, "system.capacity.weightless") === true ) {
-      foundry.utils.setProperty(source, "flags.dnd5e.migratedProperties", ["weightlessContents"]);
+      foundry.utils.setProperty(source, "flags.me5e.migratedProperties", ["weightlessContents"]);
     }
   }
 
@@ -336,7 +336,7 @@ export default class ContainerData extends ItemDataModel.mixin(
       { label: game.i18n.localize(CONFIG.Item.typeLabels.container) },
       ...this.physicalItemSheetFields
     ];
-    context.parts = ["dnd5e.details-container"];
+    context.parts = ["me5e.details-container"];
   }
 
   /* -------------------------------------------- */

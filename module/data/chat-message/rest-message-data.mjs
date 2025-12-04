@@ -34,7 +34,7 @@ export default class RestMessageData extends ChatMessageDataModel {
 
   /** @inheritDoc */
   static metadata = Object.freeze(foundry.utils.mergeObject(super.metadata, {
-    template: "systems/dnd5e/templates/chat/rest-card.hbs"
+    template: "systems/me5e/templates/chat/rest-card.hbs"
   }, { inplace: false }));
 
   /* -------------------------------------------- */

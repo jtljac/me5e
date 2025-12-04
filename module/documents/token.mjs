@@ -66,7 +66,7 @@ export default class TokenDocument5e extends SystemFlagsMixin(TokenDocument) {
    * @returns {string[]}
    */
   static getConsumedAttributes(data) {
-    return CONFIG.DND5E.consumableResources;
+    return CONFIG.ME5E.consumableResources;
   }
 
   /* -------------------------------------------- */
@@ -75,11 +75,11 @@ export default class TokenDocument5e extends SystemFlagsMixin(TokenDocument) {
   static getTrackedAttributeChoices(attributes) {
     const groups = super.getTrackedAttributeChoices(attributes);
     const i18n = {
-      abilities: game.i18n.localize("DND5E.AbilityScorePl"),
-      movement: game.i18n.localize("DND5E.MOVEMENT.FIELDS.speeds.label"),
-      senses: game.i18n.localize("DND5E.Senses"),
-      skills: game.i18n.localize("DND5E.SkillPassives"),
-      slots: game.i18n.localize("JOURNALENTRYPAGE.DND5E.Class.SpellSlots")
+      abilities: game.i18n.localize("ME5E.AbilityScorePl"),
+      movement: game.i18n.localize("ME5E.MOVEMENT.FIELDS.speeds.label"),
+      senses: game.i18n.localize("ME5E.Senses"),
+      skills: game.i18n.localize("ME5E.SkillPassives"),
+      slots: game.i18n.localize("JOURNALENTRYPAGE.ME5E.Class.SpellSlots")
     };
     for ( const entry of groups ) {
       const { value } = entry;
@@ -104,7 +104,7 @@ export default class TokenDocument5e extends SystemFlagsMixin(TokenDocument) {
       if ( deltaSize ) size = deltaSize;
     }
     if ( !size ) return;
-    const dts = CONFIG.DND5E.actorSizes[size].dynamicTokenScale ?? 1;
+    const dts = CONFIG.ME5E.actorSizes[size].dynamicTokenScale ?? 1;
     this.texture.scaleX = this._source.texture.scaleX * dts;
     this.texture.scaleY = this._source.texture.scaleY * dts;
   }
@@ -117,7 +117,7 @@ export default class TokenDocument5e extends SystemFlagsMixin(TokenDocument) {
    * Set up the system's movement action customization.
    */
   static registerMovementActions() {
-    for ( const type of Object.keys(CONFIG.DND5E.movementTypes) ) {
+    for ( const type of Object.keys(CONFIG.ME5E.movementTypes) ) {
       const actionConfig = CONFIG.Token.movement.actions[type];
       if ( !actionConfig ) continue;
       actionConfig.getAnimationOptions = token => {
@@ -128,7 +128,7 @@ export default class TokenDocument5e extends SystemFlagsMixin(TokenDocument) {
       actionConfig.getCostFunction = (...args) => this.getMovementActionCostFunction(type, ...args);
     }
     CONFIG.Token.movement.actions.crawl.getCostFunction = token => {
-      const noAutomation = game.settings.get("dnd5e", "movementAutomation") === "none";
+      const noAutomation = game.settings.get("me5e", "movementAutomation") === "none";
       const { actor } = token;
       const actorMovement = actor?.system.attributes?.movement;
       const hasMovement = actorMovement !== undefined;
@@ -148,10 +148,10 @@ export default class TokenDocument5e extends SystemFlagsMixin(TokenDocument) {
    * @returns {TokenMovementActionCostFunction}
    */
   static getMovementActionCostFunction(type, token, options) {
-    const noAutomation = game.settings.get("dnd5e", "movementAutomation") === "none";
+    const noAutomation = game.settings.get("me5e", "movementAutomation") === "none";
     const { actor } = token;
     const actorMovement = actor?.system.attributes?.movement;
-    const walkFallback = CONFIG.DND5E.movementTypes[type]?.walkFallback;
+    const walkFallback = CONFIG.ME5E.movementTypes[type]?.walkFallback;
     const hasMovement = actorMovement !== undefined;
     const speed = actorMovement?.[type];
     return noAutomation || !actor?.system.isCreature || !hasMovement || speed || (!speed && !walkFallback)
@@ -170,7 +170,7 @@ export default class TokenDocument5e extends SystemFlagsMixin(TokenDocument) {
   getRingColors() {
     const colors = {};
     if ( this.hasStatusEffect(CONFIG.specialStatusEffects.DEFEATED) ) {
-      colors.ring = CONFIG.DND5E.tokenRingColors.defeated;
+      colors.ring = CONFIG.ME5E.tokenRingColors.defeated;
     }
     return colors;
   }
@@ -197,7 +197,7 @@ export default class TokenDocument5e extends SystemFlagsMixin(TokenDocument) {
    */
   flashRing(type) {
     if ( !this.rendered ) return;
-    const color = CONFIG.DND5E.tokenRingColors[type];
+    const color = CONFIG.ME5E.tokenRingColors[type];
     if ( !color ) return;
     const options = {};
     if ( type === "damage" ) {
@@ -217,7 +217,7 @@ export default class TokenDocument5e extends SystemFlagsMixin(TokenDocument) {
 
     if ( (this.actor?.type === "npc") && !this.actorLink
       && foundry.utils.getProperty(this.actor, "system.attributes.hp.formula")?.trim().length ) {
-      const autoRoll = options.dnd5e?.autoRollNPCHP ?? game.settings.get("dnd5e", "autoRollNPCHP");
+      const autoRoll = options.me5e?.autoRollNPCHP ?? game.settings.get("me5e", "autoRollNPCHP");
       if ( autoRoll === "no" ) return;
       const roll = await this.actor.rollNPCHitPoints({ chatMessage: autoRoll === "yes" });
       this.delta.updateSource({
@@ -237,10 +237,10 @@ export default class TokenDocument5e extends SystemFlagsMixin(TokenDocument) {
   _onDelete(options, userId) {
     super._onDelete(options, userId);
 
-    const origin = this.actor?.getFlag("dnd5e", "summon.origin");
+    const origin = this.actor?.getFlag("me5e", "summon.origin");
     if ( origin ) {
       const { collection, primaryId } = foundry.utils.parseUuid(origin);
-      dnd5e.registry.summons.untrack(collection?.get?.(primaryId)?.uuid, this.actor.uuid);
+      me5e.registry.summons.untrack(collection?.get?.(primaryId)?.uuid, this.actor.uuid);
     }
   }
 }

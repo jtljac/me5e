@@ -95,13 +95,13 @@ export default class TokenRuler5e extends foundry.canvas.placeables.tokens.Token
     let currActionSpeed = movement[waypoint.action] ?? 0;
 
     // If current action can fall back to walk, treat "max" speed as maximum between current & walk
-    if ( CONFIG.DND5E.movementTypes[waypoint.action]?.walkFallback
-      || !CONFIG.DND5E.movementTypes[waypoint.action] ) {
+    if ( CONFIG.ME5E.movementTypes[waypoint.action]?.walkFallback
+      || !CONFIG.ME5E.movementTypes[waypoint.action] ) {
       currActionSpeed = Math.max(currActionSpeed, movement.walk);
     }
 
     // Color `normal` if <= max speed, else `double` if <= double max speed, else `triple`
-    const { normal, double, triple } = CONFIG.DND5E.tokenRulerColors;
+    const { normal, double, triple } = CONFIG.ME5E.tokenRulerColors;
     const increment = (waypoint.measurement.cost - .1) / currActionSpeed;
     if ( increment <= 1 ) style.color = normal ?? style.color;
     else if ( increment <= 2 ) style.color = double ?? style.color;

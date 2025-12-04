@@ -42,8 +42,8 @@ export default class ModuleArt {
     // Load art modules in reverse order so that higher-priority modules overwrite lower-priority ones.
     for ( const { id, mapping, credit } of this.constructor.getArtModules().reverse() ) {
       foundry.utils.logCompatibilityWarning(
-        "The dnd5e `ModuleArt` system has been deprecated and replaced with core's `CompendiumArt` system.",
-        { since: "DnD5e 5.0", until: "DnD5e 6.0", once: true }
+        "The me5e `ModuleArt` system has been deprecated and replaced with core's `CompendiumArt` system.",
+        { since: "ME5e 5.0", until: "ME5e 6.0", once: true }
       );
       try {
         const json = await foundry.utils.fetchJsonWithTimeout(mapping);
@@ -65,7 +65,7 @@ export default class ModuleArt {
    * @returns {Promise<void>}
    */
   async #parseArtMapping(moduleId, mapping, credit) {
-    let settings = game.settings.get("dnd5e", "moduleArtConfiguration")?.[moduleId];
+    let settings = game.settings.get("me5e", "moduleArtConfiguration")?.[moduleId];
     settings ??= {portraits: true, tokens: true};
     for ( const [packName, actors] of Object.entries(mapping) ) {
       const pack = game.packs.get(packName);
@@ -107,7 +107,7 @@ export default class ModuleArt {
    */
   static getModuleArtPath(module) {
     const flags = module.flags?.[module.id];
-    const artPath = flags?.["dnd5e-art"];
+    const artPath = flags?.["me5e-art"];
     if ( !artPath || !module.active ) return null;
     return artPath;
   }
@@ -128,7 +128,7 @@ export default class ModuleArt {
    * @returns {ModuleArtDescriptor[]}
    */
   static getArtModules() {
-    const settings = game.settings.get("dnd5e", "moduleArtConfiguration");
+    const settings = game.settings.get("me5e", "moduleArtConfiguration");
     const unsorted = [];
     const configs = [];
 
@@ -136,7 +136,7 @@ export default class ModuleArt {
       const flags = module.flags?.[module.id];
       const mapping = this.getModuleArtPath(module);
       if ( !mapping ) continue;
-      const config = { id: module.id, label: module.title, credit: flags?.["dnd5e-art-credit"], mapping };
+      const config = { id: module.id, label: module.title, credit: flags?.["me5e-art-credit"], mapping };
       configs.push(config);
       const priority = settings[module.id]?.priority;
       if ( priority === undefined ) unsorted.push(config);

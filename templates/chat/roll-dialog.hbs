@@ -1,12 +1,12 @@
 <form>
     {{#each formulas}}
     <div class="form-group">
-        <label>{{ localize "DND5E.Formula" }} {{#if type}}({{type}}){{/if}}</label>
+        <label>{{ localize "ME5E.Formula" }} {{#if type}}({{type}}){{/if}}</label>
         <input type="text" name="formula" value="{{formula}}" disabled>
     </div>
     {{#if types}}
     <div class="form-group">
-        <label>{{ localize "DND5E.DamageType" }}</label>
+        <label>{{ localize "ME5E.DamageType" }}</label>
         <select name="roll.{{ @index }}.type">
             {{ selectOptions types }}
         </select>
@@ -15,7 +15,7 @@
     {{/each}}
     {{#if attackModes}}
     <div class="form-group">
-        <label>{{ localize "DND5E.ATTACK.Mode.Label" }}</label>
+        <label>{{ localize "ME5E.ATTACK.Mode.Label" }}</label>
         <select name="attackMode">
             {{ selectOptions attackModes }}
         </select>
@@ -23,7 +23,7 @@
     {{/if}}
     {{#if ammunitionOptions}}
     <div class="form-group">
-        <label>{{ localize "DND5E.CONSUMABLE.Type.Ammunition.Label" }}</label>
+        <label>{{ localize "ME5E.CONSUMABLE.Type.Ammunition.Label" }}</label>
         <select name="ammunition">
             {{ selectOptions ammunitionOptions blank="" }}
         </select>
@@ -31,7 +31,7 @@
     {{/if}}
     {{#if chooseModifier}}
     <div class="form-group">
-        <label>{{ localize "DND5E.AbilityModifier" }}</label>
+        <label>{{ localize "ME5E.AbilityModifier" }}</label>
         <select name="ability">
             {{selectOptions abilities selected=defaultAbility labelAttr="label"}}
         </select>
@@ -39,18 +39,18 @@
     {{/if}}
     {{#if masteryOptions}}
     <div class="form-group">
-        <label>{{ localize "DND5E.WEAPON.Mastery.Label" }}</label>
+        <label>{{ localize "ME5E.WEAPON.Mastery.Label" }}</label>
         <select name="mastery">
             {{ selectOptions masteryOptions }}
         </select>
     </div>
     {{/if}}
     <div class="form-group">
-        <label>{{ localize "DND5E.RollSituationalBonus" }}</label>
-        <input type="text" name="bonus" value="" placeholder="{{ localize 'DND5E.RollExample' }}"/>
+        <label>{{ localize "ME5E.RollSituationalBonus" }}</label>
+        <input type="text" name="bonus" value="" placeholder="{{ localize 'ME5E.RollExample' }}"/>
     </div>
     <div class="form-group">
-        <label>{{ localize "DND5E.RollMode" }}</label>
+        <label>{{ localize "ME5E.RollMode" }}</label>
         <select name="rollMode">
             {{selectOptions rollModes selected=defaultRollMode localize=true}}
         </select>

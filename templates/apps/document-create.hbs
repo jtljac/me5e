@@ -13,7 +13,7 @@
         {{#each types}}
         <li {{~#if hint}} data-tooltip="{{ hint }}"{{/if}}>
             <label>
-                {{ dnd5e-icon icon alt=label }}
+                {{ me5e-icon icon alt=label }}
                 <span>{{ label }}</span>
                 <input type="radio" name="type" value="{{ type }}" required {{checked (eq type ../type)}}
                        {{ disabled disabled }}>

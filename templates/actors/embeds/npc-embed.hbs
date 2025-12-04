@@ -9,19 +9,19 @@
                 <table>
                     <thead>
                         <tr>
-                            <th scope="col" class="visually-hidden">{{ localize "DND5E.Ability" }}</th>
-                            <th scope="col" class="visually-hidden">{{ localize "DND5E.AbilityScoreShort" }}</th>
-                            <th scope="col">{{ localize "DND5E.AbilityModifierShort" }}</th>
-                            <th scope="col">{{ localize "DND5E.SavingThrowShort" }}</th>
+                            <th scope="col" class="visually-hidden">{{ localize "ME5E.Ability" }}</th>
+                            <th scope="col" class="visually-hidden">{{ localize "ME5E.AbilityScoreShort" }}</th>
+                            <th scope="col">{{ localize "ME5E.AbilityModifierShort" }}</th>
+                            <th scope="col">{{ localize "ME5E.SavingThrowShort" }}</th>
                         </tr>
                     </thead>
                     <tbody>
                         {{#each abilities}}
                         <tr>
                             <th scope="row">{{ label }}</th>
-                            <td class="score">{{ dnd5e-numberFormat value }}</td>
-                            <td>{{ dnd5e-numberFormat mod signDisplay="always" }}</td>
-                            <td>{{ dnd5e-numberFormat save.value signDisplay="always" }}</td>
+                            <td class="score">{{ me5e-numberFormat value }}</td>
+                            <td>{{ me5e-numberFormat mod signDisplay="always" }}</td>
+                            <td>{{ me5e-numberFormat save.value signDisplay="always" }}</td>
                         </tr>
                         {{/each}}
                     </tbody>
@@ -30,7 +30,7 @@
                 {{#each system.abilities}}
                 <div class="ability">
                     <span class="name">{{ lookup (lookup @root.CONFIG.abilities @key) "abbreviation" }}</span>
-                    <span class="score">{{ dnd5e-numberFormat value }} ({{ dnd5e-numberFormat mod signDisplay="always" }})</span>
+                    <span class="score">{{ me5e-numberFormat value }} ({{ me5e-numberFormat mod signDisplay="always" }})</span>
                 </div>
                 {{/each}}
                 {{/each}}
@@ -42,7 +42,7 @@
             {{#unless hideLabel}}<h5 class="statblock-actions-title">{{ label }}</h5>{{/unless}}
             {{{ description }}}
             {{#each actions}}
-            <div class="statblock-action" {{ dnd5e-dataset dataset }}>
+            <div class="statblock-action" {{ me5e-dataset dataset }}>
                 {{{ openingTag }}}
                 <span class="name">{{ name }}</span>
                 {{{ description }}}

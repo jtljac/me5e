@@ -8,7 +8,7 @@ export default class SizeFlow extends AdvancementFlow {
   /** @inheritDoc */
   static get defaultOptions() {
     return foundry.utils.mergeObject(super.defaultOptions, {
-      template: "systems/dnd5e/templates/advancement/size-flow.hbs"
+      template: "systems/me5e/templates/advancement/size-flow.hbs"
     });
   }
 
@@ -22,7 +22,7 @@ export default class SizeFlow extends AdvancementFlow {
       hint: this.advancement.hint || this.advancement.automaticHint,
       selectedSize: this.retainedData?.size ?? this.advancement.value.size,
       sizes: Array.from(sizes).reduce((obj, key) => {
-        obj[key] = CONFIG.DND5E.actorSizes[key].label;
+        obj[key] = CONFIG.ME5E.actorSizes[key].label;
         return obj;
       }, {})
     });

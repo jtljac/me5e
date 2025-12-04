@@ -42,70 +42,70 @@ export default class CharacterActorSheet extends BaseActorSheet {
   /** @override */
   static PARTS = {
     header: {
-      template: "systems/dnd5e/templates/actors/character-header.hbs"
+      template: "systems/me5e/templates/actors/character-header.hbs"
     },
     sidebar: {
       container: { classes: ["main-content"], id: "main" },
-      template: "systems/dnd5e/templates/actors/character-sidebar.hbs"
+      template: "systems/me5e/templates/actors/character-sidebar.hbs"
     },
     details: {
       classes: ["col-2"],
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/tabs/character-details.hbs",
+      template: "systems/me5e/templates/actors/tabs/character-details.hbs",
       scrollable: [""]
     },
     inventory: {
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/tabs/character-inventory.hbs",
+      template: "systems/me5e/templates/actors/tabs/character-inventory.hbs",
       templates: [
-        "systems/dnd5e/templates/inventory/inventory.hbs", "systems/dnd5e/templates/inventory/activity.hbs",
-        "systems/dnd5e/templates/inventory/encumbrance.hbs", "systems/dnd5e/templates/inventory/containers.hbs"
+        "systems/me5e/templates/inventory/inventory.hbs", "systems/me5e/templates/inventory/activity.hbs",
+        "systems/me5e/templates/inventory/encumbrance.hbs", "systems/me5e/templates/inventory/containers.hbs"
       ],
       scrollable: [""]
     },
     features: {
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/tabs/character-features.hbs",
-      templates: ["systems/dnd5e/templates/inventory/inventory.hbs", "systems/dnd5e/templates/inventory/activity.hbs"],
+      template: "systems/me5e/templates/actors/tabs/character-features.hbs",
+      templates: ["systems/me5e/templates/inventory/inventory.hbs", "systems/me5e/templates/inventory/activity.hbs"],
       scrollable: [""]
     },
     spells: {
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/tabs/creature-spells.hbs",
-      templates: ["systems/dnd5e/templates/inventory/inventory.hbs", "systems/dnd5e/templates/inventory/activity.hbs"],
+      template: "systems/me5e/templates/actors/tabs/creature-spells.hbs",
+      templates: ["systems/me5e/templates/inventory/inventory.hbs", "systems/me5e/templates/inventory/activity.hbs"],
       scrollable: [""]
     },
     effects: {
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/tabs/actor-effects.hbs",
+      template: "systems/me5e/templates/actors/tabs/actor-effects.hbs",
       scrollable: [""]
     },
     biography: {
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/tabs/character-biography.hbs",
+      template: "systems/me5e/templates/actors/tabs/character-biography.hbs",
       scrollable: [""]
     },
     bastion: {
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/tabs/character-bastion.hbs",
+      template: "systems/me5e/templates/actors/tabs/character-bastion.hbs",
       scrollable: [""]
     },
     specialTraits: {
       classes: ["flexcol"],
       container: { classes: ["tab-body"], id: "tabs" },
-      template: "systems/dnd5e/templates/actors/tabs/creature-special-traits.hbs",
+      template: "systems/me5e/templates/actors/tabs/creature-special-traits.hbs",
       scrollable: [""]
     },
     abilityScores: {
-      template: "systems/dnd5e/templates/actors/character-ability-scores.hbs"
+      template: "systems/me5e/templates/actors/character-ability-scores.hbs"
     },
     warnings: {
-      template: "systems/dnd5e/templates/actors/parts/actor-warnings-dialog.hbs"
+      template: "systems/me5e/templates/actors/parts/actor-warnings-dialog.hbs"
     },
     tabs: {
       id: "tabs",
       classes: ["tabs-right"],
-      template: "systems/dnd5e/templates/shared/sidebar-tabs.hbs"
+      template: "systems/me5e/templates/shared/sidebar-tabs.hbs"
     }
   };
 
@@ -126,14 +126,14 @@ export default class CharacterActorSheet extends BaseActorSheet {
 
   /** @override */
   static TABS = [
-    { tab: "details", label: "DND5E.Details", icon: "fas fa-cog" },
-    { tab: "inventory", label: "DND5E.Inventory", svg: "systems/dnd5e/icons/svg/backpack.svg" },
-    { tab: "features", label: "DND5E.Features", icon: "fas fa-list" },
+    { tab: "details", label: "ME5E.Details", icon: "fas fa-cog" },
+    { tab: "inventory", label: "ME5E.Inventory", svg: "systems/me5e/icons/svg/backpack.svg" },
+    { tab: "features", label: "ME5E.Features", icon: "fas fa-list" },
     { tab: "spells", label: "TYPES.Item.spellPl", icon: "fas fa-book" },
-    { tab: "effects", label: "DND5E.Effects", icon: "fas fa-bolt" },
-    { tab: "biography", label: "DND5E.Biography", icon: "fas fa-feather" },
-    { tab: "bastion", label: "DND5E.Bastion.Label", icon: "fas fa-chess-rook" },
-    { tab: "specialTraits", label: "DND5E.SpecialTraits", icon: "fas fa-star" }
+    { tab: "effects", label: "ME5E.Effects", icon: "fas fa-bolt" },
+    { tab: "biography", label: "ME5E.Biography", icon: "fas fa-feather" },
+    { tab: "bastion", label: "ME5E.Bastion.Label", icon: "fas fa-chess-rook" },
+    { tab: "specialTraits", label: "ME5E.SpecialTraits", icon: "fas fa-star" }
   ];
 
   /* -------------------------------------------- */
@@ -183,7 +183,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
     const context = {
       ...await super._prepareContext(options),
       abilityRows: {
-        bottom: [], top: [], optional: Object.keys(CONFIG.DND5E.abilities).length - 6
+        bottom: [], top: [], optional: Object.keys(CONFIG.ME5E.abilities).length - 6
       },
       isCharacter: true
     };
@@ -260,7 +260,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
     }
 
     for ( const [type, facilities] of Object.entries(context.facilities) ) {
-      const config = CONFIG.DND5E.facilities.advancement[type];
+      const config = CONFIG.ME5E.facilities.advancement[type];
       let [, available] = Object.entries(config).reverse().find(([level]) => {
         return level <= this.actor.system.details.level;
       }) ?? [];
@@ -268,12 +268,12 @@ export default class CharacterActorSheet extends BaseActorSheet {
       facilities.max = available ?? 0;
       available = (available ?? 0) - facilities.value;
       facilities.available = Array.fromRange(Math.max(0, available)).map(() => {
-        return { label: `DND5E.FACILITY.AvailableFacility.${type}.free` };
+        return { label: `ME5E.FACILITY.AvailableFacility.${type}.free` };
       });
     }
 
     if ( !context.facilities.basic.available.length ) {
-      context.facilities.basic.available.push({ label: "DND5E.FACILITY.AvailableFacility.basic.build" });
+      context.facilities.basic.available.push({ label: "ME5E.FACILITY.AvailableFacility.basic.build" });
     }
 
     return context;
@@ -293,7 +293,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
       secrets: this.actor.isOwner, relativeTo: this.actor, rollData: context.rollData
     };
     context.enriched = {
-      label: "DND5E.Biography",
+      label: "ME5E.Biography",
       value: await TextEditor.enrichHTML(this.actor.system.details.biography.value, enrichmentOptions)
     };
 
@@ -328,16 +328,16 @@ export default class CharacterActorSheet extends BaseActorSheet {
     // Origin
     context.creatureType = {
       class: details.type.value === "custom" ? "none" : "",
-      icon: CONFIG.DND5E.creatureTypes[details.type.value]?.icon ?? "icons/svg/mystery-man.svg",
+      icon: CONFIG.ME5E.creatureTypes[details.type.value]?.icon ?? "icons/svg/mystery-man.svg",
       title: details.type.value === "custom"
         ? details.type.custom
-        : CONFIG.DND5E.creatureTypes[details.type.value]?.label,
-      reference: CONFIG.DND5E.creatureTypes[details.type.value]?.reference,
+        : CONFIG.ME5E.creatureTypes[details.type.value]?.label,
+      reference: CONFIG.ME5E.creatureTypes[details.type.value]?.reference,
       subtitle: details.type.subtype
     };
-    if ( details.race instanceof dnd5e.documents.Item5e ) context.species = details.race;
-    if ( details.background instanceof dnd5e.documents.Item5e ) context.background = details.background;
-    context.labels.size = CONFIG.DND5E.actorSizes[traits.size]?.label ?? traits.size;
+    if ( details.race instanceof me5e.documents.Item5e ) context.species = details.race;
+    if ( details.background instanceof me5e.documents.Item5e ) context.background = details.background;
+    context.labels.size = CONFIG.ME5E.actorSizes[traits.size]?.label ?? traits.size;
 
     // Saving Throws
     context.saves = {};
@@ -349,8 +349,8 @@ export default class CharacterActorSheet extends BaseActorSheet {
       context.saves.concentration = {
         isConcentration: true,
         class: "colspan concentration",
-        label: game.i18n.localize("DND5E.Concentration"),
-        abbr: game.i18n.localize("DND5E.Concentration"),
+        label: game.i18n.localize("ME5E.Concentration"),
+        abbr: game.i18n.localize("ME5E.Concentration"),
         save: context.system.attributes.concentration.save
       };
     }
@@ -363,8 +363,8 @@ export default class CharacterActorSheet extends BaseActorSheet {
     context.tools = this._prepareSkillsTools(context, "tools");
     for ( const [key, entry] of Object.entries(context.skills).concat(Object.entries(context.tools)) ) {
       entry.class = this.constructor.PROFICIENCY_CLASSES[context.editable ? entry.baseValue : entry.value];
-      if ( key in CONFIG.DND5E.skills ) entry.reference = CONFIG.DND5E.skills[key].reference;
-      else if ( key in CONFIG.DND5E.tools ) entry.reference = Trait.getBaseItemUUID(CONFIG.DND5E.tools[key].id);
+      if ( key in CONFIG.ME5E.skills ) entry.reference = CONFIG.ME5E.skills[key].reference;
+      else if ( key in CONFIG.ME5E.tools ) entry.reference = Trait.getBaseItemUUID(CONFIG.ME5E.tools[key].id);
     }
 
     // Traits
@@ -409,37 +409,37 @@ export default class CharacterActorSheet extends BaseActorSheet {
     const Inventory = customElements.get(this.options.elements.inventory);
     const columns = Inventory.mapColumns([{ id: "uses", order: 200 }, "recovery", "controls"]);
     const sections = [
-      { columns, id: "active", label: "DND5E.FeatureActive", order: 100, groups: { activation: "active" }, items: [] },
-      { columns, id: "passive", label: "DND5E.FeaturePassive", order: 200, groups: { activation: "passive" } },
+      { columns, id: "active", label: "ME5E.FeatureActive", order: 100, groups: { activation: "active" }, items: [] },
+      { columns, id: "passive", label: "ME5E.FeaturePassive", order: 200, groups: { activation: "passive" } },
       ...Object.values(this.actor.classes ?? {})
         .sort((a, b) => b.system.levels - a.system.levels)
         .map((cls, i) => {
           return {
             columns, id: cls.identifier, order: i * 100, groups: { origin: cls.identifier },
-            label: game.i18n.format("DND5E.FeaturesClass", { class: cls.name })
+            label: game.i18n.format("ME5E.FeaturesClass", { class: cls.name })
           };
         }),
       this.actor.system.details.race instanceof Item5e ? {
-        columns, id: "species", label: "DND5E.Species.Features", order: 1000, groups: { origin: "species" }
+        columns, id: "species", label: "ME5E.Species.Features", order: 1000, groups: { origin: "species" }
       } : null,
       this.actor.system.details.background instanceof Item5e ? {
-        columns, id: "background", label: "DND5E.FeaturesBackground", order: 2000, groups: { origin: "background" }
+        columns, id: "background", label: "ME5E.FeaturesBackground", order: 2000, groups: { origin: "background" }
       } : null,
-      { columns, id: "other", label: "DND5E.FeaturesOther", order: 3000, groups: { origin: "other" } }
+      { columns, id: "other", label: "ME5E.FeaturesOther", order: 3000, groups: { origin: "other" } }
     ].filter(_ => _);
     sections[0].items = [...(context.itemCategories.features ?? []), ...context.subclasses];
     context.sections = Inventory.prepareSections(sections);
     context.listControls = {
-      label: "DND5E.FeatureSearch",
+      label: "ME5E.FeatureSearch",
       list: "features",
       filters: [
-        { key: "action", label: "DND5E.Action" },
-        { key: "bonus", label: "DND5E.BonusAction" },
-        { key: "reaction", label: "DND5E.Reaction" },
-        { key: "sr", label: "DND5E.REST.Short.Label" },
-        { key: "lr", label: "DND5E.REST.Long.Label" },
-        { key: "concentration", label: "DND5E.Concentration" },
-        { key: "mgc", label: "DND5E.ITEM.Property.Magical" }
+        { key: "action", label: "ME5E.Action" },
+        { key: "bonus", label: "ME5E.BonusAction" },
+        { key: "reaction", label: "ME5E.Reaction" },
+        { key: "sr", label: "ME5E.REST.Short.Label" },
+        { key: "lr", label: "ME5E.REST.Long.Label" },
+        { key: "concentration", label: "ME5E.Concentration" },
+        { key: "mgc", label: "ME5E.ITEM.Property.Magical" }
       ],
       sorting: [
         { key: "m", label: "SIDEBAR.SortModeManual", dataset: { icon: "fa-solid fa-arrow-down-short-wide" } },
@@ -448,15 +448,15 @@ export default class CharacterActorSheet extends BaseActorSheet {
       grouping: [
         {
           key: "origin",
-          label: "DND5E.FilterGroupOrigin",
+          label: "ME5E.FilterGroupOrigin",
           dataset: { icon: "fa-solid fa-layer-group", classes: "active" }
         },
-        { key: "activation", label: "DND5E.FilterGroupOrigin", dataset: { icon: "fa-solid fa-layer-group" } }
+        { key: "activation", label: "ME5E.FilterGroupOrigin", dataset: { icon: "fa-solid fa-layer-group" } }
       ]
     };
 
     // TODO: Add this warning during data preparation instead
-    // const message = game.i18n.format("DND5E.SubclassMismatchWarn", {
+    // const message = game.i18n.format("ME5E.SubclassMismatchWarn", {
     //   name: subclass.name, class: subclass.system.classIdentifier
     // });
     // context.warnings.push({ message, type: "warning" });
@@ -488,14 +488,14 @@ export default class CharacterActorSheet extends BaseActorSheet {
     if ( context.system.details.xp.boonsEarned !== undefined ) {
       const pluralRules = new Intl.PluralRules(game.i18n.lang);
       context.epicBoonsEarned = game.i18n.format(
-        `DND5E.ExperiencePoints.Boons.${pluralRules.select(context.system.details.xp.boonsEarned ?? 0)}`,
+        `ME5E.ExperiencePoints.Boons.${pluralRules.select(context.system.details.xp.boonsEarned ?? 0)}`,
         { number: formatNumber(context.system.details.xp.boonsEarned ?? 0, { signDisplay: "always" }) }
       );
     }
 
     // Visibility
-    context.showExperience = game.settings.get("dnd5e", "levelingMode") !== "noxp";
-    context.showRests = game.user.isGM || (this.actor.isOwner && game.settings.get("dnd5e", "allowRests"));
+    context.showExperience = game.settings.get("me5e", "levelingMode") !== "noxp";
+    context.showRests = game.user.isGM || (this.actor.isOwner && game.settings.get("me5e", "allowRests"));
 
     return context;
   }
@@ -507,8 +507,8 @@ export default class CharacterActorSheet extends BaseActorSheet {
     context.itemCategories.inventory = context.itemCategories.inventory?.filter(i => i.type !== "container");
     context = await super._prepareInventoryContext(context, options);
     context.size = {
-      label: CONFIG.DND5E.actorSizes[this.actor.system.traits.size]?.label ?? this.actor.system.traits.size,
-      abbr: CONFIG.DND5E.actorSizes[this.actor.system.traits.size]?.abbreviation ?? "—",
+      label: CONFIG.ME5E.actorSizes[this.actor.system.traits.size]?.label ?? this.actor.system.traits.size,
+      abbr: CONFIG.ME5E.actorSizes[this.actor.system.traits.size]?.abbreviation ?? "—",
       mod: this.actor.system.attributes.encumbrance.mod
     };
     return context;
@@ -536,7 +536,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
       context.death[deathSave] = [];
       for ( let i = 1; i < 4; i++ ) {
         const n = deathSave === "failure" ? i : 4 - i;
-        const i18nKey = `DND5E.DeathSave${deathSave.titleCase()}Label`;
+        const i18nKey = `ME5E.DeathSave${deathSave.titleCase()}Label`;
         const filled = attributes.death[deathSave] >= n;
         const classes = ["pip"];
         if ( filled ) classes.push("filled");
@@ -551,10 +551,10 @@ export default class CharacterActorSheet extends BaseActorSheet {
     }
 
     // Exhaustion
-    if ( CONFIG.DND5E.conditionTypes.exhaustion ) {
-      const max = CONFIG.DND5E.conditionTypes.exhaustion.levels;
+    if ( CONFIG.ME5E.conditionTypes.exhaustion ) {
+      const max = CONFIG.ME5E.conditionTypes.exhaustion.levels;
       context.exhaustion = Array.fromRange(max, 1).reduce((acc, n) => {
-        const label = game.i18n.format("DND5E.ExhaustionLevel", { n });
+        const label = game.i18n.format("ME5E.ExhaustionLevel", { n });
         const classes = ["pip"];
         const filled = attributes.exhaustion >= n;
         if ( filled ) classes.push("filled");
@@ -571,11 +571,11 @@ export default class CharacterActorSheet extends BaseActorSheet {
     context.favorites = await this._prepareFavorites();
 
     // Speed
-    context.speed = Object.entries(CONFIG.DND5E.movementTypes).reduce((obj, [k, { label }]) => {
+    context.speed = Object.entries(CONFIG.ME5E.movementTypes).reduce((obj, [k, { label }]) => {
       const value = attributes.movement[k];
       if ( value > obj.value ) Object.assign(obj, { value, label });
       return obj;
-    }, { value: 0, label: CONFIG.DND5E.movementTypes.walk?.label });
+    }, { value: 0, label: CONFIG.ME5E.movementTypes.walk?.label });
 
     return context;
   }
@@ -596,7 +596,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
       const mod = ability?.mod ?? 0;
       const name = item.system.spellcasting.progression === sc.progression ? item.name : item.subclass?.name;
       context.spellcasting.push({
-        label: game.i18n.format("DND5E.SpellcastingClass", { class: name }),
+        label: game.i18n.format("ME5E.SpellcastingClass", { class: name }),
         ability: { mod, ability: sc.ability },
         attack: sc.attack,
         preparation: sc.preparation,
@@ -614,9 +614,9 @@ export default class CharacterActorSheet extends BaseActorSheet {
 
   /** @inheritDoc */
   async _prepareTabsContext(context, options) {
-    const { basic, special } = CONFIG.DND5E.facilities.advancement;
+    const { basic, special } = CONFIG.ME5E.facilities.advancement;
     const threshold = Math.min(...Object.keys(basic), ...Object.keys(special));
-    const showBastion = game.settings.get("dnd5e", "bastionConfiguration")?.enabled
+    const showBastion = game.settings.get("me5e", "bastionConfiguration")?.enabled
       && (this.actor.system.details.level >= threshold);
     if ( !showBastion && (this.tabGroups.primary === "bastion") ) this.tabGroups.primary = "details";
 
@@ -649,8 +649,8 @@ export default class CharacterActorSheet extends BaseActorSheet {
         css: "uses",
         title: label,
         subtitle: [
-          sr ? game.i18n.localize("DND5E.AbbreviationSR") : null,
-          lr ? game.i18n.localize("DND5E.AbbreviationLR") : null
+          sr ? game.i18n.localize("ME5E.AbbreviationSR") : null,
+          lr ? game.i18n.localize("ME5E.AbbreviationLR") : null
         ].filterJoin(" &bull; ")
       });
       return arr;
@@ -675,8 +675,8 @@ export default class CharacterActorSheet extends BaseActorSheet {
 
       if ( foundry.utils.getType(save?.ability) === "Set" ) save = {
         ...save, ability: save.ability.size > 2
-          ? game.i18n.localize("DND5E.AbbreviationDC")
-          : Array.from(save.ability).map(k => CONFIG.DND5E.abilities[k]?.abbreviation).filterJoin(" / ")
+          ? game.i18n.localize("ME5E.AbbreviationDC")
+          : Array.from(save.ability).map(k => CONFIG.ME5E.abilities[k]?.abbreviation).filterJoin(" / ")
       };
 
       const css = [];
@@ -700,7 +700,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
       if ( type === "skill" ) rollableClass.push("skill-name");
       else if ( type === "tool" ) rollableClass.push("tool-name");
 
-      if ( suppressed ) subtitle = game.i18n.localize("DND5E.Suppressed");
+      if ( suppressed ) subtitle = game.i18n.localize("ME5E.Suppressed");
       const itemId = type === "item" ? favorite.id : type === "activity" ? favorite.item.id : null;
       arr.push({
         id, img, type, title, value, uses, sort, save, modifier, passive, range, reference, suppressed, level, itemId,
@@ -733,23 +733,23 @@ export default class CharacterActorSheet extends BaseActorSheet {
     // Spell slots
     if ( type === "slots" ) {
       const { value, max, level, type: method } = this.actor.system.spells?.[id] ?? {};
-      const model = CONFIG.DND5E.spellcasting[method];
+      const model = CONFIG.ME5E.spellcasting[method];
       const uses = { value, max, name: `system.spells.${id}.value` };
       if ( !model || model.isSingleLevel ) return {
         uses, level, method,
-        title: game.i18n.localize(`DND5E.SpellSlots${id.capitalize()}`),
+        title: game.i18n.localize(`ME5E.SpellSlots${id.capitalize()}`),
         subtitle: [
-          game.i18n.localize(`DND5E.SpellLevel${level}`),
-          game.i18n.localize(`DND5E.Abbreviation${model?.isSR ? "SR" : "LR"}`)
+          game.i18n.localize(`ME5E.SpellLevel${level}`),
+          game.i18n.localize(`ME5E.Abbreviation${model?.isSR ? "SR" : "LR"}`)
         ],
-        img: model?.img || CONFIG.DND5E.spellcasting.pact.img
+        img: model?.img || CONFIG.ME5E.spellcasting.pact.img
       };
 
       const plurals = new Intl.PluralRules(game.i18n.lang, { type: "ordinal" });
       return {
         uses, level, method,
-        title: game.i18n.format(`DND5E.SpellSlotsN.${plurals.select(level)}`, { n: level }),
-        subtitle: game.i18n.localize(`DND5E.Abbreviation${model.isSR ? "SR" : "LR"}`),
+        title: game.i18n.format(`ME5E.SpellSlotsN.${plurals.select(level)}`, { n: level }),
+        subtitle: game.i18n.localize(`ME5E.Abbreviation${model.isSR ? "SR" : "LR"}`),
         img: model.img.replace("{id}", id)
       };
     }
@@ -759,17 +759,17 @@ export default class CharacterActorSheet extends BaseActorSheet {
       const data = this.actor.system[`${type}s`]?.[id];
       if ( !data ) return;
       const { total, ability, passive } = data ?? {};
-      const subtitle = game.i18n.format("DND5E.AbilityPromptTitle", {
-        ability: CONFIG.DND5E.abilities[ability].label
+      const subtitle = game.i18n.format("ME5E.AbilityPromptTitle", {
+        ability: CONFIG.ME5E.abilities[ability].label
       });
       let img;
       let title;
       let reference;
       if ( type === "tool" ) {
-        reference = Trait.getBaseItemUUID(CONFIG.DND5E.tools[id]?.id);
+        reference = Trait.getBaseItemUUID(CONFIG.ME5E.tools[id]?.id);
         ({ img, name: title } = Trait.getBaseItem(reference, { indexOnly: true }));
       }
-      else if ( type === "skill" ) ({ icon: img, label: title, reference } = CONFIG.DND5E.skills[id]);
+      else if ( type === "skill" ) ({ icon: img, label: title, reference } = CONFIG.ME5E.skills[id]);
       return { img, title, subtitle, modifier: total, passive, reference };
     }
   }
@@ -802,7 +802,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
     const { id, img, labels, name, system } = item;
     const { building, craft, defenders, disabled, free, hirelings, progress, size, trade, type } = system;
     const subtitle = [
-      building.built ? CONFIG.DND5E.facilities.sizes[size].label : game.i18n.localize("DND5E.FACILITY.Build.Unbuilt")
+      building.built ? CONFIG.ME5E.facilities.sizes[size].label : game.i18n.localize("ME5E.FACILITY.Build.Unbuilt")
     ];
     if ( trade.stock.max ) subtitle.push(`${trade.stock.value ?? 0} &sol; ${trade.stock.max}`);
     Object.assign(ctx, {
@@ -810,7 +810,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
       craft: craft.item ? await fromUuid(craft.item) : null,
       creatures: await this._prepareItemFacilityLivestock(trade),
       defenders: await this._prepareItemFacilityOccupants(defenders),
-      executing: CONFIG.DND5E.facilities.orders[progress.order]?.icon,
+      executing: CONFIG.ME5E.facilities.orders[progress.order]?.icon,
       hirelings: await this._prepareItemFacilityOccupants(hirelings),
       img: foundry.utils.getRoute(img),
       isSpecial: type.value === "special",
@@ -862,7 +862,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
 
     await super._prepareItemFeature(item, ctx);
 
-    const [originId] = (item.getFlag("dnd5e", "advancementRoot") ?? item.getFlag("dnd5e", "advancementOrigin"))
+    const [originId] = (item.getFlag("me5e", "advancementRoot") ?? item.getFlag("me5e", "advancementOrigin"))
       ?.split(".") ?? [];
     const group = item.parent.items.get(originId);
     ctx.groups.origin = "other";
@@ -888,11 +888,11 @@ export default class CharacterActorSheet extends BaseActorSheet {
     if ( item.system.attunement ) ctx.attunement = item.system.attuned ? {
       icon: "fa-sun",
       cls: "attuned",
-      title: "DND5E.AttunementAttuned"
+      title: "ME5E.AttunementAttuned"
     } : {
       icon: "fa-sun",
       cls: "not-attuned",
-      title: CONFIG.DND5E.attunementTypes[item.system.attunement]
+      title: CONFIG.ME5E.attunementTypes[item.system.attunement]
     };
 
     return super._prepareItemPhysical(item, ctx);
@@ -973,12 +973,12 @@ export default class CharacterActorSheet extends BaseActorSheet {
       const result = await foundry.applications.api.DialogV2.confirm({
         content: `
           <p>
-            <strong>${game.i18n.localize("AreYouSure")}</strong> ${game.i18n.localize("DND5E.Bastion.Trade.Invalid")}
+            <strong>${game.i18n.localize("AreYouSure")}</strong> ${game.i18n.localize("ME5E.Bastion.Trade.Invalid")}
           </p>
         `,
         window: {
           icon: "fa-solid fa-coins",
-          title: "DND5E.Bastion.Trade.Cancel"
+          title: "ME5E.Bastion.Trade.Cancel"
         },
         position: { width: 400 }
       }, { rejectClose: false });
@@ -1068,7 +1068,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
     const tab = tray.querySelector(".death-tab");
     tray.classList.toggle("open", open);
     this._deathTrayOpen = tray.classList.contains("open");
-    tab.dataset.tooltip = `DND5E.DeathSave${this._deathTrayOpen ? "Hide" : "Show"}`;
+    tab.dataset.tooltip = `ME5E.DeathSave${this._deathTrayOpen ? "Hide" : "Show"}`;
     tab.setAttribute("aria-label", game.i18n.localize(tab.dataset.tooltip));
   }
 
@@ -1111,14 +1111,14 @@ export default class CharacterActorSheet extends BaseActorSheet {
     if ( !this.isEditable || (event.target.tagName === "INPUT") ) return;
     const { favoriteId } = target.closest("[data-favorite-id]").dataset;
     const favorite = await fromUuid(favoriteId, { relative: this.actor });
-    if ( (favorite instanceof dnd5e.documents.Item5e) || target.dataset.activityId ) {
+    if ( (favorite instanceof me5e.documents.Item5e) || target.dataset.activityId ) {
       if ( favorite.type === "container" ) favorite.sheet.render({ force: true });
       else favorite.use({ event });
     }
-    else if ( favorite instanceof dnd5e.dataModels.activity.BaseActivityData ) {
+    else if ( favorite instanceof me5e.dataModels.activity.BaseActivityData ) {
       if ( favorite.canUse ) favorite.use({ event });
     }
-    else if ( favorite instanceof dnd5e.documents.ActiveEffect5e ) favorite.update({ disabled: !favorite.disabled });
+    else if ( favorite instanceof me5e.documents.ActiveEffect5e ) favorite.update({ disabled: !favorite.disabled });
     else {
       const { key } = target.closest("[data-key]")?.dataset ?? {};
       if ( key ) {
@@ -1134,7 +1134,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
 
   /** @override */
   _defaultDropBehavior(event, data) {
-    if ( data.dnd5e?.action === "favorite" || (["Activity", "Item"].includes(data.type)
+    if ( data.me5e?.action === "favorite" || (["Activity", "Item"].includes(data.type)
       && event.target.closest(".favorites")) ) return "link";
     return super._defaultDropBehavior(event, data);
   }
@@ -1143,13 +1143,13 @@ export default class CharacterActorSheet extends BaseActorSheet {
 
   /** @inheritDoc */
   _onDragStart(event) {
-    const methods = CONFIG.DND5E.spellcasting;
+    const methods = CONFIG.ME5E.spellcasting;
     const { key } = event.target.closest("[data-key]")?.dataset ?? {};
     const { level, method } = event.target.closest("[data-level]")?.dataset ?? {};
     const isSlots = event.target.closest("[data-favorite-id]") || event.target.classList.contains("items-header");
     let type;
-    if ( key in CONFIG.DND5E.skills ) type = "skill";
-    else if ( key in CONFIG.DND5E.tools ) type = "tool";
+    if ( key in CONFIG.ME5E.skills ) type = "skill";
+    else if ( key in CONFIG.ME5E.tools ) type = "tool";
     else if ( methods[method]?.slots && (level !== "0") && isSlots ) type = "slots";
     if ( !type ) return super._onDragStart(event);
 
@@ -1157,9 +1157,9 @@ export default class CharacterActorSheet extends BaseActorSheet {
     requestAnimationFrame(() => game.tooltip.deactivate());
     game.tooltip.deactivate();
 
-    const dragData = { dnd5e: { action: "favorite", type } };
-    if ( type === "slots" ) dragData.dnd5e.id = methods[method].getSpellSlotKey(Number(level));
-    else dragData.dnd5e.id = key;
+    const dragData = { me5e: { action: "favorite", type } };
+    if ( type === "slots" ) dragData.me5e.id = methods[method].getSpellSlotKey(Number(level));
+    else dragData.me5e.id = key;
     event.dataTransfer.setData("application/json", JSON.stringify(dragData));
     event.dataTransfer.effectAllowed = "link";
   }
@@ -1178,7 +1178,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
       console.error(e);
       return;
     }
-    const { action, type, id } = data.dnd5e ?? {};
+    const { action, type, id } = data.me5e ?? {};
     if ( action === "favorite" ) return this._onDropFavorite(event, { type, id });
     if ( data.type === "Activity" ) {
       const activity = await fromUuid(data.uuid);
@@ -1257,9 +1257,9 @@ export default class CharacterActorSheet extends BaseActorSheet {
     // Increment the number of class levels a character instead of creating a new item
     if ( itemData.type === "class" ) {
       const charLevel = this.actor.system.details.level;
-      itemData.system.levels = Math.min(itemData.system.levels, CONFIG.DND5E.maxLevel - charLevel);
+      itemData.system.levels = Math.min(itemData.system.levels, CONFIG.ME5E.maxLevel - charLevel);
       if ( itemData.system.levels <= 0 ) {
-        const err = game.i18n.format("DND5E.MaxCharacterLevelExceededWarn", { max: CONFIG.DND5E.maxLevel });
+        const err = game.i18n.format("ME5E.MaxCharacterLevelExceededWarn", { max: CONFIG.ME5E.maxLevel });
         ui.notifications.error(err);
         return;
       }
@@ -1267,7 +1267,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
       const cls = this.actor.itemTypes.class.find(c => c.identifier === itemData.system.identifier);
       if ( cls ) {
         const priorLevel = cls.system.levels;
-        if ( !game.settings.get("dnd5e", "disableAdvancements") ) {
+        if ( !game.settings.get("me5e", "disableAdvancements") ) {
           const manager = AdvancementManager.forLevelChange(this.actor, cls.id, itemData.system.levels);
           if ( manager.steps.length ) {
             manager.render({ force: true });
@@ -1283,13 +1283,13 @@ export default class CharacterActorSheet extends BaseActorSheet {
     else if ( itemData.type === "subclass" ) {
       const other = this.actor.itemTypes.subclass.find(i => i.identifier === itemData.system.identifier);
       if ( other ) {
-        const err = game.i18n.format("DND5E.SubclassDuplicateError", { identifier: other.identifier });
+        const err = game.i18n.format("ME5E.SubclassDuplicateError", { identifier: other.identifier });
         ui.notifications.error(err);
         return;
       }
       const cls = this.actor.itemTypes.class.find(i => i.identifier === itemData.system.classIdentifier);
       if ( cls && cls.subclass ) {
-        const err = game.i18n.format("DND5E.SubclassAssignmentError", { class: cls.name, subclass: cls.subclass.name });
+        const err = game.i18n.format("ME5E.SubclassAssignmentError", { class: cls.name, subclass: cls.subclass.name });
         ui.notifications.error(err);
         return;
       }

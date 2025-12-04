@@ -1,7 +1,7 @@
 <fieldset>
-    <legend>{{ localize "DND5E.SOURCE.FIELDS.source.label" }}</legend>
+    <legend>{{ localize "ME5E.SOURCE.FIELDS.source.label" }}</legend>
     <div class="form-group">
-        <label>{{ localize "DND5E.SOURCE.FIELDS.source.book.label" }}</label>
+        <label>{{ localize "ME5E.SOURCE.FIELDS.source.book.label" }}</label>
         <div class="form-fields">
             <input type="text" name="system.source.book" value="{{ source.book }}" list="{{ partId }}-books"
                    placeholder="{{ data.bookPlaceholder }}">
@@ -21,7 +21,7 @@
     {{ formField fields.revision value=source.revision }}
     {{#if sourceAnchor}}
     <div class="form-group">
-        <label>{{ localize "DND5E.SOURCE.FIELDS.source.uuid.label" }}</label>
+        <label>{{ localize "ME5E.SOURCE.FIELDS.source.uuid.label" }}</label>
         <div class="source-uuid form-fields">
             {{{ sourceAnchor }}}
         </div>

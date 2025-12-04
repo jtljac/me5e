@@ -18,12 +18,12 @@ export default class SourceField extends SchemaField {
       license: new StringField(),
       revision: new NumberField({ initial: 1 }),
       rules: new StringField({
-        initial: () => game.settings.get("dnd5e", "rulesVersion") === "modern" ? "2024" : "2014"
+        initial: () => game.settings.get("me5e", "rulesVersion") === "modern" ? "2024" : "2014"
       }),
       ...fields
     };
     Object.entries(fields).forEach(([k, v]) => !v ? delete fields[k] : null);
-    super(fields, { label: "DND5E.SOURCE.FIELDS.source.label", ...options });
+    super(fields, { label: "ME5E.SOURCE.FIELDS.source.label", ...options });
   }
 
   /* -------------------------------------------- */
@@ -38,14 +38,14 @@ export default class SourceField extends SchemaField {
   static prepareData(uuid) {
     const collection = foundry.utils.parseUuid(uuid)?.collection;
     const pkg = SourceField.getPackage(collection);
-    this.bookPlaceholder = collection?.metadata?.flags?.dnd5e?.sourceBook ?? SourceField.getModuleBook(pkg) ?? "";
+    this.bookPlaceholder = collection?.metadata?.flags?.me5e?.sourceBook ?? SourceField.getModuleBook(pkg) ?? "";
     if ( !this.book ) this.book = this.bookPlaceholder;
 
     if ( this.custom ) this.label = this.custom;
     else {
       const page = Number.isNumeric(this.page)
-        ? game.i18n.format("DND5E.SOURCE.Display.Page", { page: this.page }) : (this.page ?? "");
-      this.label = game.i18n.format("DND5E.SOURCE.Display.Full", { book: this.book, page }).trim();
+        ? game.i18n.format("ME5E.SOURCE.Display.Page", { page: this.page }) : (this.page ?? "");
+      this.label = game.i18n.format("ME5E.SOURCE.Display.Full", { book: this.book, page }).trim();
     }
 
     this.value = this.book || (pkg?.title ?? "");
@@ -68,7 +68,7 @@ export default class SourceField extends SchemaField {
    */
   static getModuleBook(pkg) {
     if ( !pkg ) return null;
-    const sourceBooks = pkg.flags?.dnd5e?.sourceBooks;
+    const sourceBooks = pkg.flags?.me5e?.sourceBooks;
     const keys = Object.keys(sourceBooks ?? {});
     if ( keys.length !== 1 ) return null;
     return keys[0];

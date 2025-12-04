@@ -1,4 +1,4 @@
-.dnd5e2 .inventory-element {
+.me5e2 .inventory-element {
   display: flex;
   flex-direction: column;
   gap: 8px;
@@ -17,14 +17,14 @@
       display: flex;
       gap: .5rem;
       align-items: center;
-      background: var(--dnd5e-background-card);
+      background: var(--me5e-background-card);
       border-radius: 4px;
-      box-shadow: 0 0 6px var(--dnd5e-shadow-45);
-      border: var(--dnd5e-border-gold);
+      box-shadow: 0 0 6px var(--me5e-shadow-45);
+      border: var(--me5e-border-gold);
       padding: 0 .875rem 0 .5rem;
       font-weight: bold;
 
-      .fa-sun, .separator { color: var(--dnd5e-color-gold); }
+      .fa-sun, .separator { color: var(--me5e-color-gold); }
       .config-button { color: var(--color-text-tertiary); }
       .max { color: var(--color-text-secondary); }
 
@@ -32,12 +32,12 @@
         width: 22px;
         text-align: center;
         font-weight: bold;
-        background: var(--dnd5e-background-5);
+        background: var(--me5e-background-5);
         border: none;
         padding: 0;
         transition: box-shadow 250ms ease;
 
-        &:focus-visible, &:hover { box-shadow: 0 0 6px var(--dnd5e-color-gold); }
+        &:focus-visible, &:hover { box-shadow: 0 0 6px var(--me5e-color-gold); }
       }
     }
   }
@@ -55,9 +55,9 @@
     gap: 6px;
 
     .encumbrance {
-      border: var(--dnd5e-border-gold);
+      border: var(--me5e-border-gold);
       border-radius: 3px;
-      box-shadow: 0 0 6px var(--dnd5e-shadow-45);
+      box-shadow: 0 0 6px var(--me5e-shadow-45);
       flex: 1;
       overflow: hidden;
     }
@@ -94,20 +94,20 @@
         border: none;
         background: none;
         --icon-size: 13px;
-        --icon-fill: var(--dnd5e-background-alt-1);
+        --icon-fill: var(--me5e-background-alt-1);
         box-shadow: none;
-        filter: drop-shadow(0 0 1px var(--dnd5e-color-black));
+        filter: drop-shadow(0 0 1px var(--me5e-color-black));
 
         &.tmp.filled {
-          --icon-fill: var(--dnd5e-color-sc-2);
-          --icon-stroke: var(--dnd5e-color-sc-2)
+          --icon-fill: var(--me5e-color-sc-2);
+          --icon-stroke: var(--me5e-color-sc-2)
         }
-        &.tmp:hover { filter: drop-shadow(0 0 2px var(--dnd5e-color-sc-2)); }
-        &.filled { --icon-fill: var(--dnd5e-color-gold); }
+        &.tmp:hover { filter: drop-shadow(0 0 2px var(--me5e-color-sc-2)); }
+        &.filled { --icon-fill: var(--me5e-color-gold); }
         &:focus { background: none; }
         &:hover {
           background: none;
-          filter: drop-shadow(0 0 2px var(--dnd5e-color-gold));
+          filter: drop-shadow(0 0 2px var(--me5e-color-gold));
         }
       }
     }
@@ -118,7 +118,7 @@
 /*  Entries                           */
 /* ---------------------------------- */
 
-.dnd5e2 {
+.me5e2 {
 
   .items-list {
     display: flex;
@@ -129,11 +129,11 @@
 
   /* Sections / Categories */
   .items-section {
-    border: var(--dnd5e-inventory-border);
+    border: var(--me5e-inventory-border);
 
     .items-header, .item {
       &[hidden] { display: none; }
-      .condensed { font-family: var(--dnd5e-font-roboto-condensed); }
+      .condensed { font-family: var(--me5e-font-roboto-condensed); }
 
       .item-row {
         display: flex;
@@ -177,14 +177,14 @@
           font-size: var(--font-size-24);
           display: grid;
           place-content: center;
-          color: var(--dnd5e-color-gold);
+          color: var(--me5e-color-gold);
           opacity: .5;
           @media (prefers-reduced-motion) { animation: none; }
         }
       }
 
       .item-header {
-        font-family: var(--dnd5e-font-roboto-condensed);
+        font-family: var(--me5e-font-roboto-condensed);
         text-transform: uppercase;
         font-size: var(--font-size-11);
       }
@@ -250,7 +250,7 @@
           font-weight: bold;
           transition: box-shadow 250ms ease;
 
-          &:focus-visible, &:hover { box-shadow: 0 0 6px var(--dnd5e-color-gold); }
+          &:focus-visible, &:hover { box-shadow: 0 0 6px var(--me5e-color-gold); }
         }
       }
 
@@ -263,13 +263,13 @@
         gap: unset;
         &.item-detail { font-weight: bold; }
         .max, input { width: 20px; }
-        .separator { color: var(--dnd5e-color-gold); }
+        .separator { color: var(--me5e-color-gold); }
         .max {
           color: var(--color-text-secondary);
           text-align: start;
         }
         input { text-align: end; }
-        i.fa-bolt { color: var(--dnd5e-color-gold); }
+        i.fa-bolt { color: var(--me5e-color-gold); }
       }
 
       /* Item Recovery */
@@ -291,7 +291,7 @@
       }
 
       .item-school {
-        --icon-fill: var(--dnd5e-color-gold);
+        --icon-fill: var(--me5e-color-gold);
         --icon-size: 18px;
       }
 
@@ -311,7 +311,7 @@
         .ability {
           text-transform: uppercase;
           font-size: var(--font-size-10);
-          color: var(--dnd5e-color-gold);
+          color: var(--me5e-color-gold);
         }
       }
 
@@ -335,7 +335,7 @@
       .item-formula {
         flex-direction: column;
 
-        dnd5e-icon {
+        me5e-icon {
           font-size: var(--font-size-14);
           --icon-fill: var(--color-text-secondary);
         }
@@ -413,7 +413,7 @@
 
       /* Item Description */
       .item-description .item-summary {
-        font-family: var(--dnd5e-font-roboto);
+        font-family: var(--me5e-font-roboto);
         font-size: var(--font-size-11);
         padding: 1px 8px 8px;
         background: var(--item-summary-background);
@@ -429,7 +429,7 @@
       .config-button {
         position: absolute;
         inset: .5rem 1.5rem auto auto;
-        color: var(--dnd5e-color-gold);
+        color: var(--me5e-color-gold);
         font-size: var(--font-size-12);
       }
 
@@ -442,7 +442,7 @@
     }
 
     .item {
-      border-bottom: var(--dnd5e-border-dotted);
+      border-bottom: var(--me5e-border-dotted);
       &:last-child { border: none; }
     }
 
@@ -480,9 +480,9 @@
 
   .effect-name .duration, &.effect-tooltip .duration {
     padding: .25rem;
-    border: var(--dnd5e-border-dashed-faint);
+    border: var(--me5e-border-dashed-faint);
     border-radius: 4px;
-    font-family: var(--dnd5e-font-roboto-condensed);
+    font-family: var(--me5e-font-roboto-condensed);
     text-transform: uppercase;
     font-size: var(--font-size-11);
     color: var(--color-text-secondary);
@@ -495,7 +495,7 @@
 /*  Currency                          */
 /* ---------------------------------- */
 
-.dnd5e2 section.currency, .dnd5e2 .currency-style {
+.me5e2 section.currency, .me5e2 .currency-style {
   display: flex;
   gap: 8px;
 
@@ -511,13 +511,13 @@
   }
 
   input, button:not(.split-control) {
-    border: var(--dnd5e-border-gold);
-    background: var(--dnd5e-background-parchment);
-    box-shadow: 0 0 6px var(--dnd5e-shadow-15);
+    border: var(--me5e-border-gold);
+    background: var(--me5e-background-parchment);
+    box-shadow: 0 0 6px var(--me5e-shadow-15);
 
     &:hover, &:focus {
-      box-shadow: 0 0 6px var(--dnd5e-color-gold);
-      border: 1px solid var(--dnd5e-color-gold);
+      box-shadow: 0 0 6px var(--me5e-color-gold);
+      border: 1px solid var(--me5e-color-gold);
     }
   }
 
@@ -525,7 +525,7 @@
     border-radius: 6px;
     padding: .375rem .5rem .3755rem 1rem;
     text-align: right;
-    font-family: var(--dnd5e-font-roboto);
+    font-family: var(--me5e-font-roboto);
     font-weight: bold;
     font-size: var(--font-size-11);
     max-width: 80px;
@@ -542,7 +542,7 @@
 /*  Locked                            */
 /* ---------------------------------- */
 
-.dnd5e2 .locked .inventory-element {
+.me5e2 .locked .inventory-element {
   .item :is(.item-quantity, .item-uses, .item-charges) input:is(:focus-visible, :hover) { box-shadow: none; }
 }
 
@@ -550,7 +550,7 @@
 /*  Edit Mode                         */
 /* ---------------------------------- */
 
-.dnd5e2 {
+.me5e2 {
   &.editable, .editable {
     .inventory-element .items-section {
       .pips { display: none; }
@@ -563,7 +563,7 @@
 /*  Award & Currency                  */
 /* ---------------------------------- */
 
-.dnd5e2:is(.award, .currency-manager) {
+.me5e2:is(.award, .currency-manager) {
   --award-gap: 8px;
 
   [data-tab="convert"] p {

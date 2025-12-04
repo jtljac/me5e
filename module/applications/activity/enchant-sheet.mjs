@@ -16,10 +16,10 @@ export default class EnchantSheet extends ActivitySheet {
   static PARTS = {
     ...super.PARTS,
     effect: {
-      template: "systems/dnd5e/templates/activity/enchant-effect.hbs",
+      template: "systems/me5e/templates/activity/enchant-effect.hbs",
       templates: [
-        "systems/dnd5e/templates/activity/parts/enchant-enchantments.hbs",
-        "systems/dnd5e/templates/activity/parts/enchant-restrictions.hbs"
+        "systems/me5e/templates/activity/parts/enchant-enchantments.hbs",
+        "systems/me5e/templates/activity/parts/enchant-restrictions.hbs"
       ]
     }
   };
@@ -63,7 +63,7 @@ export default class EnchantSheet extends ActivitySheet {
 
     const enchantableTypes = this.activity.enchantableTypes;
     context.typeOptions = [
-      { value: "", label: game.i18n.localize("DND5E.ENCHANT.FIELDS.restrictions.type.Any"), rule: true },
+      { value: "", label: game.i18n.localize("ME5E.ENCHANT.FIELDS.restrictions.type.Any"), rule: true },
       ...Object.keys(CONFIG.Item.dataModels)
         .filter(t => enchantableTypes.has(t))
         .map(value => ({ value, label: game.i18n.localize(CONFIG.Item.typeLabels[value]) }))
@@ -76,8 +76,8 @@ export default class EnchantSheet extends ActivitySheet {
     if ( typeDataModel ) context.categoryOptions = Object.entries(typeDataModel.itemCategories ?? {})
       .map(([value, config]) => ({ value, label: foundry.utils.getType(config) === "string" ? config : config.label }));
 
-    context.propertyOptions = (CONFIG.DND5E.validProperties[type] ?? [])
-      .map(value => ({ value, label: CONFIG.DND5E.itemProperties[value]?.label ?? value }));
+    context.propertyOptions = (CONFIG.ME5E.validProperties[type] ?? [])
+      .map(value => ({ value, label: CONFIG.ME5E.itemProperties[value]?.label ?? value }));
 
     return context;
   }
@@ -100,16 +100,16 @@ export default class EnchantSheet extends ActivitySheet {
   /** @inheritDoc */
   _getTabs() {
     const tabs = super._getTabs();
-    tabs.effect.label = "DND5E.ENCHANT.SECTIONS.Enchanting";
+    tabs.effect.label = "ME5E.ENCHANT.SECTIONS.Enchanting";
     tabs.effect.icon = "fa-solid fa-wand-sparkles";
     tabs.effect.tabs = this._markTabs({
       enchantments: {
         id: "enchantments", group: "effect", icon: "fa-solid fa-star",
-        label: "DND5E.ENCHANT.SECTIONS.Enchantments"
+        label: "ME5E.ENCHANT.SECTIONS.Enchantments"
       },
       restrictions: {
         id: "restrictions", group: "effect", icon: "fa-solid fa-ban",
-        label: "DND5E.ENCHANT.SECTIONS.Restrictions"
+        label: "ME5E.ENCHANT.SECTIONS.Restrictions"
       }
     });
     return tabs;

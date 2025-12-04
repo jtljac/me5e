@@ -10,7 +10,7 @@ export default class AdvancementField extends foundry.data.fields.ObjectField {
    * @returns {typeof BaseAdvancement|null}  The BaseAdvancement class, or null.
    */
   getModelForType(type) {
-    return CONFIG.DND5E.advancementTypes[type]?.documentClass ?? null;
+    return CONFIG.ME5E.advancementTypes[type]?.documentClass ?? null;
   }
 
   /* -------------------------------------------- */

@@ -4,11 +4,11 @@
     {{#if orders.length}}
     <ul class="unlist order-summary">
         {{#each orders}}
-        <li>{{{ localize "DND5E.Bastion.Summary.Order" link=contentLink order=order }}}</li>
+        <li>{{{ localize "ME5E.Bastion.Summary.Order" link=contentLink order=order }}}</li>
         {{/each}}
     </ul>
     {{else}}
-    <p class="order-description">{{ localize "DND5E.Bastion.Summary.NoOrders" }}</p>
+    <p class="order-description">{{ localize "ME5E.Bastion.Summary.NoOrders" }}</p>
     {{/if}}
 
     {{!-- Items --}}
@@ -32,7 +32,7 @@
     {{#if buttons.length}}
     <div class="card-buttons">
         {{#each buttons}}
-        <button type="button" {{ dnd5e-dataset dataset }}>
+        <button type="button" {{ me5e-dataset dataset }}>
             {{{ icon }}} <span>{{{ label }}}</span>
         </button>
         {{/each}}

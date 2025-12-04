@@ -13,13 +13,13 @@ export default class ItemTypeField extends SchemaField {
   constructor(options={}, schemaOptions={}) {
     const fields = {
       value: new StringField({
-        required: true, blank: true, initial: options.value ?? "", label: "DND5E.Type"
+        required: true, blank: true, initial: options.value ?? "", label: "ME5E.Type"
       }),
       subtype: new StringField({
-        required: true, blank: true, initial: options.subtype ?? "", label: "DND5E.Subtype"
+        required: true, blank: true, initial: options.subtype ?? "", label: "ME5E.Subtype"
       }),
       baseItem: new StringField({
-        required: true, blank: true, initial: options.baseItem ?? "", label: "DND5E.BaseItem"
+        required: true, blank: true, initial: options.baseItem ?? "", label: "ME5E.BaseItem"
       })
     };
     if ( options.subtype === false ) delete fields.subtype;

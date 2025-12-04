@@ -43,7 +43,7 @@ export default class RequestMessageData extends ChatMessageDataModel {
     actions: {
       handleRequest: RequestMessageData.#handleRequest
     },
-    template: "systems/dnd5e/templates/chat/request-card.hbs"
+    template: "systems/me5e/templates/chat/request-card.hbs"
   }, { inplace: false }));
 
   /* -------------------------------------------- */
@@ -83,7 +83,7 @@ export default class RequestMessageData extends ChatMessageDataModel {
     return {
       button: {
         icon: this.button.icon,
-        label: game.i18n.localize(this.button.label || "DND5E.CHATMESSAGE.REQUEST.Action.Handle")
+        label: game.i18n.localize(this.button.label || "ME5E.CHATMESSAGE.REQUEST.Action.Handle")
       },
       content: await foundry.applications.ux.TextEditor.implementation.enrichHTML(
         this.parent.content, { rollData: this.parent.getRollData() }
@@ -113,9 +113,9 @@ export default class RequestMessageData extends ChatMessageDataModel {
    */
   static async #handleRequest(event, target) {
     const actor = fromUuidSync(target.closest("[data-uuid]").dataset.uuid);
-    const result = await CONFIG.DND5E.requests[this.handler](actor, this.parent, this.data, { event });
-    if ( (result instanceof ChatMessage) && !result.getFlag("dnd5e", "requestResult") ) {
-      return result.setFlag("dnd5e", "requestResult", { actorUuid: actor.uuid, requestId: this.parent.id });
+    const result = await CONFIG.ME5E.requests[this.handler](actor, this.parent, this.data, { event });
+    if ( (result instanceof ChatMessage) && !result.getFlag("me5e", "requestResult") ) {
+      return result.setFlag("me5e", "requestResult", { actorUuid: actor.uuid, requestId: this.parent.id });
     }
   }
 
@@ -126,7 +126,7 @@ export default class RequestMessageData extends ChatMessageDataModel {
    * @param {ChatMessage5e} message  The created chat message.
    */
   static onCreateMessage(message) {
-    const flag = message.getFlag("dnd5e", "requestResult");
+    const flag = message.getFlag("me5e", "requestResult");
     if ( flag && (game.users.activeGM === game.user) ) RequestMessageData.#updateRequestTargets(message, flag);
   }
 
@@ -140,7 +140,7 @@ export default class RequestMessageData extends ChatMessageDataModel {
    * @param {string} userId
    */
   static onUpdateResultMessage(message, changes, options, userId) {
-    const flag = foundry.utils.getProperty(changes, "flags.dnd5e.requestResult");
+    const flag = foundry.utils.getProperty(changes, "flags.me5e.requestResult");
     if ( flag && (game.users.activeGM === game.user) ) RequestMessageData.#updateRequestTargets(message, flag);
   }
 

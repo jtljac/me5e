@@ -1,7 +1,7 @@
 import Application5e from "./application.mjs";
 
 /**
- * Application for creating dnd5e dialogs.
+ * Application for creating me5e dialogs.
  */
 export default class Dialog5e extends Application5e {
   /** @override */
@@ -20,7 +20,7 @@ export default class Dialog5e extends Application5e {
   /** @override */
   static PARTS = {
     content: {
-      template: "systems/dnd5e/templates/shared/dialog-content.hbs"
+      template: "systems/me5e/templates/shared/dialog-content.hbs"
     },
     footer: {
       template: "templates/generic/form-footer.hbs"

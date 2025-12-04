@@ -76,7 +76,7 @@ function compileManifest() {
   const systemManifest = JSON.parse(fs.readFileSync(path.join(paths.dist, "system.json"), "utf8"));
 
   // Merge changes.
-  Object.assign(systemManifest.flags.dnd5e.sourceBooks, freeManifest.flags?.dnd5e?.sourceBooks ?? {});
+  Object.assign(systemManifest.flags.me5e.sourceBooks, freeManifest.flags?.me5e?.sourceBooks ?? {});
 
   // Remove flags.
   delete systemManifest.flags.hotReload;
@@ -191,7 +191,7 @@ async function zip() {
     ...(manifest.languages?.map(l => l.path) ?? []),
     ...(config.includes ?? [])
   ];
-  const artifact = `dnd5e-${argv.tag}.zip`;
+  const artifact = `me5e-${argv.tag}.zip`;
   await passthrough("zip", [artifact, "-r", ...includes], { cwd: paths.dist });
   console.log(`Release artifact written to '${path.join(paths.dist, artifact)}'.`);
 }
