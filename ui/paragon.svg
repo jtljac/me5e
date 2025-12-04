@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+  width="100mm"
+  height="100mm"
+  viewBox="0 0 100 100"
+  version="1.1"
+  id="svg5"
+  xmlns="http://www.w3.org/2000/svg">
+
+  <g>
+    <circle
+      style="fill:none;fill-opacity:1;stroke:#2196cf;stroke-width:6.01961;stroke-miterlimit:4;stroke-dasharray:none;stroke-opacity:1"
+      cx="50"
+      cy="50"
+      r="37.0" />
+    <path style="opacity:1;fill:#2196cf;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+      d="M 65.2,65.0 C 59.7,54.8 65.8,50.8 66.6,50.3 67.9,50.3 68.3,50.8 69.4,51.7 70.7,47.9 62.6,42.2 61.2,41.8 54.7,39.2 45.0,34.3 39.8,21.1 36.8,35.8 56.4,46.6 58.6,48.9 55.3,57.7 56.0,67.0 58.3,71.0 Z"/>
+    <path style="opacity:1;fill:#2196cf;fill-opacity:1;stroke:none;stroke-width:0.264583px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1"
+      d="M 45.8,76.5 46.4,80.4 57.2,71.7 C 53.5,60.6 55.6,54.4 57.2,49.1 55.7,48.0 38.5,41.7 34.1,24.4 30.34,35.4 36.5,46.3 51.4,53.2 V 54.9 C 47.6,53.4 36.1,48.4 32.6,37.9 31.2,45.1 35.3,54.9 51,61.1 V 63.4 C 45.0,61.2 36.9,56.2 33.3,49.4 33.1,55.1 38.6,65.4 51.1,71.0 Z"/>
+  </g>
+</svg>

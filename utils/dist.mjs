@@ -25,15 +25,15 @@ const { argv } = yargs(hideBin(process.argv))
     });
     yargs.option("repo", {
       alias: "r",
-      describe: "The dnd5e repository.",
+      describe: "The me5e repository.",
       type: "string",
-      default: "git@github.com:foundryvtt/dnd5e.git",
+      default: "git@github.com:jtljac/me5e.git",
       requiresArg: true
     });
     yargs.option("url", {
       describe: "A public URL where releases are posted.",
       type: "string",
-      default: "https://github.com/foundryvtt/dnd5e",
+      default: "https://github.com/jtljac/me5e",
       requiresArg: true
     });
   })
@@ -50,7 +50,7 @@ const paths = { dist: out, free: freeRules };
  */
 async function build() {
   await passthrough("npm", ["run", "build"], { cwd: paths.dist });
-  fs.renameSync(path.join(paths.dist, "dnd5e-compiled.mjs"), path.join(paths.dist, "dnd5e.mjs"));
+  fs.renameSync(path.join(paths.dist, "me5e-compiled.mjs"), path.join(paths.dist, "me5e.mjs"));
 }
 
 /* -------------------------------------------- */
@@ -83,7 +83,7 @@ function compileManifest() {
 
   // Make sure versions are correct.
   const [, version] = argv.tag.split("-");
-  const download = `${argv.url}/releases/download/${argv.tag}/dnd5e-${argv.tag}.zip`;
+  const download = `${argv.url}/releases/download/${argv.tag}/me5e-${argv.tag}.zip`;
   if ( systemManifest.version !== version ) {
     throw new Error(`System manifest version did not match build version '${version}'.`);
   }
@@ -111,7 +111,7 @@ function copyCompendiumContent() {
     fs.mkdirSync(path.dirname(dest), { recursive: true });
 
     let data = fs.readFileSync(src, "utf8");
-    data = data.replaceAll("modules/dnd-free-rules/icons/", "systems/dnd5e/icons/");
+    data = data.replaceAll("modules/me-free-rules/icons/", "systems/me5e/icons/");
     console.info(`Writing ${dest}...`);
     fs.writeFileSync(dest, data, { mode: 0o644 });
   }

@@ -1,5 +1,5 @@
 name: Integrate Free Rules
-description: Integrate free rules from private repo into public dnd5e repo during build
+description: Integrate free rules from private repo into public me5e repo during build
 runs:
   using: composite
   steps:
@@ -7,7 +7,7 @@ runs:
       uses: qoomon/actions--access-token@v3
       id: access-token
       with:
-        repository: dnd-free-rules
+        repository: me-free-rules
         permissions: |
           contents: read
 
@@ -15,7 +15,7 @@ runs:
       uses: actions/checkout@v4
       with:
         path: _free/
-        repository: foundryvtt/dnd-free-rules
+        repository: foundryvtt/me-free-rules
         ref: main
         token: ${{ steps.access-token.outputs.token }}
 

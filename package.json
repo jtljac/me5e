@@ -2,8 +2,8 @@
   "scripts": {
     "build": "npm run build:code && npm run build:css && npm run build:db",
     "build:clean": "node ./utils/packs.mjs package clean",
-    "build:code": "rollup dnd5e.mjs -f es -o dnd5e-compiled.mjs -p node-resolve -m --sourcemapFile dnd5e.mjs",
-    "build:css": "lessc less/dnd5e.less dnd5e.css --source-map",
+    "build:code": "rollup me5e.mjs -f es -o me5e-compiled.mjs -p node-resolve -m --sourcemapFile me5e.mjs",
+    "build:css": "lessc less/me5e.less me5e.css --source-map",
     "build:db": "node ./utils/packs.mjs package pack",
     "build:json": "node ./utils/packs.mjs package unpack",
     "build:source": "node ./utils/packs.mjs package unpack",
@@ -11,7 +11,7 @@
     "lint": "eslint --ext .mjs --ignore-path .gitignore ./",
     "lint:fix": "eslint --ext .mjs --ignore-path .gitignore ./ --fix",
     "postinstall": "npm run build:css && npm run build:db",
-    "watch": "less-watch-compiler less/ ./ dnd5e.less --source-map"
+    "watch": "less-watch-compiler less/ ./ me5e.less --source-map"
   },
   "devDependencies": {
     "@babel/eslint-parser": "^7.22.15",
@@ -19,7 +19,7 @@
     "@rollup/plugin-node-resolve": "^15.2.1",
     "eslint-plugin-jsdoc": "^46.5.0",
     "fancy-log": "^2.0.0",
-    "js-yaml": "^4.1.0",
+    "js-yaml": "4.1.1",
     "less": "^4.2.0",
     "less-watch-compiler": "^1.16.3",
     "rollup": "^3.29.5",
