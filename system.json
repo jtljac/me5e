@@ -2,7 +2,7 @@
   "id": "me5e",
   "title": "Mass Effect 5e",
   "description": "A system for playing Mass Effect total conversion of DnD5e in the Foundry Virtual Tabletop environment.",
-  "version": "5.2.1",
+  "version": "5.2.2",
   "compatibility": {
     "minimum": "13.347",
     "verified": "13"
