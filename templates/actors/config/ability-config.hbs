@@ -3,12 +3,12 @@
     <fieldset class="card">
         <legend>{{ localize "ME5E.ABILITY.SECTIONS.Score" ability=label }}</legend>
         <div class="form-group split-group">
-            <label>{{ localize "ME5E.AbilityScore" }}</label>
+            <label>{{ localize "ME5E.Ability.Score.Label" }}</label>
             <div class="form-fields">
                 {{ formField fields.value name=(concat prefix "value") value=data.value localize=true
-                             label=(localize "ME5E.AbilityScoreShort") classes="label-top" rootId=partId }}
+                             label=(localize "ME5E.Ability.Score.Short") classes="label-top" rootId=partId }}
                 {{ formField fields.max name=(concat prefix "max") value=data.max placeholder="20" localize=true
-                             label=(localize "ME5E.AbilityScoreMaxShort") classes="label-top" rootId=partId }}
+                             label=(localize "ME5E.Ability.Score.Max.Short") classes="label-top" rootId=partId }}
             </div>
         </div>
         {{ formField fields.proficient name=(concat prefix "proficient") value=data.proficient

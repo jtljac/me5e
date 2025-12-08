@@ -52,32 +52,32 @@ ___________________________`;
  */
 ME5E.abilities = {
   str: {
-    label: "ME5E.AbilityStr",
-    abbreviation: "ME5E.AbilityStrAbbr",
+    label: "ME5E.Ability.Str.Label",
+    abbreviation: "ME5E.Ability.Str.Abbr",
     type: "physical",
     fullKey: "strength",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.nUPv6C66Ur64BIUH",
     icon: "systems/me5e/icons/svg/abilities/strength.svg"
   },
   dex: {
-    label: "ME5E.AbilityDex",
-    abbreviation: "ME5E.AbilityDexAbbr",
+    label: "ME5E.Ability.Dex.Label",
+    abbreviation: "ME5E.Ability.Dex.Abbr",
     type: "physical",
     fullKey: "dexterity",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.ER8CKDUWLsFXuARJ",
     icon: "systems/me5e/icons/svg/abilities/dexterity.svg"
   },
   con: {
-    label: "ME5E.AbilityCon",
-    abbreviation: "ME5E.AbilityConAbbr",
+    label: "ME5E.Ability.Con.Label",
+    abbreviation: "ME5E.Ability.Con.Abbr",
     type: "physical",
     fullKey: "constitution",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.MpA4jnwD17Q0RPg7",
     icon: "systems/me5e/icons/svg/abilities/constitution.svg"
   },
   int: {
-    label: "ME5E.AbilityInt",
-    abbreviation: "ME5E.AbilityIntAbbr",
+    label: "ME5E.Ability.Int.Label",
+    abbreviation: "ME5E.Ability.Int.Abbr",
     type: "mental",
     fullKey: "intelligence",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.WzWWcTIppki35YvF",
@@ -85,8 +85,8 @@ ME5E.abilities = {
     defaults: { vehicle: 0 }
   },
   wis: {
-    label: "ME5E.AbilityWis",
-    abbreviation: "ME5E.AbilityWisAbbr",
+    label: "ME5E.Ability.Wis.Label",
+    abbreviation: "ME5E.Ability.Wis.Abbr",
     type: "mental",
     fullKey: "wisdom",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.v3IPyTtqvXqN934s",
@@ -94,29 +94,13 @@ ME5E.abilities = {
     defaults: { vehicle: 0 }
   },
   cha: {
-    label: "ME5E.AbilityCha",
-    abbreviation: "ME5E.AbilityChaAbbr",
+    label: "ME5E.Ability.Cha.Label",
+    abbreviation: "ME5E.Ability.Cha.Abbr",
     type: "mental",
     fullKey: "charisma",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.9FyghudYFV5QJOuG",
     icon: "systems/me5e/icons/svg/abilities/charisma.svg",
     defaults: { vehicle: 0 }
-  },
-  hon: {
-    label: "ME5E.AbilityHon",
-    abbreviation: "ME5E.AbilityHonAbbr",
-    type: "mental",
-    fullKey: "honor",
-    defaults: { npc: "cha", vehicle: 0 },
-    improvement: false
-  },
-  san: {
-    label: "ME5E.AbilitySan",
-    abbreviation: "ME5E.AbilitySanAbbr",
-    type: "mental",
-    fullKey: "sanity",
-    defaults: { npc: "wis", vehicle: 0 },
-    improvement: false
   }
 };
 preLocalize("abilities", { keys: ["label", "abbreviation"] });
@@ -4543,7 +4527,7 @@ ME5E.ruleTypes = {
     references: "rules"
   },
   ability: {
-    label: "ME5E.Ability",
+    label: "ME5E.Ability.Label",
     references: "enrichmentLookup.abilities"
   },
   areaOfEffect: {

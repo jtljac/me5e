@@ -351,7 +351,7 @@ export default class ActivityUsageDialog extends Dialog5e {
     context.buttons = [{
       action: "use",
       icon: this.options.button.icon ?? `fa-solid fa-${this.activity.isSpell ? "magic" : "fist-raised"}`,
-      label: this.options.button.label ?? `ME5E.AbilityUse${this.activity.isSpell ? "Cast" : "Use"}`,
+      label: this.options.button.label ?? `ME5E.Ability.Use${this.activity.isSpell ? "Cast" : "Use"}`,
       type: "button"
     }];
     return context;

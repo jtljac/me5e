@@ -61,7 +61,7 @@
   "me5e.rotateArea": "Rotate Area"
 },
 
-"ME5E.title": "Dungeon & Dragons Fifth Edition",
+"ME5E.title": "Mass Effect 5e",
 "ME5E.AbbreviationCR": "CR",
 "ME5E.AbbreviationConc": "Conc.",
 "ME5E.AbbreviationDC": "DC",
@@ -90,48 +90,69 @@
   }
 },
 
-"ME5E.Ability": "Ability",
-"ME5E.Abilities": "Abilities",
-"ME5E.AbilityStr": "Strength",
-"ME5E.AbilityStrAbbr": "str",
-"ME5E.AbilityCon": "Constitution",
-"ME5E.AbilityConAbbr": "con",
-"ME5E.AbilityDex": "Dexterity",
-"ME5E.AbilityDexAbbr": "dex",
-"ME5E.AbilityInt": "Intelligence",
-"ME5E.AbilityIntAbbr": "int",
-"ME5E.AbilityWis": "Wisdom",
-"ME5E.AbilityWisAbbr": "wis",
-"ME5E.AbilityCha": "Charisma",
-"ME5E.AbilityChaAbbr": "cha",
-"ME5E.AbilityHon": "Honor",
-"ME5E.AbilityHonAbbr": "hon",
-"ME5E.AbilitySan": "Sanity",
-"ME5E.AbilitySanAbbr": "san",
-"ME5E.AbilityScore": "Ability Score",
-"ME5E.AbilityScoreShort": "Score",
-"ME5E.AbilityScorePl": "Ability Scores",
-"ME5E.AbilityScoreL": "{ability} Score",
-"ME5E.AbilityScoreMax": "Maximum Ability Score",
-"ME5E.AbilityScoreMaxShort": "Maximum",
-"ME5E.AbilityModifier": "Ability Modifier",
-"ME5E.AbilityModifierShort": "Mod",
-"ME5E.AbilityPromptText": "What type of {ability} check?",
-"ME5E.AbilityPromptTitle": "{ability} Ability Check",
-"ME5E.AbilityUseChargesLabel": "{value} Charges",
-"ME5E.AbilityUseConsumableLabel": "{max} per {per}",
-"ME5E.AbilityUseCast": "Cast Spell",
-"ME5E.AbilityUseUse": "Use Ability",
-"ME5E.AbilityUseConfig": "Usage Configuration",
-"ME5E.AbilityBonuses": "Ability Bonuses",
-"ME5E.AbilityConfigure": "Configure {ability}",
-"ME5E.AbilityConfigureTitle": "Configure {ability} Saving Throws and Checks",
-"ME5E.AbilitySaveConfigure": "{ability} Saving Throws",
-"ME5E.AbilityCheckConfigure": "{ability} Ability Checks",
-"ME5E.AbilityCheckConfigurationHint": "Configure check bonuses.",
-"ME5E.AbilityConfigurationHint": "Configure ability saving throw proficiency, saving throw bonuses, and check bonuses.",
-"ME5E.AbilityCheckBonus": "Check Bonus",
-"ME5E.AbilityCheckGlobalBonusHint": "This bonus applies to all ability checks made by this actor.",
+"ME5E.Ability": {
+  "Label": "Ability",
+  "LabelPl": "Abilities",
+  "Str": {
+    "Label": "Strength",
+    "Abbr": "str"
+  },
+  "Con": {
+    "Label": "Constitution",
+    "Abbr": "con"
+  },
+  "Dex": {
+    "Label": "Dexterity",
+    "Abbr": "dex"
+  },
+  "Int": {
+    "Label": "Intelligence",
+    "Abbr": "int"
+  },
+  "Wis": {
+    "Label": "Wisdom",
+    "Abbr": "wis"
+  },
+  "Cha": {
+    "label": "Charisma",
+    "Abbr": "cha"
+  },
+
+  "Modifier": {
+    "Label": "Ability Modifier",
+    "Short": "Mod"
+  },
+
+  "Score": {
+    "L": "{ability} Score",
+    "Label": "Ability Score",
+    "LabelPl": "Ability Scores",
+    "Short": "Score",
+    "Max": {
+      "Label": "Maximum Ability Score",
+      "Short": "Maximum"
+    }
+  },
+
+  "Bonuses": "Ability Bonuses",
+  "CheckBonus": "Check Bonus",
+  "PromptText": "What type of {ability} check?",
+  "PromptTitle": "{ability} Ability Check",
+  "UseChargesLabel": "{value} Charges",
+  "UseConsumableLabel": "{max} per {per}",
+  "UseCast": "Cast Spell",
+  "UseUse": "Use Ability",
+  "UseConfig": "Usage Configuration",
+  "Configure": "Configure {ability}",
+  "ConfigureTitle": "Configure {ability} Saving Throws and Checks",
+  "SaveConfigure": "{ability} Saving Throws",
+  "CheckConfigure": "{ability} Ability Checks",
+  "CheckConfigurationHint": "Configure check bonuses.",
+  "ConfigurationHint": "Configure ability saving throw proficiency, saving throw bonuses, and check bonuses.",
+  "CheckGlobalBonusHint": "This bonus applies to all ability checks made by this actor."
+},
+
+
 "ME5E.Action": "Action",
 "ME5E.ActionAbbr": "A",
 "ME5E.ActionPl": "Actions",

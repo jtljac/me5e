@@ -52,7 +52,7 @@ export default class SaveSheet extends ActivitySheet {
       { rule: true },
       { value: "spellcasting", label: game.i18n.localize("ME5E.SpellAbility") },
       ...Object.entries(CONFIG.ME5E.abilities).map(([value, config]) => ({
-        value, label: config.label, group: game.i18n.localize("ME5E.Abilities")
+        value, label: config.label, group: game.i18n.localize("ME5E.Ability.LabelPl")
       }))
     ];
     context.onSaveOptions = [

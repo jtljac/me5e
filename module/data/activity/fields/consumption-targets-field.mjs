@@ -609,7 +609,7 @@ export class ConsumptionTargetData extends foundry.abstract.DataModel {
     if ( !this.actor ) return [];
     return TokenDocument.implementation.getConsumedAttributes(this.actor.type).map(attr => {
       let group;
-      if ( attr.startsWith("abilities.") ) group = game.i18n.localize("ME5E.AbilityScorePl");
+      if ( attr.startsWith("abilities.") ) group = game.i18n.localize("ME5E.Ability.Score.LabelPl");
       else if ( attr.startsWith("currency.") ) group = game.i18n.localize("ME5E.Currency");
       else if ( attr.startsWith("spells.") ) group = game.i18n.localize("ME5E.CONSUMPTION.Type.SpellSlots.Label");
       else if ( attr.startsWith("attributes.movement.") ) group = game.i18n.localize("ME5E.Speed");
@@ -649,9 +649,9 @@ export class ConsumptionTargetData extends foundry.abstract.DataModel {
       if ( uses.max && (uses.recovery?.length === 1) && (uses.recovery[0].type === "recoverAll")
         && (uses.recovery[0].period !== "recharge") ) {
         const per = CONFIG.ME5E.limitedUsePeriods[uses.recovery[0].period]?.abbreviation;
-        label = game.i18n.format("ME5E.AbilityUseConsumableLabel", { max: uses.max, per });
+        label = game.i18n.format("ME5E.Ability.UseConsumableLabel", { max: uses.max, per });
       }
-      else label = game.i18n.format("ME5E.AbilityUseChargesLabel", { value: uses.value });
+      else label = game.i18n.format("ME5E.Ability.UseChargesLabel", { value: uses.value });
       return `${name} (${label})`;
     };
     return [

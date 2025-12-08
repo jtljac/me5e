@@ -105,10 +105,6 @@ Hooks.once("init", function() {
   // Configure tooltips
   game.me5e.tooltips = new Tooltips5e();
 
-  // Remove honor & sanity from configuration if they aren't enabled
-  if ( !game.settings.get("me5e", "honorScore") ) delete ME5E.abilities.hon;
-  if ( !game.settings.get("me5e", "sanityScore") ) delete ME5E.abilities.san;
-
   // Legacy rules.
   if ( game.settings.get("me5e", "rulesVersion") === "legacy" ) applyLegacyRules();
 

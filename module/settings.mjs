@@ -47,7 +47,7 @@ export function registerSystemKeybindings() {
 /* -------------------------------------------- */
 
 /**
- * Register all of the system's settings.
+ * Register all the system's settings.
  */
 export function registerSystemSettings() {
   // Internal System Migration Version
@@ -464,16 +464,6 @@ export function registerSystemSettings() {
     }
   });
 
-  game.settings.register("me5e", "honorScore", {
-    name: "SETTINGS.ME5E.VARIANT.HonorScore.Name",
-    hint: "SETTINGS.ME5E.VARIANT.HonorScore.Hint",
-    scope: "world",
-    config: false,
-    default: false,
-    type: Boolean,
-    requiresReload: true
-  });
-
   game.settings.register("me5e", "levelingMode", {
     name: "SETTINGS.ME5E.VARIANT.LevelingMode.Name",
     hint: "SETTINGS.ME5E.VARIANT.LevelingMode.Hint",
@@ -513,16 +503,6 @@ export function registerSystemSettings() {
       gritty: "SETTINGS.ME5E.VARIANT.Rest.Gritty",
       epic: "SETTINGS.ME5E.VARIANT.Rest.Epic"
     }
-  });
-
-  game.settings.register("me5e", "sanityScore", {
-    name: "SETTINGS.ME5E.VARIANT.SanityScore.Name",
-    hint: "SETTINGS.ME5E.VARIANT.SanityScore.Hint",
-    scope: "world",
-    config: false,
-    default: false,
-    type: Boolean,
-    requiresReload: true
   });
 
   // Visibility Settings

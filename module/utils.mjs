@@ -1246,7 +1246,7 @@ export function getHumanReadableAttributeLabel(attr, { actor, item }={}) {
   // Abilities.
   else if ( attr.startsWith("abilities.") ) {
     const [, key] = attr.split(".");
-    label = game.i18n.format("ME5E.AbilityScoreL", { ability: CONFIG.ME5E.abilities[key].label });
+    label = game.i18n.format("ME5E.Ability.Score.L", { ability: CONFIG.ME5E.abilities[key].label });
   }
 
   // Resources

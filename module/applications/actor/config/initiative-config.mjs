@@ -53,7 +53,7 @@ export default class InitiativeConfig extends BaseConfigSheet {
     const ability = this.document.system.attributes.init.ability || CONFIG.ME5E.defaultAbilities.initiative;
     const abilityConfig = CONFIG.ME5E.abilities[ability];
     context.ability = {
-      label: game.i18n.format("ME5E.AbilityCheckConfigure", { ability: abilityConfig.label }),
+      label: game.i18n.format("ME5E.Ability.CheckConfigure", { ability: abilityConfig.label }),
       global: {
         field: this.document.system.schema.fields.bonuses?.fields.abilities.fields.check,
         name: "system.bonuses.abilities.check",

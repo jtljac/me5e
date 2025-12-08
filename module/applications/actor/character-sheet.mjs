@@ -759,7 +759,7 @@ export default class CharacterActorSheet extends BaseActorSheet {
       const data = this.actor.system[`${type}s`]?.[id];
       if ( !data ) return;
       const { total, ability, passive } = data ?? {};
-      const subtitle = game.i18n.format("ME5E.AbilityPromptTitle", {
+      const subtitle = game.i18n.format("ME5E.Ability.PromptTitle", {
         ability: CONFIG.ME5E.abilities[ability].label
       });
       let img;

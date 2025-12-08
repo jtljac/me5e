@@ -23,7 +23,7 @@ export default class SkillToolRollConfigurationDialog extends D20RollConfigurati
     context = await super._prepareConfigurationContext(context, options);
     if ( this.options.chooseAbility ) context.fields.unshift({
       field: new foundry.data.fields.StringField({
-        required: true, blank: false, label: game.i18n.localize("ME5E.Abilities")
+        required: true, blank: false, label: game.i18n.localize("ME5E.Ability.LabelPl")
       }),
       name: "ability",
       options: Object.entries(CONFIG.ME5E.abilities).map(([value, { label }]) => ({ value, label })),

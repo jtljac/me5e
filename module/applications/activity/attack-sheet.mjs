@@ -59,7 +59,7 @@ export default class AttackSheet extends ActivitySheet {
       { value: "none", label: game.i18n.localize("ME5E.None") },
       { value: "spellcasting", label: game.i18n.localize("ME5E.Spellcasting") },
       ...Object.entries(CONFIG.ME5E.abilities).map(([value, config]) => ({
-        value, label: config.label, group: game.i18n.localize("ME5E.Abilities")
+        value, label: config.label, group: game.i18n.localize("ME5E.Ability.LabelPl")
       }))
     ];
 

@@ -31,23 +31,23 @@ export default class CommonTemplate extends ActorDataModel.mixin(CurrencyTemplat
     return this.mergeSchema(super.defineSchema(), {
       abilities: new MappingField(new SchemaField({
         value: new NumberField({
-          required: true, nullable: false, integer: true, min: 0, initial: 10, label: "ME5E.AbilityScore"
+          required: true, nullable: false, integer: true, min: 0, initial: 10, label: "ME5E.Ability.Score.Label"
         }),
         proficient: new NumberField({
           required: true, integer: true, min: 0, max: 1, initial: 0, label: "ME5E.ProficiencyLevel"
         }),
         max: new NumberField({
-          required: true, integer: true, nullable: true, min: 0, initial: null, label: "ME5E.AbilityScoreMax"
+          required: true, integer: true, nullable: true, min: 0, initial: null, label: "ME5E.Ability.Score.Max.Label"
         }),
         bonuses: new SchemaField({
-          check: new FormulaField({ required: true, label: "ME5E.AbilityCheckBonus" }),
+          check: new FormulaField({ required: true, label: "ME5E.Ability.CheckBonus" }),
           save: new FormulaField({ required: true, label: "ME5E.SaveBonus" })
-        }, { label: "ME5E.AbilityBonuses" }),
+        }, { label: "ME5E.Ability.Bonuses" }),
         check: new RollConfigField({ ability: false }),
         save: new RollConfigField({ ability: false })
       }), {
         initialKeys: CONFIG.ME5E.abilities, initialValue: this._initialAbilityValue.bind(this),
-        initialKeysOnly: true, label: "ME5E.Abilities"
+        initialKeysOnly: true, label: "ME5E.Ability.LabelPl"
       })
     });
   }

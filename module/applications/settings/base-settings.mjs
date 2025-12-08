@@ -54,11 +54,13 @@ export default class BaseSettingsConfig extends Application5e {
   createSettingField(name) {
     const setting = game.settings.settings.get(`me5e.${name}`);
     if ( !setting ) throw new Error(`Setting \`me5e.${name}\` not registered.`);
+
     const isDataField = setting.type instanceof DataField;
     const Field = { [Boolean]: BooleanField, [Number]: NumberField, [String]: StringField }[setting.type];
     if ( !isDataField && !Field ) {
       throw new Error("Automatic field generation only available for Boolean, Number, or String types");
     }
+
     const data = {
       name,
       field: isDataField ? setting.type : new Field({ required: true, blank: false }),
@@ -66,9 +68,12 @@ export default class BaseSettingsConfig extends Application5e {
       label: game.i18n.localize(setting.name),
       value: game.settings.get("me5e", name)
     };
+
     if ( (setting.type === Boolean) || (setting.type instanceof BooleanField) ) data.input = createCheckboxInput;
+
     if ( setting.choices ) data.options = Object.entries(setting.choices)
       .map(([value, label]) => ({ value, label: game.i18n.localize(label) }));
+
     return data;
   }
 

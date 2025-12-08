@@ -33,7 +33,7 @@ export default class CheckSheet extends ActivitySheet {
   async _prepareEffectContext(context, options) {
     context = await super._prepareEffectContext(context, options);
 
-    const group = game.i18n.localize("ME5E.Abilities");
+    const group = game.i18n.localize("ME5E.Ability.LabelPl");
     context.abilityOptions = [
       { value: "", label: "" },
       { rule: true },

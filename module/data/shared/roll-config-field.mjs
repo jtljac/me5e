@@ -12,7 +12,7 @@ export default class RollConfigField extends foundry.data.fields.SchemaField {
       ability: (ability === false) ? null : new StringField({
         required: true,
         initial: ability,
-        label: "ME5E.AbilityModifier"
+        label: "ME5E.Ability.Modifier.Label"
       }),
       roll: new SchemaField({
         min: new NumberField({...opts, label: "ME5E.ROLL.Range.Minimum"}),

@@ -449,7 +449,7 @@ export default class NPCActorSheet extends BaseActorSheet {
       noSpellcaster: !spellcaster,
       concentration: {
         mod: attributes.concentration.save,
-        tooltip: game.i18n.format("ME5E.AbilityConfigure", { ability: game.i18n.localize("ME5E.Concentration") })
+        tooltip: game.i18n.format("ME5E.Ability.Configure", { ability: game.i18n.localize("ME5E.Concentration") })
       }
     });
 

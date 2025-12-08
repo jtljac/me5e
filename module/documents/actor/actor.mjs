@@ -1343,9 +1343,9 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     const abilityId = config.ability;
     const label = CONFIG.ME5E.abilities[abilityId]?.label ?? "";
     new foundry.applications.api.Dialog({
-      window: { title: `${game.i18n.format("ME5E.AbilityPromptTitle", { ability: label })}: ${this.name}` },
+      window: { title: `${game.i18n.format("ME5E.Ability.PromptTitle", { ability: label })}: ${this.name}` },
       position: { width: 400 },
-      content: `<p>${game.i18n.format("ME5E.AbilityPromptText", { ability: label })}</p>`,
+      content: `<p>${game.i18n.format("ME5E.Ability.PromptText", { ability: label })}</p>`,
       buttons: [
         {
           action: "test",
@@ -1375,7 +1375,7 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
     const dialogConfig = foundry.utils.mergeObject({
       options: {
         window: {
-          title: game.i18n.format("ME5E.AbilityPromptTitle", { ability: abilityLabel }),
+          title: game.i18n.format("ME5E.Ability.PromptTitle", { ability: abilityLabel }),
           subtitle: this.name
         }
       }
@@ -3321,7 +3321,7 @@ export default class Actor5e extends SystemDocumentMixin(Actor) {
         if ( !game.settings.get("me5e", "disableConcentration") && (userId === game.userId)
           && (options.me5e?.concentrationCheck !== false)
           && (changes.total < 0) && ((changes.temp < 0) || (curr.value < curr.effectiveMax)) ) {
-          this.challengeConcentration({ dc: this.getConcentrationDC(-changes.total) });
+          await this.challengeConcentration({ dc: this.getConcentrationDC(-changes.total) });
         }
 
         /**

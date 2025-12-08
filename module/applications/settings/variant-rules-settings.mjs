@@ -53,13 +53,6 @@ export default class VariantRulesSettingsConfig extends BaseSettingsConfig {
         ];
         context.legend = game.i18n.localize("ME5E.Encumbrance");
         break;
-      case "abilities":
-        context.fields = [
-          this.createSettingField("honorScore"),
-          this.createSettingField("sanityScore")
-        ];
-        context.legend = game.i18n.localize("ME5E.Abilities");
-        break;
     }
     return context;
   }
