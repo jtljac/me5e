@@ -753,7 +753,7 @@ export default class NPCData extends CreatureTemplate {
         { label: "ME5E.Speed", definitions: [summary.speed] }
       ];
       context.definitions.lower = [
-        summary.skills ? { label: "ME5E.Skills", definitions: [summary.skills] } : null,
+        summary.skills ? { label: "ME5E.Skill.LabelPl", definitions: [summary.skills] } : null,
         summary.vulnerabilities ? { label: "ME5E.Vulnerabilities", definitions: [summary.vulnerabilities] } : null,
         summary.resistances ? { label: "ME5E.Resistances", definitions: [summary.resistances] } : null,
         summary.immunities ? { label: "ME5E.Immunities", definitions: [summary.immunities] } : null,
@@ -780,7 +780,7 @@ export default class NPCData extends CreatureTemplate {
       ].map(d => lowerCase(d));
       context.definitions.lower = [
         summary.saves ? { label: "ME5E.ClassSaves", definitions: [summary.saves] } : null,
-        summary.skills ? { label: "ME5E.Skills", definitions: [summary.skills] } : null,
+        summary.skills ? { label: "ME5E.Skill.LabelPl", definitions: [summary.skills] } : null,
         summary.vulnerabilities ? lowerCase({ label: "ME5E.DamVuln", definitions: [summary.vulnerabilities] }) : null,
         summary.resistances ? lowerCase({ label: "ME5E.DamRes", definitions: [summary.resistances] }) : null,
         summary.immunities ? lowerCase({ label: "ME5E.DamImm", definitions: [summary.immunities] }) : null,

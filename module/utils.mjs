@@ -1259,7 +1259,7 @@ export function getHumanReadableAttributeLabel(attr, { actor, item }={}) {
   // Skills.
   else if ( attr.startsWith("skills.") ) {
     const [, key] = attr.split(".");
-    label = game.i18n.format("ME5E.SkillPassiveScore", { skill: CONFIG.ME5E.skills[key].label });
+    label = game.i18n.format("ME5E.Skill.PassiveScore", { skill: CONFIG.ME5E.skills[key].label });
   }
 
   // Spell slots.

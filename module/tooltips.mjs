@@ -153,11 +153,11 @@ export default class Tooltips5e {
 
     let label;
     if ( skillConfig ) {
-      label = game.i18n.format("ME5E.SkillPassiveSpecificHint", { skill: skillConfig.label, ability: abilityConfig.label });
+      label = game.i18n.format("ME5E.Skill.PassiveSpecificHint", { skill: skillConfig.label, ability: abilityConfig.label });
     } else {
       // If no skill was provided, we're doing a passive ability check.
       // This isn't technically a thing in the rules, but we can support it anyway if people want to use it.
-      label = game.i18n.format("ME5E.SkillPassiveHint", { skill: abilityConfig.label });
+      label = game.i18n.format("ME5E.Skill.PassiveHint", { skill: abilityConfig.label });
     }
 
     this._onHoverPassive({ label }, actor => {

@@ -43,7 +43,7 @@ export default class SkillToolRollConfigurationDialog extends D20RollConfigurati
       const skillLabel = CONFIG.ME5E.skills[this.config.skill]?.label ?? "";
       const ability = event.target.value ?? this.config.ability;
       const abilityLabel = CONFIG.ME5E.abilities[ability]?.label ?? "";
-      const flavor = game.i18n.format("ME5E.SkillPromptTitle", { skill: skillLabel, ability: abilityLabel });
+      const flavor = game.i18n.format("ME5E.Skill.PromptTitle", { skill: skillLabel, ability: abilityLabel });
       foundry.utils.setProperty(this.message, "data.flavor", flavor);
       this._updateFrame({ window: { title: flavor } });
     }

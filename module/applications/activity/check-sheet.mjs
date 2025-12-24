@@ -51,7 +51,7 @@ export default class CheckSheet extends ActivitySheet {
 
     context.associatedOptions = [
       ...Object.entries(CONFIG.ME5E.skills).map(([value, { label }]) => ({
-        value, label, group: game.i18n.localize("ME5E.Skills")
+        value, label, group: game.i18n.localize("ME5E.Skill.LabelPl")
       })),
       ...Object.keys(CONFIG.ME5E.tools).map(value => ({
         value, label: Trait.keyLabel(value, { trait: "tool" }), group: game.i18n.localize("TYPES.Item.toolPl")

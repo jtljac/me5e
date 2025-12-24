@@ -270,7 +270,7 @@ export default class GroupActorSheet extends MultiActorSheet {
     context.skills = Object.fromEntries(Object.entries(actor.system.skills ?? {}).map(([key, skill]) => {
       const { ability, passive, total } = skill;
       const css = [actor.isOwner ? "rollable" : "", "skill"].filterJoin(" ");
-      const label = game.i18n.format(actor.isOwner ? "ME5E.SkillRoll" : "ME5E.SkillTitle", {
+      const label = game.i18n.format(actor.isOwner ? "ME5E.Skill.Roll" : "ME5E.Skill.Title", {
         ability: CONFIG.ME5E.abilities[ability]?.label,
         skill: CONFIG.ME5E.skills[key]?.label
       });

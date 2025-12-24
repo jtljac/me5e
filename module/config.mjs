@@ -127,84 +127,77 @@ ME5E.defaultAbilities = {
  */
 ME5E.skills = {
   acr: {
-    label: "ME5E.SkillAcr",
+    label: "ME5E.Skill.Acr",
     ability: "dex",
     fullKey: "acrobatics",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.AvvBLEHNl7kuwPkN",
     icon: "icons/equipment/feet/shoes-simple-leaf-green.webp"
   },
-  ani: {
-    label: "ME5E.SkillAni",
-    ability: "wis",
-    fullKey: "animalHandling",
-    reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.xb3MCjUvopOU4viE",
-    icon: "icons/environment/creatures/horse-brown.webp"
-  },
-  arc: {
-    label: "ME5E.SkillArc",
-    ability: "int",
-    fullKey: "arcana",
-    reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.h3bYSPge8IOqne1N",
-    icon: "icons/sundries/books/book-embossed-jewel-silver-green.webp"
-  },
   ath: {
-    label: "ME5E.SkillAth",
+    label: "ME5E.Skill.Ath",
     ability: "str",
     fullKey: "athletics",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.rIR7ttYDUpH3tMzv",
     icon: "icons/magic/control/buff-strength-muscle-damage-orange.webp"
   },
   dec: {
-    label: "ME5E.SkillDec",
+    label: "ME5E.Skill.Dec",
     ability: "cha",
     fullKey: "deception",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.mqVZ2fz0L7a9VeKJ",
     icon: "icons/magic/control/mouth-smile-deception-purple.webp"
   },
+  ele: {
+    label: "ME5E.Skill.Ele",
+    ability: "int",
+    fullKey: "electronics",
+    reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.mqVZ2fz0L7a9VeKJ",
+    icon: "icons/magic/control/mouth-smile-deception-purple.webp"
+  },
+  eng: {
+    label: "ME5E.Skill.Eng",
+    ability: "int",
+    fullKey: "engineering",
+    reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.mqVZ2fz0L7a9VeKJ",
+    icon: "icons/magic/control/mouth-smile-deception-purple.webp"
+  },
   his: {
-    label: "ME5E.SkillHis",
+    label: "ME5E.Skill.His",
     ability: "int",
     fullKey: "history",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.kRBZbdWMGW9K3wdY",
     icon: "icons/sundries/books/book-embossed-bound-brown.webp"
   },
   ins: {
-    label: "ME5E.SkillIns",
+    label: "ME5E.Skill.Ins",
     ability: "wis",
     fullKey: "insight",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.8R5SMbAGbECNgO8z",
     icon: "icons/magic/perception/orb-crystal-ball-scrying-blue.webp"
   },
   itm: {
-    label: "ME5E.SkillItm",
+    label: "ME5E.Skill.Itm",
     ability: "cha",
     fullKey: "intimidation",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.4VHHI2gJ1jEsppfg",
     icon: "icons/skills/social/intimidation-impressing.webp"
   },
   inv: {
-    label: "ME5E.SkillInv",
+    label: "ME5E.Skill.Inv",
     ability: "int",
     fullKey: "investigation",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.Y7nmbQAruWOs7WRM",
     icon: "icons/tools/scribal/magnifying-glass.webp"
   },
   med: {
-    label: "ME5E.SkillMed",
+    label: "ME5E.Skill.Med",
     ability: "wis",
     fullKey: "medicine",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.GeYmM7BVfSCAga4o",
     icon: "icons/tools/cooking/mortar-herbs-yellow.webp"
   },
-  nat: {
-    label: "ME5E.SkillNat",
-    ability: "int",
-    fullKey: "nature",
-    reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.ueMx3uF2PQlcye31",
-    icon: "icons/magic/nature/plant-sprout-snow-green.webp"
-  },
   prc: {
-    label: "ME5E.SkillPrc",
+    label: "ME5E.Skill.Prc",
     ability: "wis",
     fullKey: "perception",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.zjEeHCUqfuprfzhY",
@@ -215,35 +208,35 @@ ME5E.skills = {
     }
   },
   prf: {
-    label: "ME5E.SkillPrf",
+    label: "ME5E.Skill.Prf",
     ability: "cha",
     fullKey: "performance",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.hYT7Z06yDNBcMtGe",
     icon: "icons/tools/instruments/lute-gold-brown.webp"
   },
   per: {
-    label: "ME5E.SkillPer",
+    label: "ME5E.Skill.Per",
     ability: "cha",
     fullKey: "persuasion",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.4R5H8iIsdFQTsj3X",
     icon: "icons/skills/social/diplomacy-handshake.webp"
   },
-  rel: {
-    label: "ME5E.SkillRel",
+  sci: {
+    label: "ME5E.Skill.Sci",
     ability: "int",
-    fullKey: "religion",
+    fullKey: "science",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.CXVzERHdP4qLhJXM",
     icon: "icons/magic/holy/saint-glass-portrait-halo.webp"
   },
   slt: {
-    label: "ME5E.SkillSlt",
+    label: "ME5E.Skill.Slt",
     ability: "dex",
     fullKey: "sleightOfHand",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.yg6SRpGNVz9nDW0A",
     icon: "icons/sundries/gaming/playing-cards.webp"
   },
   ste: {
-    label: "ME5E.SkillSte",
+    label: "ME5E.Skill.Ste",
     ability: "dex",
     fullKey: "stealth",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.4MfrpERNiQXmvgCI",
@@ -253,7 +246,7 @@ ME5E.skills = {
     }
   },
   sur: {
-    label: "ME5E.SkillSur",
+    label: "ME5E.Skill.Sur",
     ability: "wis",
     fullKey: "survival",
     reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.t3EzDU5b9BVAIEVi",
@@ -262,6 +255,15 @@ ME5E.skills = {
       advantage: new Set(["slow"]),
       disadvantage: new Set(["fast"])
     }
+  },
+  veh: {
+    label: "ME5E.Skill.Veh",
+    ability: "dex",
+    // TODO: Handle this
+    altAbility: ["wis"],
+    fullKey: "vehicleHandling",
+    reference: "Compendium.me5e.content24.JournalEntry.phbAppendixDRule.JournalEntryPage.t3EzDU5b9BVAIEVi",
+    icon: "icons/magic/fire/flame-burning-campfire-yellow-blue.webp"
   }
 };
 preLocalize("skills", { key: "label", sort: true });
@@ -4053,7 +4055,7 @@ ME5E.traits = {
   },
   skills: {
     labels: {
-      title: "ME5E.Skills",
+      title: "ME5E.Skill.LabelPl",
       localization: "ME5E.TraitSkillsPlural"
     },
     icon: "icons/tools/instruments/harp-yellow-teal.webp",
@@ -4547,7 +4549,7 @@ ME5E.ruleTypes = {
     references: "damageTypes"
   },
   skill: {
-    label: "ME5E.Skill",
+    label: "ME5E.Skill.Label",
     references: "enrichmentLookup.skills"
   },
   spellComponent: {

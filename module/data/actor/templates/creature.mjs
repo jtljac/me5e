@@ -45,12 +45,12 @@ export default class CreatureTemplate extends CommonTemplate {
         }),
         ability: "dex",
         bonuses: new SchemaField({
-          check: new FormulaField({ required: true, label: "ME5E.SkillBonusCheck" }),
-          passive: new FormulaField({ required: true, label: "ME5E.SkillBonusPassive" })
-        }, { label: "ME5E.SkillBonuses" })
+          check: new FormulaField({ required: true, label: "ME5E.Skill.BonusCheck" }),
+          passive: new FormulaField({ required: true, label: "ME5E.Skill.BonusPassive" })
+        }, { label: "ME5E.Skill.Bonuses" })
       }), {
         initialKeys: CONFIG.ME5E.skills, initialValue: this._initialSkillValue,
-        initialKeysOnly: true, label: "ME5E.Skills"
+        initialKeysOnly: true, label: "ME5E.Skill.LabelPl"
       }),
       tools: new MappingField(new RollConfigField({
         value: new NumberField({

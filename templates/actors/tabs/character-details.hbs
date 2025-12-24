@@ -7,11 +7,11 @@
         <filigree-box class="skills">
             <h3>
                 <i class="fas fa-briefcase" inert></i>
-                <span class="roboto-upper">{{ localize "ME5E.Skills" }}</span>
+                <span class="roboto-upper">{{ localize "ME5E.Skill.LabelPl" }}</span>
             </h3>
             <ul>
                 {{#each skills}}
-                {{> ".skill-prof" path=(concat "system.skills." key) config="ME5E.SkillConfigure"
+                {{> ".skill-prof" path=(concat "system.skills." key) config="ME5E.Skill.Configure"
                     type="skill" hasPassive=true roll="skill-name" }}
                 {{/each}}
             </ul>

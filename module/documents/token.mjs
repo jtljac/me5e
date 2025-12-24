@@ -78,7 +78,7 @@ export default class TokenDocument5e extends SystemFlagsMixin(TokenDocument) {
       abilities: game.i18n.localize("ME5E.Ability.Score.LabelPl"),
       movement: game.i18n.localize("ME5E.MOVEMENT.FIELDS.speeds.label"),
       senses: game.i18n.localize("ME5E.Senses"),
-      skills: game.i18n.localize("ME5E.SkillPassives"),
+      skills: game.i18n.localize("ME5E.Skill.Passives"),
       slots: game.i18n.localize("JOURNALENTRYPAGE.ME5E.Class.SpellSlots")
     };
     for ( const entry of groups ) {
